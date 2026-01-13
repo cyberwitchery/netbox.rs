@@ -7,7 +7,7 @@ on:
 
 jobs:
   warm-cache:
-    runs-on: linux_4_core
+    runs-on: ubuntu-latest-m
     timeout-minutes: 30
     permissions:
       contents: read
@@ -55,7 +55,7 @@ jobs:
   publish:
     needs: warm-cache
     if: ${{ always() }}
-    runs-on: linux_4_core
+    runs-on: ubuntu-latest-m
     timeout-minutes: 30
     permissions:
       contents: read

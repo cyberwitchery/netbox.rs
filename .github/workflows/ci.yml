@@ -6,7 +6,7 @@ on:
 
 jobs:
   warm-cache:
-    runs-on: linux_4_core
+    runs-on: ubuntu-latest-m
     timeout-minutes: 30
     steps:
       - name: Checkout
@@ -52,7 +52,7 @@ jobs:
   test:
     needs: warm-cache
     if: ${{ always() }}
-    runs-on: linux_4_core
+    runs-on: ubuntu-latest-m
     timeout-minutes: 45
     steps:
       - name: Checkout
@@ -81,7 +81,7 @@ jobs:
   coverage:
     needs: warm-cache
     if: ${{ always() }}
-    runs-on: linux_4_core
+    runs-on: ubuntu-latest-m
     timeout-minutes: 45
     steps:
       - name: Checkout
