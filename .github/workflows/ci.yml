@@ -5,57 +5,10 @@ on:
   pull_request:
 
 jobs:
-  warm-cache:
-    runs-on: big
-    timeout-minutes: 90
-    env:
-      RUSTFLAGS: "-C debuginfo=0"
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
-
-      - name: Restore cargo cache
-        id: cargo-cache
-        uses: actions/cache/restore@v4
-        with:
-          path: |
-            ~/.cargo/bin
-            ~/.cargo/registry
-            ~/.cargo/git
-            ~/.cargo/.crates.toml
-            ~/.cargo/.crates2.json
-            target
-          key: cargo-${{ runner.os }}-stable-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            cargo-${{ runner.os }}-stable-
-
-      - name: Fetch dependencies
-        run: cargo fetch
-
-      - name: Build workspace
-        run: cargo build --workspace --tests
-
-      - name: Save cargo cache
-        if: steps.cargo-cache.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v4
-        with:
-          path: |
-            ~/.cargo/bin
-            ~/.cargo/registry
-            ~/.cargo/git
-            ~/.cargo/.crates.toml
-            ~/.cargo/.crates2.json
-            target
-          key: cargo-${{ runner.os }}-stable-${{ hashFiles('**/Cargo.lock') }}
-
   coverage:
-    needs: warm-cache
     if: ${{ always() }}
-    runs-on: ubuntu-latest-m
-    timeout-minutes: 90
+    runs-on: big
+    timeout-minutes: 10
     env:
       RUSTFLAGS: "-C debuginfo=0"
     steps:

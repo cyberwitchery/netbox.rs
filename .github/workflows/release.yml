@@ -6,59 +6,10 @@ on:
       - "v*"
 
 jobs:
-  warm-cache:
-    runs-on: big
-    timeout-minutes: 90
-    permissions:
-      contents: read
-    env:
-      RUSTFLAGS: "-C debuginfo=0"
-    steps:
-      - name: checkout
-        uses: actions/checkout@v4
-
-      - name: set up rust
-        uses: dtolnay/rust-toolchain@stable
-
-      - name: restore cargo cache
-        id: cargo-cache
-        uses: actions/cache/restore@v4
-        with:
-          path: |
-            ~/.cargo/bin
-            ~/.cargo/registry
-            ~/.cargo/git
-            ~/.cargo/.crates.toml
-            ~/.cargo/.crates2.json
-            target
-          key: cargo-${{ runner.os }}-stable-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            cargo-${{ runner.os }}-stable-
-
-      - name: fetch dependencies
-        run: cargo fetch
-
-      - name: build workspace
-        run: cargo build --workspace --tests
-
-      - name: save cargo cache
-        if: steps.cargo-cache.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v4
-        with:
-          path: |
-            ~/.cargo/bin
-            ~/.cargo/registry
-            ~/.cargo/git
-            ~/.cargo/.crates.toml
-            ~/.cargo/.crates2.json
-            target
-          key: cargo-${{ runner.os }}-stable-${{ hashFiles('**/Cargo.lock') }}
-
   publish:
-    needs: warm-cache
     if: ${{ always() }}
-    runs-on: ubuntu-latest-m
-    timeout-minutes: 90
+    runs-on: big
+    timeout-minutes: 15
     permissions:
       contents: read
     env:
