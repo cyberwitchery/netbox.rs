@@ -7,7 +7,7 @@ on:
 jobs:
   warm-cache:
     runs-on: ubuntu-latest-m
-    timeout-minutes: 30
+    timeout-minutes: 90
     env:
       RUSTFLAGS: "-C debuginfo=0"
     steps:
@@ -50,37 +50,6 @@ jobs:
             ~/.cargo/.crates2.json
             target
           key: cargo-${{ runner.os }}-stable-${{ hashFiles('**/Cargo.lock') }}
-
-  test:
-    needs: warm-cache
-    if: ${{ always() }}
-    runs-on: ubuntu-latest-m
-    timeout-minutes: 45
-    env:
-      RUSTFLAGS: "-C debuginfo=0"
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
-
-      - name: Restore cargo cache
-        uses: actions/cache/restore@v4
-        with:
-          path: |
-            ~/.cargo/bin
-            ~/.cargo/registry
-            ~/.cargo/git
-            ~/.cargo/.crates.toml
-            ~/.cargo/.crates2.json
-            target
-          key: cargo-${{ runner.os }}-stable-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            cargo-${{ runner.os }}-stable-
-
-      - name: Test
-        run: cargo test
 
   coverage:
     needs: warm-cache
