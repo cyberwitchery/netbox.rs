@@ -45,7 +45,7 @@ generate lcov (for ci or tooling):
 cargo llvm-cov --workspace --all-features --ignore-filename-regex 'crates/netbox-openapi' --lcov --output-path lcov.info
 ```
 
-ci enforces a minimum line coverage of 70% while excluding generated code.
+ci enforces a minimum line coverage of 75% while excluding generated code.
 
 ## documentation
 

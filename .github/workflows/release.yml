@@ -7,7 +7,6 @@ on:
 
 jobs:
   publish:
-    if: ${{ always() }}
     runs-on: big
     timeout-minutes: 15
     permissions:
@@ -20,20 +19,6 @@ jobs:
 
       - name: set up rust
         uses: dtolnay/rust-toolchain@stable
-
-      - name: restore cargo cache
-        uses: actions/cache/restore@v4
-        with:
-          path: |
-            ~/.cargo/bin
-            ~/.cargo/registry
-            ~/.cargo/git
-            ~/.cargo/.crates.toml
-            ~/.cargo/.crates2.json
-            target
-          key: cargo-${{ runner.os }}-stable-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            cargo-${{ runner.os }}-stable-
 
       - name: run tests
         run: cargo test
