@@ -10,64 +10,50 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct ObjectType {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     #[serde(rename = "app_label")]
     pub app_label: String,
-    #[serde(rename = "app_name")]
-    pub app_name: String,
+    #[serde(rename = "app_name", skip_serializing_if = "Option::is_none")]
+    pub app_name: Option<String>,
     #[serde(rename = "model")]
     pub model: String,
-    #[serde(rename = "model_name")]
-    pub model_name: String,
-    #[serde(rename = "model_name_plural")]
-    pub model_name_plural: String,
-    #[serde(rename = "public")]
-    pub public: bool,
-    #[serde(rename = "features")]
-    pub features: Vec<String>,
-    #[serde(rename = "is_plugin_model")]
-    pub is_plugin_model: bool,
-    #[serde(rename = "rest_api_endpoint")]
-    pub rest_api_endpoint: String,
-    #[serde(rename = "description")]
-    pub description: String,
+    #[serde(rename = "model_name", skip_serializing_if = "Option::is_none")]
+    pub model_name: Option<String>,
+    #[serde(rename = "model_name_plural", skip_serializing_if = "Option::is_none")]
+    pub model_name_plural: Option<String>,
+    #[serde(rename = "public", skip_serializing_if = "Option::is_none")]
+    pub public: Option<bool>,
+    #[serde(rename = "features", skip_serializing_if = "Option::is_none")]
+    pub features: Option<Vec<String>>,
+    #[serde(rename = "is_plugin_model", skip_serializing_if = "Option::is_none")]
+    pub is_plugin_model: Option<bool>,
+    #[serde(rename = "rest_api_endpoint", skip_serializing_if = "Option::is_none")]
+    pub rest_api_endpoint: Option<String>,
+    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
 }
 
 impl ObjectType {
-    pub fn new(
-        id: i32,
-        url: String,
-        display: String,
-        app_label: String,
-        app_name: String,
-        model: String,
-        model_name: String,
-        model_name_plural: String,
-        public: bool,
-        features: Vec<String>,
-        is_plugin_model: bool,
-        rest_api_endpoint: String,
-        description: String,
-    ) -> ObjectType {
+    pub fn new(app_label: String, model: String) -> ObjectType {
         ObjectType {
-            id,
-            url,
-            display,
+            id: None,
+            url: None,
+            display: None,
             app_label,
-            app_name,
+            app_name: None,
             model,
-            model_name,
-            model_name_plural,
-            public,
-            features,
-            is_plugin_model,
-            rest_api_endpoint,
-            description,
+            model_name: None,
+            model_name_plural: None,
+            public: None,
+            features: None,
+            is_plugin_model: None,
+            rest_api_endpoint: None,
+            description: None,
         }
     }
 }

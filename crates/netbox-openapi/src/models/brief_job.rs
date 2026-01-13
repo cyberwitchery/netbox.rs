@@ -10,12 +10,12 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct BriefJob {
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "status")]
-    pub status: Box<crate::models::BriefJobStatus>,
-    #[serde(rename = "created")]
-    pub created: String,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
+    pub status: Option<Box<crate::models::BriefJobStatus>>,
+    #[serde(rename = "created", skip_serializing_if = "Option::is_none")]
+    pub created: Option<String>,
     #[serde(
         rename = "completed",
         default,
@@ -23,23 +23,18 @@ pub struct BriefJob {
         skip_serializing_if = "Option::is_none"
     )]
     pub completed: Option<Option<String>>,
-    #[serde(rename = "user")]
-    pub user: Box<crate::models::BriefUser>,
+    #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
+    pub user: Option<Box<crate::models::BriefUser>>,
 }
 
 impl BriefJob {
-    pub fn new(
-        url: String,
-        status: crate::models::BriefJobStatus,
-        created: String,
-        user: crate::models::BriefUser,
-    ) -> BriefJob {
+    pub fn new() -> BriefJob {
         BriefJob {
-            url,
-            status: Box::new(status),
-            created,
+            url: None,
+            status: None,
+            created: None,
             completed: None,
-            user: Box::new(user),
+            user: None,
         }
     }
 }

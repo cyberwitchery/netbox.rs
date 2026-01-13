@@ -12,45 +12,45 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct Subscription {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     #[serde(rename = "object_type")]
     pub object_type: String,
     #[serde(rename = "object_id")]
     pub object_id: i64,
-    #[serde(rename = "object", deserialize_with = "Option::deserialize")]
-    pub object: Option<serde_json::Value>,
+    #[serde(
+        rename = "object",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub object: Option<Option<serde_json::Value>>,
     #[serde(rename = "user")]
     pub user: Box<crate::models::BriefUser>,
-    #[serde(rename = "created")]
-    pub created: String,
+    #[serde(rename = "created", skip_serializing_if = "Option::is_none")]
+    pub created: Option<String>,
 }
 
 impl Subscription {
     /// Extends the built-in ModelSerializer to enforce calling full_clean() on a copy of the associated instance during validation. (DRF does not do this by default; see <https://github.com/encode/django-rest-framework/issues/3144>)
     pub fn new(
-        id: i32,
-        url: String,
-        display: String,
         object_type: String,
         object_id: i64,
-        object: Option<serde_json::Value>,
         user: crate::models::BriefUser,
-        created: String,
     ) -> Subscription {
         Subscription {
-            id,
-            url,
-            display,
+            id: None,
+            url: None,
+            display: None,
             object_type,
             object_id,
-            object,
+            object: None,
             user: Box::new(user),
-            created,
+            created: None,
         }
     }
 }

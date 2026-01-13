@@ -12,14 +12,14 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct FrontPortRearPort {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display_url")]
-    pub display_url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display_url", skip_serializing_if = "Option::is_none")]
+    pub display_url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     #[serde(rename = "name")]
     pub name: String,
     /// Physical label
@@ -31,18 +31,12 @@ pub struct FrontPortRearPort {
 
 impl FrontPortRearPort {
     /// NestedRearPortSerializer but with parent device omitted (since front and rear ports must belong to same device)
-    pub fn new(
-        id: i32,
-        url: String,
-        display_url: String,
-        display: String,
-        name: String,
-    ) -> FrontPortRearPort {
+    pub fn new(name: String) -> FrontPortRearPort {
         FrontPortRearPort {
-            id,
-            url,
-            display_url,
-            display,
+            id: None,
+            url: None,
+            display_url: None,
+            display: None,
             name,
             label: None,
             description: None,

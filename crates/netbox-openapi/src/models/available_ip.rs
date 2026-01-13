@@ -12,27 +12,28 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct AvailableIp {
-    #[serde(rename = "family")]
-    pub family: i32,
-    #[serde(rename = "address")]
-    pub address: String,
-    #[serde(rename = "vrf", deserialize_with = "Option::deserialize")]
-    pub vrf: Option<Box<crate::models::BriefVrf>>,
+    #[serde(rename = "family", skip_serializing_if = "Option::is_none")]
+    pub family: Option<i32>,
+    #[serde(rename = "address", skip_serializing_if = "Option::is_none")]
+    pub address: Option<String>,
+    #[serde(
+        rename = "vrf",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub vrf: Option<Option<Box<crate::models::BriefVrf>>>,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
 }
 
 impl AvailableIp {
     /// Representation of an IP address which does not exist in the database.
-    pub fn new(family: i32, address: String, vrf: Option<crate::models::BriefVrf>) -> AvailableIp {
+    pub fn new() -> AvailableIp {
         AvailableIp {
-            family,
-            address,
-            vrf: if let Some(x) = vrf {
-                Some(Box::new(x))
-            } else {
-                None
-            },
+            family: None,
+            address: None,
+            vrf: None,
             description: None,
         }
     }

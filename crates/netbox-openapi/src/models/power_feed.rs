@@ -12,14 +12,14 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct PowerFeed {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display_url")]
-    pub display_url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display_url", skip_serializing_if = "Option::is_none")]
+    pub display_url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     #[serde(rename = "power_panel")]
     pub power_panel: Box<crate::models::BriefPowerPanel>,
     #[serde(
@@ -49,27 +49,44 @@ pub struct PowerFeed {
     /// Treat as if a cable is connected
     #[serde(rename = "mark_connected", skip_serializing_if = "Option::is_none")]
     pub mark_connected: Option<bool>,
-    #[serde(rename = "cable", deserialize_with = "Option::deserialize")]
-    pub cable: Option<Box<crate::models::BriefCable>>,
-    #[serde(rename = "cable_end")]
-    pub cable_end: String,
-    #[serde(rename = "link_peers")]
-    pub link_peers: Vec<serde_json::Value>,
+    #[serde(
+        rename = "cable",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub cable: Option<Option<Box<crate::models::BriefCable>>>,
+    #[serde(rename = "cable_end", skip_serializing_if = "Option::is_none")]
+    pub cable_end: Option<String>,
+    #[serde(rename = "link_peers", skip_serializing_if = "Option::is_none")]
+    pub link_peers: Option<Vec<serde_json::Value>>,
     /// Return the type of the peer link terminations, or None.
-    #[serde(rename = "link_peers_type", deserialize_with = "Option::deserialize")]
-    pub link_peers_type: Option<String>,
+    #[serde(
+        rename = "link_peers_type",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub link_peers_type: Option<Option<String>>,
     #[serde(
         rename = "connected_endpoints",
-        deserialize_with = "Option::deserialize"
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
     )]
-    pub connected_endpoints: Option<Vec<serde_json::Value>>,
+    pub connected_endpoints: Option<Option<Vec<serde_json::Value>>>,
     #[serde(
         rename = "connected_endpoints_type",
-        deserialize_with = "Option::deserialize"
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
     )]
-    pub connected_endpoints_type: Option<String>,
-    #[serde(rename = "connected_endpoints_reachable")]
-    pub connected_endpoints_reachable: bool,
+    pub connected_endpoints_type: Option<Option<String>>,
+    #[serde(
+        rename = "connected_endpoints_reachable",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub connected_endpoints_reachable: Option<bool>,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[serde(
@@ -85,39 +102,32 @@ pub struct PowerFeed {
     pub tags: Option<Vec<crate::models::NestedTag>>,
     #[serde(rename = "custom_fields", skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<::std::collections::HashMap<String, serde_json::Value>>,
-    #[serde(rename = "created", deserialize_with = "Option::deserialize")]
-    pub created: Option<String>,
-    #[serde(rename = "last_updated", deserialize_with = "Option::deserialize")]
-    pub last_updated: Option<String>,
-    #[serde(rename = "_occupied")]
-    pub _occupied: bool,
+    #[serde(
+        rename = "created",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created: Option<Option<String>>,
+    #[serde(
+        rename = "last_updated",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_updated: Option<Option<String>>,
+    #[serde(rename = "_occupied", skip_serializing_if = "Option::is_none")]
+    pub _occupied: Option<bool>,
 }
 
 impl PowerFeed {
     /// Adds support for custom fields and tags.
-    pub fn new(
-        id: i32,
-        url: String,
-        display_url: String,
-        display: String,
-        power_panel: crate::models::BriefPowerPanel,
-        name: String,
-        cable: Option<crate::models::BriefCable>,
-        cable_end: String,
-        link_peers: Vec<serde_json::Value>,
-        link_peers_type: Option<String>,
-        connected_endpoints: Option<Vec<serde_json::Value>>,
-        connected_endpoints_type: Option<String>,
-        connected_endpoints_reachable: bool,
-        created: Option<String>,
-        last_updated: Option<String>,
-        _occupied: bool,
-    ) -> PowerFeed {
+    pub fn new(power_panel: crate::models::BriefPowerPanel, name: String) -> PowerFeed {
         PowerFeed {
-            id,
-            url,
-            display_url,
-            display,
+            id: None,
+            url: None,
+            display_url: None,
+            display: None,
             power_panel: Box::new(power_panel),
             rack: None,
             name,
@@ -129,25 +139,21 @@ impl PowerFeed {
             amperage: None,
             max_utilization: None,
             mark_connected: None,
-            cable: if let Some(x) = cable {
-                Some(Box::new(x))
-            } else {
-                None
-            },
-            cable_end,
-            link_peers,
-            link_peers_type,
-            connected_endpoints,
-            connected_endpoints_type,
-            connected_endpoints_reachable,
+            cable: None,
+            cable_end: None,
+            link_peers: None,
+            link_peers_type: None,
+            connected_endpoints: None,
+            connected_endpoints_type: None,
+            connected_endpoints_reachable: None,
             description: None,
             tenant: None,
             comments: None,
             tags: None,
             custom_fields: None,
-            created,
-            last_updated,
-            _occupied,
+            created: None,
+            last_updated: None,
+            _occupied: None,
         }
     }
 }

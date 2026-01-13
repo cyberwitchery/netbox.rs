@@ -10,16 +10,16 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct Job {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display_url")]
-    pub display_url: String,
-    #[serde(rename = "display")]
-    pub display: String,
-    #[serde(rename = "object_type")]
-    pub object_type: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display_url", skip_serializing_if = "Option::is_none")]
+    pub display_url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
+    #[serde(rename = "object_type", skip_serializing_if = "Option::is_none")]
+    pub object_type: Option<String>,
     #[serde(
         rename = "object_id",
         default,
@@ -29,10 +29,10 @@ pub struct Job {
     pub object_id: Option<Option<i64>>,
     #[serde(rename = "name")]
     pub name: String,
-    #[serde(rename = "status")]
-    pub status: Box<crate::models::BriefJobStatus>,
-    #[serde(rename = "created")]
-    pub created: String,
+    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
+    pub status: Option<Box<crate::models::BriefJobStatus>>,
+    #[serde(rename = "created", skip_serializing_if = "Option::is_none")]
+    pub created: Option<String>,
     #[serde(
         rename = "scheduled",
         default,
@@ -62,8 +62,8 @@ pub struct Job {
         skip_serializing_if = "Option::is_none"
     )]
     pub completed: Option<Option<String>>,
-    #[serde(rename = "user")]
-    pub user: Box<crate::models::BriefUser>,
+    #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
+    pub user: Option<Box<crate::models::BriefUser>>,
     #[serde(
         rename = "data",
         default,
@@ -71,8 +71,8 @@ pub struct Job {
         skip_serializing_if = "Option::is_none"
     )]
     pub data: Option<Option<serde_json::Value>>,
-    #[serde(rename = "error")]
-    pub error: String,
+    #[serde(rename = "error", skip_serializing_if = "Option::is_none")]
+    pub error: Option<String>,
     #[serde(rename = "job_id")]
     pub job_id: uuid::Uuid,
     #[serde(rename = "log_entries", skip_serializing_if = "Option::is_none")]
@@ -80,36 +80,24 @@ pub struct Job {
 }
 
 impl Job {
-    pub fn new(
-        id: i32,
-        url: String,
-        display_url: String,
-        display: String,
-        object_type: String,
-        name: String,
-        status: crate::models::BriefJobStatus,
-        created: String,
-        user: crate::models::BriefUser,
-        error: String,
-        job_id: uuid::Uuid,
-    ) -> Job {
+    pub fn new(name: String, job_id: uuid::Uuid) -> Job {
         Job {
-            id,
-            url,
-            display_url,
-            display,
-            object_type,
+            id: None,
+            url: None,
+            display_url: None,
+            display: None,
+            object_type: None,
             object_id: None,
             name,
-            status: Box::new(status),
-            created,
+            status: None,
+            created: None,
             scheduled: None,
             interval: None,
             started: None,
             completed: None,
-            user: Box::new(user),
+            user: None,
             data: None,
-            error,
+            error: None,
             job_id,
             log_entries: None,
         }

@@ -12,14 +12,14 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct RearPort {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display_url")]
-    pub display_url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display_url", skip_serializing_if = "Option::is_none")]
+    pub display_url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     #[serde(rename = "device")]
     pub device: Box<crate::models::BriefDevice>,
     #[serde(
@@ -46,50 +46,59 @@ pub struct RearPort {
     /// Treat as if a cable is connected
     #[serde(rename = "mark_connected", skip_serializing_if = "Option::is_none")]
     pub mark_connected: Option<bool>,
-    #[serde(rename = "cable", deserialize_with = "Option::deserialize")]
-    pub cable: Option<Box<crate::models::BriefCable>>,
-    #[serde(rename = "cable_end")]
-    pub cable_end: String,
-    #[serde(rename = "link_peers")]
-    pub link_peers: Vec<serde_json::Value>,
+    #[serde(
+        rename = "cable",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub cable: Option<Option<Box<crate::models::BriefCable>>>,
+    #[serde(rename = "cable_end", skip_serializing_if = "Option::is_none")]
+    pub cable_end: Option<String>,
+    #[serde(rename = "link_peers", skip_serializing_if = "Option::is_none")]
+    pub link_peers: Option<Vec<serde_json::Value>>,
     /// Return the type of the peer link terminations, or None.
-    #[serde(rename = "link_peers_type", deserialize_with = "Option::deserialize")]
-    pub link_peers_type: Option<String>,
+    #[serde(
+        rename = "link_peers_type",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub link_peers_type: Option<Option<String>>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<crate::models::NestedTag>>,
     #[serde(rename = "custom_fields", skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<::std::collections::HashMap<String, serde_json::Value>>,
-    #[serde(rename = "created", deserialize_with = "Option::deserialize")]
-    pub created: Option<String>,
-    #[serde(rename = "last_updated", deserialize_with = "Option::deserialize")]
-    pub last_updated: Option<String>,
-    #[serde(rename = "_occupied")]
-    pub _occupied: bool,
+    #[serde(
+        rename = "created",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created: Option<Option<String>>,
+    #[serde(
+        rename = "last_updated",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_updated: Option<Option<String>>,
+    #[serde(rename = "_occupied", skip_serializing_if = "Option::is_none")]
+    pub _occupied: Option<bool>,
 }
 
 impl RearPort {
     /// Adds support for custom fields and tags.
     pub fn new(
-        id: i32,
-        url: String,
-        display_url: String,
-        display: String,
         device: crate::models::BriefDevice,
         name: String,
         r#type: crate::models::FrontPortType,
-        cable: Option<crate::models::BriefCable>,
-        cable_end: String,
-        link_peers: Vec<serde_json::Value>,
-        link_peers_type: Option<String>,
-        created: Option<String>,
-        last_updated: Option<String>,
-        _occupied: bool,
     ) -> RearPort {
         RearPort {
-            id,
-            url,
-            display_url,
-            display,
+            id: None,
+            url: None,
+            display_url: None,
+            display: None,
             device: Box::new(device),
             module: None,
             name,
@@ -99,19 +108,15 @@ impl RearPort {
             positions: None,
             description: None,
             mark_connected: None,
-            cable: if let Some(x) = cable {
-                Some(Box::new(x))
-            } else {
-                None
-            },
-            cable_end,
-            link_peers,
-            link_peers_type,
+            cable: None,
+            cable_end: None,
+            link_peers: None,
+            link_peers_type: None,
             tags: None,
             custom_fields: None,
-            created,
-            last_updated,
-            _occupied,
+            created: None,
+            last_updated: None,
+            _occupied: None,
         }
     }
 }

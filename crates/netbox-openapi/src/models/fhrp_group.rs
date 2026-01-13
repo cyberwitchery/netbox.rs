@@ -12,16 +12,16 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct FhrpGroup {
-    #[serde(rename = "id")]
-    pub id: i32,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display_url")]
-    pub display_url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display_url", skip_serializing_if = "Option::is_none")]
+    pub display_url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     /// * `vrrp2` - VRRPv2 * `vrrp3` - VRRPv3 * `carp` - CARP * `clusterxl` - ClusterXL * `hsrp` - HSRP * `glbp` - GLBP * `other` - Other
     #[serde(rename = "protocol")]
     pub protocol: Protocol,
@@ -45,33 +45,33 @@ pub struct FhrpGroup {
     pub tags: Option<Vec<crate::models::NestedTag>>,
     #[serde(rename = "custom_fields", skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<::std::collections::HashMap<String, serde_json::Value>>,
-    #[serde(rename = "created", deserialize_with = "Option::deserialize")]
-    pub created: Option<String>,
-    #[serde(rename = "last_updated", deserialize_with = "Option::deserialize")]
-    pub last_updated: Option<String>,
-    #[serde(rename = "ip_addresses")]
-    pub ip_addresses: Vec<crate::models::BriefIpAddress>,
+    #[serde(
+        rename = "created",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created: Option<Option<String>>,
+    #[serde(
+        rename = "last_updated",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_updated: Option<Option<String>>,
+    #[serde(rename = "ip_addresses", skip_serializing_if = "Option::is_none")]
+    pub ip_addresses: Option<Vec<crate::models::BriefIpAddress>>,
 }
 
 impl FhrpGroup {
     /// Adds support for custom fields and tags.
-    pub fn new(
-        id: i32,
-        url: String,
-        display_url: String,
-        display: String,
-        protocol: Protocol,
-        group_id: i32,
-        created: Option<String>,
-        last_updated: Option<String>,
-        ip_addresses: Vec<crate::models::BriefIpAddress>,
-    ) -> FhrpGroup {
+    pub fn new(protocol: Protocol, group_id: i32) -> FhrpGroup {
         FhrpGroup {
-            id,
+            id: None,
             name: None,
-            url,
-            display_url,
-            display,
+            url: None,
+            display_url: None,
+            display: None,
             protocol,
             group_id,
             auth_type: None,
@@ -80,9 +80,9 @@ impl FhrpGroup {
             comments: None,
             tags: None,
             custom_fields: None,
-            created,
-            last_updated,
-            ip_addresses,
+            created: None,
+            last_updated: None,
+            ip_addresses: None,
         }
     }
 }

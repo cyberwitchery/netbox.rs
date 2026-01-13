@@ -12,48 +12,41 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct BriefInterface {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     #[serde(rename = "device")]
     pub device: Box<crate::models::BriefDevice>,
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    #[serde(rename = "cable", deserialize_with = "Option::deserialize")]
-    pub cable: Option<Box<crate::models::BriefCable>>,
-    #[serde(rename = "_occupied")]
-    pub _occupied: bool,
+    #[serde(
+        rename = "cable",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub cable: Option<Option<Box<crate::models::BriefCable>>>,
+    #[serde(rename = "_occupied", skip_serializing_if = "Option::is_none")]
+    pub _occupied: Option<bool>,
 }
 
 impl BriefInterface {
     /// Adds support for custom fields and tags.
-    pub fn new(
-        id: i32,
-        url: String,
-        display: String,
-        device: crate::models::BriefDevice,
-        name: String,
-        cable: Option<crate::models::BriefCable>,
-        _occupied: bool,
-    ) -> BriefInterface {
+    pub fn new(device: crate::models::BriefDevice, name: String) -> BriefInterface {
         BriefInterface {
-            id,
-            url,
-            display,
+            id: None,
+            url: None,
+            display: None,
             device: Box::new(device),
             name,
             description: None,
-            cable: if let Some(x) = cable {
-                Some(Box::new(x))
-            } else {
-                None
-            },
-            _occupied,
+            cable: None,
+            _occupied: None,
         }
     }
 }

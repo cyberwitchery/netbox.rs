@@ -12,29 +12,26 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct AvailablePrefix {
-    #[serde(rename = "family")]
-    pub family: i32,
-    #[serde(rename = "prefix")]
-    pub prefix: String,
-    #[serde(rename = "vrf", deserialize_with = "Option::deserialize")]
-    pub vrf: Option<Box<crate::models::BriefVrf>>,
+    #[serde(rename = "family", skip_serializing_if = "Option::is_none")]
+    pub family: Option<i32>,
+    #[serde(rename = "prefix", skip_serializing_if = "Option::is_none")]
+    pub prefix: Option<String>,
+    #[serde(
+        rename = "vrf",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub vrf: Option<Option<Box<crate::models::BriefVrf>>>,
 }
 
 impl AvailablePrefix {
     /// Representation of a prefix which does not exist in the database.
-    pub fn new(
-        family: i32,
-        prefix: String,
-        vrf: Option<crate::models::BriefVrf>,
-    ) -> AvailablePrefix {
+    pub fn new() -> AvailablePrefix {
         AvailablePrefix {
-            family,
-            prefix,
-            vrf: if let Some(x) = vrf {
-                Some(Box::new(x))
-            } else {
-                None
-            },
+            family: None,
+            prefix: None,
+            vrf: None,
         }
     }
 }

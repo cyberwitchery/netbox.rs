@@ -16,21 +16,22 @@ pub struct GenericObject {
     pub object_type: String,
     #[serde(rename = "object_id")]
     pub object_id: i32,
-    #[serde(rename = "object", deserialize_with = "Option::deserialize")]
-    pub object: Option<serde_json::Value>,
+    #[serde(
+        rename = "object",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub object: Option<Option<serde_json::Value>>,
 }
 
 impl GenericObject {
     /// Minimal representation of some generic object identified by ContentType and PK.
-    pub fn new(
-        object_type: String,
-        object_id: i32,
-        object: Option<serde_json::Value>,
-    ) -> GenericObject {
+    pub fn new(object_type: String, object_id: i32) -> GenericObject {
         GenericObject {
             object_type,
             object_id,
-            object,
+            object: None,
         }
     }
 }

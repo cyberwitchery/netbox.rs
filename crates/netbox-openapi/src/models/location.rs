@@ -12,14 +12,14 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct Location {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display_url")]
-    pub display_url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display_url", skip_serializing_if = "Option::is_none")]
+    pub display_url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "slug")]
@@ -51,44 +51,40 @@ pub struct Location {
     pub tags: Option<Vec<crate::models::NestedTag>>,
     #[serde(rename = "custom_fields", skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<::std::collections::HashMap<String, serde_json::Value>>,
-    #[serde(rename = "created", deserialize_with = "Option::deserialize")]
-    pub created: Option<String>,
-    #[serde(rename = "last_updated", deserialize_with = "Option::deserialize")]
-    pub last_updated: Option<String>,
-    #[serde(rename = "rack_count")]
-    pub rack_count: i32,
-    #[serde(rename = "device_count")]
-    pub device_count: i32,
-    #[serde(rename = "prefix_count")]
-    pub prefix_count: i64,
+    #[serde(
+        rename = "created",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created: Option<Option<String>>,
+    #[serde(
+        rename = "last_updated",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_updated: Option<Option<String>>,
+    #[serde(rename = "rack_count", skip_serializing_if = "Option::is_none")]
+    pub rack_count: Option<i32>,
+    #[serde(rename = "device_count", skip_serializing_if = "Option::is_none")]
+    pub device_count: Option<i32>,
+    #[serde(rename = "prefix_count", skip_serializing_if = "Option::is_none")]
+    pub prefix_count: Option<i64>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    #[serde(rename = "_depth")]
-    pub _depth: i32,
+    #[serde(rename = "_depth", skip_serializing_if = "Option::is_none")]
+    pub _depth: Option<i32>,
 }
 
 impl Location {
     /// Extends PrimaryModelSerializer to include MPTT support.
-    pub fn new(
-        id: i32,
-        url: String,
-        display_url: String,
-        display: String,
-        name: String,
-        slug: String,
-        site: crate::models::BriefSite,
-        created: Option<String>,
-        last_updated: Option<String>,
-        rack_count: i32,
-        device_count: i32,
-        prefix_count: i64,
-        _depth: i32,
-    ) -> Location {
+    pub fn new(name: String, slug: String, site: crate::models::BriefSite) -> Location {
         Location {
-            id,
-            url,
-            display_url,
-            display,
+            id: None,
+            url: None,
+            display_url: None,
+            display: None,
             name,
             slug,
             site: Box::new(site),
@@ -99,13 +95,13 @@ impl Location {
             description: None,
             tags: None,
             custom_fields: None,
-            created,
-            last_updated,
-            rack_count,
-            device_count,
-            prefix_count,
+            created: None,
+            last_updated: None,
+            rack_count: None,
+            device_count: None,
+            prefix_count: None,
             comments: None,
-            _depth,
+            _depth: None,
         }
     }
 }

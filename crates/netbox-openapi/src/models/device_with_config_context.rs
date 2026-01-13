@@ -12,14 +12,14 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct DeviceWithConfigContext {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display_url")]
-    pub display_url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display_url", skip_serializing_if = "Option::is_none")]
+    pub display_url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     #[serde(
         rename = "name",
         default,
@@ -97,14 +97,24 @@ pub struct DeviceWithConfigContext {
         skip_serializing_if = "Option::is_none"
     )]
     pub longitude: Option<Option<f64>>,
-    #[serde(rename = "parent_device", deserialize_with = "Option::deserialize")]
-    pub parent_device: Option<Box<crate::models::NestedDevice>>,
+    #[serde(
+        rename = "parent_device",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub parent_device: Option<Option<Box<crate::models::NestedDevice>>>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Box<crate::models::DeviceStatus>>,
     #[serde(rename = "airflow", skip_serializing_if = "Option::is_none")]
     pub airflow: Option<Box<crate::models::DeviceAirflow>>,
-    #[serde(rename = "primary_ip", deserialize_with = "Option::deserialize")]
-    pub primary_ip: Option<Box<crate::models::BriefIpAddress>>,
+    #[serde(
+        rename = "primary_ip",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub primary_ip: Option<Option<Box<crate::models::BriefIpAddress>>>,
     #[serde(
         rename = "primary_ip4",
         default,
@@ -166,8 +176,13 @@ pub struct DeviceWithConfigContext {
         skip_serializing_if = "Option::is_none"
     )]
     pub config_template: Option<Option<Box<crate::models::BriefConfigTemplate>>>,
-    #[serde(rename = "config_context", deserialize_with = "Option::deserialize")]
-    pub config_context: Option<serde_json::Value>,
+    #[serde(
+        rename = "config_context",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub config_context: Option<Option<serde_json::Value>>,
     /// Local config context data takes precedence over source contexts in the final rendered config context
     #[serde(
         rename = "local_context_data",
@@ -180,63 +195,60 @@ pub struct DeviceWithConfigContext {
     pub tags: Option<Vec<crate::models::NestedTag>>,
     #[serde(rename = "custom_fields", skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<::std::collections::HashMap<String, serde_json::Value>>,
-    #[serde(rename = "created", deserialize_with = "Option::deserialize")]
-    pub created: Option<String>,
-    #[serde(rename = "last_updated", deserialize_with = "Option::deserialize")]
-    pub last_updated: Option<String>,
-    #[serde(rename = "console_port_count")]
-    pub console_port_count: i32,
-    #[serde(rename = "console_server_port_count")]
-    pub console_server_port_count: i32,
-    #[serde(rename = "power_port_count")]
-    pub power_port_count: i32,
-    #[serde(rename = "power_outlet_count")]
-    pub power_outlet_count: i32,
-    #[serde(rename = "interface_count")]
-    pub interface_count: i32,
-    #[serde(rename = "front_port_count")]
-    pub front_port_count: i32,
-    #[serde(rename = "rear_port_count")]
-    pub rear_port_count: i32,
-    #[serde(rename = "device_bay_count")]
-    pub device_bay_count: i32,
-    #[serde(rename = "module_bay_count")]
-    pub module_bay_count: i32,
-    #[serde(rename = "inventory_item_count")]
-    pub inventory_item_count: i32,
+    #[serde(
+        rename = "created",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created: Option<Option<String>>,
+    #[serde(
+        rename = "last_updated",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_updated: Option<Option<String>>,
+    #[serde(rename = "console_port_count", skip_serializing_if = "Option::is_none")]
+    pub console_port_count: Option<i32>,
+    #[serde(
+        rename = "console_server_port_count",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub console_server_port_count: Option<i32>,
+    #[serde(rename = "power_port_count", skip_serializing_if = "Option::is_none")]
+    pub power_port_count: Option<i32>,
+    #[serde(rename = "power_outlet_count", skip_serializing_if = "Option::is_none")]
+    pub power_outlet_count: Option<i32>,
+    #[serde(rename = "interface_count", skip_serializing_if = "Option::is_none")]
+    pub interface_count: Option<i32>,
+    #[serde(rename = "front_port_count", skip_serializing_if = "Option::is_none")]
+    pub front_port_count: Option<i32>,
+    #[serde(rename = "rear_port_count", skip_serializing_if = "Option::is_none")]
+    pub rear_port_count: Option<i32>,
+    #[serde(rename = "device_bay_count", skip_serializing_if = "Option::is_none")]
+    pub device_bay_count: Option<i32>,
+    #[serde(rename = "module_bay_count", skip_serializing_if = "Option::is_none")]
+    pub module_bay_count: Option<i32>,
+    #[serde(
+        rename = "inventory_item_count",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub inventory_item_count: Option<i32>,
 }
 
 impl DeviceWithConfigContext {
     /// Adds support for custom fields and tags.
     pub fn new(
-        id: i32,
-        url: String,
-        display_url: String,
-        display: String,
         device_type: crate::models::BriefDeviceType,
         role: crate::models::BriefDeviceRole,
         site: crate::models::BriefSite,
-        parent_device: Option<crate::models::NestedDevice>,
-        primary_ip: Option<crate::models::BriefIpAddress>,
-        config_context: Option<serde_json::Value>,
-        created: Option<String>,
-        last_updated: Option<String>,
-        console_port_count: i32,
-        console_server_port_count: i32,
-        power_port_count: i32,
-        power_outlet_count: i32,
-        interface_count: i32,
-        front_port_count: i32,
-        rear_port_count: i32,
-        device_bay_count: i32,
-        module_bay_count: i32,
-        inventory_item_count: i32,
     ) -> DeviceWithConfigContext {
         DeviceWithConfigContext {
-            id,
-            url,
-            display_url,
-            display,
+            id: None,
+            url: None,
+            display_url: None,
+            display: None,
             name: None,
             device_type: Box::new(device_type),
             role: Box::new(role),
@@ -251,18 +263,10 @@ impl DeviceWithConfigContext {
             face: None,
             latitude: None,
             longitude: None,
-            parent_device: if let Some(x) = parent_device {
-                Some(Box::new(x))
-            } else {
-                None
-            },
+            parent_device: None,
             status: None,
             airflow: None,
-            primary_ip: if let Some(x) = primary_ip {
-                Some(Box::new(x))
-            } else {
-                None
-            },
+            primary_ip: None,
             primary_ip4: None,
             primary_ip6: None,
             oob_ip: None,
@@ -273,22 +277,22 @@ impl DeviceWithConfigContext {
             description: None,
             comments: None,
             config_template: None,
-            config_context,
+            config_context: None,
             local_context_data: None,
             tags: None,
             custom_fields: None,
-            created,
-            last_updated,
-            console_port_count,
-            console_server_port_count,
-            power_port_count,
-            power_outlet_count,
-            interface_count,
-            front_port_count,
-            rear_port_count,
-            device_bay_count,
-            module_bay_count,
-            inventory_item_count,
+            created: None,
+            last_updated: None,
+            console_port_count: None,
+            console_server_port_count: None,
+            power_port_count: None,
+            power_outlet_count: None,
+            interface_count: None,
+            front_port_count: None,
+            rear_port_count: None,
+            device_bay_count: None,
+            module_bay_count: None,
+            inventory_item_count: None,
         }
     }
 }

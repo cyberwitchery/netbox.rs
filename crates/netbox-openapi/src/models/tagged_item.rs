@@ -10,40 +10,37 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct TaggedItem {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display")]
-    pub display: String,
-    #[serde(rename = "object_type")]
-    pub object_type: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
+    #[serde(rename = "object_type", skip_serializing_if = "Option::is_none")]
+    pub object_type: Option<String>,
     #[serde(rename = "object_id")]
     pub object_id: i32,
-    #[serde(rename = "object", deserialize_with = "Option::deserialize")]
-    pub object: Option<serde_json::Value>,
-    #[serde(rename = "tag")]
-    pub tag: Box<crate::models::BriefTag>,
+    #[serde(
+        rename = "object",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub object: Option<Option<serde_json::Value>>,
+    #[serde(rename = "tag", skip_serializing_if = "Option::is_none")]
+    pub tag: Option<Box<crate::models::BriefTag>>,
 }
 
 impl TaggedItem {
-    pub fn new(
-        id: i32,
-        url: String,
-        display: String,
-        object_type: String,
-        object_id: i32,
-        object: Option<serde_json::Value>,
-        tag: crate::models::BriefTag,
-    ) -> TaggedItem {
+    pub fn new(object_id: i32) -> TaggedItem {
         TaggedItem {
-            id,
-            url,
-            display,
-            object_type,
+            id: None,
+            url: None,
+            display: None,
+            object_type: None,
             object_id,
-            object,
-            tag: Box::new(tag),
+            object: None,
+            tag: None,
         }
     }
 }

@@ -12,24 +12,34 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct RackReservation {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display_url")]
-    pub display_url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display_url", skip_serializing_if = "Option::is_none")]
+    pub display_url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     #[serde(rename = "rack")]
     pub rack: Box<crate::models::BriefRack>,
     #[serde(rename = "units")]
     pub units: Vec<i32>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Box<crate::models::RackReservationStatus>>,
-    #[serde(rename = "created", deserialize_with = "Option::deserialize")]
-    pub created: Option<String>,
-    #[serde(rename = "last_updated", deserialize_with = "Option::deserialize")]
-    pub last_updated: Option<String>,
+    #[serde(
+        rename = "created",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created: Option<Option<String>>,
+    #[serde(
+        rename = "last_updated",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_updated: Option<Option<String>>,
     #[serde(rename = "user")]
     pub user: Box<crate::models::BriefUser>,
     #[serde(
@@ -52,27 +62,21 @@ pub struct RackReservation {
 impl RackReservation {
     /// Adds support for custom fields and tags.
     pub fn new(
-        id: i32,
-        url: String,
-        display_url: String,
-        display: String,
         rack: crate::models::BriefRack,
         units: Vec<i32>,
-        created: Option<String>,
-        last_updated: Option<String>,
         user: crate::models::BriefUser,
         description: String,
     ) -> RackReservation {
         RackReservation {
-            id,
-            url,
-            display_url,
-            display,
+            id: None,
+            url: None,
+            display_url: None,
+            display: None,
             rack: Box::new(rack),
             units,
             status: None,
-            created,
-            last_updated,
+            created: None,
+            last_updated: None,
             user: Box::new(user),
             tenant: None,
             description,

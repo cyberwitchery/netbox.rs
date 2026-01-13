@@ -12,14 +12,14 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct Asn {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display_url")]
-    pub display_url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display_url", skip_serializing_if = "Option::is_none")]
+    pub display_url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     /// 16- or 32-bit autonomous system number
     #[serde(rename = "asn")]
     pub asn: i64,
@@ -45,34 +45,34 @@ pub struct Asn {
     pub tags: Option<Vec<crate::models::NestedTag>>,
     #[serde(rename = "custom_fields", skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<::std::collections::HashMap<String, serde_json::Value>>,
-    #[serde(rename = "created", deserialize_with = "Option::deserialize")]
-    pub created: Option<String>,
-    #[serde(rename = "last_updated", deserialize_with = "Option::deserialize")]
-    pub last_updated: Option<String>,
-    #[serde(rename = "site_count")]
-    pub site_count: i64,
-    #[serde(rename = "provider_count")]
-    pub provider_count: i64,
+    #[serde(
+        rename = "created",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created: Option<Option<String>>,
+    #[serde(
+        rename = "last_updated",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_updated: Option<Option<String>>,
+    #[serde(rename = "site_count", skip_serializing_if = "Option::is_none")]
+    pub site_count: Option<i64>,
+    #[serde(rename = "provider_count", skip_serializing_if = "Option::is_none")]
+    pub provider_count: Option<i64>,
 }
 
 impl Asn {
     /// Adds support for custom fields and tags.
-    pub fn new(
-        id: i32,
-        url: String,
-        display_url: String,
-        display: String,
-        asn: i64,
-        created: Option<String>,
-        last_updated: Option<String>,
-        site_count: i64,
-        provider_count: i64,
-    ) -> Asn {
+    pub fn new(asn: i64) -> Asn {
         Asn {
-            id,
-            url,
-            display_url,
-            display,
+            id: None,
+            url: None,
+            display_url: None,
+            display: None,
             asn,
             rir: None,
             tenant: None,
@@ -80,10 +80,10 @@ impl Asn {
             comments: None,
             tags: None,
             custom_fields: None,
-            created,
-            last_updated,
-            site_count,
-            provider_count,
+            created: None,
+            last_updated: None,
+            site_count: None,
+            provider_count: None,
         }
     }
 }

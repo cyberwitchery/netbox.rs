@@ -12,18 +12,18 @@
 pub struct BackgroundTask {
     #[serde(rename = "id")]
     pub id: String,
-    #[serde(rename = "url")]
-    pub url: String,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
     #[serde(rename = "description")]
     pub description: String,
     #[serde(rename = "origin")]
     pub origin: String,
     #[serde(rename = "func_name")]
     pub func_name: String,
-    #[serde(rename = "args")]
-    pub args: Vec<serde_json::Value>,
-    #[serde(rename = "kwargs")]
-    pub kwargs: ::std::collections::HashMap<String, serde_json::Value>,
+    #[serde(rename = "args", skip_serializing_if = "Option::is_none")]
+    pub args: Option<Vec<serde_json::Value>>,
+    #[serde(rename = "kwargs", skip_serializing_if = "Option::is_none")]
+    pub kwargs: Option<::std::collections::HashMap<String, serde_json::Value>>,
     #[serde(rename = "result")]
     pub result: String,
     #[serde(rename = "timeout")]
@@ -40,10 +40,10 @@ pub struct BackgroundTask {
     pub ended_at: String,
     #[serde(rename = "worker_name")]
     pub worker_name: String,
-    #[serde(rename = "position")]
-    pub position: i32,
-    #[serde(rename = "status")]
-    pub status: String,
+    #[serde(rename = "position", skip_serializing_if = "Option::is_none")]
+    pub position: Option<i32>,
+    #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
+    pub status: Option<String>,
     #[serde(rename = "meta")]
     pub meta: ::std::collections::HashMap<String, serde_json::Value>,
     #[serde(rename = "last_heartbeat")]
@@ -69,12 +69,9 @@ pub struct BackgroundTask {
 impl BackgroundTask {
     pub fn new(
         id: String,
-        url: String,
         description: String,
         origin: String,
         func_name: String,
-        args: Vec<serde_json::Value>,
-        kwargs: ::std::collections::HashMap<String, serde_json::Value>,
         result: String,
         timeout: i32,
         result_ttl: i32,
@@ -83,8 +80,6 @@ impl BackgroundTask {
         started_at: String,
         ended_at: String,
         worker_name: String,
-        position: i32,
-        status: String,
         meta: ::std::collections::HashMap<String, serde_json::Value>,
         last_heartbeat: String,
         is_finished: bool,
@@ -98,12 +93,12 @@ impl BackgroundTask {
     ) -> BackgroundTask {
         BackgroundTask {
             id,
-            url,
+            url: None,
             description,
             origin,
             func_name,
-            args,
-            kwargs,
+            args: None,
+            kwargs: None,
             result,
             timeout,
             result_ttl,
@@ -112,8 +107,8 @@ impl BackgroundTask {
             started_at,
             ended_at,
             worker_name,
-            position,
-            status,
+            position: None,
+            status: None,
             meta,
             last_heartbeat,
             is_finished,

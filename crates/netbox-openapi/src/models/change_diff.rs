@@ -12,73 +12,87 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct ChangeDiff {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display")]
-    pub display: String,
-    #[serde(rename = "branch")]
-    pub branch: Box<crate::models::BriefBranch>,
-    #[serde(rename = "object_type")]
-    pub object_type: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
+    #[serde(rename = "branch", skip_serializing_if = "Option::is_none")]
+    pub branch: Option<Box<crate::models::BriefBranch>>,
+    #[serde(rename = "object_type", skip_serializing_if = "Option::is_none")]
+    pub object_type: Option<String>,
     #[serde(rename = "object_id")]
     pub object_id: i64,
-    #[serde(rename = "object", deserialize_with = "Option::deserialize")]
-    pub object: Option<serde_json::Value>,
-    #[serde(rename = "object_repr")]
-    pub object_repr: String,
-    #[serde(rename = "action")]
-    pub action: Box<crate::models::ChangeDiffAction>,
-    #[serde(rename = "conflicts", deserialize_with = "Option::deserialize")]
-    pub conflicts: Option<Vec<String>>,
-    #[serde(rename = "diff", deserialize_with = "Option::deserialize")]
-    pub diff: Option<serde_json::Value>,
-    #[serde(rename = "original_data", deserialize_with = "Option::deserialize")]
-    pub original_data: Option<serde_json::Value>,
-    #[serde(rename = "modified_data", deserialize_with = "Option::deserialize")]
-    pub modified_data: Option<serde_json::Value>,
-    #[serde(rename = "current_data", deserialize_with = "Option::deserialize")]
-    pub current_data: Option<serde_json::Value>,
-    #[serde(rename = "last_updated")]
-    pub last_updated: String,
+    #[serde(
+        rename = "object",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub object: Option<Option<serde_json::Value>>,
+    #[serde(rename = "object_repr", skip_serializing_if = "Option::is_none")]
+    pub object_repr: Option<String>,
+    #[serde(rename = "action", skip_serializing_if = "Option::is_none")]
+    pub action: Option<Box<crate::models::ChangeDiffAction>>,
+    #[serde(
+        rename = "conflicts",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub conflicts: Option<Option<Vec<String>>>,
+    #[serde(
+        rename = "diff",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub diff: Option<Option<serde_json::Value>>,
+    #[serde(
+        rename = "original_data",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub original_data: Option<Option<serde_json::Value>>,
+    #[serde(
+        rename = "modified_data",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub modified_data: Option<Option<serde_json::Value>>,
+    #[serde(
+        rename = "current_data",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub current_data: Option<Option<serde_json::Value>>,
+    #[serde(rename = "last_updated", skip_serializing_if = "Option::is_none")]
+    pub last_updated: Option<String>,
 }
 
 impl ChangeDiff {
     /// Adds support for custom fields and tags.
-    pub fn new(
-        id: i32,
-        url: String,
-        display: String,
-        branch: crate::models::BriefBranch,
-        object_type: String,
-        object_id: i64,
-        object: Option<serde_json::Value>,
-        object_repr: String,
-        action: crate::models::ChangeDiffAction,
-        conflicts: Option<Vec<String>>,
-        diff: Option<serde_json::Value>,
-        original_data: Option<serde_json::Value>,
-        modified_data: Option<serde_json::Value>,
-        current_data: Option<serde_json::Value>,
-        last_updated: String,
-    ) -> ChangeDiff {
+    pub fn new(object_id: i64) -> ChangeDiff {
         ChangeDiff {
-            id,
-            url,
-            display,
-            branch: Box::new(branch),
-            object_type,
+            id: None,
+            url: None,
+            display: None,
+            branch: None,
+            object_type: None,
             object_id,
-            object,
-            object_repr,
-            action: Box::new(action),
-            conflicts,
-            diff,
-            original_data,
-            modified_data,
-            current_data,
-            last_updated,
+            object: None,
+            object_repr: None,
+            action: None,
+            conflicts: None,
+            diff: None,
+            original_data: None,
+            modified_data: None,
+            current_data: None,
+            last_updated: None,
         }
     }
 }

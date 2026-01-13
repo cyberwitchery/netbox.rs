@@ -12,14 +12,14 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CircuitCircuitTermination {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display_url")]
-    pub display_url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display_url", skip_serializing_if = "Option::is_none")]
+    pub display_url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     #[serde(
         rename = "termination_type",
         default,
@@ -34,8 +34,13 @@ pub struct CircuitCircuitTermination {
         skip_serializing_if = "Option::is_none"
     )]
     pub termination_id: Option<Option<i32>>,
-    #[serde(rename = "termination", deserialize_with = "Option::deserialize")]
-    pub termination: Option<serde_json::Value>,
+    #[serde(
+        rename = "termination",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub termination: Option<Option<serde_json::Value>>,
     /// Physical circuit speed
     #[serde(
         rename = "port_speed",
@@ -61,21 +66,15 @@ pub struct CircuitCircuitTermination {
 
 impl CircuitCircuitTermination {
     /// Represents an object related through a ForeignKey field. On write, it accepts a primary key (PK) value or a dictionary of attributes which can be used to uniquely identify the related object. This class should be subclassed to return a full representation of the related object on read.
-    pub fn new(
-        id: i32,
-        url: String,
-        display_url: String,
-        display: String,
-        termination: Option<serde_json::Value>,
-    ) -> CircuitCircuitTermination {
+    pub fn new() -> CircuitCircuitTermination {
         CircuitCircuitTermination {
-            id,
-            url,
-            display_url,
-            display,
+            id: None,
+            url: None,
+            display_url: None,
+            display: None,
             termination_type: None,
             termination_id: None,
-            termination,
+            termination: None,
             port_speed: None,
             upstream_speed: None,
             xconnect_id: None,

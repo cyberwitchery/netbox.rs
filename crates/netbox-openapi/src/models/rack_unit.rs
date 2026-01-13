@@ -12,37 +12,30 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct RackUnit {
-    #[serde(rename = "id")]
-    pub id: f64,
-    #[serde(rename = "name")]
-    pub name: String,
-    #[serde(rename = "face")]
-    pub face: Box<crate::models::RackUnitFace>,
-    #[serde(rename = "device")]
-    pub device: Box<crate::models::BriefDevice>,
-    #[serde(rename = "occupied")]
-    pub occupied: bool,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<f64>,
+    #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    #[serde(rename = "face", skip_serializing_if = "Option::is_none")]
+    pub face: Option<Box<crate::models::RackUnitFace>>,
+    #[serde(rename = "device", skip_serializing_if = "Option::is_none")]
+    pub device: Option<Box<crate::models::BriefDevice>>,
+    #[serde(rename = "occupied", skip_serializing_if = "Option::is_none")]
+    pub occupied: Option<bool>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
 }
 
 impl RackUnit {
     /// A rack unit is an abstraction formed by the set (rack, position, face); it does not exist as a row in the database.
-    pub fn new(
-        id: f64,
-        name: String,
-        face: crate::models::RackUnitFace,
-        device: crate::models::BriefDevice,
-        occupied: bool,
-        display: String,
-    ) -> RackUnit {
+    pub fn new() -> RackUnit {
         RackUnit {
-            id,
-            name,
-            face: Box::new(face),
-            device: Box::new(device),
-            occupied,
-            display,
+            id: None,
+            name: None,
+            face: None,
+            device: None,
+            occupied: None,
+            display: None,
         }
     }
 }

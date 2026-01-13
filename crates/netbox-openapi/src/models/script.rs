@@ -12,53 +12,52 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct Script {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display_url")]
-    pub display_url: String,
-    #[serde(rename = "module")]
-    pub module: i32,
-    #[serde(rename = "name")]
-    pub name: String,
-    #[serde(rename = "description", deserialize_with = "Option::deserialize")]
-    pub description: Option<String>,
-    #[serde(rename = "vars", deserialize_with = "Option::deserialize")]
-    pub vars: Option<serde_json::Value>,
-    #[serde(rename = "result")]
-    pub result: Box<crate::models::BriefJob>,
-    #[serde(rename = "display")]
-    pub display: String,
-    #[serde(rename = "is_executable")]
-    pub is_executable: bool,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display_url", skip_serializing_if = "Option::is_none")]
+    pub display_url: Option<String>,
+    #[serde(rename = "module", skip_serializing_if = "Option::is_none")]
+    pub module: Option<i32>,
+    #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
+    pub name: Option<String>,
+    #[serde(
+        rename = "description",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub description: Option<Option<String>>,
+    #[serde(
+        rename = "vars",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub vars: Option<Option<serde_json::Value>>,
+    #[serde(rename = "result", skip_serializing_if = "Option::is_none")]
+    pub result: Option<Box<crate::models::BriefJob>>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
+    #[serde(rename = "is_executable", skip_serializing_if = "Option::is_none")]
+    pub is_executable: Option<bool>,
 }
 
 impl Script {
     /// Extends the built-in ModelSerializer to enforce calling full_clean() on a copy of the associated instance during validation. (DRF does not do this by default; see <https://github.com/encode/django-rest-framework/issues/3144>)
-    pub fn new(
-        id: i32,
-        url: String,
-        display_url: String,
-        module: i32,
-        name: String,
-        description: Option<String>,
-        vars: Option<serde_json::Value>,
-        result: crate::models::BriefJob,
-        display: String,
-        is_executable: bool,
-    ) -> Script {
+    pub fn new() -> Script {
         Script {
-            id,
-            url,
-            display_url,
-            module,
-            name,
-            description,
-            vars,
-            result: Box::new(result),
-            display,
-            is_executable,
+            id: None,
+            url: None,
+            display_url: None,
+            module: None,
+            name: None,
+            description: None,
+            vars: None,
+            result: None,
+            display: None,
+            is_executable: None,
         }
     }
 }

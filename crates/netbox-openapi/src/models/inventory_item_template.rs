@@ -12,12 +12,12 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct InventoryItemTemplate {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     #[serde(rename = "device_type")]
     pub device_type: Box<crate::models::BriefDeviceType>,
     #[serde(
@@ -66,33 +66,38 @@ pub struct InventoryItemTemplate {
         skip_serializing_if = "Option::is_none"
     )]
     pub component_id: Option<Option<i64>>,
-    #[serde(rename = "component", deserialize_with = "Option::deserialize")]
-    pub component: Option<serde_json::Value>,
-    #[serde(rename = "created", deserialize_with = "Option::deserialize")]
-    pub created: Option<String>,
-    #[serde(rename = "last_updated", deserialize_with = "Option::deserialize")]
-    pub last_updated: Option<String>,
-    #[serde(rename = "_depth")]
-    pub _depth: i32,
+    #[serde(
+        rename = "component",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub component: Option<Option<serde_json::Value>>,
+    #[serde(
+        rename = "created",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created: Option<Option<String>>,
+    #[serde(
+        rename = "last_updated",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_updated: Option<Option<String>>,
+    #[serde(rename = "_depth", skip_serializing_if = "Option::is_none")]
+    pub _depth: Option<i32>,
 }
 
 impl InventoryItemTemplate {
     /// Extends the built-in ModelSerializer to enforce calling full_clean() on a copy of the associated instance during validation. (DRF does not do this by default; see <https://github.com/encode/django-rest-framework/issues/3144>)
-    pub fn new(
-        id: i32,
-        url: String,
-        display: String,
-        device_type: crate::models::BriefDeviceType,
-        name: String,
-        component: Option<serde_json::Value>,
-        created: Option<String>,
-        last_updated: Option<String>,
-        _depth: i32,
-    ) -> InventoryItemTemplate {
+    pub fn new(device_type: crate::models::BriefDeviceType, name: String) -> InventoryItemTemplate {
         InventoryItemTemplate {
-            id,
-            url,
-            display,
+            id: None,
+            url: None,
+            display: None,
             device_type: Box::new(device_type),
             parent: None,
             name,
@@ -103,10 +108,10 @@ impl InventoryItemTemplate {
             description: None,
             component_type: None,
             component_id: None,
-            component,
-            created,
-            last_updated,
-            _depth,
+            component: None,
+            created: None,
+            last_updated: None,
+            _depth: None,
         }
     }
 }

@@ -493,6 +493,6 @@ mod tests {
         };
 
         let token = api.provision_token(&request).await.unwrap();
-        assert_eq!(token.key, "token");
+        assert_eq!(token.key.as_deref(), Some("token"));
     }
 }

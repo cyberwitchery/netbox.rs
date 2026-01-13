@@ -12,18 +12,18 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct TokenProvision {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display_url")]
-    pub display_url: String,
-    #[serde(rename = "display")]
-    pub display: String,
-    #[serde(rename = "user")]
-    pub user: Box<crate::models::BriefUser>,
-    #[serde(rename = "created")]
-    pub created: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display_url", skip_serializing_if = "Option::is_none")]
+    pub display_url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
+    #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
+    pub user: Option<Box<crate::models::BriefUser>>,
+    #[serde(rename = "created", skip_serializing_if = "Option::is_none")]
+    pub created: Option<String>,
     #[serde(
         rename = "expires",
         default,
@@ -31,10 +31,10 @@ pub struct TokenProvision {
         skip_serializing_if = "Option::is_none"
     )]
     pub expires: Option<Option<String>>,
-    #[serde(rename = "last_used")]
-    pub last_used: String,
-    #[serde(rename = "key")]
-    pub key: String,
+    #[serde(rename = "last_used", skip_serializing_if = "Option::is_none")]
+    pub last_used: Option<String>,
+    #[serde(rename = "key", skip_serializing_if = "Option::is_none")]
+    pub key: Option<String>,
     /// Permit create/update/delete operations using this key
     #[serde(rename = "write_enabled", skip_serializing_if = "Option::is_none")]
     pub write_enabled: Option<bool>,
@@ -44,26 +44,17 @@ pub struct TokenProvision {
 
 impl TokenProvision {
     /// Extends the built-in ModelSerializer to enforce calling full_clean() on a copy of the associated instance during validation. (DRF does not do this by default; see <https://github.com/encode/django-rest-framework/issues/3144>)
-    pub fn new(
-        id: i32,
-        url: String,
-        display_url: String,
-        display: String,
-        user: crate::models::BriefUser,
-        created: String,
-        last_used: String,
-        key: String,
-    ) -> TokenProvision {
+    pub fn new() -> TokenProvision {
         TokenProvision {
-            id,
-            url,
-            display_url,
-            display,
-            user: Box::new(user),
-            created,
+            id: None,
+            url: None,
+            display_url: None,
+            display: None,
+            user: None,
+            created: None,
             expires: None,
-            last_used,
-            key,
+            last_used: None,
+            key: None,
             write_enabled: None,
             description: None,
         }

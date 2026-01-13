@@ -12,14 +12,14 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct ConfigTemplate {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display_url")]
-    pub display_url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display_url", skip_serializing_if = "Option::is_none")]
+    pub display_url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
@@ -50,39 +50,43 @@ pub struct ConfigTemplate {
     #[serde(rename = "data_source", skip_serializing_if = "Option::is_none")]
     pub data_source: Option<Box<crate::models::BriefDataSource>>,
     /// Path to remote file (relative to data source root)
-    #[serde(rename = "data_path")]
-    pub data_path: String,
+    #[serde(rename = "data_path", skip_serializing_if = "Option::is_none")]
+    pub data_path: Option<String>,
     #[serde(rename = "data_file", skip_serializing_if = "Option::is_none")]
     pub data_file: Option<Box<crate::models::BriefDataFile>>,
-    #[serde(rename = "data_synced", deserialize_with = "Option::deserialize")]
-    pub data_synced: Option<String>,
+    #[serde(
+        rename = "data_synced",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub data_synced: Option<Option<String>>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<crate::models::NestedTag>>,
-    #[serde(rename = "created", deserialize_with = "Option::deserialize")]
-    pub created: Option<String>,
-    #[serde(rename = "last_updated", deserialize_with = "Option::deserialize")]
-    pub last_updated: Option<String>,
+    #[serde(
+        rename = "created",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created: Option<Option<String>>,
+    #[serde(
+        rename = "last_updated",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_updated: Option<Option<String>>,
 }
 
 impl ConfigTemplate {
     /// Introduces support for Tag assignment. Adds `tags` serialization, and handles tag assignment on create() and update().
-    pub fn new(
-        id: i32,
-        url: String,
-        display_url: String,
-        display: String,
-        name: String,
-        template_code: String,
-        data_path: String,
-        data_synced: Option<String>,
-        created: Option<String>,
-        last_updated: Option<String>,
-    ) -> ConfigTemplate {
+    pub fn new(name: String, template_code: String) -> ConfigTemplate {
         ConfigTemplate {
-            id,
-            url,
-            display_url,
-            display,
+            id: None,
+            url: None,
+            display_url: None,
+            display: None,
             name,
             description: None,
             environment_params: None,
@@ -92,12 +96,12 @@ impl ConfigTemplate {
             file_extension: None,
             as_attachment: None,
             data_source: None,
-            data_path,
+            data_path: None,
             data_file: None,
-            data_synced,
+            data_synced: None,
             tags: None,
-            created,
-            last_updated,
+            created: None,
+            last_updated: None,
         }
     }
 }

@@ -12,12 +12,12 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct BriefVirtualCircuit {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     /// Unique circuit ID
     #[serde(rename = "cid")]
     pub cid: String,
@@ -30,16 +30,13 @@ pub struct BriefVirtualCircuit {
 impl BriefVirtualCircuit {
     /// Adds support for custom fields and tags.
     pub fn new(
-        id: i32,
-        url: String,
-        display: String,
         cid: String,
         provider_network: crate::models::BriefProviderNetwork,
     ) -> BriefVirtualCircuit {
         BriefVirtualCircuit {
-            id,
-            url,
-            display,
+            id: None,
+            url: None,
+            display: None,
             cid,
             provider_network: Box::new(provider_network),
             description: None,

@@ -12,44 +12,36 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct BriefRole {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "slug")]
     pub slug: String,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    #[serde(rename = "prefix_count")]
-    pub prefix_count: i64,
-    #[serde(rename = "vlan_count")]
-    pub vlan_count: i64,
+    #[serde(rename = "prefix_count", skip_serializing_if = "Option::is_none")]
+    pub prefix_count: Option<i64>,
+    #[serde(rename = "vlan_count", skip_serializing_if = "Option::is_none")]
+    pub vlan_count: Option<i64>,
 }
 
 impl BriefRole {
     /// Adds support for custom fields and tags.
-    pub fn new(
-        id: i32,
-        url: String,
-        display: String,
-        name: String,
-        slug: String,
-        prefix_count: i64,
-        vlan_count: i64,
-    ) -> BriefRole {
+    pub fn new(name: String, slug: String) -> BriefRole {
         BriefRole {
-            id,
-            url,
-            display,
+            id: None,
+            url: None,
+            display: None,
             name,
             slug,
             description: None,
-            prefix_count,
-            vlan_count,
+            prefix_count: None,
+            vlan_count: None,
         }
     }
 }

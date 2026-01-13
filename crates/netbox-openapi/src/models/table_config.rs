@@ -12,14 +12,14 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct TableConfig {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display_url")]
-    pub display_url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display_url", skip_serializing_if = "Option::is_none")]
+    pub display_url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     #[serde(rename = "object_type")]
     pub object_type: String,
     #[serde(rename = "table")]
@@ -50,31 +50,35 @@ pub struct TableConfig {
         skip_serializing_if = "Option::is_none"
     )]
     pub ordering: Option<Option<Vec<String>>>,
-    #[serde(rename = "created", deserialize_with = "Option::deserialize")]
-    pub created: Option<String>,
-    #[serde(rename = "last_updated", deserialize_with = "Option::deserialize")]
-    pub last_updated: Option<String>,
+    #[serde(
+        rename = "created",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created: Option<Option<String>>,
+    #[serde(
+        rename = "last_updated",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_updated: Option<Option<String>>,
 }
 
 impl TableConfig {
     /// Extends the built-in ModelSerializer to enforce calling full_clean() on a copy of the associated instance during validation. (DRF does not do this by default; see <https://github.com/encode/django-rest-framework/issues/3144>)
     pub fn new(
-        id: i32,
-        url: String,
-        display_url: String,
-        display: String,
         object_type: String,
         table: String,
         name: String,
         columns: Vec<String>,
-        created: Option<String>,
-        last_updated: Option<String>,
     ) -> TableConfig {
         TableConfig {
-            id,
-            url,
-            display_url,
-            display,
+            id: None,
+            url: None,
+            display_url: None,
+            display: None,
             object_type,
             table,
             name,
@@ -85,8 +89,8 @@ impl TableConfig {
             shared: None,
             columns,
             ordering: None,
-            created,
-            last_updated,
+            created: None,
+            last_updated: None,
         }
     }
 }

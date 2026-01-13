@@ -12,12 +12,12 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct BriefModule {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     #[serde(rename = "device")]
     pub device: Box<crate::models::BriefDevice>,
     #[serde(rename = "module_bay")]
@@ -27,16 +27,13 @@ pub struct BriefModule {
 impl BriefModule {
     /// Adds support for custom fields and tags.
     pub fn new(
-        id: i32,
-        url: String,
-        display: String,
         device: crate::models::BriefDevice,
         module_bay: crate::models::NestedModuleBay,
     ) -> BriefModule {
         BriefModule {
-            id,
-            url,
-            display,
+            id: None,
+            url: None,
+            display: None,
             device: Box::new(device),
             module_bay: Box::new(module_bay),
         }

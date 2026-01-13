@@ -30,6 +30,7 @@ echo "Generating Rust bindings from ${SCHEMA_FILE}..."
 echo "Normalizing schema (replace invalid enum values)..."
 python3 - <<'PY' "$SCHEMA_FILE" "$NORMALIZED_SCHEMA_FILE"
 import json
+import re
 import sys
 
 src, dst = sys.argv[1], sys.argv[2]
@@ -37,11 +38,40 @@ src, dst = sys.argv[1], sys.argv[2]
 with open(src, "r", encoding="utf-8") as handle:
     data = json.load(handle)
 
+anchor_re = re.compile(r'<a href="(https?://[^"]+)"[^>]*>([^<]+)</a>')
+url_re = re.compile(r'(?<!<)(https?://[^\s<>()]+)(?P<punct>[)\].,;:]?)')
+
+def sanitize_doc_text(text: str) -> str:
+    text = anchor_re.sub(r'\2 (<\1>)', text)
+
+    def wrap_url(match: re.Match) -> str:
+        url = match.group(1)
+        punct = match.group("punct") or ""
+        return f"<{url}>{punct}"
+
+    return url_re.sub(wrap_url, text)
+
+def drop_readonly_required(obj: dict) -> None:
+    required = obj.get("required")
+    props = obj.get("properties")
+    if not isinstance(required, list) or not isinstance(props, dict):
+        return
+    filtered = []
+    for name in required:
+        prop = props.get(name)
+        if isinstance(prop, dict) and prop.get("readOnly") is True:
+            continue
+        filtered.append(name)
+    obj["required"] = filtered
+
 def normalize(obj):
     if isinstance(obj, dict):
+        drop_readonly_required(obj)
         for key, value in obj.items():
             if key == "enum" and isinstance(value, list):
                 obj[key] = ["none" if item == "---------" else item for item in value]
+            elif key in {"description", "summary", "title"} and isinstance(value, str):
+                obj[key] = sanitize_doc_text(value)
             else:
                 normalize(value)
     elif isinstance(obj, list):
@@ -112,49 +142,6 @@ if attrs not in content:
         handle.write(content)
 PY
 
-echo "Patching generated Tag model defaults..."
-python3 - <<'PY' "${HOST_OUTPUT_DIR}/src/models/tag.rs"
-import sys
-
-path = sys.argv[1]
-with open(path, "r", encoding="utf-8") as handle:
-    content = handle.read()
-
-needle = '#[serde(rename = "tagged_items")]'
-replacement = '#[serde(rename = "tagged_items", default)]'
-
-if needle in content and replacement not in content:
-    content = content.replace(needle, replacement)
-    with open(path, "w", encoding="utf-8") as handle:
-        handle.write(content)
-PY
-
-echo "Patching generated ConfigContext model nullables..."
-python3 - <<'PY' "${HOST_OUTPUT_DIR}/src/models/config_context.rs"
-import sys
-
-path = sys.argv[1]
-with open(path, "r", encoding="utf-8") as handle:
-    content = handle.read()
-
-content = content.replace(
-    '#[serde(rename = "data_file")]\n    pub data_file: Box<crate::models::BriefDataFile>,',
-    '#[serde(rename = "data_file", default, skip_serializing_if = "Option::is_none")]\n    pub data_file: Option<Box<crate::models::BriefDataFile>>,'\n)
-
-content = content.replace(
-    "data_file: crate::models::BriefDataFile,",
-    "data_file: Option<crate::models::BriefDataFile>,",
-)
-
-content = content.replace(
-    "data_file: Box::new(data_file),",
-    "data_file: data_file.map(Box::new),",
-)
-
-with open(path, \"w\", encoding=\"utf-8\") as handle:
-    handle.write(content)
-PY
-
 echo "Normalizing generated Cargo.toml dependencies..."
 python3 - <<'PY' "${HOST_OUTPUT_DIR}/Cargo.toml"
 import sys
@@ -208,50 +195,8 @@ with open(path, "w", encoding="utf-8") as handle:
     handle.writelines(lines)
 PY
 
-echo "Normalizing rustdoc links in generated sources..."
-python3 - <<'PY' "${HOST_OUTPUT_DIR}/src"
-import os
-import re
-import sys
-
-root = sys.argv[1]
-
-doc_line_re = re.compile(r'^(?P<prefix>\s*///\s?|\s*//!\s?)(?P<body>.*)$')
-anchor_re = re.compile(r'<a href=\\"(https?://[^\\"]+)\\"[^>]*>([^<]+)</a>')
-url_re = re.compile(r'(?<!<)(https?://[^\s<>()]+)(?P<punct>[)\].,;:]?)')
-
-def normalize_doc_line(line: str) -> str:
-    line_end = "\n" if line.endswith("\n") else ""
-    stripped = line[:-1] if line_end else line
-    match = doc_line_re.match(stripped)
-    if not match:
-        return line
-
-    prefix = match.group("prefix")
-    body = match.group("body")
-
-    body = anchor_re.sub(r'\2 (<\1>)', body)
-
-    def wrap_url(match: re.Match) -> str:
-        url = match.group(1)
-        punct = match.group("punct") or ""
-        return f"<{url}>{punct}"
-
-    body = url_re.sub(wrap_url, body)
-    return f"{prefix}{body}{line_end}"
-
-for dirpath, _, filenames in os.walk(root):
-    for filename in filenames:
-        if not filename.endswith(".rs"):
-            continue
-        path = os.path.join(dirpath, filename)
-        with open(path, "r", encoding="utf-8") as handle:
-            lines = handle.readlines()
-        new_lines = [normalize_doc_line(line) for line in lines]
-        if new_lines != lines:
-            with open(path, "w", encoding="utf-8") as handle:
-                handle.writelines(new_lines)
-PY
+echo "Running cargo fmt..."
+cargo fmt --all
 
 echo "Code generation complete!"
 echo "Generated files are in ${OUTPUT_DIR}"

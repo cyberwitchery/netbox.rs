@@ -12,14 +12,14 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CustomField {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display_url")]
-    pub display_url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display_url", skip_serializing_if = "Option::is_none")]
+    pub display_url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     #[serde(rename = "object_types")]
     pub object_types: Vec<String>,
     #[serde(rename = "type")]
@@ -31,8 +31,8 @@ pub struct CustomField {
         skip_serializing_if = "Option::is_none"
     )]
     pub related_object_type: Option<Option<String>>,
-    #[serde(rename = "data_type")]
-    pub data_type: String,
+    #[serde(rename = "data_type", skip_serializing_if = "Option::is_none")]
+    pub data_type: Option<String>,
     /// Internal field name
     #[serde(rename = "name")]
     pub name: String,
@@ -109,35 +109,38 @@ pub struct CustomField {
     pub choice_set: Option<Option<Box<crate::models::BriefCustomFieldChoiceSet>>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    #[serde(rename = "created", deserialize_with = "Option::deserialize")]
-    pub created: Option<String>,
-    #[serde(rename = "last_updated", deserialize_with = "Option::deserialize")]
-    pub last_updated: Option<String>,
+    #[serde(
+        rename = "created",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created: Option<Option<String>>,
+    #[serde(
+        rename = "last_updated",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_updated: Option<Option<String>>,
 }
 
 impl CustomField {
     /// Extends the built-in ModelSerializer to enforce calling full_clean() on a copy of the associated instance during validation. (DRF does not do this by default; see <https://github.com/encode/django-rest-framework/issues/3144>)
     pub fn new(
-        id: i32,
-        url: String,
-        display_url: String,
-        display: String,
         object_types: Vec<String>,
         r#type: crate::models::CustomFieldType,
-        data_type: String,
         name: String,
-        created: Option<String>,
-        last_updated: Option<String>,
     ) -> CustomField {
         CustomField {
-            id,
-            url,
-            display_url,
-            display,
+            id: None,
+            url: None,
+            display_url: None,
+            display: None,
             object_types,
             r#type: Box::new(r#type),
             related_object_type: None,
-            data_type,
+            data_type: None,
             name,
             label: None,
             group_name: None,
@@ -157,8 +160,8 @@ impl CustomField {
             validation_regex: None,
             choice_set: None,
             comments: None,
-            created,
-            last_updated,
+            created: None,
+            last_updated: None,
         }
     }
 }

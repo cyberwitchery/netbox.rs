@@ -12,14 +12,14 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct VmInterface {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display_url")]
-    pub display_url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display_url", skip_serializing_if = "Option::is_none")]
+    pub display_url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     #[serde(rename = "virtual_machine")]
     pub virtual_machine: Box<crate::models::BriefVirtualMachine>,
     #[serde(rename = "name")]
@@ -47,8 +47,13 @@ pub struct VmInterface {
         skip_serializing_if = "Option::is_none"
     )]
     pub mtu: Option<Option<i32>>,
-    #[serde(rename = "mac_address", deserialize_with = "Option::deserialize")]
-    pub mac_address: Option<String>,
+    #[serde(
+        rename = "mac_address",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub mac_address: Option<Option<String>>,
     #[serde(
         rename = "primary_mac_address",
         default,
@@ -56,8 +61,13 @@ pub struct VmInterface {
         skip_serializing_if = "Option::is_none"
     )]
     pub primary_mac_address: Option<Option<Box<crate::models::BriefMacAddress>>>,
-    #[serde(rename = "mac_addresses", deserialize_with = "Option::deserialize")]
-    pub mac_addresses: Option<Vec<crate::models::BriefMacAddress>>,
+    #[serde(
+        rename = "mac_addresses",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub mac_addresses: Option<Option<Vec<crate::models::BriefMacAddress>>>,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[serde(rename = "mode", skip_serializing_if = "Option::is_none")]
@@ -92,53 +102,54 @@ pub struct VmInterface {
         skip_serializing_if = "Option::is_none"
     )]
     pub vrf: Option<Option<Box<crate::models::BriefVrf>>>,
-    #[serde(rename = "l2vpn_termination", deserialize_with = "Option::deserialize")]
-    pub l2vpn_termination: Option<Box<crate::models::BriefL2VpnTermination>>,
+    #[serde(
+        rename = "l2vpn_termination",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub l2vpn_termination: Option<Option<Box<crate::models::BriefL2VpnTermination>>>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<crate::models::NestedTag>>,
     #[serde(rename = "custom_fields", skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<::std::collections::HashMap<String, serde_json::Value>>,
-    #[serde(rename = "created", deserialize_with = "Option::deserialize")]
-    pub created: Option<String>,
-    #[serde(rename = "last_updated", deserialize_with = "Option::deserialize")]
-    pub last_updated: Option<String>,
-    #[serde(rename = "count_ipaddresses")]
-    pub count_ipaddresses: i32,
-    #[serde(rename = "count_fhrp_groups")]
-    pub count_fhrp_groups: i32,
+    #[serde(
+        rename = "created",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created: Option<Option<String>>,
+    #[serde(
+        rename = "last_updated",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_updated: Option<Option<String>>,
+    #[serde(rename = "count_ipaddresses", skip_serializing_if = "Option::is_none")]
+    pub count_ipaddresses: Option<i32>,
+    #[serde(rename = "count_fhrp_groups", skip_serializing_if = "Option::is_none")]
+    pub count_fhrp_groups: Option<i32>,
 }
 
 impl VmInterface {
     /// Adds support for custom fields and tags.
-    pub fn new(
-        id: i32,
-        url: String,
-        display_url: String,
-        display: String,
-        virtual_machine: crate::models::BriefVirtualMachine,
-        name: String,
-        mac_address: Option<String>,
-        mac_addresses: Option<Vec<crate::models::BriefMacAddress>>,
-        l2vpn_termination: Option<crate::models::BriefL2VpnTermination>,
-        created: Option<String>,
-        last_updated: Option<String>,
-        count_ipaddresses: i32,
-        count_fhrp_groups: i32,
-    ) -> VmInterface {
+    pub fn new(virtual_machine: crate::models::BriefVirtualMachine, name: String) -> VmInterface {
         VmInterface {
-            id,
-            url,
-            display_url,
-            display,
+            id: None,
+            url: None,
+            display_url: None,
+            display: None,
             virtual_machine: Box::new(virtual_machine),
             name,
             enabled: None,
             parent: None,
             bridge: None,
             mtu: None,
-            mac_address,
+            mac_address: None,
             primary_mac_address: None,
-            mac_addresses,
+            mac_addresses: None,
             description: None,
             mode: None,
             untagged_vlan: None,
@@ -146,17 +157,13 @@ impl VmInterface {
             qinq_svlan: None,
             vlan_translation_policy: None,
             vrf: None,
-            l2vpn_termination: if let Some(x) = l2vpn_termination {
-                Some(Box::new(x))
-            } else {
-                None
-            },
+            l2vpn_termination: None,
             tags: None,
             custom_fields: None,
-            created,
-            last_updated,
-            count_ipaddresses,
-            count_fhrp_groups,
+            created: None,
+            last_updated: None,
+            count_ipaddresses: None,
+            count_fhrp_groups: None,
         }
     }
 }

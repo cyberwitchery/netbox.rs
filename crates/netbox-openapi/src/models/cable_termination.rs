@@ -12,12 +12,12 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CableTermination {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     #[serde(rename = "cable")]
     pub cable: i32,
     /// * `A` - A * `B` - B
@@ -27,39 +27,48 @@ pub struct CableTermination {
     pub termination_type: String,
     #[serde(rename = "termination_id")]
     pub termination_id: i64,
-    #[serde(rename = "termination", deserialize_with = "Option::deserialize")]
-    pub termination: Option<serde_json::Value>,
-    #[serde(rename = "created", deserialize_with = "Option::deserialize")]
-    pub created: Option<String>,
-    #[serde(rename = "last_updated", deserialize_with = "Option::deserialize")]
-    pub last_updated: Option<String>,
+    #[serde(
+        rename = "termination",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub termination: Option<Option<serde_json::Value>>,
+    #[serde(
+        rename = "created",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created: Option<Option<String>>,
+    #[serde(
+        rename = "last_updated",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_updated: Option<Option<String>>,
 }
 
 impl CableTermination {
     /// Adds support for custom fields and tags.
     pub fn new(
-        id: i32,
-        url: String,
-        display: String,
         cable: i32,
         cable_end: CableEnd,
         termination_type: String,
         termination_id: i64,
-        termination: Option<serde_json::Value>,
-        created: Option<String>,
-        last_updated: Option<String>,
     ) -> CableTermination {
         CableTermination {
-            id,
-            url,
-            display,
+            id: None,
+            url: None,
+            display: None,
             cable,
             cable_end,
             termination_type,
             termination_id,
-            termination,
-            created,
-            last_updated,
+            termination: None,
+            created: None,
+            last_updated: None,
         }
     }
 }

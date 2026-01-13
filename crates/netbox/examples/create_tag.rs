@@ -37,9 +37,10 @@ async fn main() -> Result<()> {
         })
         .await?;
 
-    println!("Created tag {} with id {}", tag.slug, tag.id);
+    let tag_id = tag.id.expect("tag id missing from response");
+    println!("Created tag {} with id {}", tag.slug, tag_id);
 
-    client.extras().tags().delete(tag.id).await?;
+    client.extras().tags().delete(tag_id).await?;
     println!("Deleted tag {}", tag.slug);
 
     Ok(())

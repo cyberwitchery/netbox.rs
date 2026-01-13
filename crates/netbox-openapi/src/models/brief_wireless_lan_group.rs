@@ -12,44 +12,36 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct BriefWirelessLanGroup {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "slug")]
     pub slug: String,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    #[serde(rename = "wirelesslan_count")]
-    pub wirelesslan_count: i32,
-    #[serde(rename = "_depth")]
-    pub _depth: i32,
+    #[serde(rename = "wirelesslan_count", skip_serializing_if = "Option::is_none")]
+    pub wirelesslan_count: Option<i32>,
+    #[serde(rename = "_depth", skip_serializing_if = "Option::is_none")]
+    pub _depth: Option<i32>,
 }
 
 impl BriefWirelessLanGroup {
     /// Extends PrimaryModelSerializer to include MPTT support.
-    pub fn new(
-        id: i32,
-        url: String,
-        display: String,
-        name: String,
-        slug: String,
-        wirelesslan_count: i32,
-        _depth: i32,
-    ) -> BriefWirelessLanGroup {
+    pub fn new(name: String, slug: String) -> BriefWirelessLanGroup {
         BriefWirelessLanGroup {
-            id,
-            url,
-            display,
+            id: None,
+            url: None,
+            display: None,
             name,
             slug,
             description: None,
-            wirelesslan_count,
-            _depth,
+            wirelesslan_count: None,
+            _depth: None,
         }
     }
 }

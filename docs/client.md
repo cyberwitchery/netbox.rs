@@ -64,7 +64,8 @@ let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"
 let mut paginator = client.dcim().devices().paginate(None);
 while let Some(page) = paginator.next_page().await? {
     for device in page.results {
-        println!("{}", device.display);
+        let display = device.display.as_deref().unwrap_or("<unknown>");
+        println!("{display}");
     }
 }
 # Ok(())
@@ -91,12 +92,13 @@ let request = CreateDeviceRequest {
 };
 
 let device = client.dcim().devices().create(&request).await?;
+let device_id = device.id.expect("device id missing from response");
 let _updated = client
     .dcim()
     .devices()
-    .patch(device.id, &serde_json::json!({"status": "offline"}))
+    .patch(device_id, &serde_json::json!({"status": "offline"}))
     .await?;
-client.dcim().devices().delete(device.id).await?;
+client.dcim().devices().delete(device_id).await?;
 # Ok(())
 # }
 ```
@@ -151,7 +153,7 @@ use netbox::{Client, ClientConfig, Error};
 # async fn example() -> Result<(), Box<dyn std::error::Error>> {
 let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
 match client.dcim().devices().get(999).await {
-    Ok(device) => println!("{}", device.display),
+    Ok(device) => println!("{}", device.display.as_deref().unwrap_or("<unknown>")),
     Err(Error::ApiError { status, .. }) if status == 404 => {
         println!("not found");
     }
@@ -178,7 +180,7 @@ use netbox::openapi::apis::dcim_api;
 let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
 let openapi_config = client.openapi_config();
 let device = dcim_api::dcim_devices_retrieve(&openapi_config, 42).await?;
-println!("{}", device.display);
+println!("{}", device.display.as_deref().unwrap_or("<unknown>"));
 # Ok(())
 # }
 ```

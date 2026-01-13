@@ -12,18 +12,18 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct ContactAssignment {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     #[serde(rename = "object_type")]
     pub object_type: String,
     #[serde(rename = "object_id")]
     pub object_id: i64,
-    #[serde(rename = "object")]
-    pub object: ::std::collections::HashMap<String, serde_json::Value>,
+    #[serde(rename = "object", skip_serializing_if = "Option::is_none")]
+    pub object: Option<::std::collections::HashMap<String, serde_json::Value>>,
     #[serde(rename = "contact")]
     pub contact: Box<crate::models::BriefContact>,
     #[serde(
@@ -39,39 +39,43 @@ pub struct ContactAssignment {
     pub tags: Option<Vec<crate::models::NestedTag>>,
     #[serde(rename = "custom_fields", skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<::std::collections::HashMap<String, serde_json::Value>>,
-    #[serde(rename = "created", deserialize_with = "Option::deserialize")]
-    pub created: Option<String>,
-    #[serde(rename = "last_updated", deserialize_with = "Option::deserialize")]
-    pub last_updated: Option<String>,
+    #[serde(
+        rename = "created",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created: Option<Option<String>>,
+    #[serde(
+        rename = "last_updated",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_updated: Option<Option<String>>,
 }
 
 impl ContactAssignment {
     /// Adds support for custom fields and tags.
     pub fn new(
-        id: i32,
-        url: String,
-        display: String,
         object_type: String,
         object_id: i64,
-        object: ::std::collections::HashMap<String, serde_json::Value>,
         contact: crate::models::BriefContact,
-        created: Option<String>,
-        last_updated: Option<String>,
     ) -> ContactAssignment {
         ContactAssignment {
-            id,
-            url,
-            display,
+            id: None,
+            url: None,
+            display: None,
             object_type,
             object_id,
-            object,
+            object: None,
             contact: Box::new(contact),
             role: None,
             priority: None,
             tags: None,
             custom_fields: None,
-            created,
-            last_updated,
+            created: None,
+            last_updated: None,
         }
     }
 }

@@ -12,12 +12,12 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct BriefVrf {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     #[serde(rename = "name")]
     pub name: String,
     /// Unique route distinguisher (as defined in RFC 4364)
@@ -30,21 +30,21 @@ pub struct BriefVrf {
     pub rd: Option<Option<String>>,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    #[serde(rename = "prefix_count")]
-    pub prefix_count: i64,
+    #[serde(rename = "prefix_count", skip_serializing_if = "Option::is_none")]
+    pub prefix_count: Option<i64>,
 }
 
 impl BriefVrf {
     /// Adds support for custom fields and tags.
-    pub fn new(id: i32, url: String, display: String, name: String, prefix_count: i64) -> BriefVrf {
+    pub fn new(name: String) -> BriefVrf {
         BriefVrf {
-            id,
-            url,
-            display,
+            id: None,
+            url: None,
+            display: None,
             name,
             rd: None,
             description: None,
-            prefix_count,
+            prefix_count: None,
         }
     }
 }

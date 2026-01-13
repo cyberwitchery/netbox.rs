@@ -10,72 +10,74 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct ObjectChange {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display_url")]
-    pub display_url: String,
-    #[serde(rename = "display")]
-    pub display: String,
-    #[serde(rename = "time")]
-    pub time: String,
-    #[serde(rename = "user")]
-    pub user: Box<crate::models::BriefUser>,
-    #[serde(rename = "user_name")]
-    pub user_name: String,
-    #[serde(rename = "request_id")]
-    pub request_id: uuid::Uuid,
-    #[serde(rename = "action")]
-    pub action: Box<crate::models::ChangeDiffAction>,
-    #[serde(rename = "changed_object_type")]
-    pub changed_object_type: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display_url", skip_serializing_if = "Option::is_none")]
+    pub display_url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
+    #[serde(rename = "time", skip_serializing_if = "Option::is_none")]
+    pub time: Option<String>,
+    #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
+    pub user: Option<Box<crate::models::BriefUser>>,
+    #[serde(rename = "user_name", skip_serializing_if = "Option::is_none")]
+    pub user_name: Option<String>,
+    #[serde(rename = "request_id", skip_serializing_if = "Option::is_none")]
+    pub request_id: Option<uuid::Uuid>,
+    #[serde(rename = "action", skip_serializing_if = "Option::is_none")]
+    pub action: Option<Box<crate::models::ChangeDiffAction>>,
+    #[serde(
+        rename = "changed_object_type",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub changed_object_type: Option<String>,
     #[serde(rename = "changed_object_id")]
     pub changed_object_id: i64,
-    #[serde(rename = "changed_object", deserialize_with = "Option::deserialize")]
-    pub changed_object: Option<serde_json::Value>,
-    #[serde(rename = "message")]
-    pub message: String,
-    #[serde(rename = "prechange_data", deserialize_with = "Option::deserialize")]
-    pub prechange_data: Option<serde_json::Value>,
-    #[serde(rename = "postchange_data", deserialize_with = "Option::deserialize")]
-    pub postchange_data: Option<serde_json::Value>,
+    #[serde(
+        rename = "changed_object",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub changed_object: Option<Option<serde_json::Value>>,
+    #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
+    pub message: Option<String>,
+    #[serde(
+        rename = "prechange_data",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub prechange_data: Option<Option<serde_json::Value>>,
+    #[serde(
+        rename = "postchange_data",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub postchange_data: Option<Option<serde_json::Value>>,
 }
 
 impl ObjectChange {
-    pub fn new(
-        id: i32,
-        url: String,
-        display_url: String,
-        display: String,
-        time: String,
-        user: crate::models::BriefUser,
-        user_name: String,
-        request_id: uuid::Uuid,
-        action: crate::models::ChangeDiffAction,
-        changed_object_type: String,
-        changed_object_id: i64,
-        changed_object: Option<serde_json::Value>,
-        message: String,
-        prechange_data: Option<serde_json::Value>,
-        postchange_data: Option<serde_json::Value>,
-    ) -> ObjectChange {
+    pub fn new(changed_object_id: i64) -> ObjectChange {
         ObjectChange {
-            id,
-            url,
-            display_url,
-            display,
-            time,
-            user: Box::new(user),
-            user_name,
-            request_id,
-            action: Box::new(action),
-            changed_object_type,
+            id: None,
+            url: None,
+            display_url: None,
+            display: None,
+            time: None,
+            user: None,
+            user_name: None,
+            request_id: None,
+            action: None,
+            changed_object_type: None,
             changed_object_id,
-            changed_object,
-            message,
-            prechange_data,
-            postchange_data,
+            changed_object: None,
+            message: None,
+            prechange_data: None,
+            postchange_data: None,
         }
     }
 }

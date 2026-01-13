@@ -12,22 +12,23 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct AvailableVlan {
-    #[serde(rename = "vid")]
-    pub vid: i32,
-    #[serde(rename = "group", deserialize_with = "Option::deserialize")]
-    pub group: Option<Box<crate::models::BriefVlanGroup>>,
+    #[serde(rename = "vid", skip_serializing_if = "Option::is_none")]
+    pub vid: Option<i32>,
+    #[serde(
+        rename = "group",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub group: Option<Option<Box<crate::models::BriefVlanGroup>>>,
 }
 
 impl AvailableVlan {
     /// Representation of a VLAN which does not exist in the database.
-    pub fn new(vid: i32, group: Option<crate::models::BriefVlanGroup>) -> AvailableVlan {
+    pub fn new() -> AvailableVlan {
         AvailableVlan {
-            vid,
-            group: if let Some(x) = group {
-                Some(Box::new(x))
-            } else {
-                None
-            },
+            vid: None,
+            group: None,
         }
     }
 }

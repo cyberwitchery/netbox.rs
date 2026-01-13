@@ -12,63 +12,66 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct ImageAttachment {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     #[serde(rename = "object_type")]
     pub object_type: String,
     #[serde(rename = "object_id")]
     pub object_id: i64,
-    #[serde(rename = "parent", deserialize_with = "Option::deserialize")]
-    pub parent: Option<serde_json::Value>,
+    #[serde(
+        rename = "parent",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub parent: Option<Option<serde_json::Value>>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(rename = "image")]
     pub image: String,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    #[serde(rename = "image_height")]
-    pub image_height: i32,
-    #[serde(rename = "image_width")]
-    pub image_width: i32,
-    #[serde(rename = "created", deserialize_with = "Option::deserialize")]
-    pub created: Option<String>,
-    #[serde(rename = "last_updated", deserialize_with = "Option::deserialize")]
-    pub last_updated: Option<String>,
+    #[serde(rename = "image_height", skip_serializing_if = "Option::is_none")]
+    pub image_height: Option<i32>,
+    #[serde(rename = "image_width", skip_serializing_if = "Option::is_none")]
+    pub image_width: Option<i32>,
+    #[serde(
+        rename = "created",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created: Option<Option<String>>,
+    #[serde(
+        rename = "last_updated",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_updated: Option<Option<String>>,
 }
 
 impl ImageAttachment {
     /// Extends the built-in ModelSerializer to enforce calling full_clean() on a copy of the associated instance during validation. (DRF does not do this by default; see <https://github.com/encode/django-rest-framework/issues/3144>)
-    pub fn new(
-        id: i32,
-        url: String,
-        display: String,
-        object_type: String,
-        object_id: i64,
-        parent: Option<serde_json::Value>,
-        image: String,
-        image_height: i32,
-        image_width: i32,
-        created: Option<String>,
-        last_updated: Option<String>,
-    ) -> ImageAttachment {
+    pub fn new(object_type: String, object_id: i64, image: String) -> ImageAttachment {
         ImageAttachment {
-            id,
-            url,
-            display,
+            id: None,
+            url: None,
+            display: None,
             object_type,
             object_id,
-            parent,
+            parent: None,
             name: None,
             image,
             description: None,
-            image_height,
-            image_width,
-            created,
-            last_updated,
+            image_height: None,
+            image_width: None,
+            created: None,
+            last_updated: None,
         }
     }
 }

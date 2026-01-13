@@ -52,12 +52,10 @@ async fn main() -> Result<()> {
         })
         .await?;
 
-    println!(
-        "Created config context {} with id {}",
-        context.name, context.id
-    );
+    let context_id = context.id.expect("config context id missing from response");
+    println!("Created config context {} with id {}", context.name, context_id);
 
-    client.extras().config_contexts().delete(context.id).await?;
+    client.extras().config_contexts().delete(context_id).await?;
     println!("Deleted config context {}", context.name);
 
     Ok(())

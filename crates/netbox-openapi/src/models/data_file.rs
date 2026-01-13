@@ -12,51 +12,41 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct DataFile {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display_url")]
-    pub display_url: String,
-    #[serde(rename = "display")]
-    pub display: String,
-    #[serde(rename = "source")]
-    pub source: Box<crate::models::BriefDataSource>,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display_url", skip_serializing_if = "Option::is_none")]
+    pub display_url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
+    #[serde(rename = "source", skip_serializing_if = "Option::is_none")]
+    pub source: Option<Box<crate::models::BriefDataSource>>,
     /// File path relative to the data source's root
-    #[serde(rename = "path")]
-    pub path: String,
-    #[serde(rename = "last_updated")]
-    pub last_updated: String,
-    #[serde(rename = "size")]
-    pub size: i32,
+    #[serde(rename = "path", skip_serializing_if = "Option::is_none")]
+    pub path: Option<String>,
+    #[serde(rename = "last_updated", skip_serializing_if = "Option::is_none")]
+    pub last_updated: Option<String>,
+    #[serde(rename = "size", skip_serializing_if = "Option::is_none")]
+    pub size: Option<i32>,
     /// SHA256 hash of the file data
-    #[serde(rename = "hash")]
-    pub hash: String,
+    #[serde(rename = "hash", skip_serializing_if = "Option::is_none")]
+    pub hash: Option<String>,
 }
 
 impl DataFile {
     /// Adds support for custom fields and tags.
-    pub fn new(
-        id: i32,
-        url: String,
-        display_url: String,
-        display: String,
-        source: crate::models::BriefDataSource,
-        path: String,
-        last_updated: String,
-        size: i32,
-        hash: String,
-    ) -> DataFile {
+    pub fn new() -> DataFile {
         DataFile {
-            id,
-            url,
-            display_url,
-            display,
-            source: Box::new(source),
-            path,
-            last_updated,
-            size,
-            hash,
+            id: None,
+            url: None,
+            display_url: None,
+            display: None,
+            source: None,
+            path: None,
+            last_updated: None,
+            size: None,
+            hash: None,
         }
     }
 }

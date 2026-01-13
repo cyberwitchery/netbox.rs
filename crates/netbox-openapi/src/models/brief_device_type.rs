@@ -12,12 +12,12 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct BriefDeviceType {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     #[serde(rename = "manufacturer")]
     pub manufacturer: Box<crate::models::BriefManufacturer>,
     #[serde(rename = "model")]
@@ -26,30 +26,26 @@ pub struct BriefDeviceType {
     pub slug: String,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    #[serde(rename = "device_count")]
-    pub device_count: i64,
+    #[serde(rename = "device_count", skip_serializing_if = "Option::is_none")]
+    pub device_count: Option<i64>,
 }
 
 impl BriefDeviceType {
     /// Adds support for custom fields and tags.
     pub fn new(
-        id: i32,
-        url: String,
-        display: String,
         manufacturer: crate::models::BriefManufacturer,
         model: String,
         slug: String,
-        device_count: i64,
     ) -> BriefDeviceType {
         BriefDeviceType {
-            id,
-            url,
-            display,
+            id: None,
+            url: None,
+            display: None,
             manufacturer: Box::new(manufacturer),
             model,
             slug,
             description: None,
-            device_count,
+            device_count: None,
         }
     }
 }

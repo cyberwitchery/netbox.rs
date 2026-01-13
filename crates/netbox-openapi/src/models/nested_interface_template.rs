@@ -12,12 +12,12 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct NestedInterfaceTemplate {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     /// {module} is accepted as a substitution for the module bay position when attached to a module type.
     #[serde(rename = "name")]
     pub name: String,
@@ -25,11 +25,11 @@ pub struct NestedInterfaceTemplate {
 
 impl NestedInterfaceTemplate {
     /// Represents an object related through a ForeignKey field. On write, it accepts a primary key (PK) value or a dictionary of attributes which can be used to uniquely identify the related object. This class should be subclassed to return a full representation of the related object on read.
-    pub fn new(id: i32, url: String, display: String, name: String) -> NestedInterfaceTemplate {
+    pub fn new(name: String) -> NestedInterfaceTemplate {
         NestedInterfaceTemplate {
-            id,
-            url,
-            display,
+            id: None,
+            url: None,
+            display: None,
             name,
         }
     }

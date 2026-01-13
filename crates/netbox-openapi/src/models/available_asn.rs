@@ -12,17 +12,17 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct AvailableAsn {
-    #[serde(rename = "asn")]
-    pub asn: i32,
+    #[serde(rename = "asn", skip_serializing_if = "Option::is_none")]
+    pub asn: Option<i32>,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
 }
 
 impl AvailableAsn {
     /// Representation of an ASN which does not exist in the database.
-    pub fn new(asn: i32) -> AvailableAsn {
+    pub fn new() -> AvailableAsn {
         AvailableAsn {
-            asn,
+            asn: None,
             description: None,
         }
     }

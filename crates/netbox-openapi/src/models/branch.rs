@@ -12,24 +12,29 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct Branch {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display")]
-    pub display: String,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Box<crate::models::BranchStatus>>,
-    #[serde(rename = "owner")]
-    pub owner: Box<crate::models::BriefUser>,
+    #[serde(rename = "owner", skip_serializing_if = "Option::is_none")]
+    pub owner: Option<Box<crate::models::BriefUser>>,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    #[serde(rename = "schema_id")]
-    pub schema_id: String,
-    #[serde(rename = "last_sync", deserialize_with = "Option::deserialize")]
-    pub last_sync: Option<String>,
+    #[serde(rename = "schema_id", skip_serializing_if = "Option::is_none")]
+    pub schema_id: Option<String>,
+    #[serde(
+        rename = "last_sync",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_sync: Option<Option<String>>,
     #[serde(
         rename = "merged_time",
         default,
@@ -37,51 +42,50 @@ pub struct Branch {
         skip_serializing_if = "Option::is_none"
     )]
     pub merged_time: Option<Option<String>>,
-    #[serde(rename = "merged_by")]
-    pub merged_by: Box<crate::models::BriefUser>,
+    #[serde(rename = "merged_by", skip_serializing_if = "Option::is_none")]
+    pub merged_by: Option<Box<crate::models::BriefUser>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<crate::models::NestedTag>>,
     #[serde(rename = "custom_fields", skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<::std::collections::HashMap<String, serde_json::Value>>,
-    #[serde(rename = "created", deserialize_with = "Option::deserialize")]
-    pub created: Option<String>,
-    #[serde(rename = "last_updated", deserialize_with = "Option::deserialize")]
-    pub last_updated: Option<String>,
+    #[serde(
+        rename = "created",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub created: Option<Option<String>>,
+    #[serde(
+        rename = "last_updated",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub last_updated: Option<Option<String>>,
 }
 
 impl Branch {
     /// Adds support for custom fields and tags.
-    pub fn new(
-        id: i32,
-        url: String,
-        display: String,
-        name: String,
-        owner: crate::models::BriefUser,
-        schema_id: String,
-        last_sync: Option<String>,
-        merged_by: crate::models::BriefUser,
-        created: Option<String>,
-        last_updated: Option<String>,
-    ) -> Branch {
+    pub fn new(name: String) -> Branch {
         Branch {
-            id,
-            url,
-            display,
+            id: None,
+            url: None,
+            display: None,
             name,
             status: None,
-            owner: Box::new(owner),
+            owner: None,
             description: None,
-            schema_id,
-            last_sync,
+            schema_id: None,
+            last_sync: None,
             merged_time: None,
-            merged_by: Box::new(merged_by),
+            merged_by: None,
             comments: None,
             tags: None,
             custom_fields: None,
-            created,
-            last_updated,
+            created: None,
+            last_updated: None,
         }
     }
 }

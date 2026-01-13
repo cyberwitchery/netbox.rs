@@ -12,41 +12,33 @@
 
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct BranchEvent {
-    #[serde(rename = "id")]
-    pub id: i32,
-    #[serde(rename = "url")]
-    pub url: String,
-    #[serde(rename = "display")]
-    pub display: String,
-    #[serde(rename = "time")]
-    pub time: String,
-    #[serde(rename = "branch")]
-    pub branch: Box<crate::models::BriefBranch>,
-    #[serde(rename = "user")]
-    pub user: Box<crate::models::BriefUser>,
-    #[serde(rename = "type")]
-    pub r#type: Box<crate::models::BranchEventType>,
+    #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
+    pub id: Option<i32>,
+    #[serde(rename = "url", skip_serializing_if = "Option::is_none")]
+    pub url: Option<String>,
+    #[serde(rename = "display", skip_serializing_if = "Option::is_none")]
+    pub display: Option<String>,
+    #[serde(rename = "time", skip_serializing_if = "Option::is_none")]
+    pub time: Option<String>,
+    #[serde(rename = "branch", skip_serializing_if = "Option::is_none")]
+    pub branch: Option<Box<crate::models::BriefBranch>>,
+    #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
+    pub user: Option<Box<crate::models::BriefUser>>,
+    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
+    pub r#type: Option<Box<crate::models::BranchEventType>>,
 }
 
 impl BranchEvent {
     /// Adds support for custom fields and tags.
-    pub fn new(
-        id: i32,
-        url: String,
-        display: String,
-        time: String,
-        branch: crate::models::BriefBranch,
-        user: crate::models::BriefUser,
-        r#type: crate::models::BranchEventType,
-    ) -> BranchEvent {
+    pub fn new() -> BranchEvent {
         BranchEvent {
-            id,
-            url,
-            display,
-            time,
-            branch: Box::new(branch),
-            user: Box::new(user),
-            r#type: Box::new(r#type),
+            id: None,
+            url: None,
+            display: None,
+            time: None,
+            branch: None,
+            user: None,
+            r#type: None,
         }
     }
 }
