@@ -79,3 +79,9 @@ run:
 ```
 
 set `SKIP_COVERAGE=1` to skip coverage.
+
+## release automation
+
+we publish from tags matching `v*` (for example, `v0.0.1`).
+
+the release workflow expects a repository secret named `CARGO_REGISTRY_TOKEN`.
