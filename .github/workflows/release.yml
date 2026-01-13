@@ -6,7 +6,7 @@ on:
       - "v*"
 
 jobs:
-  publish:
+  warm-cache:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
@@ -18,16 +18,67 @@ jobs:
       - name: set up rust
         uses: dtolnay/rust-toolchain@stable
 
-      - name: cache cargo
-        uses: actions/cache@v4
+      - name: restore cargo cache
+        id: cargo-cache
+        uses: actions/cache/restore@v4
         with:
           path: |
+            ~/.cargo/bin
             ~/.cargo/registry
             ~/.cargo/git
+            ~/.cargo/.crates.toml
+            ~/.cargo/.crates2.json
             target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          key: cargo-${{ runner.os }}-stable-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            ${{ runner.os }}-cargo-
+            cargo-${{ runner.os }}-stable-
+
+      - name: fetch dependencies
+        run: cargo fetch
+
+      - name: build workspace
+        run: cargo build --workspace --tests
+
+      - name: save cargo cache
+        if: steps.cargo-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            ~/.cargo/bin
+            ~/.cargo/registry
+            ~/.cargo/git
+            ~/.cargo/.crates.toml
+            ~/.cargo/.crates2.json
+            target
+          key: cargo-${{ runner.os }}-stable-${{ hashFiles('**/Cargo.lock') }}
+
+  publish:
+    needs: warm-cache
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: set up rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: restore cargo cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            ~/.cargo/bin
+            ~/.cargo/registry
+            ~/.cargo/git
+            ~/.cargo/.crates.toml
+            ~/.cargo/.crates2.json
+            target
+          key: cargo-${{ runner.os }}-stable-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            cargo-${{ runner.os }}-stable-
 
       - name: run tests
         run: cargo test
