@@ -7,7 +7,7 @@ use url::Url;
 /// configuration for the netbox client
 #[derive(Debug, Clone)]
 pub struct ClientConfig {
-    /// base url of the netbox instance (e.g., "https://netbox.example.com")
+    /// base url of the netbox instance (e.g., "<https://netbox.example.com>")
     pub(crate) base_url: Url,
 
     /// api authentication token

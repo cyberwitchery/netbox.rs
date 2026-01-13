@@ -16,7 +16,7 @@ pub struct PatchedConfigTemplateRequest {
     pub name: Option<String>,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Any <a href=\"https://jinja.palletsprojects.com/en/stable/api/#jinja2.Environment\">additional parameters</a> to pass when constructing the Jinja environment
+    /// Any additional parameters (<https://jinja.palletsprojects.com/en/stable/api/#jinja2.Environment>) to pass when constructing the Jinja environment
     #[serde(
         rename = "environment_params",
         default,

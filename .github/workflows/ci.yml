@@ -5,28 +5,14 @@ on:
   pull_request:
 
 jobs:
-  docs:
+  coverage:
     runs-on: big
     timeout-minutes: 10
     env:
       RUSTFLAGS: "-C debuginfo=0"
       RUSTDOCFLAGS: "--cfg docsrs"
       CARGO_PROFILE_DEV_DEBUG: 0
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
-
-      - name: Doc build
-        run: cargo doc --workspace --all-features --no-deps
-
-  coverage:
-    runs-on: big
-    timeout-minutes: 10
-    env:
-      RUSTFLAGS: "-C debuginfo=0"
+      CARGO_TARGET_DIR: target/ci
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -36,6 +22,9 @@ jobs:
 
       - name: Install cargo-llvm-cov
         uses: taiki-e/install-action@cargo-llvm-cov
+
+      - name: Doc build
+        run: cargo doc --workspace --all-features --no-deps
 
       - name: Coverage
         run: cargo llvm-cov --workspace --all-features --ignore-filename-regex 'crates/netbox-openapi|crates/netbox-cli' --fail-under-lines 75 --lcov --output-path lcov.info

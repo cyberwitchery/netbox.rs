@@ -208,6 +208,51 @@ with open(path, "w", encoding="utf-8") as handle:
     handle.writelines(lines)
 PY
 
+echo "Normalizing rustdoc links in generated sources..."
+python3 - <<'PY' "${HOST_OUTPUT_DIR}/src"
+import os
+import re
+import sys
+
+root = sys.argv[1]
+
+doc_line_re = re.compile(r'^(?P<prefix>\s*///\s?|\s*//!\s?)(?P<body>.*)$')
+anchor_re = re.compile(r'<a href=\\"(https?://[^\\"]+)\\"[^>]*>([^<]+)</a>')
+url_re = re.compile(r'(?<!<)(https?://[^\s<>()]+)(?P<punct>[)\].,;:]?)')
+
+def normalize_doc_line(line: str) -> str:
+    line_end = "\n" if line.endswith("\n") else ""
+    stripped = line[:-1] if line_end else line
+    match = doc_line_re.match(stripped)
+    if not match:
+        return line
+
+    prefix = match.group("prefix")
+    body = match.group("body")
+
+    body = anchor_re.sub(r'\2 (<\1>)', body)
+
+    def wrap_url(match: re.Match) -> str:
+        url = match.group(1)
+        punct = match.group("punct") or ""
+        return f"<{url}>{punct}"
+
+    body = url_re.sub(wrap_url, body)
+    return f"{prefix}{body}{line_end}"
+
+for dirpath, _, filenames in os.walk(root):
+    for filename in filenames:
+        if not filename.endswith(".rs"):
+            continue
+        path = os.path.join(dirpath, filename)
+        with open(path, "r", encoding="utf-8") as handle:
+            lines = handle.readlines()
+        new_lines = [normalize_doc_line(line) for line in lines]
+        if new_lines != lines:
+            with open(path, "w", encoding="utf-8") as handle:
+                handle.writelines(new_lines)
+PY
+
 echo "Code generation complete!"
 echo "Generated files are in ${OUTPUT_DIR}"
 echo ""
