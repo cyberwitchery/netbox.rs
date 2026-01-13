@@ -37,7 +37,7 @@ jobs:
         run: cargo fetch
 
       - name: build workspace
-        run: cargo build --workspace --tests
+        run: cargo build --workspace --tests --verbose
 
       - name: save cargo cache
         if: steps.cargo-cache.outputs.cache-hit != 'true'
@@ -81,7 +81,7 @@ jobs:
             cargo-${{ runner.os }}-stable-
 
       - name: run tests
-        run: cargo test
+        run: cargo test --verbose
 
       - name: publish netbox-openapi
         env:

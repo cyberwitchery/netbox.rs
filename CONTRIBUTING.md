@@ -11,6 +11,8 @@ cargo clippy --all-targets --all-features
 cargo fmt --all
 ```
 
+first builds on a new machine or fresh checkout are slow because the dependency cache is cold.
+
 ## local smoke tests
 
 manual smoke tests live under `crates/netbox/tests/smoke_local.rs` and hit a live netbox.
