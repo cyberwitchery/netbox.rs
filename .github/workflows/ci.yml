@@ -8,6 +8,8 @@ jobs:
   warm-cache:
     runs-on: ubuntu-latest-m
     timeout-minutes: 30
+    env:
+      RUSTFLAGS: "-C debuginfo=0"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -34,7 +36,7 @@ jobs:
         run: cargo fetch
 
       - name: Build workspace
-        run: cargo build --workspace --tests --verbose
+        run: cargo build --workspace --tests
 
       - name: Save cargo cache
         if: steps.cargo-cache.outputs.cache-hit != 'true'
@@ -54,6 +56,8 @@ jobs:
     if: ${{ always() }}
     runs-on: ubuntu-latest-m
     timeout-minutes: 45
+    env:
+      RUSTFLAGS: "-C debuginfo=0"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -76,13 +80,15 @@ jobs:
             cargo-${{ runner.os }}-stable-
 
       - name: Test
-        run: cargo test --verbose
+        run: cargo test
 
   coverage:
     needs: warm-cache
     if: ${{ always() }}
     runs-on: ubuntu-latest-m
     timeout-minutes: 45
+    env:
+      RUSTFLAGS: "-C debuginfo=0"
     steps:
       - name: Checkout
         uses: actions/checkout@v4

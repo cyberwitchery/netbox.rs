@@ -11,6 +11,8 @@ jobs:
     timeout-minutes: 30
     permissions:
       contents: read
+    env:
+      RUSTFLAGS: "-C debuginfo=0"
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -37,7 +39,7 @@ jobs:
         run: cargo fetch
 
       - name: build workspace
-        run: cargo build --workspace --tests --verbose
+        run: cargo build --workspace --tests
 
       - name: save cargo cache
         if: steps.cargo-cache.outputs.cache-hit != 'true'
@@ -59,6 +61,8 @@ jobs:
     timeout-minutes: 30
     permissions:
       contents: read
+    env:
+      RUSTFLAGS: "-C debuginfo=0"
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -81,7 +85,7 @@ jobs:
             cargo-${{ runner.os }}-stable-
 
       - name: run tests
-        run: cargo test --verbose
+        run: cargo test
 
       - name: publish netbox-openapi
         env:
