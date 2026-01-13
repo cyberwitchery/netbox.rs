@@ -1,0 +1,43 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/netbox-openapi",
+    "crates/netbox",
+    "crates/netbox-cli",
+]
+
+[workspace.package]
+version = "0.0.1"
+authors = ["NetBox Rust Contributors"]
+edition = "2021"
+rust-version = "1.75"
+license = "MIT"
+repository = "https://github.com/network-auto/netbox.rs"
+homepage = "https://github.com/network-auto/netbox.rs"
+keywords = ["netbox", "api", "dcim", "ipam", "network"]
+categories = ["api-bindings", "network-programming"]
+
+[workspace.dependencies]
+# HTTP client
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Error handling
+thiserror = "1.0"
+
+# Async runtime
+tokio = { version = "1.0", features = ["macros", "rt-multi-thread"] }
+
+# CLI dependencies
+clap = { version = "4.5", features = ["derive", "env"] }
+
+# URL handling
+url = "2.5"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1

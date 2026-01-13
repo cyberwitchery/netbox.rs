@@ -1,0 +1,24 @@
+[package]
+name = "netbox-cli"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+description = "CLI tool for testing NetBox API client"
+publish = false
+
+[dependencies]
+netbox = { version = "0.0.1", path = "../netbox" }
+clap = { workspace = true }
+tokio = { workspace = true }
+serde_json = { workspace = true }
+serde = { workspace = true }
+reqwest = { workspace = true }
+serde_urlencoded = "0.7"
+
+[[bin]]
+name = "netbox-cli"
+path = "src/main.rs"
