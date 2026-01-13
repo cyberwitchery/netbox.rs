@@ -152,36 +152,36 @@ match client.dcim().devices().get(999).await {
 
 ## cli
 
-`netbox-cli` is a small helper for running common requests. for unwrapped endpoints, use `raw`.
+`netbox-cli` is a full-featured cli client for the netbox api. all standard crud resources are exposed as commands. use `raw` for non-standard endpoints.
 
 see `docs/cli.md` for a more complete guide.
 
 list resources:
 
 ```bash
-cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN list-circuits
-cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN list-virtual-machines
-cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN list-tunnels
+cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN circuits circuits list
+cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN virtualization virtual-machines list
+cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN vpn tunnels list
 ```
 
 create or update resources with json:
 
 ```bash
 cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN \
-  create-circuit --json '{"cid":"CIR-1001","provider":1,"type":1}'
+  circuits circuits create --json '{"cid":"CIR-1001","provider":1,"type":1}'
 
 cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN \
-  update-virtual-machine 42 --file vm-update.json
+  virtualization virtual-machines update 42 --file vm-update.json
 ```
 
 raw requests:
 
 ```bash
 cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN \
-  raw --method GET --path api/dcim/devices/ --query "name=leaf-1" --query "limit=5"
+  raw --method GET --path dcim/devices/ --query "name=leaf-1" --query "limit=5"
 
 cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN \
-  raw --method POST --path api/ipam/vrfs/ --json '{"name":"blue","rd":"65000:100"}'
+  raw --method POST --path ipam/vrfs/ --json '{"name":"blue","rd":"65000:100"}'
 ```
 
 run `netbox-cli --help` for available commands.

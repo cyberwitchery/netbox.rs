@@ -37,5 +37,11 @@ cargo package -p netbox-openapi
 echo "packaging netbox (no-verify to allow local path dependency)"
 cargo package -p netbox --no-verify
 
+echo "packaging netbox-cli (no-verify to allow local path dependency)"
+cargo package -p netbox-cli --no-verify
+
 echo "done"
-echo "next: review package contents and publish with cargo publish -p netbox"
+echo "next: publish in order:"
+echo "  cargo publish -p netbox-openapi"
+echo "  cargo publish -p netbox"
+echo "  cargo publish -p netbox-cli"

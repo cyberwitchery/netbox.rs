@@ -1,36 +1,579 @@
-#![doc = include_str!("../../../docs/cli.md")]
+#![doc = include_str!("../docs/cli.md")]
 
 use clap::{Args, Parser, Subcommand};
-use netbox::circuits::{
-    CreateCircuitGroupAssignmentRequest, CreateCircuitRequest, CreateCircuitTerminationRequest,
-    CreateCircuitTypeRequest, CreateProviderAccountRequest, CreateProviderNetworkRequest,
-    CreateProviderRequest, CreateVirtualCircuitRequest, CreateVirtualCircuitTerminationRequest,
-    UpdateCircuitGroupAssignmentRequest, UpdateCircuitRequest, UpdateCircuitTerminationRequest,
-    UpdateCircuitTypeRequest, UpdateProviderAccountRequest, UpdateProviderNetworkRequest,
-    UpdateProviderRequest, UpdateVirtualCircuitRequest, UpdateVirtualCircuitTerminationRequest,
-};
-use netbox::plugins::{CommitRequest, PatchedWritableBranchRequest, WritableBranchRequest};
-use netbox::users::TokenProvisionRequest;
-use netbox::virtualization::{
-    CreateClusterRequest, CreateVirtualDiskRequest, CreateVirtualMachineRequest,
-    CreateVmInterfaceRequest, UpdateClusterRequest, UpdateVirtualDiskRequest,
-    UpdateVirtualMachineRequest, UpdateVmInterfaceRequest,
-};
-use netbox::vpn::{
-    CreateIkePolicyRequest, CreateIkeProposalRequest, CreateIpSecPolicyRequest,
-    CreateIpSecProfileRequest, CreateIpSecProposalRequest, CreateL2VpnRequest,
-    CreateL2VpnTerminationRequest, CreateTunnelGroupRequest, CreateTunnelRequest,
-    CreateTunnelTerminationRequest, UpdateIkePolicyRequest, UpdateIkeProposalRequest,
-    UpdateIpSecPolicyRequest, UpdateIpSecProfileRequest, UpdateIpSecProposalRequest,
-    UpdateL2VpnRequest, UpdateL2VpnTerminationRequest, UpdateTunnelGroupRequest,
-    UpdateTunnelRequest, UpdateTunnelTerminationRequest,
-};
 use netbox::{Client, ClientConfig};
 use reqwest::Method;
 use serde::de::DeserializeOwned;
 use serde_json::{to_string_pretty, Value};
 use std::fs;
 use std::path::PathBuf;
+
+#[derive(Clone, Copy)]
+struct ResourceEntry {
+    name: &'static str,
+    path: &'static str,
+}
+
+const DCIM_RESOURCES: &[ResourceEntry] = &[
+    ResourceEntry {
+        name: "cable-terminations",
+        path: "dcim/cable-terminations/",
+    },
+    ResourceEntry {
+        name: "cables",
+        path: "dcim/cables/",
+    },
+    ResourceEntry {
+        name: "console-port-templates",
+        path: "dcim/console-port-templates/",
+    },
+    ResourceEntry {
+        name: "console-ports",
+        path: "dcim/console-ports/",
+    },
+    ResourceEntry {
+        name: "console-server-port-templates",
+        path: "dcim/console-server-port-templates/",
+    },
+    ResourceEntry {
+        name: "console-server-ports",
+        path: "dcim/console-server-ports/",
+    },
+    ResourceEntry {
+        name: "device-bay-templates",
+        path: "dcim/device-bay-templates/",
+    },
+    ResourceEntry {
+        name: "device-bays",
+        path: "dcim/device-bays/",
+    },
+    ResourceEntry {
+        name: "device-roles",
+        path: "dcim/device-roles/",
+    },
+    ResourceEntry {
+        name: "device-types",
+        path: "dcim/device-types/",
+    },
+    ResourceEntry {
+        name: "devices",
+        path: "dcim/devices/",
+    },
+    ResourceEntry {
+        name: "front-port-templates",
+        path: "dcim/front-port-templates/",
+    },
+    ResourceEntry {
+        name: "front-ports",
+        path: "dcim/front-ports/",
+    },
+    ResourceEntry {
+        name: "interface-templates",
+        path: "dcim/interface-templates/",
+    },
+    ResourceEntry {
+        name: "interfaces",
+        path: "dcim/interfaces/",
+    },
+    ResourceEntry {
+        name: "inventory-item-roles",
+        path: "dcim/inventory-item-roles/",
+    },
+    ResourceEntry {
+        name: "inventory-item-templates",
+        path: "dcim/inventory-item-templates/",
+    },
+    ResourceEntry {
+        name: "inventory-items",
+        path: "dcim/inventory-items/",
+    },
+    ResourceEntry {
+        name: "locations",
+        path: "dcim/locations/",
+    },
+    ResourceEntry {
+        name: "mac-addresses",
+        path: "dcim/mac-addresses/",
+    },
+    ResourceEntry {
+        name: "manufacturers",
+        path: "dcim/manufacturers/",
+    },
+    ResourceEntry {
+        name: "module-bay-templates",
+        path: "dcim/module-bay-templates/",
+    },
+    ResourceEntry {
+        name: "module-bays",
+        path: "dcim/module-bays/",
+    },
+    ResourceEntry {
+        name: "module-type-profiles",
+        path: "dcim/module-type-profiles/",
+    },
+    ResourceEntry {
+        name: "module-types",
+        path: "dcim/module-types/",
+    },
+    ResourceEntry {
+        name: "modules",
+        path: "dcim/modules/",
+    },
+    ResourceEntry {
+        name: "platforms",
+        path: "dcim/platforms/",
+    },
+    ResourceEntry {
+        name: "power-feeds",
+        path: "dcim/power-feeds/",
+    },
+    ResourceEntry {
+        name: "power-outlet-templates",
+        path: "dcim/power-outlet-templates/",
+    },
+    ResourceEntry {
+        name: "power-outlets",
+        path: "dcim/power-outlets/",
+    },
+    ResourceEntry {
+        name: "power-panels",
+        path: "dcim/power-panels/",
+    },
+    ResourceEntry {
+        name: "power-port-templates",
+        path: "dcim/power-port-templates/",
+    },
+    ResourceEntry {
+        name: "power-ports",
+        path: "dcim/power-ports/",
+    },
+    ResourceEntry {
+        name: "rack-reservations",
+        path: "dcim/rack-reservations/",
+    },
+    ResourceEntry {
+        name: "rack-roles",
+        path: "dcim/rack-roles/",
+    },
+    ResourceEntry {
+        name: "rack-types",
+        path: "dcim/rack-types/",
+    },
+    ResourceEntry {
+        name: "racks",
+        path: "dcim/racks/",
+    },
+    ResourceEntry {
+        name: "rear-port-templates",
+        path: "dcim/rear-port-templates/",
+    },
+    ResourceEntry {
+        name: "rear-ports",
+        path: "dcim/rear-ports/",
+    },
+    ResourceEntry {
+        name: "regions",
+        path: "dcim/regions/",
+    },
+    ResourceEntry {
+        name: "site-groups",
+        path: "dcim/site-groups/",
+    },
+    ResourceEntry {
+        name: "sites",
+        path: "dcim/sites/",
+    },
+    ResourceEntry {
+        name: "virtual-chassis",
+        path: "dcim/virtual-chassis/",
+    },
+    ResourceEntry {
+        name: "virtual-device-contexts",
+        path: "dcim/virtual-device-contexts/",
+    },
+];
+
+const IPAM_RESOURCES: &[ResourceEntry] = &[
+    ResourceEntry {
+        name: "aggregates",
+        path: "ipam/aggregates/",
+    },
+    ResourceEntry {
+        name: "asn-ranges",
+        path: "ipam/asn-ranges/",
+    },
+    ResourceEntry {
+        name: "asns",
+        path: "ipam/asns/",
+    },
+    ResourceEntry {
+        name: "fhrp-group-assignments",
+        path: "ipam/fhrp-group-assignments/",
+    },
+    ResourceEntry {
+        name: "fhrp-groups",
+        path: "ipam/fhrp-groups/",
+    },
+    ResourceEntry {
+        name: "ip-addresses",
+        path: "ipam/ip-addresses/",
+    },
+    ResourceEntry {
+        name: "ip-ranges",
+        path: "ipam/ip-ranges/",
+    },
+    ResourceEntry {
+        name: "prefixes",
+        path: "ipam/prefixes/",
+    },
+    ResourceEntry {
+        name: "rirs",
+        path: "ipam/rirs/",
+    },
+    ResourceEntry {
+        name: "roles",
+        path: "ipam/roles/",
+    },
+    ResourceEntry {
+        name: "route-targets",
+        path: "ipam/route-targets/",
+    },
+    ResourceEntry {
+        name: "service-templates",
+        path: "ipam/service-templates/",
+    },
+    ResourceEntry {
+        name: "services",
+        path: "ipam/services/",
+    },
+    ResourceEntry {
+        name: "vlan-groups",
+        path: "ipam/vlan-groups/",
+    },
+    ResourceEntry {
+        name: "vlan-translation-policies",
+        path: "ipam/vlan-translation-policies/",
+    },
+    ResourceEntry {
+        name: "vlan-translation-rules",
+        path: "ipam/vlan-translation-rules/",
+    },
+    ResourceEntry {
+        name: "vlans",
+        path: "ipam/vlans/",
+    },
+    ResourceEntry {
+        name: "vrfs",
+        path: "ipam/vrfs/",
+    },
+];
+
+const CIRCUITS_RESOURCES: &[ResourceEntry] = &[
+    ResourceEntry {
+        name: "circuit-group-assignments",
+        path: "circuits/circuit-group-assignments/",
+    },
+    ResourceEntry {
+        name: "circuit-groups",
+        path: "circuits/circuit-groups/",
+    },
+    ResourceEntry {
+        name: "circuit-terminations",
+        path: "circuits/circuit-terminations/",
+    },
+    ResourceEntry {
+        name: "circuit-types",
+        path: "circuits/circuit-types/",
+    },
+    ResourceEntry {
+        name: "circuits",
+        path: "circuits/circuits/",
+    },
+    ResourceEntry {
+        name: "provider-accounts",
+        path: "circuits/provider-accounts/",
+    },
+    ResourceEntry {
+        name: "provider-networks",
+        path: "circuits/provider-networks/",
+    },
+    ResourceEntry {
+        name: "providers",
+        path: "circuits/providers/",
+    },
+    ResourceEntry {
+        name: "virtual-circuit-terminations",
+        path: "circuits/virtual-circuit-terminations/",
+    },
+    ResourceEntry {
+        name: "virtual-circuit-types",
+        path: "circuits/virtual-circuit-types/",
+    },
+    ResourceEntry {
+        name: "virtual-circuits",
+        path: "circuits/virtual-circuits/",
+    },
+];
+
+const TENANCY_RESOURCES: &[ResourceEntry] = &[
+    ResourceEntry {
+        name: "contact-assignments",
+        path: "tenancy/contact-assignments/",
+    },
+    ResourceEntry {
+        name: "contact-groups",
+        path: "tenancy/contact-groups/",
+    },
+    ResourceEntry {
+        name: "contact-roles",
+        path: "tenancy/contact-roles/",
+    },
+    ResourceEntry {
+        name: "contacts",
+        path: "tenancy/contacts/",
+    },
+    ResourceEntry {
+        name: "tenant-groups",
+        path: "tenancy/tenant-groups/",
+    },
+    ResourceEntry {
+        name: "tenants",
+        path: "tenancy/tenants/",
+    },
+];
+
+const EXTRAS_RESOURCES: &[ResourceEntry] = &[
+    ResourceEntry {
+        name: "bookmarks",
+        path: "extras/bookmarks/",
+    },
+    ResourceEntry {
+        name: "config-context-profiles",
+        path: "extras/config-context-profiles/",
+    },
+    ResourceEntry {
+        name: "config-contexts",
+        path: "extras/config-contexts/",
+    },
+    ResourceEntry {
+        name: "config-templates",
+        path: "extras/config-templates/",
+    },
+    ResourceEntry {
+        name: "custom-field-choice-sets",
+        path: "extras/custom-field-choice-sets/",
+    },
+    ResourceEntry {
+        name: "custom-fields",
+        path: "extras/custom-fields/",
+    },
+    ResourceEntry {
+        name: "custom-links",
+        path: "extras/custom-links/",
+    },
+    ResourceEntry {
+        name: "event-rules",
+        path: "extras/event-rules/",
+    },
+    ResourceEntry {
+        name: "export-templates",
+        path: "extras/export-templates/",
+    },
+    ResourceEntry {
+        name: "image-attachments",
+        path: "extras/image-attachments/",
+    },
+    ResourceEntry {
+        name: "journal-entries",
+        path: "extras/journal-entries/",
+    },
+    ResourceEntry {
+        name: "notification-groups",
+        path: "extras/notification-groups/",
+    },
+    ResourceEntry {
+        name: "notifications",
+        path: "extras/notifications/",
+    },
+    ResourceEntry {
+        name: "object-types",
+        path: "extras/object-types/",
+    },
+    ResourceEntry {
+        name: "saved-filters",
+        path: "extras/saved-filters/",
+    },
+    ResourceEntry {
+        name: "scripts",
+        path: "extras/scripts/",
+    },
+    ResourceEntry {
+        name: "subscriptions",
+        path: "extras/subscriptions/",
+    },
+    ResourceEntry {
+        name: "table-configs",
+        path: "extras/table-configs/",
+    },
+    ResourceEntry {
+        name: "tagged-objects",
+        path: "extras/tagged-objects/",
+    },
+    ResourceEntry {
+        name: "tags",
+        path: "extras/tags/",
+    },
+    ResourceEntry {
+        name: "webhooks",
+        path: "extras/webhooks/",
+    },
+];
+
+const CORE_RESOURCES: &[ResourceEntry] = &[
+    ResourceEntry {
+        name: "background-tasks",
+        path: "core/background-tasks/",
+    },
+    ResourceEntry {
+        name: "data-files",
+        path: "core/data-files/",
+    },
+    ResourceEntry {
+        name: "data-sources",
+        path: "core/data-sources/",
+    },
+    ResourceEntry {
+        name: "jobs",
+        path: "core/jobs/",
+    },
+    ResourceEntry {
+        name: "object-changes",
+        path: "core/object-changes/",
+    },
+    ResourceEntry {
+        name: "object-types",
+        path: "core/object-types/",
+    },
+];
+
+const USERS_RESOURCES: &[ResourceEntry] = &[
+    ResourceEntry {
+        name: "groups",
+        path: "users/groups/",
+    },
+    ResourceEntry {
+        name: "permissions",
+        path: "users/permissions/",
+    },
+    ResourceEntry {
+        name: "tokens",
+        path: "users/tokens/",
+    },
+    ResourceEntry {
+        name: "users",
+        path: "users/users/",
+    },
+];
+
+const VIRTUALIZATION_RESOURCES: &[ResourceEntry] = &[
+    ResourceEntry {
+        name: "cluster-groups",
+        path: "virtualization/cluster-groups/",
+    },
+    ResourceEntry {
+        name: "cluster-types",
+        path: "virtualization/cluster-types/",
+    },
+    ResourceEntry {
+        name: "clusters",
+        path: "virtualization/clusters/",
+    },
+    ResourceEntry {
+        name: "interfaces",
+        path: "virtualization/interfaces/",
+    },
+    ResourceEntry {
+        name: "virtual-disks",
+        path: "virtualization/virtual-disks/",
+    },
+    ResourceEntry {
+        name: "virtual-machines",
+        path: "virtualization/virtual-machines/",
+    },
+];
+
+const VPN_RESOURCES: &[ResourceEntry] = &[
+    ResourceEntry {
+        name: "ike-policies",
+        path: "vpn/ike-policies/",
+    },
+    ResourceEntry {
+        name: "ike-proposals",
+        path: "vpn/ike-proposals/",
+    },
+    ResourceEntry {
+        name: "ipsec-policies",
+        path: "vpn/ipsec-policies/",
+    },
+    ResourceEntry {
+        name: "ipsec-profiles",
+        path: "vpn/ipsec-profiles/",
+    },
+    ResourceEntry {
+        name: "ipsec-proposals",
+        path: "vpn/ipsec-proposals/",
+    },
+    ResourceEntry {
+        name: "l2vpn-terminations",
+        path: "vpn/l2vpn-terminations/",
+    },
+    ResourceEntry {
+        name: "l2vpns",
+        path: "vpn/l2vpns/",
+    },
+    ResourceEntry {
+        name: "tunnel-groups",
+        path: "vpn/tunnel-groups/",
+    },
+    ResourceEntry {
+        name: "tunnel-terminations",
+        path: "vpn/tunnel-terminations/",
+    },
+    ResourceEntry {
+        name: "tunnels",
+        path: "vpn/tunnels/",
+    },
+];
+
+const WIRELESS_RESOURCES: &[ResourceEntry] = &[
+    ResourceEntry {
+        name: "wireless-lan-groups",
+        path: "wireless/wireless-lan-groups/",
+    },
+    ResourceEntry {
+        name: "wireless-lans",
+        path: "wireless/wireless-lans/",
+    },
+    ResourceEntry {
+        name: "wireless-links",
+        path: "wireless/wireless-links/",
+    },
+];
+
+const PLUGINS_RESOURCES: &[ResourceEntry] = &[
+    ResourceEntry {
+        name: "branches",
+        path: "plugins/branching/branches/",
+    },
+    ResourceEntry {
+        name: "branch-events",
+        path: "plugins/branching/branch-events/",
+    },
+    ResourceEntry {
+        name: "changes",
+        path: "plugins/branching/changes/",
+    },
+];
 
 #[derive(Parser)]
 #[command(name = "netbox-cli")]
@@ -50,26 +593,94 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Commands {
-    /// List devices
-    ListDevices,
-    /// List prefixes
-    ListPrefixes,
-    /// List IP addresses
-    ListIpAddresses,
-    /// List circuits
-    ListCircuits,
-    /// List circuit terminations
-    ListCircuitTerminations,
-    /// List virtual machines
-    ListVirtualMachines,
-    /// List VM interfaces
-    ListVmInterfaces,
-    /// List VPN tunnels
-    ListTunnels,
-    /// List L2VPNs
-    ListL2Vpns,
-    /// List IPsec profiles
-    ListIpSecProfiles,
+    /// List resources by group (or all resources)
+    Resources {
+        /// Resource group name (dcim, ipam, circuits, tenancy, extras, core, users, virtualization, vpn, wireless, plugins)
+        group: Option<String>,
+    },
+    /// DCIM resources (devices, racks, interfaces, ...)
+    Dcim {
+        resource: String,
+        #[command(subcommand)]
+        action: ResourceAction,
+    },
+    /// IPAM resources (prefixes, addresses, vlans, ...)
+    Ipam {
+        resource: String,
+        #[command(subcommand)]
+        action: ResourceAction,
+    },
+    /// Circuits resources (providers, circuits, ...)
+    Circuits {
+        resource: String,
+        #[command(subcommand)]
+        action: ResourceAction,
+    },
+    /// Tenancy resources (tenants, contacts, ...)
+    Tenancy {
+        resource: String,
+        #[command(subcommand)]
+        action: ResourceAction,
+    },
+    /// Extras resources (tags, scripts, custom fields, ...)
+    Extras {
+        resource: String,
+        #[command(subcommand)]
+        action: ResourceAction,
+    },
+    /// Core resources (jobs, object changes, ...)
+    Core {
+        resource: String,
+        #[command(subcommand)]
+        action: ResourceAction,
+    },
+    /// Users resources (users, groups, tokens, ...)
+    Users {
+        resource: String,
+        #[command(subcommand)]
+        action: ResourceAction,
+    },
+    /// Virtualization resources (clusters, vms, ...)
+    Virtualization {
+        resource: String,
+        #[command(subcommand)]
+        action: ResourceAction,
+    },
+    /// VPN resources (tunnels, ike, ipsec, ...)
+    Vpn {
+        resource: String,
+        #[command(subcommand)]
+        action: ResourceAction,
+    },
+    /// Wireless resources (lans, links, ...)
+    Wireless {
+        resource: String,
+        #[command(subcommand)]
+        action: ResourceAction,
+    },
+    /// Plugin resources (branching data)
+    Plugins {
+        resource: String,
+        #[command(subcommand)]
+        action: ResourceAction,
+    },
+    /// Extras dashboard operations
+    ExtrasDashboard {
+        #[command(subcommand)]
+        action: DashboardAction,
+    },
+    /// Core background queue summaries
+    CoreBackgroundQueues {
+        #[command(subcommand)]
+        action: NamedLookupAction,
+    },
+    /// Core background worker summaries
+    CoreBackgroundWorkers {
+        #[command(subcommand)]
+        action: NamedLookupAction,
+    },
+    /// Fetch current user config
+    UsersConfig,
     /// Fetch NetBox status
     Status,
     /// Fetch OpenAPI schema
@@ -95,12 +706,18 @@ enum Commands {
         #[command(flatten)]
         input: JsonInput,
     },
+    /// Branch actions (branching plugin)
+    PluginBranchAction {
+        id: i32,
+        #[command(subcommand)]
+        action: BranchAction,
+    },
     /// Make a raw API request (covers all endpoints)
     Raw {
         /// HTTP method (GET, POST, PATCH, PUT, DELETE)
         #[arg(long)]
         method: String,
-        /// API path, e.g. "api/dcim/devices/"
+        /// API path, e.g. "dcim/devices/"
         #[arg(long)]
         path: String,
         /// Query string parameters (repeatable key=value)
@@ -109,302 +726,82 @@ enum Commands {
         #[command(flatten)]
         input: JsonInputOptional,
     },
-    /// Create a provider
-    CreateProvider {
+}
+
+#[derive(Subcommand)]
+enum ResourceAction {
+    /// List resources
+    List {
+        /// Query string parameters (repeatable key=value)
+        #[arg(long = "query")]
+        query: Vec<String>,
+    },
+    /// Get a resource by id
+    Get { id: i32 },
+    /// Create a resource
+    Create {
         #[command(flatten)]
         input: JsonInput,
     },
-    /// Update a provider
-    UpdateProvider {
+    /// Update a resource (PUT)
+    Update {
         id: i32,
         #[command(flatten)]
         input: JsonInput,
     },
-    /// Create a provider network
-    CreateProviderNetwork {
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Update a provider network
-    UpdateProviderNetwork {
+    /// Patch a resource
+    Patch {
         id: i32,
         #[command(flatten)]
         input: JsonInput,
     },
-    /// Create a provider account
-    CreateProviderAccount {
+    /// Delete a resource
+    Delete { id: i32 },
+}
+
+#[derive(Subcommand)]
+enum DashboardAction {
+    /// Fetch the dashboard config
+    Get,
+    /// Update the dashboard config (PUT)
+    Update {
         #[command(flatten)]
         input: JsonInput,
     },
-    /// Update a provider account
-    UpdateProviderAccount {
-        id: i32,
+    /// Patch the dashboard config
+    Patch {
         #[command(flatten)]
         input: JsonInput,
     },
-    /// Create a circuit type
-    CreateCircuitType {
+    /// Delete the dashboard config
+    Delete,
+}
+
+#[derive(Subcommand)]
+enum NamedLookupAction {
+    /// List summaries
+    List,
+    /// Get a summary by name
+    Get { name: String },
+}
+
+#[derive(Subcommand)]
+enum BranchAction {
+    /// Merge a branch
+    Merge {
         #[command(flatten)]
         input: JsonInput,
     },
-    /// Update a circuit type
-    UpdateCircuitType {
-        id: i32,
+    /// Revert a branch
+    Revert {
         #[command(flatten)]
         input: JsonInput,
     },
-    /// Create a circuit
-    CreateCircuit {
+    /// Sync a branch
+    Sync {
         #[command(flatten)]
         input: JsonInput,
     },
-    /// Update a circuit
-    UpdateCircuit {
-        id: i32,
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Create a circuit termination
-    CreateCircuitTermination {
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Update a circuit termination
-    UpdateCircuitTermination {
-        id: i32,
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Create a circuit group assignment
-    CreateCircuitGroupAssignment {
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Update a circuit group assignment
-    UpdateCircuitGroupAssignment {
-        id: i32,
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Create a virtual circuit
-    CreateVirtualCircuit {
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Update a virtual circuit
-    UpdateVirtualCircuit {
-        id: i32,
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Create a virtual circuit termination
-    CreateVirtualCircuitTermination {
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Update a virtual circuit termination
-    UpdateVirtualCircuitTermination {
-        id: i32,
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Create a cluster
-    CreateCluster {
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Update a cluster
-    UpdateCluster {
-        id: i32,
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Create a virtual machine
-    CreateVirtualMachine {
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Update a virtual machine
-    UpdateVirtualMachine {
-        id: i32,
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Create a VM interface
-    CreateVmInterface {
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Update a VM interface
-    UpdateVmInterface {
-        id: i32,
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Create a virtual disk
-    CreateVirtualDisk {
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Update a virtual disk
-    UpdateVirtualDisk {
-        id: i32,
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Create a tunnel group
-    CreateTunnelGroup {
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Update a tunnel group
-    UpdateTunnelGroup {
-        id: i32,
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Create a tunnel
-    CreateTunnel {
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Update a tunnel
-    UpdateTunnel {
-        id: i32,
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Create a tunnel termination
-    CreateTunnelTermination {
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Update a tunnel termination
-    UpdateTunnelTermination {
-        id: i32,
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Create an L2VPN
-    CreateL2Vpn {
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Update an L2VPN
-    UpdateL2Vpn {
-        id: i32,
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Create an L2VPN termination
-    CreateL2VpnTermination {
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Update an L2VPN termination
-    UpdateL2VpnTermination {
-        id: i32,
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Create an IKE proposal
-    CreateIkeProposal {
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Update an IKE proposal
-    UpdateIkeProposal {
-        id: i32,
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Create an IKE policy
-    CreateIkePolicy {
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Update an IKE policy
-    UpdateIkePolicy {
-        id: i32,
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Create an IPsec proposal
-    CreateIpSecProposal {
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Update an IPsec proposal
-    UpdateIpSecProposal {
-        id: i32,
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Create an IPsec policy
-    CreateIpSecPolicy {
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Update an IPsec policy
-    UpdateIpSecPolicy {
-        id: i32,
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Create an IPsec profile
-    CreateIpSecProfile {
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Update an IPsec profile
-    UpdateIpSecProfile {
-        id: i32,
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// List branches (branching plugin)
-    ListBranches,
-    /// Get a branch (branching plugin)
-    GetBranch { id: i32 },
-    /// Create a branch (branching plugin)
-    CreateBranch {
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Update a branch (branching plugin)
-    UpdateBranch {
-        id: i32,
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Delete a branch (branching plugin)
-    DeleteBranch { id: i32 },
-    /// Merge a branch (branching plugin)
-    MergeBranch {
-        id: i32,
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Revert a branch (branching plugin)
-    RevertBranch {
-        id: i32,
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// Sync a branch (branching plugin)
-    SyncBranch {
-        id: i32,
-        #[command(flatten)]
-        input: JsonInput,
-    },
-    /// List branch events (branching plugin)
-    ListBranchEvents,
-    /// Get a branch event (branching plugin)
-    GetBranchEvent { id: i32 },
-    /// List changes (branching plugin)
-    ListChanges,
-    /// Get a change (branching plugin)
-    GetChange { id: i32 },
 }
 
 #[derive(Args, Debug)]
@@ -435,85 +832,105 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = Client::new(config)?;
 
     match cli.command {
-        Commands::ListDevices => {
-            println!("Listing devices...");
-            let devices = client.dcim().devices().list(None).await?;
-            println!("{}", to_string_pretty(&devices)?);
+        Commands::Resources { group } => {
+            print_resources(group.as_deref());
         }
-        Commands::ListPrefixes => {
-            println!("Listing prefixes...");
-            let prefixes = client.ipam().prefixes().list(None).await?;
-            println!("{}", to_string_pretty(&prefixes)?);
+        Commands::Dcim { resource, action } => {
+            handle_resource_group(&client, "dcim", DCIM_RESOURCES, &resource, action).await?;
         }
-        Commands::ListIpAddresses => {
-            println!("Listing IP addresses...");
-            let ips = client.ipam().ip_addresses().list(None).await?;
-            println!("{}", to_string_pretty(&ips)?);
+        Commands::Ipam { resource, action } => {
+            handle_resource_group(&client, "ipam", IPAM_RESOURCES, &resource, action).await?;
         }
-        Commands::ListCircuits => {
-            println!("Listing circuits...");
-            let circuits = client.circuits().circuits().list(None).await?;
-            println!("{}", to_string_pretty(&circuits)?);
-        }
-        Commands::ListCircuitTerminations => {
-            println!("Listing circuit terminations...");
-            let terminations = client.circuits().circuit_terminations().list(None).await?;
-            println!("{}", to_string_pretty(&terminations)?);
-        }
-        Commands::ListVirtualMachines => {
-            println!("Listing virtual machines...");
-            let vms = client
-                .virtualization()
-                .virtual_machines()
-                .list(None)
+        Commands::Circuits { resource, action } => {
+            handle_resource_group(&client, "circuits", CIRCUITS_RESOURCES, &resource, action)
                 .await?;
-            println!("{}", to_string_pretty(&vms)?);
         }
-        Commands::ListVmInterfaces => {
-            println!("Listing VM interfaces...");
-            let interfaces = client.virtualization().interfaces().list(None).await?;
-            println!("{}", to_string_pretty(&interfaces)?);
+        Commands::Tenancy { resource, action } => {
+            handle_resource_group(&client, "tenancy", TENANCY_RESOURCES, &resource, action).await?;
         }
-        Commands::ListTunnels => {
-            println!("Listing VPN tunnels...");
-            let tunnels = client.vpn().tunnels().list(None).await?;
-            println!("{}", to_string_pretty(&tunnels)?);
+        Commands::Extras { resource, action } => {
+            handle_resource_group(&client, "extras", EXTRAS_RESOURCES, &resource, action).await?;
         }
-        Commands::ListL2Vpns => {
-            println!("Listing L2VPNs...");
-            let l2vpns = client.vpn().l2vpns().list(None).await?;
-            println!("{}", to_string_pretty(&l2vpns)?);
+        Commands::Core { resource, action } => {
+            handle_resource_group(&client, "core", CORE_RESOURCES, &resource, action).await?;
         }
-        Commands::ListIpSecProfiles => {
-            println!("Listing IPsec profiles...");
-            let profiles = client.vpn().ipsec_profiles().list(None).await?;
-            println!("{}", to_string_pretty(&profiles)?);
+        Commands::Users { resource, action } => {
+            handle_resource_group(&client, "users", USERS_RESOURCES, &resource, action).await?;
+        }
+        Commands::Virtualization { resource, action } => {
+            handle_resource_group(
+                &client,
+                "virtualization",
+                VIRTUALIZATION_RESOURCES,
+                &resource,
+                action,
+            )
+            .await?;
+        }
+        Commands::Vpn { resource, action } => {
+            handle_resource_group(&client, "vpn", VPN_RESOURCES, &resource, action).await?;
+        }
+        Commands::Wireless { resource, action } => {
+            handle_resource_group(&client, "wireless", WIRELESS_RESOURCES, &resource, action)
+                .await?;
+        }
+        Commands::Plugins { resource, action } => {
+            handle_resource_group(&client, "plugins", PLUGINS_RESOURCES, &resource, action).await?;
+        }
+        Commands::ExtrasDashboard { action } => {
+            handle_dashboard_action(&client, action).await?;
+        }
+        Commands::CoreBackgroundQueues { action } => {
+            handle_named_lookup(&client, "core/background-queues/", action).await?;
+        }
+        Commands::CoreBackgroundWorkers { action } => {
+            handle_named_lookup(&client, "core/background-workers/", action).await?;
+        }
+        Commands::UsersConfig => {
+            let response = client.request_raw(Method::GET, "users/config/", None).await?;
+            print_json(&response)?;
         }
         Commands::Status => {
             let status = client.status().status().await?;
-            println!("{}", to_string_pretty(&status)?);
+            let value = serde_json::to_value(status)?;
+            print_json(&value)?;
         }
         Commands::Schema { format, lang } => {
             let schema = client
                 .schema()
                 .schema(format.as_deref(), lang.as_deref())
                 .await?;
-            println!("{}", to_string_pretty(&schema)?);
+            let value = serde_json::to_value(schema)?;
+            print_json(&value)?;
         }
         Commands::ConnectedDevice {
             peer_device,
             peer_interface,
         } => {
-            let devices = client
-                .dcim()
-                .connected_device(&peer_device, &peer_interface)
+            let response = client
+                .request_raw(
+                    Method::GET,
+                    &append_query(
+                        "dcim/connected-device/",
+                        &[
+                            format!("peer_device={}", peer_device),
+                            format!("peer_interface={}", peer_interface),
+                        ],
+                    )?,
+                    None,
+                )
                 .await?;
-            println!("{}", to_string_pretty(&devices)?);
+            print_json(&response)?;
         }
         Commands::ProvisionToken { input } => {
-            let request: TokenProvisionRequest = load_json(&input)?;
-            let token = client.users().provision_token(&request).await?;
-            println!("{}", to_string_pretty(&token)?);
+            let request: Value = load_json(&input)?;
+            let response = client
+                .request_raw(Method::POST, "users/tokens/provision/", Some(&request))
+                .await?;
+            print_json(&response)?;
+        }
+        Commands::PluginBranchAction { id, action } => {
+            handle_branch_action(&client, id, action).await?;
         }
         Commands::Raw {
             method,
@@ -523,385 +940,234 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         } => {
             let method = Method::from_bytes(method.as_bytes())?;
             let body: Option<Value> = load_json_optional(&input)?;
+            let path = normalize_api_path(&path);
             let full_path = append_query(&path, &query)?;
             let response = client
                 .request_raw(method, &full_path, body.as_ref())
                 .await?;
-            println!("{}", to_string_pretty(&response)?);
-        }
-        Commands::CreateProvider { input } => {
-            let request: CreateProviderRequest = load_json(&input)?;
-            let provider = client.circuits().providers().create(&request).await?;
-            println!("{}", to_string_pretty(&provider)?);
-        }
-        Commands::UpdateProvider { id, input } => {
-            let request: UpdateProviderRequest = load_json(&input)?;
-            let provider = client.circuits().providers().patch(id, &request).await?;
-            println!("{}", to_string_pretty(&provider)?);
-        }
-        Commands::CreateProviderNetwork { input } => {
-            let request: CreateProviderNetworkRequest = load_json(&input)?;
-            let network = client
-                .circuits()
-                .provider_networks()
-                .create(&request)
-                .await?;
-            println!("{}", to_string_pretty(&network)?);
-        }
-        Commands::UpdateProviderNetwork { id, input } => {
-            let request: UpdateProviderNetworkRequest = load_json(&input)?;
-            let network = client
-                .circuits()
-                .provider_networks()
-                .patch(id, &request)
-                .await?;
-            println!("{}", to_string_pretty(&network)?);
-        }
-        Commands::CreateProviderAccount { input } => {
-            let request: CreateProviderAccountRequest = load_json(&input)?;
-            let account = client
-                .circuits()
-                .provider_accounts()
-                .create(&request)
-                .await?;
-            println!("{}", to_string_pretty(&account)?);
-        }
-        Commands::UpdateProviderAccount { id, input } => {
-            let request: UpdateProviderAccountRequest = load_json(&input)?;
-            let account = client
-                .circuits()
-                .provider_accounts()
-                .patch(id, &request)
-                .await?;
-            println!("{}", to_string_pretty(&account)?);
-        }
-        Commands::CreateCircuitType { input } => {
-            let request: CreateCircuitTypeRequest = load_json(&input)?;
-            let circuit_type = client.circuits().circuit_types().create(&request).await?;
-            println!("{}", to_string_pretty(&circuit_type)?);
-        }
-        Commands::UpdateCircuitType { id, input } => {
-            let request: UpdateCircuitTypeRequest = load_json(&input)?;
-            let circuit_type = client
-                .circuits()
-                .circuit_types()
-                .patch(id, &request)
-                .await?;
-            println!("{}", to_string_pretty(&circuit_type)?);
-        }
-        Commands::CreateCircuit { input } => {
-            let request: CreateCircuitRequest = load_json(&input)?;
-            let circuit = client.circuits().circuits().create(&request).await?;
-            println!("{}", to_string_pretty(&circuit)?);
-        }
-        Commands::UpdateCircuit { id, input } => {
-            let request: UpdateCircuitRequest = load_json(&input)?;
-            let circuit = client.circuits().circuits().patch(id, &request).await?;
-            println!("{}", to_string_pretty(&circuit)?);
-        }
-        Commands::CreateCircuitTermination { input } => {
-            let request: CreateCircuitTerminationRequest = load_json(&input)?;
-            let termination = client
-                .circuits()
-                .circuit_terminations()
-                .create(&request)
-                .await?;
-            println!("{}", to_string_pretty(&termination)?);
-        }
-        Commands::UpdateCircuitTermination { id, input } => {
-            let request: UpdateCircuitTerminationRequest = load_json(&input)?;
-            let termination = client
-                .circuits()
-                .circuit_terminations()
-                .patch(id, &request)
-                .await?;
-            println!("{}", to_string_pretty(&termination)?);
-        }
-        Commands::CreateCircuitGroupAssignment { input } => {
-            let request: CreateCircuitGroupAssignmentRequest = load_json(&input)?;
-            let assignment = client
-                .circuits()
-                .circuit_group_assignments()
-                .create(&request)
-                .await?;
-            println!("{}", to_string_pretty(&assignment)?);
-        }
-        Commands::UpdateCircuitGroupAssignment { id, input } => {
-            let request: UpdateCircuitGroupAssignmentRequest = load_json(&input)?;
-            let assignment = client
-                .circuits()
-                .circuit_group_assignments()
-                .patch(id, &request)
-                .await?;
-            println!("{}", to_string_pretty(&assignment)?);
-        }
-        Commands::CreateVirtualCircuit { input } => {
-            let request: CreateVirtualCircuitRequest = load_json(&input)?;
-            let vc = client
-                .circuits()
-                .virtual_circuits()
-                .create(&request)
-                .await?;
-            println!("{}", to_string_pretty(&vc)?);
-        }
-        Commands::UpdateVirtualCircuit { id, input } => {
-            let request: UpdateVirtualCircuitRequest = load_json(&input)?;
-            let vc = client
-                .circuits()
-                .virtual_circuits()
-                .patch(id, &request)
-                .await?;
-            println!("{}", to_string_pretty(&vc)?);
-        }
-        Commands::CreateVirtualCircuitTermination { input } => {
-            let request: CreateVirtualCircuitTerminationRequest = load_json(&input)?;
-            let termination = client
-                .circuits()
-                .virtual_circuit_terminations()
-                .create(&request)
-                .await?;
-            println!("{}", to_string_pretty(&termination)?);
-        }
-        Commands::UpdateVirtualCircuitTermination { id, input } => {
-            let request: UpdateVirtualCircuitTerminationRequest = load_json(&input)?;
-            let termination = client
-                .circuits()
-                .virtual_circuit_terminations()
-                .patch(id, &request)
-                .await?;
-            println!("{}", to_string_pretty(&termination)?);
-        }
-        Commands::CreateCluster { input } => {
-            let request: CreateClusterRequest = load_json(&input)?;
-            let cluster = client.virtualization().clusters().create(&request).await?;
-            println!("{}", to_string_pretty(&cluster)?);
-        }
-        Commands::UpdateCluster { id, input } => {
-            let request: UpdateClusterRequest = load_json(&input)?;
-            let cluster = client
-                .virtualization()
-                .clusters()
-                .patch(id, &request)
-                .await?;
-            println!("{}", to_string_pretty(&cluster)?);
-        }
-        Commands::CreateVirtualMachine { input } => {
-            let request: CreateVirtualMachineRequest = load_json(&input)?;
-            let vm = client
-                .virtualization()
-                .virtual_machines()
-                .create(&request)
-                .await?;
-            println!("{}", to_string_pretty(&vm)?);
-        }
-        Commands::UpdateVirtualMachine { id, input } => {
-            let request: UpdateVirtualMachineRequest = load_json(&input)?;
-            let vm = client
-                .virtualization()
-                .virtual_machines()
-                .patch(id, &request)
-                .await?;
-            println!("{}", to_string_pretty(&vm)?);
-        }
-        Commands::CreateVmInterface { input } => {
-            let request: CreateVmInterfaceRequest = load_json(&input)?;
-            let iface = client
-                .virtualization()
-                .interfaces()
-                .create(&request)
-                .await?;
-            println!("{}", to_string_pretty(&iface)?);
-        }
-        Commands::UpdateVmInterface { id, input } => {
-            let request: UpdateVmInterfaceRequest = load_json(&input)?;
-            let iface = client
-                .virtualization()
-                .interfaces()
-                .patch(id, &request)
-                .await?;
-            println!("{}", to_string_pretty(&iface)?);
-        }
-        Commands::CreateVirtualDisk { input } => {
-            let request: CreateVirtualDiskRequest = load_json(&input)?;
-            let disk = client
-                .virtualization()
-                .virtual_disks()
-                .create(&request)
-                .await?;
-            println!("{}", to_string_pretty(&disk)?);
-        }
-        Commands::UpdateVirtualDisk { id, input } => {
-            let request: UpdateVirtualDiskRequest = load_json(&input)?;
-            let disk = client
-                .virtualization()
-                .virtual_disks()
-                .patch(id, &request)
-                .await?;
-            println!("{}", to_string_pretty(&disk)?);
-        }
-        Commands::CreateTunnelGroup { input } => {
-            let request: CreateTunnelGroupRequest = load_json(&input)?;
-            let group = client.vpn().tunnel_groups().create(&request).await?;
-            println!("{}", to_string_pretty(&group)?);
-        }
-        Commands::UpdateTunnelGroup { id, input } => {
-            let request: UpdateTunnelGroupRequest = load_json(&input)?;
-            let group = client.vpn().tunnel_groups().patch(id, &request).await?;
-            println!("{}", to_string_pretty(&group)?);
-        }
-        Commands::CreateTunnel { input } => {
-            let request: CreateTunnelRequest = load_json(&input)?;
-            let tunnel = client.vpn().tunnels().create(&request).await?;
-            println!("{}", to_string_pretty(&tunnel)?);
-        }
-        Commands::UpdateTunnel { id, input } => {
-            let request: UpdateTunnelRequest = load_json(&input)?;
-            let tunnel = client.vpn().tunnels().patch(id, &request).await?;
-            println!("{}", to_string_pretty(&tunnel)?);
-        }
-        Commands::CreateTunnelTermination { input } => {
-            let request: CreateTunnelTerminationRequest = load_json(&input)?;
-            let termination = client.vpn().tunnel_terminations().create(&request).await?;
-            println!("{}", to_string_pretty(&termination)?);
-        }
-        Commands::UpdateTunnelTermination { id, input } => {
-            let request: UpdateTunnelTerminationRequest = load_json(&input)?;
-            let termination = client
-                .vpn()
-                .tunnel_terminations()
-                .patch(id, &request)
-                .await?;
-            println!("{}", to_string_pretty(&termination)?);
-        }
-        Commands::CreateL2Vpn { input } => {
-            let request: CreateL2VpnRequest = load_json(&input)?;
-            let l2vpn = client.vpn().l2vpns().create(&request).await?;
-            println!("{}", to_string_pretty(&l2vpn)?);
-        }
-        Commands::UpdateL2Vpn { id, input } => {
-            let request: UpdateL2VpnRequest = load_json(&input)?;
-            let l2vpn = client.vpn().l2vpns().patch(id, &request).await?;
-            println!("{}", to_string_pretty(&l2vpn)?);
-        }
-        Commands::CreateL2VpnTermination { input } => {
-            let request: CreateL2VpnTerminationRequest = load_json(&input)?;
-            let termination = client.vpn().l2vpn_terminations().create(&request).await?;
-            println!("{}", to_string_pretty(&termination)?);
-        }
-        Commands::UpdateL2VpnTermination { id, input } => {
-            let request: UpdateL2VpnTerminationRequest = load_json(&input)?;
-            let termination = client
-                .vpn()
-                .l2vpn_terminations()
-                .patch(id, &request)
-                .await?;
-            println!("{}", to_string_pretty(&termination)?);
-        }
-        Commands::CreateIkeProposal { input } => {
-            let request: CreateIkeProposalRequest = load_json(&input)?;
-            let proposal = client.vpn().ike_proposals().create(&request).await?;
-            println!("{}", to_string_pretty(&proposal)?);
-        }
-        Commands::UpdateIkeProposal { id, input } => {
-            let request: UpdateIkeProposalRequest = load_json(&input)?;
-            let proposal = client.vpn().ike_proposals().patch(id, &request).await?;
-            println!("{}", to_string_pretty(&proposal)?);
-        }
-        Commands::CreateIkePolicy { input } => {
-            let request: CreateIkePolicyRequest = load_json(&input)?;
-            let policy = client.vpn().ike_policies().create(&request).await?;
-            println!("{}", to_string_pretty(&policy)?);
-        }
-        Commands::UpdateIkePolicy { id, input } => {
-            let request: UpdateIkePolicyRequest = load_json(&input)?;
-            let policy = client.vpn().ike_policies().patch(id, &request).await?;
-            println!("{}", to_string_pretty(&policy)?);
-        }
-        Commands::CreateIpSecProposal { input } => {
-            let request: CreateIpSecProposalRequest = load_json(&input)?;
-            let proposal = client.vpn().ipsec_proposals().create(&request).await?;
-            println!("{}", to_string_pretty(&proposal)?);
-        }
-        Commands::UpdateIpSecProposal { id, input } => {
-            let request: UpdateIpSecProposalRequest = load_json(&input)?;
-            let proposal = client.vpn().ipsec_proposals().patch(id, &request).await?;
-            println!("{}", to_string_pretty(&proposal)?);
-        }
-        Commands::CreateIpSecPolicy { input } => {
-            let request: CreateIpSecPolicyRequest = load_json(&input)?;
-            let policy = client.vpn().ipsec_policies().create(&request).await?;
-            println!("{}", to_string_pretty(&policy)?);
-        }
-        Commands::UpdateIpSecPolicy { id, input } => {
-            let request: UpdateIpSecPolicyRequest = load_json(&input)?;
-            let policy = client.vpn().ipsec_policies().patch(id, &request).await?;
-            println!("{}", to_string_pretty(&policy)?);
-        }
-        Commands::CreateIpSecProfile { input } => {
-            let request: CreateIpSecProfileRequest = load_json(&input)?;
-            let profile = client.vpn().ipsec_profiles().create(&request).await?;
-            println!("{}", to_string_pretty(&profile)?);
-        }
-        Commands::UpdateIpSecProfile { id, input } => {
-            let request: UpdateIpSecProfileRequest = load_json(&input)?;
-            let profile = client.vpn().ipsec_profiles().patch(id, &request).await?;
-            println!("{}", to_string_pretty(&profile)?);
-        }
-        Commands::ListBranches => {
-            let branches = client.plugins().branches().list(None).await?;
-            println!("{}", to_string_pretty(&branches)?);
-        }
-        Commands::GetBranch { id } => {
-            let branch = client.plugins().branches().get(id).await?;
-            println!("{}", to_string_pretty(&branch)?);
-        }
-        Commands::CreateBranch { input } => {
-            let request: WritableBranchRequest = load_json(&input)?;
-            let branch = client.plugins().branches().create(&request).await?;
-            println!("{}", to_string_pretty(&branch)?);
-        }
-        Commands::UpdateBranch { id, input } => {
-            let request: PatchedWritableBranchRequest = load_json(&input)?;
-            let branch = client.plugins().branches().patch(id, &request).await?;
-            println!("{}", to_string_pretty(&branch)?);
-        }
-        Commands::DeleteBranch { id } => {
-            client.plugins().branches().delete(id).await?;
-            println!("Deleted branch {}", id);
-        }
-        Commands::MergeBranch { id, input } => {
-            let request: CommitRequest = load_json(&input)?;
-            let job = client.plugins().merge_branch(id, &request).await?;
-            println!("{}", to_string_pretty(&job)?);
-        }
-        Commands::RevertBranch { id, input } => {
-            let request: CommitRequest = load_json(&input)?;
-            let job = client.plugins().revert_branch(id, &request).await?;
-            println!("{}", to_string_pretty(&job)?);
-        }
-        Commands::SyncBranch { id, input } => {
-            let request: CommitRequest = load_json(&input)?;
-            let job = client.plugins().sync_branch(id, &request).await?;
-            println!("{}", to_string_pretty(&job)?);
-        }
-        Commands::ListBranchEvents => {
-            let events = client.plugins().branch_events().list(None).await?;
-            println!("{}", to_string_pretty(&events)?);
-        }
-        Commands::GetBranchEvent { id } => {
-            let event = client.plugins().branch_events().get(id).await?;
-            println!("{}", to_string_pretty(&event)?);
-        }
-        Commands::ListChanges => {
-            let changes = client.plugins().changes().list(None).await?;
-            println!("{}", to_string_pretty(&changes)?);
-        }
-        Commands::GetChange { id } => {
-            let change = client.plugins().changes().get(id).await?;
-            println!("{}", to_string_pretty(&change)?);
+            print_json(&response)?;
         }
     }
 
+    Ok(())
+}
+
+async fn handle_resource_group(
+    client: &Client,
+    group: &str,
+    resources: &[ResourceEntry],
+    resource: &str,
+    action: ResourceAction,
+) -> Result<(), Box<dyn std::error::Error>> {
+    let path = find_resource_path(resources, resource).ok_or_else(|| {
+        format!(
+            "unknown {} resource '{}'. use `netbox-cli resources {}` to list options.",
+            group, resource, group
+        )
+    })?;
+    handle_resource_action(client, path, action).await
+}
+
+async fn handle_resource_action(
+    client: &Client,
+    path: &str,
+    action: ResourceAction,
+) -> Result<(), Box<dyn std::error::Error>> {
+    let path = normalize_api_path(path);
+    match action {
+        ResourceAction::List { query } => {
+            let full_path = append_query(&path, &query)?;
+            let response = client.request_raw(Method::GET, &full_path, None).await?;
+            print_json(&response)?;
+        }
+        ResourceAction::Get { id } => {
+            let full_path = resource_path_with_id(&path, id);
+            let response = client.request_raw(Method::GET, &full_path, None).await?;
+            print_json(&response)?;
+        }
+        ResourceAction::Create { input } => {
+            let body: Value = load_json(&input)?;
+            let response = client.request_raw(Method::POST, &path, Some(&body)).await?;
+            print_json(&response)?;
+        }
+        ResourceAction::Update { id, input } => {
+            let body: Value = load_json(&input)?;
+            let full_path = resource_path_with_id(&path, id);
+            let response = client
+                .request_raw(Method::PUT, &full_path, Some(&body))
+                .await?;
+            print_json(&response)?;
+        }
+        ResourceAction::Patch { id, input } => {
+            let body: Value = load_json(&input)?;
+            let full_path = resource_path_with_id(&path, id);
+            let response = client
+                .request_raw(Method::PATCH, &full_path, Some(&body))
+                .await?;
+            print_json(&response)?;
+        }
+        ResourceAction::Delete { id } => {
+            let full_path = resource_path_with_id(&path, id);
+            let response = client.request_raw(Method::DELETE, &full_path, None).await?;
+            if response == Value::Null {
+                println!("deleted {}", id);
+            } else {
+                print_json(&response)?;
+            }
+        }
+    }
+
+    Ok(())
+}
+
+async fn handle_dashboard_action(
+    client: &Client,
+    action: DashboardAction,
+) -> Result<(), Box<dyn std::error::Error>> {
+    match action {
+        DashboardAction::Get => {
+            let response = client.request_raw(Method::GET, "extras/dashboard/", None).await?;
+            print_json(&response)?;
+        }
+        DashboardAction::Update { input } => {
+            let body: Value = load_json(&input)?;
+            let response = client
+                .request_raw(Method::PUT, "extras/dashboard/", Some(&body))
+                .await?;
+            print_json(&response)?;
+        }
+        DashboardAction::Patch { input } => {
+            let body: Value = load_json(&input)?;
+            let response = client
+                .request_raw(Method::PATCH, "extras/dashboard/", Some(&body))
+                .await?;
+            print_json(&response)?;
+        }
+        DashboardAction::Delete => {
+            let response = client
+                .request_raw(Method::DELETE, "extras/dashboard/", None)
+                .await?;
+            if response == Value::Null {
+                println!("deleted dashboard");
+            } else {
+                print_json(&response)?;
+            }
+        }
+    }
+
+    Ok(())
+}
+
+async fn handle_named_lookup(
+    client: &Client,
+    base_path: &str,
+    action: NamedLookupAction,
+) -> Result<(), Box<dyn std::error::Error>> {
+    let base_path = normalize_api_path(base_path);
+    match action {
+        NamedLookupAction::List => {
+            let response = client.request_raw(Method::GET, &base_path, None).await?;
+            print_json(&response)?;
+        }
+        NamedLookupAction::Get { name } => {
+            let path = format!("{}{}/", base_path.trim_end_matches('/'), name);
+            let response = client.request_raw(Method::GET, &path, None).await?;
+            print_json(&response)?;
+        }
+    }
+
+    Ok(())
+}
+
+async fn handle_branch_action(
+    client: &Client,
+    id: i32,
+    action: BranchAction,
+) -> Result<(), Box<dyn std::error::Error>> {
+    let (suffix, body) = match action {
+        BranchAction::Merge { input } => ("merge", load_json(&input)?),
+        BranchAction::Revert { input } => ("revert", load_json(&input)?),
+        BranchAction::Sync { input } => ("sync", load_json(&input)?),
+    };
+
+    let path = format!("plugins/branching/branches/{}/{}/", id, suffix);
+    let response = client
+        .request_raw(Method::POST, &path, Some(&body))
+        .await?;
+    print_json(&response)?;
+    Ok(())
+}
+
+fn print_resources(group: Option<&str>) {
+    match group {
+        None => {
+            println!("dcim");
+            list_resource_group(DCIM_RESOURCES);
+            println!("ipam");
+            list_resource_group(IPAM_RESOURCES);
+            println!("circuits");
+            list_resource_group(CIRCUITS_RESOURCES);
+            println!("tenancy");
+            list_resource_group(TENANCY_RESOURCES);
+            println!("extras");
+            list_resource_group(EXTRAS_RESOURCES);
+            println!("core");
+            list_resource_group(CORE_RESOURCES);
+            println!("users");
+            list_resource_group(USERS_RESOURCES);
+            println!("virtualization");
+            list_resource_group(VIRTUALIZATION_RESOURCES);
+            println!("vpn");
+            list_resource_group(VPN_RESOURCES);
+            println!("wireless");
+            list_resource_group(WIRELESS_RESOURCES);
+            println!("plugins");
+            list_resource_group(PLUGINS_RESOURCES);
+        }
+        Some("dcim") => list_resource_group(DCIM_RESOURCES),
+        Some("ipam") => list_resource_group(IPAM_RESOURCES),
+        Some("circuits") => list_resource_group(CIRCUITS_RESOURCES),
+        Some("tenancy") => list_resource_group(TENANCY_RESOURCES),
+        Some("extras") => list_resource_group(EXTRAS_RESOURCES),
+        Some("core") => list_resource_group(CORE_RESOURCES),
+        Some("users") => list_resource_group(USERS_RESOURCES),
+        Some("virtualization") => list_resource_group(VIRTUALIZATION_RESOURCES),
+        Some("vpn") => list_resource_group(VPN_RESOURCES),
+        Some("wireless") => list_resource_group(WIRELESS_RESOURCES),
+        Some("plugins") => list_resource_group(PLUGINS_RESOURCES),
+        Some(other) => {
+            println!("unknown group '{}'", other);
+        }
+    }
+}
+
+fn list_resource_group(resources: &[ResourceEntry]) {
+    for entry in resources {
+        println!("  {}", entry.name);
+    }
+}
+
+fn find_resource_path(resources: &[ResourceEntry], name: &str) -> Option<&'static str> {
+    resources
+        .iter()
+        .find(|entry| entry.name == name)
+        .map(|entry| entry.path)
+}
+
+fn resource_path_with_id(path: &str, id: i32) -> String {
+    format!("{}/{}/", path.trim_end_matches('/'), id)
+}
+
+fn normalize_api_path(path: &str) -> String {
+    let trimmed = path.trim_start_matches('/');
+    match trimmed.strip_prefix("api/") {
+        Some(stripped) => stripped.to_string(),
+        None => trimmed.to_string(),
+    }
+}
+
+fn print_json(value: &Value) -> Result<(), Box<dyn std::error::Error>> {
+    println!("{}", to_string_pretty(value)?);
     Ok(())
 }
 
@@ -976,9 +1242,9 @@ mod tests {
             json: Some(r#"{"name":"carrier","slug":"carrier"}"#.to_string()),
             file: None,
         };
-        let value: CreateProviderRequest = load_json(&input).unwrap();
-        assert_eq!(value.name, "carrier");
-        assert_eq!(value.slug, "carrier");
+        let value: Value = load_json(&input).unwrap();
+        assert_eq!(value["name"], "carrier");
+        assert_eq!(value["slug"], "carrier");
     }
 
     #[test]
@@ -991,9 +1257,9 @@ mod tests {
             json: None,
             file: Some(path.clone()),
         };
-        let value: CreateProviderRequest = load_json(&input).unwrap();
-        assert_eq!(value.name, "carrier");
-        assert_eq!(value.slug, "carrier");
+        let value: Value = load_json(&input).unwrap();
+        assert_eq!(value["name"], "carrier");
+        assert_eq!(value["slug"], "carrier");
 
         let _ = fs::remove_file(path);
     }
@@ -1004,7 +1270,7 @@ mod tests {
             json: None,
             file: None,
         };
-        let result: Result<CreateProviderRequest, _> = load_json(&input);
+        let result: Result<Value, _> = load_json(&input);
         assert!(result.is_err());
     }
 
@@ -1020,17 +1286,30 @@ mod tests {
 
     #[test]
     fn append_query_encodes_pairs() {
-        let path = "api/dcim/devices/";
+        let path = "dcim/devices/";
         let query = vec!["name=leaf 1".to_string(), "limit=5".to_string()];
         let full = append_query(path, &query).unwrap();
-        assert_eq!(full, "api/dcim/devices/?name=leaf+1&limit=5");
+        assert_eq!(full, "dcim/devices/?name=leaf+1&limit=5");
     }
 
     #[test]
     fn append_query_rejects_missing_value() {
-        let path = "api/dcim/devices/";
+        let path = "dcim/devices/";
         let query = vec!["name".to_string()];
         let result = append_query(path, &query);
         assert!(result.is_err());
+    }
+
+    #[test]
+    fn normalize_api_path_strips_prefix() {
+        assert_eq!(normalize_api_path("api/dcim/devices/"), "dcim/devices/");
+        assert_eq!(normalize_api_path("/api/dcim/devices/"), "dcim/devices/");
+        assert_eq!(normalize_api_path("dcim/devices/"), "dcim/devices/");
+    }
+
+    #[test]
+    fn resource_path_with_id_appends_trailing_slash() {
+        let path = resource_path_with_id("dcim/devices/", 42);
+        assert_eq!(path, "dcim/devices/42/");
     }
 }

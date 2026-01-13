@@ -1,4 +1,4 @@
-#![doc = include_str!("../../../docs/client.md")]
+#![doc = include_str!("../docs/client.md")]
 #![warn(missing_docs)]
 #![warn(clippy::all)]
 
