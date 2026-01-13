@@ -5,6 +5,23 @@ on:
   pull_request:
 
 jobs:
+  docs:
+    runs-on: big
+    timeout-minutes: 10
+    env:
+      RUSTFLAGS: "-C debuginfo=0"
+      RUSTDOCFLAGS: "--cfg docsrs"
+      CARGO_PROFILE_DEV_DEBUG: 0
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Doc build
+        run: cargo doc --workspace --all-features --no-deps
+
   coverage:
     runs-on: big
     timeout-minutes: 10
