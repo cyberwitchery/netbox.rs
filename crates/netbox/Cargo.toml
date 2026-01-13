@@ -7,7 +7,7 @@ rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
 homepage.workspace = true
-description = "Ergonomic Rust client for NetBox 4.x REST API"
+description = "ergonomic rust client for NetBox 4.x REST API"
 keywords.workspace = true
 categories.workspace = true
 

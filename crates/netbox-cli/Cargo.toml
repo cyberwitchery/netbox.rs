@@ -7,7 +7,7 @@ rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
 homepage.workspace = true
-description = "CLI tool for testing NetBox API client"
+description = "cli tool for testing NetBox API client"
 publish = false
 
 [dependencies]
