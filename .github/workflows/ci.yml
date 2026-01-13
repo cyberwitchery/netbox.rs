@@ -6,7 +6,7 @@ on:
 
 jobs:
   warm-cache:
-    runs-on: ubuntu-latest-m
+    runs-on: big
     timeout-minutes: 90
     env:
       RUSTFLAGS: "-C debuginfo=0"
