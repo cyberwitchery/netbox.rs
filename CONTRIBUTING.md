@@ -80,6 +80,10 @@ run:
 
 set `SKIP_COVERAGE=1` to skip coverage.
 
+notes:
+- publish `netbox-openapi` before `netbox`
+- the script uses `cargo package -p netbox --no-verify` for local packaging
+
 ## release automation
 
 we publish from tags matching `v*` (for example, `v0.0.1`).

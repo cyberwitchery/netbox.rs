@@ -31,11 +31,11 @@ fi
 echo "building release"
 cargo build --release
 
-echo "packaging netbox"
-cargo package -p netbox
-
 echo "packaging netbox-openapi"
 cargo package -p netbox-openapi
+
+echo "packaging netbox (no-verify to allow local path dependency)"
+cargo package -p netbox --no-verify
 
 echo "done"
 echo "next: review package contents and publish with cargo publish -p netbox"

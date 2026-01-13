@@ -79,3 +79,7 @@ run the local release checklist with:
 ```
 
 set `SKIP_COVERAGE=1` to skip coverage.
+
+notes:
+- `netbox-openapi` must be published before `netbox`
+- the script packages `netbox` with `--no-verify` because the dependency is not on crates.io yet
