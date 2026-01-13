@@ -58,7 +58,7 @@ jobs:
     needs: warm-cache
     if: ${{ always() }}
     runs-on: ubuntu-latest-m
-    timeout-minutes: 30
+    timeout-minutes: 90
     permissions:
       contents: read
     env:

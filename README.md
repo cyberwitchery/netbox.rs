@@ -2,7 +2,7 @@
 
 rust client for the netbox 4.x rest api. it was co-evolved using ai. currently alpha release quality software.
 
-[![ci](https://github.com/network-auto/netbox.rs/workflows/CI/badge.svg)](https://github.com/network-auto/netbox.rs/actions)
+[![ci](https://github.com/cyberwitchery/netbox.rs/workflows/CI/badge.svg)](https://github.com/cyberwitchery/netbox.rs/actions)
 [![crates.io](https://img.shields.io/crates/v/netbox.svg)](https://crates.io/crates/netbox)
 [![docs.rs](https://docs.rs/netbox/badge.svg)](https://docs.rs/netbox)
 
