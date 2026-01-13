@@ -6,7 +6,7 @@ on:
 
 jobs:
   warm-cache:
-    runs-on: ubuntu-latest
+    runs-on: linux_4_core
     timeout-minutes: 30
     steps:
       - name: Checkout
@@ -49,69 +49,69 @@ jobs:
             target
           key: cargo-${{ runner.os }}-stable-${{ hashFiles('**/Cargo.lock') }}
 
-#  test:
-#    needs: warm-cache
-#    if: ${{ always() }}
-#    runs-on: ubuntu-latest
-#    timeout-minutes: 45
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v4
-#
-#      - name: Install Rust
-#        uses: dtolnay/rust-toolchain@stable
-#
-#      - name: Restore cargo cache
-#        uses: actions/cache/restore@v4
-#        with:
-#          path: |
-#            ~/.cargo/bin
-#            ~/.cargo/registry
-#            ~/.cargo/git
-#            ~/.cargo/.crates.toml
-#            ~/.cargo/.crates2.json
-#            target
-#          key: cargo-${{ runner.os }}-stable-${{ hashFiles('**/Cargo.lock') }}
-#          restore-keys: |
-#            cargo-${{ runner.os }}-stable-
-#
-#      - name: Test
-#        run: cargo test --verbose
-#
-#  coverage:
-#    needs: warm-cache
-#    if: ${{ always() }}
-#    runs-on: ubuntu-latest
-#    timeout-minutes: 45
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v4
-#
-#      - name: Install Rust
-#        uses: dtolnay/rust-toolchain@stable
-#
-#      - name: Install cargo-llvm-cov
-#        uses: taiki-e/install-action@cargo-llvm-cov
-#
-#      - name: Restore cargo cache
-#        uses: actions/cache/restore@v4
-#        with:
-#          path: |
-#            ~/.cargo/bin
-#            ~/.cargo/registry
-#            ~/.cargo/git
-#            ~/.cargo/.crates.toml
-#            ~/.cargo/.crates2.json
-#            target
-#          key: cargo-${{ runner.os }}-stable-${{ hashFiles('**/Cargo.lock') }}
-#          restore-keys: |
-#            cargo-${{ runner.os }}-stable-
-#
-#      - name: Coverage
-#        run: cargo llvm-cov --workspace --all-features --ignore-filename-regex 'crates/netbox-openapi' --fail-under-lines 70 --lcov --output-path lcov.info
-#
-#      - name: Upload coverage artifact
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: coverage-lcov
-#          path: lcov.info
+  test:
+    needs: warm-cache
+    if: ${{ always() }}
+    runs-on: linux_4_core
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Restore cargo cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            ~/.cargo/bin
+            ~/.cargo/registry
+            ~/.cargo/git
+            ~/.cargo/.crates.toml
+            ~/.cargo/.crates2.json
+            target
+          key: cargo-${{ runner.os }}-stable-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            cargo-${{ runner.os }}-stable-
+
+      - name: Test
+        run: cargo test --verbose
+
+  coverage:
+    needs: warm-cache
+    if: ${{ always() }}
+    runs-on: linux_4_core
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install cargo-llvm-cov
+        uses: taiki-e/install-action@cargo-llvm-cov
+
+      - name: Restore cargo cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            ~/.cargo/bin
+            ~/.cargo/registry
+            ~/.cargo/git
+            ~/.cargo/.crates.toml
+            ~/.cargo/.crates2.json
+            target
+          key: cargo-${{ runner.os }}-stable-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            cargo-${{ runner.os }}-stable-
+
+      - name: Coverage
+        run: cargo llvm-cov --workspace --all-features --ignore-filename-regex 'crates/netbox-openapi' --fail-under-lines 70 --lcov --output-path lcov.info
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-lcov
+          path: lcov.info
