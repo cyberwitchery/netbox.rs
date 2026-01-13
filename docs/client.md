@@ -12,30 +12,37 @@ tokio = { version = "1.0", features = ["full"] }
 
 ## create a client
 
-```rust
+```rust,no_run
 use netbox::{Client, ClientConfig};
 
-let config = ClientConfig::new("https://netbox.example.com", "token");
-let client = Client::new(config)?;
+fn example() -> Result<(), Box<dyn std::error::Error>> {
+    let config = ClientConfig::new("https://netbox.example.com", "token");
+    let _client = Client::new(config)?;
+    Ok(())
+}
 ```
 
 ## auth and config
 
-```rust
+```rust,no_run
 use std::time::Duration;
 use netbox::ClientConfig;
 
-let config = ClientConfig::new("https://netbox.example.com", "token")
-    .with_timeout(Duration::from_secs(60))
-    .with_max_retries(5)
-    .with_ssl_verification(false);
+fn example() {
+    let _config = ClientConfig::new("https://netbox.example.com", "token")
+        .with_timeout(Duration::from_secs(60))
+        .with_max_retries(5)
+        .with_ssl_verification(false);
+}
 ```
 
 ## list and filter
 
-```rust
-use netbox::QueryBuilder;
+```rust,no_run
+use netbox::{Client, ClientConfig, QueryBuilder};
 
+# async fn example() -> Result<(), Box<dyn std::error::Error>> {
+let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
 let query = QueryBuilder::new()
     .filter("status", "active")
     .limit(50)
@@ -43,24 +50,35 @@ let query = QueryBuilder::new()
 
 let page = client.dcim().devices().list(Some(query)).await?;
 println!("{}", page.count);
+# Ok(())
+# }
 ```
 
 ## paginate
 
-```rust
+```rust,no_run
+use netbox::{Client, ClientConfig};
+
+# async fn example() -> Result<(), Box<dyn std::error::Error>> {
+let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
 let mut paginator = client.dcim().devices().paginate(None);
 while let Some(page) = paginator.next_page().await? {
     for device in page.results {
         println!("{}", device.display);
     }
 }
+# Ok(())
+# }
 ```
 
 ## create, update, delete
 
-```rust
+```rust,no_run
+use netbox::{Client, ClientConfig};
 use netbox::dcim::CreateDeviceRequest;
 
+# async fn example() -> Result<(), Box<dyn std::error::Error>> {
+let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
 let request = CreateDeviceRequest {
     name: "switch-01".to_string(),
     device_type: 1,
@@ -73,37 +91,65 @@ let request = CreateDeviceRequest {
 };
 
 let device = client.dcim().devices().create(&request).await?;
-let updated = client.dcim().devices().patch(device.id, &serde_json::json!({"status": "offline"})).await?;
+let _updated = client
+    .dcim()
+    .devices()
+    .patch(device.id, &serde_json::json!({"status": "offline"}))
+    .await?;
 client.dcim().devices().delete(device.id).await?;
+# Ok(())
+# }
 ```
 
 ## status and schema
 
-```rust
+```rust,no_run
+use netbox::{Client, ClientConfig};
+
+# async fn example() -> Result<(), Box<dyn std::error::Error>> {
+let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
 let status = client.status().status().await?;
 let schema = client.schema().schema(Some("json"), None).await?;
+# Ok(())
+# }
 ```
 
 ## connected device
 
-```rust
+```rust,no_run
+use netbox::{Client, ClientConfig};
+
+# async fn example() -> Result<(), Box<dyn std::error::Error>> {
+let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
 let devices = client
     .dcim()
     .connected_device("leaf-01", "Ethernet1")
     .await?;
+println!("{}", devices.len());
+# Ok(())
+# }
 ```
 
 ## branching plugin
 
-```rust
+```rust,no_run
+use netbox::{Client, ClientConfig};
+
+# async fn example() -> Result<(), Box<dyn std::error::Error>> {
+let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
 let branches = client.plugins().branches().list(None).await?;
+println!("{}", branches.count);
+# Ok(())
+# }
 ```
 
 ## error handling
 
-```rust
-use netbox::Error;
+```rust,no_run
+use netbox::{Client, ClientConfig, Error};
 
+# async fn example() -> Result<(), Box<dyn std::error::Error>> {
+let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
 match client.dcim().devices().get(999).await {
     Ok(device) => println!("{}", device.display),
     Err(Error::ApiError { status, .. }) if status == 404 => {
@@ -116,18 +162,25 @@ match client.dcim().devices().get(999).await {
         println!("error: {}", e);
     }
 }
+# Ok(())
+# }
 ```
 
 ## raw api access
 
 use this when you need an endpoint not yet wrapped by the high-level client.
 
-```rust
+```rust,no_run
+use netbox::{Client, ClientConfig};
 use netbox::openapi::apis::dcim_api;
 
+# async fn example() -> Result<(), Box<dyn std::error::Error>> {
+let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
 let openapi_config = client.openapi_config();
 let device = dcim_api::dcim_devices_retrieve(&openapi_config, 42).await?;
 println!("{}", device.display);
+# Ok(())
+# }
 ```
 
 ## coverage summary

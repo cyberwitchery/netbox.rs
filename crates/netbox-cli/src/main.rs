@@ -1,4 +1,4 @@
-#![doc = include_str!("../../docs/cli.md")]
+#![doc = include_str!("../../../docs/cli.md")]
 
 use clap::{Args, Parser, Subcommand};
 use netbox::circuits::{
