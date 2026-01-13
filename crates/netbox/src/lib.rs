@@ -1,38 +1,4 @@
-//! # netbox
-//!
-//! An ergonomic Rust client for the NetBox 4.x REST API.
-//!
-//! ## Features
-//!
-//! - Strongly typed API using generated bindings from NetBox OpenAPI schema
-//! - Token-based authentication
-//! - Automatic pagination handling
-//! - Flexible query filtering
-//! - Configurable timeouts and retries
-//! - Optional tracing support
-//!
-//! ## Quick Start
-//!
-//! ```no_run
-//! use netbox::{Client, ClientConfig};
-//!
-//! # async fn example() -> Result<(), Box<dyn std::error::Error>> {
-//! let config = ClientConfig::new("https://netbox.example.com", "your-api-token");
-//! let client = Client::new(config)?;
-//!
-//! // List devices
-//! // let devices = client.dcim().devices().list().await?;
-//! # Ok(())
-//! # }
-//! ```
-//!
-//! ## Version Compatibility
-//!
-//! This crate version tracks NetBox major.minor versions:
-//! - `netbox 4.2.x` targets NetBox 4.2.x
-//! - `netbox 4.3.x` targets NetBox 4.3.x
-//!
-//! Patch versions may include bug fixes and improvements to the client library.
+#![doc = include_str!("../../docs/client.md")]
 
 #![warn(missing_docs)]
 #![warn(clippy::all)]
@@ -44,19 +10,32 @@ mod pagination;
 mod query;
 mod resource;
 
-// API endpoint modules
+// api endpoint modules
+/// circuits and provider resources.
 pub mod circuits;
+/// core endpoints and system resources.
 pub mod core;
+/// dcim endpoints.
 pub mod dcim;
+/// extras endpoints (tags, webhooks, scripts, custom fields).
 pub mod extras;
+/// ipam endpoints.
 pub mod ipam;
+/// plugin endpoints.
 pub mod plugins;
+/// schema endpoint.
 pub mod schema;
+/// status endpoint.
 pub mod status;
+/// tenancy endpoints.
 pub mod tenancy;
+/// users and auth endpoints.
 pub mod users;
+/// virtualization endpoints.
 pub mod virtualization;
+/// vpn endpoints.
 pub mod vpn;
+/// wireless endpoints.
 pub mod wireless;
 
 pub use client::Client;
@@ -66,11 +45,11 @@ pub use pagination::{Page, Paginator};
 pub use query::QueryBuilder;
 pub use resource::Resource;
 
-/// Generated OpenAPI types and API functions.
+/// generated openapi types and api functions.
 pub mod openapi {
     pub use netbox_openapi::apis;
     pub use netbox_openapi::models;
 }
 
-// Re-export the generated models for convenience
+// re-export the generated models for convenience
 pub use netbox_openapi::models;

@@ -1,482 +1,493 @@
-//! Circuits API endpoints.
+//! circuits endpoints for providers, circuits, terminations, and virtual circuits.
+//!
+//! basic usage:
+//! ```no_run
+//! # use netbox::{Client, ClientConfig};
+//! # async fn example() -> Result<(), Box<dyn std::error::Error>> {
+//! # let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
+//! let circuits = client.circuits().circuits().list(None).await?;
+//! println!("{}", circuits.count);
+//! # Ok(())
+//! # }
+//! ```
 
 use crate::resource::Resource;
 use crate::Client;
 use serde::{Deserialize, Serialize};
 
-/// Request for creating a provider (ID-based references).
+/// request for creating a provider (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateProviderRequest {
-    /// Provider name.
+    /// provider name.
     pub name: String,
-    /// Provider slug.
+    /// provider slug.
     pub slug: String,
-    /// Provider account IDs.
+    /// provider account IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub accounts: Option<Vec<i32>>,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Comments text.
+    /// comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// ASN IDs.
+    /// aSN IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub asns: Option<Vec<i32>>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating a provider (ID-based references).
+/// request for updating a provider (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateProviderRequest {
-    /// Updated provider name.
+    /// updated provider name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated provider slug.
+    /// updated provider slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub slug: Option<String>,
-    /// Updated provider account IDs.
+    /// updated provider account IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub accounts: Option<Vec<i32>>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated comments text.
+    /// updated comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Updated ASN IDs.
+    /// updated ASN IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub asns: Option<Vec<i32>>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for creating a provider network (ID-based references).
+/// request for creating a provider network (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateProviderNetworkRequest {
-    /// Provider ID.
+    /// provider id.
     pub provider: i32,
-    /// Provider network name.
+    /// provider network name.
     pub name: String,
-    /// Service ID.
+    /// service id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_id: Option<String>,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Comments text.
+    /// comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating a provider network (ID-based references).
+/// request for updating a provider network (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateProviderNetworkRequest {
-    /// Updated provider ID.
+    /// updated provider id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub provider: Option<i32>,
-    /// Updated provider network name.
+    /// updated provider network name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated service ID.
+    /// updated service id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub service_id: Option<String>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated comments text.
+    /// updated comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for creating a circuit type (ID-based references).
+/// request for creating a circuit type (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateCircuitTypeRequest {
-    /// Circuit type name.
+    /// circuit type name.
     pub name: String,
-    /// Circuit type slug.
+    /// circuit type slug.
     pub slug: String,
-    /// Color hex value.
+    /// color hex value.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub color: Option<String>,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating a circuit type (ID-based references).
+/// request for updating a circuit type (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateCircuitTypeRequest {
-    /// Updated circuit type name.
+    /// updated circuit type name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated circuit type slug.
+    /// updated circuit type slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub slug: Option<String>,
-    /// Updated color hex value.
+    /// updated color hex value.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub color: Option<String>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for creating a circuit (ID-based references).
+/// request for creating a circuit (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateCircuitRequest {
-    /// Circuit ID (CID).
+    /// circuit id (CID).
     pub cid: String,
-    /// Provider ID.
+    /// provider id.
     pub provider: i32,
-    /// Provider account ID.
+    /// provider account id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub provider_account: Option<i32>,
-    /// Circuit type ID.
+    /// circuit type id.
     pub r#type: i32,
-    /// Status slug.
+    /// status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
-    /// Tenant ID.
+    /// tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant: Option<i32>,
-    /// Install date (YYYY-MM-DD).
+    /// install date (YYYY-MM-DD).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub install_date: Option<String>,
-    /// Termination date (YYYY-MM-DD).
+    /// termination date (YYYY-MM-DD).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub termination_date: Option<String>,
-    /// Commit rate.
+    /// commit rate.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub commit_rate: Option<i32>,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Distance value.
+    /// distance value.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub distance: Option<f64>,
-    /// Distance unit slug.
+    /// distance unit slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub distance_unit: Option<String>,
-    /// Comments text.
+    /// comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating a circuit (ID-based references).
+/// request for updating a circuit (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateCircuitRequest {
-    /// Updated circuit ID (CID).
+    /// updated circuit id (CID).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub cid: Option<String>,
-    /// Updated provider ID.
+    /// updated provider id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub provider: Option<i32>,
-    /// Updated provider account ID.
+    /// updated provider account id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub provider_account: Option<i32>,
-    /// Updated circuit type ID.
+    /// updated circuit type id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub r#type: Option<i32>,
-    /// Updated status slug.
+    /// updated status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
-    /// Updated tenant ID.
+    /// updated tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant: Option<i32>,
-    /// Updated install date (YYYY-MM-DD).
+    /// updated install date (YYYY-MM-DD).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub install_date: Option<String>,
-    /// Updated termination date (YYYY-MM-DD).
+    /// updated termination date (YYYY-MM-DD).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub termination_date: Option<String>,
-    /// Updated commit rate.
+    /// updated commit rate.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub commit_rate: Option<i32>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated distance value.
+    /// updated distance value.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub distance: Option<f64>,
-    /// Updated distance unit slug.
+    /// updated distance unit slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub distance_unit: Option<String>,
-    /// Updated comments text.
+    /// updated comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for creating a virtual circuit (ID-based references).
+/// request for creating a virtual circuit (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateVirtualCircuitRequest {
-    /// Virtual circuit ID (CID).
+    /// virtual circuit id (CID).
     pub cid: String,
-    /// Provider network ID.
+    /// provider network id.
     pub provider_network: i32,
-    /// Provider account ID.
+    /// provider account id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub provider_account: Option<i32>,
-    /// Virtual circuit type ID.
+    /// virtual circuit type id.
     pub r#type: i32,
-    /// Status slug.
+    /// status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
-    /// Tenant ID.
+    /// tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant: Option<i32>,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Comments text.
+    /// comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating a virtual circuit (ID-based references).
+/// request for updating a virtual circuit (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateVirtualCircuitRequest {
-    /// Updated virtual circuit ID (CID).
+    /// updated virtual circuit id (CID).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub cid: Option<String>,
-    /// Updated provider network ID.
+    /// updated provider network id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub provider_network: Option<i32>,
-    /// Updated provider account ID.
+    /// updated provider account id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub provider_account: Option<i32>,
-    /// Updated virtual circuit type ID.
+    /// updated virtual circuit type id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub r#type: Option<i32>,
-    /// Updated status slug.
+    /// updated status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
-    /// Updated tenant ID.
+    /// updated tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant: Option<i32>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated comments text.
+    /// updated comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for creating a provider account (ID-based references).
+/// request for creating a provider account (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateProviderAccountRequest {
-    /// Provider ID.
+    /// provider id.
     pub provider: i32,
-    /// Account name.
+    /// account name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Account identifier.
+    /// account identifier.
     pub account: String,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Comments text.
+    /// comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating a provider account (ID-based references).
+/// request for updating a provider account (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateProviderAccountRequest {
-    /// Updated provider ID.
+    /// updated provider id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub provider: Option<i32>,
-    /// Updated account name.
+    /// updated account name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated account identifier.
+    /// updated account identifier.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub account: Option<String>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated comments text.
+    /// updated comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for creating a circuit termination (ID-based references).
+/// request for creating a circuit termination (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateCircuitTerminationRequest {
-    /// Circuit ID.
+    /// circuit id.
     pub circuit: i32,
-    /// Termination side (A/Z).
+    /// termination side (A/Z).
     pub term_side: String,
-    /// Termination object type.
+    /// termination object type.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub termination_type: Option<String>,
-    /// Termination object ID.
+    /// termination object id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub termination_id: Option<i32>,
-    /// Port speed.
+    /// port speed.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub port_speed: Option<i32>,
-    /// Upstream speed.
+    /// upstream speed.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub upstream_speed: Option<i32>,
-    /// Cross-connect ID.
+    /// cross-connect id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub xconnect_id: Option<String>,
-    /// Patch panel info.
+    /// patch panel info.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pp_info: Option<String>,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Mark as connected flag.
+    /// mark as connected flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mark_connected: Option<bool>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating a circuit termination (ID-based references).
+/// request for updating a circuit termination (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateCircuitTerminationRequest {
-    /// Updated circuit ID.
+    /// updated circuit id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub circuit: Option<i32>,
-    /// Updated termination side (A/Z).
+    /// updated termination side (A/Z).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub term_side: Option<String>,
-    /// Updated termination object type.
+    /// updated termination object type.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub termination_type: Option<String>,
-    /// Updated termination object ID.
+    /// updated termination object id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub termination_id: Option<i32>,
-    /// Updated port speed.
+    /// updated port speed.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub port_speed: Option<i32>,
-    /// Updated upstream speed.
+    /// updated upstream speed.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub upstream_speed: Option<i32>,
-    /// Updated cross-connect ID.
+    /// updated cross-connect id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub xconnect_id: Option<String>,
-    /// Updated patch panel info.
+    /// updated patch panel info.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pp_info: Option<String>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated mark as connected flag.
+    /// updated mark as connected flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mark_connected: Option<bool>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for creating a virtual circuit termination (ID-based references).
+/// request for creating a virtual circuit termination (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateVirtualCircuitTerminationRequest {
-    /// Virtual circuit ID.
+    /// virtual circuit id.
     pub virtual_circuit: i32,
-    /// Role slug.
+    /// role slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub role: Option<String>,
-    /// Interface ID.
+    /// interface id.
     pub interface: i32,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating a virtual circuit termination (ID-based references).
+/// request for updating a virtual circuit termination (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateVirtualCircuitTerminationRequest {
-    /// Updated virtual circuit ID.
+    /// updated virtual circuit id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub virtual_circuit: Option<i32>,
-    /// Updated role slug.
+    /// updated role slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub role: Option<String>,
-    /// Updated interface ID.
+    /// updated interface id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub interface: Option<i32>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for creating a circuit group assignment (ID-based references).
+/// request for creating a circuit group assignment (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateCircuitGroupAssignmentRequest {
-    /// Circuit group ID.
+    /// circuit group id.
     pub group: i32,
-    /// Member type string.
+    /// member type string.
     pub member_type: String,
-    /// Member object ID.
+    /// member object id.
     pub member_id: i64,
-    /// Priority slug.
+    /// priority slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub priority: Option<String>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating a circuit group assignment (ID-based references).
+/// request for updating a circuit group assignment (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateCircuitGroupAssignmentRequest {
-    /// Updated circuit group ID.
+    /// updated circuit group id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub group: Option<i32>,
-    /// Updated member type string.
+    /// updated member type string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub member_type: Option<String>,
-    /// Updated member object ID.
+    /// updated member object id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub member_id: Option<i64>,
-    /// Updated priority slug.
+    /// updated priority slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub priority: Option<String>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
@@ -888,53 +899,53 @@ mod tests {
     }
 }
 
-/// Circuit model.
+/// circuit model.
 pub type Circuit = crate::models::Circuit;
-/// Circuit termination model.
+/// circuit termination model.
 pub type CircuitTermination = crate::models::CircuitTermination;
-/// Circuit type model.
+/// circuit type model.
 pub type CircuitType = crate::models::CircuitType;
-/// Circuit group model.
+/// circuit group model.
 pub type CircuitGroup = crate::models::CircuitGroup;
-/// Circuit group assignment model.
+/// circuit group assignment model.
 pub type CircuitGroupAssignment = crate::models::CircuitGroupAssignment;
-/// Provider model.
+/// provider model.
 pub type Provider = crate::models::Provider;
-/// Provider network model.
+/// provider network model.
 pub type ProviderNetwork = crate::models::ProviderNetwork;
-/// Provider account model.
+/// provider account model.
 pub type ProviderAccount = crate::models::ProviderAccount;
-/// Virtual circuit model.
+/// virtual circuit model.
 pub type VirtualCircuit = crate::models::VirtualCircuit;
-/// Virtual circuit termination model.
+/// virtual circuit termination model.
 pub type VirtualCircuitTermination = crate::models::VirtualCircuitTermination;
-/// Virtual circuit type model.
+/// virtual circuit type model.
 pub type VirtualCircuitType = crate::models::VirtualCircuitType;
 
-/// Resource for circuit group assignments.
+/// resource for circuit group assignments.
 pub type CircuitGroupAssignmentsApi = Resource<crate::models::CircuitGroupAssignment>;
-/// Resource for circuit groups.
+/// resource for circuit groups.
 pub type CircuitGroupsApi = Resource<crate::models::CircuitGroup>;
-/// Resource for circuit terminations.
+/// resource for circuit terminations.
 pub type CircuitTerminationsApi = Resource<crate::models::CircuitTermination>;
-/// Resource for circuit types.
+/// resource for circuit types.
 pub type CircuitTypesApi = Resource<crate::models::CircuitType>;
-/// Resource for circuits.
+/// resource for circuits.
 pub type CircuitsResource = Resource<crate::models::Circuit>;
-/// Resource for provider accounts.
+/// resource for provider accounts.
 pub type ProviderAccountsApi = Resource<crate::models::ProviderAccount>;
-/// Resource for provider networks.
+/// resource for provider networks.
 pub type ProviderNetworksApi = Resource<crate::models::ProviderNetwork>;
-/// Resource for providers.
+/// resource for providers.
 pub type ProvidersApi = Resource<crate::models::Provider>;
-/// Resource for virtual circuit terminations.
+/// resource for virtual circuit terminations.
 pub type VirtualCircuitTerminationsApi = Resource<crate::models::VirtualCircuitTermination>;
-/// Resource for virtual circuit types.
+/// resource for virtual circuit types.
 pub type VirtualCircuitTypesApi = Resource<crate::models::VirtualCircuitType>;
-/// Resource for virtual circuits.
+/// resource for virtual circuits.
 pub type VirtualCircuitsApi = Resource<crate::models::VirtualCircuit>;
 
-/// API for circuits endpoints.
+/// api for circuits endpoints.
 #[derive(Clone)]
 pub struct CircuitsApi {
     client: Client,
@@ -945,57 +956,60 @@ impl CircuitsApi {
         Self { client }
     }
 
-    /// Returns the circuit group assignments resource.
+    /// returns the circuit group assignments resource.
     pub fn circuit_group_assignments(&self) -> CircuitGroupAssignmentsApi {
         Resource::new(self.client.clone(), "circuits/circuit-group-assignments/")
     }
 
-    /// Returns the circuit groups resource.
+    /// returns the circuit groups resource.
     pub fn circuit_groups(&self) -> CircuitGroupsApi {
         Resource::new(self.client.clone(), "circuits/circuit-groups/")
     }
 
-    /// Returns the circuit terminations resource.
+    /// returns the circuit terminations resource.
     pub fn circuit_terminations(&self) -> CircuitTerminationsApi {
         Resource::new(self.client.clone(), "circuits/circuit-terminations/")
     }
 
-    /// Returns the circuit types resource.
+    /// returns the circuit types resource.
     pub fn circuit_types(&self) -> CircuitTypesApi {
         Resource::new(self.client.clone(), "circuits/circuit-types/")
     }
 
-    /// Returns the circuits resource.
+    /// returns the circuits resource.
     pub fn circuits(&self) -> CircuitsResource {
         Resource::new(self.client.clone(), "circuits/circuits/")
     }
 
-    /// Returns the provider accounts resource.
+    /// returns the provider accounts resource.
     pub fn provider_accounts(&self) -> ProviderAccountsApi {
         Resource::new(self.client.clone(), "circuits/provider-accounts/")
     }
 
-    /// Returns the provider networks resource.
+    /// returns the provider networks resource.
     pub fn provider_networks(&self) -> ProviderNetworksApi {
         Resource::new(self.client.clone(), "circuits/provider-networks/")
     }
 
-    /// Returns the providers resource.
+    /// returns the providers resource.
     pub fn providers(&self) -> ProvidersApi {
         Resource::new(self.client.clone(), "circuits/providers/")
     }
 
-    /// Returns the virtual circuit terminations resource.
+    /// returns the virtual circuit terminations resource.
     pub fn virtual_circuit_terminations(&self) -> VirtualCircuitTerminationsApi {
-        Resource::new(self.client.clone(), "circuits/virtual-circuit-terminations/")
+        Resource::new(
+            self.client.clone(),
+            "circuits/virtual-circuit-terminations/",
+        )
     }
 
-    /// Returns the virtual circuit types resource.
+    /// returns the virtual circuit types resource.
     pub fn virtual_circuit_types(&self) -> VirtualCircuitTypesApi {
         Resource::new(self.client.clone(), "circuits/virtual-circuit-types/")
     }
 
-    /// Returns the virtual circuits resource.
+    /// returns the virtual circuits resource.
     pub fn virtual_circuits(&self) -> VirtualCircuitsApi {
         Resource::new(self.client.clone(), "circuits/virtual-circuits/")
     }

@@ -1,4 +1,4 @@
-//! Generic API resource wrapper for standard NetBox CRUD endpoints.
+//! generic api resource wrapper for standard netbox crud endpoints.
 
 use crate::error::Result;
 use crate::pagination::{Page, Paginator};
@@ -7,7 +7,7 @@ use crate::Client;
 use serde::de::DeserializeOwned;
 use serde::Serialize;
 
-/// Generic resource wrapper for list/get/create/update/patch/delete operations.
+/// generic resource wrapper for list/get/create/update/patch/delete operations.
 #[derive(Clone)]
 pub struct Resource<T> {
     client: Client,
@@ -27,13 +27,13 @@ where
         }
     }
 
-    /// List all resources for this endpoint.
+    /// list all resources for this endpoint.
     pub async fn list(&self, query: Option<QueryBuilder>) -> Result<Page<T>> {
         let query = query.unwrap_or_default();
         self.client.get_with_params(self.path, &query).await
     }
 
-    /// Get a paginator for iterating through all resources.
+    /// get a paginator for iterating through all resources.
     pub fn paginate(&self, query: Option<QueryBuilder>) -> Paginator<T> {
         let path = if let Some(q) = query {
             let query_string = serde_urlencoded::to_string(&q).unwrap_or_default();
@@ -48,12 +48,12 @@ where
         Paginator::new(self.client.clone(), path)
     }
 
-    /// Get a resource by ID.
+    /// get a resource by id.
     pub async fn get(&self, id: i32) -> Result<T> {
         self.client.get(&format!("{}{}/", self.path, id)).await
     }
 
-    /// Create a resource.
+    /// create a resource.
     pub async fn create<B>(&self, body: &B) -> Result<T>
     where
         B: Serialize,
@@ -61,15 +61,17 @@ where
         self.client.post(self.path, body).await
     }
 
-    /// Update a resource (full update).
+    /// update a resource (full update).
     pub async fn update<B>(&self, id: i32, body: &B) -> Result<T>
     where
         B: Serialize,
     {
-        self.client.put(&format!("{}{}/", self.path, id), body).await
+        self.client
+            .put(&format!("{}{}/", self.path, id), body)
+            .await
     }
 
-    /// Partially update a resource.
+    /// partially update a resource.
     pub async fn patch<B>(&self, id: i32, body: &B) -> Result<T>
     where
         B: Serialize,
@@ -79,7 +81,7 @@ where
             .await
     }
 
-    /// Delete a resource.
+    /// delete a resource.
     pub async fn delete(&self, id: i32) -> Result<()> {
         self.client.delete(&format!("{}{}/", self.path, id)).await
     }
@@ -90,7 +92,7 @@ mod tests {
     use super::*;
     use crate::ClientConfig;
     use httpmock::Method::GET;
-    use httpmock::{MockServer, Method::DELETE, Method::PATCH, Method::POST, Method::PUT};
+    use httpmock::{Method::DELETE, Method::PATCH, Method::POST, Method::PUT, MockServer};
 
     fn test_client() -> Client {
         let config = ClientConfig::new("https://netbox.example.com", "token");
@@ -173,13 +175,22 @@ mod tests {
         let item = resource.get(1).await.unwrap();
         assert_eq!(item["id"], 1);
 
-        let created = resource.create(&serde_json::json!({"name": "device"})).await.unwrap();
+        let created = resource
+            .create(&serde_json::json!({"name": "device"}))
+            .await
+            .unwrap();
         assert_eq!(created["id"], 2);
 
-        let updated = resource.update(1, &serde_json::json!({"name": "device"})).await.unwrap();
+        let updated = resource
+            .update(1, &serde_json::json!({"name": "device"}))
+            .await
+            .unwrap();
         assert_eq!(updated["updated"], true);
 
-        let patched = resource.patch(1, &serde_json::json!({"name": "device"})).await.unwrap();
+        let patched = resource
+            .patch(1, &serde_json::json!({"name": "device"}))
+            .await
+            .unwrap();
         assert_eq!(patched["patched"], true);
 
         resource.delete(1).await.unwrap();

@@ -1,38 +1,38 @@
-//! Client configuration
+//! client configuration
 
 use crate::error::{Error, Result};
 use std::time::Duration;
 use url::Url;
 
-/// Configuration for the NetBox client
+/// configuration for the netbox client
 #[derive(Debug, Clone)]
 pub struct ClientConfig {
-    /// Base URL of the NetBox instance (e.g., "https://netbox.example.com")
+    /// base url of the netbox instance (e.g., "https://netbox.example.com")
     pub(crate) base_url: Url,
 
-    /// API authentication token
+    /// api authentication token
     pub(crate) token: String,
 
-    /// Request timeout duration
+    /// request timeout duration
     pub(crate) timeout: Duration,
 
-    /// Maximum number of retries for failed requests
+    /// maximum number of retries for failed requests
     pub(crate) max_retries: u32,
 
-    /// User agent string
+    /// user agent string
     pub(crate) user_agent: String,
 
-    /// Whether to verify SSL certificates
+    /// whether to verify ssl certificates
     pub(crate) verify_ssl: bool,
 }
 
 impl ClientConfig {
-    /// Create a new client configuration
+    /// create a new client configuration
     ///
     /// # Arguments
     ///
-    /// * `base_url` - The base URL of the NetBox instance (with or without trailing slash)
-    /// * `token` - The API authentication token
+    /// * `base_url` - The base url of the netbox instance (with or without trailing slash)
+    /// * `token` - The api authentication token
     ///
     /// # Example
     ///
@@ -62,39 +62,39 @@ impl ClientConfig {
         }
     }
 
-    /// Set the request timeout
+    /// set the request timeout
     ///
-    /// Default: 30 seconds
+    /// default: 30 seconds
     pub fn with_timeout(mut self, timeout: Duration) -> Self {
         self.timeout = timeout;
         self
     }
 
-    /// Set the maximum number of retries
+    /// set the maximum number of retries
     ///
-    /// Default: 3
+    /// default: 3
     ///
-    /// Retries apply to GET requests for transient network errors and 429/5xx responses.
+    /// retries apply to get requests for transient network errors and 429/5xx responses.
     pub fn with_max_retries(mut self, max_retries: u32) -> Self {
         self.max_retries = max_retries;
         self
     }
 
-    /// Set a custom user agent string
+    /// set a custom user agent string
     pub fn with_user_agent(mut self, user_agent: impl Into<String>) -> Self {
         self.user_agent = user_agent.into();
         self
     }
 
-    /// Disable SSL certificate verification (not recommended for production)
+    /// disable ssl certificate verification (not recommended for production)
     ///
-    /// Default: enabled
+    /// default: enabled
     pub fn with_ssl_verification(mut self, verify: bool) -> Self {
         self.verify_ssl = verify;
         self
     }
 
-    /// Validate the configuration
+    /// validate the configuration
     pub(crate) fn validate(&self) -> Result<()> {
         // Validate base URL
         if self.base_url.scheme() != "http" && self.base_url.scheme() != "https" {
@@ -112,9 +112,9 @@ impl ClientConfig {
         Ok(())
     }
 
-    /// Build the full API URL by joining with a path
+    /// build the full api url by joining with a path
     ///
-    /// This handles trailing slashes correctly.
+    /// this handles trailing slashes correctly.
     pub(crate) fn build_url(&self, path: &str) -> Result<Url> {
         let path = path.trim_start_matches('/');
         let base_str = self.base_url.as_str().trim_end_matches('/');

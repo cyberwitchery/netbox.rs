@@ -1,4 +1,4 @@
-//! Simple CLI tool for testing the NetBox API client
+#![doc = include_str!("../../docs/cli.md")]
 
 use clap::{Args, Parser, Subcommand};
 use netbox::circuits::{
@@ -9,13 +9,13 @@ use netbox::circuits::{
     UpdateCircuitTypeRequest, UpdateProviderAccountRequest, UpdateProviderNetworkRequest,
     UpdateProviderRequest, UpdateVirtualCircuitRequest, UpdateVirtualCircuitTerminationRequest,
 };
+use netbox::plugins::{CommitRequest, PatchedWritableBranchRequest, WritableBranchRequest};
+use netbox::users::TokenProvisionRequest;
 use netbox::virtualization::{
     CreateClusterRequest, CreateVirtualDiskRequest, CreateVirtualMachineRequest,
     CreateVmInterfaceRequest, UpdateClusterRequest, UpdateVirtualDiskRequest,
     UpdateVirtualMachineRequest, UpdateVmInterfaceRequest,
 };
-use netbox::plugins::{CommitRequest, PatchedWritableBranchRequest, WritableBranchRequest};
-use netbox::users::TokenProvisionRequest;
 use netbox::vpn::{
     CreateIkePolicyRequest, CreateIkeProposalRequest, CreateIpSecPolicyRequest,
     CreateIpSecProfileRequest, CreateIpSecProposalRequest, CreateL2VpnRequest,
@@ -365,9 +365,7 @@ enum Commands {
     /// List branches (branching plugin)
     ListBranches,
     /// Get a branch (branching plugin)
-    GetBranch {
-        id: i32,
-    },
+    GetBranch { id: i32 },
     /// Create a branch (branching plugin)
     CreateBranch {
         #[command(flatten)]
@@ -380,9 +378,7 @@ enum Commands {
         input: JsonInput,
     },
     /// Delete a branch (branching plugin)
-    DeleteBranch {
-        id: i32,
-    },
+    DeleteBranch { id: i32 },
     /// Merge a branch (branching plugin)
     MergeBranch {
         id: i32,
@@ -404,15 +400,11 @@ enum Commands {
     /// List branch events (branching plugin)
     ListBranchEvents,
     /// Get a branch event (branching plugin)
-    GetBranchEvent {
-        id: i32,
-    },
+    GetBranchEvent { id: i32 },
     /// List changes (branching plugin)
     ListChanges,
     /// Get a change (branching plugin)
-    GetChange {
-        id: i32,
-    },
+    GetChange { id: i32 },
 }
 
 #[derive(Args, Debug)]
@@ -470,7 +462,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         Commands::ListVirtualMachines => {
             println!("Listing virtual machines...");
-            let vms = client.virtualization().virtual_machines().list(None).await?;
+            let vms = client
+                .virtualization()
+                .virtual_machines()
+                .list(None)
+                .await?;
             println!("{}", to_string_pretty(&vms)?);
         }
         Commands::ListVmInterfaces => {
@@ -586,7 +582,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         Commands::UpdateCircuitType { id, input } => {
             let request: UpdateCircuitTypeRequest = load_json(&input)?;
-            let circuit_type = client.circuits().circuit_types().patch(id, &request).await?;
+            let circuit_type = client
+                .circuits()
+                .circuit_types()
+                .patch(id, &request)
+                .await?;
             println!("{}", to_string_pretty(&circuit_type)?);
         }
         Commands::CreateCircuit { input } => {
@@ -637,12 +637,20 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         Commands::CreateVirtualCircuit { input } => {
             let request: CreateVirtualCircuitRequest = load_json(&input)?;
-            let vc = client.circuits().virtual_circuits().create(&request).await?;
+            let vc = client
+                .circuits()
+                .virtual_circuits()
+                .create(&request)
+                .await?;
             println!("{}", to_string_pretty(&vc)?);
         }
         Commands::UpdateVirtualCircuit { id, input } => {
             let request: UpdateVirtualCircuitRequest = load_json(&input)?;
-            let vc = client.circuits().virtual_circuits().patch(id, &request).await?;
+            let vc = client
+                .circuits()
+                .virtual_circuits()
+                .patch(id, &request)
+                .await?;
             println!("{}", to_string_pretty(&vc)?);
         }
         Commands::CreateVirtualCircuitTermination { input } => {
@@ -670,7 +678,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         Commands::UpdateCluster { id, input } => {
             let request: UpdateClusterRequest = load_json(&input)?;
-            let cluster = client.virtualization().clusters().patch(id, &request).await?;
+            let cluster = client
+                .virtualization()
+                .clusters()
+                .patch(id, &request)
+                .await?;
             println!("{}", to_string_pretty(&cluster)?);
         }
         Commands::CreateVirtualMachine { input } => {
@@ -693,22 +705,38 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         Commands::CreateVmInterface { input } => {
             let request: CreateVmInterfaceRequest = load_json(&input)?;
-            let iface = client.virtualization().interfaces().create(&request).await?;
+            let iface = client
+                .virtualization()
+                .interfaces()
+                .create(&request)
+                .await?;
             println!("{}", to_string_pretty(&iface)?);
         }
         Commands::UpdateVmInterface { id, input } => {
             let request: UpdateVmInterfaceRequest = load_json(&input)?;
-            let iface = client.virtualization().interfaces().patch(id, &request).await?;
+            let iface = client
+                .virtualization()
+                .interfaces()
+                .patch(id, &request)
+                .await?;
             println!("{}", to_string_pretty(&iface)?);
         }
         Commands::CreateVirtualDisk { input } => {
             let request: CreateVirtualDiskRequest = load_json(&input)?;
-            let disk = client.virtualization().virtual_disks().create(&request).await?;
+            let disk = client
+                .virtualization()
+                .virtual_disks()
+                .create(&request)
+                .await?;
             println!("{}", to_string_pretty(&disk)?);
         }
         Commands::UpdateVirtualDisk { id, input } => {
             let request: UpdateVirtualDiskRequest = load_json(&input)?;
-            let disk = client.virtualization().virtual_disks().patch(id, &request).await?;
+            let disk = client
+                .virtualization()
+                .virtual_disks()
+                .patch(id, &request)
+                .await?;
             println!("{}", to_string_pretty(&disk)?);
         }
         Commands::CreateTunnelGroup { input } => {
@@ -733,11 +761,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         Commands::CreateTunnelTermination { input } => {
             let request: CreateTunnelTerminationRequest = load_json(&input)?;
-            let termination = client
-                .vpn()
-                .tunnel_terminations()
-                .create(&request)
-                .await?;
+            let termination = client.vpn().tunnel_terminations().create(&request).await?;
             println!("{}", to_string_pretty(&termination)?);
         }
         Commands::UpdateTunnelTermination { id, input } => {
@@ -766,7 +790,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         Commands::UpdateL2VpnTermination { id, input } => {
             let request: UpdateL2VpnTerminationRequest = load_json(&input)?;
-            let termination = client.vpn().l2vpn_terminations().patch(id, &request).await?;
+            let termination = client
+                .vpn()
+                .l2vpn_terminations()
+                .patch(id, &request)
+                .await?;
             println!("{}", to_string_pretty(&termination)?);
         }
         Commands::CreateIkeProposal { input } => {

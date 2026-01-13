@@ -1,332 +1,343 @@
-//! Virtualization API endpoints.
+//! virtualization endpoints for clusters, vms, and interfaces.
+//!
+//! basic usage:
+//! ```no_run
+//! # use netbox::{Client, ClientConfig};
+//! # async fn example() -> Result<(), Box<dyn std::error::Error>> {
+//! # let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
+//! let vms = client.virtualization().virtual_machines().list(None).await?;
+//! println!("{}", vms.count);
+//! # Ok(())
+//! # }
+//! ```
 
 use crate::resource::Resource;
 use crate::Client;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
-/// Request for creating a cluster (ID-based references).
+/// request for creating a cluster (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateClusterRequest {
-    /// Cluster name.
+    /// cluster name.
     pub name: String,
-    /// Cluster type ID.
+    /// cluster type id.
     pub r#type: i32,
-    /// Cluster group ID.
+    /// cluster group id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub group: Option<i32>,
-    /// Status slug.
+    /// status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
-    /// Tenant ID.
+    /// tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant: Option<i32>,
-    /// Scope type string.
+    /// scope type string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scope_type: Option<String>,
-    /// Scope object ID.
+    /// scope object id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scope_id: Option<i32>,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Comments text.
+    /// comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating a cluster (ID-based references).
+/// request for updating a cluster (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateClusterRequest {
-    /// Updated cluster name.
+    /// updated cluster name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated cluster type ID.
+    /// updated cluster type id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub r#type: Option<i32>,
-    /// Updated cluster group ID.
+    /// updated cluster group id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub group: Option<i32>,
-    /// Updated status slug.
+    /// updated status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
-    /// Updated tenant ID.
+    /// updated tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant: Option<i32>,
-    /// Updated scope type string.
+    /// updated scope type string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scope_type: Option<String>,
-    /// Updated scope object ID.
+    /// updated scope object id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scope_id: Option<i32>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated comments text.
+    /// updated comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for creating a virtual machine (ID-based references).
+/// request for creating a virtual machine (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateVirtualMachineRequest {
-    /// Virtual machine name.
+    /// virtual machine name.
     pub name: String,
-    /// Status slug.
+    /// status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
-    /// Site ID.
+    /// site id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub site: Option<i32>,
-    /// Cluster ID.
+    /// cluster id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub cluster: Option<i32>,
-    /// Device ID.
+    /// device id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub device: Option<i32>,
-    /// Serial number.
+    /// serial number.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub serial: Option<String>,
-    /// Role ID.
+    /// role id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub role: Option<i32>,
-    /// Tenant ID.
+    /// tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant: Option<i32>,
-    /// Platform ID.
+    /// platform id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub platform: Option<i32>,
-    /// Primary IPv4 address ID.
+    /// primary IPv4 address id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub primary_ip4: Option<i32>,
-    /// Primary IPv6 address ID.
+    /// primary IPv6 address id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub primary_ip6: Option<i32>,
     /// vCPU count.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vcpus: Option<f64>,
-    /// Memory in MB.
+    /// memory in MB.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub memory: Option<i32>,
-    /// Disk in GB.
+    /// disk in GB.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub disk: Option<i32>,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Comments text.
+    /// comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Config template ID.
+    /// config template id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub config_template: Option<i32>,
-    /// Local config context data.
+    /// local config context data.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub local_context_data: Option<Value>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating a virtual machine (ID-based references).
+/// request for updating a virtual machine (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateVirtualMachineRequest {
-    /// Updated virtual machine name.
+    /// updated virtual machine name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated status slug.
+    /// updated status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
-    /// Updated site ID.
+    /// updated site id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub site: Option<i32>,
-    /// Updated cluster ID.
+    /// updated cluster id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub cluster: Option<i32>,
-    /// Updated device ID.
+    /// updated device id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub device: Option<i32>,
-    /// Updated serial number.
+    /// updated serial number.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub serial: Option<String>,
-    /// Updated role ID.
+    /// updated role id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub role: Option<i32>,
-    /// Updated tenant ID.
+    /// updated tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant: Option<i32>,
-    /// Updated platform ID.
+    /// updated platform id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub platform: Option<i32>,
-    /// Updated primary IPv4 address ID.
+    /// updated primary IPv4 address id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub primary_ip4: Option<i32>,
-    /// Updated primary IPv6 address ID.
+    /// updated primary IPv6 address id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub primary_ip6: Option<i32>,
-    /// Updated vCPU count.
+    /// updated vCPU count.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vcpus: Option<f64>,
-    /// Updated memory in MB.
+    /// updated memory in MB.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub memory: Option<i32>,
-    /// Updated disk in GB.
+    /// updated disk in GB.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub disk: Option<i32>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated comments text.
+    /// updated comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Updated config template ID.
+    /// updated config template id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub config_template: Option<i32>,
-    /// Updated local config context data.
+    /// updated local config context data.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub local_context_data: Option<Value>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for creating a VM interface (ID-based references).
+/// request for creating a VM interface (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateVmInterfaceRequest {
-    /// Virtual machine ID.
+    /// virtual machine id.
     pub virtual_machine: i32,
-    /// Interface name.
+    /// interface name.
     pub name: String,
-    /// Enabled flag.
+    /// enabled flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub enabled: Option<bool>,
-    /// Parent interface ID.
+    /// parent interface id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub parent: Option<i32>,
-    /// Bridge interface ID.
+    /// bridge interface id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub bridge: Option<i32>,
-    /// MTU value.
+    /// mTU value.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mtu: Option<i32>,
-    /// Primary MAC address ID.
+    /// primary MAC address id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub primary_mac_address: Option<i32>,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Mode slug.
+    /// mode slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mode: Option<String>,
-    /// Untagged VLAN ID.
+    /// untagged VLAN id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub untagged_vlan: Option<i32>,
-    /// Tagged VLAN IDs.
+    /// tagged VLAN IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tagged_vlans: Option<Vec<i32>>,
-    /// Q-in-Q SVLAN ID.
+    /// q-in-Q SVLAN id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub qinq_svlan: Option<i32>,
-    /// VLAN translation policy ID.
+    /// vLAN translation policy id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vlan_translation_policy: Option<i32>,
-    /// VRF ID.
+    /// vRF id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vrf: Option<i32>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating a VM interface (ID-based references).
+/// request for updating a VM interface (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateVmInterfaceRequest {
-    /// Updated virtual machine ID.
+    /// updated virtual machine id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub virtual_machine: Option<i32>,
-    /// Updated interface name.
+    /// updated interface name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated enabled flag.
+    /// updated enabled flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub enabled: Option<bool>,
-    /// Updated parent interface ID.
+    /// updated parent interface id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub parent: Option<i32>,
-    /// Updated bridge interface ID.
+    /// updated bridge interface id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub bridge: Option<i32>,
-    /// Updated MTU value.
+    /// updated MTU value.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mtu: Option<i32>,
-    /// Updated primary MAC address ID.
+    /// updated primary MAC address id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub primary_mac_address: Option<i32>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated mode slug.
+    /// updated mode slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mode: Option<String>,
-    /// Updated untagged VLAN ID.
+    /// updated untagged VLAN id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub untagged_vlan: Option<i32>,
-    /// Updated tagged VLAN IDs.
+    /// updated tagged VLAN IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tagged_vlans: Option<Vec<i32>>,
-    /// Updated Q-in-Q SVLAN ID.
+    /// updated Q-in-Q SVLAN id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub qinq_svlan: Option<i32>,
-    /// Updated VLAN translation policy ID.
+    /// updated VLAN translation policy id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vlan_translation_policy: Option<i32>,
-    /// Updated VRF ID.
+    /// updated VRF id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vrf: Option<i32>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for creating a virtual disk (ID-based references).
+/// request for creating a virtual disk (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateVirtualDiskRequest {
-    /// Virtual machine ID.
+    /// virtual machine id.
     pub virtual_machine: i32,
-    /// Disk name.
+    /// disk name.
     pub name: String,
-    /// Disk size in GB.
+    /// disk size in GB.
     pub size: i32,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating a virtual disk (ID-based references).
+/// request for updating a virtual disk (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateVirtualDiskRequest {
-    /// Updated virtual machine ID.
+    /// updated virtual machine id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub virtual_machine: Option<i32>,
-    /// Updated disk name.
+    /// updated disk name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated disk size in GB.
+    /// updated disk size in GB.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub size: Option<i32>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
@@ -606,33 +617,33 @@ mod tests {
     }
 }
 
-/// Cluster group model.
+/// cluster group model.
 pub type ClusterGroup = crate::models::ClusterGroup;
-/// Cluster type model.
+/// cluster type model.
 pub type ClusterType = crate::models::ClusterType;
-/// Cluster model.
+/// cluster model.
 pub type Cluster = crate::models::Cluster;
-/// VM interface model.
+/// vM interface model.
 pub type VmInterface = crate::models::VmInterface;
-/// Virtual disk model.
+/// virtual disk model.
 pub type VirtualDisk = crate::models::VirtualDisk;
-/// Virtual machine model with config context.
+/// virtual machine model with config context.
 pub type VirtualMachine = crate::models::VirtualMachineWithConfigContext;
 
-/// Resource for cluster groups.
+/// resource for cluster groups.
 pub type ClusterGroupsApi = Resource<crate::models::ClusterGroup>;
-/// Resource for cluster types.
+/// resource for cluster types.
 pub type ClusterTypesApi = Resource<crate::models::ClusterType>;
-/// Resource for clusters.
+/// resource for clusters.
 pub type ClustersApi = Resource<crate::models::Cluster>;
-/// Resource for VM interfaces.
+/// resource for VM interfaces.
 pub type VmInterfacesApi = Resource<crate::models::VmInterface>;
-/// Resource for virtual disks.
+/// resource for virtual disks.
 pub type VirtualDisksApi = Resource<crate::models::VirtualDisk>;
-/// Resource for virtual machines.
+/// resource for virtual machines.
 pub type VirtualMachinesApi = Resource<crate::models::VirtualMachineWithConfigContext>;
 
-/// API for virtualization endpoints.
+/// api for virtualization endpoints.
 #[derive(Clone)]
 pub struct VirtualizationApi {
     client: Client,
@@ -643,32 +654,32 @@ impl VirtualizationApi {
         Self { client }
     }
 
-    /// Returns the cluster groups resource.
+    /// returns the cluster groups resource.
     pub fn cluster_groups(&self) -> ClusterGroupsApi {
         Resource::new(self.client.clone(), "virtualization/cluster-groups/")
     }
 
-    /// Returns the cluster types resource.
+    /// returns the cluster types resource.
     pub fn cluster_types(&self) -> ClusterTypesApi {
         Resource::new(self.client.clone(), "virtualization/cluster-types/")
     }
 
-    /// Returns the clusters resource.
+    /// returns the clusters resource.
     pub fn clusters(&self) -> ClustersApi {
         Resource::new(self.client.clone(), "virtualization/clusters/")
     }
 
-    /// Returns the VM interfaces resource.
+    /// returns the VM interfaces resource.
     pub fn interfaces(&self) -> VmInterfacesApi {
         Resource::new(self.client.clone(), "virtualization/interfaces/")
     }
 
-    /// Returns the virtual disks resource.
+    /// returns the virtual disks resource.
     pub fn virtual_disks(&self) -> VirtualDisksApi {
         Resource::new(self.client.clone(), "virtualization/virtual-disks/")
     }
 
-    /// Returns the virtual machines resource.
+    /// returns the virtual machines resource.
     pub fn virtual_machines(&self) -> VirtualMachinesApi {
         Resource::new(self.client.clone(), "virtualization/virtual-machines/")
     }

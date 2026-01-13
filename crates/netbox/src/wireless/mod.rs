@@ -1,4 +1,15 @@
-//! Wireless API endpoints.
+//! wireless endpoints for lans, groups, and links.
+//!
+//! basic usage:
+//! ```no_run
+//! # use netbox::{Client, ClientConfig};
+//! # async fn example() -> Result<(), Box<dyn std::error::Error>> {
+//! # let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
+//! let lans = client.wireless().wireless_lans().list(None).await?;
+//! println!("{}", lans.count);
+//! # Ok(())
+//! # }
+//! ```
 
 use crate::resource::Resource;
 use crate::Client;
@@ -6,256 +17,256 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
 
-/// Request for creating a wireless LAN group.
+/// request for creating a wireless LAN group.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateWirelessLanGroupRequest {
-    /// Group name.
+    /// group name.
     pub name: String,
-    /// Group slug.
+    /// group slug.
     pub slug: String,
-    /// Parent group ID.
+    /// parent group id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub parent: Option<i32>,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
-    /// Custom fields payload.
+    /// custom fields payload.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<HashMap<String, Value>>,
-    /// Comments text.
+    /// comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
 }
 
-/// Request for updating a wireless LAN group.
+/// request for updating a wireless LAN group.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateWirelessLanGroupRequest {
-    /// Updated group name.
+    /// updated group name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated group slug.
+    /// updated group slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub slug: Option<String>,
-    /// Updated parent group ID.
+    /// updated parent group id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub parent: Option<i32>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
-    /// Updated custom fields payload.
+    /// updated custom fields payload.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<HashMap<String, Value>>,
-    /// Updated comments text.
+    /// updated comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
 }
 
-/// Request for creating a wireless LAN.
+/// request for creating a wireless LAN.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateWirelessLanRequest {
-    /// SSID string.
+    /// sSID string.
     pub ssid: String,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Group ID.
+    /// group id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub group: Option<i32>,
-    /// Status slug.
+    /// status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
-    /// VLAN ID.
+    /// vLAN id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vlan: Option<i32>,
-    /// Scope type string.
+    /// scope type string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scope_type: Option<String>,
-    /// Scope ID.
+    /// scope id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scope_id: Option<i32>,
-    /// Tenant ID.
+    /// tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant: Option<i32>,
-    /// Auth type slug.
+    /// auth type slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub auth_type: Option<String>,
-    /// Auth cipher slug.
+    /// auth cipher slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub auth_cipher: Option<String>,
-    /// Auth PSK string.
+    /// auth PSK string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub auth_psk: Option<String>,
-    /// Comments text.
+    /// comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
-    /// Custom fields payload.
+    /// custom fields payload.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<HashMap<String, Value>>,
 }
 
-/// Request for updating a wireless LAN.
+/// request for updating a wireless LAN.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateWirelessLanRequest {
-    /// Updated SSID string.
+    /// updated SSID string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ssid: Option<String>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated group ID.
+    /// updated group id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub group: Option<i32>,
-    /// Updated status slug.
+    /// updated status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
-    /// Updated VLAN ID.
+    /// updated VLAN id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vlan: Option<i32>,
-    /// Updated scope type string.
+    /// updated scope type string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scope_type: Option<String>,
-    /// Updated scope ID.
+    /// updated scope id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scope_id: Option<i32>,
-    /// Updated tenant ID.
+    /// updated tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant: Option<i32>,
-    /// Updated auth type slug.
+    /// updated auth type slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub auth_type: Option<String>,
-    /// Updated auth cipher slug.
+    /// updated auth cipher slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub auth_cipher: Option<String>,
-    /// Updated auth PSK string.
+    /// updated auth PSK string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub auth_psk: Option<String>,
-    /// Updated comments text.
+    /// updated comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
-    /// Updated custom fields payload.
+    /// updated custom fields payload.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<HashMap<String, Value>>,
 }
 
-/// Request for creating a wireless link.
+/// request for creating a wireless link.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateWirelessLinkRequest {
-    /// Interface A ID.
+    /// interface A id.
     pub interface_a: i32,
-    /// Interface B ID.
+    /// interface B id.
     pub interface_b: i32,
-    /// SSID string.
+    /// sSID string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ssid: Option<String>,
-    /// Status slug.
+    /// status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
-    /// Tenant ID.
+    /// tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant: Option<i32>,
-    /// Auth type slug.
+    /// auth type slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub auth_type: Option<String>,
-    /// Auth cipher slug.
+    /// auth cipher slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub auth_cipher: Option<String>,
-    /// Auth PSK string.
+    /// auth PSK string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub auth_psk: Option<String>,
-    /// Link distance.
+    /// link distance.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub distance: Option<f64>,
-    /// Distance unit slug.
+    /// distance unit slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub distance_unit: Option<String>,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Comments text.
+    /// comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
-    /// Custom fields payload.
+    /// custom fields payload.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<HashMap<String, Value>>,
 }
 
-/// Request for updating a wireless link.
+/// request for updating a wireless link.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateWirelessLinkRequest {
-    /// Updated interface A ID.
+    /// updated interface A id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub interface_a: Option<i32>,
-    /// Updated interface B ID.
+    /// updated interface B id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub interface_b: Option<i32>,
-    /// Updated SSID string.
+    /// updated SSID string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ssid: Option<String>,
-    /// Updated status slug.
+    /// updated status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
-    /// Updated tenant ID.
+    /// updated tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant: Option<i32>,
-    /// Updated auth type slug.
+    /// updated auth type slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub auth_type: Option<String>,
-    /// Updated auth cipher slug.
+    /// updated auth cipher slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub auth_cipher: Option<String>,
-    /// Updated auth PSK string.
+    /// updated auth PSK string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub auth_psk: Option<String>,
-    /// Updated link distance.
+    /// updated link distance.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub distance: Option<f64>,
-    /// Updated distance unit slug.
+    /// updated distance unit slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub distance_unit: Option<String>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated comments text.
+    /// updated comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
-    /// Updated custom fields payload.
+    /// updated custom fields payload.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<HashMap<String, Value>>,
 }
 
-/// Wireless LAN group model.
+/// wireless LAN group model.
 pub type WirelessLanGroup = crate::models::WirelessLanGroup;
-/// Wireless LAN model.
+/// wireless LAN model.
 pub type WirelessLan = crate::models::WirelessLan;
-/// Wireless link model.
+/// wireless link model.
 pub type WirelessLink = crate::models::WirelessLink;
 
-/// Resource for wireless LAN groups.
+/// resource for wireless LAN groups.
 pub type WirelessLanGroupsApi = Resource<crate::models::WirelessLanGroup>;
-/// Resource for wireless LANs.
+/// resource for wireless LANs.
 pub type WirelessLansApi = Resource<crate::models::WirelessLan>;
-/// Resource for wireless links.
+/// resource for wireless links.
 pub type WirelessLinksApi = Resource<crate::models::WirelessLink>;
 
-/// API for wireless endpoints.
+/// api for wireless endpoints.
 #[derive(Clone)]
 pub struct WirelessApi {
     client: Client,
@@ -266,17 +277,17 @@ impl WirelessApi {
         Self { client }
     }
 
-    /// Returns the wireless LAN groups resource.
+    /// returns the wireless LAN groups resource.
     pub fn wireless_lan_groups(&self) -> WirelessLanGroupsApi {
         Resource::new(self.client.clone(), "wireless/wireless-lan-groups/")
     }
 
-    /// Returns the wireless LANs resource.
+    /// returns the wireless LANs resource.
     pub fn wireless_lans(&self) -> WirelessLansApi {
         Resource::new(self.client.clone(), "wireless/wireless-lans/")
     }
 
-    /// Returns the wireless links resource.
+    /// returns the wireless links resource.
     pub fn wireless_links(&self) -> WirelessLinksApi {
         Resource::new(self.client.clone(), "wireless/wireless-links/")
     }

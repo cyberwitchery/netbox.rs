@@ -1,53 +1,53 @@
-//! Error types for the NetBox client
+//! error types for the netbox client
 
-/// Result type alias using our Error type
+/// result type alias using our Error type
 pub type Result<T> = std::result::Result<T, Error>;
 
-/// Main error type for NetBox operations
+/// main error type for netbox operations
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
-    /// HTTP request failed
+    /// http request failed
     #[error("HTTP request failed: {0}")]
     Http(#[from] reqwest::Error),
 
-    /// Invalid URL
+    /// invalid url
     #[error("Invalid URL: {0}")]
     InvalidUrl(#[from] url::ParseError),
 
-    /// API returned an error response
+    /// api returned an error response
     #[error("NetBox API error (status {status}): {message}")]
     ApiError {
-        /// HTTP status code
+        /// http status code
         status: u16,
-        /// Error message from API
+        /// error message from api
         message: String,
-        /// Full response body for debugging
+        /// full response body for debugging
         body: String,
     },
 
-    /// JSON serialization/deserialization failed
+    /// json serialization/deserialization failed
     #[error("JSON error: {0}")]
     Json(#[from] serde_json::Error),
 
-    /// Invalid configuration
+    /// invalid configuration
     #[error("Invalid configuration: {0}")]
     Config(String),
 
-    /// Authentication failed
+    /// authentication failed
     #[error("Authentication failed: {0}")]
     Auth(String),
 
-    /// Resource not found
+    /// resource not found
     #[error("Resource not found: {0}")]
     NotFound(String),
 
-    /// Pagination error
+    /// pagination error
     #[error("Pagination error: {0}")]
     Pagination(String),
 }
 
 impl Error {
-    /// Create a new API error from response
+    /// create a new api error from response
     pub fn from_response(status: reqwest::StatusCode, body: String) -> Self {
         // Try to extract error message from JSON response
         let message = if let Ok(json) = serde_json::from_str::<serde_json::Value>(&body) {
@@ -89,7 +89,7 @@ impl Error {
         }
     }
 
-    /// Check if error is a 404 Not Found
+    /// check if error is a 404 Not Found
     pub fn is_not_found(&self) -> bool {
         matches!(
             self,
@@ -97,7 +97,7 @@ impl Error {
         )
     }
 
-    /// Check if error is authentication related
+    /// check if error is authentication related
     pub fn is_auth_error(&self) -> bool {
         matches!(
             self,
@@ -108,7 +108,7 @@ impl Error {
         )
     }
 
-    /// Get HTTP status code if this is an API error
+    /// get http status code if this is an api error
     pub fn status_code(&self) -> Option<u16> {
         match self {
             Error::ApiError { status, .. } => Some(*status),

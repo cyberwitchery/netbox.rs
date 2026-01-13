@@ -1,154 +1,165 @@
-//! IPAM (IP Address Management) API endpoints
+//! ipam endpoints for prefixes, addresses, vrfs, vlans, and asns.
+//!
+//! basic usage:
+//! ```no_run
+//! # use netbox::{Client, ClientConfig};
+//! # async fn example() -> Result<(), Box<dyn std::error::Error>> {
+//! # let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
+//! let prefixes = client.ipam().prefixes().list(None).await?;
+//! println!("{}", prefixes.count);
+//! # Ok(())
+//! # }
+//! ```
 
 use crate::resource::Resource;
 use crate::Client;
 use serde::{Deserialize, Serialize};
 
-/// Request for creating a new IP address (ID-based references).
+/// request for creating a new IP address (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateIpAddressRequest {
-    /// CIDR address string.
+    /// cIDR address string.
     pub address: String,
-    /// VRF ID.
+    /// vRF id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vrf: Option<i32>,
-    /// Tenant ID.
+    /// tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant: Option<i32>,
-    /// Status slug.
+    /// status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
-    /// Role slug.
+    /// role slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub role: Option<String>,
-    /// Assigned object type string.
+    /// assigned object type string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub assigned_object_type: Option<String>,
-    /// Assigned object ID.
+    /// assigned object id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub assigned_object_id: Option<i32>,
-    /// DNS name value.
+    /// dNS name value.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub dns_name: Option<String>,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating an IP address (ID-based references).
+/// request for updating an IP address (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateIpAddressRequest {
-    /// Updated CIDR address string.
+    /// updated CIDR address string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub address: Option<String>,
-    /// Updated status slug.
+    /// updated status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
-    /// Updated DNS name value.
+    /// updated DNS name value.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub dns_name: Option<String>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
 }
 
-/// Request for creating a new prefix (ID-based references).
+/// request for creating a new prefix (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreatePrefixRequest {
-    /// CIDR prefix string.
+    /// cIDR prefix string.
     pub prefix: String,
-    /// Site ID.
+    /// site id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub site: Option<i32>,
-    /// VRF ID.
+    /// vRF id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vrf: Option<i32>,
-    /// Tenant ID.
+    /// tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant: Option<i32>,
-    /// VLAN ID.
+    /// vLAN id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vlan: Option<i32>,
-    /// Status slug.
+    /// status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
-    /// Role ID.
+    /// role id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub role: Option<i32>,
-    /// Pool flag.
+    /// pool flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub is_pool: Option<bool>,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating a prefix (ID-based references).
+/// request for updating a prefix (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdatePrefixRequest {
-    /// Updated CIDR prefix string.
+    /// updated CIDR prefix string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub prefix: Option<String>,
-    /// Updated site ID.
+    /// updated site id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub site: Option<i32>,
-    /// Updated status slug.
+    /// updated status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
 }
 
-/// IP address model.
+/// iP address model.
 pub type IpAddress = crate::models::IpAddress;
-/// Prefix model.
+/// prefix model.
 pub type Prefix = crate::models::Prefix;
 
-/// Resource for aggregates.
+/// resource for aggregates.
 pub type AggregatesApi = Resource<crate::models::Aggregate>;
-/// Resource for ASN ranges.
+/// resource for ASN ranges.
 pub type AsnRangesApi = Resource<crate::models::AsnRange>;
-/// Resource for ASNs.
+/// resource for ASNs.
 pub type AsnsApi = Resource<crate::models::Asn>;
-/// Resource for FHRP group assignments.
+/// resource for FHRP group assignments.
 pub type FhrpGroupAssignmentsApi = Resource<crate::models::FhrpGroupAssignment>;
-/// Resource for FHRP groups.
+/// resource for FHRP groups.
 pub type FhrpGroupsApi = Resource<crate::models::FhrpGroup>;
-/// Resource for IP addresses.
+/// resource for IP addresses.
 pub type IpAddressesApi = Resource<crate::models::IpAddress>;
-/// Resource for IP ranges.
+/// resource for IP ranges.
 pub type IpRangesApi = Resource<crate::models::IpRange>;
-/// Resource for prefixes.
+/// resource for prefixes.
 pub type PrefixesApi = Resource<crate::models::Prefix>;
-/// Resource for RIRs.
+/// resource for RIRs.
 pub type RirsApi = Resource<crate::models::Rir>;
-/// Resource for roles.
+/// resource for roles.
 pub type RolesApi = Resource<crate::models::Role>;
-/// Resource for route targets.
+/// resource for route targets.
 pub type RouteTargetsApi = Resource<crate::models::RouteTarget>;
-/// Resource for service templates.
+/// resource for service templates.
 pub type ServiceTemplatesApi = Resource<crate::models::ServiceTemplate>;
-/// Resource for services.
+/// resource for services.
 pub type ServicesApi = Resource<crate::models::Service>;
-/// Resource for VLAN groups.
+/// resource for VLAN groups.
 pub type VlanGroupsApi = Resource<crate::models::VlanGroup>;
-/// Resource for VLAN translation policies.
+/// resource for VLAN translation policies.
 pub type VlanTranslationPoliciesApi = Resource<crate::models::VlanTranslationPolicy>;
-/// Resource for VLAN translation rules.
+/// resource for VLAN translation rules.
 pub type VlanTranslationRulesApi = Resource<crate::models::VlanTranslationRule>;
-/// Resource for VLANs.
+/// resource for VLANs.
 pub type VlansApi = Resource<crate::models::Vlan>;
-/// Resource for VRFs.
+/// resource for VRFs.
 pub type VrfsApi = Resource<crate::models::Vrf>;
 
-/// API for IPAM endpoints
+/// api for ipam endpoints
 #[derive(Clone)]
 pub struct IpamApi {
     client: Client,
@@ -159,92 +170,92 @@ impl IpamApi {
         Self { client }
     }
 
-    /// Returns the aggregates resource.
+    /// returns the aggregates resource.
     pub fn aggregates(&self) -> AggregatesApi {
         Resource::new(self.client.clone(), "ipam/aggregates/")
     }
 
-    /// Returns the ASN ranges resource.
+    /// returns the ASN ranges resource.
     pub fn asn_ranges(&self) -> AsnRangesApi {
         Resource::new(self.client.clone(), "ipam/asn-ranges/")
     }
 
-    /// Returns the ASNs resource.
+    /// returns the ASNs resource.
     pub fn asns(&self) -> AsnsApi {
         Resource::new(self.client.clone(), "ipam/asns/")
     }
 
-    /// Returns the FHRP group assignments resource.
+    /// returns the FHRP group assignments resource.
     pub fn fhrp_group_assignments(&self) -> FhrpGroupAssignmentsApi {
         Resource::new(self.client.clone(), "ipam/fhrp-group-assignments/")
     }
 
-    /// Returns the FHRP groups resource.
+    /// returns the FHRP groups resource.
     pub fn fhrp_groups(&self) -> FhrpGroupsApi {
         Resource::new(self.client.clone(), "ipam/fhrp-groups/")
     }
 
-    /// Returns the IP addresses resource.
+    /// returns the IP addresses resource.
     pub fn ip_addresses(&self) -> IpAddressesApi {
         Resource::new(self.client.clone(), "ipam/ip-addresses/")
     }
 
-    /// Returns the IP ranges resource.
+    /// returns the IP ranges resource.
     pub fn ip_ranges(&self) -> IpRangesApi {
         Resource::new(self.client.clone(), "ipam/ip-ranges/")
     }
 
-    /// Returns the prefixes resource.
+    /// returns the prefixes resource.
     pub fn prefixes(&self) -> PrefixesApi {
         Resource::new(self.client.clone(), "ipam/prefixes/")
     }
 
-    /// Returns the RIRs resource.
+    /// returns the RIRs resource.
     pub fn rirs(&self) -> RirsApi {
         Resource::new(self.client.clone(), "ipam/rirs/")
     }
 
-    /// Returns the roles resource.
+    /// returns the roles resource.
     pub fn roles(&self) -> RolesApi {
         Resource::new(self.client.clone(), "ipam/roles/")
     }
 
-    /// Returns the route targets resource.
+    /// returns the route targets resource.
     pub fn route_targets(&self) -> RouteTargetsApi {
         Resource::new(self.client.clone(), "ipam/route-targets/")
     }
 
-    /// Returns the service templates resource.
+    /// returns the service templates resource.
     pub fn service_templates(&self) -> ServiceTemplatesApi {
         Resource::new(self.client.clone(), "ipam/service-templates/")
     }
 
-    /// Returns the services resource.
+    /// returns the services resource.
     pub fn services(&self) -> ServicesApi {
         Resource::new(self.client.clone(), "ipam/services/")
     }
 
-    /// Returns the VLAN groups resource.
+    /// returns the VLAN groups resource.
     pub fn vlan_groups(&self) -> VlanGroupsApi {
         Resource::new(self.client.clone(), "ipam/vlan-groups/")
     }
 
-    /// Returns the VLAN translation policies resource.
+    /// returns the VLAN translation policies resource.
     pub fn vlan_translation_policies(&self) -> VlanTranslationPoliciesApi {
         Resource::new(self.client.clone(), "ipam/vlan-translation-policies/")
     }
 
-    /// Returns the VLAN translation rules resource.
+    /// returns the VLAN translation rules resource.
     pub fn vlan_translation_rules(&self) -> VlanTranslationRulesApi {
         Resource::new(self.client.clone(), "ipam/vlan-translation-rules/")
     }
 
-    /// Returns the VLANs resource.
+    /// returns the VLANs resource.
     pub fn vlans(&self) -> VlansApi {
         Resource::new(self.client.clone(), "ipam/vlans/")
     }
 
-    /// Returns the VRFs resource.
+    /// returns the VRFs resource.
     pub fn vrfs(&self) -> VrfsApi {
         Resource::new(self.client.clone(), "ipam/vrfs/")
     }
@@ -275,10 +286,7 @@ mod tests {
         assert_path(api.aggregates(), "ipam/aggregates/");
         assert_path(api.asn_ranges(), "ipam/asn-ranges/");
         assert_path(api.asns(), "ipam/asns/");
-        assert_path(
-            api.fhrp_group_assignments(),
-            "ipam/fhrp-group-assignments/",
-        );
+        assert_path(api.fhrp_group_assignments(), "ipam/fhrp-group-assignments/");
         assert_path(api.fhrp_groups(), "ipam/fhrp-groups/");
         assert_path(api.ip_addresses(), "ipam/ip-addresses/");
         assert_path(api.ip_ranges(), "ipam/ip-ranges/");
@@ -293,10 +301,7 @@ mod tests {
             api.vlan_translation_policies(),
             "ipam/vlan-translation-policies/",
         );
-        assert_path(
-            api.vlan_translation_rules(),
-            "ipam/vlan-translation-rules/",
-        );
+        assert_path(api.vlan_translation_rules(), "ipam/vlan-translation-rules/");
         assert_path(api.vlans(), "ipam/vlans/");
         assert_path(api.vrfs(), "ipam/vrfs/");
     }

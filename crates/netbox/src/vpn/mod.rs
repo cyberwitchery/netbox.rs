@@ -1,518 +1,529 @@
-//! VPN API endpoints.
+//! vpn endpoints for tunnels, l2vpns, and ipsec resources.
+//!
+//! basic usage:
+//! ```no_run
+//! # use netbox::{Client, ClientConfig};
+//! # async fn example() -> Result<(), Box<dyn std::error::Error>> {
+//! # let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
+//! let tunnels = client.vpn().tunnels().list(None).await?;
+//! println!("{}", tunnels.count);
+//! # Ok(())
+//! # }
+//! ```
 
 use crate::resource::Resource;
 use crate::Client;
 use serde::{Deserialize, Serialize};
 
-/// Request for creating a tunnel group (ID-based references).
+/// request for creating a tunnel group (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateTunnelGroupRequest {
-    /// Tunnel group name.
+    /// tunnel group name.
     pub name: String,
-    /// Tunnel group slug.
+    /// tunnel group slug.
     pub slug: String,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating a tunnel group (ID-based references).
+/// request for updating a tunnel group (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateTunnelGroupRequest {
-    /// Updated tunnel group name.
+    /// updated tunnel group name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated tunnel group slug.
+    /// updated tunnel group slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub slug: Option<String>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for creating a tunnel (ID-based references).
+/// request for creating a tunnel (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateTunnelRequest {
-    /// Tunnel name.
+    /// tunnel name.
     pub name: String,
-    /// Status slug.
+    /// status slug.
     pub status: String,
-    /// Encapsulation slug.
+    /// encapsulation slug.
     pub encapsulation: String,
-    /// Tunnel group ID.
+    /// tunnel group id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub group: Option<i32>,
-    /// IPsec profile ID.
+    /// iPsec profile id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ipsec_profile: Option<i32>,
-    /// Tenant ID.
+    /// tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant: Option<i32>,
-    /// Tunnel ID.
+    /// tunnel id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tunnel_id: Option<i64>,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Comments text.
+    /// comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating a tunnel (ID-based references).
+/// request for updating a tunnel (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateTunnelRequest {
-    /// Updated tunnel name.
+    /// updated tunnel name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated status slug.
+    /// updated status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
-    /// Updated encapsulation slug.
+    /// updated encapsulation slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub encapsulation: Option<String>,
-    /// Updated tunnel group ID.
+    /// updated tunnel group id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub group: Option<i32>,
-    /// Updated IPsec profile ID.
+    /// updated IPsec profile id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ipsec_profile: Option<i32>,
-    /// Updated tenant ID.
+    /// updated tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant: Option<i32>,
-    /// Updated tunnel ID.
+    /// updated tunnel id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tunnel_id: Option<i64>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated comments text.
+    /// updated comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for creating an L2VPN (ID-based references).
+/// request for creating an l2vpn (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateL2VpnRequest {
-    /// L2VPN identifier.
+    /// l2vpn identifier.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub identifier: Option<i64>,
-    /// L2VPN name.
+    /// l2vpn name.
     pub name: String,
-    /// L2VPN slug.
+    /// l2vpn slug.
     pub slug: String,
-    /// L2VPN type slug.
+    /// l2vpn type slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub r#type: Option<String>,
-    /// Status slug.
+    /// status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
-    /// Import target IDs.
+    /// import target IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub import_targets: Option<Vec<i32>>,
-    /// Export target IDs.
+    /// export target IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub export_targets: Option<Vec<i32>>,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Comments text.
+    /// comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Tenant ID.
+    /// tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant: Option<i32>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating an L2VPN (ID-based references).
+/// request for updating an l2vpn (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateL2VpnRequest {
-    /// Updated L2VPN identifier.
+    /// updated l2vpn identifier.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub identifier: Option<i64>,
-    /// Updated L2VPN name.
+    /// updated l2vpn name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated L2VPN slug.
+    /// updated l2vpn slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub slug: Option<String>,
-    /// Updated L2VPN type slug.
+    /// updated l2vpn type slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub r#type: Option<String>,
-    /// Updated status slug.
+    /// updated status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
-    /// Updated import target IDs.
+    /// updated import target IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub import_targets: Option<Vec<i32>>,
-    /// Updated export target IDs.
+    /// updated export target IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub export_targets: Option<Vec<i32>>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated comments text.
+    /// updated comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Updated tenant ID.
+    /// updated tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant: Option<i32>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for creating an L2VPN termination (ID-based references).
+/// request for creating an l2vpn termination (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateL2VpnTerminationRequest {
-    /// L2VPN ID.
+    /// l2vpn id.
     pub l2vpn: i32,
-    /// Assigned object type string.
+    /// assigned object type string.
     pub assigned_object_type: String,
-    /// Assigned object ID.
+    /// assigned object id.
     pub assigned_object_id: i64,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating an L2VPN termination (ID-based references).
+/// request for updating an l2vpn termination (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateL2VpnTerminationRequest {
-    /// Updated L2VPN ID.
+    /// updated l2vpn id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub l2vpn: Option<i32>,
-    /// Updated assigned object type string.
+    /// updated assigned object type string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub assigned_object_type: Option<String>,
-    /// Updated assigned object ID.
+    /// updated assigned object id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub assigned_object_id: Option<i64>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for creating an IKE proposal (ID-based references).
+/// request for creating an IKE proposal (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateIkeProposalRequest {
-    /// Proposal name.
+    /// proposal name.
     pub name: String,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Authentication method slug.
+    /// authentication method slug.
     pub authentication_method: String,
-    /// Encryption algorithm slug.
+    /// encryption algorithm slug.
     pub encryption_algorithm: String,
-    /// Authentication algorithm slug.
+    /// authentication algorithm slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub authentication_algorithm: Option<String>,
-    /// Group slug.
+    /// group slug.
     pub group: String,
-    /// SA lifetime in seconds.
+    /// sA lifetime in seconds.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub sa_lifetime: Option<i32>,
-    /// Comments text.
+    /// comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating an IKE proposal (ID-based references).
+/// request for updating an IKE proposal (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateIkeProposalRequest {
-    /// Updated proposal name.
+    /// updated proposal name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated authentication method slug.
+    /// updated authentication method slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub authentication_method: Option<String>,
-    /// Updated encryption algorithm slug.
+    /// updated encryption algorithm slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub encryption_algorithm: Option<String>,
-    /// Updated authentication algorithm slug.
+    /// updated authentication algorithm slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub authentication_algorithm: Option<String>,
-    /// Updated group slug.
+    /// updated group slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub group: Option<String>,
-    /// Updated SA lifetime in seconds.
+    /// updated SA lifetime in seconds.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub sa_lifetime: Option<i32>,
-    /// Updated comments text.
+    /// updated comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for creating an IKE policy (ID-based references).
+/// request for creating an IKE policy (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateIkePolicyRequest {
-    /// Policy name.
+    /// policy name.
     pub name: String,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// IKE version string.
+    /// iKE version string.
     pub version: String,
-    /// Mode slug.
+    /// mode slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mode: Option<String>,
-    /// Proposal IDs.
+    /// proposal IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub proposals: Option<Vec<i32>>,
-    /// Preshared key string.
+    /// preshared key string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub preshared_key: Option<String>,
-    /// Comments text.
+    /// comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating an IKE policy (ID-based references).
+/// request for updating an IKE policy (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateIkePolicyRequest {
-    /// Updated policy name.
+    /// updated policy name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated IKE version string.
+    /// updated IKE version string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub version: Option<String>,
-    /// Updated mode slug.
+    /// updated mode slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mode: Option<String>,
-    /// Updated proposal IDs.
+    /// updated proposal IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub proposals: Option<Vec<i32>>,
-    /// Updated preshared key string.
+    /// updated preshared key string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub preshared_key: Option<String>,
-    /// Updated comments text.
+    /// updated comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for creating an IPsec proposal (ID-based references).
+/// request for creating an IPsec proposal (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateIpSecProposalRequest {
-    /// Proposal name.
+    /// proposal name.
     pub name: String,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Encryption algorithm slug.
+    /// encryption algorithm slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub encryption_algorithm: Option<String>,
-    /// Authentication algorithm slug.
+    /// authentication algorithm slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub authentication_algorithm: Option<String>,
-    /// SA lifetime in seconds.
+    /// sA lifetime in seconds.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub sa_lifetime_seconds: Option<i32>,
-    /// SA lifetime in kilobytes.
+    /// sA lifetime in kilobytes.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub sa_lifetime_data: Option<i32>,
-    /// Comments text.
+    /// comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating an IPsec proposal (ID-based references).
+/// request for updating an IPsec proposal (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateIpSecProposalRequest {
-    /// Updated proposal name.
+    /// updated proposal name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated encryption algorithm slug.
+    /// updated encryption algorithm slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub encryption_algorithm: Option<String>,
-    /// Updated authentication algorithm slug.
+    /// updated authentication algorithm slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub authentication_algorithm: Option<String>,
-    /// Updated SA lifetime in seconds.
+    /// updated SA lifetime in seconds.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub sa_lifetime_seconds: Option<i32>,
-    /// Updated SA lifetime in kilobytes.
+    /// updated SA lifetime in kilobytes.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub sa_lifetime_data: Option<i32>,
-    /// Updated comments text.
+    /// updated comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for creating an IPsec policy (ID-based references).
+/// request for creating an IPsec policy (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateIpSecPolicyRequest {
-    /// Policy name.
+    /// policy name.
     pub name: String,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Proposal IDs.
+    /// proposal IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub proposals: Option<Vec<i32>>,
-    /// PFS group slug.
+    /// pFS group slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pfs_group: Option<String>,
-    /// Comments text.
+    /// comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating an IPsec policy (ID-based references).
+/// request for updating an IPsec policy (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateIpSecPolicyRequest {
-    /// Updated policy name.
+    /// updated policy name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated proposal IDs.
+    /// updated proposal IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub proposals: Option<Vec<i32>>,
-    /// Updated PFS group slug.
+    /// updated PFS group slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pfs_group: Option<String>,
-    /// Updated comments text.
+    /// updated comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for creating an IPsec profile (ID-based references).
+/// request for creating an IPsec profile (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateIpSecProfileRequest {
-    /// Profile name.
+    /// profile name.
     pub name: String,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Mode slug.
+    /// mode slug.
     pub mode: String,
-    /// IKE policy ID.
+    /// iKE policy id.
     pub ike_policy: i32,
-    /// IPsec policy ID.
+    /// iPsec policy id.
     pub ipsec_policy: i32,
-    /// Comments text.
+    /// comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating an IPsec profile (ID-based references).
+/// request for updating an IPsec profile (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateIpSecProfileRequest {
-    /// Updated profile name.
+    /// updated profile name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated mode slug.
+    /// updated mode slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mode: Option<String>,
-    /// Updated IKE policy ID.
+    /// updated IKE policy id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ike_policy: Option<i32>,
-    /// Updated IPsec policy ID.
+    /// updated IPsec policy id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ipsec_policy: Option<i32>,
-    /// Updated comments text.
+    /// updated comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for creating a tunnel termination (ID-based references).
+/// request for creating a tunnel termination (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateTunnelTerminationRequest {
-    /// Tunnel ID.
+    /// tunnel id.
     pub tunnel: i32,
-    /// Role slug.
+    /// role slug.
     pub role: String,
-    /// Termination type string.
+    /// termination type string.
     pub termination_type: String,
-    /// Termination object ID.
+    /// termination object id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub termination_id: Option<i64>,
-    /// Outside IP address ID.
+    /// outside IP address id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub outside_ip: Option<i32>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating a tunnel termination (ID-based references).
+/// request for updating a tunnel termination (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateTunnelTerminationRequest {
-    /// Updated tunnel ID.
+    /// updated tunnel id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tunnel: Option<i32>,
-    /// Updated role slug.
+    /// updated role slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub role: Option<String>,
-    /// Updated termination type string.
+    /// updated termination type string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub termination_type: Option<String>,
-    /// Updated termination object ID.
+    /// updated termination object id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub termination_id: Option<i64>,
-    /// Updated outside IP address ID.
+    /// updated outside IP address id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub outside_ip: Option<i32>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
@@ -889,49 +900,49 @@ mod tests {
     }
 }
 
-/// IKE policy model.
+/// iKE policy model.
 pub type IkePolicy = crate::models::IkePolicy;
-/// IKE proposal model.
+/// iKE proposal model.
 pub type IkeProposal = crate::models::IkeProposal;
-/// IPsec policy model.
+/// iPsec policy model.
 pub type IpSecPolicy = crate::models::IpSecPolicy;
-/// IPsec profile model.
+/// iPsec profile model.
 pub type IpSecProfile = crate::models::IpSecProfile;
-/// IPsec proposal model.
+/// iPsec proposal model.
 pub type IpSecProposal = crate::models::IpSecProposal;
-/// L2VPN model.
+/// l2vpn model.
 pub type L2Vpn = crate::models::L2Vpn;
-/// L2VPN termination model.
+/// l2vpn termination model.
 pub type L2VpnTermination = crate::models::L2VpnTermination;
-/// Tunnel group model.
+/// tunnel group model.
 pub type TunnelGroup = crate::models::TunnelGroup;
-/// Tunnel termination model.
+/// tunnel termination model.
 pub type TunnelTermination = crate::models::TunnelTermination;
-/// Tunnel model.
+/// tunnel model.
 pub type Tunnel = crate::models::Tunnel;
 
-/// Resource for IKE policies.
+/// resource for IKE policies.
 pub type IkePoliciesApi = Resource<crate::models::IkePolicy>;
-/// Resource for IKE proposals.
+/// resource for IKE proposals.
 pub type IkeProposalsApi = Resource<crate::models::IkeProposal>;
-/// Resource for IPsec policies.
+/// resource for IPsec policies.
 pub type IpSecPoliciesApi = Resource<crate::models::IpSecPolicy>;
-/// Resource for IPsec profiles.
+/// resource for IPsec profiles.
 pub type IpSecProfilesApi = Resource<crate::models::IpSecProfile>;
-/// Resource for IPsec proposals.
+/// resource for IPsec proposals.
 pub type IpSecProposalsApi = Resource<crate::models::IpSecProposal>;
-/// Resource for L2VPN terminations.
+/// resource for l2vpn terminations.
 pub type L2VpnTerminationsApi = Resource<crate::models::L2VpnTermination>;
-/// Resource for L2VPNs.
+/// resource for l2vpns.
 pub type L2VpnsApi = Resource<crate::models::L2Vpn>;
-/// Resource for tunnel groups.
+/// resource for tunnel groups.
 pub type TunnelGroupsApi = Resource<crate::models::TunnelGroup>;
-/// Resource for tunnel terminations.
+/// resource for tunnel terminations.
 pub type TunnelTerminationsApi = Resource<crate::models::TunnelTermination>;
-/// Resource for tunnels.
+/// resource for tunnels.
 pub type TunnelsApi = Resource<crate::models::Tunnel>;
 
-/// API for VPN endpoints.
+/// api for vpn endpoints.
 #[derive(Clone)]
 pub struct VpnApi {
     client: Client,
@@ -942,52 +953,52 @@ impl VpnApi {
         Self { client }
     }
 
-    /// Returns the IKE policies resource.
+    /// returns the IKE policies resource.
     pub fn ike_policies(&self) -> IkePoliciesApi {
         Resource::new(self.client.clone(), "vpn/ike-policies/")
     }
 
-    /// Returns the IKE proposals resource.
+    /// returns the IKE proposals resource.
     pub fn ike_proposals(&self) -> IkeProposalsApi {
         Resource::new(self.client.clone(), "vpn/ike-proposals/")
     }
 
-    /// Returns the IPsec policies resource.
+    /// returns the IPsec policies resource.
     pub fn ipsec_policies(&self) -> IpSecPoliciesApi {
         Resource::new(self.client.clone(), "vpn/ipsec-policies/")
     }
 
-    /// Returns the IPsec profiles resource.
+    /// returns the IPsec profiles resource.
     pub fn ipsec_profiles(&self) -> IpSecProfilesApi {
         Resource::new(self.client.clone(), "vpn/ipsec-profiles/")
     }
 
-    /// Returns the IPsec proposals resource.
+    /// returns the IPsec proposals resource.
     pub fn ipsec_proposals(&self) -> IpSecProposalsApi {
         Resource::new(self.client.clone(), "vpn/ipsec-proposals/")
     }
 
-    /// Returns the L2VPN terminations resource.
+    /// returns the l2vpn terminations resource.
     pub fn l2vpn_terminations(&self) -> L2VpnTerminationsApi {
         Resource::new(self.client.clone(), "vpn/l2vpn-terminations/")
     }
 
-    /// Returns the L2VPNs resource.
+    /// returns the l2vpns resource.
     pub fn l2vpns(&self) -> L2VpnsApi {
         Resource::new(self.client.clone(), "vpn/l2vpns/")
     }
 
-    /// Returns the tunnel groups resource.
+    /// returns the tunnel groups resource.
     pub fn tunnel_groups(&self) -> TunnelGroupsApi {
         Resource::new(self.client.clone(), "vpn/tunnel-groups/")
     }
 
-    /// Returns the tunnel terminations resource.
+    /// returns the tunnel terminations resource.
     pub fn tunnel_terminations(&self) -> TunnelTerminationsApi {
         Resource::new(self.client.clone(), "vpn/tunnel-terminations/")
     }
 
-    /// Returns the tunnels resource.
+    /// returns the tunnels resource.
     pub fn tunnels(&self) -> TunnelsApi {
         Resource::new(self.client.clone(), "vpn/tunnels/")
     }

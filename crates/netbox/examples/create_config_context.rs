@@ -52,7 +52,10 @@ async fn main() -> Result<()> {
         })
         .await?;
 
-    println!("Created config context {} with id {}", context.name, context.id);
+    println!(
+        "Created config context {} with id {}",
+        context.name, context.id
+    );
 
     client.extras().config_contexts().delete(context.id).await?;
     println!("Deleted config context {}", context.name);

@@ -69,3 +69,13 @@ ci enforces a minimum line coverage of 70% while excluding generated code.
 ## issue reporting
 
 use https://github.com/network-auto/netbox.rs/issues
+
+## local release
+
+run:
+
+```bash
+./scripts/release_local.sh
+```
+
+set `SKIP_COVERAGE=1` to skip coverage.

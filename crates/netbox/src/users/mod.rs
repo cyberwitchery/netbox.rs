@@ -1,4 +1,15 @@
-//! Users API endpoints.
+//! users, groups, tokens, and permissions.
+//!
+//! basic usage:
+//! ```no_run
+//! # use netbox::{Client, ClientConfig};
+//! # async fn example() -> Result<(), Box<dyn std::error::Error>> {
+//! # let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
+//! let users = client.users().users().list(None).await?;
+//! println!("{}", users.count);
+//! # Ok(())
+//! # }
+//! ```
 
 use crate::error::Result;
 use crate::resource::Resource;
@@ -7,232 +18,232 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
 
-/// Request for creating a group.
+/// request for creating a group.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateGroupRequest {
-    /// Group name.
+    /// group name.
     pub name: String,
-    /// Group description.
+    /// group description.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Permission IDs.
+    /// permission IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub permissions: Option<Vec<i32>>,
 }
 
-/// Request for updating a group.
+/// request for updating a group.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateGroupRequest {
-    /// Updated group name.
+    /// updated group name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated group description.
+    /// updated group description.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated permission IDs.
+    /// updated permission IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub permissions: Option<Vec<i32>>,
 }
 
-/// Request for creating a token.
+/// request for creating a token.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateTokenRequest {
-    /// User ID.
+    /// user id.
     pub user: i32,
-    /// Expiration timestamp.
+    /// expiration timestamp.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub expires: Option<String>,
-    /// Last used timestamp.
+    /// last used timestamp.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub last_used: Option<String>,
-    /// Token key.
+    /// token key.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub key: Option<String>,
-    /// Write enabled flag.
+    /// write enabled flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub write_enabled: Option<bool>,
-    /// Token description.
+    /// token description.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
 }
 
-/// Request for updating a token.
+/// request for updating a token.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateTokenRequest {
-    /// Updated user ID.
+    /// updated user id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub user: Option<i32>,
-    /// Updated expiration timestamp.
+    /// updated expiration timestamp.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub expires: Option<String>,
-    /// Updated last used timestamp.
+    /// updated last used timestamp.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub last_used: Option<String>,
-    /// Updated token key.
+    /// updated token key.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub key: Option<String>,
-    /// Updated write enabled flag.
+    /// updated write enabled flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub write_enabled: Option<bool>,
-    /// Updated description.
+    /// updated description.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
 }
 
-/// Request for creating a user.
+/// request for creating a user.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateUserRequest {
-    /// Username.
+    /// username.
     pub username: String,
-    /// Password.
+    /// password.
     pub password: String,
-    /// First name.
+    /// first name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub first_name: Option<String>,
-    /// Last name.
+    /// last name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub last_name: Option<String>,
-    /// Email address.
+    /// email address.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub email: Option<String>,
-    /// Staff flag.
+    /// staff flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub is_staff: Option<bool>,
-    /// Active flag.
+    /// active flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub is_active: Option<bool>,
-    /// Joined timestamp.
+    /// joined timestamp.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub date_joined: Option<String>,
-    /// Last login timestamp.
+    /// last login timestamp.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub last_login: Option<String>,
-    /// Group IDs.
+    /// group IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub groups: Option<Vec<i32>>,
-    /// Permission IDs.
+    /// permission IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub permissions: Option<Vec<i32>>,
 }
 
-/// Request for updating a user.
+/// request for updating a user.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateUserRequest {
-    /// Updated username.
+    /// updated username.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub username: Option<String>,
-    /// Updated password.
+    /// updated password.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub password: Option<String>,
-    /// Updated first name.
+    /// updated first name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub first_name: Option<String>,
-    /// Updated last name.
+    /// updated last name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub last_name: Option<String>,
-    /// Updated email address.
+    /// updated email address.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub email: Option<String>,
-    /// Updated staff flag.
+    /// updated staff flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub is_staff: Option<bool>,
-    /// Updated active flag.
+    /// updated active flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub is_active: Option<bool>,
-    /// Updated joined timestamp.
+    /// updated joined timestamp.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub date_joined: Option<String>,
-    /// Updated last login timestamp.
+    /// updated last login timestamp.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub last_login: Option<String>,
-    /// Updated group IDs.
+    /// updated group IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub groups: Option<Vec<i32>>,
-    /// Updated permission IDs.
+    /// updated permission IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub permissions: Option<Vec<i32>>,
 }
 
-/// Request for creating an object permission.
+/// request for creating an object permission.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateObjectPermissionRequest {
-    /// Permission name.
+    /// permission name.
     pub name: String,
-    /// Object types (content type strings).
+    /// object types (content type strings).
     pub object_types: Vec<String>,
-    /// Actions list.
+    /// actions list.
     pub actions: Vec<String>,
-    /// Permission description.
+    /// permission description.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Enabled flag.
+    /// enabled flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub enabled: Option<bool>,
-    /// Constraints JSON.
+    /// constraints json.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub constraints: Option<Value>,
-    /// Group IDs.
+    /// group IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub groups: Option<Vec<i32>>,
-    /// User IDs.
+    /// user IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub users: Option<Vec<i32>>,
 }
 
-/// Request for updating an object permission.
+/// request for updating an object permission.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateObjectPermissionRequest {
-    /// Updated permission name.
+    /// updated permission name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated object types (content type strings).
+    /// updated object types (content type strings).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub object_types: Option<Vec<String>>,
-    /// Updated actions list.
+    /// updated actions list.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub actions: Option<Vec<String>>,
-    /// Updated description.
+    /// updated description.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated enabled flag.
+    /// updated enabled flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub enabled: Option<bool>,
-    /// Updated constraints JSON.
+    /// updated constraints json.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub constraints: Option<Value>,
-    /// Updated group IDs.
+    /// updated group IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub groups: Option<Vec<i32>>,
-    /// Updated user IDs.
+    /// updated user IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub users: Option<Vec<i32>>,
 }
 
-/// User config model.
+/// user config model.
 pub type UserConfig = HashMap<String, Value>;
-/// Group model.
+/// group model.
 pub type Group = crate::models::Group;
-/// Object permission model.
+/// object permission model.
 pub type ObjectPermission = crate::models::ObjectPermission;
-/// Token model.
+/// token model.
 pub type Token = crate::models::Token;
-/// Token provision model.
+/// token provision model.
 pub type TokenProvision = crate::models::TokenProvision;
-/// Token provision request model.
+/// token provision request model.
 pub type TokenProvisionRequest = crate::models::TokenProvisionRequest;
-/// User model.
+/// user model.
 pub type User = crate::models::User;
 
-/// Resource for groups.
+/// resource for groups.
 pub type GroupsApi = Resource<crate::models::Group>;
-/// Resource for permissions.
+/// resource for permissions.
 pub type PermissionsApi = Resource<crate::models::ObjectPermission>;
-/// Resource for tokens.
+/// resource for tokens.
 pub type TokensApi = Resource<crate::models::Token>;
-/// Resource for users.
+/// resource for users.
 pub type UsersResource = Resource<crate::models::User>;
 
-/// API for user endpoints.
+/// api for user endpoints.
 #[derive(Clone)]
 pub struct UsersApi {
     client: Client,
@@ -243,32 +254,32 @@ impl UsersApi {
         Self { client }
     }
 
-    /// Fetch the current user's config.
+    /// fetch the current user's config.
     pub async fn config(&self) -> Result<UserConfig> {
         self.client.get("users/config/").await
     }
 
-    /// Returns the groups resource.
+    /// returns the groups resource.
     pub fn groups(&self) -> GroupsApi {
         Resource::new(self.client.clone(), "users/groups/")
     }
 
-    /// Returns the permissions resource.
+    /// returns the permissions resource.
     pub fn permissions(&self) -> PermissionsApi {
         Resource::new(self.client.clone(), "users/permissions/")
     }
 
-    /// Returns the tokens resource.
+    /// returns the tokens resource.
     pub fn tokens(&self) -> TokensApi {
         Resource::new(self.client.clone(), "users/tokens/")
     }
 
-    /// Provision a token using username/password credentials.
+    /// provision a token using username/password credentials.
     pub async fn provision_token(&self, body: &TokenProvisionRequest) -> Result<TokenProvision> {
         self.client.post("users/tokens/provision/", body).await
     }
 
-    /// Returns the users resource.
+    /// returns the users resource.
     pub fn users(&self) -> UsersResource {
         Resource::new(self.client.clone(), "users/users/")
     }

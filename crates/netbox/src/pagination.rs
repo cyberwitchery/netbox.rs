@@ -1,12 +1,12 @@
-//! Pagination support for NetBox API list endpoints
+//! pagination support for netbox api list endpoints
 
 use crate::error::Result;
 use serde::{Deserialize, Serialize};
 use std::fmt;
 
-/// A paginated response from the NetBox API
+/// a paginated response from the netbox api
 ///
-/// NetBox list endpoints return results in this format:
+/// netbox list endpoints return results in this format:
 /// ```json
 /// {
 ///   "count": 100,
@@ -17,41 +17,41 @@ use std::fmt;
 /// ```
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Page<T> {
-    /// Total number of results available
+    /// total number of results available
     pub count: usize,
 
-    /// URL of the next page, if any
+    /// url of the next page, if any
     pub next: Option<String>,
 
-    /// URL of the previous page, if any
+    /// url of the previous page, if any
     pub previous: Option<String>,
 
-    /// Results for this page
+    /// results for this page
     pub results: Vec<T>,
 }
 
 impl<T> Page<T> {
-    /// Check if there is a next page
+    /// check if there is a next page
     pub fn has_next(&self) -> bool {
         self.next.is_some()
     }
 
-    /// Check if there is a previous page
+    /// check if there is a previous page
     pub fn has_previous(&self) -> bool {
         self.previous.is_some()
     }
 
-    /// Check if this is the last page
+    /// check if this is the last page
     pub fn is_last(&self) -> bool {
         !self.has_next()
     }
 
-    /// Get the number of results in this page
+    /// get the number of results in this page
     pub fn len(&self) -> usize {
         self.results.len()
     }
 
-    /// Check if this page is empty
+    /// check if this page is empty
     pub fn is_empty(&self) -> bool {
         self.results.is_empty()
     }
@@ -68,9 +68,9 @@ impl<T> fmt::Display for Page<T> {
     }
 }
 
-/// Iterator for paginated API results
+/// iterator for paginated api results
 ///
-/// This allows iterating through all pages of results automatically.
+/// this allows iterating through all pages of results automatically.
 ///
 /// # Example
 ///
@@ -100,7 +100,7 @@ impl<T> Paginator<T>
 where
     T: serde::de::DeserializeOwned,
 {
-    /// Create a new paginator starting from a given URL
+    /// create a new paginator starting from a given url
     pub(crate) fn new(client: crate::Client, initial_path: String) -> Self {
         Self {
             client,
@@ -109,9 +109,9 @@ where
         }
     }
 
-    /// Fetch the next page of results
+    /// fetch the next page of results
     ///
-    /// Returns `Ok(None)` when there are no more pages.
+    /// returns `Ok(None)` when there are no more pages.
     pub async fn next_page(&mut self) -> Result<Option<Page<T>>> {
         match self.next_url.take() {
             Some(url) => {
@@ -123,7 +123,7 @@ where
         }
     }
 
-    /// Collect all results from all pages into a single vector
+    /// collect all results from all pages into a single vector
     ///
     /// **Warning**: This will fetch all pages, which could be slow and memory-intensive
     /// for large result sets.
@@ -137,7 +137,7 @@ where
         Ok(all_results)
     }
 
-    /// Limit the number of pages to fetch
+    /// limit the number of pages to fetch
     pub fn limit_pages(self, max_pages: usize) -> LimitedPaginator<T> {
         LimitedPaginator {
             paginator: self,
@@ -154,7 +154,7 @@ impl<T> Paginator<T> {
     }
 }
 
-/// A paginator that limits the number of pages fetched
+/// a paginator that limits the number of pages fetched
 pub struct LimitedPaginator<T> {
     paginator: Paginator<T>,
     max_pages: usize,
@@ -165,7 +165,7 @@ impl<T> LimitedPaginator<T>
 where
     T: serde::de::DeserializeOwned,
 {
-    /// Fetch the next page, respecting the page limit
+    /// fetch the next page, respecting the page limit
     pub async fn next_page(&mut self) -> Result<Option<Page<T>>> {
         if self.current_page >= self.max_pages {
             return Ok(None);
@@ -175,7 +175,7 @@ where
         self.paginator.next_page().await
     }
 
-    /// Collect all results up to the page limit
+    /// collect all results up to the page limit
     pub async fn collect_all(mut self) -> Result<Vec<T>> {
         let mut all_results = Vec::new();
 

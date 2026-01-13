@@ -1,6 +1,6 @@
 # netbox.rs
 
-rust client for the netbox 4.x rest api.
+rust client for the netbox 4.x rest api. it was co-evolved using ai. currently alpha release quality software.
 
 [![ci](https://github.com/network-auto/netbox.rs/workflows/CI/badge.svg)](https://github.com/network-auto/netbox.rs/actions)
 [![crates.io](https://img.shields.io/crates/v/netbox.svg)](https://crates.io/crates/netbox)
@@ -52,6 +52,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 ```
 
 ## examples
+
+for a fuller client guide, see `docs/client.md`.
+
+for a docs index, see `docs/index.md`.
 
 ### auth
 
@@ -149,6 +153,8 @@ match client.dcim().devices().get(999).await {
 ## cli
 
 `netbox-cli` is a small helper for running common requests. for unwrapped endpoints, use `raw`.
+
+see `docs/cli.md` for a more complete guide.
 
 list resources:
 

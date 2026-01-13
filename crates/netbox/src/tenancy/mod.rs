@@ -1,263 +1,274 @@
-//! Tenancy API endpoints.
+//! tenancy endpoints for tenants, groups, and contacts.
+//!
+//! basic usage:
+//! ```no_run
+//! # use netbox::{Client, ClientConfig};
+//! # async fn example() -> Result<(), Box<dyn std::error::Error>> {
+//! # let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
+//! let tenants = client.tenancy().tenants().list(None).await?;
+//! println!("{}", tenants.count);
+//! # Ok(())
+//! # }
+//! ```
 
 use crate::resource::Resource;
 use crate::Client;
 use serde::{Deserialize, Serialize};
 
-/// Request for creating a tenant (ID-based references).
+/// request for creating a tenant (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateTenantRequest {
-    /// Tenant name.
+    /// tenant name.
     pub name: String,
-    /// Tenant slug.
+    /// tenant slug.
     pub slug: String,
-    /// Tenant group ID.
+    /// tenant group id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub group: Option<i32>,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Comments text.
+    /// comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating a tenant (ID-based references).
+/// request for updating a tenant (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateTenantRequest {
-    /// Updated tenant name.
+    /// updated tenant name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated tenant slug.
+    /// updated tenant slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub slug: Option<String>,
-    /// Updated tenant group ID.
+    /// updated tenant group id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub group: Option<i32>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated comments text.
+    /// updated comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for creating a tenant group (ID-based references).
+/// request for creating a tenant group (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateTenantGroupRequest {
-    /// Tenant group name.
+    /// tenant group name.
     pub name: String,
-    /// Tenant group slug.
+    /// tenant group slug.
     pub slug: String,
-    /// Parent group ID.
+    /// parent group id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub parent: Option<i32>,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating a tenant group (ID-based references).
+/// request for updating a tenant group (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateTenantGroupRequest {
-    /// Updated tenant group name.
+    /// updated tenant group name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated tenant group slug.
+    /// updated tenant group slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub slug: Option<String>,
-    /// Updated parent group ID.
+    /// updated parent group id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub parent: Option<i32>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for creating a contact (ID-based references).
+/// request for creating a contact (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateContactRequest {
-    /// Contact group IDs.
+    /// contact group IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub groups: Option<Vec<i32>>,
-    /// Contact name.
+    /// contact name.
     pub name: String,
-    /// Contact title.
+    /// contact title.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
-    /// Phone number.
+    /// phone number.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub phone: Option<String>,
-    /// Email address.
+    /// email address.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub email: Option<String>,
-    /// Street address.
+    /// street address.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub address: Option<String>,
-    /// External link.
+    /// external link.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub link: Option<String>,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Comments text.
+    /// comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating a contact (ID-based references).
+/// request for updating a contact (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateContactRequest {
-    /// Updated contact group IDs.
+    /// updated contact group IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub groups: Option<Vec<i32>>,
-    /// Updated contact name.
+    /// updated contact name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated contact title.
+    /// updated contact title.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub title: Option<String>,
-    /// Updated phone number.
+    /// updated phone number.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub phone: Option<String>,
-    /// Updated email address.
+    /// updated email address.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub email: Option<String>,
-    /// Updated street address.
+    /// updated street address.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub address: Option<String>,
-    /// Updated external link.
+    /// updated external link.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub link: Option<String>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated comments text.
+    /// updated comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for creating a contact group (ID-based references).
+/// request for creating a contact group (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateContactGroupRequest {
-    /// Contact group name.
+    /// contact group name.
     pub name: String,
-    /// Contact group slug.
+    /// contact group slug.
     pub slug: String,
-    /// Parent group ID.
+    /// parent group id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub parent: Option<i32>,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Comments text.
+    /// comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating a contact group (ID-based references).
+/// request for updating a contact group (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateContactGroupRequest {
-    /// Updated contact group name.
+    /// updated contact group name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated contact group slug.
+    /// updated contact group slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub slug: Option<String>,
-    /// Updated parent group ID.
+    /// updated parent group id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub parent: Option<i32>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated comments text.
+    /// updated comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for creating a contact role (ID-based references).
+/// request for creating a contact role (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateContactRoleRequest {
-    /// Contact role name.
+    /// contact role name.
     pub name: String,
-    /// Contact role slug.
+    /// contact role slug.
     pub slug: String,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating a contact role (ID-based references).
+/// request for updating a contact role (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateContactRoleRequest {
-    /// Updated contact role name.
+    /// updated contact role name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated contact role slug.
+    /// updated contact role slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub slug: Option<String>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Tenant model.
+/// tenant model.
 pub type Tenant = crate::models::Tenant;
-/// Tenant group model.
+/// tenant group model.
 pub type TenantGroup = crate::models::TenantGroup;
-/// Contact model.
+/// contact model.
 pub type Contact = crate::models::Contact;
-/// Contact group model.
+/// contact group model.
 pub type ContactGroup = crate::models::ContactGroup;
-/// Contact role model.
+/// contact role model.
 pub type ContactRole = crate::models::ContactRole;
-/// Contact assignment model.
+/// contact assignment model.
 pub type ContactAssignment = crate::models::ContactAssignment;
 
-/// Resource for contact assignments.
+/// resource for contact assignments.
 pub type ContactAssignmentsApi = Resource<crate::models::ContactAssignment>;
-/// Resource for contact groups.
+/// resource for contact groups.
 pub type ContactGroupsApi = Resource<crate::models::ContactGroup>;
-/// Resource for contact roles.
+/// resource for contact roles.
 pub type ContactRolesApi = Resource<crate::models::ContactRole>;
-/// Resource for contacts.
+/// resource for contacts.
 pub type ContactsApi = Resource<crate::models::Contact>;
-/// Resource for tenant groups.
+/// resource for tenant groups.
 pub type TenantGroupsApi = Resource<crate::models::TenantGroup>;
-/// Resource for tenants.
+/// resource for tenants.
 pub type TenantsApi = Resource<crate::models::Tenant>;
 
-/// API for tenancy endpoints.
+/// api for tenancy endpoints.
 #[derive(Clone)]
 pub struct TenancyApi {
     client: Client,
@@ -268,32 +279,32 @@ impl TenancyApi {
         Self { client }
     }
 
-    /// Returns the contact assignments resource.
+    /// returns the contact assignments resource.
     pub fn contact_assignments(&self) -> ContactAssignmentsApi {
         Resource::new(self.client.clone(), "tenancy/contact-assignments/")
     }
 
-    /// Returns the contact groups resource.
+    /// returns the contact groups resource.
     pub fn contact_groups(&self) -> ContactGroupsApi {
         Resource::new(self.client.clone(), "tenancy/contact-groups/")
     }
 
-    /// Returns the contact roles resource.
+    /// returns the contact roles resource.
     pub fn contact_roles(&self) -> ContactRolesApi {
         Resource::new(self.client.clone(), "tenancy/contact-roles/")
     }
 
-    /// Returns the contacts resource.
+    /// returns the contacts resource.
     pub fn contacts(&self) -> ContactsApi {
         Resource::new(self.client.clone(), "tenancy/contacts/")
     }
 
-    /// Returns the tenant groups resource.
+    /// returns the tenant groups resource.
     pub fn tenant_groups(&self) -> TenantGroupsApi {
         Resource::new(self.client.clone(), "tenancy/tenant-groups/")
     }
 
-    /// Returns the tenants resource.
+    /// returns the tenants resource.
     pub fn tenants(&self) -> TenantsApi {
         Resource::new(self.client.clone(), "tenancy/tenants/")
     }
@@ -321,10 +332,7 @@ mod tests {
     fn tenancy_accessors_return_expected_paths() {
         let api = TenancyApi::new(test_client());
 
-        assert_path(
-            api.contact_assignments(),
-            "tenancy/contact-assignments/",
-        );
+        assert_path(api.contact_assignments(), "tenancy/contact-assignments/");
         assert_path(api.contact_groups(), "tenancy/contact-groups/");
         assert_path(api.contact_roles(), "tenancy/contact-roles/");
         assert_path(api.contacts(), "tenancy/contacts/");

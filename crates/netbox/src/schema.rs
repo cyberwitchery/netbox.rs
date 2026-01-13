@@ -1,4 +1,15 @@
-//! Schema API endpoints.
+//! schema endpoint for fetching the openapi document.
+//!
+//! basic usage:
+//! ```no_run
+//! # use netbox::{Client, ClientConfig};
+//! # async fn example() -> Result<(), Box<dyn std::error::Error>> {
+//! # let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
+//! let schema = client.schema().schema(Some("json"), None).await?;
+//! println!("{}", schema.len());
+//! # Ok(())
+//! # }
+//! ```
 
 use crate::error::Result;
 use crate::Client;
@@ -6,7 +17,7 @@ use serde::Serialize;
 use serde_json::Value;
 use std::collections::HashMap;
 
-/// OpenAPI schema payload.
+/// openapi schema payload.
 pub type Schema = HashMap<String, Value>;
 
 #[derive(Serialize)]
@@ -17,7 +28,7 @@ struct SchemaQuery<'a> {
     lang: Option<&'a str>,
 }
 
-/// API for schema endpoints.
+/// api for schema endpoints.
 #[derive(Clone)]
 pub struct SchemaApi {
     client: Client,
@@ -28,7 +39,7 @@ impl SchemaApi {
         Self { client }
     }
 
-    /// Fetch the OpenAPI schema.
+    /// fetch the openapi schema.
     pub async fn schema(&self, format: Option<&str>, lang: Option<&str>) -> Result<Schema> {
         let query = SchemaQuery {
             r#format: format,

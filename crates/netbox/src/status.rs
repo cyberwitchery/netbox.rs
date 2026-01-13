@@ -1,14 +1,25 @@
-//! Status API endpoints.
+//! status endpoint for basic health and version info.
+//!
+//! basic usage:
+//! ```no_run
+//! # use netbox::{Client, ClientConfig};
+//! # async fn example() -> Result<(), Box<dyn std::error::Error>> {
+//! # let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
+//! let status = client.status().status().await?;
+//! println!("{}", status.len());
+//! # Ok(())
+//! # }
+//! ```
 
 use crate::error::Result;
 use crate::Client;
 use serde_json::Value;
 use std::collections::HashMap;
 
-/// Status payload.
+/// status payload.
 pub type Status = HashMap<String, Value>;
 
-/// API for status endpoints.
+/// api for status endpoints.
 #[derive(Clone)]
 pub struct StatusApi {
     client: Client,
@@ -19,7 +30,7 @@ impl StatusApi {
         Self { client }
     }
 
-    /// Fetch NetBox status.
+    /// fetch netbox status.
     pub async fn status(&self) -> Result<Status> {
         self.client.get("status/").await
     }

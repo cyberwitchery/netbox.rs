@@ -1,8 +1,8 @@
-//! NetBox API client
+//! netbox api client
 
+use crate::circuits::CircuitsApi;
 use crate::config::ClientConfig;
 use crate::core::CoreApi;
-use crate::circuits::CircuitsApi;
 use crate::dcim::DcimApi;
 use crate::error::{Error, Result};
 use crate::extras::ExtrasApi;
@@ -24,7 +24,7 @@ use std::sync::Arc;
 use std::time::Duration;
 use tokio::time::sleep;
 
-/// The main NetBox API client
+/// the main netbox api client
 ///
 /// # Example
 ///
@@ -35,7 +35,7 @@ use tokio::time::sleep;
 /// let config = ClientConfig::new("https://netbox.example.com", "your-api-token");
 /// let client = Client::new(config)?;
 ///
-/// // Use the client to access different API modules
+/// // Use the client to access different api modules
 /// // let devices = client.dcim().devices().list().await?;
 /// # Ok(())
 /// # }
@@ -47,11 +47,11 @@ pub struct Client {
 }
 
 impl Client {
-    /// Create a new NetBox client
+    /// create a new netbox client
     ///
     /// # Errors
     ///
-    /// Returns an error if the configuration is invalid or the HTTP client cannot be created.
+    /// returns an error if the configuration is invalid or the http client cannot be created.
     pub fn new(config: ClientConfig) -> Result<Self> {
         config.validate()?;
 
@@ -83,77 +83,77 @@ impl Client {
         })
     }
 
-    /// Access DCIM (Data Center Infrastructure Management) API endpoints
+    /// access dcim (Data Center Infrastructure Management) api endpoints
     pub fn dcim(&self) -> DcimApi {
         DcimApi::new(self.clone())
     }
 
-    /// Access circuits API endpoints
+    /// access circuits api endpoints
     pub fn circuits(&self) -> CircuitsApi {
         CircuitsApi::new(self.clone())
     }
 
-    /// Access core API endpoints
+    /// access core api endpoints
     pub fn core(&self) -> CoreApi {
         CoreApi::new(self.clone())
     }
 
-    /// Access extras API endpoints
+    /// access extras api endpoints
     pub fn extras(&self) -> ExtrasApi {
         ExtrasApi::new(self.clone())
     }
 
-    /// Access IPAM (IP Address Management) API endpoints
+    /// access ipam (IP Address Management) api endpoints
     pub fn ipam(&self) -> IpamApi {
         IpamApi::new(self.clone())
     }
 
-    /// Access plugin API endpoints
+    /// access plugin api endpoints
     pub fn plugins(&self) -> PluginsApi {
         PluginsApi::new(self.clone())
     }
 
-    /// Access the OpenAPI schema endpoint
+    /// access the openapi schema endpoint
     pub fn schema(&self) -> SchemaApi {
         SchemaApi::new(self.clone())
     }
 
-    /// Access the NetBox status endpoint
+    /// access the netbox status endpoint
     pub fn status(&self) -> StatusApi {
         StatusApi::new(self.clone())
     }
 
-    /// Access tenancy API endpoints
+    /// access tenancy api endpoints
     pub fn tenancy(&self) -> TenancyApi {
         TenancyApi::new(self.clone())
     }
 
-    /// Access users API endpoints
+    /// access users api endpoints
     pub fn users(&self) -> UsersApi {
         UsersApi::new(self.clone())
     }
 
-    /// Access virtualization API endpoints
+    /// access virtualization api endpoints
     pub fn virtualization(&self) -> VirtualizationApi {
         VirtualizationApi::new(self.clone())
     }
 
-    /// Access VPN API endpoints
+    /// access vpn api endpoints
     pub fn vpn(&self) -> VpnApi {
         VpnApi::new(self.clone())
     }
 
-    /// Access wireless API endpoints
+    /// access wireless api endpoints
     pub fn wireless(&self) -> WirelessApi {
         WirelessApi::new(self.clone())
     }
 
-    /// Get the client configuration
+    /// get the client configuration
     pub fn config(&self) -> &ClientConfig {
         &self.config
     }
 
-    /// Build a configuration for the generated OpenAPI client.
+    /// build a configuration for the generated openapi client.
     pub fn openapi_config(&self) -> netbox_openapi::apis::configuration::Configuration {
         let client = reqwest_legacy::Client::builder()
             .no_proxy()
@@ -161,7 +161,12 @@ impl Client {
             .unwrap_or_else(|_| reqwest_legacy::Client::new());
 
         netbox_openapi::apis::configuration::Configuration {
-            base_path: self.config.base_url.as_str().trim_end_matches('/').to_string(),
+            base_path: self
+                .config
+                .base_url
+                .as_str()
+                .trim_end_matches('/')
+                .to_string(),
             user_agent: Some(self.config.user_agent.clone()),
             client,
             basic_auth: None,
@@ -174,7 +179,7 @@ impl Client {
         }
     }
 
-    /// Make a GET request to the API
+    /// make a get request to the api
     pub(crate) async fn get<T>(&self, path: &str) -> Result<T>
     where
         T: DeserializeOwned,
@@ -183,7 +188,7 @@ impl Client {
             .await
     }
 
-    /// Make a GET request with query parameters
+    /// make a get request with query parameters
     pub(crate) async fn get_with_params<T, Q>(&self, path: &str, query: &Q) -> Result<T>
     where
         T: DeserializeOwned,
@@ -205,8 +210,7 @@ impl Client {
             match result {
                 Ok(value) => return Ok(value),
                 Err(err) => {
-                    if !Self::should_retry(&err, Method::GET, attempts, self.config.max_retries)
-                    {
+                    if !Self::should_retry(&err, Method::GET, attempts, self.config.max_retries) {
                         return Err(err);
                     }
                     attempts += 1;
@@ -216,7 +220,7 @@ impl Client {
         }
     }
 
-    /// Make a raw HTTP request and return JSON or null for empty bodies
+    /// make a raw http request and return json or null for empty bodies
     pub async fn request_raw(
         &self,
         method: Method,
@@ -258,7 +262,7 @@ impl Client {
         }
     }
 
-    /// Make a POST request to the API
+    /// make a post request to the api
     pub(crate) async fn post<T, B>(&self, path: &str, body: &B) -> Result<T>
     where
         T: DeserializeOwned,
@@ -267,7 +271,7 @@ impl Client {
         self.request(Method::POST, path, Some(body)).await
     }
 
-    /// Make a PUT request to the API
+    /// make a put request to the api
     pub(crate) async fn put<T, B>(&self, path: &str, body: &B) -> Result<T>
     where
         T: DeserializeOwned,
@@ -276,7 +280,7 @@ impl Client {
         self.request(Method::PUT, path, Some(body)).await
     }
 
-    /// Make a PATCH request to the API
+    /// make a patch request to the api
     pub(crate) async fn patch<T, B>(&self, path: &str, body: &B) -> Result<T>
     where
         T: DeserializeOwned,
@@ -285,7 +289,7 @@ impl Client {
         self.request(Method::PATCH, path, Some(body)).await
     }
 
-    /// Make a DELETE request to the API
+    /// make a delete request to the api
     pub(crate) async fn delete(&self, path: &str) -> Result<()> {
         let url = self.config.build_url(path)?;
         let response = self.http_client.delete(url).send().await?;
@@ -299,7 +303,7 @@ impl Client {
         }
     }
 
-    /// Make a generic HTTP request
+    /// make a generic http request
     async fn request<T, B>(&self, method: Method, path: &str, body: Option<&B>) -> Result<T>
     where
         T: DeserializeOwned,
@@ -371,7 +375,7 @@ impl Client {
         Duration::from_millis(backoff_ms)
     }
 
-    /// Handle HTTP response and deserialize or return error
+    /// handle http response and deserialize or return error
     async fn handle_response<T>(&self, response: reqwest::Response) -> Result<T>
     where
         T: DeserializeOwned,

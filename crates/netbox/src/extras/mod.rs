@@ -1,4 +1,15 @@
-//! Extras API endpoints.
+//! extras endpoints for tags, webhooks, scripts, and custom fields.
+//!
+//! basic usage:
+//! ```no_run
+//! # use netbox::{Client, ClientConfig};
+//! # async fn example() -> Result<(), Box<dyn std::error::Error>> {
+//! # let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
+//! let tags = client.extras().tags().list(None).await?;
+//! println!("{}", tags.count);
+//! # Ok(())
+//! # }
+//! ```
 
 use crate::error::Result;
 use crate::resource::Resource;
@@ -7,642 +18,642 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
 
-/// Request for creating a tag.
+/// request for creating a tag.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateTagRequest {
-    /// Tag name.
+    /// tag name.
     pub name: String,
-    /// Tag slug.
+    /// tag slug.
     pub slug: String,
-    /// Tag color in hex.
+    /// tag color in hex.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub color: Option<String>,
-    /// Tag description.
+    /// tag description.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Tag weight.
+    /// tag weight.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub weight: Option<i32>,
-    /// Object types (content type strings).
+    /// object types (content type strings).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub object_types: Option<Vec<String>>,
 }
 
-/// Request for updating a tag.
+/// request for updating a tag.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateTagRequest {
-    /// Updated tag name.
+    /// updated tag name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated tag slug.
+    /// updated tag slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub slug: Option<String>,
-    /// Updated tag color in hex.
+    /// updated tag color in hex.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub color: Option<String>,
-    /// Updated tag description.
+    /// updated tag description.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated tag weight.
+    /// updated tag weight.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub weight: Option<i32>,
-    /// Updated object types (content type strings).
+    /// updated object types (content type strings).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub object_types: Option<Vec<String>>,
 }
 
-/// Request for creating a custom field choice set.
+/// request for creating a custom field choice set.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateCustomFieldChoiceSetRequest {
-    /// Choice set name.
+    /// choice set name.
     pub name: String,
-    /// Choice set description.
+    /// choice set description.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Base choices identifier.
+    /// base choices identifier.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub base_choices: Option<String>,
-    /// Extra choices payload.
+    /// extra choices payload.
     pub extra_choices: Vec<Vec<Value>>,
-    /// Order choices alphabetically.
+    /// order choices alphabetically.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub order_alphabetically: Option<bool>,
 }
 
-/// Request for updating a custom field choice set.
+/// request for updating a custom field choice set.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateCustomFieldChoiceSetRequest {
-    /// Updated choice set name.
+    /// updated choice set name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated choice set description.
+    /// updated choice set description.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated base choices identifier.
+    /// updated base choices identifier.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub base_choices: Option<String>,
-    /// Updated extra choices payload.
+    /// updated extra choices payload.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub extra_choices: Option<Vec<Vec<Value>>>,
-    /// Updated ordering flag.
+    /// updated ordering flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub order_alphabetically: Option<bool>,
 }
 
-/// Request for creating a custom field.
+/// request for creating a custom field.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateCustomFieldRequest {
-    /// Object types (content type strings).
+    /// object types (content type strings).
     pub object_types: Vec<String>,
-    /// Field type identifier.
+    /// field type identifier.
     pub r#type: String,
-    /// Internal field name.
+    /// internal field name.
     pub name: String,
-    /// Related object content type string.
+    /// related object content type string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub related_object_type: Option<String>,
-    /// Field label.
+    /// field label.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
-    /// Field group name.
+    /// field group name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub group_name: Option<String>,
-    /// Field description.
+    /// field description.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Required flag.
+    /// required flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub required: Option<bool>,
-    /// Unique flag.
+    /// unique flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub unique: Option<bool>,
-    /// Search weight.
+    /// search weight.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub search_weight: Option<i32>,
-    /// Filter logic identifier.
+    /// filter logic identifier.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub filter_logic: Option<String>,
-    /// UI visibility identifier.
+    /// uI visibility identifier.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ui_visible: Option<String>,
-    /// UI editable identifier.
+    /// uI editable identifier.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ui_editable: Option<String>,
-    /// Cloneable flag.
+    /// cloneable flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub is_cloneable: Option<bool>,
-    /// Default JSON value.
+    /// default json value.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub default: Option<Value>,
-    /// Related object filter JSON.
+    /// related object filter json.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub related_object_filter: Option<Value>,
-    /// Field weight.
+    /// field weight.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub weight: Option<i32>,
-    /// Validation minimum.
+    /// validation minimum.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub validation_minimum: Option<f64>,
-    /// Validation maximum.
+    /// validation maximum.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub validation_maximum: Option<f64>,
-    /// Validation regex.
+    /// validation regex.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub validation_regex: Option<String>,
-    /// Choice set ID.
+    /// choice set id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub choice_set: Option<i32>,
-    /// Field comments.
+    /// field comments.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
 }
 
-/// Request for updating a custom field.
+/// request for updating a custom field.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateCustomFieldRequest {
-    /// Updated object types (content type strings).
+    /// updated object types (content type strings).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub object_types: Option<Vec<String>>,
-    /// Updated field type identifier.
+    /// updated field type identifier.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub r#type: Option<String>,
-    /// Updated internal field name.
+    /// updated internal field name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated related object content type string.
+    /// updated related object content type string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub related_object_type: Option<String>,
-    /// Updated field label.
+    /// updated field label.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
-    /// Updated field group name.
+    /// updated field group name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub group_name: Option<String>,
-    /// Updated field description.
+    /// updated field description.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated required flag.
+    /// updated required flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub required: Option<bool>,
-    /// Updated unique flag.
+    /// updated unique flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub unique: Option<bool>,
-    /// Updated search weight.
+    /// updated search weight.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub search_weight: Option<i32>,
-    /// Updated filter logic identifier.
+    /// updated filter logic identifier.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub filter_logic: Option<String>,
-    /// Updated UI visibility identifier.
+    /// updated UI visibility identifier.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ui_visible: Option<String>,
-    /// Updated UI editable identifier.
+    /// updated UI editable identifier.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ui_editable: Option<String>,
-    /// Updated cloneable flag.
+    /// updated cloneable flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub is_cloneable: Option<bool>,
-    /// Updated default JSON value.
+    /// updated default json value.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub default: Option<Value>,
-    /// Updated related object filter JSON.
+    /// updated related object filter json.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub related_object_filter: Option<Value>,
-    /// Updated field weight.
+    /// updated field weight.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub weight: Option<i32>,
-    /// Updated validation minimum.
+    /// updated validation minimum.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub validation_minimum: Option<f64>,
-    /// Updated validation maximum.
+    /// updated validation maximum.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub validation_maximum: Option<f64>,
-    /// Updated validation regex.
+    /// updated validation regex.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub validation_regex: Option<String>,
-    /// Updated choice set ID.
+    /// updated choice set id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub choice_set: Option<i32>,
-    /// Updated comments.
+    /// updated comments.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
 }
 
-/// Request for creating a config context.
+/// request for creating a config context.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateConfigContextRequest {
-    /// Config context name.
+    /// config context name.
     pub name: String,
-    /// Weight value.
+    /// weight value.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub weight: Option<i32>,
-    /// Profile ID.
+    /// profile id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub profile: Option<i32>,
-    /// Description text.
+    /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Active flag.
+    /// active flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub is_active: Option<bool>,
-    /// Region IDs.
+    /// region IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub regions: Option<Vec<i32>>,
-    /// Site group IDs.
+    /// site group IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub site_groups: Option<Vec<i32>>,
-    /// Site IDs.
+    /// site IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub sites: Option<Vec<i32>>,
-    /// Location IDs.
+    /// location IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub locations: Option<Vec<i32>>,
-    /// Device type IDs.
+    /// device type IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub device_types: Option<Vec<i32>>,
-    /// Role IDs.
+    /// role IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub roles: Option<Vec<i32>>,
-    /// Platform IDs.
+    /// platform IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub platforms: Option<Vec<i32>>,
-    /// Cluster type IDs.
+    /// cluster type IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub cluster_types: Option<Vec<i32>>,
-    /// Cluster group IDs.
+    /// cluster group IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub cluster_groups: Option<Vec<i32>>,
-    /// Cluster IDs.
+    /// cluster IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub clusters: Option<Vec<i32>>,
-    /// Tenant group IDs.
+    /// tenant group IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant_groups: Option<Vec<i32>>,
-    /// Tenant IDs.
+    /// tenant IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenants: Option<Vec<i32>>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<String>>,
-    /// Data source ID.
+    /// data source id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub data_source: Option<i32>,
-    /// Data payload.
+    /// data payload.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub data: Option<Value>,
 }
 
-/// Request for updating a config context.
+/// request for updating a config context.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateConfigContextRequest {
-    /// Updated config context name.
+    /// updated config context name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated weight value.
+    /// updated weight value.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub weight: Option<i32>,
-    /// Updated profile ID.
+    /// updated profile id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub profile: Option<i32>,
-    /// Updated description text.
+    /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated active flag.
+    /// updated active flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub is_active: Option<bool>,
-    /// Updated region IDs.
+    /// updated region IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub regions: Option<Vec<i32>>,
-    /// Updated site group IDs.
+    /// updated site group IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub site_groups: Option<Vec<i32>>,
-    /// Updated site IDs.
+    /// updated site IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub sites: Option<Vec<i32>>,
-    /// Updated location IDs.
+    /// updated location IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub locations: Option<Vec<i32>>,
-    /// Updated device type IDs.
+    /// updated device type IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub device_types: Option<Vec<i32>>,
-    /// Updated role IDs.
+    /// updated role IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub roles: Option<Vec<i32>>,
-    /// Updated platform IDs.
+    /// updated platform IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub platforms: Option<Vec<i32>>,
-    /// Updated cluster type IDs.
+    /// updated cluster type IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub cluster_types: Option<Vec<i32>>,
-    /// Updated cluster group IDs.
+    /// updated cluster group IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub cluster_groups: Option<Vec<i32>>,
-    /// Updated cluster IDs.
+    /// updated cluster IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub clusters: Option<Vec<i32>>,
-    /// Updated tenant group IDs.
+    /// updated tenant group IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant_groups: Option<Vec<i32>>,
-    /// Updated tenant IDs.
+    /// updated tenant IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenants: Option<Vec<i32>>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<String>>,
-    /// Updated data source ID.
+    /// updated data source id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub data_source: Option<i32>,
-    /// Updated data payload.
+    /// updated data payload.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub data: Option<Value>,
 }
 
-/// Request for creating a config context profile.
+/// request for creating a config context profile.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateConfigContextProfileRequest {
-    /// Profile name.
+    /// profile name.
     pub name: String,
-    /// Profile description.
+    /// profile description.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Profile schema payload.
+    /// profile schema payload.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub schema: Option<Value>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<String>>,
-    /// Comments text.
+    /// comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Data source ID.
+    /// data source id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub data_source: Option<i32>,
 }
 
-/// Request for updating a config context profile.
+/// request for updating a config context profile.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateConfigContextProfileRequest {
-    /// Updated profile name.
+    /// updated profile name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated profile description.
+    /// updated profile description.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated profile schema payload.
+    /// updated profile schema payload.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub schema: Option<Value>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<String>>,
-    /// Updated comments text.
+    /// updated comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// Updated data source ID.
+    /// updated data source id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub data_source: Option<i32>,
 }
 
-/// Request for creating a config template.
+/// request for creating a config template.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateConfigTemplateRequest {
-    /// Template name.
+    /// template name.
     pub name: String,
-    /// Template code (Jinja2).
+    /// template code (Jinja2).
     pub template_code: String,
-    /// Template description.
+    /// template description.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Jinja environment params.
+    /// jinja environment params.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub environment_params: Option<Value>,
-    /// MIME type.
+    /// mIME type.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mime_type: Option<String>,
-    /// File name.
+    /// file name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub file_name: Option<String>,
-    /// File extension.
+    /// file extension.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub file_extension: Option<String>,
-    /// Attachment flag.
+    /// attachment flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub as_attachment: Option<bool>,
-    /// Data source ID.
+    /// data source id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub data_source: Option<i32>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating a config template.
+/// request for updating a config template.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateConfigTemplateRequest {
-    /// Updated template name.
+    /// updated template name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated template code.
+    /// updated template code.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub template_code: Option<String>,
-    /// Updated template description.
+    /// updated template description.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated Jinja environment params.
+    /// updated Jinja environment params.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub environment_params: Option<Value>,
-    /// Updated MIME type.
+    /// updated MIME type.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mime_type: Option<String>,
-    /// Updated file name.
+    /// updated file name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub file_name: Option<String>,
-    /// Updated file extension.
+    /// updated file extension.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub file_extension: Option<String>,
-    /// Updated attachment flag.
+    /// updated attachment flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub as_attachment: Option<bool>,
-    /// Updated data source ID.
+    /// updated data source id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub data_source: Option<i32>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for creating a webhook.
+/// request for creating a webhook.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateWebhookRequest {
-    /// Webhook name.
+    /// webhook name.
     pub name: String,
-    /// Payload URL.
+    /// payload url.
     pub payload_url: String,
-    /// Webhook description.
+    /// webhook description.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// HTTP method.
+    /// http method.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub http_method: Option<String>,
-    /// HTTP content type.
+    /// http content type.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub http_content_type: Option<String>,
-    /// Additional headers.
+    /// additional headers.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub additional_headers: Option<String>,
-    /// Body template.
+    /// body template.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub body_template: Option<String>,
-    /// Secret string.
+    /// secret string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub secret: Option<String>,
-    /// SSL verification flag.
+    /// ssl verification flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ssl_verification: Option<bool>,
-    /// CA file path.
+    /// cA file path.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ca_file_path: Option<String>,
-    /// Custom fields payload.
+    /// custom fields payload.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<HashMap<String, Value>>,
-    /// Tag IDs.
+    /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Request for updating a webhook.
+/// request for updating a webhook.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdateWebhookRequest {
-    /// Updated webhook name.
+    /// updated webhook name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// Updated payload URL.
+    /// updated payload url.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub payload_url: Option<String>,
-    /// Updated description.
+    /// updated description.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// Updated HTTP method.
+    /// updated http method.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub http_method: Option<String>,
-    /// Updated HTTP content type.
+    /// updated http content type.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub http_content_type: Option<String>,
-    /// Updated additional headers.
+    /// updated additional headers.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub additional_headers: Option<String>,
-    /// Updated body template.
+    /// updated body template.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub body_template: Option<String>,
-    /// Updated secret string.
+    /// updated secret string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub secret: Option<String>,
-    /// Updated SSL verification flag.
+    /// updated ssl verification flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ssl_verification: Option<bool>,
-    /// Updated CA file path.
+    /// updated CA file path.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ca_file_path: Option<String>,
-    /// Updated custom fields payload.
+    /// updated custom fields payload.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<HashMap<String, Value>>,
-    /// Updated tag IDs.
+    /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<i32>>,
 }
 
-/// Bookmark model.
+/// bookmark model.
 pub type Bookmark = crate::models::Bookmark;
-/// Config context profile model.
+/// config context profile model.
 pub type ConfigContextProfile = crate::models::ConfigContextProfile;
-/// Config context model.
+/// config context model.
 pub type ConfigContext = crate::models::ConfigContext;
-/// Config template model.
+/// config template model.
 pub type ConfigTemplate = crate::models::ConfigTemplate;
-/// Custom field choice set model.
+/// custom field choice set model.
 pub type CustomFieldChoiceSet = crate::models::CustomFieldChoiceSet;
-/// Custom field model.
+/// custom field model.
 pub type CustomField = crate::models::CustomField;
-/// Custom link model.
+/// custom link model.
 pub type CustomLink = crate::models::CustomLink;
-/// Dashboard model.
+/// dashboard model.
 pub type Dashboard = crate::models::Dashboard;
-/// Dashboard request model.
+/// dashboard request model.
 pub type DashboardRequest = crate::models::DashboardRequest;
-/// Patched dashboard request model.
+/// patched dashboard request model.
 pub type PatchedDashboardRequest = crate::models::PatchedDashboardRequest;
-/// Event rule model.
+/// event rule model.
 pub type EventRule = crate::models::EventRule;
-/// Export template model.
+/// export template model.
 pub type ExportTemplate = crate::models::ExportTemplate;
-/// Image attachment model.
+/// image attachment model.
 pub type ImageAttachment = crate::models::ImageAttachment;
-/// Journal entry model.
+/// journal entry model.
 pub type JournalEntry = crate::models::JournalEntry;
-/// Notification group model.
+/// notification group model.
 pub type NotificationGroup = crate::models::NotificationGroup;
-/// Notification model.
+/// notification model.
 pub type Notification = crate::models::Notification;
-/// Object type model.
+/// object type model.
 pub type ObjectType = crate::models::ObjectType;
-/// Saved filter model.
+/// saved filter model.
 pub type SavedFilter = crate::models::SavedFilter;
-/// Script model.
+/// script model.
 pub type Script = crate::models::Script;
-/// Subscription model.
+/// subscription model.
 pub type Subscription = crate::models::Subscription;
-/// Table config model.
+/// table config model.
 pub type TableConfig = crate::models::TableConfig;
-/// Tagged item model.
+/// tagged item model.
 pub type TaggedItem = crate::models::TaggedItem;
-/// Tag model.
+/// tag model.
 pub type Tag = crate::models::Tag;
-/// Webhook model.
+/// webhook model.
 pub type Webhook = crate::models::Webhook;
 
-/// Resource for bookmarks.
+/// resource for bookmarks.
 pub type BookmarksApi = Resource<crate::models::Bookmark>;
-/// Resource for config context profiles.
+/// resource for config context profiles.
 pub type ConfigContextProfilesApi = Resource<crate::models::ConfigContextProfile>;
-/// Resource for config contexts.
+/// resource for config contexts.
 pub type ConfigContextsApi = Resource<crate::models::ConfigContext>;
-/// Resource for config templates.
+/// resource for config templates.
 pub type ConfigTemplatesApi = Resource<crate::models::ConfigTemplate>;
-/// Resource for custom field choice sets.
+/// resource for custom field choice sets.
 pub type CustomFieldChoiceSetsApi = Resource<crate::models::CustomFieldChoiceSet>;
-/// Resource for custom fields.
+/// resource for custom fields.
 pub type CustomFieldsApi = Resource<crate::models::CustomField>;
-/// Resource for custom links.
+/// resource for custom links.
 pub type CustomLinksApi = Resource<crate::models::CustomLink>;
-/// Resource for event rules.
+/// resource for event rules.
 pub type EventRulesApi = Resource<crate::models::EventRule>;
-/// Resource for export templates.
+/// resource for export templates.
 pub type ExportTemplatesApi = Resource<crate::models::ExportTemplate>;
-/// Resource for image attachments.
+/// resource for image attachments.
 pub type ImageAttachmentsApi = Resource<crate::models::ImageAttachment>;
-/// Resource for journal entries.
+/// resource for journal entries.
 pub type JournalEntriesApi = Resource<crate::models::JournalEntry>;
-/// Resource for notification groups.
+/// resource for notification groups.
 pub type NotificationGroupsApi = Resource<crate::models::NotificationGroup>;
-/// Resource for notifications.
+/// resource for notifications.
 pub type NotificationsApi = Resource<crate::models::Notification>;
-/// Resource for object types.
+/// resource for object types.
 pub type ObjectTypesApi = Resource<crate::models::ObjectType>;
-/// Resource for saved filters.
+/// resource for saved filters.
 pub type SavedFiltersApi = Resource<crate::models::SavedFilter>;
-/// Resource for scripts.
+/// resource for scripts.
 pub type ScriptsApi = Resource<crate::models::Script>;
-/// Resource for subscriptions.
+/// resource for subscriptions.
 pub type SubscriptionsApi = Resource<crate::models::Subscription>;
-/// Resource for table configs.
+/// resource for table configs.
 pub type TableConfigsApi = Resource<crate::models::TableConfig>;
-/// Resource for tagged objects.
+/// resource for tagged objects.
 pub type TaggedObjectsApi = Resource<crate::models::TaggedItem>;
-/// Resource for tags.
+/// resource for tags.
 pub type TagsApi = Resource<crate::models::Tag>;
-/// Resource for webhooks.
+/// resource for webhooks.
 pub type WebhooksApi = Resource<crate::models::Webhook>;
 
-/// API for extras endpoints.
+/// api for extras endpoints.
 #[derive(Clone)]
 pub struct ExtrasApi {
     client: Client,
@@ -653,127 +664,127 @@ impl ExtrasApi {
         Self { client }
     }
 
-    /// Returns the bookmarks resource.
+    /// returns the bookmarks resource.
     pub fn bookmarks(&self) -> BookmarksApi {
         Resource::new(self.client.clone(), "extras/bookmarks/")
     }
 
-    /// Returns the config context profiles resource.
+    /// returns the config context profiles resource.
     pub fn config_context_profiles(&self) -> ConfigContextProfilesApi {
         Resource::new(self.client.clone(), "extras/config-context-profiles/")
     }
 
-    /// Returns the config contexts resource.
+    /// returns the config contexts resource.
     pub fn config_contexts(&self) -> ConfigContextsApi {
         Resource::new(self.client.clone(), "extras/config-contexts/")
     }
 
-    /// Returns the config templates resource.
+    /// returns the config templates resource.
     pub fn config_templates(&self) -> ConfigTemplatesApi {
         Resource::new(self.client.clone(), "extras/config-templates/")
     }
 
-    /// Returns the custom field choice sets resource.
+    /// returns the custom field choice sets resource.
     pub fn custom_field_choice_sets(&self) -> CustomFieldChoiceSetsApi {
         Resource::new(self.client.clone(), "extras/custom-field-choice-sets/")
     }
 
-    /// Returns the custom fields resource.
+    /// returns the custom fields resource.
     pub fn custom_fields(&self) -> CustomFieldsApi {
         Resource::new(self.client.clone(), "extras/custom-fields/")
     }
 
-    /// Returns the custom links resource.
+    /// returns the custom links resource.
     pub fn custom_links(&self) -> CustomLinksApi {
         Resource::new(self.client.clone(), "extras/custom-links/")
     }
 
-    /// Fetch the current dashboard configuration.
+    /// fetch the current dashboard configuration.
     pub async fn dashboard(&self) -> Result<Dashboard> {
         self.client.get("extras/dashboard/").await
     }
 
-    /// Update the dashboard configuration (full update).
+    /// update the dashboard configuration (full update).
     pub async fn update_dashboard(&self, body: &DashboardRequest) -> Result<Dashboard> {
         self.client.put("extras/dashboard/", body).await
     }
 
-    /// Update the dashboard configuration (partial update).
+    /// update the dashboard configuration (partial update).
     pub async fn patch_dashboard(&self, body: &PatchedDashboardRequest) -> Result<Dashboard> {
         self.client.patch("extras/dashboard/", body).await
     }
 
-    /// Delete the current dashboard configuration.
+    /// delete the current dashboard configuration.
     pub async fn delete_dashboard(&self) -> Result<()> {
         self.client.delete("extras/dashboard/").await
     }
 
-    /// Returns the event rules resource.
+    /// returns the event rules resource.
     pub fn event_rules(&self) -> EventRulesApi {
         Resource::new(self.client.clone(), "extras/event-rules/")
     }
 
-    /// Returns the export templates resource.
+    /// returns the export templates resource.
     pub fn export_templates(&self) -> ExportTemplatesApi {
         Resource::new(self.client.clone(), "extras/export-templates/")
     }
 
-    /// Returns the image attachments resource.
+    /// returns the image attachments resource.
     pub fn image_attachments(&self) -> ImageAttachmentsApi {
         Resource::new(self.client.clone(), "extras/image-attachments/")
     }
 
-    /// Returns the journal entries resource.
+    /// returns the journal entries resource.
     pub fn journal_entries(&self) -> JournalEntriesApi {
         Resource::new(self.client.clone(), "extras/journal-entries/")
     }
 
-    /// Returns the notification groups resource.
+    /// returns the notification groups resource.
     pub fn notification_groups(&self) -> NotificationGroupsApi {
         Resource::new(self.client.clone(), "extras/notification-groups/")
     }
 
-    /// Returns the notifications resource.
+    /// returns the notifications resource.
     pub fn notifications(&self) -> NotificationsApi {
         Resource::new(self.client.clone(), "extras/notifications/")
     }
 
-    /// Returns the object types resource.
+    /// returns the object types resource.
     pub fn object_types(&self) -> ObjectTypesApi {
         Resource::new(self.client.clone(), "extras/object-types/")
     }
 
-    /// Returns the saved filters resource.
+    /// returns the saved filters resource.
     pub fn saved_filters(&self) -> SavedFiltersApi {
         Resource::new(self.client.clone(), "extras/saved-filters/")
     }
 
-    /// Returns the scripts resource.
+    /// returns the scripts resource.
     pub fn scripts(&self) -> ScriptsApi {
         Resource::new(self.client.clone(), "extras/scripts/")
     }
 
-    /// Returns the subscriptions resource.
+    /// returns the subscriptions resource.
     pub fn subscriptions(&self) -> SubscriptionsApi {
         Resource::new(self.client.clone(), "extras/subscriptions/")
     }
 
-    /// Returns the table configs resource.
+    /// returns the table configs resource.
     pub fn table_configs(&self) -> TableConfigsApi {
         Resource::new(self.client.clone(), "extras/table-configs/")
     }
 
-    /// Returns the tagged objects resource.
+    /// returns the tagged objects resource.
     pub fn tagged_objects(&self) -> TaggedObjectsApi {
         Resource::new(self.client.clone(), "extras/tagged-objects/")
     }
 
-    /// Returns the tags resource.
+    /// returns the tags resource.
     pub fn tags(&self) -> TagsApi {
         Resource::new(self.client.clone(), "extras/tags/")
     }
 
-    /// Returns the webhooks resource.
+    /// returns the webhooks resource.
     pub fn webhooks(&self) -> WebhooksApi {
         Resource::new(self.client.clone(), "extras/webhooks/")
     }
@@ -807,10 +818,16 @@ mod tests {
         let api = ExtrasApi::new(test_client());
 
         assert_path(api.bookmarks(), "extras/bookmarks/");
-        assert_path(api.config_context_profiles(), "extras/config-context-profiles/");
+        assert_path(
+            api.config_context_profiles(),
+            "extras/config-context-profiles/",
+        );
         assert_path(api.config_contexts(), "extras/config-contexts/");
         assert_path(api.config_templates(), "extras/config-templates/");
-        assert_path(api.custom_field_choice_sets(), "extras/custom-field-choice-sets/");
+        assert_path(
+            api.custom_field_choice_sets(),
+            "extras/custom-field-choice-sets/",
+        );
         assert_path(api.custom_fields(), "extras/custom-fields/");
         assert_path(api.custom_links(), "extras/custom-links/");
         assert_path(api.event_rules(), "extras/event-rules/");

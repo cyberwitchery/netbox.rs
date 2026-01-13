@@ -69,3 +69,13 @@ we use openapi generator with the `rust` generator. to customize, edit `scripts/
 - `useSingleRequestParameter`
 
 see https://openapi-generator.tech/docs/generators/rust
+
+## local release script
+
+run the local release checklist with:
+
+```bash
+./scripts/release_local.sh
+```
+
+set `SKIP_COVERAGE=1` to skip coverage.

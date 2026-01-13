@@ -1,32 +1,43 @@
-//! Plugin API endpoints.
+//! plugin endpoints, including netbox-branching resources.
+//!
+//! basic usage:
+//! ```no_run
+//! # use netbox::{Client, ClientConfig};
+//! # async fn example() -> Result<(), Box<dyn std::error::Error>> {
+//! # let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
+//! let branches = client.plugins().branches().list(None).await?;
+//! println!("{}", branches.count);
+//! # Ok(())
+//! # }
+//! ```
 
 use crate::error::Result;
 use crate::resource::Resource;
 use crate::Client;
 
-/// Branch model.
+/// branch model.
 pub type Branch = crate::models::Branch;
-/// Branch event model.
+/// branch event model.
 pub type BranchEvent = crate::models::BranchEvent;
-/// Change diff model.
+/// change diff model.
 pub type ChangeDiff = crate::models::ChangeDiff;
-/// Commit request model.
+/// commit request model.
 pub type CommitRequest = crate::models::CommitRequest;
-/// Job model.
+/// job model.
 pub type Job = crate::models::Job;
-/// Writable branch request model.
+/// writable branch request model.
 pub type WritableBranchRequest = crate::models::WritableBranchRequest;
-/// Patched writable branch request model.
+/// patched writable branch request model.
 pub type PatchedWritableBranchRequest = crate::models::PatchedWritableBranchRequest;
 
-/// Resource for branch events.
+/// resource for branch events.
 pub type BranchEventsApi = Resource<crate::models::BranchEvent>;
-/// Resource for branches.
+/// resource for branches.
 pub type BranchesApi = Resource<crate::models::Branch>;
-/// Resource for changes.
+/// resource for changes.
 pub type ChangesApi = Resource<crate::models::ChangeDiff>;
 
-/// API for plugin endpoints.
+/// api for plugin endpoints.
 #[derive(Clone)]
 pub struct PluginsApi {
     client: Client,
@@ -37,36 +48,36 @@ impl PluginsApi {
         Self { client }
     }
 
-    /// Returns the branch events resource.
+    /// returns the branch events resource.
     pub fn branch_events(&self) -> BranchEventsApi {
         Resource::new(self.client.clone(), "plugins/branching/branch-events/")
     }
 
-    /// Returns the branches resource.
+    /// returns the branches resource.
     pub fn branches(&self) -> BranchesApi {
         Resource::new(self.client.clone(), "plugins/branching/branches/")
     }
 
-    /// Returns the changes resource.
+    /// returns the changes resource.
     pub fn changes(&self) -> ChangesApi {
         Resource::new(self.client.clone(), "plugins/branching/changes/")
     }
 
-    /// Merge a branch (enqueue job).
+    /// merge a branch (enqueue job).
     pub async fn merge_branch(&self, id: i32, body: &CommitRequest) -> Result<Job> {
         self.client
             .post(&format!("plugins/branching/branches/{}/merge/", id), body)
             .await
     }
 
-    /// Revert a branch (enqueue job).
+    /// revert a branch (enqueue job).
     pub async fn revert_branch(&self, id: i32, body: &CommitRequest) -> Result<Job> {
         self.client
             .post(&format!("plugins/branching/branches/{}/revert/", id), body)
             .await
     }
 
-    /// Sync a branch (enqueue job).
+    /// sync a branch (enqueue job).
     pub async fn sync_branch(&self, id: i32, body: &CommitRequest) -> Result<Job> {
         self.client
             .post(&format!("plugins/branching/branches/{}/sync/", id), body)
@@ -134,17 +145,20 @@ mod tests {
         });
 
         server.mock(|when, then| {
-            when.method(POST).path("/api/plugins/branching/branches/1/merge/");
+            when.method(POST)
+                .path("/api/plugins/branching/branches/1/merge/");
             then.status(200).json_body(job_response.clone());
         });
 
         server.mock(|when, then| {
-            when.method(POST).path("/api/plugins/branching/branches/1/revert/");
+            when.method(POST)
+                .path("/api/plugins/branching/branches/1/revert/");
             then.status(200).json_body(job_response.clone());
         });
 
         server.mock(|when, then| {
-            when.method(POST).path("/api/plugins/branching/branches/1/sync/");
+            when.method(POST)
+                .path("/api/plugins/branching/branches/1/sync/");
             then.status(200).json_body(job_response.clone());
         });
 

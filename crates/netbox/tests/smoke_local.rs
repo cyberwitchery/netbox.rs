@@ -8,7 +8,9 @@ use reqwest::Method;
 use serde_json::{json, Value};
 
 fn env_var(key: &str) -> Option<String> {
-    std::env::var(key).ok().filter(|value| !value.trim().is_empty())
+    std::env::var(key)
+        .ok()
+        .filter(|value| !value.trim().is_empty())
 }
 
 fn build_client() -> Option<Client> {
@@ -22,7 +24,11 @@ fn id_from(value: &Value) -> Option<i32> {
     value.get("id").and_then(|v| v.as_i64()).map(|v| v as i32)
 }
 
-async fn get_page(client: &Client, path: &str, query: Option<&QueryBuilder>) -> Result<Page<Value>> {
+async fn get_page(
+    client: &Client,
+    path: &str,
+    query: Option<&QueryBuilder>,
+) -> Result<Page<Value>> {
     let mut full_path = path.to_string();
     if let Some(query) = query {
         let query_string = serde_urlencoded::to_string(query).unwrap_or_default();
@@ -57,7 +63,13 @@ struct Created {
 
 async fn cleanup(client: &Client, created: &Created) {
     if let Some(id) = created.wlan_id {
-        let _ = request_json(client, Method::DELETE, &format!("wireless/wireless-lans/{}/", id), None).await;
+        let _ = request_json(
+            client,
+            Method::DELETE,
+            &format!("wireless/wireless-lans/{}/", id),
+            None,
+        )
+        .await;
     }
     if let Some(id) = created.wlan_group_id {
         let _ = request_json(
@@ -69,10 +81,22 @@ async fn cleanup(client: &Client, created: &Created) {
         .await;
     }
     if let Some(id) = created.ip_address_id {
-        let _ = request_json(client, Method::DELETE, &format!("ipam/ip-addresses/{}/", id), None).await;
+        let _ = request_json(
+            client,
+            Method::DELETE,
+            &format!("ipam/ip-addresses/{}/", id),
+            None,
+        )
+        .await;
     }
     if let Some(id) = created.prefix_id {
-        let _ = request_json(client, Method::DELETE, &format!("ipam/prefixes/{}/", id), None).await;
+        let _ = request_json(
+            client,
+            Method::DELETE,
+            &format!("ipam/prefixes/{}/", id),
+            None,
+        )
+        .await;
     }
     if let Some(id) = created.config_context_id {
         let _ = request_json(
@@ -84,7 +108,13 @@ async fn cleanup(client: &Client, created: &Created) {
         .await;
     }
     if let Some(id) = created.tenant_id {
-        let _ = request_json(client, Method::DELETE, &format!("tenancy/tenants/{}/", id), None).await;
+        let _ = request_json(
+            client,
+            Method::DELETE,
+            &format!("tenancy/tenants/{}/", id),
+            None,
+        )
+        .await;
     }
     if let Some(id) = created.tenant_group_id {
         let _ = request_json(
@@ -96,7 +126,13 @@ async fn cleanup(client: &Client, created: &Created) {
         .await;
     }
     if let Some(id) = created.tag_id {
-        let _ = request_json(client, Method::DELETE, &format!("extras/tags/{}/", id), None).await;
+        let _ = request_json(
+            client,
+            Method::DELETE,
+            &format!("extras/tags/{}/", id),
+            None,
+        )
+        .await;
     }
 }
 
@@ -108,7 +144,13 @@ async fn cleanup_existing(client: &Client) {
             .filter(|tag| tag.get("slug").and_then(Value::as_str) == Some("codex-smoke"))
         {
             if let Some(id) = id_from(&tag) {
-                let _ = request_json(client, Method::DELETE, &format!("extras/tags/{}/", id), None).await;
+                let _ = request_json(
+                    client,
+                    Method::DELETE,
+                    &format!("extras/tags/{}/", id),
+                    None,
+                )
+                .await;
             }
         }
     }
@@ -138,7 +180,13 @@ async fn cleanup_existing(client: &Client) {
             .filter(|tenant| tenant.get("slug").and_then(Value::as_str) == Some("codex-tenant"))
         {
             if let Some(id) = id_from(&tenant) {
-                let _ = request_json(client, Method::DELETE, &format!("tenancy/tenants/{}/", id), None).await;
+                let _ = request_json(
+                    client,
+                    Method::DELETE,
+                    &format!("tenancy/tenants/{}/", id),
+                    None,
+                )
+                .await;
             }
         }
     }
@@ -172,7 +220,13 @@ async fn cleanup_existing(client: &Client) {
     {
         for prefix in prefixes.results {
             if let Some(id) = id_from(&prefix) {
-                let _ = request_json(client, Method::DELETE, &format!("ipam/prefixes/{}/", id), None).await;
+                let _ = request_json(
+                    client,
+                    Method::DELETE,
+                    &format!("ipam/prefixes/{}/", id),
+                    None,
+                )
+                .await;
             }
         }
     }
@@ -186,9 +240,13 @@ async fn cleanup_existing(client: &Client) {
     {
         for address in addresses.results {
             if let Some(id) = id_from(&address) {
-                let _ =
-                    request_json(client, Method::DELETE, &format!("ipam/ip-addresses/{}/", id), None)
-                        .await;
+                let _ = request_json(
+                    client,
+                    Method::DELETE,
+                    &format!("ipam/ip-addresses/{}/", id),
+                    None,
+                )
+                .await;
             }
         }
     }
@@ -222,9 +280,13 @@ async fn cleanup_existing(client: &Client) {
     {
         for wlan in wlans.results {
             if let Some(id) = id_from(&wlan) {
-                let _ =
-                    request_json(client, Method::DELETE, &format!("wireless/wireless-lans/{}/", id), None)
-                        .await;
+                let _ = request_json(
+                    client,
+                    Method::DELETE,
+                    &format!("wireless/wireless-lans/{}/", id),
+                    None,
+                )
+                .await;
             }
         }
     }
@@ -364,7 +426,12 @@ async fn run_smoke(client: &Client, created: &mut Created) -> Result<()> {
     assert_eq!(patched["description"], "smoke test tag updated");
 
     eprintln!("smoke: list tenants");
-    let tenants = get_page(client, "tenancy/tenants/", Some(&QueryBuilder::new().limit(2))).await?;
+    let tenants = get_page(
+        client,
+        "tenancy/tenants/",
+        Some(&QueryBuilder::new().limit(2)),
+    )
+    .await?;
     assert!(!tenants.results.is_empty(), "expected at least one tenant");
 
     Ok(())
