@@ -74,6 +74,7 @@ ci enforces a minimum line coverage of 75% while excluding generated code.
 
 1. update `CHANGELOG.md`
 2. bump versions in `Cargo.toml`
+3. bump `netbox-openapi` in `[workspace.dependencies]`
 3. regenerate openapi bindings
 4. run tests and coverage
 5. publish crates
