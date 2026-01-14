@@ -19,10 +19,24 @@ use std::collections::HashMap;
 ///     .limit(50)
 ///     .build();
 /// ```
-#[derive(Debug, Default, Clone, Serialize)]
+#[derive(Debug, Default, Clone)]
 pub struct QueryBuilder {
-    #[serde(flatten)]
     params: HashMap<String, Vec<String>>,
+}
+
+impl Serialize for QueryBuilder {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        let mut pairs: Vec<(&str, &str)> = Vec::new();
+        for (key, values) in &self.params {
+            for value in values {
+                pairs.push((key.as_str(), value.as_str()));
+            }
+        }
+        pairs.serialize(serializer)
+    }
 }
 
 impl QueryBuilder {
@@ -215,7 +229,12 @@ mod tests {
             .limit(50);
 
         let json = serde_json::to_value(&query).unwrap();
-        assert!(json.is_object());
+        let pairs = json
+            .as_array()
+            .expect("query serialization should be a list of pairs");
+        assert!(pairs.iter().any(|pair| pair == &serde_json::json!(["site", "dc1"])));
+        assert!(pairs.iter().any(|pair| pair == &serde_json::json!(["status", "active"])));
+        assert!(pairs.iter().any(|pair| pair == &serde_json::json!(["limit", "50"])));
     }
 
     #[test]

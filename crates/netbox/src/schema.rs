@@ -40,9 +40,9 @@ impl SchemaApi {
     }
 
     /// fetch the openapi schema.
-    pub async fn schema(&self, format: Option<&str>, lang: Option<&str>) -> Result<Schema> {
+    pub async fn schema(&self, r#format: Option<&str>, lang: Option<&str>) -> Result<Schema> {
         let query = SchemaQuery {
-            r#format: format,
+            r#format,
             lang,
         };
         self.client.get_with_params("schema/", &query).await
@@ -55,11 +55,13 @@ mod tests {
     use crate::ClientConfig;
     use httpmock::{Method::GET, MockServer};
 
+    #[cfg_attr(miri, ignore)]
+
     #[tokio::test]
     async fn schema_fetches_expected_path() {
         let server = MockServer::start();
         let base_url = server.base_url();
-        let config = ClientConfig::new(&base_url, "token").with_max_retries(0);
+        let config = ClientConfig::new(base_url, "token").with_max_retries(0);
         let client = Client::new(config).unwrap();
         let api = SchemaApi::new(client);
 

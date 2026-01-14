@@ -34,9 +34,9 @@ where
     }
 
     /// get a paginator for iterating through all resources.
-    pub fn paginate(&self, query: Option<QueryBuilder>) -> Paginator<T> {
+    pub fn paginate(&self, query: Option<QueryBuilder>) -> Result<Paginator<T>> {
         let path = if let Some(q) = query {
-            let query_string = serde_urlencoded::to_string(&q).unwrap_or_default();
+            let query_string = serde_urlencoded::to_string(&q)?;
             if query_string.is_empty() {
                 self.path.to_string()
             } else {
@@ -45,11 +45,11 @@ where
         } else {
             self.path.to_string()
         };
-        Paginator::new(self.client.clone(), path)
+        Ok(Paginator::new(self.client.clone(), path))
     }
 
     /// get a resource by id.
-    pub async fn get(&self, id: i32) -> Result<T> {
+    pub async fn get(&self, id: u64) -> Result<T> {
         self.client.get(&format!("{}{}/", self.path, id)).await
     }
 
@@ -62,7 +62,7 @@ where
     }
 
     /// update a resource (full update).
-    pub async fn update<B>(&self, id: i32, body: &B) -> Result<T>
+    pub async fn update<B>(&self, id: u64, body: &B) -> Result<T>
     where
         B: Serialize,
     {
@@ -72,7 +72,7 @@ where
     }
 
     /// partially update a resource.
-    pub async fn patch<B>(&self, id: i32, body: &B) -> Result<T>
+    pub async fn patch<B>(&self, id: u64, body: &B) -> Result<T>
     where
         B: Serialize,
     {
@@ -82,7 +82,7 @@ where
     }
 
     /// delete a resource.
-    pub async fn delete(&self, id: i32) -> Result<()> {
+    pub async fn delete(&self, id: u64) -> Result<()> {
         self.client.delete(&format!("{}{}/", self.path, id)).await
     }
 }
@@ -102,7 +102,7 @@ mod tests {
     #[test]
     fn paginate_without_query_uses_base_path() {
         let resource: Resource<serde_json::Value> = Resource::new(test_client(), "dcim/devices/");
-        let paginator = resource.paginate(None);
+        let paginator = resource.paginate(None).unwrap();
         assert_eq!(paginator.next_url(), Some("dcim/devices/"));
     }
 
@@ -110,16 +110,35 @@ mod tests {
     fn paginate_with_query_encodes_path() {
         let resource: Resource<serde_json::Value> = Resource::new(test_client(), "dcim/devices/");
         let query = QueryBuilder::new().filter("status", "active").limit(10);
-        let paginator = resource.paginate(Some(query));
+        let paginator = resource.paginate(Some(query)).unwrap();
         let query = QueryBuilder::new().filter("status", "active").limit(10);
-        let expected_query = serde_urlencoded::to_string(&query).unwrap_or_default();
+        let expected_query = serde_urlencoded::to_string(&query).expect("query should serialize");
         let expected = if expected_query.is_empty() {
             "dcim/devices/".to_string()
         } else {
             format!("dcim/devices?{}", expected_query)
         };
-        assert_eq!(paginator.next_url(), Some(expected.as_str()));
+        let actual = paginator.next_url().expect("expected paginator url");
+        let (actual_path, actual_query) = actual.split_once('?').unwrap_or((actual, ""));
+        let (expected_path, expected_query) = expected
+            .split_once('?')
+            .unwrap_or((expected.as_str(), ""));
+        assert_eq!(actual_path, expected_path);
+
+        let mut actual_pairs: Vec<(String, String)> =
+            url::form_urlencoded::parse(actual_query.as_bytes())
+                .into_owned()
+                .collect();
+        let mut expected_pairs: Vec<(String, String)> =
+            url::form_urlencoded::parse(expected_query.as_bytes())
+                .into_owned()
+                .collect();
+        actual_pairs.sort();
+        expected_pairs.sort();
+        assert_eq!(actual_pairs, expected_pairs);
     }
+
+    #[cfg_attr(miri, ignore)]
 
     #[tokio::test]
     async fn resource_crud_calls_expected_paths() {
@@ -172,7 +191,7 @@ mod tests {
         assert_eq!(page.count, 1);
         assert_eq!(page.results[0]["id"], 1);
 
-        let item = resource.get(1).await.unwrap();
+        let item = resource.get(1u64).await.unwrap();
         assert_eq!(item["id"], 1);
 
         let created = resource
@@ -182,19 +201,21 @@ mod tests {
         assert_eq!(created["id"], 2);
 
         let updated = resource
-            .update(1, &serde_json::json!({"name": "device"}))
+            .update(1u64, &serde_json::json!({"name": "device"}))
             .await
             .unwrap();
         assert_eq!(updated["updated"], true);
 
         let patched = resource
-            .patch(1, &serde_json::json!({"name": "device"}))
+            .patch(1u64, &serde_json::json!({"name": "device"}))
             .await
             .unwrap();
         assert_eq!(patched["patched"], true);
 
-        resource.delete(1).await.unwrap();
+        resource.delete(1u64).await.unwrap();
     }
+
+    #[cfg_attr(miri, ignore)]
 
     #[tokio::test]
     async fn list_with_query_encodes_parameters() {
@@ -213,7 +234,7 @@ mod tests {
 
         server.mock(|when, then| {
             let query = QueryBuilder::new().limit(5);
-            let query_string = serde_urlencoded::to_string(&query).unwrap_or_default();
+            let query_string = serde_urlencoded::to_string(&query).expect("query should serialize");
             let pairs = url::form_urlencoded::parse(query_string.as_bytes())
                 .into_owned()
                 .collect::<Vec<_>>();

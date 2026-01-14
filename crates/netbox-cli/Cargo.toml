@@ -19,6 +19,7 @@ serde_json = { workspace = true }
 serde = { workspace = true }
 reqwest = { workspace = true }
 serde_urlencoded = "0.7"
+async-trait = "0.1"
 
 [[bin]]
 name = "netbox-cli"

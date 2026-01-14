@@ -1,14 +1,21 @@
 //! client configuration
 
 use crate::error::{Error, Result};
+use reqwest::header::{HeaderMap, HeaderName, HeaderValue};
 use std::time::Duration;
 use url::Url;
 
 /// configuration for the netbox client
-#[derive(Debug, Clone)]
+#[derive(Clone)]
 pub struct ClientConfig {
+    /// original base url input
+    pub(crate) raw_base_url: String,
+
     /// base url of the netbox instance (e.g., "<https://netbox.example.com>")
     pub(crate) base_url: Url,
+
+    /// whether the provided base url parsed successfully
+    pub(crate) base_url_valid: bool,
 
     /// api authentication token
     pub(crate) token: String,
@@ -24,6 +31,9 @@ pub struct ClientConfig {
 
     /// whether to verify ssl certificates
     pub(crate) verify_ssl: bool,
+
+    /// additional headers to send with every request
+    pub(crate) extra_headers: HeaderMap,
 }
 
 impl ClientConfig {
@@ -48,17 +58,23 @@ impl ClientConfig {
         let normalized = base_url_str.trim_end_matches('/');
 
         // Parse URL, this will be validated when building the client
-        let base_url = Url::parse(normalized)
-            .or_else(|_| Url::parse(&format!("https://{}", normalized)))
-            .unwrap_or_else(|_| Url::parse("https://localhost").unwrap());
+        let (base_url, base_url_valid) =
+            match Url::parse(normalized).or_else(|_| Url::parse(&format!("https://{}", normalized)))
+            {
+                Ok(url) => (url, true),
+                Err(_) => (Url::parse("https://invalid.invalid").unwrap(), false),
+            };
 
         Self {
+            raw_base_url: base_url_str.to_string(),
             base_url,
+            base_url_valid,
             token: token.into(),
             timeout: Duration::from_secs(30),
             max_retries: 3,
             user_agent: format!("netbox-rs/{} (Rust)", env!("CARGO_PKG_VERSION")),
             verify_ssl: true,
+            extra_headers: HeaderMap::new(),
         }
     }
 
@@ -94,8 +110,32 @@ impl ClientConfig {
         self
     }
 
+    /// add a header to every request
+    pub fn with_header(mut self, name: HeaderName, value: HeaderValue) -> Self {
+        self.extra_headers.insert(name, value);
+        self
+    }
+
+    /// add a set of headers to every request
+    pub fn with_headers(mut self, headers: HeaderMap) -> Self {
+        self.extra_headers.extend(headers);
+        self
+    }
+
+    /// access extra headers configured on this client
+    pub fn extra_headers(&self) -> &HeaderMap {
+        &self.extra_headers
+    }
+
     /// validate the configuration
     pub(crate) fn validate(&self) -> Result<()> {
+        if !self.base_url_valid {
+            return Err(Error::Config(format!(
+                "Invalid base URL: {}",
+                self.raw_base_url
+            )));
+        }
+
         // Validate base URL
         if self.base_url.scheme() != "http" && self.base_url.scheme() != "https" {
             return Err(Error::Config(format!(
@@ -123,9 +163,24 @@ impl ClientConfig {
     }
 }
 
+impl std::fmt::Debug for ClientConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("ClientConfig")
+            .field("base_url", &self.base_url)
+            .field("timeout", &self.timeout)
+            .field("max_retries", &self.max_retries)
+            .field("user_agent", &self.user_agent)
+            .field("verify_ssl", &self.verify_ssl)
+            .field("extra_headers", &self.extra_headers.len())
+            .field("token", &"<redacted>")
+            .finish()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+    use reqwest::header::{HeaderMap, HeaderName, HeaderValue};
 
     #[test]
     fn test_new_config() {
@@ -186,5 +241,30 @@ mod tests {
         assert_eq!(config.max_retries, 5);
         assert_eq!(config.user_agent, "custom-agent");
         assert!(!config.verify_ssl);
+    }
+
+    #[test]
+    fn test_with_header() {
+        let header_name = HeaderName::from_static("x-custom");
+        let header_value = HeaderValue::from_static("value");
+        let config = ClientConfig::new("https://netbox.example.com", "token")
+            .with_header(header_name.clone(), header_value.clone());
+
+        let stored = config.extra_headers.get(&header_name).unwrap();
+        assert_eq!(stored, &header_value);
+    }
+
+    #[test]
+    fn test_with_headers() {
+        let mut headers = HeaderMap::new();
+        headers.insert(HeaderName::from_static("x-one"), HeaderValue::from_static("one"));
+        headers.insert(HeaderName::from_static("x-two"), HeaderValue::from_static("two"));
+
+        let config = ClientConfig::new("https://netbox.example.com", "token")
+            .with_headers(headers.clone());
+
+        for (name, value) in headers.iter() {
+            assert_eq!(config.extra_headers.get(name).unwrap(), value);
+        }
     }
 }

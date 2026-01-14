@@ -22,7 +22,7 @@ jobs:
         uses: taiki-e/install-action@cargo-llvm-cov
 
       - name: Coverage
-        run: cargo llvm-cov --workspace --all-features --ignore-filename-regex 'crates/netbox-openapi|crates/netbox-cli' --fail-under-lines 75 --lcov --output-path lcov.info
+        run: cargo llvm-cov --workspace --all-features --ignore-filename-regex 'crates/netbox-openapi' --fail-under-lines 75 --lcov --output-path lcov.info
 
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v4

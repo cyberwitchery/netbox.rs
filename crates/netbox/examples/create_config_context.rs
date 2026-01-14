@@ -8,7 +8,10 @@ fn client_from_env() -> Result<Client> {
         netbox::Error::Config("NETBOX_TOKEN is required to run this example".to_string())
     })?;
     let url = std::env::var("NETBOX_URL").unwrap_or_else(|_| "http://localhost:8000".to_string());
-    let config = ClientConfig::new(url, token).with_max_retries(0);
+    let mut config = ClientConfig::new(url, token).with_max_retries(0);
+    if std::env::var("NETBOX_INSECURE").as_deref() == Ok("1") {
+        config = config.with_ssl_verification(false);
+    }
     Client::new(config)
 }
 
@@ -52,7 +55,7 @@ async fn main() -> Result<()> {
         })
         .await?;
 
-    let context_id = context.id.expect("config context id missing from response");
+    let context_id = context.id.expect("config context id missing from response") as u64;
     println!("Created config context {} with id {}", context.name, context_id);
 
     client.extras().config_contexts().delete(context_id).await?;

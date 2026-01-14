@@ -27,6 +27,8 @@ guidance for automated agents working in this repo.
 - tests: `cargo test`
 - lint: `cargo clippy --all-targets --all-features`
 - format: `cargo fmt --all`
+- assurance: `./scripts/run_assurance.sh`
+- static analysis: `./scripts/run_static.sh`
 
 ## code generation workflow
 
@@ -55,6 +57,7 @@ once netbox is running locally:
 - confirm netbox is running and reachable.
 - do not start netbox containers; the user manages that.
 - ask for the base url if not `http://localhost:8000`.
+- confirm `NETBOX_TOKEN` is set before smoke tests.
 
 ## api wrapper patterns
 
@@ -64,15 +67,18 @@ when adding a new endpoint wrapper in `crates/netbox/src/{dcim,ipam}/`:
 - return `Page<T>` for list and `Result<T>` for single-item endpoints.
 - keep signatures consistent.
 - update `mod.rs` to export the api type and request/response structs.
+- note: `Resource::paginate` returns `Result<Paginator<T>>`.
 
 ## documentation expectations
 - add rustdoc for public apis and examples.
 - update `README.md` and `CHANGELOG.md` for user-visible changes.
+- update `docs/client.md` and `crates/netbox/docs/client.md` for client behavior changes.
 
 ## testing guidance
 - add unit tests for new helper logic.
 - prefer lightweight tests in `crates/netbox/src/*`.
 - avoid network calls unless explicitly requested.
+- smoke tests live in `crates/netbox/tests/smoke_local.rs` and are ignored by default.
 
 ## ground rules
 - run tests before reporting a feature complete.
@@ -89,3 +95,9 @@ when adding a new endpoint wrapper in `crates/netbox/src/{dcim,ipam}/`:
 - `README.md`
 - `CONTRIBUTING.md`
 - `scripts/README.md`
+
+## current behavior notes
+- `Client::openapi_config()` returns `Result<Configuration>` and propagates reqwest builder errors.
+- `QueryBuilder` serializes as repeated key/value pairs for use with `serde_urlencoded`.
+- static analysis: `scripts/run_static.sh` sets `CARGO_HOME`, runs clippy with `--no-deps`, uses `PROPTEST_CASES=1`, and runs miri with isolation disabled.
+- `.cargo/audit.toml` is tracked; other `.cargo` content is ignored.

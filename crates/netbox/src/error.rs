@@ -29,6 +29,10 @@ pub enum Error {
     #[error("JSON error: {0}")]
     Json(#[from] serde_json::Error),
 
+    /// query serialization failed
+    #[error("Query serialization error: {0}")]
+    Query(#[from] serde_urlencoded::ser::Error),
+
     /// invalid configuration
     #[error("Invalid configuration: {0}")]
     Config(String),

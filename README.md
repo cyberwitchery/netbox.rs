@@ -57,6 +57,8 @@ for a fuller client guide, see `docs/client.md`.
 
 for a docs index, see `docs/index.md`.
 
+for runnable examples, see `crates/netbox/examples/README.md`.
+
 ### auth
 
 ```rust
@@ -88,7 +90,7 @@ println!("found {} devices", devices.count);
 ### pagination
 
 ```rust
-let mut paginator = client.dcim().devices().paginate(None);
+let mut paginator = client.dcim().devices().paginate(None)?;
 
 while let Some(page) = paginator.next_page().await? {
     for device in page.results {
@@ -99,7 +101,7 @@ while let Some(page) = paginator.next_page().await? {
 let all_devices = client
     .dcim()
     .devices()
-    .paginate(None)
+    .paginate(None)?
     .collect_all()
     .await?;
 ```
@@ -200,7 +202,7 @@ use netbox::openapi::apis::dcim_api;
 let config = ClientConfig::new("https://netbox.example.com", "token");
 let client = Client::new(config)?;
 
-let openapi_config = client.openapi_config();
+let openapi_config = client.openapi_config()?;
 let device = dcim_api::dcim_devices_retrieve(&openapi_config, 42).await?;
 println!("device: {}", device.display);
 # Ok(())

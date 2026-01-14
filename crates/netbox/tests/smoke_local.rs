@@ -20,8 +20,8 @@ fn build_client() -> Option<Client> {
     Client::new(config).ok()
 }
 
-fn id_from(value: &Value) -> Option<i32> {
-    value.get("id").and_then(|v| v.as_i64()).map(|v| v as i32)
+fn id_from(value: &Value) -> Option<u64> {
+    value.get("id").and_then(|v| v.as_u64())
 }
 
 async fn get_page(
@@ -31,7 +31,7 @@ async fn get_page(
 ) -> Result<Page<Value>> {
     let mut full_path = path.to_string();
     if let Some(query) = query {
-        let query_string = serde_urlencoded::to_string(query).unwrap_or_default();
+        let query_string = serde_urlencoded::to_string(query)?;
         if !query_string.is_empty() {
             full_path = format!("{}?{}", path, query_string);
         }
@@ -51,14 +51,14 @@ async fn request_json(
 
 #[derive(Default)]
 struct Created {
-    tag_id: Option<i32>,
-    tenant_group_id: Option<i32>,
-    tenant_id: Option<i32>,
-    config_context_id: Option<i32>,
-    prefix_id: Option<i32>,
-    ip_address_id: Option<i32>,
-    wlan_group_id: Option<i32>,
-    wlan_id: Option<i32>,
+    tag_id: Option<u64>,
+    tenant_group_id: Option<u64>,
+    tenant_id: Option<u64>,
+    config_context_id: Option<u64>,
+    prefix_id: Option<u64>,
+    ip_address_id: Option<u64>,
+    wlan_group_id: Option<u64>,
+    wlan_id: Option<u64>,
 }
 
 async fn cleanup(client: &Client, created: &Created) {

@@ -42,6 +42,8 @@ mod tests {
     use crate::ClientConfig;
     use httpmock::{Method::GET, MockServer};
 
+    #[cfg_attr(miri, ignore)]
+
     #[tokio::test]
     async fn status_fetches_expected_path() {
         let server = MockServer::start();

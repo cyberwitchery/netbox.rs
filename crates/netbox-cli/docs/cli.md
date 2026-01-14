@@ -79,3 +79,13 @@ cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN pl
 
 - run `netbox-cli --help` to see all subcommands.
 - the output is raw json formatted with `serde_json::to_string_pretty`.
+
+## smoke tests
+
+local-only smoke tests for the cli live in `crates/netbox-cli/src/main.rs` and are ignored by default.
+
+run them with:
+
+```bash
+./scripts/run_cli_smoke.sh
+```

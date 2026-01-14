@@ -1,64 +1,30 @@
 # changelog
 
-all notable changes are documented here.
+this release captures the current state of the project. no prior published state exists for comparison.
 
-format based on keep a changelog and semantic versioning.
+## [0.0.1] - 2026-01-14
 
-## [unreleased]
+### crates
+- `netbox-openapi`: generated bindings for all netbox endpoints and models
+- `netbox`: high-level client with typed resources, pagination, and query builder
+- `netbox-cli`: fully featured cli for listing, reading, and mutating resources
 
-### added
-- openapi access helpers: `Client::openapi_config` and `netbox::openapi` module
-- cli list commands for devices, prefixes, and ip addresses
-- get retry logic for transient network errors and 429/5xx responses
-- schema normalization and pinned generator version for reproducible codegen
+### client features
+- token-based auth, configurable timeouts, retries, and ssl verification
+- raw request support, openapi config access, and direct http client access
+- error handling with structured api errors and helpers
 
-### changed
-- generated `netbox-openapi` crate uses `rustls-tls` with `reqwest` default features disabled
+### coverage
+- full module coverage across dcim, ipam, circuits, tenancy, extras, core, users, virtualization, vpn, wireless, plugins
+- status and schema endpoints
 
-### fixed
-- code generation failure caused by invalid enum values in the netbox schema
+### tooling
+- reproducible openapi generation and schema fetch scripts
+- local smoke tests and assurance scripts
+- ci workflows for docs, tests, coverage, and static analysis
 
-## [0.0.1] - tbd
+### docs
+- readme and rustdoc coverage for client and cli
+- contributing guide and script documentation
 
-### added
-
-#### core features
-- initial release of the netbox rust client
-- token-based auth
-- configurable http client with timeout and retry settings
-- ssl verification control
-- error handling with `thiserror`
-
-#### api support
-- dcim
-  - devices: list, get, create, update, patch, delete
-  - interfaces: list, get
-- ipam
-  - prefixes: list, get, create, update, patch, delete
-  - ip addresses: list, get, create, update, patch, delete
-
-#### developer experience
-- pagination with `Paginator`
-- query builder for filters
-- typed request/response models
-
-#### tooling
-- openapi schema fetch script (`scripts/fetch_schema.sh`)
-- code generation script (`scripts/generate.sh`)
-- ci workflow
-- formatting, linting, and tests
-
-### documentation
-- readme with quickstart and examples
-- rustdoc api docs
-- contributing guidelines
-- script usage documentation
-
-### internal
-- workspace structure with three crates:
-  - `netbox-openapi`: generated bindings
-  - `netbox`: high-level client
-  - `netbox-cli`: cli tool
-
-[unreleased]: https://github.com/network-auto/netbox.rs/compare/v0.0.1...HEAD
 [0.0.1]: https://github.com/network-auto/netbox.rs/releases/tag/v0.0.1

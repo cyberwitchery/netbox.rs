@@ -151,6 +151,7 @@ lines = []
 in_reqwest = False
 seen_default_features = False
 seen_features = False
+seen_version = False
 
 with open(path, "r", encoding="utf-8") as handle:
     for line in handle:
@@ -158,11 +159,14 @@ with open(path, "r", encoding="utf-8") as handle:
             in_reqwest = True
             seen_default_features = False
             seen_features = False
+            seen_version = False
             lines.append(line)
             continue
 
         if in_reqwest:
             if line.startswith("[") and line.strip() != "[dependencies.reqwest]":
+                if not seen_version:
+                    lines.append('version = "^0.12"\n')
                 if not seen_default_features:
                     lines.append("default-features = false\n")
                 if not seen_features:
@@ -171,6 +175,10 @@ with open(path, "r", encoding="utf-8") as handle:
                 lines.append(line)
                 continue
 
+            if line.strip().startswith("version"):
+                lines.append('version = "^0.12"\n')
+                seen_version = True
+                continue
             if line.strip().startswith("default-features"):
                 lines.append("default-features = false\n")
                 seen_default_features = True
@@ -186,6 +194,8 @@ with open(path, "r", encoding="utf-8") as handle:
         lines.append(line)
 
 if in_reqwest:
+    if not seen_version:
+        lines.append('version = "^0.12"\n')
     if not seen_default_features:
         lines.append("default-features = false\n")
     if not seen_features:

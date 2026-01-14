@@ -22,3 +22,7 @@ scripts/openapi-schema.normalized.json
 # Test coverage
 *.profraw
 *.profdata
+
+# Local tool config
+.cargo/*
+!.cargo/audit.toml

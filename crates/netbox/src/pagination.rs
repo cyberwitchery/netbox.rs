@@ -80,7 +80,7 @@ impl<T> fmt::Display for Page<T> {
 /// # async fn example() -> Result<(), Box<dyn std::error::Error>> {
 /// # let config = ClientConfig::new("https://netbox.example.com", "token");
 /// # let client = Client::new(config)?;
-/// // let mut paginator = client.dcim().devices().paginate();
+/// // let mut paginator = client.dcim().devices().paginate(None)?;
 /// //
 /// // while let Some(page) = paginator.next_page().await? {
 /// //     for device in page.results {
@@ -251,6 +251,8 @@ mod tests {
         assert!(page.is_last());
     }
 
+    #[cfg_attr(miri, ignore)]
+
     #[tokio::test]
     async fn paginator_fetches_multiple_pages() {
         let server = MockServer::start();
@@ -297,6 +299,8 @@ mod tests {
         second.assert();
     }
 
+    #[cfg_attr(miri, ignore)]
+
     #[tokio::test]
     async fn paginator_collects_all_results() {
         let server = MockServer::start();
@@ -332,6 +336,8 @@ mod tests {
         let results = paginator.collect_all().await.unwrap();
         assert_eq!(results, vec![1, 2, 3]);
     }
+
+    #[cfg_attr(miri, ignore)]
 
     #[tokio::test]
     async fn limited_paginator_stops_at_limit() {

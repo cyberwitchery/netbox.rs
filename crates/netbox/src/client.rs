@@ -23,6 +23,7 @@ use serde_json::Value;
 use std::sync::Arc;
 use std::time::Duration;
 use tokio::time::sleep;
+use std::sync::OnceLock;
 
 /// the main netbox api client
 ///
@@ -44,6 +45,7 @@ use tokio::time::sleep;
 pub struct Client {
     config: Arc<ClientConfig>,
     http_client: reqwest::Client,
+    openapi_config: OnceLock<netbox_openapi::apis::configuration::Configuration>,
 }
 
 impl Client {
@@ -68,6 +70,7 @@ impl Client {
                 .map_err(|e| Error::Config(format!("Invalid user agent: {}", e)))?,
         );
         headers.insert(CONTENT_TYPE, HeaderValue::from_static("application/json"));
+        headers.extend(config.extra_headers.clone());
 
         // Build HTTP client
         let http_client = reqwest::Client::builder()
@@ -80,7 +83,19 @@ impl Client {
         Ok(Self {
             config: Arc::new(config),
             http_client,
+            openapi_config: OnceLock::new(),
         })
+    }
+
+    fn openapi_config_cached(
+        &self,
+    ) -> &OnceLock<netbox_openapi::apis::configuration::Configuration> {
+        &self.openapi_config
+    }
+
+    /// access the underlying http client
+    pub fn http_client(&self) -> &reqwest::Client {
+        &self.http_client
     }
 
     /// access dcim (Data Center Infrastructure Management) api endpoints
@@ -154,13 +169,22 @@ impl Client {
     }
 
     /// build a configuration for the generated openapi client.
-    pub fn openapi_config(&self) -> netbox_openapi::apis::configuration::Configuration {
-        let client = reqwest_legacy::Client::builder()
-            .no_proxy()
-            .build()
-            .unwrap_or_else(|_| reqwest_legacy::Client::new());
+    pub fn openapi_config(
+        &self,
+    ) -> Result<netbox_openapi::apis::configuration::Configuration> {
+        if let Some(config) = self.openapi_config_cached().get() {
+            return Ok(config.clone());
+        }
 
-        netbox_openapi::apis::configuration::Configuration {
+        let headers = self.config.extra_headers.clone();
+        let client = reqwest::Client::builder()
+            .default_headers(headers)
+            .timeout(self.config.timeout)
+            .danger_accept_invalid_certs(!self.config.verify_ssl)
+            .build()
+            .map_err(Error::from)?;
+
+        let config = netbox_openapi::apis::configuration::Configuration {
             base_path: self
                 .config
                 .base_url
@@ -176,7 +200,10 @@ impl Client {
                 prefix: Some("Token".to_string()),
                 key: self.config.token.clone(),
             }),
-        }
+        };
+
+        let _ = self.openapi_config_cached().set(config.clone());
+        Ok(config)
     }
 
     /// make a get request to the api
@@ -194,30 +221,19 @@ impl Client {
         T: DeserializeOwned,
         Q: Serialize,
     {
-        let mut attempts = 0;
-        loop {
+        self.retry_loop(Method::GET, |_attempt| async move {
             let mut url = self.config.build_url(path)?;
-            let query_string = serde_urlencoded::to_string(query).unwrap_or_default();
+            let query_string = serde_urlencoded::to_string(query)?;
             if !query_string.is_empty() {
                 url.set_query(Some(&query_string));
             }
             let response = self.http_client.get(url).send().await;
-            let result = match response {
+            match response {
                 Ok(response) => self.handle_response(response).await,
                 Err(err) => Err(Error::from(err)),
-            };
-
-            match result {
-                Ok(value) => return Ok(value),
-                Err(err) => {
-                    if !Self::should_retry(&err, Method::GET, attempts, self.config.max_retries) {
-                        return Err(err);
-                    }
-                    attempts += 1;
-                    sleep(Self::retry_delay(attempts)).await;
-                }
             }
-        }
+        })
+        .await
     }
 
     /// make a raw http request and return json or null for empty bodies
@@ -227,39 +243,30 @@ impl Client {
         path: &str,
         body: Option<&Value>,
     ) -> Result<Value> {
-        let mut attempts = 0;
-        loop {
-            let url = self.config.build_url(path)?;
-            let mut request = self.http_client.request(method.clone(), url);
-            if let Some(body) = body {
-                request = request.json(body);
-            }
-            let response = request.send().await.map_err(Error::from)?;
-            let status = response.status();
-            let result = if status.is_success() {
-                let body_text = response.text().await.map_err(Error::from)?;
-                if body_text.trim().is_empty() {
-                    Ok(Value::Null)
-                } else {
-                    Ok(serde_json::from_str(&body_text)?)
+        self.retry_loop(method.clone(), move |_attempt| {
+            let method = method.clone();
+            async move {
+                let url = self.config.build_url(path)?;
+                let mut request = self.http_client.request(method, url);
+                if let Some(body) = body {
+                    request = request.json(body);
                 }
-            } else {
-                let body_text = response.text().await.unwrap_or_default();
-                Err(Error::from_response(status, body_text))
-            };
-
-            match result {
-                Ok(value) => return Ok(value),
-                Err(err) => {
-                    if !Self::should_retry(&err, method.clone(), attempts, self.config.max_retries)
-                    {
-                        return Err(err);
+                let response = request.send().await.map_err(Error::from)?;
+                let status = response.status();
+                if status.is_success() {
+                    let body_text = response.text().await.map_err(Error::from)?;
+                    if body_text.trim().is_empty() {
+                        Ok(Value::Null)
+                    } else {
+                        Ok(serde_json::from_str(&body_text)?)
                     }
-                    attempts += 1;
-                    sleep(Self::retry_delay(attempts)).await;
+                } else {
+                    let body_text = response.text().await.unwrap_or_default();
+                    Err(Error::from_response(status, body_text))
                 }
             }
-        }
+        })
+        .await
     }
 
     /// make a post request to the api
@@ -322,21 +329,11 @@ impl Client {
         T: DeserializeOwned,
         B: Serialize,
     {
-        let mut attempts = 0;
-        loop {
-            let result = self.request_once(method.clone(), path, body).await;
-            match result {
-                Ok(value) => return Ok(value),
-                Err(err) => {
-                    if !Self::should_retry(&err, method.clone(), attempts, self.config.max_retries)
-                    {
-                        return Err(err);
-                    }
-                    attempts += 1;
-                    sleep(Self::retry_delay(attempts)).await;
-                }
-            }
-        }
+        self.retry_loop(method.clone(), move |_attempt| {
+            let method = method.clone();
+            async move { self.request_once(method, path, body).await }
+        })
+        .await
     }
 
     async fn request_once<T, B>(&self, method: Method, path: &str, body: Option<&B>) -> Result<T>
@@ -356,6 +353,32 @@ impl Client {
         self.handle_response(response).await
     }
 
+    async fn retry_loop<T, F, Fut>(
+        &self,
+        method: Method,
+        mut operation: F,
+    ) -> Result<T>
+    where
+        F: FnMut(u32) -> Fut,
+        Fut: std::future::Future<Output = Result<T>>,
+    {
+        let mut attempts = 0;
+        loop {
+            let result = operation(attempts).await;
+            match result {
+                Ok(value) => return Ok(value),
+                Err(err) => {
+                    if !Self::should_retry(&err, method.clone(), attempts, self.config.max_retries)
+                    {
+                        return Err(err);
+                    }
+                    attempts += 1;
+                    sleep(Self::retry_delay(attempts)).await;
+                }
+            }
+        }
+    }
+
     fn should_retry(err: &Error, method: Method, attempts: u32, max_retries: u32) -> bool {
         if attempts >= max_retries {
             return false;
@@ -371,8 +394,27 @@ impl Client {
     }
 
     fn retry_delay(attempt: u32) -> Duration {
-        let backoff_ms = 200u64.saturating_mul(attempt as u64);
-        Duration::from_millis(backoff_ms)
+        if attempt == 0 {
+            return Duration::from_millis(0);
+        }
+
+        let exp = attempt.saturating_sub(1);
+        let backoff_ms = 200u64.saturating_mul(2u64.saturating_pow(exp));
+        let jitter = (backoff_ms / 4).min(500);
+        let offset = if jitter == 0 {
+            0
+        } else {
+            Self::jitter_seed(attempt) % (jitter + 1)
+        };
+        Duration::from_millis(backoff_ms.saturating_add(offset))
+    }
+
+    fn jitter_seed(attempt: u32) -> u64 {
+        let nanos = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .unwrap_or_default()
+            .subsec_nanos() as u64;
+        nanos.wrapping_mul(31).wrapping_add(attempt as u64)
     }
 
     /// handle http response and deserialize or return error
@@ -406,6 +448,7 @@ impl std::fmt::Debug for Client {
 mod tests {
     use super::*;
     use httpmock::prelude::*;
+    use reqwest::header::{HeaderName, HeaderValue};
     use serde_json::json;
 
     #[test]
@@ -434,7 +477,7 @@ mod tests {
     fn test_openapi_config() {
         let config = ClientConfig::new("https://netbox.example.com", "test-token");
         let client = Client::new(config).unwrap();
-        let openapi_config = client.openapi_config();
+        let openapi_config = client.openapi_config().unwrap();
         assert_eq!(openapi_config.base_path, "https://netbox.example.com");
         let api_key = openapi_config.api_key.expect("api key should be set");
         assert_eq!(api_key.prefix.as_deref(), Some("Token"));
@@ -478,9 +521,15 @@ mod tests {
     #[test]
     fn test_retry_delay_backoff() {
         assert_eq!(Client::retry_delay(0), Duration::from_millis(0));
-        assert_eq!(Client::retry_delay(1), Duration::from_millis(200));
-        assert_eq!(Client::retry_delay(2), Duration::from_millis(400));
+        let delay1 = Client::retry_delay(1).as_millis();
+        let delay2 = Client::retry_delay(2).as_millis();
+        let delay3 = Client::retry_delay(3).as_millis();
+        assert!((200..=700).contains(&delay1));
+        assert!((400..=900).contains(&delay2));
+        assert!((800..=1300).contains(&delay3));
     }
+
+    #[cfg_attr(miri, ignore)]
 
     #[tokio::test]
     async fn request_raw_returns_json() {
@@ -490,7 +539,7 @@ mod tests {
             then.status(200).json_body(json!({ "ready": true }));
         });
 
-        let config = ClientConfig::new(&server.base_url(), "test-token");
+        let config = ClientConfig::new(server.base_url(), "test-token");
         let client = Client::new(config).unwrap();
         let value = client
             .request_raw(Method::GET, "status/", None)
@@ -500,6 +549,8 @@ mod tests {
         mock.assert();
     }
 
+    #[cfg_attr(miri, ignore)]
+
     #[tokio::test]
     async fn request_raw_returns_null_on_empty_body() {
         let server = MockServer::start();
@@ -508,13 +559,38 @@ mod tests {
             then.status(204);
         });
 
-        let config = ClientConfig::new(&server.base_url(), "test-token");
+        let config = ClientConfig::new(server.base_url(), "test-token");
         let client = Client::new(config).unwrap();
         let value = client
             .request_raw(Method::DELETE, "test/", None)
             .await
             .unwrap();
         assert_eq!(value, Value::Null);
+        mock.assert();
+    }
+
+    #[cfg_attr(miri, ignore)]
+
+    #[tokio::test]
+    async fn request_raw_includes_extra_headers() {
+        let server = MockServer::start();
+        let mock = server.mock(|when, then| {
+            when.method(GET)
+                .path("/api/status/")
+                .header("x-custom", "value");
+            then.status(200).json_body(json!({ "ready": true }));
+        });
+
+        let config = ClientConfig::new(server.base_url(), "test-token").with_header(
+            HeaderName::from_static("x-custom"),
+            HeaderValue::from_static("value"),
+        );
+        let client = Client::new(config).unwrap();
+        let value = client
+            .request_raw(Method::GET, "status/", None)
+            .await
+            .unwrap();
+        assert_eq!(value, json!({ "ready": true }));
         mock.assert();
     }
 }

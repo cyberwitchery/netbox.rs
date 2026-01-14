@@ -301,7 +301,7 @@ mod tests {
     where
         T: serde::de::DeserializeOwned,
     {
-        let paginator = resource.paginate(None);
+        let paginator = resource.paginate(None).unwrap();
         assert_eq!(paginator.next_url(), Some(expected));
     }
 
@@ -451,6 +451,8 @@ mod tests {
         assert_eq!(value["groups"], json!([1]));
         assert_missing(&value, "name");
     }
+
+    #[cfg_attr(miri, ignore)]
 
     #[tokio::test]
     async fn provision_token_uses_expected_path() {

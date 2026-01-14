@@ -127,7 +127,7 @@ mod tests {
     where
         T: serde::de::DeserializeOwned,
     {
-        let paginator = resource.paginate(None);
+        let paginator = resource.paginate(None).unwrap();
         assert_eq!(paginator.next_url(), Some(expected));
     }
 

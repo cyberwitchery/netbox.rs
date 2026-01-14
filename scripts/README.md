@@ -83,3 +83,39 @@ set `SKIP_COVERAGE=1` to skip coverage.
 notes:
 - `netbox-openapi` must be published before `netbox`
 - the script packages `netbox` with `--no-verify` because the dependency is not on crates.io yet
+
+## local assurance script
+
+run the local assurance checks with:
+
+```bash
+./scripts/run_assurance.sh
+```
+
+this runs:
+- `cargo doc --workspace --all-features --no-deps`
+- `cargo llvm-cov --workspace --all-features --ignore-filename-regex 'crates/netbox-openapi' --fail-under-lines 75`
+- `./scripts/run_smoke.sh`
+- `./scripts/run_cli_smoke.sh`
+
+requirements:
+- `cargo-llvm-cov` installed
+- `NETBOX_TOKEN` set for smoke tests
+
+## local static analysis script
+
+run the static checks with:
+
+```bash
+./scripts/run_static.sh
+```
+
+this runs:
+- `cargo clippy --all-targets --all-features -- -D warnings`
+- `cargo audit`
+- `cargo +nightly miri test`
+
+requirements:
+- `cargo-audit` installed
+- `miri` component installed
+- nightly toolchain available for miri

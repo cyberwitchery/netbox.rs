@@ -64,21 +64,21 @@ impl PluginsApi {
     }
 
     /// merge a branch (enqueue job).
-    pub async fn merge_branch(&self, id: i32, body: &CommitRequest) -> Result<Job> {
+    pub async fn merge_branch(&self, id: u64, body: &CommitRequest) -> Result<Job> {
         self.client
             .post(&format!("plugins/branching/branches/{}/merge/", id), body)
             .await
     }
 
     /// revert a branch (enqueue job).
-    pub async fn revert_branch(&self, id: i32, body: &CommitRequest) -> Result<Job> {
+    pub async fn revert_branch(&self, id: u64, body: &CommitRequest) -> Result<Job> {
         self.client
             .post(&format!("plugins/branching/branches/{}/revert/", id), body)
             .await
     }
 
     /// sync a branch (enqueue job).
-    pub async fn sync_branch(&self, id: i32, body: &CommitRequest) -> Result<Job> {
+    pub async fn sync_branch(&self, id: u64, body: &CommitRequest) -> Result<Job> {
         self.client
             .post(&format!("plugins/branching/branches/{}/sync/", id), body)
             .await
@@ -100,7 +100,7 @@ mod tests {
     where
         T: serde::de::DeserializeOwned,
     {
-        let paginator = resource.paginate(None);
+        let paginator = resource.paginate(None).unwrap();
         assert_eq!(paginator.next_url(), Some(expected));
     }
 
@@ -112,6 +112,8 @@ mod tests {
         assert_path(api.branches(), "plugins/branching/branches/");
         assert_path(api.changes(), "plugins/branching/changes/");
     }
+
+    #[cfg_attr(miri, ignore)]
 
     #[tokio::test]
     async fn branch_actions_use_expected_paths() {
@@ -164,8 +166,8 @@ mod tests {
 
         let commit = CommitRequest { commit: Some(true) };
 
-        api.merge_branch(1, &commit).await.unwrap();
-        api.revert_branch(1, &commit).await.unwrap();
-        api.sync_branch(1, &commit).await.unwrap();
+        api.merge_branch(1u64, &commit).await.unwrap();
+        api.revert_branch(1u64, &commit).await.unwrap();
+        api.sync_branch(1u64, &commit).await.unwrap();
     }
 }
