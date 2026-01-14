@@ -2,7 +2,7 @@
 
 this release captures the current state of the project. no prior published state exists for comparison.
 
-## [0.0.1] - 2026-01-14
+## [0.1.0] - 2026-01-14
 
 ### crates
 - `netbox-openapi`: generated bindings for all netbox endpoints and models
@@ -27,4 +27,4 @@ this release captures the current state of the project. no prior published state
 - readme and rustdoc coverage for client and cli
 - contributing guide and script documentation
 
-[0.0.1]: https://github.com/network-auto/netbox.rs/releases/tag/v0.0.1
+[0.1.0]: https://github.com/network-auto/netbox.rs/releases/tag/v0.1.0

@@ -1,91 +1,99 @@
-# cli
+# netbox-cli
 
-this is a full-featured cli client for the netbox api.
-
-all standard crud resources are exposed as commands. use `raw` for non-standard endpoints.
+full-featured cli for the netbox api. covers standard crud resources and exposes a raw mode for any endpoint.
 
 ## install
 
-run from the workspace:
+from crates.io:
 
 ```bash
-cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN --help
+cargo install netbox-cli
+```
+
+from this repo:
+
+```bash
+cargo install --path crates/netbox-cli
+```
+
+## quickstart
+
+```bash
+netbox-cli --url https://netbox.example.com --token $TOKEN dcim devices list
 ```
 
 ## auth
 
-required flags:
+required:
 - `--url`
 - `--token`
 
-you can also set `NETBOX_URL` and `NETBOX_TOKEN` to avoid passing flags.
+or set:
+- `NETBOX_URL`
+- `NETBOX_TOKEN`
 
 ## resources
 
-list all resources or list a group:
+list resource groups:
 
 ```bash
-cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN resources
-cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN resources dcim
+netbox-cli resources
+netbox-cli resources dcim
 ```
 
-## list examples
+## common commands
+
+list:
 
 ```bash
-cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN dcim devices list
-cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN ipam prefixes list
-cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN vpn tunnels list
+netbox-cli dcim devices list
+netbox-cli ipam prefixes list
+netbox-cli vpn tunnels list
 ```
 
-## create and update
-
-payloads are json strings or files.
+get by id:
 
 ```bash
-cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN \
-  circuits circuits create --json '{"cid":"CIR-1001","provider":1,"type":1}'
+netbox-cli dcim devices get 42
+```
 
-cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN \
-  virtualization virtual-machines update 42 --file vm-update.json
+create/update with json:
+
+```bash
+netbox-cli circuits circuits create --json '{"cid":"CIR-1001","provider":1,"type":1}'
+netbox-cli virtualization virtual-machines update 42 --file vm-update.json
 ```
 
 ## raw requests
 
-`raw` is the escape hatch for any endpoint.
+use `raw` for any endpoint:
 
 ```bash
-cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN \
-  raw --method GET --path dcim/devices/ --query "name=leaf-1" --query "limit=5"
-
-cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN \
-  raw --method POST --path ipam/vrfs/ --json '{"name":"blue","rd":"65000:100"}'
+netbox-cli raw --method GET --path dcim/devices/ --query "name=leaf-1" --query "limit=5"
+netbox-cli raw --method POST --path ipam/vrfs/ --json '{"name":"blue","rd":"65000:100"}'
 ```
 
 notes:
-- `--path` is an api-relative path, e.g. `dcim/devices/`
-- the cli strips a leading `api/` if you include it
-- use `--query key=value` for repeated query params
+- `--path` is api-relative, e.g. `dcim/devices/`
+- a leading `api/` is stripped if present
+- repeat `--query key=value` for multiple params
 
 ## special endpoints
 
 ```bash
-cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN extras-dashboard get
-cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN core-background-queues list
-cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN users-config
-cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN plugin-branch-action 1 merge --json '{"commit":true}'
+netbox-cli extras-dashboard get
+netbox-cli core-background-queues list
+netbox-cli users-config
+netbox-cli plugin-branch-action 1 merge --json '{"commit":true}'
 ```
 
-## tips
+## output
 
-- run `netbox-cli --help` to see all subcommands.
-- the output is raw json formatted with `serde_json::to_string_pretty`.
+responses are json, pretty-printed to stdout. errors return non-zero exit codes.
 
-## smoke tests
-
-local-only smoke tests for the cli live in `crates/netbox-cli/src/main.rs` and are ignored by default.
-
-run them with:
+## help
 
 ```bash
-./scripts/run_cli_smoke.sh
+netbox-cli --help
+netbox-cli dcim --help
 ```

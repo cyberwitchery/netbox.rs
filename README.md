@@ -22,7 +22,7 @@ add to `Cargo.toml`:
 
 ```toml
 [dependencies]
-netbox = "0.0.1"
+netbox = "0.1.0"
 tokio = { version = "1.0", features = ["full"] }
 ```
 
@@ -154,39 +154,39 @@ match client.dcim().devices().get(999).await {
 
 ## cli
 
-`netbox-cli` is a full-featured cli client for the netbox api. all standard crud resources are exposed as commands. use `raw` for non-standard endpoints.
+`netbox-cli` is a full-featured cli for the netbox api. it covers standard crud resources and exposes a raw mode for any endpoint.
 
-see `docs/cli.md` for a more complete guide.
+see `docs/cli.md` for a complete guide.
 
-list resources:
+quickstart:
 
 ```bash
-cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN circuits circuits list
-cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN virtualization virtual-machines list
-cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN vpn tunnels list
+netbox-cli --url https://netbox.example.com --token $TOKEN dcim devices list
 ```
 
-create or update resources with json:
+common commands:
 
 ```bash
-cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN \
-  circuits circuits create --json '{"cid":"CIR-1001","provider":1,"type":1}'
+netbox-cli dcim devices list
+netbox-cli ipam prefixes list
+netbox-cli vpn tunnels list
+```
 
-cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN \
-  virtualization virtual-machines update 42 --file vm-update.json
+create or update with json:
+
+```bash
+netbox-cli circuits circuits create --json '{"cid":"CIR-1001","provider":1,"type":1}'
+netbox-cli virtualization virtual-machines update 42 --file vm-update.json
 ```
 
 raw requests:
 
 ```bash
-cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN \
-  raw --method GET --path dcim/devices/ --query "name=leaf-1" --query "limit=5"
-
-cargo run --bin netbox-cli -- --url https://netbox.example.com --token $TOKEN \
-  raw --method POST --path ipam/vrfs/ --json '{"name":"blue","rd":"65000:100"}'
+netbox-cli raw --method GET --path dcim/devices/ --query "name=leaf-1" --query "limit=5"
+netbox-cli raw --method POST --path ipam/vrfs/ --json '{"name":"blue","rd":"65000:100"}'
 ```
 
-run `netbox-cli --help` for available commands.
+run `netbox-cli --help` for all subcommands.
 
 ## api coverage
 

@@ -12,7 +12,7 @@ keywords.workspace = true
 categories.workspace = true
 
 [dependencies]
-netbox-openapi = { version = "0.0.1", path = "../netbox-openapi" }
+netbox-openapi = { version = "0.1.0", path = "../netbox-openapi" }
 reqwest = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }

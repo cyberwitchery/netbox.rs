@@ -88,6 +88,6 @@ notes:
 
 ## release automation
 
-we publish from tags matching `v*` (for example, `v0.0.1`).
+we publish from tags matching `v*` (for example, `v0.1.0`).
 
 the release workflow expects a repository secret named `CARGO_REGISTRY_TOKEN`.
