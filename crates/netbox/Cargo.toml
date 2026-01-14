@@ -7,6 +7,7 @@ rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
 homepage.workspace = true
+documentation = "https://docs.rs/netbox"
 description = "ergonomic rust client for NetBox 4.x REST API"
 readme = "../../README.md"
 keywords.workspace = true

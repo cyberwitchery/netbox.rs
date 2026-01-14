@@ -7,6 +7,11 @@ this release captures the current state of the project. no prior published state
 ### documentation
 - tbd
 
+## [0.1.2] - 2026-01-14
+
+### documentation
+- add docs.rs link metadata for `netbox`
+
 ## [0.1.1] - 2026-01-14
 
 ### documentation
@@ -42,6 +47,7 @@ this release captures the current state of the project. no prior published state
 - readme and rustdoc coverage for client and cli
 - contributing guide and script documentation
 
-[unreleased]: https://github.com/network-auto/netbox.rs/compare/v0.1.1...HEAD
+[unreleased]: https://github.com/network-auto/netbox.rs/compare/v0.1.2...HEAD
+[0.1.2]: https://github.com/network-auto/netbox.rs/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/network-auto/netbox.rs/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/network-auto/netbox.rs/releases/tag/v0.1.0
