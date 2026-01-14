@@ -21,6 +21,12 @@ jobs:
       - name: set up rust
         uses: dtolnay/rust-toolchain@stable
 
+      - name: cache cargo
+        uses: Swatinem/rust-cache@v2
+        with:
+          prefix-key: v0-rust-release
+          cache-targets: true
+
       - name: doc build
         env:
           RUSTDOCFLAGS: "--cfg docsrs"
@@ -33,14 +39,14 @@ jobs:
       - name: publish netbox-openapi
         env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
-        run: cargo publish -p netbox-openapi
+        run: cargo publish -p netbox-openapi --no-verify
 
       - name: publish netbox
         env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
-        run: cargo publish -p netbox
+        run: cargo publish -p netbox --no-verify
 
       - name: publish netbox-cli
         env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
-        run: cargo publish -p netbox-cli
+        run: cargo publish -p netbox-cli --no-verify
