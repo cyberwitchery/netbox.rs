@@ -213,7 +213,7 @@ println!("device: {}", device.display);
 
 ### prerequisites
 
-- rust 1.75+
+- rust 1.85+
 - a netbox instance for schema generation and smoke tests
 
 ### setup

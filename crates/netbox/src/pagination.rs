@@ -129,9 +129,10 @@ where
     /// for large result sets.
     pub async fn collect_all(mut self) -> Result<Vec<T>> {
         let mut all_results = Vec::new();
-
-        while let Some(page) = self.next_page().await? {
+        let mut next_page = self.next_page().await?;
+        while let Some(page) = next_page {
             all_results.extend(page.results);
+            next_page = self.next_page().await?;
         }
 
         Ok(all_results)
@@ -178,9 +179,10 @@ where
     /// collect all results up to the page limit
     pub async fn collect_all(mut self) -> Result<Vec<T>> {
         let mut all_results = Vec::new();
-
-        while let Some(page) = self.next_page().await? {
+        let mut next_page = self.next_page().await?;
+        while let Some(page) = next_page {
             all_results.extend(page.results);
+            next_page = self.next_page().await?;
         }
 
         Ok(all_results)

@@ -9,8 +9,8 @@ members = [
 [workspace.package]
 version = "0.1.0"
 authors = ["cyber witchery labs"]
-edition = "2021"
-rust-version = "1.75"
+edition = "2024"
+rust-version = "1.85"
 license = "MIT"
 repository = "https://github.com/network-auto/netbox.rs"
 homepage = "https://github.com/network-auto/netbox.rs"
