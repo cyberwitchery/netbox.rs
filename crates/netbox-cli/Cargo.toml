@@ -8,6 +8,7 @@ license.workspace = true
 repository.workspace = true
 homepage.workspace = true
 description = "full-featured cli client for the netbox api"
+readme = "docs/cli.md"
 keywords.workspace = true
 categories.workspace = true
 

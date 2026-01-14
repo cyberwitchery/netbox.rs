@@ -91,6 +91,11 @@ netbox-cli plugin-branch-action 1 merge --json '{"commit":true}'
 
 responses are json, pretty-printed to stdout. errors return non-zero exit codes.
 
+exit codes:
+- `0` success
+- `1` request or parsing error
+- `2` invalid command or arguments
+
 ## help
 
 ```bash

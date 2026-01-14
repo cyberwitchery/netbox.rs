@@ -158,6 +158,12 @@ match client.dcim().devices().get(999).await {
 
 see `docs/cli.md` for a complete guide.
 
+install:
+
+```bash
+cargo install netbox-cli
+```
+
 quickstart:
 
 ```bash
@@ -192,6 +198,8 @@ run `netbox-cli --help` for all subcommands.
 
 all core netbox modules are covered via typed `Resource<T>` wrappers. additional endpoints include status, schema, connected-device, and netbox-branching plugin resources.
 
+note: `paginate` returns `Result<Paginator<T>>`; handle errors before calling `next_page`.
+
 for endpoints not wrapped yet, use the generated openapi client:
 
 ```rust
@@ -225,6 +233,14 @@ cargo test
 cargo clippy --all-targets --all-features
 cargo fmt --all
 ```
+
+### docs
+
+```bash
+RUSTDOCFLAGS="--cfg docsrs" cargo doc --workspace --all-features --no-deps
+```
+
+open `target/doc/netbox/index.html` for the library docs.
 
 ### regenerate api bindings
 

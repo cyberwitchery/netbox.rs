@@ -8,6 +8,7 @@ license.workspace = true
 repository.workspace = true
 homepage.workspace = true
 description = "ergonomic rust client for NetBox 4.x REST API"
+readme = "../../README.md"
 keywords.workspace = true
 categories.workspace = true
 

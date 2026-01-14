@@ -90,6 +90,9 @@ while let Some(page) = paginator.next_page().await? {
 # }
 ```
 
+note: for local dev instances with self-signed certs, set `NETBOX_INSECURE=1` and pass `--insecure` in examples as needed.
+note: `paginate` returns `Result<Paginator<T>>`. handle errors before calling `next_page`.
+
 ## create, update, delete
 
 ```rust,no_run

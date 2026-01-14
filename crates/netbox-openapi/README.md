@@ -1,16 +1,7 @@
 # netbox-openapi
 
-low-level openapi bindings for netbox.
+generated low-level bindings for the netbox api.
 
-this crate is generated. do not edit by hand. changes will be overwritten by `./scripts/generate.sh`.
+this crate is produced by openapi-generator from the netbox schema and is not intended for manual editing.
 
-documentation for endpoints and models lives in `crates/netbox-openapi/docs/`.
-
-quick use:
-
-```toml
-[dependencies]
-netbox-openapi = { path = "./netbox-openapi" }
-```
-
-for the high-level client, use the `netbox` crate instead.
+for a higher-level client, use the `netbox` crate.

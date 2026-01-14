@@ -2,6 +2,21 @@
 
 this release captures the current state of the project. no prior published state exists for comparison.
 
+## [unreleased]
+
+### documentation
+- tbd
+
+## [0.1.1] - 2026-01-14
+
+### documentation
+- add per-crate readme metadata so crates.io shows docs for each crate
+- refresh cli docs to focus on end user usage and examples
+- add local docs build guidance and entrypoints
+
+### metadata
+- add docs.rs metadata for `netbox-openapi`
+
 ## [0.1.0] - 2026-01-14
 
 ### crates
@@ -27,4 +42,6 @@ this release captures the current state of the project. no prior published state
 - readme and rustdoc coverage for client and cli
 - contributing guide and script documentation
 
+[unreleased]: https://github.com/network-auto/netbox.rs/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/network-auto/netbox.rs/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/network-auto/netbox.rs/releases/tag/v0.1.0

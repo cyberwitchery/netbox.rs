@@ -11,7 +11,17 @@ cargo clippy --all-targets --all-features
 cargo fmt --all
 ```
 
+msrv: rust 1.85+
+
 first builds on a new machine or fresh checkout are slow because the dependency cache is cold.
+
+## docs build
+
+```bash
+RUSTDOCFLAGS="--cfg docsrs" cargo doc --workspace --all-features --no-deps
+```
+
+open `target/doc/netbox/index.html` for the main library docs.
 
 ## local smoke tests
 
