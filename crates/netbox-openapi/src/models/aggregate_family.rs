@@ -12,7 +12,7 @@
 pub struct AggregateFamily {
     /// * `4` - IPv4 * `6` - IPv6
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<i32>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<Label>,
 }
@@ -26,20 +26,6 @@ impl AggregateFamily {
     }
 }
 
-/// * `4` - IPv4 * `6` - IPv6
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "4")]
-    Variant4,
-    #[serde(rename = "6")]
-    Variant6,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Variant4
-    }
-}
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Label {

@@ -254,7 +254,6 @@ mod tests {
     }
 
     #[cfg_attr(miri, ignore)]
-
     #[tokio::test]
     async fn paginator_fetches_multiple_pages() {
         let server = MockServer::start();
@@ -302,7 +301,6 @@ mod tests {
     }
 
     #[cfg_attr(miri, ignore)]
-
     #[tokio::test]
     async fn paginator_collects_all_results() {
         let server = MockServer::start();
@@ -340,7 +338,6 @@ mod tests {
     }
 
     #[cfg_attr(miri, ignore)]
-
     #[tokio::test]
     async fn limited_paginator_stops_at_limit() {
         let server = MockServer::start();

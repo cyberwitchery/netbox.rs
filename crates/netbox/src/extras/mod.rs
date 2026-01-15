@@ -11,9 +11,9 @@
 //! # }
 //! ```
 
+use crate::Client;
 use crate::error::Result;
 use crate::resource::Resource;
-use crate::Client;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;

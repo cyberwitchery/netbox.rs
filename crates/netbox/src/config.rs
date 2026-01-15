@@ -58,12 +58,12 @@ impl ClientConfig {
         let normalized = base_url_str.trim_end_matches('/');
 
         // Parse URL, this will be validated when building the client
-        let (base_url, base_url_valid) =
-            match Url::parse(normalized).or_else(|_| Url::parse(&format!("https://{}", normalized)))
-            {
-                Ok(url) => (url, true),
-                Err(_) => (Url::parse("https://invalid.invalid").unwrap(), false),
-            };
+        let (base_url, base_url_valid) = match Url::parse(normalized)
+            .or_else(|_| Url::parse(&format!("https://{}", normalized)))
+        {
+            Ok(url) => (url, true),
+            Err(_) => (Url::parse("https://invalid.invalid").unwrap(), false),
+        };
 
         Self {
             raw_base_url: base_url_str.to_string(),
@@ -257,11 +257,17 @@ mod tests {
     #[test]
     fn test_with_headers() {
         let mut headers = HeaderMap::new();
-        headers.insert(HeaderName::from_static("x-one"), HeaderValue::from_static("one"));
-        headers.insert(HeaderName::from_static("x-two"), HeaderValue::from_static("two"));
+        headers.insert(
+            HeaderName::from_static("x-one"),
+            HeaderValue::from_static("one"),
+        );
+        headers.insert(
+            HeaderName::from_static("x-two"),
+            HeaderValue::from_static("two"),
+        );
 
-        let config = ClientConfig::new("https://netbox.example.com", "token")
-            .with_headers(headers.clone());
+        let config =
+            ClientConfig::new("https://netbox.example.com", "token").with_headers(headers.clone());
 
         for (name, value) in headers.iter() {
             assert_eq!(config.extra_headers.get(name).unwrap(), value);

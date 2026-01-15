@@ -4,7 +4,7 @@ use clap::{Args, Parser, Subcommand};
 use netbox::{Client, ClientConfig};
 use reqwest::Method;
 use serde::de::DeserializeOwned;
-use serde_json::{to_string_pretty, Value};
+use serde_json::{Value, to_string_pretty};
 use std::fs;
 use std::path::PathBuf;
 
@@ -889,8 +889,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             handle_resource_group(&api, "ipam", IPAM_RESOURCES, &resource, action).await?;
         }
         Commands::Circuits { resource, action } => {
-            handle_resource_group(&api, "circuits", CIRCUITS_RESOURCES, &resource, action)
-                .await?;
+            handle_resource_group(&api, "circuits", CIRCUITS_RESOURCES, &resource, action).await?;
         }
         Commands::Tenancy { resource, action } => {
             handle_resource_group(&api, "tenancy", TENANCY_RESOURCES, &resource, action).await?;
@@ -918,8 +917,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             handle_resource_group(&api, "vpn", VPN_RESOURCES, &resource, action).await?;
         }
         Commands::Wireless { resource, action } => {
-            handle_resource_group(&api, "wireless", WIRELESS_RESOURCES, &resource, action)
-                .await?;
+            handle_resource_group(&api, "wireless", WIRELESS_RESOURCES, &resource, action).await?;
         }
         Commands::Plugins { resource, action } => {
             handle_resource_group(&api, "plugins", PLUGINS_RESOURCES, &resource, action).await?;
@@ -1066,7 +1064,9 @@ async fn handle_dashboard_action(
 ) -> Result<(), Box<dyn std::error::Error>> {
     match action {
         DashboardAction::Get => {
-            let response = client.request_raw(Method::GET, "extras/dashboard/", None).await?;
+            let response = client
+                .request_raw(Method::GET, "extras/dashboard/", None)
+                .await?;
             print_json(&response)?;
         }
         DashboardAction::Update { input } => {
@@ -1131,9 +1131,7 @@ async fn handle_branch_action(
     };
 
     let path = format!("plugins/branching/branches/{}/{}/", id, suffix);
-    let response = client
-        .request_raw(Method::POST, &path, Some(&body))
-        .await?;
+    let response = client.request_raw(Method::POST, &path, Some(&body)).await?;
     print_json(&response)?;
     Ok(())
 }
@@ -1274,17 +1272,23 @@ fn parse_query_pairs(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::error::Error;
-    use std::env;
-    use std::sync::{Arc, Mutex};
     use serde_json::json;
+    use std::env;
+    use std::error::Error;
+    use std::sync::{Arc, Mutex};
 
     fn parse_args(args: &[&str]) -> Cli {
         Cli::parse_from(args)
     }
 
     fn base_args() -> Vec<&'static str> {
-        vec!["netbox-cli", "--url", "http://localhost:8000", "--token", "token"]
+        vec![
+            "netbox-cli",
+            "--url",
+            "http://localhost:8000",
+            "--token",
+            "token",
+        ]
     }
 
     fn env_api_client() -> Result<Option<NetboxApiClient>, Box<dyn Error>> {
@@ -1292,7 +1296,8 @@ mod tests {
             Ok(token) => token,
             Err(_) => return Ok(None),
         };
-        let url = std::env::var("NETBOX_URL").unwrap_or_else(|_| "http://localhost:8000".to_string());
+        let url =
+            std::env::var("NETBOX_URL").unwrap_or_else(|_| "http://localhost:8000".to_string());
         let mut config = ClientConfig::new(url, token).with_max_retries(0);
         if std::env::var("NETBOX_INSECURE").as_deref() == Ok("1") {
             config = config.with_ssl_verification(false);
@@ -1809,10 +1814,13 @@ mod tests {
             return Ok(());
         };
 
-        let name = format!("cli-raw-tag-{}", std::time::SystemTime::now()
-            .duration_since(std::time::UNIX_EPOCH)
-            .unwrap_or_default()
-            .as_secs());
+        let name = format!(
+            "cli-raw-tag-{}",
+            std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .unwrap_or_default()
+                .as_secs()
+        );
         let body = json!({
             "name": name,
             "slug": name,
@@ -1838,10 +1846,13 @@ mod tests {
             return Ok(());
         };
 
-        let name = format!("cli-resource-tag-{}", std::time::SystemTime::now()
-            .duration_since(std::time::UNIX_EPOCH)
-            .unwrap_or_default()
-            .as_secs());
+        let name = format!(
+            "cli-resource-tag-{}",
+            std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .unwrap_or_default()
+                .as_secs()
+        );
         let create = JsonInput {
             json: Some(format!(
                 r#"{{"name":"{0}","slug":"{0}","color":"9e9e9e"}}"#,
@@ -1849,8 +1860,12 @@ mod tests {
             )),
             file: None,
         };
-        handle_resource_action(&api, "extras/tags/", ResourceAction::Create { input: create })
-            .await?;
+        handle_resource_action(
+            &api,
+            "extras/tags/",
+            ResourceAction::Create { input: create },
+        )
+        .await?;
 
         let list_path = format!("extras/tags/?name={}", name);
         let list = api.request_raw(Method::GET, &list_path, None).await?;
@@ -1893,12 +1908,7 @@ mod tests {
         )
         .await?;
 
-        handle_resource_action(
-            &api,
-            "extras/tags/",
-            ResourceAction::Delete { id: tag_id },
-        )
-        .await?;
+        handle_resource_action(&api, "extras/tags/", ResourceAction::Delete { id: tag_id }).await?;
         Ok(())
     }
 }

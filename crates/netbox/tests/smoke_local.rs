@@ -5,7 +5,7 @@
 
 use netbox::{Client, ClientConfig, Page, QueryBuilder, Result};
 use reqwest::Method;
-use serde_json::{json, Value};
+use serde_json::{Value, json};
 
 fn env_var(key: &str) -> Option<String> {
     std::env::var(key)

@@ -18,7 +18,7 @@ pub struct IkePolicyRequest {
     pub description: Option<String>,
     /// * `1` - IKEv1 * `2` - IKEv2
     #[serde(rename = "version")]
-    pub version: Version,
+    pub version: i32,
     /// * `aggressive` - Aggressive * `main` - Main
     #[serde(rename = "mode", skip_serializing_if = "Option::is_none")]
     pub mode: Option<Mode>,
@@ -36,7 +36,7 @@ pub struct IkePolicyRequest {
 
 impl IkePolicyRequest {
     /// Adds support for custom fields and tags.
-    pub fn new(name: String, version: Version) -> IkePolicyRequest {
+    pub fn new(name: String, version: i32) -> IkePolicyRequest {
         IkePolicyRequest {
             name,
             description: None,
@@ -51,20 +51,6 @@ impl IkePolicyRequest {
     }
 }
 
-/// * `1` - IKEv1 * `2` - IKEv2
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Version {
-    #[serde(rename = "1")]
-    Variant1,
-    #[serde(rename = "2")]
-    Variant2,
-}
-
-impl Default for Version {
-    fn default() -> Version {
-        Self::Variant1
-    }
-}
 /// * `aggressive` - Aggressive * `main` - Main
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Mode {

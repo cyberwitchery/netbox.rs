@@ -11,8 +11,8 @@
 //! # }
 //! ```
 
-use crate::error::Result;
 use crate::Client;
+use crate::error::Result;
 use serde::Serialize;
 use serde_json::Value;
 use std::collections::HashMap;
@@ -41,10 +41,7 @@ impl SchemaApi {
 
     /// fetch the openapi schema.
     pub async fn schema(&self, r#format: Option<&str>, lang: Option<&str>) -> Result<Schema> {
-        let query = SchemaQuery {
-            r#format,
-            lang,
-        };
+        let query = SchemaQuery { r#format, lang };
         self.client.get_with_params("schema/", &query).await
     }
 }
@@ -56,7 +53,6 @@ mod tests {
     use httpmock::{Method::GET, MockServer};
 
     #[cfg_attr(miri, ignore)]
-
     #[tokio::test]
     async fn schema_fetches_expected_path() {
         let server = MockServer::start();

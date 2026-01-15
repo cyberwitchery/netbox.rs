@@ -11,8 +11,8 @@
 //! # }
 //! ```
 
-use crate::resource::Resource;
 use crate::Client;
+use crate::resource::Resource;
 use serde::{Deserialize, Serialize};
 
 /// request for creating a new IP address (id-based references).

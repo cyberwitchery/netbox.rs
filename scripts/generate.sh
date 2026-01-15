@@ -64,9 +64,21 @@ def drop_readonly_required(obj: dict) -> None:
         filtered.append(name)
     obj["required"] = filtered
 
+def drop_integer_enums(obj: dict) -> None:
+    if obj.get("type") != "integer":
+        return
+    enum = obj.get("enum")
+    if not isinstance(enum, list):
+        return
+    if not enum or not all(isinstance(item, int) for item in enum):
+        return
+    obj.pop("enum", None)
+    obj.pop("x-spec-enum-id", None)
+
 def normalize(obj):
     if isinstance(obj, dict):
         drop_readonly_required(obj)
+        drop_integer_enums(obj)
         for key, value in obj.items():
             if key == "enum" and isinstance(value, list):
                 obj[key] = ["none" if item == "---------" else item for item in value]

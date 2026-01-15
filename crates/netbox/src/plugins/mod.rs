@@ -11,9 +11,9 @@
 //! # }
 //! ```
 
+use crate::Client;
 use crate::error::Result;
 use crate::resource::Resource;
-use crate::Client;
 
 /// branch model.
 pub type Branch = crate::models::Branch;
@@ -114,7 +114,6 @@ mod tests {
     }
 
     #[cfg_attr(miri, ignore)]
-
     #[tokio::test]
     async fn branch_actions_use_expected_paths() {
         let server = MockServer::start();

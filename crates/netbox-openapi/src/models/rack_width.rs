@@ -12,7 +12,7 @@
 pub struct RackWidth {
     /// * `10` - 10 inches * `19` - 19 inches * `21` - 21 inches * `23` - 23 inches
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<i32>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<Label>,
 }
@@ -26,24 +26,6 @@ impl RackWidth {
     }
 }
 
-/// * `10` - 10 inches * `19` - 19 inches * `21` - 21 inches * `23` - 23 inches
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "10")]
-    Variant10,
-    #[serde(rename = "19")]
-    Variant19,
-    #[serde(rename = "21")]
-    Variant21,
-    #[serde(rename = "23")]
-    Variant23,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Variant10
-    }
-}
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Label {

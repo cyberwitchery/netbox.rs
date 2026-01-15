@@ -25,7 +25,7 @@ pub struct PatchedWritableRackTypeRequest {
     pub form_factor: Option<FormFactor>,
     /// Rail-to-rail width  * `10` - 10 inches * `19` - 19 inches * `21` - 21 inches * `23` - 23 inches
     #[serde(rename = "width", skip_serializing_if = "Option::is_none")]
-    pub width: Option<Width>,
+    pub width: Option<i32>,
     /// Height in rack units
     #[serde(rename = "u_height", skip_serializing_if = "Option::is_none")]
     pub u_height: Option<i32>,
@@ -156,24 +156,6 @@ pub enum FormFactor {
 impl Default for FormFactor {
     fn default() -> FormFactor {
         Self::Variant2PostFrame
-    }
-}
-/// Rail-to-rail width  * `10` - 10 inches * `19` - 19 inches * `21` - 21 inches * `23` - 23 inches
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Width {
-    #[serde(rename = "10")]
-    Variant10,
-    #[serde(rename = "19")]
-    Variant19,
-    #[serde(rename = "21")]
-    Variant21,
-    #[serde(rename = "23")]
-    Variant23,
-}
-
-impl Default for Width {
-    fn default() -> Width {
-        Self::Variant10
     }
 }
 /// * `mm` - Millimeters * `in` - Inches

@@ -12,7 +12,7 @@
 pub struct IkePolicyVersion {
     /// * `1` - IKEv1 * `2` - IKEv2
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<i32>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<Label>,
 }
@@ -26,20 +26,6 @@ impl IkePolicyVersion {
     }
 }
 
-/// * `1` - IKEv1 * `2` - IKEv2
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "1")]
-    Variant1,
-    #[serde(rename = "2")]
-    Variant2,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Variant1
-    }
-}
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Label {

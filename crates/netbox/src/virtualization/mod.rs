@@ -11,8 +11,8 @@
 //! # }
 //! ```
 
-use crate::resource::Resource;
 use crate::Client;
+use crate::resource::Resource;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 

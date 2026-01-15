@@ -12,7 +12,7 @@
 pub struct IkeProposalGroup {
     /// * `1` - Group 1 * `2` - Group 2 * `5` - Group 5 * `14` - Group 14 * `15` - Group 15 * `16` - Group 16 * `17` - Group 17 * `18` - Group 18 * `19` - Group 19 * `20` - Group 20 * `21` - Group 21 * `22` - Group 22 * `23` - Group 23 * `24` - Group 24 * `25` - Group 25 * `26` - Group 26 * `27` - Group 27 * `28` - Group 28 * `29` - Group 29 * `30` - Group 30 * `31` - Group 31 * `32` - Group 32 * `33` - Group 33 * `34` - Group 34
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<i32>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<Label>,
 }
@@ -26,64 +26,6 @@ impl IkeProposalGroup {
     }
 }
 
-/// * `1` - Group 1 * `2` - Group 2 * `5` - Group 5 * `14` - Group 14 * `15` - Group 15 * `16` - Group 16 * `17` - Group 17 * `18` - Group 18 * `19` - Group 19 * `20` - Group 20 * `21` - Group 21 * `22` - Group 22 * `23` - Group 23 * `24` - Group 24 * `25` - Group 25 * `26` - Group 26 * `27` - Group 27 * `28` - Group 28 * `29` - Group 29 * `30` - Group 30 * `31` - Group 31 * `32` - Group 32 * `33` - Group 33 * `34` - Group 34
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "1")]
-    Variant1,
-    #[serde(rename = "2")]
-    Variant2,
-    #[serde(rename = "5")]
-    Variant5,
-    #[serde(rename = "14")]
-    Variant14,
-    #[serde(rename = "15")]
-    Variant15,
-    #[serde(rename = "16")]
-    Variant16,
-    #[serde(rename = "17")]
-    Variant17,
-    #[serde(rename = "18")]
-    Variant18,
-    #[serde(rename = "19")]
-    Variant19,
-    #[serde(rename = "20")]
-    Variant20,
-    #[serde(rename = "21")]
-    Variant21,
-    #[serde(rename = "22")]
-    Variant22,
-    #[serde(rename = "23")]
-    Variant23,
-    #[serde(rename = "24")]
-    Variant24,
-    #[serde(rename = "25")]
-    Variant25,
-    #[serde(rename = "26")]
-    Variant26,
-    #[serde(rename = "27")]
-    Variant27,
-    #[serde(rename = "28")]
-    Variant28,
-    #[serde(rename = "29")]
-    Variant29,
-    #[serde(rename = "30")]
-    Variant30,
-    #[serde(rename = "31")]
-    Variant31,
-    #[serde(rename = "32")]
-    Variant32,
-    #[serde(rename = "33")]
-    Variant33,
-    #[serde(rename = "34")]
-    Variant34,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Variant1
-    }
-}
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Label {

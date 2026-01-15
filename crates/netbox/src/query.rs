@@ -232,9 +232,21 @@ mod tests {
         let pairs = json
             .as_array()
             .expect("query serialization should be a list of pairs");
-        assert!(pairs.iter().any(|pair| pair == &serde_json::json!(["site", "dc1"])));
-        assert!(pairs.iter().any(|pair| pair == &serde_json::json!(["status", "active"])));
-        assert!(pairs.iter().any(|pair| pair == &serde_json::json!(["limit", "50"])));
+        assert!(
+            pairs
+                .iter()
+                .any(|pair| pair == &serde_json::json!(["site", "dc1"]))
+        );
+        assert!(
+            pairs
+                .iter()
+                .any(|pair| pair == &serde_json::json!(["status", "active"]))
+        );
+        assert!(
+            pairs
+                .iter()
+                .any(|pair| pair == &serde_json::json!(["limit", "50"]))
+        );
     }
 
     #[test]

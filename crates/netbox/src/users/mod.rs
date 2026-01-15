@@ -11,9 +11,9 @@
 //! # }
 //! ```
 
+use crate::Client;
 use crate::error::Result;
 use crate::resource::Resource;
-use crate::Client;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
@@ -453,7 +453,6 @@ mod tests {
     }
 
     #[cfg_attr(miri, ignore)]
-
     #[tokio::test]
     async fn provision_token_uses_expected_path() {
         let server = MockServer::start();

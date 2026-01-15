@@ -1,11 +1,11 @@
 //! generic api resource wrapper for standard netbox crud endpoints.
 
+use crate::Client;
 use crate::error::Result;
 use crate::pagination::{Page, Paginator};
 use crate::query::QueryBuilder;
-use crate::Client;
-use serde::de::DeserializeOwned;
 use serde::Serialize;
+use serde::de::DeserializeOwned;
 
 /// generic resource wrapper for list/get/create/update/patch/delete operations.
 #[derive(Clone)]
@@ -120,9 +120,8 @@ mod tests {
         };
         let actual = paginator.next_url().expect("expected paginator url");
         let (actual_path, actual_query) = actual.split_once('?').unwrap_or((actual, ""));
-        let (expected_path, expected_query) = expected
-            .split_once('?')
-            .unwrap_or((expected.as_str(), ""));
+        let (expected_path, expected_query) =
+            expected.split_once('?').unwrap_or((expected.as_str(), ""));
         assert_eq!(actual_path, expected_path);
 
         let mut actual_pairs: Vec<(String, String)> =
@@ -139,7 +138,6 @@ mod tests {
     }
 
     #[cfg_attr(miri, ignore)]
-
     #[tokio::test]
     async fn resource_crud_calls_expected_paths() {
         let server = MockServer::start();
@@ -216,7 +214,6 @@ mod tests {
     }
 
     #[cfg_attr(miri, ignore)]
-
     #[tokio::test]
     async fn list_with_query_encodes_parameters() {
         let server = MockServer::start();

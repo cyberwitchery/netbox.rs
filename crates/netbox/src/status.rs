@@ -11,8 +11,8 @@
 //! # }
 //! ```
 
-use crate::error::Result;
 use crate::Client;
+use crate::error::Result;
 use serde_json::Value;
 use std::collections::HashMap;
 
@@ -43,7 +43,6 @@ mod tests {
     use httpmock::{Method::GET, MockServer};
 
     #[cfg_attr(miri, ignore)]
-
     #[tokio::test]
     async fn status_fetches_expected_path() {
         let server = MockServer::start();

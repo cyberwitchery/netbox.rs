@@ -10,7 +10,7 @@
 
 use reqwest;
 
-use super::{configuration, Error};
+use super::{Error, configuration};
 use crate::apis::ResponseContent;
 
 /// struct for typed errors of method [`circuits_circuit_group_assignments_bulk_destroy`]

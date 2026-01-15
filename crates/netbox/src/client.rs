@@ -15,15 +15,15 @@ use crate::users::UsersApi;
 use crate::virtualization::VirtualizationApi;
 use crate::vpn::VpnApi;
 use crate::wireless::WirelessApi;
-use reqwest::header::{HeaderMap, HeaderValue, AUTHORIZATION, CONTENT_TYPE, USER_AGENT};
+use reqwest::header::{AUTHORIZATION, CONTENT_TYPE, HeaderMap, HeaderValue, USER_AGENT};
 use reqwest::{Method, StatusCode};
-use serde::de::DeserializeOwned;
 use serde::Serialize;
+use serde::de::DeserializeOwned;
 use serde_json::Value;
 use std::sync::Arc;
+use std::sync::OnceLock;
 use std::time::Duration;
 use tokio::time::sleep;
-use std::sync::OnceLock;
 
 /// the main netbox api client
 ///
@@ -169,9 +169,7 @@ impl Client {
     }
 
     /// build a configuration for the generated openapi client.
-    pub fn openapi_config(
-        &self,
-    ) -> Result<netbox_openapi::apis::configuration::Configuration> {
+    pub fn openapi_config(&self) -> Result<netbox_openapi::apis::configuration::Configuration> {
         if let Some(config) = self.openapi_config_cached().get() {
             return Ok(config.clone());
         }
@@ -353,11 +351,7 @@ impl Client {
         self.handle_response(response).await
     }
 
-    async fn retry_loop<T, F, Fut>(
-        &self,
-        method: Method,
-        mut operation: F,
-    ) -> Result<T>
+    async fn retry_loop<T, F, Fut>(&self, method: Method, mut operation: F) -> Result<T>
     where
         F: FnMut(u32) -> Fut,
         Fut: std::future::Future<Output = Result<T>>,
@@ -530,7 +524,6 @@ mod tests {
     }
 
     #[cfg_attr(miri, ignore)]
-
     #[tokio::test]
     async fn request_raw_returns_json() {
         let server = MockServer::start();
@@ -550,7 +543,6 @@ mod tests {
     }
 
     #[cfg_attr(miri, ignore)]
-
     #[tokio::test]
     async fn request_raw_returns_null_on_empty_body() {
         let server = MockServer::start();
@@ -570,7 +562,6 @@ mod tests {
     }
 
     #[cfg_attr(miri, ignore)]
-
     #[tokio::test]
     async fn request_raw_includes_extra_headers() {
         let server = MockServer::start();
