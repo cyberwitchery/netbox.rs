@@ -14,6 +14,8 @@
 use crate::Client;
 use crate::resource::Resource;
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
+use std::collections::HashMap;
 
 /// request for creating a new IP address (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -66,6 +68,17 @@ pub struct UpdateIpAddressRequest {
     pub description: Option<String>,
 }
 
+/// request for patching fields on an ip address.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct PatchIpAddressFieldsRequest {
+    /// custom field values.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub custom_fields: Option<HashMap<String, Value>>,
+    /// tag objects.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tags: Option<Vec<crate::models::NestedTag>>,
+}
+
 /// request for creating a new prefix (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreatePrefixRequest {
@@ -115,6 +128,17 @@ pub struct UpdatePrefixRequest {
     /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
+}
+
+/// request for patching fields on a prefix.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct PatchPrefixFieldsRequest {
+    /// custom field values.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub custom_fields: Option<HashMap<String, Value>>,
+    /// tag objects.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tags: Option<Vec<crate::models::NestedTag>>,
 }
 
 /// iP address model.
@@ -265,6 +289,8 @@ impl IpamApi {
 mod tests {
     use super::*;
     use crate::ClientConfig;
+    use serde_json::json;
+    use std::collections::HashMap;
 
     fn test_client() -> Client {
         let config = ClientConfig::new("https://netbox.example.com", "token");
@@ -339,5 +365,31 @@ mod tests {
         let value = serde_json::to_value(&prefix).unwrap();
         assert_eq!(value["prefix"], "192.168.0.0/24");
         assert_eq!(value["is_pool"], true);
+    }
+
+    #[test]
+    fn serialize_projection_patch_requests() {
+        let mut fields = HashMap::new();
+        fields.insert("owner".to_string(), json!("netops"));
+        let tags = vec![crate::models::NestedTag::new(
+            "Core".to_string(),
+            "core".to_string(),
+        )];
+
+        let prefix = PatchPrefixFieldsRequest {
+            custom_fields: Some(fields.clone()),
+            tags: Some(tags.clone()),
+        };
+        let value = serde_json::to_value(&prefix).unwrap();
+        assert_eq!(value["custom_fields"]["owner"], "netops");
+        assert_eq!(value["tags"][0]["slug"], "core");
+
+        let ip = PatchIpAddressFieldsRequest {
+            custom_fields: Some(fields),
+            tags: Some(tags),
+        };
+        let value = serde_json::to_value(&ip).unwrap();
+        assert_eq!(value["custom_fields"]["owner"], "netops");
+        assert_eq!(value["tags"][0]["name"], "Core");
     }
 }

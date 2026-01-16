@@ -14,6 +14,8 @@
 use crate::Client;
 use crate::resource::Resource;
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
+use std::collections::HashMap;
 
 /// request for creating a new device (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -64,6 +66,42 @@ pub struct UpdateDeviceRequest {
     /// updated asset tag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub asset_tag: Option<String>,
+}
+
+/// request for patching fields on a site.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct PatchSiteFieldsRequest {
+    /// custom field values.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub custom_fields: Option<HashMap<String, Value>>,
+    /// tag objects.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tags: Option<Vec<crate::models::NestedTag>>,
+}
+
+/// request for patching fields on a device.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct PatchDeviceFieldsRequest {
+    /// custom field values.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub custom_fields: Option<HashMap<String, Value>>,
+    /// tag objects.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tags: Option<Vec<crate::models::NestedTag>>,
+    /// local context data.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub local_context_data: Option<Value>,
+}
+
+/// request for patching fields on an interface.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct PatchInterfaceFieldsRequest {
+    /// custom field values.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub custom_fields: Option<HashMap<String, Value>>,
+    /// tag objects.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub tags: Option<Vec<crate::models::NestedTag>>,
 }
 
 /// device model with config context.
@@ -419,6 +457,8 @@ mod tests {
     use super::*;
     use crate::ClientConfig;
     use serde::Serialize;
+    use serde_json::json;
+    use std::collections::HashMap;
 
     fn test_client() -> Client {
         let config = ClientConfig::new("https://netbox.example.com", "token");
@@ -524,6 +564,42 @@ mod tests {
         assert_eq!(value["status"], "offline");
         assert_eq!(value["serial"], "SN1");
         assert!(value.get("name").is_none());
+    }
+
+    #[test]
+    fn serialize_projection_patch_requests() {
+        let mut fields = HashMap::new();
+        fields.insert("fabric".to_string(), json!("fra1"));
+        let tags = vec![crate::models::NestedTag::new(
+            "EVPN Fabric".to_string(),
+            "evpn-fabric".to_string(),
+        )];
+
+        let site = PatchSiteFieldsRequest {
+            custom_fields: Some(fields.clone()),
+            tags: Some(tags.clone()),
+        };
+        let value = serde_json::to_value(&site).unwrap();
+        assert_eq!(value["custom_fields"]["fabric"], "fra1");
+        assert_eq!(value["tags"][0]["slug"], "evpn-fabric");
+
+        let device = PatchDeviceFieldsRequest {
+            custom_fields: Some(fields),
+            tags: Some(tags),
+            local_context_data: Some(json!({"alembic": {"role_hint": "leaf"}})),
+        };
+        let value = serde_json::to_value(&device).unwrap();
+        assert_eq!(value["custom_fields"]["fabric"], "fra1");
+        assert_eq!(value["tags"][0]["name"], "EVPN Fabric");
+        assert_eq!(value["local_context_data"]["alembic"]["role_hint"], "leaf");
+
+        let interface = PatchInterfaceFieldsRequest {
+            custom_fields: None,
+            tags: None,
+        };
+        let value = serde_json::to_value(&interface).unwrap();
+        assert!(value.get("custom_fields").is_none());
+        assert!(value.get("tags").is_none());
     }
 
     #[test]

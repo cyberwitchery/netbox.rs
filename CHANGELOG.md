@@ -4,6 +4,11 @@ this release captures the current state of the project. no prior published state
 
 ## [unreleased]
 
+## [0.1.5] - 2026-01-16
+
+### client
+- add field patch request structs for dcim and ipam (custom fields, tags, and device local context) to support typed patch calls
+
 ## [0.1.4] - 2026-01-15
 
 - fix a bug in the openapi generation that automatically assumed enums were strings and fixed them for integers
@@ -53,7 +58,8 @@ this release captures the current state of the project. no prior published state
 - readme and rustdoc coverage for client and cli
 - contributing guide and script documentation
 
-[unreleased]: https://github.com/network-auto/netbox.rs/compare/v0.1.4...HEAD
+[unreleased]: https://github.com/network-auto/netbox.rs/compare/v0.1.5...HEAD
+[0.1.5]: https://github.com/network-auto/netbox.rs/compare/v0.1.4...v0.1.5
 [0.1.4]: https://github.com/network-auto/netbox.rs/compare/v0.1.2...v0.1.4
 [0.1.3]: https://github.com/network-auto/netbox.rs/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/network-auto/netbox.rs/compare/v0.1.1...v0.1.2
