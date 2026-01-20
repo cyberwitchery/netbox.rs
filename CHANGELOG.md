@@ -4,6 +4,12 @@ this release captures the current state of the project. no prior published state
 
 ## [unreleased]
 
+## [0.1.6] - 2026-01-20
+
+### client
+- add bulk create/update/patch/delete helpers on `Resource` plus `BulkUpdate`/`BulkDelete` wrappers
+- remove duplicate root docs and point to crate docs as the source of truth
+
 ## [0.1.5] - 2026-01-16
 
 ### client

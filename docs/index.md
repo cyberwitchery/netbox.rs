@@ -1,8 +1,8 @@
 # docs index
 
 entrypoints:
-- client guide: `docs/client.md`
-- cli guide: `docs/cli.md`
+- client guide: `crates/netbox/docs/client.md`
+- cli guide: `crates/netbox-cli/docs/cli.md`
 - codegen guide: `scripts/README.md`
 - local netbox: `docs/local-netbox.md`
 - examples: `crates/netbox/examples/README.md`

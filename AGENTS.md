@@ -72,7 +72,7 @@ when adding a new endpoint wrapper in `crates/netbox/src/{dcim,ipam}/`:
 ## documentation expectations
 - add rustdoc for public apis and examples.
 - update `README.md` and `CHANGELOG.md` for user-visible changes.
-- update `docs/client.md` and `crates/netbox/docs/client.md` for client behavior changes.
+- update `crates/netbox/docs/client.md` for client behavior changes.
 
 ## testing guidance
 - add unit tests for new helper logic.

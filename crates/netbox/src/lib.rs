@@ -42,7 +42,7 @@ pub use config::ClientConfig;
 pub use error::{Error, Result};
 pub use pagination::{Page, Paginator};
 pub use query::QueryBuilder;
-pub use resource::Resource;
+pub use resource::{BulkDelete, BulkUpdate, Resource};
 
 /// generated openapi types and api functions.
 pub mod openapi {

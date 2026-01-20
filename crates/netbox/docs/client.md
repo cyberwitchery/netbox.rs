@@ -6,7 +6,7 @@ this crate provides a typed, ergonomic client for the netbox rest api.
 
 ```toml
 [dependencies]
-netbox = "0.1.5"
+netbox = "0.1.6"
 tokio = { version = "1.0", features = ["full"] }
 ```
 
@@ -120,6 +120,26 @@ let _updated = client
     .patch(device_id, &serde_json::json!({"status": "offline"}))
     .await?;
 client.dcim().devices().delete(device_id).await?;
+# Ok(())
+# }
+```
+
+## bulk operations
+
+```rust,no_run
+use netbox::{BulkDelete, BulkUpdate, Client, ClientConfig};
+
+# async fn example() -> Result<(), Box<dyn std::error::Error>> {
+let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
+
+let updates = vec![
+    BulkUpdate::new(1, serde_json::json!({"status": "offline"})),
+    BulkUpdate::new(2, serde_json::json!({"status": "offline"})),
+];
+let _updated = client.dcim().devices().bulk_patch(&updates).await?;
+
+let deletes = vec![BulkDelete::new(1), BulkDelete::new(2)];
+client.dcim().devices().bulk_delete(&deletes).await?;
 # Ok(())
 # }
 ```

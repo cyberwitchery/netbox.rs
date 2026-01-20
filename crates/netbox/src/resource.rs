@@ -15,6 +15,37 @@ pub struct Resource<T> {
     _marker: std::marker::PhantomData<T>,
 }
 
+/// bulk update wrapper that includes an id with the update payload.
+#[derive(Debug, Clone, Serialize)]
+pub struct BulkUpdate<T> {
+    /// resource id.
+    pub id: u64,
+    /// update payload to serialize alongside the id.
+    #[serde(flatten)]
+    pub data: T,
+}
+
+impl<T> BulkUpdate<T> {
+    /// create a new bulk update entry.
+    pub fn new(id: u64, data: T) -> Self {
+        Self { id, data }
+    }
+}
+
+/// bulk delete wrapper that includes the id to delete.
+#[derive(Debug, Clone, Serialize)]
+pub struct BulkDelete {
+    /// resource id.
+    pub id: u64,
+}
+
+impl BulkDelete {
+    /// create a new bulk delete entry.
+    pub fn new(id: u64) -> Self {
+        Self { id }
+    }
+}
+
 impl<T> Resource<T>
 where
     T: DeserializeOwned,
@@ -61,6 +92,14 @@ where
         self.client.post(self.path, body).await
     }
 
+    /// create resources in bulk.
+    pub async fn bulk_create<B>(&self, body: &[B]) -> Result<Vec<T>>
+    where
+        B: Serialize,
+    {
+        self.client.post(self.path, body).await
+    }
+
     /// update a resource (full update).
     pub async fn update<B>(&self, id: u64, body: &B) -> Result<T>
     where
@@ -69,6 +108,14 @@ where
         self.client
             .put(&format!("{}{}/", self.path, id), body)
             .await
+    }
+
+    /// update resources in bulk (full update).
+    pub async fn bulk_update<B>(&self, body: &[B]) -> Result<Vec<T>>
+    where
+        B: Serialize,
+    {
+        self.client.put(self.path, body).await
     }
 
     /// partially update a resource.
@@ -81,9 +128,25 @@ where
             .await
     }
 
+    /// partially update resources in bulk.
+    pub async fn bulk_patch<B>(&self, body: &[B]) -> Result<Vec<T>>
+    where
+        B: Serialize,
+    {
+        self.client.patch(self.path, body).await
+    }
+
     /// delete a resource.
     pub async fn delete(&self, id: u64) -> Result<()> {
         self.client.delete(&format!("{}{}/", self.path, id)).await
+    }
+
+    /// delete resources in bulk.
+    pub async fn bulk_delete<B>(&self, body: &[B]) -> Result<()>
+    where
+        B: Serialize,
+    {
+        self.client.delete_with_body(self.path, body).await
     }
 }
 
@@ -211,6 +274,72 @@ mod tests {
         assert_eq!(patched["patched"], true);
 
         resource.delete(1u64).await.unwrap();
+    }
+
+    #[cfg_attr(miri, ignore)]
+    #[tokio::test]
+    async fn resource_bulk_calls_expected_paths() {
+        let server = MockServer::start();
+        let base_url = server.base_url();
+        let config = ClientConfig::new(&base_url, "token").with_max_retries(0);
+        let client = Client::new(config).unwrap();
+        let resource: Resource<serde_json::Value> = Resource::new(client, "dcim/devices/");
+
+        let bulk_response = serde_json::json!([{"id": 1}, {"id": 2}]);
+
+        server.mock(|when, then| {
+            when.method(POST)
+                .path("/api/dcim/devices/")
+                .json_body(serde_json::json!([{"name": "a"}, {"name": "b"}]));
+            then.status(201).json_body(bulk_response.clone());
+        });
+
+        server.mock(|when, then| {
+            when.method(PUT)
+                .path("/api/dcim/devices/")
+                .json_body(serde_json::json!([{"id": 1}, {"id": 2}]));
+            then.status(200).json_body(bulk_response.clone());
+        });
+
+        server.mock(|when, then| {
+            when.method(PATCH)
+                .path("/api/dcim/devices/")
+                .json_body(serde_json::json!([{"id": 1}, {"id": 2}]));
+            then.status(200).json_body(bulk_response.clone());
+        });
+
+        server.mock(|when, then| {
+            when.method(DELETE)
+                .path("/api/dcim/devices/")
+                .json_body(serde_json::json!([{"id": 1}, {"id": 2}]));
+            then.status(204);
+        });
+
+        let created = resource
+            .bulk_create(&[
+                serde_json::json!({"name": "a"}),
+                serde_json::json!({"name": "b"}),
+            ])
+            .await
+            .unwrap();
+        assert_eq!(created.len(), 2);
+
+        let updated = resource
+            .bulk_update(&[serde_json::json!({"id": 1}), serde_json::json!({"id": 2})])
+            .await
+            .unwrap();
+        assert_eq!(updated.len(), 2);
+
+        let patched = resource
+            .bulk_patch(&[serde_json::json!({"id": 1}), serde_json::json!({"id": 2})])
+            .await
+            .unwrap();
+        assert_eq!(patched.len(), 2);
+
+        let deleted = resource
+            .bulk_delete(&[serde_json::json!({"id": 1}), serde_json::json!({"id": 2})])
+            .await;
+        assert!(deleted.is_ok());
     }
 
     #[cfg_attr(miri, ignore)]

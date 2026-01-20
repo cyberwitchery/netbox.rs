@@ -53,7 +53,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 ## examples
 
-for a fuller client guide, see `docs/client.md`.
+for a fuller client guide, see `crates/netbox/docs/client.md`.
 
 for a docs index, see `docs/index.md`.
 
@@ -106,6 +106,21 @@ let all_devices = client
     .await?;
 ```
 
+### bulk operations
+
+```rust
+use netbox::{BulkDelete, BulkUpdate};
+
+let updates = vec![
+    BulkUpdate::new(1, serde_json::json!({"status": "offline"})),
+    BulkUpdate::new(2, serde_json::json!({"status": "offline"})),
+];
+client.dcim().devices().bulk_patch(&updates).await?;
+
+let deletes = vec![BulkDelete::new(1), BulkDelete::new(2)];
+client.dcim().devices().bulk_delete(&deletes).await?;
+```
+
 ### status and schema
 
 ```rust
@@ -156,7 +171,7 @@ match client.dcim().devices().get(999).await {
 
 `netbox-cli` is a full-featured cli for the netbox api. it covers standard crud resources and exposes a raw mode for any endpoint.
 
-see `docs/cli.md` for a complete guide.
+see `crates/netbox-cli/docs/cli.md` for a complete guide.
 
 install:
 

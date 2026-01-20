@@ -271,7 +271,7 @@ impl Client {
     pub(crate) async fn post<T, B>(&self, path: &str, body: &B) -> Result<T>
     where
         T: DeserializeOwned,
-        B: Serialize,
+        B: Serialize + ?Sized,
     {
         self.request(Method::POST, path, Some(body)).await
     }
@@ -280,7 +280,7 @@ impl Client {
     pub(crate) async fn put<T, B>(&self, path: &str, body: &B) -> Result<T>
     where
         T: DeserializeOwned,
-        B: Serialize,
+        B: Serialize + ?Sized,
     {
         self.request(Method::PUT, path, Some(body)).await
     }
@@ -289,7 +289,7 @@ impl Client {
     pub(crate) async fn patch<T, B>(&self, path: &str, body: &B) -> Result<T>
     where
         T: DeserializeOwned,
-        B: Serialize,
+        B: Serialize + ?Sized,
     {
         self.request(Method::PATCH, path, Some(body)).await
     }
@@ -308,11 +308,28 @@ impl Client {
         }
     }
 
+    /// make a delete request with a json body
+    pub(crate) async fn delete_with_body<B>(&self, path: &str, body: &B) -> Result<()>
+    where
+        B: Serialize + ?Sized,
+    {
+        let url = self.config.build_url(path)?;
+        let response = self.http_client.delete(url).json(body).send().await?;
+
+        if response.status().is_success() || response.status() == StatusCode::NO_CONTENT {
+            Ok(())
+        } else {
+            let status = response.status();
+            let body = response.text().await.unwrap_or_default();
+            Err(Error::from_response(status, body))
+        }
+    }
+
     /// make a generic http request
     async fn request<T, B>(&self, method: Method, path: &str, body: Option<&B>) -> Result<T>
     where
         T: DeserializeOwned,
-        B: Serialize,
+        B: Serialize + ?Sized,
     {
         self.request_with_retries(method, path, body).await
     }
@@ -325,7 +342,7 @@ impl Client {
     ) -> Result<T>
     where
         T: DeserializeOwned,
-        B: Serialize,
+        B: Serialize + ?Sized,
     {
         self.retry_loop(method.clone(), move |_attempt| {
             let method = method.clone();
@@ -337,7 +354,7 @@ impl Client {
     async fn request_once<T, B>(&self, method: Method, path: &str, body: Option<&B>) -> Result<T>
     where
         T: DeserializeOwned,
-        B: Serialize,
+        B: Serialize + ?Sized,
     {
         let url = self.config.build_url(path)?;
 
