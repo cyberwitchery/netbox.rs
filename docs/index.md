@@ -3,28 +3,20 @@
 entrypoints:
 - client guide: `crates/netbox/docs/client.md`
 - cli guide: `crates/netbox-cli/docs/cli.md`
-- codegen guide: `scripts/README.md`
-- local netbox: `docs/local-netbox.md`
 - examples: `crates/netbox/examples/README.md`
+- local netbox: `docs/local-netbox.md`
+
+developer docs:
+- dev guide: `docs/dev.md`
+- codegen: `scripts/README.md`
+- contributing: `CONTRIBUTING.md`
 
 quick start:
 
 ```bash
-cargo build
-cargo test
+NETBOX_TOKEN=... cargo run -p netbox --example status
+NETBOX_TOKEN=... cargo run -p netbox --example graphql_query
 ```
-
-docs build:
-
-```bash
-RUSTDOCFLAGS="--cfg docsrs" cargo doc --workspace --all-features --no-deps
-```
-
-open locally:
-
-- `target/doc/netbox/index.html`
-- `target/doc/netbox_cli/index.html`
-- `target/doc/netbox_openapi/index.html`
 
 for local netbox setup, follow:
 https://github.com/netbox-community/netbox-docker

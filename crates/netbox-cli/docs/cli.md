@@ -1,6 +1,6 @@
 # netbox-cli
 
-full-featured cli for the netbox api. covers standard crud resources and exposes a raw mode for any endpoint.
+full-featured cli for the netbox api. covers standard crud resources and a raw mode for any endpoint.
 
 ## install
 
@@ -77,6 +77,15 @@ notes:
 - `--path` is api-relative, e.g. `dcim/devices/`
 - a leading `api/` is stripped if present
 - repeat `--query key=value` for multiple params
+
+## graphql
+
+read-only graphql queries:
+
+```bash
+netbox-cli graphql --query '{ devices { name } }'
+netbox-cli graphql --query-file ./query.graphql --vars '{"limit":5}'
+```
 
 ## special endpoints
 

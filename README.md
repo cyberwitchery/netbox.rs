@@ -1,6 +1,6 @@
 # netbox.rs
 
-rust client for the netbox 4.x rest api. it was co-evolved using ai. currently alpha release quality software.
+rust client for the netbox 4.x rest api. it was co-evolved using ai. pre-release, but stable and improving.
 
 [![ci](https://github.com/cyberwitchery/netbox.rs/workflows/CI/badge.svg)](https://github.com/cyberwitchery/netbox.rs/actions)
 [![crates.io](https://img.shields.io/crates/v/netbox.svg)](https://crates.io/crates/netbox)
@@ -13,6 +13,7 @@ rust client for the netbox 4.x rest api. it was co-evolved using ai. currently a
 - query builder for filters
 - token auth
 - configurable timeouts, retries, ssl
+- graphql (read-only) helper
 - documented examples
 - unit tests and smoke tests
 
@@ -22,7 +23,7 @@ add to `Cargo.toml`:
 
 ```toml
 [dependencies]
-netbox = "0.1.5"
+netbox = "0.1.6"
 tokio = { version = "1.0", features = ["full"] }
 ```
 
@@ -131,6 +132,16 @@ let schema = client.schema().schema(Some("json"), None).await?;
 println!("schema keys: {}", schema.len());
 ```
 
+### graphql (read-only)
+
+```rust
+let data = client
+    .graphql()
+    .query("{ devices { name } }", None)
+    .await?;
+println!("graphql data: {}", data);
+```
+
 ### connected device lookup
 
 ```rust
@@ -205,6 +216,12 @@ raw requests:
 ```bash
 netbox-cli raw --method GET --path dcim/devices/ --query "name=leaf-1" --query "limit=5"
 netbox-cli raw --method POST --path ipam/vrfs/ --json '{"name":"blue","rd":"65000:100"}'
+```
+
+graphql:
+
+```bash
+netbox-cli graphql --query '{ devices { name } }'
 ```
 
 run `netbox-cli --help` for all subcommands.

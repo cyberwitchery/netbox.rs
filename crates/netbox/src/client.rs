@@ -6,6 +6,7 @@ use crate::core::CoreApi;
 use crate::dcim::DcimApi;
 use crate::error::{Error, Result};
 use crate::extras::ExtrasApi;
+use crate::graphql::GraphqlApi;
 use crate::ipam::IpamApi;
 use crate::plugins::PluginsApi;
 use crate::schema::SchemaApi;
@@ -116,6 +117,11 @@ impl Client {
     /// access extras api endpoints
     pub fn extras(&self) -> ExtrasApi {
         ExtrasApi::new(self.clone())
+    }
+
+    /// access graphql query helper
+    pub fn graphql(&self) -> GraphqlApi {
+        GraphqlApi::new(self.clone())
     }
 
     /// access ipam (IP Address Management) api endpoints

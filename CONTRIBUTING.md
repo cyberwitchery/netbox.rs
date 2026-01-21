@@ -75,13 +75,13 @@ ci enforces a minimum line coverage of 75% while excluding generated code.
 1. update `CHANGELOG.md`
 2. bump versions in `Cargo.toml`
 3. bump `netbox-openapi` in `[workspace.dependencies]`
-3. regenerate openapi bindings
-4. run tests and coverage
-5. publish crates
+4. regenerate openapi bindings
+5. run tests and coverage
+6. publish crates
 
 ## issue reporting
 
-use https://github.com/network-auto/netbox.rs/issues
+use https://github.com/cyberwitchery/netbox.rs/issues
 
 ## local release
 

@@ -15,3 +15,7 @@ cargo run -p netbox --example status
 ```bash
 cargo run -p netbox --example create_tag
 ```
+
+```bash
+cargo run -p netbox --example graphql_query
+```

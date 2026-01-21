@@ -4,6 +4,12 @@ this release captures the current state of the project. no prior published state
 
 ## [unreleased]
 
+### client
+- add read-only graphql helper on the client and cli
+
+### docs
+- split user docs and dev docs, improve docs index entrypoints
+
 ## [0.1.6] - 2026-01-20
 
 ### client

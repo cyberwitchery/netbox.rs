@@ -18,6 +18,8 @@ pub mod core;
 pub mod dcim;
 /// extras endpoints (tags, webhooks, scripts, custom fields).
 pub mod extras;
+/// graphql query helper.
+pub mod graphql;
 /// ipam endpoints.
 pub mod ipam;
 /// plugin endpoints.

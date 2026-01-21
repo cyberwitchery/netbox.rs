@@ -1,6 +1,6 @@
 # client library
 
-this crate provides a typed, ergonomic client for the netbox rest api.
+this crate provides a typed, ergonomic client for the netbox 4.x rest api.
 
 ## install
 
@@ -90,7 +90,7 @@ while let Some(page) = paginator.next_page().await? {
 # }
 ```
 
-note: for local dev instances with self-signed certs, set `NETBOX_INSECURE=1` and pass `--insecure` in examples as needed.
+note: for local dev instances with self-signed certs, call `with_ssl_verification(false)` in your config.
 note: `paginate` returns `Result<Paginator<T>>`. handle errors before calling `next_page`.
 
 ## create, update, delete
@@ -157,14 +157,22 @@ let schema = client.schema().schema(Some("json"), None).await?;
 # }
 ```
 
-## smoke tests
+## graphql (read-only)
 
-local-only smoke tests for the client live in `crates/netbox/tests/smoke_local.rs` and are ignored by default.
+returns the `data` field when present.
 
-run them with:
+```rust,no_run
+use netbox::{Client, ClientConfig};
 
-```bash
-./scripts/run_smoke.sh
+# async fn example() -> Result<(), Box<dyn std::error::Error>> {
+let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
+let data = client
+    .graphql()
+    .query("{ devices { name } }", None)
+    .await?;
+println!("{}", data);
+# Ok(())
+# }
 ```
 
 ## connected device
@@ -238,4 +246,4 @@ println!("{}", device.display.as_deref().unwrap_or("<unknown>"));
 
 ## coverage summary
 
-high-level resource coverage exists for dcim, circuits, core, extras, ipam, tenancy, users, virtualization, vpn, and wireless. additional endpoints include status, schema, connected-device, and netbox-branching plugin resources.
+high-level resource coverage exists for dcim, circuits, core, extras, ipam, tenancy, users, virtualization, vpn, and wireless. additional endpoints include status, schema, connected-device, graphql (read-only), and netbox-branching plugin resources.

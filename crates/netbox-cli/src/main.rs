@@ -16,6 +16,11 @@ trait ApiClient {
         path: &str,
         body: Option<&Value>,
     ) -> Result<Value, Box<dyn std::error::Error>>;
+    async fn graphql(
+        &self,
+        query: &str,
+        variables: Option<&Value>,
+    ) -> Result<Value, Box<dyn std::error::Error>>;
     async fn status(&self) -> Result<Value, Box<dyn std::error::Error>>;
     async fn schema(
         &self,
@@ -37,6 +42,19 @@ impl ApiClient for NetboxApiClient {
         body: Option<&Value>,
     ) -> Result<Value, Box<dyn std::error::Error>> {
         Ok(self.inner.request_raw(method, path, body).await?)
+    }
+
+    async fn graphql(
+        &self,
+        query: &str,
+        variables: Option<&Value>,
+    ) -> Result<Value, Box<dyn std::error::Error>> {
+        let data = self
+            .inner
+            .graphql()
+            .query(query, variables.cloned())
+            .await?;
+        Ok(data)
     }
 
     async fn status(&self) -> Result<Value, Box<dyn std::error::Error>> {
@@ -738,6 +756,11 @@ enum Commands {
         #[arg(long)]
         lang: Option<String>,
     },
+    /// Run a read-only graphql query
+    Graphql {
+        #[command(flatten)]
+        input: GraphqlInput,
+    },
     /// Find a device connected to a peer device/interface
     ConnectedDevice {
         /// Peer device name
@@ -870,6 +893,19 @@ struct JsonInputOptional {
     file: Option<PathBuf>,
 }
 
+#[derive(Args, Debug)]
+struct GraphqlInput {
+    /// GraphQL query string
+    #[arg(long, required_unless_present = "query_file")]
+    query: Option<String>,
+    /// GraphQL query file path
+    #[arg(long, required_unless_present = "query")]
+    query_file: Option<PathBuf>,
+    /// JSON variables payload
+    #[arg(long)]
+    vars: Option<String>,
+}
+
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
@@ -942,6 +978,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         Commands::Schema { format, lang } => {
             let value = api.schema(format.as_deref(), lang.as_deref()).await?;
             print_json(&value)?;
+        }
+        Commands::Graphql { input } => {
+            let query = load_graphql_query(&input)?;
+            let vars = load_graphql_vars(&input)?;
+            let response = api.graphql(&query, vars.as_ref()).await?;
+            print_json(&response)?;
         }
         Commands::ConnectedDevice {
             peer_device,
@@ -1242,6 +1284,23 @@ where
     }
 }
 
+fn load_graphql_query(input: &GraphqlInput) -> Result<String, Box<dyn std::error::Error>> {
+    if let Some(query) = &input.query {
+        return Ok(query.clone());
+    }
+    if let Some(path) = &input.query_file {
+        return Ok(fs::read_to_string(path)?);
+    }
+    Err("Provide --query or --query-file".into())
+}
+
+fn load_graphql_vars(input: &GraphqlInput) -> Result<Option<Value>, Box<dyn std::error::Error>> {
+    match &input.vars {
+        Some(vars) => Ok(Some(serde_json::from_str(vars)?)),
+        None => Ok(None),
+    }
+}
+
 fn append_query(path: &str, query: &[String]) -> Result<String, Box<dyn std::error::Error>> {
     let pairs = parse_query_pairs(query)?;
     if pairs.is_empty() {
@@ -1344,6 +1403,14 @@ mod tests {
             Err("api error".into())
         }
 
+        async fn graphql(
+            &self,
+            _query: &str,
+            _variables: Option<&Value>,
+        ) -> Result<Value, Box<dyn std::error::Error>> {
+            Err("api error".into())
+        }
+
         async fn status(&self) -> Result<Value, Box<dyn std::error::Error>> {
             Err("api error".into())
         }
@@ -1371,6 +1438,14 @@ mod tests {
                 path: path.to_string(),
                 body,
             });
+            Ok(self.next.lock().unwrap().clone())
+        }
+
+        async fn graphql(
+            &self,
+            _query: &str,
+            _variables: Option<&Value>,
+        ) -> Result<Value, Box<dyn std::error::Error>> {
             Ok(self.next.lock().unwrap().clone())
         }
 
@@ -1453,6 +1528,45 @@ mod tests {
         };
         let result: Result<Option<Value>, _> = load_json_optional(&input);
         assert!(result.is_err());
+    }
+
+    #[test]
+    fn load_graphql_query_prefers_inline() {
+        let input = GraphqlInput {
+            query: Some("{ devices { name } }".to_string()),
+            query_file: None,
+            vars: None,
+        };
+        let query = load_graphql_query(&input).unwrap();
+        assert_eq!(query, "{ devices { name } }");
+    }
+
+    #[test]
+    fn load_graphql_query_reads_file() {
+        let mut path = env::temp_dir();
+        path.push("netbox-cli-graphql.graphql");
+        fs::write(&path, "{ devices { name } }").unwrap();
+
+        let input = GraphqlInput {
+            query: None,
+            query_file: Some(path.clone()),
+            vars: None,
+        };
+        let query = load_graphql_query(&input).unwrap();
+        assert_eq!(query, "{ devices { name } }");
+
+        let _ = fs::remove_file(path);
+    }
+
+    #[test]
+    fn load_graphql_vars_parses_json() {
+        let input = GraphqlInput {
+            query: Some("{ devices { name } }".to_string()),
+            query_file: None,
+            vars: Some(r#"{"limit":5}"#.to_string()),
+        };
+        let vars = load_graphql_vars(&input).unwrap().unwrap();
+        assert_eq!(vars["limit"], 5);
     }
 
     #[test]
