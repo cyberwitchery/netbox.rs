@@ -23,7 +23,7 @@ add to `Cargo.toml`:
 
 ```toml
 [dependencies]
-netbox = "0.2.0"
+netbox = "0.2.1"
 tokio = { version = "1.0", features = ["full"] }
 ```
 

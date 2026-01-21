@@ -3,8 +3,8 @@
 //! Run manually with:
 //! NETBOX_TOKEN=... NETBOX_URL=http://localhost:8000 cargo test -p netbox --test smoke_local -- --ignored
 
-use netbox::{Client, ClientConfig, Page, QueryBuilder, Result};
 use netbox::openapi::apis::status_api;
+use netbox::{Client, ClientConfig, Page, QueryBuilder, Result};
 use reqwest::Method;
 use serde_json::{Value, json};
 

@@ -9,6 +9,7 @@ use crate::extras::ExtrasApi;
 use crate::graphql::GraphqlApi;
 use crate::ipam::IpamApi;
 use crate::plugins::PluginsApi;
+use crate::resource::Resource;
 use crate::schema::SchemaApi;
 use crate::status::StatusApi;
 use crate::tenancy::TenancyApi;
@@ -97,6 +98,11 @@ impl Client {
     /// access the underlying http client
     pub fn http_client(&self) -> &reqwest::Client {
         &self.http_client
+    }
+
+    /// build a dynamic resource for arbitrary endpoints.
+    pub fn resource(&self, path: impl Into<String>) -> Resource<serde_json::Value> {
+        Resource::dynamic(self.clone(), path)
     }
 
     /// access dcim (Data Center Infrastructure Management) api endpoints

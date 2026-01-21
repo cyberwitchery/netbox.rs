@@ -6,7 +6,7 @@ this crate provides a typed, ergonomic client for the netbox 4.x rest api.
 
 ```toml
 [dependencies]
-netbox = "0.2.0"
+netbox = "0.2.1"
 tokio = { version = "1.0", features = ["full"] }
 ```
 
@@ -92,6 +92,20 @@ while let Some(page) = paginator.next_page().await? {
 
 note: for local dev instances with self-signed certs, call `with_ssl_verification(false)` in your config.
 note: `paginate` returns `Result<Paginator<T>>`. handle errors before calling `next_page`.
+
+## dynamic resources
+
+```rust,no_run
+use netbox::{Client, ClientConfig};
+
+# async fn example() -> Result<(), Box<dyn std::error::Error>> {
+let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
+let resource = client.resource("ipam/vrfs/");
+let page = resource.list(None).await?;
+println!("{}", page.count);
+# Ok(())
+# }
+```
 
 ## create, update, delete
 

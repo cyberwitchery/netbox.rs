@@ -14,7 +14,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let variables = json!({ "limit": 5 });
     let data = client
         .graphql()
-        .query("query ($limit: Int!) { devices(limit: $limit) { name } }", Some(variables))
+        .query(
+            "query ($limit: Int!) { devices(limit: $limit) { name } }",
+            Some(variables),
+        )
         .await?;
 
     println!("{}", serde_json::to_string_pretty(&data)?);

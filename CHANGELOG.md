@@ -4,6 +4,12 @@ this release captures the current state of the project. no prior published state
 
 ## [unreleased]
 
+## [0.2.1] - 2026-01-22
+
+### client
+- allow dynamic resource paths via `Resource::dynamic`
+- add `Client::resource` helper for ad-hoc endpoints
+
 ## [0.2.0] - 2026-01-21
 
 ### client
@@ -83,7 +89,8 @@ this release captures the current state of the project. no prior published state
 - readme and rustdoc coverage for client and cli
 - contributing guide and script documentation
 
-[unreleased]: https://github.com/cyberwitchery/netbox.rs/compare/v0.2.0...HEAD
+[unreleased]: https://github.com/cyberwitchery/netbox.rs/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/cyberwitchery/netbox.rs/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/cyberwitchery/netbox.rs/compare/v0.1.6...v0.2.0
 [0.1.5]: https://github.com/cyberwitchery/netbox.rs/compare/v0.1.4...v0.1.5
 [0.1.4]: https://github.com/cyberwitchery/netbox.rs/compare/v0.1.2...v0.1.4

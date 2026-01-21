@@ -6,8 +6,8 @@ use netbox::{Client, ClientConfig};
 use reqwest::Method;
 use serde::de::DeserializeOwned;
 use serde_json::{Value, to_string_pretty};
-use std::fs;
 use std::fmt;
+use std::fs;
 use std::path::PathBuf;
 use terminal_size::{Width, terminal_size};
 
@@ -112,9 +112,7 @@ impl RequestError {
 
 impl fmt::Display for RequestError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        if let Some(message) =
-            format_netbox_error(&self.method, &self.path, self.source.as_ref())
-        {
+        if let Some(message) = format_netbox_error(&self.method, &self.path, self.source.as_ref()) {
             return write!(f, "{message}");
         }
         write!(
@@ -997,26 +995,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             print_resources(group.as_deref());
         }
         Commands::Dcim { resource, action } => {
-            handle_resource_group(
-                &api,
-                &output,
-                "dcim",
-                DCIM_RESOURCES,
-                &resource,
-                action,
-            )
-            .await?;
+            handle_resource_group(&api, &output, "dcim", DCIM_RESOURCES, &resource, action).await?;
         }
         Commands::Ipam { resource, action } => {
-            handle_resource_group(
-                &api,
-                &output,
-                "ipam",
-                IPAM_RESOURCES,
-                &resource,
-                action,
-            )
-            .await?;
+            handle_resource_group(&api, &output, "ipam", IPAM_RESOURCES, &resource, action).await?;
         }
         Commands::Circuits { resource, action } => {
             handle_resource_group(
@@ -1041,37 +1023,15 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             .await?;
         }
         Commands::Extras { resource, action } => {
-            handle_resource_group(
-                &api,
-                &output,
-                "extras",
-                EXTRAS_RESOURCES,
-                &resource,
-                action,
-            )
-            .await?;
+            handle_resource_group(&api, &output, "extras", EXTRAS_RESOURCES, &resource, action)
+                .await?;
         }
         Commands::Core { resource, action } => {
-            handle_resource_group(
-                &api,
-                &output,
-                "core",
-                CORE_RESOURCES,
-                &resource,
-                action,
-            )
-            .await?;
+            handle_resource_group(&api, &output, "core", CORE_RESOURCES, &resource, action).await?;
         }
         Commands::Users { resource, action } => {
-            handle_resource_group(
-                &api,
-                &output,
-                "users",
-                USERS_RESOURCES,
-                &resource,
-                action,
-            )
-            .await?;
+            handle_resource_group(&api, &output, "users", USERS_RESOURCES, &resource, action)
+                .await?;
         }
         Commands::Virtualization { resource, action } => {
             handle_resource_group(
@@ -1164,7 +1124,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         Commands::ProvisionToken { input } => {
             let request: Value = load_json(&input)?;
             if output.dry_run {
-                print_dry_run(Method::POST, "users/tokens/provision/", None, Some(&request))?;
+                print_dry_run(
+                    Method::POST,
+                    "users/tokens/provision/",
+                    None,
+                    Some(&request),
+                )?;
             } else {
                 let response = request_raw_with_context(
                     &api,
@@ -1265,7 +1230,8 @@ async fn handle_resource_action(
                 print_dry_run(Method::PATCH, &full_path, None, Some(&body))?;
             } else {
                 let response =
-                    request_raw_with_context(client, Method::PATCH, &full_path, Some(&body)).await?;
+                    request_raw_with_context(client, Method::PATCH, &full_path, Some(&body))
+                        .await?;
                 print_output(&response, output)?;
             }
         }
@@ -1304,13 +1270,9 @@ async fn handle_dashboard_action(
             if output.dry_run {
                 print_dry_run(Method::PUT, "extras/dashboard/", None, Some(&body))?;
             } else {
-                let response = request_raw_with_context(
-                    client,
-                    Method::PUT,
-                    "extras/dashboard/",
-                    Some(&body),
-                )
-                .await?;
+                let response =
+                    request_raw_with_context(client, Method::PUT, "extras/dashboard/", Some(&body))
+                        .await?;
                 print_output(&response, output)?;
             }
         }
@@ -1333,13 +1295,9 @@ async fn handle_dashboard_action(
             if output.dry_run {
                 print_dry_run(Method::DELETE, "extras/dashboard/", None, None)?;
             } else {
-                let response = request_raw_with_context(
-                    client,
-                    Method::DELETE,
-                    "extras/dashboard/",
-                    None,
-                )
-                .await?;
+                let response =
+                    request_raw_with_context(client, Method::DELETE, "extras/dashboard/", None)
+                        .await?;
                 if response == Value::Null {
                     println!("deleted dashboard");
                 } else {
@@ -1361,8 +1319,7 @@ async fn handle_named_lookup(
     let base_path = normalize_api_path(base_path);
     match action {
         NamedLookupAction::List => {
-            let response =
-                request_raw_with_context(client, Method::GET, &base_path, None).await?;
+            let response = request_raw_with_context(client, Method::GET, &base_path, None).await?;
             print_output(&response, output)?;
         }
         NamedLookupAction::Get { name } => {
@@ -1391,8 +1348,7 @@ async fn handle_branch_action(
     if output.dry_run {
         print_dry_run(Method::POST, &path, None, Some(&body))?;
     } else {
-        let response =
-            request_raw_with_context(client, Method::POST, &path, Some(&body)).await?;
+        let response = request_raw_with_context(client, Method::POST, &path, Some(&body)).await?;
         print_output(&response, output)?;
     }
     Ok(())
@@ -1492,8 +1448,10 @@ fn wrap_request_error(
     Box::new(RequestError::new(method, path, err))
 }
 
-fn format_output(value: &Value, output: &OutputConfig) -> Result<String, Box<dyn std::error::Error>>
-{
+fn format_output(
+    value: &Value,
+    output: &OutputConfig,
+) -> Result<String, Box<dyn std::error::Error>> {
     let selected = match output.select.as_deref() {
         Some(path) => select_value(value, path),
         None => value.clone(),
@@ -1554,7 +1512,11 @@ fn value_to_cell(value: Option<&Value>) -> String {
         Some(Value::Bool(value)) => value.to_string(),
         Some(Value::Array(items)) => format!("[{}]", items.len()),
         Some(Value::Object(map)) => extract_display(map)
-            .or_else(|| map.get("id").and_then(Value::as_i64).map(|id| id.to_string()))
+            .or_else(|| {
+                map.get("id")
+                    .and_then(Value::as_i64)
+                    .map(|id| id.to_string())
+            })
             .unwrap_or_else(|| compact_json(&Value::Object(map.clone()))),
     }
 }
@@ -1641,7 +1603,10 @@ fn infer_columns(items: &[Value], first: &serde_json::Map<String, Value>) -> Vec
 }
 
 fn format_table_summary(map: &serde_json::Map<String, Value>) -> String {
-    let count = map.get("count").and_then(Value::as_i64).map(|v| v.to_string());
+    let count = map
+        .get("count")
+        .and_then(Value::as_i64)
+        .map(|v| v.to_string());
     let next = map
         .get("next")
         .and_then(Value::as_str)
@@ -1830,9 +1795,9 @@ fn append_query(path: &str, query: &[String]) -> Result<String, Box<dyn std::err
     Ok(format!("{}{}{}", path, separator, query_string))
 }
 
-    fn parse_query_pairs(
-        query: &[String],
-    ) -> Result<Vec<(String, String)>, Box<dyn std::error::Error>> {
+fn parse_query_pairs(
+    query: &[String],
+) -> Result<Vec<(String, String)>, Box<dyn std::error::Error>> {
     let mut pairs = Vec::with_capacity(query.len());
     for item in query {
         let mut parts = item.splitn(2, '=');
@@ -2489,8 +2454,8 @@ mod tests {
     async fn handle_resource_action_bubbles_api_error() {
         let client = ErrorApiClient;
         let action = ResourceAction::List { query: vec![] };
-        let result = handle_resource_action(&client, &output_config(), "dcim/devices/", action)
-            .await;
+        let result =
+            handle_resource_action(&client, &output_config(), "dcim/devices/", action).await;
         assert!(result.is_err());
     }
 
@@ -2554,7 +2519,10 @@ mod tests {
                 dry_run: false,
             };
             let rendered = format_output(&status, &output)?;
-            assert!(!rendered.trim().is_empty(), "expected output for {format:?}");
+            assert!(
+                !rendered.trim().is_empty(),
+                "expected output for {format:?}"
+            );
         }
         Ok(())
     }

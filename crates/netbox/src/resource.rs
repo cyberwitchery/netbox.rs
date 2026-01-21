@@ -6,12 +6,13 @@ use crate::pagination::{Page, Paginator};
 use crate::query::QueryBuilder;
 use serde::Serialize;
 use serde::de::DeserializeOwned;
+use std::borrow::Cow;
 
 /// generic resource wrapper for list/get/create/update/patch/delete operations.
 #[derive(Clone)]
 pub struct Resource<T> {
     client: Client,
-    path: &'static str,
+    path: Cow<'static, str>,
     _marker: std::marker::PhantomData<T>,
 }
 
@@ -50,10 +51,19 @@ impl<T> Resource<T>
 where
     T: DeserializeOwned,
 {
-    pub(crate) fn new(client: Client, path: &'static str) -> Self {
+    pub(crate) fn new(client: Client, path: impl Into<Cow<'static, str>>) -> Self {
         Self {
             client,
-            path,
+            path: path.into(),
+            _marker: std::marker::PhantomData,
+        }
+    }
+
+    /// create a resource with a dynamic path.
+    pub fn dynamic(client: Client, path: impl Into<String>) -> Self {
+        Self {
+            client,
+            path: Cow::Owned(path.into()),
             _marker: std::marker::PhantomData,
         }
     }
@@ -61,7 +71,9 @@ where
     /// list all resources for this endpoint.
     pub async fn list(&self, query: Option<QueryBuilder>) -> Result<Page<T>> {
         let query = query.unwrap_or_default();
-        self.client.get_with_params(self.path, &query).await
+        self.client
+            .get_with_params(self.path.as_ref(), &query)
+            .await
     }
 
     /// get a paginator for iterating through all resources.
@@ -71,7 +83,11 @@ where
             if query_string.is_empty() {
                 self.path.to_string()
             } else {
-                format!("{}?{}", self.path.trim_end_matches('/'), query_string)
+                format!(
+                    "{}?{}",
+                    self.path.as_ref().trim_end_matches('/'),
+                    query_string
+                )
             }
         } else {
             self.path.to_string()
@@ -81,7 +97,9 @@ where
 
     /// get a resource by id.
     pub async fn get(&self, id: u64) -> Result<T> {
-        self.client.get(&format!("{}{}/", self.path, id)).await
+        self.client
+            .get(&format!("{}{}/", self.path.as_ref(), id))
+            .await
     }
 
     /// create a resource.
@@ -89,7 +107,7 @@ where
     where
         B: Serialize,
     {
-        self.client.post(self.path, body).await
+        self.client.post(self.path.as_ref(), body).await
     }
 
     /// create resources in bulk.
@@ -97,7 +115,7 @@ where
     where
         B: Serialize,
     {
-        self.client.post(self.path, body).await
+        self.client.post(self.path.as_ref(), body).await
     }
 
     /// update a resource (full update).
@@ -106,7 +124,7 @@ where
         B: Serialize,
     {
         self.client
-            .put(&format!("{}{}/", self.path, id), body)
+            .put(&format!("{}{}/", self.path.as_ref(), id), body)
             .await
     }
 
@@ -115,7 +133,7 @@ where
     where
         B: Serialize,
     {
-        self.client.put(self.path, body).await
+        self.client.put(self.path.as_ref(), body).await
     }
 
     /// partially update a resource.
@@ -124,7 +142,7 @@ where
         B: Serialize,
     {
         self.client
-            .patch(&format!("{}{}/", self.path, id), body)
+            .patch(&format!("{}{}/", self.path.as_ref(), id), body)
             .await
     }
 
@@ -133,12 +151,14 @@ where
     where
         B: Serialize,
     {
-        self.client.patch(self.path, body).await
+        self.client.patch(self.path.as_ref(), body).await
     }
 
     /// delete a resource.
     pub async fn delete(&self, id: u64) -> Result<()> {
-        self.client.delete(&format!("{}{}/", self.path, id)).await
+        self.client
+            .delete(&format!("{}{}/", self.path.as_ref(), id))
+            .await
     }
 
     /// delete resources in bulk.
@@ -146,7 +166,7 @@ where
     where
         B: Serialize,
     {
-        self.client.delete_with_body(self.path, body).await
+        self.client.delete_with_body(self.path.as_ref(), body).await
     }
 }
 
@@ -165,6 +185,14 @@ mod tests {
     #[test]
     fn paginate_without_query_uses_base_path() {
         let resource: Resource<serde_json::Value> = Resource::new(test_client(), "dcim/devices/");
+        let paginator = resource.paginate(None).unwrap();
+        assert_eq!(paginator.next_url(), Some("dcim/devices/"));
+    }
+
+    #[test]
+    fn dynamic_resource_accepts_owned_paths() {
+        let resource: Resource<serde_json::Value> =
+            Resource::dynamic(test_client(), "dcim/devices/".to_string());
         let paginator = resource.paginate(None).unwrap();
         assert_eq!(paginator.next_url(), Some("dcim/devices/"));
     }
