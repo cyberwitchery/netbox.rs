@@ -4,11 +4,24 @@ this release captures the current state of the project. no prior published state
 
 ## [unreleased]
 
+## [0.2.0] - 2026-01-21
+
 ### client
-- add read-only graphql helper on the client and cli
+- add read-only graphql helper with query variables
+- add scope_type and scope_id to prefix create/update requests
 
 ### docs
 - split user docs and dev docs, improve docs index entrypoints
+- refresh readme text to reflect pre-release stability
+
+### cli
+- add output formats (json, yaml, table) with automatic table shaping for paginated results
+- add simple --select for dot paths
+- add --dry-run for write operations with full request output
+- improve error messages with status, path, and request id when present
+
+### tests
+- expand smoke coverage for graphql, openapi status, pagination, and cli output modes
 
 ## [0.1.6] - 2026-01-20
 
@@ -70,10 +83,11 @@ this release captures the current state of the project. no prior published state
 - readme and rustdoc coverage for client and cli
 - contributing guide and script documentation
 
-[unreleased]: https://github.com/network-auto/netbox.rs/compare/v0.1.5...HEAD
-[0.1.5]: https://github.com/network-auto/netbox.rs/compare/v0.1.4...v0.1.5
-[0.1.4]: https://github.com/network-auto/netbox.rs/compare/v0.1.2...v0.1.4
-[0.1.3]: https://github.com/network-auto/netbox.rs/compare/v0.1.2...v0.1.3
-[0.1.2]: https://github.com/network-auto/netbox.rs/compare/v0.1.1...v0.1.2
-[0.1.1]: https://github.com/network-auto/netbox.rs/compare/v0.1.0...v0.1.1
-[0.1.0]: https://github.com/network-auto/netbox.rs/releases/tag/v0.1.0
+[unreleased]: https://github.com/cyberwitchery/netbox.rs/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/cyberwitchery/netbox.rs/compare/v0.1.6...v0.2.0
+[0.1.5]: https://github.com/cyberwitchery/netbox.rs/compare/v0.1.4...v0.1.5
+[0.1.4]: https://github.com/cyberwitchery/netbox.rs/compare/v0.1.2...v0.1.4
+[0.1.3]: https://github.com/cyberwitchery/netbox.rs/compare/v0.1.2...v0.1.3
+[0.1.2]: https://github.com/cyberwitchery/netbox.rs/compare/v0.1.1...v0.1.2
+[0.1.1]: https://github.com/cyberwitchery/netbox.rs/compare/v0.1.0...v0.1.1
+[0.1.0]: https://github.com/cyberwitchery/netbox.rs/releases/tag/v0.1.0

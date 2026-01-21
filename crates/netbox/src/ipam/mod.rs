@@ -96,6 +96,12 @@ pub struct CreatePrefixRequest {
     /// vLAN id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vlan: Option<i32>,
+    /// scope type.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scope_type: Option<String>,
+    /// scope id.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scope_id: Option<i32>,
     /// status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
@@ -122,6 +128,12 @@ pub struct UpdatePrefixRequest {
     /// updated site id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub site: Option<i32>,
+    /// updated scope type.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scope_type: Option<String>,
+    /// updated scope id.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scope_id: Option<i32>,
     /// updated status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
@@ -356,6 +368,8 @@ mod tests {
             vrf: None,
             tenant: None,
             vlan: None,
+            scope_type: None,
+            scope_id: None,
             status: None,
             role: None,
             is_pool: Some(true),

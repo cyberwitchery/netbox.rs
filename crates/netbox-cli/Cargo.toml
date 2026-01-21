@@ -13,7 +13,7 @@ keywords.workspace = true
 categories.workspace = true
 
 [dependencies]
-netbox = { version = "0.1.6", path = "../netbox" }
+netbox = { version = "0.2.0", path = "../netbox" }
 clap = { workspace = true }
 tokio = { workspace = true }
 serde_json = { workspace = true }
@@ -21,6 +21,9 @@ serde = { workspace = true }
 reqwest = { workspace = true }
 serde_urlencoded = "0.7"
 async-trait = "0.1"
+comfy-table = "7.1"
+serde_yaml = "0.9"
+terminal_size = "0.3"
 
 [[bin]]
 name = "netbox-cli"

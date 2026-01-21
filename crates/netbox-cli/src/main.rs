@@ -1,12 +1,15 @@
 #![doc = include_str!("../docs/cli.md")]
 
-use clap::{Args, Parser, Subcommand};
+use clap::{Args, Parser, Subcommand, ValueEnum};
+use comfy_table::{Cell, ContentArrangement, Table};
 use netbox::{Client, ClientConfig};
 use reqwest::Method;
 use serde::de::DeserializeOwned;
 use serde_json::{Value, to_string_pretty};
 use std::fs;
+use std::fmt;
 use std::path::PathBuf;
+use terminal_size::{Width, terminal_size};
 
 #[async_trait::async_trait]
 trait ApiClient {
@@ -69,6 +72,64 @@ impl ApiClient for NetboxApiClient {
     ) -> Result<Value, Box<dyn std::error::Error>> {
         let schema = self.inner.schema().schema(format, lang).await?;
         Ok(serde_json::to_value(schema)?)
+    }
+}
+
+#[derive(Clone, Copy, Debug, ValueEnum)]
+enum OutputFormat {
+    Json,
+    Yaml,
+    Table,
+}
+
+#[derive(Clone, Debug)]
+struct OutputConfig {
+    format: OutputFormat,
+    select: Option<String>,
+    dry_run: bool,
+}
+
+#[derive(Debug)]
+struct RequestError {
+    method: Method,
+    path: String,
+    source: Box<dyn std::error::Error + 'static>,
+}
+
+impl RequestError {
+    fn new(
+        method: Method,
+        path: impl Into<String>,
+        source: Box<dyn std::error::Error + 'static>,
+    ) -> Self {
+        Self {
+            method,
+            path: path.into(),
+            source,
+        }
+    }
+}
+
+impl fmt::Display for RequestError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        if let Some(message) =
+            format_netbox_error(&self.method, &self.path, self.source.as_ref())
+        {
+            return write!(f, "{message}");
+        }
+        write!(
+            f,
+            "request failed: {} {}: {}",
+            self.method.as_str(),
+            self.path,
+            self.source
+        )
+    }
+}
+
+impl std::error::Error for RequestError {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
+        Some(&*self.source)
     }
 }
 
@@ -651,6 +712,18 @@ struct Cli {
     #[arg(short, long, env)]
     token: String,
 
+    /// Output format (json, yaml, table)
+    #[arg(long, value_enum, default_value = "json")]
+    output: OutputFormat,
+
+    /// Select a field from the response (dot path)
+    #[arg(long)]
+    select: Option<String>,
+
+    /// Print the request and skip write operations
+    #[arg(long)]
+    dry_run: bool,
+
     #[command(subcommand)]
     command: Commands,
 }
@@ -913,35 +986,97 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let config = ClientConfig::new(&cli.url, &cli.token);
     let client = Client::new(config)?;
     let api = NetboxApiClient { inner: client };
+    let output = OutputConfig {
+        format: cli.output,
+        select: cli.select.clone(),
+        dry_run: cli.dry_run,
+    };
 
     match cli.command {
         Commands::Resources { group } => {
             print_resources(group.as_deref());
         }
         Commands::Dcim { resource, action } => {
-            handle_resource_group(&api, "dcim", DCIM_RESOURCES, &resource, action).await?;
+            handle_resource_group(
+                &api,
+                &output,
+                "dcim",
+                DCIM_RESOURCES,
+                &resource,
+                action,
+            )
+            .await?;
         }
         Commands::Ipam { resource, action } => {
-            handle_resource_group(&api, "ipam", IPAM_RESOURCES, &resource, action).await?;
+            handle_resource_group(
+                &api,
+                &output,
+                "ipam",
+                IPAM_RESOURCES,
+                &resource,
+                action,
+            )
+            .await?;
         }
         Commands::Circuits { resource, action } => {
-            handle_resource_group(&api, "circuits", CIRCUITS_RESOURCES, &resource, action).await?;
+            handle_resource_group(
+                &api,
+                &output,
+                "circuits",
+                CIRCUITS_RESOURCES,
+                &resource,
+                action,
+            )
+            .await?;
         }
         Commands::Tenancy { resource, action } => {
-            handle_resource_group(&api, "tenancy", TENANCY_RESOURCES, &resource, action).await?;
+            handle_resource_group(
+                &api,
+                &output,
+                "tenancy",
+                TENANCY_RESOURCES,
+                &resource,
+                action,
+            )
+            .await?;
         }
         Commands::Extras { resource, action } => {
-            handle_resource_group(&api, "extras", EXTRAS_RESOURCES, &resource, action).await?;
+            handle_resource_group(
+                &api,
+                &output,
+                "extras",
+                EXTRAS_RESOURCES,
+                &resource,
+                action,
+            )
+            .await?;
         }
         Commands::Core { resource, action } => {
-            handle_resource_group(&api, "core", CORE_RESOURCES, &resource, action).await?;
+            handle_resource_group(
+                &api,
+                &output,
+                "core",
+                CORE_RESOURCES,
+                &resource,
+                action,
+            )
+            .await?;
         }
         Commands::Users { resource, action } => {
-            handle_resource_group(&api, "users", USERS_RESOURCES, &resource, action).await?;
+            handle_resource_group(
+                &api,
+                &output,
+                "users",
+                USERS_RESOURCES,
+                &resource,
+                action,
+            )
+            .await?;
         }
         Commands::Virtualization { resource, action } => {
             handle_resource_group(
                 &api,
+                &output,
                 "virtualization",
                 VIRTUALIZATION_RESOURCES,
                 &resource,
@@ -950,69 +1085,99 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             .await?;
         }
         Commands::Vpn { resource, action } => {
-            handle_resource_group(&api, "vpn", VPN_RESOURCES, &resource, action).await?;
+            handle_resource_group(&api, &output, "vpn", VPN_RESOURCES, &resource, action).await?;
         }
         Commands::Wireless { resource, action } => {
-            handle_resource_group(&api, "wireless", WIRELESS_RESOURCES, &resource, action).await?;
+            handle_resource_group(
+                &api,
+                &output,
+                "wireless",
+                WIRELESS_RESOURCES,
+                &resource,
+                action,
+            )
+            .await?;
         }
         Commands::Plugins { resource, action } => {
-            handle_resource_group(&api, "plugins", PLUGINS_RESOURCES, &resource, action).await?;
+            handle_resource_group(
+                &api,
+                &output,
+                "plugins",
+                PLUGINS_RESOURCES,
+                &resource,
+                action,
+            )
+            .await?;
         }
         Commands::ExtrasDashboard { action } => {
-            handle_dashboard_action(&api, action).await?;
+            handle_dashboard_action(&api, &output, action).await?;
         }
         Commands::CoreBackgroundQueues { action } => {
-            handle_named_lookup(&api, "core/background-queues/", action).await?;
+            handle_named_lookup(&api, &output, "core/background-queues/", action).await?;
         }
         Commands::CoreBackgroundWorkers { action } => {
-            handle_named_lookup(&api, "core/background-workers/", action).await?;
+            handle_named_lookup(&api, &output, "core/background-workers/", action).await?;
         }
         Commands::UsersConfig => {
-            let response = api.request_raw(Method::GET, "users/config/", None).await?;
-            print_json(&response)?;
+            let response =
+                request_raw_with_context(&api, Method::GET, "users/config/", None).await?;
+            print_output(&response, &output)?;
         }
         Commands::Status => {
-            let value = api.status().await?;
-            print_json(&value)?;
+            let value = api
+                .status()
+                .await
+                .map_err(|err| wrap_request_error(Method::GET, "status/", err))?;
+            print_output(&value, &output)?;
         }
         Commands::Schema { format, lang } => {
-            let value = api.schema(format.as_deref(), lang.as_deref()).await?;
-            print_json(&value)?;
+            let schema_path = build_schema_path(format.as_deref(), lang.as_deref())?;
+            let value = api
+                .schema(format.as_deref(), lang.as_deref())
+                .await
+                .map_err(|err| wrap_request_error(Method::GET, &schema_path, err))?;
+            print_output(&value, &output)?;
         }
         Commands::Graphql { input } => {
             let query = load_graphql_query(&input)?;
             let vars = load_graphql_vars(&input)?;
-            let response = api.graphql(&query, vars.as_ref()).await?;
-            print_json(&response)?;
+            let response = api
+                .graphql(&query, vars.as_ref())
+                .await
+                .map_err(|err| wrap_request_error(Method::POST, "graphql/", err))?;
+            print_output(&response, &output)?;
         }
         Commands::ConnectedDevice {
             peer_device,
             peer_interface,
         } => {
-            let response = api
-                .request_raw(
-                    Method::GET,
-                    &append_query(
-                        "dcim/connected-device/",
-                        &[
-                            format!("peer_device={}", peer_device),
-                            format!("peer_interface={}", peer_interface),
-                        ],
-                    )?,
-                    None,
-                )
-                .await?;
-            print_json(&response)?;
+            let path = append_query(
+                "dcim/connected-device/",
+                &[
+                    format!("peer_device={}", peer_device),
+                    format!("peer_interface={}", peer_interface),
+                ],
+            )?;
+            let response = request_raw_with_context(&api, Method::GET, &path, None).await?;
+            print_output(&response, &output)?;
         }
         Commands::ProvisionToken { input } => {
             let request: Value = load_json(&input)?;
-            let response = api
-                .request_raw(Method::POST, "users/tokens/provision/", Some(&request))
+            if output.dry_run {
+                print_dry_run(Method::POST, "users/tokens/provision/", None, Some(&request))?;
+            } else {
+                let response = request_raw_with_context(
+                    &api,
+                    Method::POST,
+                    "users/tokens/provision/",
+                    Some(&request),
+                )
                 .await?;
-            print_json(&response)?;
+                print_output(&response, &output)?;
+            }
         }
         Commands::PluginBranchAction { id, action } => {
-            handle_branch_action(&api, id, action).await?;
+            handle_branch_action(&api, &output, id, action).await?;
         }
         Commands::Raw {
             method,
@@ -1024,8 +1189,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             let body: Option<Value> = load_json_optional(&input)?;
             let path = normalize_api_path(&path);
             let full_path = append_query(&path, &query)?;
-            let response = api.request_raw(method, &full_path, body.as_ref()).await?;
-            print_json(&response)?;
+            if output.dry_run && method != Method::GET {
+                print_dry_run(method, &full_path, None, body.as_ref())?;
+            } else {
+                let response =
+                    request_raw_with_context(&api, method, &full_path, body.as_ref()).await?;
+                print_output(&response, &output)?;
+            }
         }
     }
 
@@ -1034,6 +1204,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 async fn handle_resource_group(
     client: &impl ApiClient,
+    output: &OutputConfig,
     group: &str,
     resources: &[ResourceEntry],
     resource: &str,
@@ -1045,11 +1216,12 @@ async fn handle_resource_group(
             group, resource, group
         )
     })?;
-    handle_resource_action(client, path, action).await
+    handle_resource_action(client, output, path, action).await
 }
 
 async fn handle_resource_action(
     client: &impl ApiClient,
+    output: &OutputConfig,
     path: &str,
     action: ResourceAction,
 ) -> Result<(), Box<dyn std::error::Error>> {
@@ -1057,42 +1229,58 @@ async fn handle_resource_action(
     match action {
         ResourceAction::List { query } => {
             let full_path = append_query(&path, &query)?;
-            let response = client.request_raw(Method::GET, &full_path, None).await?;
-            print_json(&response)?;
+            let response = request_raw_with_context(client, Method::GET, &full_path, None).await?;
+            print_output(&response, output)?;
         }
         ResourceAction::Get { id } => {
             let full_path = resource_path_with_id(&path, id);
-            let response = client.request_raw(Method::GET, &full_path, None).await?;
-            print_json(&response)?;
+            let response = request_raw_with_context(client, Method::GET, &full_path, None).await?;
+            print_output(&response, output)?;
         }
         ResourceAction::Create { input } => {
             let body: Value = load_json(&input)?;
-            let response = client.request_raw(Method::POST, &path, Some(&body)).await?;
-            print_json(&response)?;
+            if output.dry_run {
+                print_dry_run(Method::POST, &path, None, Some(&body))?;
+            } else {
+                let response =
+                    request_raw_with_context(client, Method::POST, &path, Some(&body)).await?;
+                print_output(&response, output)?;
+            }
         }
         ResourceAction::Update { id, input } => {
             let body: Value = load_json(&input)?;
             let full_path = resource_path_with_id(&path, id);
-            let response = client
-                .request_raw(Method::PUT, &full_path, Some(&body))
-                .await?;
-            print_json(&response)?;
+            if output.dry_run {
+                print_dry_run(Method::PUT, &full_path, None, Some(&body))?;
+            } else {
+                let response =
+                    request_raw_with_context(client, Method::PUT, &full_path, Some(&body)).await?;
+                print_output(&response, output)?;
+            }
         }
         ResourceAction::Patch { id, input } => {
             let body: Value = load_json(&input)?;
             let full_path = resource_path_with_id(&path, id);
-            let response = client
-                .request_raw(Method::PATCH, &full_path, Some(&body))
-                .await?;
-            print_json(&response)?;
+            if output.dry_run {
+                print_dry_run(Method::PATCH, &full_path, None, Some(&body))?;
+            } else {
+                let response =
+                    request_raw_with_context(client, Method::PATCH, &full_path, Some(&body)).await?;
+                print_output(&response, output)?;
+            }
         }
         ResourceAction::Delete { id } => {
             let full_path = resource_path_with_id(&path, id);
-            let response = client.request_raw(Method::DELETE, &full_path, None).await?;
-            if response == Value::Null {
-                println!("deleted {}", id);
+            if output.dry_run {
+                print_dry_run(Method::DELETE, &full_path, None, None)?;
             } else {
-                print_json(&response)?;
+                let response =
+                    request_raw_with_context(client, Method::DELETE, &full_path, None).await?;
+                if response == Value::Null {
+                    println!("deleted {}", id);
+                } else {
+                    print_output(&response, output)?;
+                }
             }
         }
     }
@@ -1102,37 +1290,61 @@ async fn handle_resource_action(
 
 async fn handle_dashboard_action(
     client: &impl ApiClient,
+    output: &OutputConfig,
     action: DashboardAction,
 ) -> Result<(), Box<dyn std::error::Error>> {
     match action {
         DashboardAction::Get => {
-            let response = client
-                .request_raw(Method::GET, "extras/dashboard/", None)
-                .await?;
-            print_json(&response)?;
+            let response =
+                request_raw_with_context(client, Method::GET, "extras/dashboard/", None).await?;
+            print_output(&response, output)?;
         }
         DashboardAction::Update { input } => {
             let body: Value = load_json(&input)?;
-            let response = client
-                .request_raw(Method::PUT, "extras/dashboard/", Some(&body))
+            if output.dry_run {
+                print_dry_run(Method::PUT, "extras/dashboard/", None, Some(&body))?;
+            } else {
+                let response = request_raw_with_context(
+                    client,
+                    Method::PUT,
+                    "extras/dashboard/",
+                    Some(&body),
+                )
                 .await?;
-            print_json(&response)?;
+                print_output(&response, output)?;
+            }
         }
         DashboardAction::Patch { input } => {
             let body: Value = load_json(&input)?;
-            let response = client
-                .request_raw(Method::PATCH, "extras/dashboard/", Some(&body))
+            if output.dry_run {
+                print_dry_run(Method::PATCH, "extras/dashboard/", None, Some(&body))?;
+            } else {
+                let response = request_raw_with_context(
+                    client,
+                    Method::PATCH,
+                    "extras/dashboard/",
+                    Some(&body),
+                )
                 .await?;
-            print_json(&response)?;
+                print_output(&response, output)?;
+            }
         }
         DashboardAction::Delete => {
-            let response = client
-                .request_raw(Method::DELETE, "extras/dashboard/", None)
-                .await?;
-            if response == Value::Null {
-                println!("deleted dashboard");
+            if output.dry_run {
+                print_dry_run(Method::DELETE, "extras/dashboard/", None, None)?;
             } else {
-                print_json(&response)?;
+                let response = request_raw_with_context(
+                    client,
+                    Method::DELETE,
+                    "extras/dashboard/",
+                    None,
+                )
+                .await?;
+                if response == Value::Null {
+                    println!("deleted dashboard");
+                } else {
+                    print_output(&response, output)?;
+                }
             }
         }
     }
@@ -1142,19 +1354,21 @@ async fn handle_dashboard_action(
 
 async fn handle_named_lookup(
     client: &impl ApiClient,
+    output: &OutputConfig,
     base_path: &str,
     action: NamedLookupAction,
 ) -> Result<(), Box<dyn std::error::Error>> {
     let base_path = normalize_api_path(base_path);
     match action {
         NamedLookupAction::List => {
-            let response = client.request_raw(Method::GET, &base_path, None).await?;
-            print_json(&response)?;
+            let response =
+                request_raw_with_context(client, Method::GET, &base_path, None).await?;
+            print_output(&response, output)?;
         }
         NamedLookupAction::Get { name } => {
             let path = format!("{}/{}/", base_path.trim_end_matches('/'), name);
-            let response = client.request_raw(Method::GET, &path, None).await?;
-            print_json(&response)?;
+            let response = request_raw_with_context(client, Method::GET, &path, None).await?;
+            print_output(&response, output)?;
         }
     }
 
@@ -1163,6 +1377,7 @@ async fn handle_named_lookup(
 
 async fn handle_branch_action(
     client: &impl ApiClient,
+    output: &OutputConfig,
     id: u64,
     action: BranchAction,
 ) -> Result<(), Box<dyn std::error::Error>> {
@@ -1173,8 +1388,13 @@ async fn handle_branch_action(
     };
 
     let path = format!("plugins/branching/branches/{}/{}/", id, suffix);
-    let response = client.request_raw(Method::POST, &path, Some(&body)).await?;
-    print_json(&response)?;
+    if output.dry_run {
+        print_dry_run(Method::POST, &path, None, Some(&body))?;
+    } else {
+        let response =
+            request_raw_with_context(client, Method::POST, &path, Some(&body)).await?;
+        print_output(&response, output)?;
+    }
     Ok(())
 }
 
@@ -1246,9 +1466,307 @@ fn normalize_api_path(path: &str) -> String {
     }
 }
 
-fn print_json(value: &Value) -> Result<(), Box<dyn std::error::Error>> {
-    println!("{}", to_string_pretty(value)?);
+fn print_output(value: &Value, output: &OutputConfig) -> Result<(), Box<dyn std::error::Error>> {
+    let formatted = format_output(value, output)?;
+    println!("{formatted}");
     Ok(())
+}
+
+async fn request_raw_with_context(
+    client: &impl ApiClient,
+    method: Method,
+    path: &str,
+    body: Option<&Value>,
+) -> Result<Value, Box<dyn std::error::Error>> {
+    client
+        .request_raw(method.clone(), path, body)
+        .await
+        .map_err(|err| wrap_request_error(method, path, err))
+}
+
+fn wrap_request_error(
+    method: Method,
+    path: &str,
+    err: Box<dyn std::error::Error + 'static>,
+) -> Box<dyn std::error::Error> {
+    Box::new(RequestError::new(method, path, err))
+}
+
+fn format_output(value: &Value, output: &OutputConfig) -> Result<String, Box<dyn std::error::Error>>
+{
+    let selected = match output.select.as_deref() {
+        Some(path) => select_value(value, path),
+        None => value.clone(),
+    };
+
+    match output.format {
+        OutputFormat::Json => Ok(to_string_pretty(&selected)?),
+        OutputFormat::Yaml => Ok(serde_yaml::to_string(&selected)?),
+        OutputFormat::Table => Ok(format_table(&selected)),
+    }
+}
+
+fn format_table(value: &Value) -> String {
+    let width = terminal_width().unwrap_or(120).min(u16::MAX as usize) as u16;
+    if let Value::Object(map) = value {
+        if let Some(Value::Array(items)) = map.get("results") {
+            let summary = format_table_summary(map);
+            let table = table_from_items(items, width);
+            return if summary.is_empty() {
+                table
+            } else {
+                format!("{summary}\n{table}")
+            };
+        }
+    }
+
+    match value {
+        Value::Array(items) => table_from_items(items, width),
+        Value::Object(map) => {
+            let mut table = base_table(width);
+            let headers: Vec<String> = map.keys().cloned().collect();
+            table.set_header(headers.iter().map(Cell::new));
+            let row = headers
+                .iter()
+                .map(|key| Cell::new(value_to_cell(map.get(key))))
+                .collect::<Vec<_>>();
+            table.add_row(row);
+            table.to_string()
+        }
+        _ => {
+            let mut table = base_table(width);
+            table.set_header(vec![Cell::new("value")]);
+            table.add_row(vec![Cell::new(value_to_cell(Some(value)))]);
+            table.to_string()
+        }
+    }
+}
+
+fn terminal_width() -> Option<usize> {
+    terminal_size().map(|(Width(width), _)| width as usize)
+}
+
+fn value_to_cell(value: Option<&Value>) -> String {
+    match value {
+        Some(Value::Null) | None => "".to_string(),
+        Some(Value::String(value)) => value.clone(),
+        Some(Value::Number(value)) => value.to_string(),
+        Some(Value::Bool(value)) => value.to_string(),
+        Some(Value::Array(items)) => format!("[{}]", items.len()),
+        Some(Value::Object(map)) => extract_display(map)
+            .or_else(|| map.get("id").and_then(Value::as_i64).map(|id| id.to_string()))
+            .unwrap_or_else(|| compact_json(&Value::Object(map.clone()))),
+    }
+}
+
+fn base_table(width: u16) -> Table {
+    let mut table = Table::new();
+    table
+        .load_preset(comfy_table::presets::ASCII_FULL)
+        .set_content_arrangement(ContentArrangement::Dynamic)
+        .set_width(width);
+    table
+}
+
+fn table_from_items(items: &[Value], width: u16) -> String {
+    let mut table = base_table(width);
+    if let Some(Value::Object(first)) = items.first() {
+        let headers = infer_columns(items, first);
+        table.set_header(headers.iter().map(Cell::new));
+        for item in items {
+            if let Value::Object(map) = item {
+                let row = headers
+                    .iter()
+                    .map(|key| Cell::new(value_to_cell(map.get(key))))
+                    .collect::<Vec<_>>();
+                table.add_row(row);
+            } else {
+                table.add_row(vec![Cell::new(value_to_cell(Some(item)))]);
+            }
+        }
+    } else {
+        table.set_header(vec![Cell::new("value")]);
+        for item in items {
+            table.add_row(vec![Cell::new(value_to_cell(Some(item)))]);
+        }
+    }
+    table.to_string()
+}
+
+fn infer_columns(items: &[Value], first: &serde_json::Map<String, Value>) -> Vec<String> {
+    let preferred = [
+        "id",
+        "name",
+        "display",
+        "slug",
+        "status",
+        "site",
+        "role",
+        "device_type",
+        "manufacturer",
+        "model",
+        "url",
+    ];
+
+    let mut columns = Vec::new();
+    for key in preferred {
+        if first.contains_key(key) {
+            columns.push(key.to_string());
+        }
+    }
+
+    if columns.is_empty() {
+        columns = first.keys().take(6).cloned().collect();
+    }
+
+    if columns.len() < 6 {
+        let mut additional = first
+            .keys()
+            .filter(|key| !columns.iter().any(|col| col == *key))
+            .take(6 - columns.len())
+            .cloned()
+            .collect::<Vec<_>>();
+        columns.append(&mut additional);
+    }
+
+    if columns.len() > 6 {
+        columns.truncate(6);
+    }
+
+    if columns.len() > 1 && items.iter().any(|item| matches!(item, Value::Object(_))) {
+        columns
+    } else {
+        vec!["value".to_string()]
+    }
+}
+
+fn format_table_summary(map: &serde_json::Map<String, Value>) -> String {
+    let count = map.get("count").and_then(Value::as_i64).map(|v| v.to_string());
+    let next = map
+        .get("next")
+        .and_then(Value::as_str)
+        .unwrap_or("")
+        .to_string();
+    let previous = map
+        .get("previous")
+        .and_then(Value::as_str)
+        .unwrap_or("")
+        .to_string();
+
+    let mut parts = Vec::new();
+    if let Some(count) = count {
+        parts.push(format!("count: {count}"));
+    }
+    if !next.is_empty() {
+        parts.push(format!("next: {next}"));
+    }
+    if !previous.is_empty() {
+        parts.push(format!("previous: {previous}"));
+    }
+    parts.join(" | ")
+}
+
+fn extract_display(map: &serde_json::Map<String, Value>) -> Option<String> {
+    for key in ["display", "name", "label", "value", "slug"] {
+        if let Some(Value::String(value)) = map.get(key) {
+            return Some(value.clone());
+        }
+    }
+    None
+}
+
+fn compact_json(value: &Value) -> String {
+    let raw = serde_json::to_string(value).unwrap_or_else(|_| "<invalid>".to_string());
+    if raw.len() > 120 {
+        format!("{}...", &raw[..117])
+    } else {
+        raw
+    }
+}
+
+fn format_netbox_error(
+    method: &Method,
+    path: &str,
+    err: &(dyn std::error::Error + 'static),
+) -> Option<String> {
+    let netbox_err = err.downcast_ref::<netbox::Error>()?;
+    let netbox::Error::ApiError {
+        status,
+        message,
+        body,
+    } = netbox_err
+    else {
+        return None;
+    };
+
+    let mut detail = format!("status {}", status);
+    if let Some(request_id) = extract_request_id(body) {
+        detail.push_str(&format!(", request_id {request_id}"));
+    }
+    let mut summary = format!("request failed: {} {} ({detail})", method.as_str(), path);
+    if !message.is_empty() {
+        summary.push_str(": ");
+        summary.push_str(message);
+    }
+    Some(summary)
+}
+
+fn extract_request_id(body: &str) -> Option<String> {
+    let value: Value = serde_json::from_str(body).ok()?;
+    for key in ["request_id", "requestId", "request-id"] {
+        if let Some(Value::String(id)) = value.get(key) {
+            return Some(id.clone());
+        }
+    }
+    None
+}
+
+fn select_value(value: &Value, path: &str) -> Value {
+    let segments: Vec<&str> = path.split('.').filter(|seg| !seg.is_empty()).collect();
+    select_value_segments(value, &segments)
+}
+
+fn select_value_segments(value: &Value, segments: &[&str]) -> Value {
+    if segments.is_empty() {
+        return value.clone();
+    }
+
+    match value {
+        Value::Array(items) => Value::Array(
+            items
+                .iter()
+                .map(|item| select_value_segments(item, segments))
+                .collect(),
+        ),
+        Value::Object(map) => map
+            .get(segments[0])
+            .map(|next| select_value_segments(next, &segments[1..]))
+            .unwrap_or(Value::Null),
+        _ => Value::Null,
+    }
+}
+
+fn print_dry_run(
+    method: Method,
+    path: &str,
+    query: Option<&[String]>,
+    body: Option<&Value>,
+) -> Result<(), Box<dyn std::error::Error>> {
+    let full_path = match query {
+        Some(query) => append_query(path, query)?,
+        None => path.to_string(),
+    };
+    let payload = dry_run_payload(method, &full_path, body);
+    println!("{}", to_string_pretty(&payload)?);
+    Ok(())
+}
+
+fn dry_run_payload(method: Method, path: &str, body: Option<&Value>) -> Value {
+    serde_json::json!({
+        "method": method.as_str(),
+        "path": path,
+        "body": body,
+    })
 }
 
 fn load_json<T>(input: &JsonInput) -> Result<T, Box<dyn std::error::Error>>
@@ -1312,9 +1830,9 @@ fn append_query(path: &str, query: &[String]) -> Result<String, Box<dyn std::err
     Ok(format!("{}{}{}", path, separator, query_string))
 }
 
-fn parse_query_pairs(
-    query: &[String],
-) -> Result<Vec<(String, String)>, Box<dyn std::error::Error>> {
+    fn parse_query_pairs(
+        query: &[String],
+    ) -> Result<Vec<(String, String)>, Box<dyn std::error::Error>> {
     let mut pairs = Vec::with_capacity(query.len());
     for item in query {
         let mut parts = item.splitn(2, '=');
@@ -1326,6 +1844,20 @@ fn parse_query_pairs(
         pairs.push((key.to_string(), value.unwrap().to_string()));
     }
     Ok(pairs)
+}
+
+fn build_schema_path(
+    format: Option<&str>,
+    lang: Option<&str>,
+) -> Result<String, Box<dyn std::error::Error>> {
+    let mut query = Vec::new();
+    if let Some(format) = format {
+        query.push(format!("format={}", format));
+    }
+    if let Some(lang) = lang {
+        query.push(format!("lang={}", lang));
+    }
+    append_query("schema/", &query)
 }
 
 #[cfg(test)]
@@ -1459,6 +1991,14 @@ mod tests {
             _lang: Option<&str>,
         ) -> Result<Value, Box<dyn std::error::Error>> {
             Ok(self.next.lock().unwrap().clone())
+        }
+    }
+
+    fn output_config() -> OutputConfig {
+        OutputConfig {
+            format: OutputFormat::Json,
+            select: None,
+            dry_run: false,
         }
     }
 
@@ -1615,6 +2155,78 @@ mod tests {
     }
 
     #[test]
+    fn select_value_handles_arrays() {
+        let value = json!({
+            "results": [
+                {"name": "a"},
+                {"name": "b"}
+            ]
+        });
+        let selected = select_value(&value, "results.name");
+        assert_eq!(selected, json!(["a", "b"]));
+    }
+
+    #[test]
+    fn format_table_handles_objects() {
+        let value = json!({"name": "leaf-1", "status": "active"});
+        let table = format_table(&value);
+        assert!(table.contains("name"));
+        assert!(table.contains("leaf-1"));
+    }
+
+    #[test]
+    fn dry_run_payload_includes_path_and_body() {
+        let payload = dry_run_payload(
+            Method::POST,
+            "dcim/devices/",
+            Some(&json!({"name":"leaf-1"})),
+        );
+        assert_eq!(payload["method"], "POST");
+        assert_eq!(payload["path"], "dcim/devices/");
+        assert_eq!(payload["body"]["name"], "leaf-1");
+    }
+
+    #[test]
+    fn format_netbox_error_includes_status_path_and_request_id() {
+        let body = r#"{"request_id":"req-123","detail":"bad"}"#.to_string();
+        let err = netbox::Error::ApiError {
+            status: 400,
+            message: "bad".to_string(),
+            body,
+        };
+        let wrapped = RequestError::new(Method::POST, "dcim/devices/", Box::new(err));
+        let message = wrapped.to_string();
+        assert!(message.contains("POST"));
+        assert!(message.contains("dcim/devices/"));
+        assert!(message.contains("status 400"));
+        assert!(message.contains("request_id req-123"));
+        assert!(message.contains("bad"));
+    }
+
+    #[test]
+    fn build_schema_path_includes_query() {
+        let path = build_schema_path(Some("json"), Some("en")).unwrap();
+        assert_eq!(path, "schema/?format=json&lang=en");
+    }
+
+    #[test]
+    fn format_table_flattens_results() {
+        let value = json!({
+            "count": 2,
+            "next": null,
+            "previous": null,
+            "results": [
+                {"id": 1, "name": "alpha"},
+                {"id": 2, "name": "beta"}
+            ]
+        });
+        let table = format_table(&value);
+        assert!(table.contains("count: 2"));
+        assert!(table.contains("alpha"));
+        assert!(table.contains("beta"));
+    }
+
+    #[test]
     fn find_resource_path_matches_known_resource() {
         let path = find_resource_path(DCIM_RESOURCES, "devices");
         assert_eq!(path, Some("dcim/devices/"));
@@ -1733,7 +2345,7 @@ mod tests {
         let action = ResourceAction::List {
             query: vec!["name=leaf-1".to_string()],
         };
-        handle_resource_action(&client, "dcim/devices/", action)
+        handle_resource_action(&client, &output_config(), "dcim/devices/", action)
             .await
             .unwrap();
         let calls = client.calls();
@@ -1747,7 +2359,7 @@ mod tests {
     async fn handle_resource_action_get_calls_get() {
         let client = FakeApiClient::new(json!({"ok": true}));
         let action = ResourceAction::Get { id: 42 };
-        handle_resource_action(&client, "dcim/devices/", action)
+        handle_resource_action(&client, &output_config(), "dcim/devices/", action)
             .await
             .unwrap();
         let calls = client.calls();
@@ -1763,7 +2375,7 @@ mod tests {
             file: None,
         };
         let action = ResourceAction::Create { input };
-        handle_resource_action(&client, "dcim/devices/", action)
+        handle_resource_action(&client, &output_config(), "dcim/devices/", action)
             .await
             .unwrap();
         let calls = client.calls();
@@ -1780,7 +2392,7 @@ mod tests {
             file: None,
         };
         let action = ResourceAction::Update { id: 7, input };
-        handle_resource_action(&client, "dcim/devices/", action)
+        handle_resource_action(&client, &output_config(), "dcim/devices/", action)
             .await
             .unwrap();
         let calls = client.calls();
@@ -1796,7 +2408,7 @@ mod tests {
             file: None,
         };
         let action = ResourceAction::Patch { id: 7, input };
-        handle_resource_action(&client, "dcim/devices/", action)
+        handle_resource_action(&client, &output_config(), "dcim/devices/", action)
             .await
             .unwrap();
         let calls = client.calls();
@@ -1808,7 +2420,7 @@ mod tests {
     async fn handle_resource_action_delete_calls_delete() {
         let client = FakeApiClient::new(Value::Null);
         let action = ResourceAction::Delete { id: 7 };
-        handle_resource_action(&client, "dcim/devices/", action)
+        handle_resource_action(&client, &output_config(), "dcim/devices/", action)
             .await
             .unwrap();
         let calls = client.calls();
@@ -1819,10 +2431,10 @@ mod tests {
     #[tokio::test]
     async fn handle_dashboard_action_paths() {
         let client = FakeApiClient::new(Value::Null);
-        handle_dashboard_action(&client, DashboardAction::Get)
+        handle_dashboard_action(&client, &output_config(), DashboardAction::Get)
             .await
             .unwrap();
-        handle_dashboard_action(&client, DashboardAction::Delete)
+        handle_dashboard_action(&client, &output_config(), DashboardAction::Delete)
             .await
             .unwrap();
         let calls = client.calls();
@@ -1836,7 +2448,7 @@ mod tests {
         let action = NamedLookupAction::Get {
             name: "queue-1".to_string(),
         };
-        handle_named_lookup(&client, "core/background-queues/", action)
+        handle_named_lookup(&client, &output_config(), "core/background-queues/", action)
             .await
             .unwrap();
         let calls = client.calls();
@@ -1850,7 +2462,7 @@ mod tests {
             json: Some(r#"{"confirm":true}"#.to_string()),
             file: None,
         };
-        handle_branch_action(&client, 9, BranchAction::Merge { input })
+        handle_branch_action(&client, &output_config(), 9, BranchAction::Merge { input })
             .await
             .unwrap();
         let calls = client.calls();
@@ -1863,6 +2475,7 @@ mod tests {
         let client = FakeApiClient::new(json!({"ok": true}));
         let result = handle_resource_group(
             &client,
+            &output_config(),
             "dcim",
             DCIM_RESOURCES,
             "not-a-device",
@@ -1876,8 +2489,24 @@ mod tests {
     async fn handle_resource_action_bubbles_api_error() {
         let client = ErrorApiClient;
         let action = ResourceAction::List { query: vec![] };
-        let result = handle_resource_action(&client, "dcim/devices/", action).await;
+        let result = handle_resource_action(&client, &output_config(), "dcim/devices/", action)
+            .await;
         assert!(result.is_err());
+    }
+
+    #[tokio::test]
+    async fn handle_resource_action_create_dry_run_skips_api() {
+        let client = ErrorApiClient;
+        let mut output = output_config();
+        output.dry_run = true;
+        let input = JsonInput {
+            json: Some(r#"{"name":"leaf-1"}"#.to_string()),
+            file: None,
+        };
+        let action = ResourceAction::Create { input };
+        handle_resource_action(&client, &output, "dcim/devices/", action)
+            .await
+            .unwrap();
     }
 
     #[tokio::test]
@@ -1900,12 +2529,51 @@ mod tests {
         };
         handle_resource_action(
             &api,
+            &output_config(),
             "dcim/devices/",
             ResourceAction::List {
                 query: vec!["limit=1".to_string()],
             },
         )
         .await?;
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[ignore]
+    async fn smoke_output_formats() -> Result<(), Box<dyn Error>> {
+        let Some(api) = env_api_client()? else {
+            eprintln!("NETBOX_TOKEN not set; skipping smoke_output_formats");
+            return Ok(());
+        };
+        let status = api.status().await?;
+        for format in [OutputFormat::Json, OutputFormat::Yaml, OutputFormat::Table] {
+            let output = OutputConfig {
+                format,
+                select: None,
+                dry_run: false,
+            };
+            let rendered = format_output(&status, &output)?;
+            assert!(!rendered.trim().is_empty(), "expected output for {format:?}");
+        }
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[ignore]
+    async fn smoke_select_output() -> Result<(), Box<dyn Error>> {
+        let Some(api) = env_api_client()? else {
+            eprintln!("NETBOX_TOKEN not set; skipping smoke_select_output");
+            return Ok(());
+        };
+        let status = api.status().await?;
+        let output = OutputConfig {
+            format: OutputFormat::Json,
+            select: Some("netbox-version".to_string()),
+            dry_run: false,
+        };
+        let rendered = format_output(&status, &output)?;
+        assert!(!rendered.trim().is_empty());
         Ok(())
     }
 
@@ -1976,6 +2644,7 @@ mod tests {
         };
         handle_resource_action(
             &api,
+            &output_config(),
             "extras/tags/",
             ResourceAction::Create { input: create },
         )
@@ -2000,6 +2669,7 @@ mod tests {
         };
         handle_resource_action(
             &api,
+            &output_config(),
             "extras/tags/",
             ResourceAction::Update {
                 id: tag_id,
@@ -2014,6 +2684,7 @@ mod tests {
         };
         handle_resource_action(
             &api,
+            &output_config(),
             "extras/tags/",
             ResourceAction::Patch {
                 id: tag_id,
@@ -2022,7 +2693,13 @@ mod tests {
         )
         .await?;
 
-        handle_resource_action(&api, "extras/tags/", ResourceAction::Delete { id: tag_id }).await?;
+        handle_resource_action(
+            &api,
+            &output_config(),
+            "extras/tags/",
+            ResourceAction::Delete { id: tag_id },
+        )
+        .await?;
         Ok(())
     }
 }

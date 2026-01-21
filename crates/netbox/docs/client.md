@@ -6,7 +6,7 @@ this crate provides a typed, ergonomic client for the netbox 4.x rest api.
 
 ```toml
 [dependencies]
-netbox = "0.1.6"
+netbox = "0.2.0"
 tokio = { version = "1.0", features = ["full"] }
 ```
 

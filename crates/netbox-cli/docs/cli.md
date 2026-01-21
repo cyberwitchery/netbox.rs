@@ -64,6 +64,31 @@ netbox-cli circuits circuits create --json '{"cid":"CIR-1001","provider":1,"type
 netbox-cli virtualization virtual-machines update 42 --file vm-update.json
 ```
 
+## output formats
+
+```bash
+netbox-cli dcim devices list --output json
+netbox-cli dcim devices list --output yaml
+netbox-cli dcim devices list --output table
+```
+
+select a field with a dot path:
+
+```bash
+netbox-cli dcim devices list --select results
+netbox-cli dcim devices list --select results.name
+```
+
+table output flattens paginated responses by showing the `results` rows and a summary line with count/next/previous when present.
+
+## dry run
+
+print the request for write operations without sending them:
+
+```bash
+netbox-cli dcim devices create --json '{"name":"switch-01","device_type":1,"role":1,"site":1}' --dry-run
+```
+
 ## raw requests
 
 use `raw` for any endpoint:
@@ -104,6 +129,8 @@ exit codes:
 - `0` success
 - `1` request or parsing error
 - `2` invalid command or arguments
+
+errors include http status, path, and request id when available.
 
 ## help
 

@@ -4,6 +4,7 @@
 //! NETBOX_TOKEN=... NETBOX_URL=http://localhost:8000 cargo test -p netbox --test smoke_local -- --ignored
 
 use netbox::{Client, ClientConfig, Page, QueryBuilder, Result};
+use netbox::openapi::apis::status_api;
 use reqwest::Method;
 use serde_json::{Value, json};
 
@@ -293,6 +294,40 @@ async fn cleanup_existing(client: &Client) {
 }
 
 async fn run_smoke(client: &Client, created: &mut Created) -> Result<()> {
+    eprintln!("smoke: status endpoint");
+    let status = client.status().status().await?;
+    assert!(
+        status.contains_key("netbox-version"),
+        "status missing netbox-version"
+    );
+
+    eprintln!("smoke: schema endpoint");
+    let schema = client.schema().schema(Some("json"), None).await?;
+    assert!(schema.contains_key("openapi"), "schema missing openapi");
+
+    eprintln!("smoke: users config endpoint");
+    let _config = client.users().config().await?;
+
+    eprintln!("smoke: openapi status");
+    let openapi = client.openapi_config()?;
+    let openapi_status = status_api::status_retrieve(&openapi)
+        .await
+        .map_err(|err| netbox::Error::Config(format!("openapi status failed: {err}")))?;
+    assert!(
+        openapi_status.contains_key("netbox-version"),
+        "openapi status missing netbox-version"
+    );
+
+    eprintln!("smoke: graphql introspection");
+    let gql = client
+        .graphql()
+        .query("query { __schema { queryType { name } } }", None)
+        .await?;
+    assert!(
+        gql.get("__schema").is_some(),
+        "graphql introspection missing __schema"
+    );
+
     eprintln!("smoke: create tag");
     let tag = request_json(
         client,
@@ -311,6 +346,22 @@ async fn run_smoke(client: &Client, created: &mut Created) -> Result<()> {
         let tag_model = client.extras().tags().get(tag_id).await?;
         assert_eq!(tag_model.slug, "codex-smoke");
     }
+
+    eprintln!("smoke: list tags (typed list)");
+    let tag_list = client
+        .extras()
+        .tags()
+        .list(Some(QueryBuilder::new().filter("slug", "codex-smoke")))
+        .await?;
+    assert!(!tag_list.results.is_empty(), "expected tag list");
+
+    eprintln!("smoke: paginate tags");
+    let mut tag_pages = client
+        .extras()
+        .tags()
+        .paginate(Some(QueryBuilder::new().limit(1)))?;
+    let tag_page = tag_pages.next_page().await?;
+    assert!(tag_page.is_some(), "expected at least one tag page");
 
     eprintln!("smoke: create tenant group");
     let tenant_group = request_json(
@@ -433,6 +484,14 @@ async fn run_smoke(client: &Client, created: &mut Created) -> Result<()> {
     )
     .await?;
     assert!(!tenants.results.is_empty(), "expected at least one tenant");
+
+    eprintln!("smoke: paginate tenants");
+    let mut tenant_pages = client
+        .tenancy()
+        .tenants()
+        .paginate(Some(QueryBuilder::new().limit(1)))?;
+    let tenant_page = tenant_pages.next_page().await?;
+    assert!(tenant_page.is_some(), "expected at least one tenant page");
 
     Ok(())
 }

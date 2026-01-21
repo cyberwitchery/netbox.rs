@@ -23,7 +23,7 @@ add to `Cargo.toml`:
 
 ```toml
 [dependencies]
-netbox = "0.1.6"
+netbox = "0.2.0"
 tokio = { version = "1.0", features = ["full"] }
 ```
 
@@ -216,6 +216,19 @@ raw requests:
 ```bash
 netbox-cli raw --method GET --path dcim/devices/ --query "name=leaf-1" --query "limit=5"
 netbox-cli raw --method POST --path ipam/vrfs/ --json '{"name":"blue","rd":"65000:100"}'
+```
+
+output formats and selection:
+
+```bash
+netbox-cli dcim devices list --output table
+netbox-cli dcim devices list --select results.name
+```
+
+dry run for writes:
+
+```bash
+netbox-cli dcim devices create --json '{"name":"switch-01","device_type":1,"role":1,"site":1}' --dry-run
 ```
 
 graphql:
