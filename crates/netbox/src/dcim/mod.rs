@@ -1,5 +1,7 @@
 //! dcim endpoints for devices, racks, sites, interfaces, and inventory.
 //!
+//! includes cable path tracing for interfaces, console ports, and power connections.
+//!
 //! basic usage:
 //! ```no_run
 //! # use netbox::{Client, ClientConfig};
@@ -7,6 +9,17 @@
 //! # let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
 //! let devices = client.dcim().devices().list(None).await?;
 //! println!("{}", devices.count);
+//! # Ok(())
+//! # }
+//! ```
+//!
+//! cable tracing:
+//! ```no_run
+//! # use netbox::{Client, ClientConfig};
+//! # async fn example() -> Result<(), Box<dyn std::error::Error>> {
+//! # let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
+//! // trace an interface's cable path
+//! let path = client.dcim().trace_interface(99).await?;
 //! # Ok(())
 //! # }
 //! ```

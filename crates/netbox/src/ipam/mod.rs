@@ -1,5 +1,8 @@
 //! ipam endpoints for prefixes, addresses, vrfs, vlans, and asns.
 //!
+//! includes availability queries for allocating IPs, prefixes, VLANs, and ASNs
+//! from their respective pools.
+//!
 //! basic usage:
 //! ```no_run
 //! # use netbox::{Client, ClientConfig};
@@ -7,6 +10,22 @@
 //! # let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
 //! let prefixes = client.ipam().prefixes().list(None).await?;
 //! println!("{}", prefixes.count);
+//! # Ok(())
+//! # }
+//! ```
+//!
+//! availability queries:
+//! ```no_run
+//! # use netbox::{Client, ClientConfig};
+//! # async fn example() -> Result<(), Box<dyn std::error::Error>> {
+//! # let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
+//! // list available IPs in a prefix
+//! let available = client.ipam().available_ips_in_prefix(42).await?;
+//!
+//! // allocate from available pool
+//! let created = client.ipam().create_available_ips_in_prefix(42, &[
+//!     serde_json::json!({"description": "allocated via api"})
+//! ]).await?;
 //! # Ok(())
 //! # }
 //! ```

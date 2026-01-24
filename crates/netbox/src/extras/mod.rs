@@ -1,5 +1,7 @@
 //! extras endpoints for tags, webhooks, scripts, and custom fields.
 //!
+//! includes sync operations for config contexts and templates, plus template rendering.
+//!
 //! basic usage:
 //! ```no_run
 //! # use netbox::{Client, ClientConfig};
@@ -7,6 +9,20 @@
 //! # let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
 //! let tags = client.extras().tags().list(None).await?;
 //! println!("{}", tags.count);
+//! # Ok(())
+//! # }
+//! ```
+//!
+//! sync and render:
+//! ```no_run
+//! # use netbox::{Client, ClientConfig};
+//! # async fn example() -> Result<(), Box<dyn std::error::Error>> {
+//! # let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
+//! // sync a config template from its data source
+//! client.extras().sync_config_template(5).await?;
+//!
+//! // render a config template
+//! let output = client.extras().render_config_template(5).await?;
 //! # Ok(())
 //! # }
 //! ```

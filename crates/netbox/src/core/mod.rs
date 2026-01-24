@@ -1,5 +1,7 @@
 //! core endpoints for background tasks, data sources, and system metadata.
 //!
+//! includes task management (enqueue, stop, requeue, delete) and data source sync.
+//!
 //! basic usage:
 //! ```no_run
 //! # use netbox::{Client, ClientConfig};
@@ -7,6 +9,20 @@
 //! # let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
 //! let changes = client.core().object_changes().list(None).await?;
 //! println!("{}", changes.count);
+//! # Ok(())
+//! # }
+//! ```
+//!
+//! task management:
+//! ```no_run
+//! # use netbox::{Client, ClientConfig};
+//! # async fn example() -> Result<(), Box<dyn std::error::Error>> {
+//! # let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
+//! // enqueue a background task
+//! client.core().enqueue_task("task-id").await?;
+//!
+//! // sync a data source
+//! client.core().sync_data_source(7).await?;
 //! # Ok(())
 //! # }
 //! ```

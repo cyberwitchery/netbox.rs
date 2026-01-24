@@ -1,5 +1,7 @@
 //! virtualization endpoints for clusters, vms, and interfaces.
 //!
+//! includes configuration rendering for virtual machines.
+//!
 //! basic usage:
 //! ```no_run
 //! # use netbox::{Client, ClientConfig};
@@ -7,6 +9,17 @@
 //! # let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
 //! let vms = client.virtualization().virtual_machines().list(None).await?;
 //! println!("{}", vms.count);
+//! # Ok(())
+//! # }
+//! ```
+//!
+//! config rendering:
+//! ```no_run
+//! # use netbox::{Client, ClientConfig};
+//! # async fn example() -> Result<(), Box<dyn std::error::Error>> {
+//! # let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
+//! // render a VM's configuration
+//! let config = client.virtualization().render_vm_config(42).await?;
 //! # Ok(())
 //! # }
 //! ```

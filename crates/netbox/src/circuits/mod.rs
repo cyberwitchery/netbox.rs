@@ -1,5 +1,7 @@
 //! circuits endpoints for providers, circuits, terminations, and virtual circuits.
 //!
+//! includes path queries for circuit and virtual circuit terminations.
+//!
 //! basic usage:
 //! ```no_run
 //! # use netbox::{Client, ClientConfig};
@@ -7,6 +9,17 @@
 //! # let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
 //! let circuits = client.circuits().circuits().list(None).await?;
 //! println!("{}", circuits.count);
+//! # Ok(())
+//! # }
+//! ```
+//!
+//! path queries:
+//! ```no_run
+//! # use netbox::{Client, ClientConfig};
+//! # async fn example() -> Result<(), Box<dyn std::error::Error>> {
+//! # let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
+//! // get paths for a circuit termination
+//! let paths = client.circuits().circuit_termination_paths(10).await?;
 //! # Ok(())
 //! # }
 //! ```

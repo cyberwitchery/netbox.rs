@@ -2,11 +2,80 @@
 
 this crate provides a typed, ergonomic client for the netbox 4.x rest api.
 
+## features
+
+- **typed resources** - strongly-typed request/response models for all netbox endpoints
+- **crud operations** - list, get, create, update, patch, delete with query filtering
+- **pagination** - iterator-based pagination with automatic page fetching
+- **bulk operations** - batch create, update, patch, and delete
+- **specialized endpoints** - ipam availability, dcim cable tracing, config rendering, task management
+- **graphql** - read-only graphql query support
+- **error handling** - structured errors with status codes and api messages
+
+## modules
+
+the client exposes netbox endpoints through typed module accessors:
+
+- `client.dcim()` - devices, interfaces, sites, racks, cables, power
+- `client.ipam()` - prefixes, ip addresses, vlans, vrfs, asns
+- `client.circuits()` - providers, circuits, terminations
+- `client.virtualization()` - clusters, virtual machines, vm interfaces
+- `client.tenancy()` - tenants, contacts
+- `client.extras()` - tags, custom fields, config contexts, webhooks
+- `client.core()` - background tasks, data sources, jobs
+- `client.users()` - users, groups, tokens, permissions
+- `client.vpn()` - tunnels, ike/ipsec policies, l2vpns
+- `client.wireless()` - wireless lans, links
+- `client.plugins()` - netbox-branching plugin support
+
+each module returns typed `Resource<T>` handles with standard crud methods, plus specialized action methods where applicable.
+
+## resource pattern
+
+all netbox endpoints follow the same pattern. access a module, then a resource, then call an action:
+
+```text
+client.{module}().{resource}().{action}()
+```
+
+every `Resource<T>` provides these standard methods:
+
+| method | http | description |
+|--------|------|-------------|
+| `list(query)` | GET | fetch paginated results with optional filters |
+| `get(id)` | GET | fetch a single item by id |
+| `create(body)` | POST | create a new item |
+| `update(id, body)` | PUT | full replacement update |
+| `patch(id, body)` | PATCH | partial update |
+| `delete(id)` | DELETE | remove an item |
+| `bulk_create(items)` | POST | create multiple items |
+| `bulk_update(items)` | PUT | full update multiple items |
+| `bulk_patch(items)` | PATCH | partial update multiple items |
+| `bulk_delete(items)` | DELETE | remove multiple items |
+| `paginate(query)` | GET | returns an iterator for all pages |
+
+## query filtering
+
+use `QueryBuilder` to filter, sort, and limit results:
+
+```text
+QueryBuilder::new()
+    .filter("key", "value")     // add a filter
+    .filter("status", "active") // filters are additive
+    .search("term")             // full-text search
+    .order_by("name")           // sort ascending
+    .order_by("-created")       // sort descending (prefix with -)
+    .limit(50)                  // max results per page
+    .offset(100)                // skip first N results
+```
+
+pass the builder to `list()` or `paginate()` to apply filters.
+
 ## install
 
 ```toml
 [dependencies]
-netbox = "0.2.1"
+netbox = "0.3"
 tokio = { version = "1.0", features = ["full"] }
 ```
 
