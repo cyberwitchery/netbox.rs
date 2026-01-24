@@ -2,13 +2,18 @@
 
 this release captures the current state of the project. no prior published state exists for comparison.
 
-## [unreleased]
+## [0.3.1] - 2026-01-24
 
 ### cli
+- add config file support at `~/.config/netbox-cli/config.toml` with named profiles
+- add `--profile` flag to select a config profile (default: "default")
+- add `config` subcommand with `path`, `list`, `show`, and `validate` actions
+- support `token_env` and `token_command` for secure token retrieval
 - add `--columns` flag for explicit table column selection
 - add `--max-columns` flag to control auto-selected column count (default: 6)
 
 ### docs
+- add config profiles documentation with examples
 - expand `--select` documentation with examples for nested arrays and objects
 
 ## [0.3.0] - 2026-01-24

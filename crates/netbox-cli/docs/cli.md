@@ -24,13 +24,53 @@ netbox-cli --url https://netbox.example.com --token $TOKEN dcim devices list
 
 ## auth
 
-required:
-- `--url`
-- `--token`
+credentials can come from (in priority order):
+1. CLI flags: `--url`, `--token`
+2. Environment variables: `NETBOX_URL`, `NETBOX_TOKEN`
+3. Config file profiles
 
-or set:
-- `NETBOX_URL`
-- `NETBOX_TOKEN`
+## config profiles
+
+create `~/.config/netbox-cli/config.toml`:
+
+```toml
+[default]
+url = "https://netbox.example.com"
+token_env = "NETBOX_TOKEN"
+
+[prod]
+url = "https://netbox.prod.example.com"
+token_command = "pass show netbox/prod-token"
+timeout = 60
+ssl_verify = true
+output = "table"
+```
+
+profile fields:
+- `url` - netbox instance url
+- `token` - plain token (not recommended)
+- `token_env` - env var containing token
+- `token_command` - command to get token (e.g., password manager)
+- `timeout` - request timeout in seconds
+- `retries` - max retry attempts
+- `ssl_verify` - verify ssl certificates (default: true)
+- `output` - default output format (json, yaml, table)
+
+use a profile:
+
+```bash
+netbox-cli --profile prod dcim devices list
+netbox-cli -p lab ipam prefixes list
+```
+
+manage config:
+
+```bash
+netbox-cli config path      # show config file location
+netbox-cli config list      # list available profiles
+netbox-cli config show      # show current profile
+netbox-cli config validate  # validate profile configuration
+```
 
 ## resources
 

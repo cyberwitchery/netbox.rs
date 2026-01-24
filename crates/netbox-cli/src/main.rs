@@ -1,7 +1,10 @@
 #![doc = include_str!("../docs/cli.md")]
 
+mod config;
+
 use clap::{Args, Parser, Subcommand, ValueEnum};
 use comfy_table::{Cell, ContentArrangement, Table};
+use config::{ConfigFile, Profile, load_config, config_path, validate_profile};
 use netbox::{Client, ClientConfig};
 use reqwest::Method;
 use serde::de::DeserializeOwned;
@@ -9,6 +12,7 @@ use serde_json::{Value, to_string_pretty};
 use std::fmt;
 use std::fs;
 use std::path::PathBuf;
+use std::time::Duration;
 use terminal_size::{Width, terminal_size};
 
 #[async_trait::async_trait]
@@ -704,17 +708,21 @@ const PLUGINS_RESOURCES: &[ResourceEntry] = &[
 #[command(name = "netbox-cli")]
 #[command(about = "CLI tool for testing NetBox API client", long_about = None)]
 struct Cli {
-    /// NetBox instance URL
-    #[arg(short, long, env)]
-    url: String,
+    /// NetBox instance URL (overrides config file)
+    #[arg(short, long, env = "NETBOX_URL")]
+    url: Option<String>,
 
-    /// API token
-    #[arg(short, long, env)]
-    token: String,
+    /// API token (overrides config file)
+    #[arg(short, long, env = "NETBOX_TOKEN")]
+    token: Option<String>,
+
+    /// Config profile to use (default: "default")
+    #[arg(short, long, default_value = "default")]
+    profile: String,
 
     /// Output format (json, yaml, table)
-    #[arg(long, value_enum, default_value = "json")]
-    output: OutputFormat,
+    #[arg(long, value_enum)]
+    output: Option<OutputFormat>,
 
     /// Select a field from the response (dot path)
     #[arg(long)]
@@ -737,7 +745,24 @@ struct Cli {
 }
 
 #[derive(Subcommand)]
+enum ConfigAction {
+    /// Show the resolved configuration for a profile
+    Show,
+    /// List all available profiles
+    List,
+    /// Validate a profile configuration
+    Validate,
+    /// Show the config file path
+    Path,
+}
+
+#[derive(Subcommand)]
 enum Commands {
+    /// Manage configuration profiles
+    Config {
+        #[command(subcommand)]
+        action: ConfigAction,
+    },
     /// List resources by group (or all resources)
     Resources {
         /// Resource group name (dcim, ipam, circuits, tenancy, extras, core, users, virtualization, vpn, wireless, plugins)
@@ -1091,11 +1116,72 @@ struct GraphqlInput {
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
 
-    let config = ClientConfig::new(&cli.url, &cli.token);
-    let client = Client::new(config)?;
+    // Load config file
+    let config_file = load_config().ok().flatten();
+
+    // Handle config commands first (no API access needed)
+    if let Commands::Config { action } = &cli.command {
+        return handle_config_command(action, &cli.profile, config_file.as_ref());
+    }
+
+    // Resolve profile from config file
+    let mut profile = Profile::default();
+    if let Some(ref cf) = config_file {
+        if let Some(p) = cf.get_profile(&cli.profile) {
+            profile = p.clone();
+        } else if cli.profile != "default" {
+            return Err(format!("profile '{}' not found in config file", cli.profile).into());
+        }
+    }
+
+    // CLI args override config
+    if cli.url.is_some() {
+        profile.url = cli.url.clone();
+    }
+    if cli.token.is_some() {
+        profile.token = cli.token.clone();
+    }
+    if cli.output.is_some() {
+        profile.output = cli.output.map(|o| format!("{:?}", o).to_lowercase());
+    }
+
+    // Resolve URL and token
+    let url = profile.url.clone().ok_or("url not specified (use --url, NETBOX_URL, or config file)")?;
+    let token = profile.resolve_token()?.ok_or(
+        "token not specified (use --token, NETBOX_TOKEN, token_env, or token_command in config)",
+    )?;
+
+    // Build client config
+    let mut client_config = ClientConfig::new(&url, &token);
+    if let Some(timeout) = profile.timeout {
+        client_config = client_config.with_timeout(Duration::from_secs(timeout));
+    }
+    if let Some(retries) = profile.retries {
+        client_config = client_config.with_max_retries(retries);
+    }
+    if let Some(ssl_verify) = profile.ssl_verify {
+        client_config = client_config.with_ssl_verification(ssl_verify);
+    }
+
+    let client = Client::new(client_config)?;
     let api = NetboxApiClient { inner: client };
+
+    // Resolve output format
+    let output_format = cli.output.unwrap_or_else(|| {
+        profile
+            .output
+            .as_deref()
+            .and_then(|s| match s {
+                "json" => Some(OutputFormat::Json),
+                "yaml" => Some(OutputFormat::Yaml),
+                "table" => Some(OutputFormat::Table),
+                _ => None,
+            })
+            .unwrap_or(OutputFormat::Json)
+    });
+
     let output = OutputConfig {
-        format: cli.output,
+        format: output_format,
         select: cli.select.clone(),
         columns: cli.columns.clone(),
         max_columns: cli.max_columns,
@@ -1103,6 +1189,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     };
 
     match cli.command {
+        Commands::Config { .. } => unreachable!(), // handled above
         Commands::Resources { group } => {
             print_resources(group.as_deref());
         }
@@ -1621,6 +1708,86 @@ async fn handle_trace_action(
     };
     let response = request_raw_with_context(client, Method::GET, &path, None).await?;
     print_output(&response, output)?;
+    Ok(())
+}
+
+fn handle_config_command(
+    action: &ConfigAction,
+    profile_name: &str,
+    config_file: Option<&ConfigFile>,
+) -> Result<(), Box<dyn std::error::Error>> {
+    match action {
+        ConfigAction::Path => {
+            match config_path() {
+                Some(path) => println!("{}", path.display()),
+                None => println!("(could not determine config directory)"),
+            }
+        }
+        ConfigAction::List => {
+            match config_file {
+                Some(cf) => {
+                    let mut names: Vec<_> = cf.profile_names();
+                    names.sort();
+                    for name in names {
+                        if name == profile_name {
+                            println!("{} (active)", name);
+                        } else {
+                            println!("{}", name);
+                        }
+                    }
+                }
+                None => {
+                    println!("(no config file found)");
+                    if let Some(path) = config_path() {
+                        println!("expected at: {}", path.display());
+                    }
+                }
+            }
+        }
+        ConfigAction::Show => {
+            match config_file {
+                Some(cf) => {
+                    if let Some(profile) = cf.get_profile(profile_name) {
+                        let toml = toml::to_string_pretty(profile)?;
+                        println!("[{}]", profile_name);
+                        print!("{}", toml);
+                    } else {
+                        return Err(format!("profile '{}' not found", profile_name).into());
+                    }
+                }
+                None => {
+                    return Err("no config file found".into());
+                }
+            }
+        }
+        ConfigAction::Validate => {
+            match config_file {
+                Some(cf) => {
+                    if let Some(profile) = cf.get_profile(profile_name) {
+                        match validate_profile(profile) {
+                            Ok(()) => {
+                                println!("profile '{}' is valid", profile_name);
+                                // Try to resolve token to catch command errors
+                                match profile.resolve_token() {
+                                    Ok(Some(_)) => println!("  token: ok"),
+                                    Ok(None) => println!("  token: (not set, will need --token or NETBOX_TOKEN)"),
+                                    Err(e) => println!("  token: error - {}", e),
+                                }
+                            }
+                            Err(e) => {
+                                return Err(format!("profile '{}' invalid: {}", profile_name, e).into());
+                            }
+                        }
+                    } else {
+                        return Err(format!("profile '{}' not found", profile_name).into());
+                    }
+                }
+                None => {
+                    return Err("no config file found".into());
+                }
+            }
+        }
+    }
     Ok(())
 }
 
@@ -3225,5 +3392,62 @@ mod tests {
             }
             _ => panic!("expected virtualization-render-config command"),
         }
+    }
+
+    #[test]
+    fn parse_config_list_command() {
+        let args = vec![
+            "netbox-cli".to_string(),
+            "config".to_string(),
+            "list".to_string(),
+        ];
+        let cli = Cli::try_parse_from(&args).unwrap();
+        assert!(matches!(cli.command, Commands::Config { action: ConfigAction::List }));
+    }
+
+    #[test]
+    fn parse_config_show_command() {
+        let args = vec![
+            "netbox-cli".to_string(),
+            "config".to_string(),
+            "show".to_string(),
+        ];
+        let cli = Cli::try_parse_from(&args).unwrap();
+        assert!(matches!(cli.command, Commands::Config { action: ConfigAction::Show }));
+    }
+
+    #[test]
+    fn parse_config_validate_command() {
+        let args = vec![
+            "netbox-cli".to_string(),
+            "config".to_string(),
+            "validate".to_string(),
+        ];
+        let cli = Cli::try_parse_from(&args).unwrap();
+        assert!(matches!(cli.command, Commands::Config { action: ConfigAction::Validate }));
+    }
+
+    #[test]
+    fn parse_profile_flag() {
+        let args = vec![
+            "netbox-cli".to_string(),
+            "--profile".to_string(),
+            "prod".to_string(),
+            "config".to_string(),
+            "show".to_string(),
+        ];
+        let cli = Cli::try_parse_from(&args).unwrap();
+        assert_eq!(cli.profile, "prod");
+    }
+
+    #[test]
+    fn default_profile_is_default() {
+        let args = vec![
+            "netbox-cli".to_string(),
+            "config".to_string(),
+            "list".to_string(),
+        ];
+        let cli = Cli::try_parse_from(&args).unwrap();
+        assert_eq!(cli.profile, "default");
     }
 }
