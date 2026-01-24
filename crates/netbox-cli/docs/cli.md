@@ -79,7 +79,71 @@ netbox-cli dcim devices list --select results
 netbox-cli dcim devices list --select results.name
 ```
 
+### select path examples
+
+the `--select` flag uses dot notation to navigate nested structures. when traversing arrays, the path applies to each element.
+
+**basic field selection:**
+```bash
+# get just the results array from a paginated response
+netbox-cli dcim devices list --select results
+
+# get the count field
+netbox-cli dcim devices list --select count
+```
+
+**nested object navigation:**
+```bash
+# get the site object from each device
+netbox-cli dcim devices list --select results.site
+
+# get the site name from each device
+netbox-cli dcim devices list --select results.site.name
+
+# get the device type's manufacturer name
+netbox-cli dcim devices list --select results.device_type.manufacturer.name
+```
+
+**array mapping:**
+
+when the path crosses an array, subsequent segments apply to each element:
+
+```bash
+# response: {"results": [{"name": "sw1"}, {"name": "sw2"}]}
+# --select results.name produces: ["sw1", "sw2"]
+
+# response: {"results": [{"tags": [{"name": "prod"}, {"name": "dc1"}]}, ...]}
+# --select results.tags.name produces: [[\"prod\", \"dc1\"], ...]
+```
+
+**combining with output formats:**
+```bash
+# extract names and output as yaml
+netbox-cli dcim devices list --select results.name --output yaml
+
+# extract nested field for table display
+netbox-cli dcim devices list --select results --output table
+```
+
 table output flattens paginated responses by showing the `results` rows and a summary line with count/next/previous when present.
+
+## table column control
+
+specify which columns to show in table output:
+
+```bash
+netbox-cli dcim devices list --output table --columns id,name,status
+netbox-cli ipam prefixes list --output table --columns prefix,site,status,vlan
+```
+
+change the maximum number of auto-selected columns (default: 6):
+
+```bash
+netbox-cli dcim devices list --output table --max-columns 10
+netbox-cli dcim devices list --output table --max-columns 3
+```
+
+when `--columns` is specified, only those columns are shown. when not specified, columns are auto-selected from preferred fields (id, name, display, status, etc.) up to `--max-columns`.
 
 ## dry run
 

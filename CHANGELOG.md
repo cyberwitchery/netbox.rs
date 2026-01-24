@@ -2,6 +2,15 @@
 
 this release captures the current state of the project. no prior published state exists for comparison.
 
+## [unreleased]
+
+### cli
+- add `--columns` flag for explicit table column selection
+- add `--max-columns` flag to control auto-selected column count (default: 6)
+
+### docs
+- expand `--select` documentation with examples for nested arrays and objects
+
 ## [0.3.0] - 2026-01-24
 
 ### client

@@ -86,6 +86,8 @@ enum OutputFormat {
 struct OutputConfig {
     format: OutputFormat,
     select: Option<String>,
+    columns: Option<Vec<String>>,
+    max_columns: usize,
     dry_run: bool,
 }
 
@@ -718,6 +720,14 @@ struct Cli {
     #[arg(long)]
     select: Option<String>,
 
+    /// Columns to show in table output (comma-separated)
+    #[arg(long, value_delimiter = ',')]
+    columns: Option<Vec<String>>,
+
+    /// Maximum columns in table output (default: 6)
+    #[arg(long, default_value = "6")]
+    max_columns: usize,
+
     /// Print the request and skip write operations
     #[arg(long)]
     dry_run: bool,
@@ -1087,6 +1097,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let output = OutputConfig {
         format: cli.output,
         select: cli.select.clone(),
+        columns: cli.columns.clone(),
+        max_columns: cli.max_columns,
         dry_run: cli.dry_run,
     };
 
@@ -1718,16 +1730,16 @@ fn format_output(
     match output.format {
         OutputFormat::Json => Ok(to_string_pretty(&selected)?),
         OutputFormat::Yaml => Ok(serde_yaml::to_string(&selected)?),
-        OutputFormat::Table => Ok(format_table(&selected)),
+        OutputFormat::Table => Ok(format_table(&selected, output.columns.as_deref(), output.max_columns)),
     }
 }
 
-fn format_table(value: &Value) -> String {
+fn format_table(value: &Value, columns: Option<&[String]>, max_columns: usize) -> String {
     let width = terminal_width().unwrap_or(120).min(u16::MAX as usize) as u16;
     if let Value::Object(map) = value {
         if let Some(Value::Array(items)) = map.get("results") {
             let summary = format_table_summary(map);
-            let table = table_from_items(items, width);
+            let table = table_from_items(items, width, columns, max_columns);
             return if summary.is_empty() {
                 table
             } else {
@@ -1737,10 +1749,14 @@ fn format_table(value: &Value) -> String {
     }
 
     match value {
-        Value::Array(items) => table_from_items(items, width),
+        Value::Array(items) => table_from_items(items, width, columns, max_columns),
         Value::Object(map) => {
             let mut table = base_table(width);
-            let headers: Vec<String> = map.keys().cloned().collect();
+            let headers: Vec<String> = if let Some(cols) = columns {
+                cols.to_vec()
+            } else {
+                map.keys().take(max_columns).cloned().collect()
+            };
             table.set_header(headers.iter().map(Cell::new));
             let row = headers
                 .iter()
@@ -1788,10 +1804,14 @@ fn base_table(width: u16) -> Table {
     table
 }
 
-fn table_from_items(items: &[Value], width: u16) -> String {
+fn table_from_items(items: &[Value], width: u16, columns: Option<&[String]>, max_columns: usize) -> String {
     let mut table = base_table(width);
     if let Some(Value::Object(first)) = items.first() {
-        let headers = infer_columns(items, first);
+        let headers = if let Some(cols) = columns {
+            cols.to_vec()
+        } else {
+            infer_columns(items, first, max_columns)
+        };
         table.set_header(headers.iter().map(Cell::new));
         for item in items {
             if let Value::Object(map) = item {
@@ -1813,7 +1833,7 @@ fn table_from_items(items: &[Value], width: u16) -> String {
     table.to_string()
 }
 
-fn infer_columns(items: &[Value], first: &serde_json::Map<String, Value>) -> Vec<String> {
+fn infer_columns(items: &[Value], first: &serde_json::Map<String, Value>, max_columns: usize) -> Vec<String> {
     let preferred = [
         "id",
         "name",
@@ -1830,27 +1850,27 @@ fn infer_columns(items: &[Value], first: &serde_json::Map<String, Value>) -> Vec
 
     let mut columns = Vec::new();
     for key in preferred {
-        if first.contains_key(key) {
+        if first.contains_key(key) && columns.len() < max_columns {
             columns.push(key.to_string());
         }
     }
 
     if columns.is_empty() {
-        columns = first.keys().take(6).cloned().collect();
+        columns = first.keys().take(max_columns).cloned().collect();
     }
 
-    if columns.len() < 6 {
+    if columns.len() < max_columns {
         let mut additional = first
             .keys()
             .filter(|key| !columns.iter().any(|col| col == *key))
-            .take(6 - columns.len())
+            .take(max_columns - columns.len())
             .cloned()
             .collect::<Vec<_>>();
         columns.append(&mut additional);
     }
 
-    if columns.len() > 6 {
-        columns.truncate(6);
+    if columns.len() > max_columns {
+        columns.truncate(max_columns);
     }
 
     if columns.len() > 1 && items.iter().any(|item| matches!(item, Value::Object(_))) {
@@ -2221,6 +2241,8 @@ mod tests {
         OutputConfig {
             format: OutputFormat::Json,
             select: None,
+            columns: None,
+            max_columns: 6,
             dry_run: false,
         }
     }
@@ -2392,7 +2414,7 @@ mod tests {
     #[test]
     fn format_table_handles_objects() {
         let value = json!({"name": "leaf-1", "status": "active"});
-        let table = format_table(&value);
+        let table = format_table(&value, None, 6);
         assert!(table.contains("name"));
         assert!(table.contains("leaf-1"));
     }
@@ -2443,10 +2465,58 @@ mod tests {
                 {"id": 2, "name": "beta"}
             ]
         });
-        let table = format_table(&value);
+        let table = format_table(&value, None, 6);
         assert!(table.contains("count: 2"));
         assert!(table.contains("alpha"));
         assert!(table.contains("beta"));
+    }
+
+    #[test]
+    fn format_table_respects_explicit_columns() {
+        let value = json!({
+            "results": [
+                {"id": 1, "name": "alpha", "status": "active", "extra": "ignored"},
+                {"id": 2, "name": "beta", "status": "planned", "extra": "also ignored"}
+            ]
+        });
+        let columns = vec!["name".to_string(), "status".to_string()];
+        let table = format_table(&value, Some(&columns), 6);
+        assert!(table.contains("name"));
+        assert!(table.contains("status"));
+        assert!(table.contains("alpha"));
+        assert!(table.contains("active"));
+        assert!(!table.contains("extra"));
+        assert!(!table.contains("ignored"));
+    }
+
+    #[test]
+    fn format_table_respects_max_columns() {
+        let value = json!({
+            "results": [
+                {"a": 1, "b": 2, "c": 3, "d": 4, "e": 5}
+            ]
+        });
+        let table = format_table(&value, None, 2);
+        // Should only have 2 columns
+        let header_line = table.lines().nth(1).unwrap_or("");
+        let column_count = header_line.split('|').filter(|s| !s.trim().is_empty()).count();
+        assert_eq!(column_count, 2);
+    }
+
+    #[test]
+    fn parse_columns_flag() {
+        let mut args = base_args();
+        args.extend(["--columns", "id,name,status", "status"]);
+        let cli = parse_args(&args);
+        assert_eq!(cli.columns, Some(vec!["id".to_string(), "name".to_string(), "status".to_string()]));
+    }
+
+    #[test]
+    fn parse_max_columns_flag() {
+        let mut args = base_args();
+        args.extend(["--max-columns", "10", "status"]);
+        let cli = parse_args(&args);
+        assert_eq!(cli.max_columns, 10);
     }
 
     #[test]
@@ -2774,6 +2844,8 @@ mod tests {
             let output = OutputConfig {
                 format,
                 select: None,
+                columns: None,
+                max_columns: 6,
                 dry_run: false,
             };
             let rendered = format_output(&status, &output)?;
@@ -2796,6 +2868,8 @@ mod tests {
         let output = OutputConfig {
             format: OutputFormat::Json,
             select: Some("netbox-version".to_string()),
+            columns: None,
+            max_columns: 6,
             dry_run: false,
         };
         let rendered = format_output(&status, &output)?;
