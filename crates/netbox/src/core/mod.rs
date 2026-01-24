@@ -111,15 +111,61 @@ impl CoreApi {
     pub fn object_types(&self) -> ObjectTypesApi {
         Resource::new(self.client.clone(), "core/object-types/")
     }
+
+    // Background task actions
+
+    /// enqueue a background task.
+    pub async fn enqueue_task(&self, id: &str) -> Result<BackgroundTask> {
+        self.client
+            .post(&format!("core/background-tasks/{}/enqueue/", id), &())
+            .await
+    }
+
+    /// stop a background task.
+    pub async fn stop_task(&self, id: &str) -> Result<BackgroundTask> {
+        self.client
+            .post(&format!("core/background-tasks/{}/stop/", id), &())
+            .await
+    }
+
+    /// requeue a background task.
+    pub async fn requeue_task(&self, id: &str) -> Result<BackgroundTask> {
+        self.client
+            .post(&format!("core/background-tasks/{}/requeue/", id), &())
+            .await
+    }
+
+    /// delete a background task.
+    pub async fn delete_task(&self, id: &str) -> Result<BackgroundTask> {
+        self.client
+            .post(&format!("core/background-tasks/{}/delete/", id), &())
+            .await
+    }
+
+    // Data source sync
+
+    /// sync a data source.
+    pub async fn sync_data_source(&self, id: u64) -> Result<DataSource> {
+        self.client
+            .post(&format!("core/data-sources/{}/sync/", id), &())
+            .await
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::ClientConfig;
+    use httpmock::prelude::*;
+    use serde_json::json;
 
     fn test_client() -> Client {
         let config = ClientConfig::new("https://netbox.example.com", "token");
+        Client::new(config).unwrap()
+    }
+
+    fn mock_client(server: &MockServer) -> Client {
+        let config = ClientConfig::new(server.base_url(), "test-token");
         Client::new(config).unwrap()
     }
 
@@ -141,5 +187,62 @@ mod tests {
         assert_path(api.jobs(), "core/jobs/");
         assert_path(api.object_changes(), "core/object-changes/");
         assert_path(api.object_types(), "core/object-types/");
+    }
+
+    #[cfg_attr(miri, ignore)]
+    #[tokio::test]
+    async fn task_actions_use_expected_paths() {
+        let server = MockServer::start();
+        let client = mock_client(&server);
+
+        // mock enqueue
+        let enqueue_mock = server.mock(|when, then| {
+            when.method(POST)
+                .path("/api/core/background-tasks/abc123/enqueue/");
+            then.status(200).json_body(json!({}));
+        });
+        let _ = client.core().enqueue_task("abc123").await;
+        enqueue_mock.assert();
+
+        // mock stop
+        let stop_mock = server.mock(|when, then| {
+            when.method(POST)
+                .path("/api/core/background-tasks/task-id/stop/");
+            then.status(200).json_body(json!({}));
+        });
+        let _ = client.core().stop_task("task-id").await;
+        stop_mock.assert();
+
+        // mock requeue
+        let requeue_mock = server.mock(|when, then| {
+            when.method(POST)
+                .path("/api/core/background-tasks/xyz/requeue/");
+            then.status(200).json_body(json!({}));
+        });
+        let _ = client.core().requeue_task("xyz").await;
+        requeue_mock.assert();
+
+        // mock delete
+        let delete_mock = server.mock(|when, then| {
+            when.method(POST)
+                .path("/api/core/background-tasks/del-me/delete/");
+            then.status(200).json_body(json!({}));
+        });
+        let _ = client.core().delete_task("del-me").await;
+        delete_mock.assert();
+    }
+
+    #[cfg_attr(miri, ignore)]
+    #[tokio::test]
+    async fn sync_data_source_uses_expected_path() {
+        let server = MockServer::start();
+        let mock = server.mock(|when, then| {
+            when.method(POST).path("/api/core/data-sources/7/sync/");
+            then.status(200).json_body(json!({}));
+        });
+
+        let client = mock_client(&server);
+        let _ = client.core().sync_data_source(7).await;
+        mock.assert();
     }
 }

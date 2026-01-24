@@ -852,6 +852,67 @@ enum Commands {
         #[command(subcommand)]
         action: BranchAction,
     },
+    /// List or create available IPs in a prefix
+    IpamPrefixAvailableIps {
+        id: u64,
+        #[command(subcommand)]
+        action: AvailabilityAction,
+    },
+    /// List or create available prefixes in a prefix
+    IpamPrefixAvailablePrefixes {
+        id: u64,
+        #[command(subcommand)]
+        action: AvailabilityAction,
+    },
+    /// List or create available IPs in an IP range
+    IpamRangeAvailableIps {
+        id: u64,
+        #[command(subcommand)]
+        action: AvailabilityAction,
+    },
+    /// List or create available VLANs in a VLAN group
+    IpamVlanGroupAvailableVlans {
+        id: u64,
+        #[command(subcommand)]
+        action: AvailabilityAction,
+    },
+    /// List or create available ASNs in an ASN range
+    IpamAsnRangeAvailableAsns {
+        id: u64,
+        #[command(subcommand)]
+        action: AvailabilityAction,
+    },
+    /// Background task actions
+    CoreTaskAction {
+        id: String,
+        #[command(subcommand)]
+        action: TaskAction,
+    },
+    /// Sync a data source
+    CoreDataSourceSync { id: u64 },
+    /// Sync a config context
+    ExtrasConfigContextSync { id: u64 },
+    /// Sync a config context profile
+    ExtrasConfigContextProfileSync { id: u64 },
+    /// Sync a config template
+    ExtrasConfigTemplateSync { id: u64 },
+    /// Render a config template
+    ExtrasConfigTemplateRender { id: u64 },
+    /// Sync an export template
+    ExtrasExportTemplateSync { id: u64 },
+    /// Get custom field choices
+    ExtrasCustomFieldChoices { id: u64 },
+    /// Get circuit termination paths
+    CircuitsTerminationPaths { id: u64 },
+    /// Get virtual circuit termination paths
+    CircuitsVirtualTerminationPaths { id: u64 },
+    /// Trace DCIM resources (interfaces, ports, feeds)
+    DcimTrace {
+        #[command(subcommand)]
+        resource: TraceableResource,
+    },
+    /// Render VM config
+    VirtualizationRenderConfig { id: u64 },
     /// Make a raw API request (covers all endpoints)
     Raw {
         /// HTTP method (GET, POST, PATCH, PUT, DELETE)
@@ -942,6 +1003,45 @@ enum BranchAction {
         #[command(flatten)]
         input: JsonInput,
     },
+}
+
+#[derive(Subcommand)]
+enum AvailabilityAction {
+    /// List available resources
+    List,
+    /// Create resources from available pool
+    Create {
+        #[command(flatten)]
+        input: JsonInput,
+    },
+}
+
+#[derive(Subcommand)]
+enum TaskAction {
+    /// Enqueue a background task
+    Enqueue,
+    /// Stop a background task
+    Stop,
+    /// Requeue a background task
+    Requeue,
+    /// Delete a background task
+    Delete,
+}
+
+#[derive(Subcommand)]
+enum TraceableResource {
+    /// Trace an interface
+    Interface { id: u64 },
+    /// Trace a console port
+    ConsolePort { id: u64 },
+    /// Trace a console server port
+    ConsoleServerPort { id: u64 },
+    /// Trace a power port
+    PowerPort { id: u64 },
+    /// Trace a power outlet
+    PowerOutlet { id: u64 },
+    /// Trace a power feed
+    PowerFeed { id: u64 },
 }
 
 #[derive(Args, Debug)]
@@ -1143,6 +1243,72 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         Commands::PluginBranchAction { id, action } => {
             handle_branch_action(&api, &output, id, action).await?;
+        }
+        Commands::IpamPrefixAvailableIps { id, action } => {
+            let path = format!("ipam/prefixes/{}/available-ips/", id);
+            handle_availability_action(&api, &output, &path, action).await?;
+        }
+        Commands::IpamPrefixAvailablePrefixes { id, action } => {
+            let path = format!("ipam/prefixes/{}/available-prefixes/", id);
+            handle_availability_action(&api, &output, &path, action).await?;
+        }
+        Commands::IpamRangeAvailableIps { id, action } => {
+            let path = format!("ipam/ip-ranges/{}/available-ips/", id);
+            handle_availability_action(&api, &output, &path, action).await?;
+        }
+        Commands::IpamVlanGroupAvailableVlans { id, action } => {
+            let path = format!("ipam/vlan-groups/{}/available-vlans/", id);
+            handle_availability_action(&api, &output, &path, action).await?;
+        }
+        Commands::IpamAsnRangeAvailableAsns { id, action } => {
+            let path = format!("ipam/asn-ranges/{}/available-asns/", id);
+            handle_availability_action(&api, &output, &path, action).await?;
+        }
+        Commands::CoreTaskAction { id, action } => {
+            handle_task_action(&api, &output, &id, action).await?;
+        }
+        Commands::CoreDataSourceSync { id } => {
+            let path = format!("core/data-sources/{}/sync/", id);
+            handle_sync_action(&api, &output, &path).await?;
+        }
+        Commands::ExtrasConfigContextSync { id } => {
+            let path = format!("extras/config-contexts/{}/sync/", id);
+            handle_sync_action(&api, &output, &path).await?;
+        }
+        Commands::ExtrasConfigContextProfileSync { id } => {
+            let path = format!("extras/config-context-profiles/{}/sync/", id);
+            handle_sync_action(&api, &output, &path).await?;
+        }
+        Commands::ExtrasConfigTemplateSync { id } => {
+            let path = format!("extras/config-templates/{}/sync/", id);
+            handle_sync_action(&api, &output, &path).await?;
+        }
+        Commands::ExtrasConfigTemplateRender { id } => {
+            let path = format!("extras/config-templates/{}/render/", id);
+            handle_sync_action(&api, &output, &path).await?;
+        }
+        Commands::ExtrasExportTemplateSync { id } => {
+            let path = format!("extras/export-templates/{}/sync/", id);
+            handle_sync_action(&api, &output, &path).await?;
+        }
+        Commands::ExtrasCustomFieldChoices { id } => {
+            let path = format!("extras/custom-field-choice-sets/{}/choices/", id);
+            handle_get_action(&api, &output, &path).await?;
+        }
+        Commands::CircuitsTerminationPaths { id } => {
+            let path = format!("circuits/circuit-terminations/{}/paths/", id);
+            handle_get_action(&api, &output, &path).await?;
+        }
+        Commands::CircuitsVirtualTerminationPaths { id } => {
+            let path = format!("circuits/virtual-circuit-terminations/{}/paths/", id);
+            handle_get_action(&api, &output, &path).await?;
+        }
+        Commands::DcimTrace { resource } => {
+            handle_trace_action(&api, &output, resource).await?;
+        }
+        Commands::VirtualizationRenderConfig { id } => {
+            let path = format!("virtualization/virtual-machines/{}/render-config/", id);
+            handle_sync_action(&api, &output, &path).await?;
         }
         Commands::Raw {
             method,
@@ -1351,6 +1517,98 @@ async fn handle_branch_action(
         let response = request_raw_with_context(client, Method::POST, &path, Some(&body)).await?;
         print_output(&response, output)?;
     }
+    Ok(())
+}
+
+async fn handle_availability_action(
+    client: &impl ApiClient,
+    output: &OutputConfig,
+    path: &str,
+    action: AvailabilityAction,
+) -> Result<(), Box<dyn std::error::Error>> {
+    match action {
+        AvailabilityAction::List => {
+            let response = request_raw_with_context(client, Method::GET, path, None).await?;
+            print_output(&response, output)?;
+        }
+        AvailabilityAction::Create { input } => {
+            let body: Value = load_json(&input)?;
+            if output.dry_run {
+                print_dry_run(Method::POST, path, None, Some(&body))?;
+            } else {
+                let response =
+                    request_raw_with_context(client, Method::POST, path, Some(&body)).await?;
+                print_output(&response, output)?;
+            }
+        }
+    }
+    Ok(())
+}
+
+async fn handle_task_action(
+    client: &impl ApiClient,
+    output: &OutputConfig,
+    id: &str,
+    action: TaskAction,
+) -> Result<(), Box<dyn std::error::Error>> {
+    let suffix = match action {
+        TaskAction::Enqueue => "enqueue",
+        TaskAction::Stop => "stop",
+        TaskAction::Requeue => "requeue",
+        TaskAction::Delete => "delete",
+    };
+
+    let path = format!("core/background-tasks/{}/{}/", id, suffix);
+    if output.dry_run {
+        print_dry_run(Method::POST, &path, None, None)?;
+    } else {
+        let response = request_raw_with_context(client, Method::POST, &path, Some(&Value::Null)).await?;
+        print_output(&response, output)?;
+    }
+    Ok(())
+}
+
+async fn handle_sync_action(
+    client: &impl ApiClient,
+    output: &OutputConfig,
+    path: &str,
+) -> Result<(), Box<dyn std::error::Error>> {
+    if output.dry_run {
+        print_dry_run(Method::POST, path, None, None)?;
+    } else {
+        let response = request_raw_with_context(client, Method::POST, path, Some(&Value::Null)).await?;
+        print_output(&response, output)?;
+    }
+    Ok(())
+}
+
+async fn handle_get_action(
+    client: &impl ApiClient,
+    output: &OutputConfig,
+    path: &str,
+) -> Result<(), Box<dyn std::error::Error>> {
+    let response = request_raw_with_context(client, Method::GET, path, None).await?;
+    print_output(&response, output)?;
+    Ok(())
+}
+
+async fn handle_trace_action(
+    client: &impl ApiClient,
+    output: &OutputConfig,
+    resource: TraceableResource,
+) -> Result<(), Box<dyn std::error::Error>> {
+    let path = match resource {
+        TraceableResource::Interface { id } => format!("dcim/interfaces/{}/trace/", id),
+        TraceableResource::ConsolePort { id } => format!("dcim/console-ports/{}/trace/", id),
+        TraceableResource::ConsoleServerPort { id } => {
+            format!("dcim/console-server-ports/{}/trace/", id)
+        }
+        TraceableResource::PowerPort { id } => format!("dcim/power-ports/{}/trace/", id),
+        TraceableResource::PowerOutlet { id } => format!("dcim/power-outlets/{}/trace/", id),
+        TraceableResource::PowerFeed { id } => format!("dcim/power-feeds/{}/trace/", id),
+    };
+    let response = request_raw_with_context(client, Method::GET, &path, None).await?;
+    print_output(&response, output)?;
     Ok(())
 }
 
@@ -2669,5 +2927,229 @@ mod tests {
         )
         .await?;
         Ok(())
+    }
+
+    #[tokio::test]
+    async fn handle_availability_action_list_calls_get() {
+        let client = FakeApiClient::new(json!([]));
+        handle_availability_action(
+            &client,
+            &output_config(),
+            "ipam/prefixes/1/available-ips/",
+            AvailabilityAction::List,
+        )
+        .await
+        .unwrap();
+        let calls = client.calls();
+        assert_eq!(calls[0].method, Method::GET);
+        assert_eq!(calls[0].path, "ipam/prefixes/1/available-ips/");
+    }
+
+    #[tokio::test]
+    async fn handle_availability_action_create_calls_post() {
+        let client = FakeApiClient::new(json!([]));
+        let input = JsonInput {
+            json: Some(r#"[{"description":"test"}]"#.to_string()),
+            file: None,
+        };
+        handle_availability_action(
+            &client,
+            &output_config(),
+            "ipam/prefixes/1/available-ips/",
+            AvailabilityAction::Create { input },
+        )
+        .await
+        .unwrap();
+        let calls = client.calls();
+        assert_eq!(calls[0].method, Method::POST);
+        assert_eq!(calls[0].path, "ipam/prefixes/1/available-ips/");
+    }
+
+    #[tokio::test]
+    async fn handle_task_action_builds_paths() {
+        let client = FakeApiClient::new(json!({}));
+        handle_task_action(&client, &output_config(), "abc123", TaskAction::Enqueue)
+            .await
+            .unwrap();
+        handle_task_action(&client, &output_config(), "abc123", TaskAction::Stop)
+            .await
+            .unwrap();
+        handle_task_action(&client, &output_config(), "abc123", TaskAction::Requeue)
+            .await
+            .unwrap();
+        handle_task_action(&client, &output_config(), "abc123", TaskAction::Delete)
+            .await
+            .unwrap();
+        let calls = client.calls();
+        assert_eq!(calls[0].path, "core/background-tasks/abc123/enqueue/");
+        assert_eq!(calls[1].path, "core/background-tasks/abc123/stop/");
+        assert_eq!(calls[2].path, "core/background-tasks/abc123/requeue/");
+        assert_eq!(calls[3].path, "core/background-tasks/abc123/delete/");
+        for call in &calls {
+            assert_eq!(call.method, Method::POST);
+        }
+    }
+
+    #[tokio::test]
+    async fn handle_sync_action_calls_post() {
+        let client = FakeApiClient::new(json!({}));
+        handle_sync_action(&client, &output_config(), "core/data-sources/7/sync/")
+            .await
+            .unwrap();
+        let calls = client.calls();
+        assert_eq!(calls[0].method, Method::POST);
+        assert_eq!(calls[0].path, "core/data-sources/7/sync/");
+    }
+
+    #[tokio::test]
+    async fn handle_get_action_calls_get() {
+        let client = FakeApiClient::new(json!({}));
+        handle_get_action(
+            &client,
+            &output_config(),
+            "extras/custom-field-choice-sets/5/choices/",
+        )
+        .await
+        .unwrap();
+        let calls = client.calls();
+        assert_eq!(calls[0].method, Method::GET);
+        assert_eq!(calls[0].path, "extras/custom-field-choice-sets/5/choices/");
+    }
+
+    #[tokio::test]
+    async fn handle_trace_action_builds_paths() {
+        let client = FakeApiClient::new(json!({}));
+        handle_trace_action(
+            &client,
+            &output_config(),
+            TraceableResource::Interface { id: 1 },
+        )
+        .await
+        .unwrap();
+        handle_trace_action(
+            &client,
+            &output_config(),
+            TraceableResource::ConsolePort { id: 2 },
+        )
+        .await
+        .unwrap();
+        handle_trace_action(
+            &client,
+            &output_config(),
+            TraceableResource::ConsoleServerPort { id: 3 },
+        )
+        .await
+        .unwrap();
+        handle_trace_action(
+            &client,
+            &output_config(),
+            TraceableResource::PowerPort { id: 4 },
+        )
+        .await
+        .unwrap();
+        handle_trace_action(
+            &client,
+            &output_config(),
+            TraceableResource::PowerOutlet { id: 5 },
+        )
+        .await
+        .unwrap();
+        handle_trace_action(
+            &client,
+            &output_config(),
+            TraceableResource::PowerFeed { id: 6 },
+        )
+        .await
+        .unwrap();
+        let calls = client.calls();
+        assert_eq!(calls[0].path, "dcim/interfaces/1/trace/");
+        assert_eq!(calls[1].path, "dcim/console-ports/2/trace/");
+        assert_eq!(calls[2].path, "dcim/console-server-ports/3/trace/");
+        assert_eq!(calls[3].path, "dcim/power-ports/4/trace/");
+        assert_eq!(calls[4].path, "dcim/power-outlets/5/trace/");
+        assert_eq!(calls[5].path, "dcim/power-feeds/6/trace/");
+        for call in &calls {
+            assert_eq!(call.method, Method::GET);
+        }
+    }
+
+    #[test]
+    fn parse_ipam_availability_command() {
+        let mut args = base_args();
+        args.extend(["ipam-prefix-available-ips", "42", "list"]);
+        let cli = parse_args(&args);
+        match cli.command {
+            Commands::IpamPrefixAvailableIps { id, action } => {
+                assert_eq!(id, 42);
+                assert!(matches!(action, AvailabilityAction::List));
+            }
+            _ => panic!("expected ipam-prefix-available-ips command"),
+        }
+    }
+
+    #[test]
+    fn parse_core_task_action_command() {
+        let mut args = base_args();
+        args.extend(["core-task-action", "task-123", "enqueue"]);
+        let cli = parse_args(&args);
+        match cli.command {
+            Commands::CoreTaskAction { id, action } => {
+                assert_eq!(id, "task-123");
+                assert!(matches!(action, TaskAction::Enqueue));
+            }
+            _ => panic!("expected core-task-action command"),
+        }
+    }
+
+    #[test]
+    fn parse_dcim_trace_command() {
+        let mut args = base_args();
+        args.extend(["dcim-trace", "interface", "99"]);
+        let cli = parse_args(&args);
+        match cli.command {
+            Commands::DcimTrace { resource } => {
+                assert!(matches!(resource, TraceableResource::Interface { id: 99 }));
+            }
+            _ => panic!("expected dcim-trace command"),
+        }
+    }
+
+    #[test]
+    fn parse_extras_sync_command() {
+        let mut args = base_args();
+        args.extend(["extras-config-template-sync", "5"]);
+        let cli = parse_args(&args);
+        match cli.command {
+            Commands::ExtrasConfigTemplateSync { id } => {
+                assert_eq!(id, 5);
+            }
+            _ => panic!("expected extras-config-template-sync command"),
+        }
+    }
+
+    #[test]
+    fn parse_circuits_paths_command() {
+        let mut args = base_args();
+        args.extend(["circuits-termination-paths", "10"]);
+        let cli = parse_args(&args);
+        match cli.command {
+            Commands::CircuitsTerminationPaths { id } => {
+                assert_eq!(id, 10);
+            }
+            _ => panic!("expected circuits-termination-paths command"),
+        }
+    }
+
+    #[test]
+    fn parse_virtualization_render_config_command() {
+        let mut args = base_args();
+        args.extend(["virtualization-render-config", "33"]);
+        let cli = parse_args(&args);
+        match cli.command {
+            Commands::VirtualizationRenderConfig { id } => {
+                assert_eq!(id, 33);
+            }
+            _ => panic!("expected virtualization-render-config command"),
+        }
     }
 }

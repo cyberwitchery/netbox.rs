@@ -788,16 +788,72 @@ impl ExtrasApi {
     pub fn webhooks(&self) -> WebhooksApi {
         Resource::new(self.client.clone(), "extras/webhooks/")
     }
+
+    // Config context sync operations
+
+    /// sync a config context from its data source.
+    pub async fn sync_config_context(&self, id: u64) -> Result<ConfigContext> {
+        self.client
+            .post(&format!("extras/config-contexts/{}/sync/", id), &())
+            .await
+    }
+
+    /// sync a config context profile from its data source.
+    pub async fn sync_config_context_profile(&self, id: u64) -> Result<ConfigContextProfile> {
+        self.client
+            .post(&format!("extras/config-context-profiles/{}/sync/", id), &())
+            .await
+    }
+
+    // Config template operations
+
+    /// sync a config template from its data source.
+    pub async fn sync_config_template(&self, id: u64) -> Result<ConfigTemplate> {
+        self.client
+            .post(&format!("extras/config-templates/{}/sync/", id), &())
+            .await
+    }
+
+    /// render a config template.
+    pub async fn render_config_template(&self, id: u64) -> Result<String> {
+        self.client
+            .post(&format!("extras/config-templates/{}/render/", id), &())
+            .await
+    }
+
+    // Export template sync
+
+    /// sync an export template from its data source.
+    pub async fn sync_export_template(&self, id: u64) -> Result<ExportTemplate> {
+        self.client
+            .post(&format!("extras/export-templates/{}/sync/", id), &())
+            .await
+    }
+
+    // Custom field choice sets
+
+    /// get choices for a custom field choice set.
+    pub async fn custom_field_choices(&self, id: u64) -> Result<CustomFieldChoiceSet> {
+        self.client
+            .get(&format!("extras/custom-field-choice-sets/{}/choices/", id))
+            .await
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::ClientConfig;
+    use httpmock::prelude::*;
     use serde_json::json;
 
     fn test_client() -> Client {
         let config = ClientConfig::new("https://netbox.example.com", "token");
+        Client::new(config).unwrap()
+    }
+
+    fn mock_client(server: &MockServer) -> Client {
+        let config = ClientConfig::new(server.base_url(), "test-token");
         Client::new(config).unwrap()
     }
 
@@ -1150,5 +1206,67 @@ mod tests {
         assert_eq!(value["ssl_verification"], false);
         assert_eq!(value["ca_file_path"], "/etc/ssl/ca.pem");
         assert_missing(&value, "name");
+    }
+
+    #[cfg_attr(miri, ignore)]
+    #[tokio::test]
+    async fn sync_and_render_actions_use_expected_paths() {
+        let server = MockServer::start();
+        let client = mock_client(&server);
+
+        // sync config context
+        let mock1 = server.mock(|when, then| {
+            when.method(POST)
+                .path("/api/extras/config-contexts/5/sync/");
+            then.status(200).json_body(json!({}));
+        });
+        let _ = client.extras().sync_config_context(5).await;
+        mock1.assert();
+
+        // sync config context profile
+        let mock2 = server.mock(|when, then| {
+            when.method(POST)
+                .path("/api/extras/config-context-profiles/3/sync/");
+            then.status(200).json_body(json!({}));
+        });
+        let _ = client.extras().sync_config_context_profile(3).await;
+        mock2.assert();
+
+        // sync config template
+        let mock3 = server.mock(|when, then| {
+            when.method(POST)
+                .path("/api/extras/config-templates/2/sync/");
+            then.status(200).json_body(json!({}));
+        });
+        let _ = client.extras().sync_config_template(2).await;
+        mock3.assert();
+
+        // render config template
+        let mock4 = server.mock(|when, then| {
+            when.method(POST)
+                .path("/api/extras/config-templates/2/render/");
+            then.status(200).json_body(json!("hostname switch-01"));
+        });
+        let result = client.extras().render_config_template(2).await;
+        assert!(result.is_ok());
+        mock4.assert();
+
+        // sync export template
+        let mock5 = server.mock(|when, then| {
+            when.method(POST)
+                .path("/api/extras/export-templates/4/sync/");
+            then.status(200).json_body(json!({}));
+        });
+        let _ = client.extras().sync_export_template(4).await;
+        mock5.assert();
+
+        // custom field choices
+        let mock6 = server.mock(|when, then| {
+            when.method(GET)
+                .path("/api/extras/custom-field-choice-sets/1/choices/");
+            then.status(200).json_body(json!({}));
+        });
+        let _ = client.extras().custom_field_choices(1).await;
+        mock6.assert();
     }
 }

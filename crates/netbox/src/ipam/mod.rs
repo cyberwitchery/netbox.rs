@@ -12,10 +12,24 @@
 //! ```
 
 use crate::Client;
+use crate::error::Result;
 use crate::resource::Resource;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
+
+/// available IP model.
+pub type AvailableIp = crate::models::AvailableIp;
+/// available prefix model.
+pub type AvailablePrefix = crate::models::AvailablePrefix;
+/// available ASN model.
+pub type AvailableAsn = crate::models::AvailableAsn;
+/// available VLAN model.
+pub type AvailableVlan = crate::models::AvailableVlan;
+/// ASN model.
+pub type Asn = crate::models::Asn;
+/// VLAN model.
+pub type Vlan = crate::models::Vlan;
 
 /// request for creating a new IP address (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -295,17 +309,121 @@ impl IpamApi {
     pub fn vrfs(&self) -> VrfsApi {
         Resource::new(self.client.clone(), "ipam/vrfs/")
     }
+
+    // Prefix availability endpoints
+
+    /// list available IPs within a prefix.
+    pub async fn available_ips_in_prefix(&self, id: u64) -> Result<Vec<AvailableIp>> {
+        self.client
+            .get(&format!("ipam/prefixes/{}/available-ips/", id))
+            .await
+    }
+
+    /// create IP addresses from the available IPs within a prefix.
+    pub async fn create_available_ips_in_prefix<B: Serialize>(
+        &self,
+        id: u64,
+        body: &[B],
+    ) -> Result<Vec<IpAddress>> {
+        self.client
+            .post(&format!("ipam/prefixes/{}/available-ips/", id), body)
+            .await
+    }
+
+    /// list available child prefixes within a prefix.
+    pub async fn available_prefixes_in_prefix(&self, id: u64) -> Result<Vec<AvailablePrefix>> {
+        self.client
+            .get(&format!("ipam/prefixes/{}/available-prefixes/", id))
+            .await
+    }
+
+    /// create prefixes from the available child prefixes within a prefix.
+    pub async fn create_available_prefixes_in_prefix<B: Serialize>(
+        &self,
+        id: u64,
+        body: &[B],
+    ) -> Result<Vec<Prefix>> {
+        self.client
+            .post(&format!("ipam/prefixes/{}/available-prefixes/", id), body)
+            .await
+    }
+
+    // IP Range availability endpoints
+
+    /// list available IPs within an IP range.
+    pub async fn available_ips_in_range(&self, id: u64) -> Result<Vec<AvailableIp>> {
+        self.client
+            .get(&format!("ipam/ip-ranges/{}/available-ips/", id))
+            .await
+    }
+
+    /// create IP addresses from the available IPs within an IP range.
+    pub async fn create_available_ips_in_range<B: Serialize>(
+        &self,
+        id: u64,
+        body: &[B],
+    ) -> Result<Vec<IpAddress>> {
+        self.client
+            .post(&format!("ipam/ip-ranges/{}/available-ips/", id), body)
+            .await
+    }
+
+    // VLAN Group availability endpoints
+
+    /// list available VLANs within a VLAN group.
+    pub async fn available_vlans_in_group(&self, id: u64) -> Result<Vec<AvailableVlan>> {
+        self.client
+            .get(&format!("ipam/vlan-groups/{}/available-vlans/", id))
+            .await
+    }
+
+    /// create VLANs from the available VLANs within a VLAN group.
+    pub async fn create_available_vlans_in_group<B: Serialize>(
+        &self,
+        id: u64,
+        body: &[B],
+    ) -> Result<Vec<Vlan>> {
+        self.client
+            .post(&format!("ipam/vlan-groups/{}/available-vlans/", id), body)
+            .await
+    }
+
+    // ASN Range availability endpoints
+
+    /// list available ASNs within an ASN range.
+    pub async fn available_asns_in_range(&self, id: u64) -> Result<Vec<AvailableAsn>> {
+        self.client
+            .get(&format!("ipam/asn-ranges/{}/available-asns/", id))
+            .await
+    }
+
+    /// create ASNs from the available ASNs within an ASN range.
+    pub async fn create_available_asns_in_range<B: Serialize>(
+        &self,
+        id: u64,
+        body: &[B],
+    ) -> Result<Vec<Asn>> {
+        self.client
+            .post(&format!("ipam/asn-ranges/{}/available-asns/", id), body)
+            .await
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::ClientConfig;
+    use httpmock::prelude::*;
     use serde_json::json;
     use std::collections::HashMap;
 
     fn test_client() -> Client {
         let config = ClientConfig::new("https://netbox.example.com", "token");
+        Client::new(config).unwrap()
+    }
+
+    fn mock_client(server: &MockServer) -> Client {
+        let config = ClientConfig::new(server.base_url(), "test-token");
         Client::new(config).unwrap()
     }
 
@@ -405,5 +523,106 @@ mod tests {
         let value = serde_json::to_value(&ip).unwrap();
         assert_eq!(value["custom_fields"]["owner"], "netops");
         assert_eq!(value["tags"][0]["name"], "Core");
+    }
+
+    #[cfg_attr(miri, ignore)]
+    #[tokio::test]
+    async fn availability_endpoints_use_expected_paths() {
+        let server = MockServer::start();
+        let client = mock_client(&server);
+
+        // available IPs in prefix (GET)
+        let mock1 = server.mock(|when, then| {
+            when.method(GET).path("/api/ipam/prefixes/42/available-ips/");
+            then.status(200).json_body(json!([]));
+        });
+        let _ = client.ipam().available_ips_in_prefix(42).await;
+        mock1.assert();
+
+        // create available IPs in prefix (POST)
+        let mock2 = server.mock(|when, then| {
+            when.method(POST).path("/api/ipam/prefixes/42/available-ips/");
+            then.status(201).json_body(json!([]));
+        });
+        let body = vec![json!({"description": "test"})];
+        let _ = client.ipam().create_available_ips_in_prefix(42, &body).await;
+        mock2.assert();
+
+        // available prefixes in prefix (GET)
+        let mock3 = server.mock(|when, then| {
+            when.method(GET)
+                .path("/api/ipam/prefixes/42/available-prefixes/");
+            then.status(200).json_body(json!([]));
+        });
+        let _ = client.ipam().available_prefixes_in_prefix(42).await;
+        mock3.assert();
+
+        // create available prefixes (POST)
+        let mock4 = server.mock(|when, then| {
+            when.method(POST)
+                .path("/api/ipam/prefixes/42/available-prefixes/");
+            then.status(201).json_body(json!([]));
+        });
+        let body = vec![json!({"prefix_length": 26})];
+        let _ = client
+            .ipam()
+            .create_available_prefixes_in_prefix(42, &body)
+            .await;
+        mock4.assert();
+
+        // available IPs in range (GET)
+        let mock5 = server.mock(|when, then| {
+            when.method(GET).path("/api/ipam/ip-ranges/10/available-ips/");
+            then.status(200).json_body(json!([]));
+        });
+        let _ = client.ipam().available_ips_in_range(10).await;
+        mock5.assert();
+
+        // create available IPs in range (POST)
+        let mock6 = server.mock(|when, then| {
+            when.method(POST).path("/api/ipam/ip-ranges/10/available-ips/");
+            then.status(201).json_body(json!([]));
+        });
+        let body = vec![json!({})];
+        let _ = client.ipam().create_available_ips_in_range(10, &body).await;
+        mock6.assert();
+
+        // available VLANs in group (GET)
+        let mock7 = server.mock(|when, then| {
+            when.method(GET)
+                .path("/api/ipam/vlan-groups/5/available-vlans/");
+            then.status(200).json_body(json!([]));
+        });
+        let _ = client.ipam().available_vlans_in_group(5).await;
+        mock7.assert();
+
+        // create available VLANs (POST)
+        let mock8 = server.mock(|when, then| {
+            when.method(POST)
+                .path("/api/ipam/vlan-groups/5/available-vlans/");
+            then.status(201).json_body(json!([]));
+        });
+        let body = vec![json!({"name": "test-vlan"})];
+        let _ = client.ipam().create_available_vlans_in_group(5, &body).await;
+        mock8.assert();
+
+        // available ASNs in range (GET)
+        let mock9 = server.mock(|when, then| {
+            when.method(GET)
+                .path("/api/ipam/asn-ranges/3/available-asns/");
+            then.status(200).json_body(json!([]));
+        });
+        let _ = client.ipam().available_asns_in_range(3).await;
+        mock9.assert();
+
+        // create available ASNs (POST)
+        let mock10 = server.mock(|when, then| {
+            when.method(POST)
+                .path("/api/ipam/asn-ranges/3/available-asns/");
+            then.status(201).json_body(json!([]));
+        });
+        let body = vec![json!({})];
+        let _ = client.ipam().create_available_asns_in_range(3, &body).await;
+        mock10.assert();
     }
 }

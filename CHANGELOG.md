@@ -2,7 +2,23 @@
 
 this release captures the current state of the project. no prior published state exists for comparison.
 
-## [unreleased]
+## [0.3.0] - 2026-01-24
+
+### client
+- add IPAM availability endpoints: `available_ips_in_prefix`, `create_available_ips_in_prefix`, `available_prefixes_in_prefix`, `create_available_prefixes_in_prefix`, `available_ips_in_range`, `create_available_ips_in_range`, `available_vlans_in_group`, `create_available_vlans_in_group`, `available_asns_in_range`, `create_available_asns_in_range`
+- add core task management: `enqueue_task`, `stop_task`, `requeue_task`, `delete_task`, `sync_data_source`
+- add extras sync/render operations: `sync_config_context`, `sync_config_context_profile`, `sync_config_template`, `render_config_template`, `sync_export_template`, `custom_field_choices`
+- add circuits path endpoints: `circuit_termination_paths`, `virtual_circuit_termination_paths`
+- add dcim trace endpoints: `trace_interface`, `trace_console_port`, `trace_console_server_port`, `trace_power_port`, `trace_power_outlet`, `trace_power_feed`
+- add virtualization render config: `render_vm_config`
+
+### cli
+- add IPAM availability commands: `ipam-prefix-available-ips`, `ipam-prefix-available-prefixes`, `ipam-range-available-ips`, `ipam-vlan-group-available-vlans`, `ipam-asn-range-available-asns`
+- add core task management commands: `core-task-action` (enqueue/stop/requeue/delete), `core-data-source-sync`
+- add extras sync/render commands: `extras-config-context-sync`, `extras-config-context-profile-sync`, `extras-config-template-sync`, `extras-config-template-render`, `extras-export-template-sync`, `extras-custom-field-choices`
+- add circuits path commands: `circuits-termination-paths`, `circuits-virtual-termination-paths`
+- add dcim trace command: `dcim-trace` (interface/console-port/console-server-port/power-port/power-outlet/power-feed)
+- add virtualization render command: `virtualization-render-config`
 
 ## [0.2.1] - 2026-01-22
 
@@ -89,7 +105,8 @@ this release captures the current state of the project. no prior published state
 - readme and rustdoc coverage for client and cli
 - contributing guide and script documentation
 
-[unreleased]: https://github.com/cyberwitchery/netbox.rs/compare/v0.2.1...HEAD
+[unreleased]: https://github.com/cyberwitchery/netbox.rs/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/cyberwitchery/netbox.rs/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/cyberwitchery/netbox.rs/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/cyberwitchery/netbox.rs/compare/v0.1.6...v0.2.0
 [0.1.5]: https://github.com/cyberwitchery/netbox.rs/compare/v0.1.4...v0.1.5

@@ -12,6 +12,7 @@
 //! ```
 
 use crate::Client;
+use crate::error::Result;
 use crate::resource::Resource;
 use serde::{Deserialize, Serialize};
 
@@ -495,8 +496,15 @@ pub struct UpdateCircuitGroupAssignmentRequest {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::ClientConfig;
+    use httpmock::prelude::*;
     use proptest::prelude::*;
-    use serde_json::Value;
+    use serde_json::{json, Value};
+
+    fn mock_client(server: &MockServer) -> Client {
+        let config = ClientConfig::new(server.base_url(), "test-token");
+        Client::new(config).unwrap()
+    }
 
     fn assert_missing(value: &Value, key: &str) {
         assert!(value.get(key).is_none(), "expected {} to be omitted", key);
@@ -897,6 +905,31 @@ mod tests {
             assert_optional_string(&value, "description", &description);
         }
     }
+
+    #[cfg_attr(miri, ignore)]
+    #[tokio::test]
+    async fn path_endpoints_use_expected_paths() {
+        let server = MockServer::start();
+        let client = mock_client(&server);
+
+        // circuit termination paths
+        let mock1 = server.mock(|when, then| {
+            when.method(GET)
+                .path("/api/circuits/circuit-terminations/42/paths/");
+            then.status(200).json_body(json!({}));
+        });
+        let _ = client.circuits().circuit_termination_paths(42).await;
+        mock1.assert();
+
+        // virtual circuit termination paths
+        let mock2 = server.mock(|when, then| {
+            when.method(GET)
+                .path("/api/circuits/virtual-circuit-terminations/10/paths/");
+            then.status(200).json_body(json!({}));
+        });
+        let _ = client.circuits().virtual_circuit_termination_paths(10).await;
+        mock2.assert();
+    }
 }
 
 /// circuit model.
@@ -1012,5 +1045,27 @@ impl CircuitsApi {
     /// returns the virtual circuits resource.
     pub fn virtual_circuits(&self) -> VirtualCircuitsApi {
         Resource::new(self.client.clone(), "circuits/virtual-circuits/")
+    }
+
+    // Path retrieval methods
+
+    /// get paths for a circuit termination.
+    pub async fn circuit_termination_paths(&self, id: u64) -> Result<CircuitTermination> {
+        self.client
+            .get(&format!("circuits/circuit-terminations/{}/paths/", id))
+            .await
+    }
+
+    /// get paths for a virtual circuit termination.
+    pub async fn virtual_circuit_termination_paths(
+        &self,
+        id: u64,
+    ) -> Result<VirtualCircuitTermination> {
+        self.client
+            .get(&format!(
+                "circuits/virtual-circuit-terminations/{}/paths/",
+                id
+            ))
+            .await
     }
 }

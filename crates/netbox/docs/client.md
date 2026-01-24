@@ -218,6 +218,104 @@ println!("{}", branches.count);
 # }
 ```
 
+## ipam availability
+
+query and allocate available IPs, prefixes, VLANs, and ASNs.
+
+```rust,no_run
+use netbox::{Client, ClientConfig};
+
+# async fn example() -> Result<(), Box<dyn std::error::Error>> {
+let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
+
+// list available IPs in a prefix
+let available = client.ipam().available_ips_in_prefix(1).await?;
+println!("{} IPs available", available.len());
+
+// allocate IPs from a prefix
+let requests = vec![serde_json::json!({"description": "allocated via api"})];
+let created = client.ipam().create_available_ips_in_prefix(1, &requests).await?;
+println!("created {} IPs", created.len());
+
+// list available VLANs in a group
+let vlans = client.ipam().available_vlans_in_group(1).await?;
+println!("{} VLANs available", vlans.len());
+# Ok(())
+# }
+```
+
+## dcim trace
+
+trace cable paths for interfaces and power components.
+
+```rust,no_run
+use netbox::{Client, ClientConfig};
+
+# async fn example() -> Result<(), Box<dyn std::error::Error>> {
+let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
+let trace = client.dcim().trace_interface(42).await?;
+println!("{:?}", trace);
+# Ok(())
+# }
+```
+
+## core task management
+
+manage background tasks and sync data sources.
+
+```rust,no_run
+use netbox::{Client, ClientConfig};
+
+# async fn example() -> Result<(), Box<dyn std::error::Error>> {
+let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
+
+// sync a data source
+let source = client.core().sync_data_source(1).await?;
+println!("{:?}", source);
+
+// manage background tasks
+let task = client.core().enqueue_task("abc123").await?;
+println!("{:?}", task);
+# Ok(())
+# }
+```
+
+## extras sync and render
+
+sync config contexts/templates from data sources and render templates.
+
+```rust,no_run
+use netbox::{Client, ClientConfig};
+
+# async fn example() -> Result<(), Box<dyn std::error::Error>> {
+let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
+
+// sync a config context from its data source
+let context = client.extras().sync_config_context(1).await?;
+println!("{:?}", context);
+
+// render a config template
+let output = client.extras().render_config_template(1).await?;
+println!("{}", output);
+# Ok(())
+# }
+```
+
+## virtualization render config
+
+render configuration for virtual machines.
+
+```rust,no_run
+use netbox::{Client, ClientConfig};
+
+# async fn example() -> Result<(), Box<dyn std::error::Error>> {
+let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
+let config = client.virtualization().render_vm_config(1).await?;
+println!("{}", config);
+# Ok(())
+# }
+```
+
 ## error handling
 
 ```rust,no_run
@@ -261,3 +359,5 @@ println!("{}", device.display.as_deref().unwrap_or("<unknown>"));
 ## coverage summary
 
 high-level resource coverage exists for dcim, circuits, core, extras, ipam, tenancy, users, virtualization, vpn, and wireless. additional endpoints include status, schema, connected-device, graphql (read-only), and netbox-branching plugin resources.
+
+action endpoints include ipam availability queries (prefixes, ip-ranges, vlan-groups, asn-ranges), dcim cable tracing, core task management and data source sync, extras config sync/render operations, and virtualization vm config rendering.

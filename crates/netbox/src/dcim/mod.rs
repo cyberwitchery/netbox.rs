@@ -12,10 +12,24 @@
 //! ```
 
 use crate::Client;
+use crate::error::Result;
 use crate::resource::Resource;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
+
+/// console port model.
+pub type ConsolePort = crate::models::ConsolePort;
+/// console server port model.
+pub type ConsoleServerPort = crate::models::ConsoleServerPort;
+/// interface model.
+pub type Interface = crate::models::Interface;
+/// power port model.
+pub type PowerPort = crate::models::PowerPort;
+/// power outlet model.
+pub type PowerOutlet = crate::models::PowerOutlet;
+/// power feed model.
+pub type PowerFeed = crate::models::PowerFeed;
 
 /// request for creating a new device (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -450,18 +464,68 @@ impl DcimApi {
     pub fn virtual_device_contexts(&self) -> VirtualDeviceContextsApi {
         Resource::new(self.client.clone(), "dcim/virtual-device-contexts/")
     }
+
+    // Trace methods
+
+    /// trace an interface's cable path.
+    pub async fn trace_interface(&self, id: u64) -> Result<Interface> {
+        self.client
+            .get(&format!("dcim/interfaces/{}/trace/", id))
+            .await
+    }
+
+    /// trace a console port's cable path.
+    pub async fn trace_console_port(&self, id: u64) -> Result<ConsolePort> {
+        self.client
+            .get(&format!("dcim/console-ports/{}/trace/", id))
+            .await
+    }
+
+    /// trace a console server port's cable path.
+    pub async fn trace_console_server_port(&self, id: u64) -> Result<ConsoleServerPort> {
+        self.client
+            .get(&format!("dcim/console-server-ports/{}/trace/", id))
+            .await
+    }
+
+    /// trace a power port's cable path.
+    pub async fn trace_power_port(&self, id: u64) -> Result<PowerPort> {
+        self.client
+            .get(&format!("dcim/power-ports/{}/trace/", id))
+            .await
+    }
+
+    /// trace a power outlet's cable path.
+    pub async fn trace_power_outlet(&self, id: u64) -> Result<PowerOutlet> {
+        self.client
+            .get(&format!("dcim/power-outlets/{}/trace/", id))
+            .await
+    }
+
+    /// trace a power feed's cable path.
+    pub async fn trace_power_feed(&self, id: u64) -> Result<PowerFeed> {
+        self.client
+            .get(&format!("dcim/power-feeds/{}/trace/", id))
+            .await
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::ClientConfig;
+    use httpmock::prelude::*;
     use serde::Serialize;
     use serde_json::json;
     use std::collections::HashMap;
 
     fn test_client() -> Client {
         let config = ClientConfig::new("https://netbox.example.com", "token");
+        Client::new(config).unwrap()
+    }
+
+    fn mock_client(server: &MockServer) -> Client {
+        let config = ClientConfig::new(server.base_url(), "test-token");
         Client::new(config).unwrap()
     }
 
@@ -618,5 +682,61 @@ mod tests {
         let encoded = serde_urlencoded::to_string(&query).unwrap();
         assert!(encoded.contains("peer_device=leaf-01"));
         assert!(encoded.contains("peer_interface=Ethernet1"));
+    }
+
+    #[cfg_attr(miri, ignore)]
+    #[tokio::test]
+    async fn trace_endpoints_use_expected_paths() {
+        let server = MockServer::start();
+        let client = mock_client(&server);
+
+        // trace interface
+        let mock1 = server.mock(|when, then| {
+            when.method(GET).path("/api/dcim/interfaces/42/trace/");
+            then.status(200).json_body(json!({}));
+        });
+        let _ = client.dcim().trace_interface(42).await;
+        mock1.assert();
+
+        // trace console port
+        let mock2 = server.mock(|when, then| {
+            when.method(GET).path("/api/dcim/console-ports/5/trace/");
+            then.status(200).json_body(json!({}));
+        });
+        let _ = client.dcim().trace_console_port(5).await;
+        mock2.assert();
+
+        // trace console server port
+        let mock3 = server.mock(|when, then| {
+            when.method(GET)
+                .path("/api/dcim/console-server-ports/3/trace/");
+            then.status(200).json_body(json!({}));
+        });
+        let _ = client.dcim().trace_console_server_port(3).await;
+        mock3.assert();
+
+        // trace power port
+        let mock4 = server.mock(|when, then| {
+            when.method(GET).path("/api/dcim/power-ports/7/trace/");
+            then.status(200).json_body(json!({}));
+        });
+        let _ = client.dcim().trace_power_port(7).await;
+        mock4.assert();
+
+        // trace power outlet
+        let mock5 = server.mock(|when, then| {
+            when.method(GET).path("/api/dcim/power-outlets/2/trace/");
+            then.status(200).json_body(json!({}));
+        });
+        let _ = client.dcim().trace_power_outlet(2).await;
+        mock5.assert();
+
+        // trace power feed
+        let mock6 = server.mock(|when, then| {
+            when.method(GET).path("/api/dcim/power-feeds/9/trace/");
+            then.status(200).json_body(json!({}));
+        });
+        let _ = client.dcim().trace_power_feed(9).await;
+        mock6.assert();
     }
 }

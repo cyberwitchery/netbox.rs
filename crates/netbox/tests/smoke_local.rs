@@ -493,6 +493,20 @@ async fn run_smoke(client: &Client, created: &mut Created) -> Result<()> {
     let tenant_page = tenant_pages.next_page().await?;
     assert!(tenant_page.is_some(), "expected at least one tenant page");
 
+    // smoke test for new availability endpoints
+    if let Some(prefix_id) = created.prefix_id {
+        eprintln!("smoke: available IPs in prefix");
+        let available = client.ipam().available_ips_in_prefix(prefix_id).await?;
+        assert!(
+            !available.is_empty(),
+            "expected at least one available IP in prefix"
+        );
+
+        eprintln!("smoke: available child prefixes in prefix");
+        let _available_prefixes = client.ipam().available_prefixes_in_prefix(prefix_id).await?;
+        // may be empty for /24, that's ok
+    }
+
     Ok(())
 }
 

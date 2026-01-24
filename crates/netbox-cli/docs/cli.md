@@ -121,6 +121,74 @@ netbox-cli users-config
 netbox-cli plugin-branch-action 1 merge --json '{"commit":true}'
 ```
 
+## ipam availability
+
+list and create from available pools:
+
+```bash
+netbox-cli ipam-prefix-available-ips 42 list
+netbox-cli ipam-prefix-available-ips 42 create --json '[{"description":"allocated"}]'
+netbox-cli ipam-prefix-available-prefixes 42 list
+netbox-cli ipam-range-available-ips 10 list
+netbox-cli ipam-vlan-group-available-vlans 5 list
+netbox-cli ipam-asn-range-available-asns 3 list
+```
+
+## background task management
+
+control background tasks:
+
+```bash
+netbox-cli core-task-action abc123 enqueue
+netbox-cli core-task-action abc123 stop
+netbox-cli core-task-action abc123 requeue
+netbox-cli core-task-action abc123 delete
+netbox-cli core-data-source-sync 7
+```
+
+## sync and render operations
+
+sync config contexts, templates, and render configs:
+
+```bash
+netbox-cli extras-config-context-sync 5
+netbox-cli extras-config-context-profile-sync 3
+netbox-cli extras-config-template-sync 2
+netbox-cli extras-config-template-render 2
+netbox-cli extras-export-template-sync 1
+netbox-cli extras-custom-field-choices 4
+```
+
+## circuit and cable paths
+
+get path information for terminations:
+
+```bash
+netbox-cli circuits-termination-paths 10
+netbox-cli circuits-virtual-termination-paths 5
+```
+
+## dcim trace
+
+trace cable paths through infrastructure:
+
+```bash
+netbox-cli dcim-trace interface 99
+netbox-cli dcim-trace console-port 10
+netbox-cli dcim-trace console-server-port 5
+netbox-cli dcim-trace power-port 20
+netbox-cli dcim-trace power-outlet 15
+netbox-cli dcim-trace power-feed 8
+```
+
+## vm config rendering
+
+render configuration for virtual machines:
+
+```bash
+netbox-cli virtualization-render-config 42
+```
+
 ## output
 
 responses are json, pretty-printed to stdout. errors return non-zero exit codes.

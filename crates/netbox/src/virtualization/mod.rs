@@ -12,6 +12,7 @@
 //! ```
 
 use crate::Client;
+use crate::error::Result;
 use crate::resource::Resource;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
@@ -345,8 +346,15 @@ pub struct UpdateVirtualDiskRequest {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::ClientConfig;
+    use httpmock::prelude::*;
     use proptest::prelude::*;
-    use serde_json::Value;
+    use serde_json::{json, Value};
+
+    fn mock_client(server: &MockServer) -> Client {
+        let config = ClientConfig::new(server.base_url(), "test-token");
+        Client::new(config).unwrap()
+    }
 
     fn assert_missing(value: &Value, key: &str) {
         assert!(value.get(key).is_none(), "expected {} to be omitted", key);
@@ -615,6 +623,22 @@ mod tests {
             assert_optional_string(&value, "description", &description);
         }
     }
+
+    #[cfg_attr(miri, ignore)]
+    #[tokio::test]
+    async fn render_vm_config_uses_expected_path() {
+        let server = MockServer::start();
+        let mock = server.mock(|when, then| {
+            when.method(POST)
+                .path("/api/virtualization/virtual-machines/42/render-config/");
+            then.status(200).json_body(json!("hostname vm-01"));
+        });
+
+        let client = mock_client(&server);
+        let result = client.virtualization().render_vm_config(42).await;
+        assert!(result.is_ok());
+        mock.assert();
+    }
 }
 
 /// cluster group model.
@@ -682,5 +706,15 @@ impl VirtualizationApi {
     /// returns the virtual machines resource.
     pub fn virtual_machines(&self) -> VirtualMachinesApi {
         Resource::new(self.client.clone(), "virtualization/virtual-machines/")
+    }
+
+    /// render a virtual machine's configuration.
+    pub async fn render_vm_config(&self, id: u64) -> Result<String> {
+        self.client
+            .post(
+                &format!("virtualization/virtual-machines/{}/render-config/", id),
+                &(),
+            )
+            .await
     }
 }
