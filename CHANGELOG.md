@@ -2,6 +2,15 @@
 
 this release captures the current state of the project. no prior published state exists for comparison.
 
+## [unreleased]
+
+### scripts
+- add `regen.sh` combining schema fetch + generation with idempotency check
+- document environment variables for generation scripts
+
+### tests
+- add golden output test harness for CLI (`cargo test -p netbox-cli --test golden`)
+
 ## [0.3.1] - 2026-01-24
 
 ### cli

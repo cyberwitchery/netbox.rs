@@ -54,33 +54,6 @@ impl Profile {
         Ok(self.token.clone())
     }
 
-    /// Merge another profile into this one (other takes precedence).
-    pub fn merge(&mut self, other: &Profile) {
-        if other.url.is_some() {
-            self.url = other.url.clone();
-        }
-        if other.token.is_some() {
-            self.token = other.token.clone();
-        }
-        if other.token_env.is_some() {
-            self.token_env = other.token_env.clone();
-        }
-        if other.token_command.is_some() {
-            self.token_command = other.token_command.clone();
-        }
-        if other.timeout.is_some() {
-            self.timeout = other.timeout;
-        }
-        if other.retries.is_some() {
-            self.retries = other.retries;
-        }
-        if other.ssl_verify.is_some() {
-            self.ssl_verify = other.ssl_verify;
-        }
-        if other.output.is_some() {
-            self.output = other.output.clone();
-        }
-    }
 }
 
 /// Configuration file containing multiple profiles.
@@ -157,13 +130,6 @@ pub fn load_config() -> Result<Option<ConfigFile>, ConfigError> {
     Ok(Some(config))
 }
 
-/// Load config file from a specific path.
-pub fn load_config_from(path: &PathBuf) -> Result<ConfigFile, ConfigError> {
-    let contents = std::fs::read_to_string(path)?;
-    let config: ConfigFile = toml::from_str(&contents)?;
-    Ok(config)
-}
-
 /// Execute a command and return its stdout as the token.
 fn resolve_token_command(command: &str) -> Result<String, ConfigError> {
     let output = if cfg!(target_os = "windows") {
@@ -229,24 +195,6 @@ output = "table"
         assert_eq!(prod.timeout, Some(60));
         assert_eq!(prod.ssl_verify, Some(true));
         assert_eq!(prod.output.as_deref(), Some("table"));
-    }
-
-    #[test]
-    fn profile_merge() {
-        let mut base = Profile {
-            url: Some("https://base.example.com".to_string()),
-            timeout: Some(30),
-            ..Default::default()
-        };
-        let overlay = Profile {
-            url: Some("https://overlay.example.com".to_string()),
-            ssl_verify: Some(false),
-            ..Default::default()
-        };
-        base.merge(&overlay);
-        assert_eq!(base.url.as_deref(), Some("https://overlay.example.com"));
-        assert_eq!(base.timeout, Some(30)); // unchanged
-        assert_eq!(base.ssl_verify, Some(false)); // merged
     }
 
     #[test]

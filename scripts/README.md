@@ -11,21 +11,20 @@ https://github.com/netbox-community/netbox-docker
 
 wait until netbox is ready.
 
-### 2. fetch openapi schema
+### 2. regenerate bindings
 
 ```bash
-./scripts/fetch_schema.sh http://localhost:8000
+./scripts/regen.sh http://localhost:8000
 ```
 
-this writes `scripts/openapi-schema.json`.
+this fetches the schema, generates bindings, verifies build, and checks idempotency.
 
-### 3. generate rust bindings
+alternatively, run the steps individually:
 
 ```bash
-./scripts/generate.sh
+./scripts/fetch_schema.sh http://localhost:8000  # writes scripts/openapi-schema.json
+./scripts/generate.sh                             # writes crates/netbox-openapi/src/
 ```
-
-this writes to `crates/netbox-openapi/src/`.
 
 the generated code is committed so users do not need java/npm/docker to build.
 
@@ -70,6 +69,16 @@ we use openapi generator with the `rust` generator. to customize, edit `scripts/
 
 see https://openapi-generator.tech/docs/generators/rust
 
+## environment variables
+
+| variable | default | description |
+|----------|---------|-------------|
+| `NETBOX_URL` | `http://localhost:8000` | netbox instance url |
+| `NETBOX_TOKEN` | (none) | api token for authenticated schema access |
+| `OPENAPI_GENERATOR_VERSION` | `v6.6.0` | openapi-generator docker tag |
+| `OPENAPI_GENERATOR_IMAGE` | `openapitools/openapi-generator-cli:${VERSION}` | full docker image |
+| `SKIP_IDEMPOTENCY` | (unset) | set to `1` to skip idempotency check in regen.sh |
+
 ## local release script
 
 run the local release checklist with:
@@ -83,6 +92,22 @@ set `SKIP_COVERAGE=1` to skip coverage.
 notes:
 - `netbox-openapi` must be published before `netbox`
 - the script packages `netbox` with `--no-verify` because the dependency is not on crates.io yet
+
+## golden output tests
+
+run the cli golden output tests:
+
+```bash
+NETBOX_URL=http://localhost:8000 NETBOX_TOKEN=... cargo test -p netbox-cli --test golden -- --ignored
+```
+
+to update golden files when output intentionally changes:
+
+```bash
+UPDATE_GOLDEN=1 NETBOX_URL=... NETBOX_TOKEN=... cargo test -p netbox-cli --test golden -- --ignored
+```
+
+golden files are stored in `crates/netbox-cli/tests/golden/`.
 
 ## local assurance script
 

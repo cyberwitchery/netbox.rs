@@ -1,0 +1,58 @@
+CLI tool for testing NetBox API client
+
+Usage: netbox-cli [OPTIONS] <COMMAND>
+
+Commands:
+  config                              Manage configuration profiles
+  resources                           List resources by group (or all resources)
+  dcim                                DCIM resources (devices, racks, interfaces, ...)
+  ipam                                IPAM resources (prefixes, addresses, vlans, ...)
+  circuits                            Circuits resources (providers, circuits, ...)
+  tenancy                             Tenancy resources (tenants, contacts, ...)
+  extras                              Extras resources (tags, scripts, custom fields, ...)
+  core                                Core resources (jobs, object changes, ...)
+  users                               Users resources (users, groups, tokens, ...)
+  virtualization                      Virtualization resources (clusters, vms, ...)
+  vpn                                 VPN resources (tunnels, ike, ipsec, ...)
+  wireless                            Wireless resources (lans, links, ...)
+  plugins                             Plugin resources (branching data)
+  extras-dashboard                    Extras dashboard operations
+  core-background-queues              Core background queue summaries
+  core-background-workers             Core background worker summaries
+  users-config                        Fetch current user config
+  status                              Fetch NetBox status
+  schema                              Fetch OpenAPI schema
+  graphql                             Run a read-only graphql query
+  connected-device                    Find a device connected to a peer device/interface
+  provision-token                     Provision a token with username/password
+  plugin-branch-action                Branch actions (branching plugin)
+  ipam-prefix-available-ips           List or create available IPs in a prefix
+  ipam-prefix-available-prefixes      List or create available prefixes in a prefix
+  ipam-range-available-ips            List or create available IPs in an IP range
+  ipam-vlan-group-available-vlans     List or create available VLANs in a VLAN group
+  ipam-asn-range-available-asns       List or create available ASNs in an ASN range
+  core-task-action                    Background task actions
+  core-data-source-sync               Sync a data source
+  extras-config-context-sync          Sync a config context
+  extras-config-context-profile-sync  Sync a config context profile
+  extras-config-template-sync         Sync a config template
+  extras-config-template-render       Render a config template
+  extras-export-template-sync         Sync an export template
+  extras-custom-field-choices         Get custom field choices
+  circuits-termination-paths          Get circuit termination paths
+  circuits-virtual-termination-paths  Get virtual circuit termination paths
+  dcim-trace                          Trace DCIM resources (interfaces, ports, feeds)
+  virtualization-render-config        Render VM config
+  raw                                 Make a raw API request (covers all endpoints)
+  help                                Print this message or the help of the given subcommand(s)
+
+Options:
+  -u, --url <URL>                  NetBox instance URL (overrides config file) [env: NETBOX_URL=]
+  -t, --token <TOKEN>              API token (overrides config file) [env: NETBOX_TOKEN=]
+  -p, --profile <PROFILE>          Config profile to use (default: "default") [default: default]
+      --output <OUTPUT>            Output format (json, yaml, table) [possible values: json, yaml, table]
+      --select <SELECT>            Select a field from the response (dot path)
+      --columns <COLUMNS>          Columns to show in table output (comma-separated)
+      --max-columns <MAX_COLUMNS>  Maximum columns in table output (default: 6) [default: 6]
+      --dry-run                    Print the request and skip write operations
+  -h, --help                       Print help
