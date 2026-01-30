@@ -4,6 +4,9 @@ this release captures the current state of the project. no prior published state
 
 ## [unreleased]
 
+### release
+- add release SBOM generation and upload (CycloneDX)
+
 ### scripts
 - add `regen.sh` combining schema fetch + generation with idempotency check
 - document environment variables for generation scripts
