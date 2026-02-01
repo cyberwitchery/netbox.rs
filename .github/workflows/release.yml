@@ -43,15 +43,19 @@ jobs:
 
       - name: generate sbom
         run: |
-          for manifest in crates/*/Cargo.toml; do
-            cargo cyclonedx --manifest-path "$manifest" --format json --override-filename "sbom-${{ github.ref_name }}.cdx" --all-features
+          for manifest in "$GITHUB_WORKSPACE"/crates/*/Cargo.toml; do
+            crate="$(basename "$(dirname "$manifest")")"
+            (cd /tmp && cargo cyclonedx --manifest-path "$manifest" \
+              --format json \
+              --override-filename "sbom-${{ github.ref_name }}-${crate}.cdx" \
+              --all-features)
           done
 
       - name: upload sbom
         uses: actions/upload-artifact@v4
         with:
           name: sbom-${{ github.ref_name }}
-          path: "crates/**/sbom-${{ github.ref_name }}.cdx.json"
+          path: "/tmp/sbom-${{ github.ref_name }}-*.cdx.json"
 
       - name: publish netbox-openapi
         env:
