@@ -1,0 +1,112 @@
+name: Integration
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - "**"
+    paths:
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "crates/**"
+      - "scripts/**"
+      - ".github/workflows/integration.yml"
+  push:
+    branches:
+      - "**"
+    paths:
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "crates/**"
+      - "scripts/**"
+      - ".github/workflows/integration.yml"
+  schedule:
+    - cron: "0 6 * * 1"
+
+jobs:
+  smoke-and-golden:
+    runs-on: big
+    timeout-minutes: 30
+    env:
+      NETBOX_URL: http://localhost:8000
+      SUPERUSER_API_TOKEN: ci-superuser-api-token
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: netbox
+          POSTGRES_USER: netbox
+          POSTGRES_PASSWORD: netbox
+        options: >-
+          --health-cmd "pg_isready -U netbox -d netbox"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+      redis:
+        image: redis:7-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+      redis-cache:
+        image: redis:7-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+      netbox:
+        image: netboxcommunity/netbox:v4.4.2
+        env:
+          ALLOWED_HOSTS: "*"
+          DB_HOST: postgres
+          DB_NAME: netbox
+          DB_USER: netbox
+          DB_PASSWORD: netbox
+          REDIS_HOST: redis
+          REDIS_DATABASE: "0"
+          REDIS_CACHE_HOST: redis-cache
+          REDIS_CACHE_DATABASE: "1"
+          SUPERUSER_API_TOKEN: ci-superuser-api-token
+          SECRET_KEY: thisisaverylongfixedsecretkeyforciandtestingonly123
+        ports:
+          - 8000:8080
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Wait for NetBox readiness
+        env:
+          NETBOX_TOKEN: ci-superuser-api-token
+        run: |
+          set -euo pipefail
+          for i in $(seq 1 180); do
+            if curl -fsS \
+              -H "Authorization: Token ${NETBOX_TOKEN}" \
+              "${NETBOX_URL}/api/status/" >/dev/null; then
+              echo "NetBox is ready after ${i} checks"
+              exit 0
+            fi
+            sleep 5
+          done
+
+          echo "NetBox failed readiness checks; dumping recent service logs"
+          docker logs "${{ job.services.netbox.id }}" --tail 200 || true
+          exit 1
+
+      - name: Run client smoke tests
+        env:
+          NETBOX_TOKEN: ci-superuser-api-token
+          NETBOX_INSECURE: "1"
+        run: ./scripts/run_smoke.sh
+
+      - name: Run CLI golden tests
+        env:
+          NETBOX_TOKEN: ci-superuser-api-token
+          NETBOX_INSECURE: "1"
+        run: cargo test -p netbox-cli --test golden -- --ignored

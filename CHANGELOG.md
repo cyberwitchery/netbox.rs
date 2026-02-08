@@ -13,6 +13,7 @@ this release captures the current state of the project. no prior published state
 
 ### tests
 - add golden output test harness for CLI (`cargo test -p netbox-cli --test golden`)
+- add GitHub Actions integration workflow with pinned NetBox service container running smoke + golden tests
 
 ## [0.3.1] - 2026-01-24
 
