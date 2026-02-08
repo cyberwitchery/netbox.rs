@@ -56,7 +56,23 @@ fn run_cli(args: &[&str]) -> (String, String, i32) {
 
 /// Normalize output for comparison by removing dynamic fields.
 fn normalize_output(output: &str) -> String {
-    let mut lines: Vec<&str> = output.lines().collect();
+    let mut lines: Vec<String> = output
+        .lines()
+        .map(|line| {
+            // clap includes current env var values in help output, which varies in CI.
+            if let Some(prefix) = line.split("[env: NETBOX_URL=").next() {
+                if line.contains("[env: NETBOX_URL=") {
+                    return format!("{prefix}[env: NETBOX_URL=]");
+                }
+            }
+            if let Some(prefix) = line.split("[env: NETBOX_TOKEN=").next() {
+                if line.contains("[env: NETBOX_TOKEN=") {
+                    return format!("{prefix}[env: NETBOX_TOKEN=]");
+                }
+            }
+            line.to_string()
+        })
+        .collect();
 
     // Remove trailing empty lines
     while lines.last().is_some_and(|l| l.is_empty()) {
@@ -149,8 +165,15 @@ fn golden_list_json_structure() {
         .expect("failed to build CLI");
     assert!(status.success(), "CLI build failed");
 
-    let (stdout, stderr, code) =
-        run_cli(&["--output", "json", "dcim-sites", "list", "--limit", "1"]);
+    let (stdout, stderr, code) = run_cli(&[
+        "--output",
+        "json",
+        "dcim",
+        "sites",
+        "list",
+        "--query",
+        "limit=1",
+    ]);
     assert_eq!(code, 0, "CLI failed: {}", stderr);
 
     // Verify JSON structure (content varies by instance)
@@ -173,10 +196,11 @@ fn golden_table_headers() {
         "table",
         "--columns",
         "id,name,slug",
-        "extras-tags",
+        "extras",
+        "tags",
         "list",
-        "--limit",
-        "0",
+        "--query",
+        "limit=0",
     ]);
     assert_eq!(code, 0, "CLI failed: {}", stderr);
 
