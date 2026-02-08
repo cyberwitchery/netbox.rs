@@ -79,6 +79,32 @@ netbox = "0.3"
 tokio = { version = "1.0", features = ["full"] }
 ```
 
+optional tracing instrumentation:
+
+```toml
+[dependencies]
+netbox = { version = "0.3", features = ["tracing"] }
+tokio = { version = "1.0", features = ["full"] }
+tracing-subscriber = "0.3"
+```
+
+tiny runtime setup example:
+
+```rust,ignore
+use netbox::{Client, ClientConfig};
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    tracing_subscriber::fmt()
+        .with_env_filter("netbox=trace")
+        .init();
+
+    let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
+    let _ = client.status().status().await?;
+    Ok(())
+}
+```
+
 ## create a client
 
 ```rust,no_run

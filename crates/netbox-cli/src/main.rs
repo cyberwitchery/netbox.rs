@@ -4,7 +4,7 @@ mod config;
 
 use clap::{Args, Parser, Subcommand, ValueEnum};
 use comfy_table::{Cell, ContentArrangement, Table};
-use config::{ConfigFile, Profile, load_config, config_path, validate_profile};
+use config::{ConfigFile, Profile, config_path, load_config, validate_profile};
 use netbox::{Client, ClientConfig};
 use reqwest::Method;
 use serde::de::DeserializeOwned;
@@ -1146,7 +1146,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
 
     // Resolve URL and token
-    let url = profile.url.clone().ok_or("url not specified (use --url, NETBOX_URL, or config file)")?;
+    let url = profile
+        .url
+        .clone()
+        .ok_or("url not specified (use --url, NETBOX_URL, or config file)")?;
     let token = profile.resolve_token()?.ok_or(
         "token not specified (use --token, NETBOX_TOKEN, token_env, or token_command in config)",
     )?;
@@ -1661,7 +1664,8 @@ async fn handle_task_action(
     if output.dry_run {
         print_dry_run(Method::POST, &path, None, None)?;
     } else {
-        let response = request_raw_with_context(client, Method::POST, &path, Some(&Value::Null)).await?;
+        let response =
+            request_raw_with_context(client, Method::POST, &path, Some(&Value::Null)).await?;
         print_output(&response, output)?;
     }
     Ok(())
@@ -1675,7 +1679,8 @@ async fn handle_sync_action(
     if output.dry_run {
         print_dry_run(Method::POST, path, None, None)?;
     } else {
-        let response = request_raw_with_context(client, Method::POST, path, Some(&Value::Null)).await?;
+        let response =
+            request_raw_with_context(client, Method::POST, path, Some(&Value::Null)).await?;
         print_output(&response, output)?;
     }
     Ok(())
@@ -1717,49 +1722,43 @@ fn handle_config_command(
     config_file: Option<&ConfigFile>,
 ) -> Result<(), Box<dyn std::error::Error>> {
     match action {
-        ConfigAction::Path => {
-            match config_path() {
-                Some(path) => println!("{}", path.display()),
-                None => println!("(could not determine config directory)"),
-            }
-        }
-        ConfigAction::List => {
-            match config_file {
-                Some(cf) => {
-                    let mut names: Vec<_> = cf.profile_names();
-                    names.sort();
-                    for name in names {
-                        if name == profile_name {
-                            println!("{} (active)", name);
-                        } else {
-                            println!("{}", name);
-                        }
-                    }
-                }
-                None => {
-                    println!("(no config file found)");
-                    if let Some(path) = config_path() {
-                        println!("expected at: {}", path.display());
-                    }
-                }
-            }
-        }
-        ConfigAction::Show => {
-            match config_file {
-                Some(cf) => {
-                    if let Some(profile) = cf.get_profile(profile_name) {
-                        let toml = toml::to_string_pretty(profile)?;
-                        println!("[{}]", profile_name);
-                        print!("{}", toml);
+        ConfigAction::Path => match config_path() {
+            Some(path) => println!("{}", path.display()),
+            None => println!("(could not determine config directory)"),
+        },
+        ConfigAction::List => match config_file {
+            Some(cf) => {
+                let mut names: Vec<_> = cf.profile_names();
+                names.sort();
+                for name in names {
+                    if name == profile_name {
+                        println!("{} (active)", name);
                     } else {
-                        return Err(format!("profile '{}' not found", profile_name).into());
+                        println!("{}", name);
                     }
                 }
-                None => {
-                    return Err("no config file found".into());
+            }
+            None => {
+                println!("(no config file found)");
+                if let Some(path) = config_path() {
+                    println!("expected at: {}", path.display());
                 }
             }
-        }
+        },
+        ConfigAction::Show => match config_file {
+            Some(cf) => {
+                if let Some(profile) = cf.get_profile(profile_name) {
+                    let toml = toml::to_string_pretty(profile)?;
+                    println!("[{}]", profile_name);
+                    print!("{}", toml);
+                } else {
+                    return Err(format!("profile '{}' not found", profile_name).into());
+                }
+            }
+            None => {
+                return Err("no config file found".into());
+            }
+        },
         ConfigAction::Validate => {
             match config_file {
                 Some(cf) => {
@@ -1770,12 +1769,16 @@ fn handle_config_command(
                                 // Try to resolve token to catch command errors
                                 match profile.resolve_token() {
                                     Ok(Some(_)) => println!("  token: ok"),
-                                    Ok(None) => println!("  token: (not set, will need --token or NETBOX_TOKEN)"),
+                                    Ok(None) => println!(
+                                        "  token: (not set, will need --token or NETBOX_TOKEN)"
+                                    ),
                                     Err(e) => println!("  token: error - {}", e),
                                 }
                             }
                             Err(e) => {
-                                return Err(format!("profile '{}' invalid: {}", profile_name, e).into());
+                                return Err(
+                                    format!("profile '{}' invalid: {}", profile_name, e).into()
+                                );
                             }
                         }
                     } else {
@@ -1897,7 +1900,11 @@ fn format_output(
     match output.format {
         OutputFormat::Json => Ok(to_string_pretty(&selected)?),
         OutputFormat::Yaml => Ok(serde_yaml::to_string(&selected)?),
-        OutputFormat::Table => Ok(format_table(&selected, output.columns.as_deref(), output.max_columns)),
+        OutputFormat::Table => Ok(format_table(
+            &selected,
+            output.columns.as_deref(),
+            output.max_columns,
+        )),
     }
 }
 
@@ -1971,7 +1978,12 @@ fn base_table(width: u16) -> Table {
     table
 }
 
-fn table_from_items(items: &[Value], width: u16, columns: Option<&[String]>, max_columns: usize) -> String {
+fn table_from_items(
+    items: &[Value],
+    width: u16,
+    columns: Option<&[String]>,
+    max_columns: usize,
+) -> String {
     let mut table = base_table(width);
     if let Some(Value::Object(first)) = items.first() {
         let headers = if let Some(cols) = columns {
@@ -2000,7 +2012,11 @@ fn table_from_items(items: &[Value], width: u16, columns: Option<&[String]>, max
     table.to_string()
 }
 
-fn infer_columns(items: &[Value], first: &serde_json::Map<String, Value>, max_columns: usize) -> Vec<String> {
+fn infer_columns(
+    items: &[Value],
+    first: &serde_json::Map<String, Value>,
+    max_columns: usize,
+) -> Vec<String> {
     let preferred = [
         "id",
         "name",
@@ -2666,7 +2682,10 @@ mod tests {
         let table = format_table(&value, None, 2);
         // Should only have 2 columns
         let header_line = table.lines().nth(1).unwrap_or("");
-        let column_count = header_line.split('|').filter(|s| !s.trim().is_empty()).count();
+        let column_count = header_line
+            .split('|')
+            .filter(|s| !s.trim().is_empty())
+            .count();
         assert_eq!(column_count, 2);
     }
 
@@ -2675,7 +2694,14 @@ mod tests {
         let mut args = base_args();
         args.extend(["--columns", "id,name,status", "status"]);
         let cli = parse_args(&args);
-        assert_eq!(cli.columns, Some(vec!["id".to_string(), "name".to_string(), "status".to_string()]));
+        assert_eq!(
+            cli.columns,
+            Some(vec![
+                "id".to_string(),
+                "name".to_string(),
+                "status".to_string()
+            ])
+        );
     }
 
     #[test]
@@ -3402,7 +3428,12 @@ mod tests {
             "list".to_string(),
         ];
         let cli = Cli::try_parse_from(&args).unwrap();
-        assert!(matches!(cli.command, Commands::Config { action: ConfigAction::List }));
+        assert!(matches!(
+            cli.command,
+            Commands::Config {
+                action: ConfigAction::List
+            }
+        ));
     }
 
     #[test]
@@ -3413,7 +3444,12 @@ mod tests {
             "show".to_string(),
         ];
         let cli = Cli::try_parse_from(&args).unwrap();
-        assert!(matches!(cli.command, Commands::Config { action: ConfigAction::Show }));
+        assert!(matches!(
+            cli.command,
+            Commands::Config {
+                action: ConfigAction::Show
+            }
+        ));
     }
 
     #[test]
@@ -3424,7 +3460,12 @@ mod tests {
             "validate".to_string(),
         ];
         let cli = Cli::try_parse_from(&args).unwrap();
-        assert!(matches!(cli.command, Commands::Config { action: ConfigAction::Validate }));
+        assert!(matches!(
+            cli.command,
+            Commands::Config {
+                action: ConfigAction::Validate
+            }
+        ));
     }
 
     #[test]

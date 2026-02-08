@@ -552,7 +552,8 @@ mod tests {
 
         // available IPs in prefix (GET)
         let mock1 = server.mock(|when, then| {
-            when.method(GET).path("/api/ipam/prefixes/42/available-ips/");
+            when.method(GET)
+                .path("/api/ipam/prefixes/42/available-ips/");
             then.status(200).json_body(json!([]));
         });
         let _ = client.ipam().available_ips_in_prefix(42).await;
@@ -560,11 +561,15 @@ mod tests {
 
         // create available IPs in prefix (POST)
         let mock2 = server.mock(|when, then| {
-            when.method(POST).path("/api/ipam/prefixes/42/available-ips/");
+            when.method(POST)
+                .path("/api/ipam/prefixes/42/available-ips/");
             then.status(201).json_body(json!([]));
         });
         let body = vec![json!({"description": "test"})];
-        let _ = client.ipam().create_available_ips_in_prefix(42, &body).await;
+        let _ = client
+            .ipam()
+            .create_available_ips_in_prefix(42, &body)
+            .await;
         mock2.assert();
 
         // available prefixes in prefix (GET)
@@ -591,7 +596,8 @@ mod tests {
 
         // available IPs in range (GET)
         let mock5 = server.mock(|when, then| {
-            when.method(GET).path("/api/ipam/ip-ranges/10/available-ips/");
+            when.method(GET)
+                .path("/api/ipam/ip-ranges/10/available-ips/");
             then.status(200).json_body(json!([]));
         });
         let _ = client.ipam().available_ips_in_range(10).await;
@@ -599,7 +605,8 @@ mod tests {
 
         // create available IPs in range (POST)
         let mock6 = server.mock(|when, then| {
-            when.method(POST).path("/api/ipam/ip-ranges/10/available-ips/");
+            when.method(POST)
+                .path("/api/ipam/ip-ranges/10/available-ips/");
             then.status(201).json_body(json!([]));
         });
         let body = vec![json!({})];
@@ -622,7 +629,10 @@ mod tests {
             then.status(201).json_body(json!([]));
         });
         let body = vec![json!({"name": "test-vlan"})];
-        let _ = client.ipam().create_available_vlans_in_group(5, &body).await;
+        let _ = client
+            .ipam()
+            .create_available_vlans_in_group(5, &body)
+            .await;
         mock8.assert();
 
         // available ASNs in range (GET)

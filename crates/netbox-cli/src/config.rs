@@ -53,7 +53,6 @@ impl Profile {
         }
         Ok(self.token.clone())
     }
-
 }
 
 /// Configuration file containing multiple profiles.

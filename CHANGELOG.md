@@ -11,6 +11,9 @@ this release captures the current state of the project. no prior published state
 - add `regen.sh` combining schema fetch + generation with idempotency check
 - document environment variables for generation scripts
 
+### client
+- add optional `tracing` feature for request lifecycle instrumentation (URL build, send/response timing, retries, and error classification)
+
 ### tests
 - add golden output test harness for CLI (`cargo test -p netbox-cli --test golden`)
 - add GitHub Actions integration workflow with pinned NetBox service container running smoke + golden tests

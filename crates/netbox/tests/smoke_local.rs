@@ -503,7 +503,10 @@ async fn run_smoke(client: &Client, created: &mut Created) -> Result<()> {
         );
 
         eprintln!("smoke: available child prefixes in prefix");
-        let _available_prefixes = client.ipam().available_prefixes_in_prefix(prefix_id).await?;
+        let _available_prefixes = client
+            .ipam()
+            .available_prefixes_in_prefix(prefix_id)
+            .await?;
         // may be empty for /24, that's ok
     }
 

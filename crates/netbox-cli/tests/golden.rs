@@ -17,9 +17,7 @@ use std::path::PathBuf;
 use std::process::Command;
 
 fn env_var(key: &str) -> Option<String> {
-    std::env::var(key)
-        .ok()
-        .filter(|v| !v.trim().is_empty())
+    std::env::var(key).ok().filter(|v| !v.trim().is_empty())
 }
 
 fn cli_binary() -> PathBuf {
@@ -114,8 +112,14 @@ fn golden_status_json() {
 
     // For status, we just check structure since values are dynamic
     let json: serde_json::Value = serde_json::from_str(&stdout).expect("invalid JSON output");
-    assert!(json.get("netbox-version").is_some(), "missing netbox-version");
-    assert!(json.get("python-version").is_some(), "missing python-version");
+    assert!(
+        json.get("netbox-version").is_some(),
+        "missing netbox-version"
+    );
+    assert!(
+        json.get("python-version").is_some(),
+        "missing python-version"
+    );
 }
 
 #[test]
@@ -145,7 +149,8 @@ fn golden_list_json_structure() {
         .expect("failed to build CLI");
     assert!(status.success(), "CLI build failed");
 
-    let (stdout, stderr, code) = run_cli(&["--output", "json", "dcim-sites", "list", "--limit", "1"]);
+    let (stdout, stderr, code) =
+        run_cli(&["--output", "json", "dcim-sites", "list", "--limit", "1"]);
     assert_eq!(code, 0, "CLI failed: {}", stderr);
 
     // Verify JSON structure (content varies by instance)
@@ -164,9 +169,14 @@ fn golden_table_headers() {
     assert!(status.success(), "CLI build failed");
 
     let (stdout, stderr, code) = run_cli(&[
-        "--output", "table",
-        "--columns", "id,name,slug",
-        "extras-tags", "list", "--limit", "0"
+        "--output",
+        "table",
+        "--columns",
+        "id,name,slug",
+        "extras-tags",
+        "list",
+        "--limit",
+        "0",
     ]);
     assert_eq!(code, 0, "CLI failed: {}", stderr);
 

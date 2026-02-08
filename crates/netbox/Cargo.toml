@@ -22,6 +22,7 @@ serde_urlencoded = "0.7"
 thiserror = { workspace = true }
 tokio = { workspace = true }
 url = { workspace = true }
+tracing = { version = "0.1", optional = true }
 
 [dev-dependencies]
 tokio = { workspace = true, features = ["macros"] }
@@ -30,6 +31,7 @@ httpmock = "0.7"
 
 [features]
 default = []
+tracing = ["dep:tracing"]
 
 [package.metadata.docs.rs]
 all-features = true

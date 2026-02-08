@@ -362,7 +362,7 @@ mod tests {
     use crate::ClientConfig;
     use httpmock::prelude::*;
     use proptest::prelude::*;
-    use serde_json::{json, Value};
+    use serde_json::{Value, json};
 
     fn mock_client(server: &MockServer) -> Client {
         let config = ClientConfig::new(server.base_url(), "test-token");
