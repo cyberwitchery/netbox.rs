@@ -1985,6 +1985,15 @@ fn table_from_items(
     max_columns: usize,
 ) -> String {
     let mut table = base_table(width);
+    if items.is_empty() {
+        let headers = columns
+            .filter(|cols| !cols.is_empty())
+            .map(|cols| cols.to_vec())
+            .unwrap_or_else(|| vec!["value".to_string()]);
+        table.set_header(headers.iter().map(Cell::new));
+        return table.to_string();
+    }
+
     if let Some(Value::Object(first)) = items.first() {
         let headers = if let Some(cols) = columns {
             cols.to_vec()
@@ -2670,6 +2679,22 @@ mod tests {
         assert!(table.contains("active"));
         assert!(!table.contains("extra"));
         assert!(!table.contains("ignored"));
+    }
+
+    #[test]
+    fn format_table_respects_explicit_columns_with_empty_results() {
+        let value = json!({
+            "count": 0,
+            "next": null,
+            "previous": null,
+            "results": []
+        });
+        let columns = vec!["id".to_string(), "name".to_string(), "slug".to_string()];
+        let table = format_table(&value, Some(&columns), 6);
+        assert!(table.contains("id"));
+        assert!(table.contains("name"));
+        assert!(table.contains("slug"));
+        assert!(!table.contains("value"));
     }
 
     #[test]
