@@ -2,6 +2,7 @@
 
 entrypoints:
 - client guide: `crates/netbox/docs/client.md`
+- http customization and hooks: `crates/netbox/docs/client.md#http-customization-hooks`
 - cli guide: `crates/netbox-cli/docs/cli.md`
 - examples: `crates/netbox/examples/README.md`
 - local netbox: `docs/local-netbox.md`

@@ -14,6 +14,7 @@ rust client for the netbox 4.x rest api. it was co-evolved using ai. pre-release
 - token auth
 - configurable timeouts, retries, ssl
 - graphql (read-only) helper
+- configurable http hooks and reqwest client customization
 - documented examples
 - unit tests and smoke tests
 
@@ -71,6 +72,35 @@ let config = ClientConfig::new("https://netbox.example.com", "token")
     .with_ssl_verification(false);
 
 let client = Client::new(config)?;
+```
+
+### http customization
+
+```rust
+use netbox::{ClientConfig, HttpHooks};
+use reqwest::{Method, Request, StatusCode};
+use std::time::Duration;
+
+struct MetricsHook;
+
+impl HttpHooks for MetricsHook {
+    fn on_request(&self, _method: &Method, _path: &str, request: &mut Request) -> netbox::Result<()> {
+        request
+            .headers_mut()
+            .insert("x-client-hook", "enabled".parse().expect("valid header value"));
+        Ok(())
+    }
+
+    fn on_response(&self, method: &Method, path: &str, status: StatusCode, duration: Duration) {
+        println!("{method} {path} -> {status} in {duration:?}");
+    }
+}
+
+let prebuilt = reqwest::Client::builder().pool_max_idle_per_host(4).build()?;
+
+let config = ClientConfig::new("https://netbox.example.com", "token")
+    .with_http_client(prebuilt) // takes precedence over with_http_client_builder
+    .with_http_hooks(MetricsHook);
 ```
 
 ### list with filters

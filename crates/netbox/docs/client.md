@@ -136,6 +136,55 @@ fn example() {
 }
 ```
 
+## http customization hooks
+
+for cross-cutting behavior, you can inject a prebuilt `reqwest::Client`,
+customize the internal client builder, and attach request/response hooks.
+
+```rust,no_run
+use netbox::{Client, ClientConfig, HttpHooks};
+use reqwest::{Method, Request, StatusCode};
+use std::time::Duration;
+
+struct MetricsHook;
+
+impl HttpHooks for MetricsHook {
+    fn on_request(&self, _method: &Method, _path: &str, request: &mut Request) -> netbox::Result<()> {
+        request
+            .headers_mut()
+            .insert("x-client-hook", "enabled".parse().expect("valid header value"));
+        Ok(())
+    }
+
+    fn on_response(&self, method: &Method, path: &str, status: StatusCode, duration: Duration) {
+        println!("{method} {path} -> {status} in {duration:?}");
+    }
+}
+
+fn example() -> Result<(), Box<dyn std::error::Error>> {
+    let prebuilt = reqwest::Client::builder()
+        .pool_max_idle_per_host(4)
+        .build()?;
+
+    let config = ClientConfig::new("https://netbox.example.com", "token")
+        .with_http_client(prebuilt)
+        .with_http_hooks(MetricsHook);
+
+    let _client = Client::new(config)?;
+    Ok(())
+}
+```
+
+precedence and behavior:
+- `with_http_client(...)` takes precedence over `with_http_client_builder(...)`.
+- hooks run for all client-driven HTTP requests (`Resource<T>`, special endpoint helpers, and `request_raw`).
+- hooks are additive with tracing; they can be used independently or together.
+
+safety notes:
+- avoid logging or exporting authentication tokens, cookies, or full sensitive payloads from hooks.
+- prefer additive mutations (headers/metadata) over replacing request method/url/body unexpectedly.
+- keep hook logic lightweight; slow hooks directly add latency to every request.
+
 ## http client access
 
 ```rust,no_run

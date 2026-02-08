@@ -5,6 +5,7 @@
 mod client;
 mod config;
 mod error;
+mod hooks;
 mod pagination;
 mod query;
 mod resource;
@@ -42,6 +43,7 @@ pub mod wireless;
 pub use client::Client;
 pub use config::ClientConfig;
 pub use error::{Error, Result};
+pub use hooks::HttpHooks;
 pub use pagination::{Page, Paginator};
 pub use query::QueryBuilder;
 pub use resource::{BulkDelete, BulkUpdate, Resource};

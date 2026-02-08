@@ -1,7 +1,9 @@
 //! client configuration
 
 use crate::error::{Error, Result};
+use crate::hooks::HttpHooks;
 use reqwest::header::{HeaderMap, HeaderName, HeaderValue};
+use std::sync::Arc;
 use std::time::Duration;
 use url::Url;
 
@@ -34,6 +36,16 @@ pub struct ClientConfig {
 
     /// additional headers to send with every request
     pub(crate) extra_headers: HeaderMap,
+
+    /// optional prebuilt reqwest client.
+    pub(crate) http_client: Option<reqwest::Client>,
+
+    /// optional callback to customize reqwest client builder.
+    pub(crate) http_client_builder:
+        Option<Arc<dyn Fn(reqwest::ClientBuilder) -> reqwest::ClientBuilder + Send + Sync>>,
+
+    /// optional request/response hooks.
+    pub(crate) http_hooks: Option<Arc<dyn HttpHooks>>,
 }
 
 impl ClientConfig {
@@ -75,6 +87,9 @@ impl ClientConfig {
             user_agent: format!("netbox-rs/{} (Rust)", env!("CARGO_PKG_VERSION")),
             verify_ssl: true,
             extra_headers: HeaderMap::new(),
+            http_client: None,
+            http_client_builder: None,
+            http_hooks: None,
         }
     }
 
@@ -119,6 +134,44 @@ impl ClientConfig {
     /// add a set of headers to every request
     pub fn with_headers(mut self, headers: HeaderMap) -> Self {
         self.extra_headers.extend(headers);
+        self
+    }
+
+    /// inject a prebuilt reqwest client.
+    ///
+    /// when set, the client uses this reqwest instance directly.
+    /// this takes precedence over `with_http_client_builder`.
+    ///
+    /// use this when you need full control over reqwest behavior
+    /// (custom middleware stack, proxying, transport tuning, etc.).
+    pub fn with_http_client(mut self, http_client: reqwest::Client) -> Self {
+        self.http_client = Some(http_client);
+        self
+    }
+
+    /// customize the reqwest client builder before build.
+    ///
+    /// this is ignored if `with_http_client` is also used.
+    ///
+    /// use this when you want to adjust builder settings while retaining
+    /// netbox default header/auth/timeout wiring.
+    pub fn with_http_client_builder<F>(mut self, builder: F) -> Self
+    where
+        F: Fn(reqwest::ClientBuilder) -> reqwest::ClientBuilder + Send + Sync + 'static,
+    {
+        self.http_client_builder = Some(Arc::new(builder));
+        self
+    }
+
+    /// attach hooks for request/response lifecycle customization.
+    ///
+    /// hooks can mutate outgoing requests and observe responses/errors.
+    /// avoid putting secrets into logs/metrics from hook implementations.
+    pub fn with_http_hooks<H>(mut self, hooks: H) -> Self
+    where
+        H: HttpHooks + 'static,
+    {
+        self.http_hooks = Some(Arc::new(hooks));
         self
     }
 
@@ -172,6 +225,9 @@ impl std::fmt::Debug for ClientConfig {
             .field("user_agent", &self.user_agent)
             .field("verify_ssl", &self.verify_ssl)
             .field("extra_headers", &self.extra_headers.len())
+            .field("http_client", &self.http_client.is_some())
+            .field("http_client_builder", &self.http_client_builder.is_some())
+            .field("http_hooks", &self.http_hooks.is_some())
             .field("token", &"<redacted>")
             .finish()
     }
@@ -180,7 +236,22 @@ impl std::fmt::Debug for ClientConfig {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::hooks::HttpHooks;
+    use reqwest::Method;
     use reqwest::header::{HeaderMap, HeaderName, HeaderValue};
+
+    struct TestHooks;
+
+    impl HttpHooks for TestHooks {
+        fn on_request(
+            &self,
+            _method: &Method,
+            _path: &str,
+            _request: &mut reqwest::Request,
+        ) -> Result<()> {
+            Ok(())
+        }
+    }
 
     #[test]
     fn test_new_config() {
@@ -272,5 +343,27 @@ mod tests {
         for (name, value) in headers.iter() {
             assert_eq!(config.extra_headers.get(name).unwrap(), value);
         }
+    }
+
+    #[test]
+    fn test_with_http_client() {
+        let prebuilt = reqwest::Client::new();
+        let config =
+            ClientConfig::new("https://netbox.example.com", "token").with_http_client(prebuilt);
+        assert!(config.http_client.is_some());
+    }
+
+    #[test]
+    fn test_with_http_client_builder() {
+        let config = ClientConfig::new("https://netbox.example.com", "token")
+            .with_http_client_builder(|builder| builder.pool_max_idle_per_host(2));
+        assert!(config.http_client_builder.is_some());
+    }
+
+    #[test]
+    fn test_with_http_hooks() {
+        let config =
+            ClientConfig::new("https://netbox.example.com", "token").with_http_hooks(TestHooks);
+        assert!(config.http_hooks.is_some());
     }
 }

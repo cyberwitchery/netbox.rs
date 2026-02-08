@@ -63,6 +63,22 @@ ci enforces a minimum line coverage of 75% while excluding generated code.
 - include examples for new features
 - update `README.md` and `CHANGELOG.md` for user-visible changes
 
+## http hooks and client customization
+
+the `netbox` crate supports:
+- `ClientConfig::with_http_client(...)`
+- `ClientConfig::with_http_client_builder(...)`
+- `ClientConfig::with_http_hooks(...)` (`HttpHooks`)
+
+when changing request plumbing in `crates/netbox/src/client.rs`:
+- preserve precedence: prebuilt client takes priority over builder callback
+- ensure hooks still run for standard resources and `request_raw`
+- avoid introducing token/header/body secret leakage in logs or errors
+
+when changing these extension points:
+- add/adjust unit tests in `crates/netbox/src/client.rs` and/or `crates/netbox/src/config.rs`
+- update `crates/netbox/docs/client.md` and `README.md` examples if behavior changes
+
 ## api design principles
 
 1. ergonomics

@@ -13,6 +13,7 @@ this release captures the current state of the project. no prior published state
 
 ### client
 - add optional `tracing` feature for request lifecycle instrumentation (URL build, send/response timing, retries, and error classification)
+- add configurable HTTP extension points: injected prebuilt reqwest client, client-builder callback, and request/response hooks (`HttpHooks`)
 
 ### tests
 - add golden output test harness for CLI (`cargo test -p netbox-cli --test golden`)
