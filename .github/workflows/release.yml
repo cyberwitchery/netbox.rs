@@ -10,7 +10,7 @@ jobs:
     runs-on: big
     timeout-minutes: 15
     permissions:
-      contents: read
+      contents: write
     env:
       RUSTFLAGS: "-C debuginfo=0"
       CARGO_TARGET_DIR: target/ci
@@ -71,6 +71,11 @@ jobs:
         with:
           name: sbom-${{ github.ref_name }}
           path: "/tmp/netbox-sbom/sbom-${{ github.ref_name }}-*.cdx.json"
+
+      - name: attach sbom to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: /tmp/netbox-sbom/sbom-${{ github.ref_name }}-*.cdx.json
 
       - name: verify clean tree before publish
         run: |
