@@ -27,7 +27,7 @@ pub struct ObjectChange {
     #[serde(rename = "request_id", skip_serializing_if = "Option::is_none")]
     pub request_id: Option<uuid::Uuid>,
     #[serde(rename = "action", skip_serializing_if = "Option::is_none")]
-    pub action: Option<Box<crate::models::ChangeDiffAction>>,
+    pub action: Option<Box<crate::models::ObjectChangeAction>>,
     #[serde(
         rename = "changed_object_type",
         skip_serializing_if = "Option::is_none"

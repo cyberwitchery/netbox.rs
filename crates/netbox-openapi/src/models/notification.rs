@@ -40,7 +40,7 @@ pub struct Notification {
         skip_serializing_if = "Option::is_none"
     )]
     pub read: Option<Option<String>>,
-    /// * `object_created` - Object created * `object_updated` - Object updated * `object_deleted` - Object deleted * `job_started` - Job started * `job_completed` - Job completed * `job_failed` - Job failed * `job_errored` - Job errored * `branch_provisioned` - Branch provisioned * `branch_deprovisioned` - Branch deprovisioned * `branch_synced` - Branch synced * `branch_merged` - Branch merged * `branch_reverted` - Branch reverted
+    /// * `object_created` - Object created * `object_updated` - Object updated * `object_deleted` - Object deleted * `job_started` - Job started * `job_completed` - Job completed * `job_failed` - Job failed * `job_errored` - Job errored
     #[serde(rename = "event_type")]
     pub event_type: EventType,
 }
@@ -68,7 +68,7 @@ impl Notification {
     }
 }
 
-/// * `object_created` - Object created * `object_updated` - Object updated * `object_deleted` - Object deleted * `job_started` - Job started * `job_completed` - Job completed * `job_failed` - Job failed * `job_errored` - Job errored * `branch_provisioned` - Branch provisioned * `branch_deprovisioned` - Branch deprovisioned * `branch_synced` - Branch synced * `branch_merged` - Branch merged * `branch_reverted` - Branch reverted
+/// * `object_created` - Object created * `object_updated` - Object updated * `object_deleted` - Object deleted * `job_started` - Job started * `job_completed` - Job completed * `job_failed` - Job failed * `job_errored` - Job errored
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum EventType {
     #[serde(rename = "object_created")]
@@ -85,16 +85,6 @@ pub enum EventType {
     JobFailed,
     #[serde(rename = "job_errored")]
     JobErrored,
-    #[serde(rename = "branch_provisioned")]
-    BranchProvisioned,
-    #[serde(rename = "branch_deprovisioned")]
-    BranchDeprovisioned,
-    #[serde(rename = "branch_synced")]
-    BranchSynced,
-    #[serde(rename = "branch_merged")]
-    BranchMerged,
-    #[serde(rename = "branch_reverted")]
-    BranchReverted,
 }
 
 impl Default for EventType {

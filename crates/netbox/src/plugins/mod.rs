@@ -15,27 +15,63 @@ use crate::Client;
 use crate::error::Result;
 use crate::resource::Resource;
 
-/// branch model.
-pub type Branch = crate::models::Branch;
-/// branch event model.
-pub type BranchEvent = crate::models::BranchEvent;
-/// change diff model.
-pub type ChangeDiff = crate::models::ChangeDiff;
-/// commit request model.
-pub type CommitRequest = crate::models::CommitRequest;
+// Branch types come from the netbox-branching plugin and are not present in
+// the core NetBox OpenAPI schema, so they are defined locally here rather
+// than imported from generated code.
+
+/// branch model (netbox-branching plugin).
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Default)]
+pub struct Branch {
+    pub id: Option<u64>,
+    #[serde(flatten)]
+    pub extra: std::collections::HashMap<String, serde_json::Value>,
+}
+
+/// branch event model (netbox-branching plugin).
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Default)]
+pub struct BranchEvent {
+    pub id: Option<u64>,
+    #[serde(flatten)]
+    pub extra: std::collections::HashMap<String, serde_json::Value>,
+}
+
+/// change diff model (netbox-branching plugin).
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Default)]
+pub struct ChangeDiff {
+    pub id: Option<u64>,
+    #[serde(flatten)]
+    pub extra: std::collections::HashMap<String, serde_json::Value>,
+}
+
+/// commit request body (netbox-branching plugin).
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Default)]
+pub struct CommitRequest {
+    pub commit: Option<bool>,
+}
+
 /// job model.
 pub type Job = crate::models::Job;
-/// writable branch request model.
-pub type WritableBranchRequest = crate::models::WritableBranchRequest;
-/// patched writable branch request model.
-pub type PatchedWritableBranchRequest = crate::models::PatchedWritableBranchRequest;
+
+/// writable branch request (netbox-branching plugin).
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Default)]
+pub struct WritableBranchRequest {
+    #[serde(flatten)]
+    pub extra: std::collections::HashMap<String, serde_json::Value>,
+}
+
+/// patched writable branch request (netbox-branching plugin).
+#[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Default)]
+pub struct PatchedWritableBranchRequest {
+    #[serde(flatten)]
+    pub extra: std::collections::HashMap<String, serde_json::Value>,
+}
 
 /// resource for branch events.
-pub type BranchEventsApi = Resource<crate::models::BranchEvent>;
+pub type BranchEventsApi = Resource<BranchEvent>;
 /// resource for branches.
-pub type BranchesApi = Resource<crate::models::Branch>;
+pub type BranchesApi = Resource<Branch>;
 /// resource for changes.
-pub type ChangesApi = Resource<crate::models::ChangeDiff>;
+pub type ChangesApi = Resource<ChangeDiff>;
 
 /// api for plugin endpoints.
 #[derive(Clone)]

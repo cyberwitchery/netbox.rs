@@ -8,7 +8,6 @@ src/apis/dcim_api.rs
 src/apis/extras_api.rs
 src/apis/ipam_api.rs
 src/apis/mod.rs
-src/apis/plugins_api.rs
 src/apis/schema_api.rs
 src/apis/status_api.rs
 src/apis/tenancy_api.rs
@@ -36,11 +35,6 @@ src/models/background_task_request.rs
 src/models/bookmark.rs
 src/models/bookmark_request.rs
 src/models/bookmark_request_user.rs
-src/models/branch.rs
-src/models/branch_event.rs
-src/models/branch_event_type.rs
-src/models/branch_status.rs
-src/models/brief_branch.rs
 src/models/brief_cable.rs
 src/models/brief_cable_request.rs
 src/models/brief_circuit.rs
@@ -185,8 +179,6 @@ src/models/cable_request.rs
 src/models/cable_status.rs
 src/models/cable_termination.rs
 src/models/cable_termination_request.rs
-src/models/change_diff.rs
-src/models/change_diff_action.rs
 src/models/circuit.rs
 src/models/circuit_circuit_termination.rs
 src/models/circuit_circuit_termination_request.rs
@@ -213,7 +205,6 @@ src/models/cluster_request_type.rs
 src/models/cluster_status.rs
 src/models/cluster_type.rs
 src/models/cluster_type_request.rs
-src/models/commit_request.rs
 src/models/config_context.rs
 src/models/config_context_profile.rs
 src/models/config_context_profile_request.rs
@@ -443,6 +434,7 @@ src/models/notification_group.rs
 src/models/notification_group_request.rs
 src/models/notification_request.rs
 src/models/object_change.rs
+src/models/object_change_action.rs
 src/models/object_permission.rs
 src/models/object_permission_request.rs
 src/models/object_type.rs
@@ -450,11 +442,8 @@ src/models/paginated_aggregate_list.rs
 src/models/paginated_asn_list.rs
 src/models/paginated_asn_range_list.rs
 src/models/paginated_bookmark_list.rs
-src/models/paginated_branch_event_list.rs
-src/models/paginated_branch_list.rs
 src/models/paginated_cable_list.rs
 src/models/paginated_cable_termination_list.rs
-src/models/paginated_change_diff_list.rs
 src/models/paginated_circuit_group_assignment_list.rs
 src/models/paginated_circuit_group_list.rs
 src/models/paginated_circuit_list.rs
@@ -638,7 +627,6 @@ src/models/patched_vlan_translation_rule_request.rs
 src/models/patched_vrf_request.rs
 src/models/patched_webhook_request.rs
 src/models/patched_writable_aggregate_request.rs
-src/models/patched_writable_branch_request.rs
 src/models/patched_writable_cable_request.rs
 src/models/patched_writable_circuit_group_assignment_request.rs
 src/models/patched_writable_circuit_request.rs
@@ -860,7 +848,6 @@ src/models/wireless_lan_status.rs
 src/models/wireless_link.rs
 src/models/wireless_link_request.rs
 src/models/writable_aggregate_request.rs
-src/models/writable_branch_request.rs
 src/models/writable_cable_request.rs
 src/models/writable_circuit_group_assignment_request.rs
 src/models/writable_circuit_request.rs

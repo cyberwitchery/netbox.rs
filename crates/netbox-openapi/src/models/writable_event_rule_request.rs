@@ -90,16 +90,6 @@ pub enum EventTypes {
     JobFailed,
     #[serde(rename = "job_errored")]
     JobErrored,
-    #[serde(rename = "branch_provisioned")]
-    BranchProvisioned,
-    #[serde(rename = "branch_deprovisioned")]
-    BranchDeprovisioned,
-    #[serde(rename = "branch_synced")]
-    BranchSynced,
-    #[serde(rename = "branch_merged")]
-    BranchMerged,
-    #[serde(rename = "branch_reverted")]
-    BranchReverted,
 }
 
 impl Default for EventTypes {

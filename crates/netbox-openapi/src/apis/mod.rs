@@ -97,7 +97,6 @@ pub mod core_api;
 pub mod dcim_api;
 pub mod extras_api;
 pub mod ipam_api;
-pub mod plugins_api;
 pub mod schema_api;
 pub mod status_api;
 pub mod tenancy_api;

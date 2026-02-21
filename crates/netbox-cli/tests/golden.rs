@@ -166,13 +166,7 @@ fn golden_list_json_structure() {
     assert!(status.success(), "CLI build failed");
 
     let (stdout, stderr, code) = run_cli(&[
-        "--output",
-        "json",
-        "dcim",
-        "sites",
-        "list",
-        "--query",
-        "limit=1",
+        "--output", "json", "dcim", "sites", "list", "--query", "limit=1",
     ]);
     assert_eq!(code, 0, "CLI failed: {}", stderr);
 
