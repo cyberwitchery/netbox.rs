@@ -22,7 +22,9 @@ use crate::resource::Resource;
 /// branch model (netbox-branching plugin).
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Default)]
 pub struct Branch {
+    /// branch id.
     pub id: Option<u64>,
+    /// additional fields returned by the api.
     #[serde(flatten)]
     pub extra: std::collections::HashMap<String, serde_json::Value>,
 }
@@ -30,7 +32,9 @@ pub struct Branch {
 /// branch event model (netbox-branching plugin).
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Default)]
 pub struct BranchEvent {
+    /// event id.
     pub id: Option<u64>,
+    /// additional fields returned by the api.
     #[serde(flatten)]
     pub extra: std::collections::HashMap<String, serde_json::Value>,
 }
@@ -38,7 +42,9 @@ pub struct BranchEvent {
 /// change diff model (netbox-branching plugin).
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Default)]
 pub struct ChangeDiff {
+    /// diff id.
     pub id: Option<u64>,
+    /// additional fields returned by the api.
     #[serde(flatten)]
     pub extra: std::collections::HashMap<String, serde_json::Value>,
 }
@@ -46,6 +52,7 @@ pub struct ChangeDiff {
 /// commit request body (netbox-branching plugin).
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Default)]
 pub struct CommitRequest {
+    /// whether to commit the branch.
     pub commit: Option<bool>,
 }
 
@@ -55,6 +62,7 @@ pub type Job = crate::models::Job;
 /// writable branch request (netbox-branching plugin).
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Default)]
 pub struct WritableBranchRequest {
+    /// branch fields to write.
     #[serde(flatten)]
     pub extra: std::collections::HashMap<String, serde_json::Value>,
 }
@@ -62,6 +70,7 @@ pub struct WritableBranchRequest {
 /// patched writable branch request (netbox-branching plugin).
 #[derive(Debug, Clone, serde::Serialize, serde::Deserialize, Default)]
 pub struct PatchedWritableBranchRequest {
+    /// branch fields to patch.
     #[serde(flatten)]
     pub extra: std::collections::HashMap<String, serde_json::Value>,
 }
