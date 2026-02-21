@@ -99,6 +99,23 @@ jobs:
           docker logs "${{ job.services.netbox.id }}" --tail 200 || true
           exit 1
 
+      - name: Install oasdiff
+        run: |
+          version=$(curl -sfI https://github.com/tufin/oasdiff/releases/latest \
+            | grep -i '^location:' | grep -oE 'v[0-9.]+' | tr -d '\r\n')
+          curl -sSfL \
+            "https://github.com/tufin/oasdiff/releases/download/${version}/oasdiff_${version#v}_linux_amd64.tar.gz" \
+            | tar -xz -C /usr/local/bin
+
+      - name: Check OpenAPI schema for breaking changes
+        env:
+          NETBOX_TOKEN: ci-superuser-api-token
+        run: |
+          curl -sf "${NETBOX_URL}/api/schema/?format=json" \
+            -H "Authorization: Token ${NETBOX_TOKEN}" \
+            -o /tmp/live-schema.json
+          oasdiff breaking scripts/openapi-schema.json /tmp/live-schema.json --fail-on ERR
+
       - name: Run client smoke tests
         env:
           NETBOX_TOKEN: ci-superuser-api-token

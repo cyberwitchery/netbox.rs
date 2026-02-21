@@ -1,0 +1,53 @@
+name: Upstream Check
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      issues: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve latest upstream release
+        id: upstream
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          latest=$(gh api repos/netbox-community/netbox/releases/latest --jq '.tag_name | ltrimstr("v")')
+          echo "latest=${latest}" >> "$GITHUB_OUTPUT"
+
+      - name: Resolve pinned version
+        id: pinned
+        run: |
+          pinned=$(grep -oP '(?<=netboxcommunity/netbox:v)[^\s"]+' .github/workflows/integration.yml | head -1)
+          echo "pinned=${pinned}" >> "$GITHUB_OUTPUT"
+
+      - name: Open or update tracking issue on drift
+        if: steps.upstream.outputs.latest != steps.pinned.outputs.pinned
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LATEST: ${{ steps.upstream.outputs.latest }}
+          PINNED: ${{ steps.pinned.outputs.pinned }}
+        run: |
+          title="upstream: NetBox v${LATEST} released (CI pinned to v${PINNED})"
+          body="NetBox [v${LATEST}](https://github.com/netbox-community/netbox/releases/tag/v${LATEST}) has been released.\n\nThe integration CI is currently pinned to \`v${PINNED}\`.\n\n**To update:**\n1. bump the image tag in \`.github/workflows/integration.yml\`\n2. run CI; fix any breakage\n3. update \`docs/compat.md\`\n4. close this issue"
+
+          existing=$(gh issue list --state open --search "upstream: NetBox" --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue edit "$existing" --title "$title" --body "$(printf '%b' "$body")"
+            echo "updated issue #${existing}"
+          else
+            gh issue create --title "$title" --body "$(printf '%b' "$body")"
+          fi
+
+      - name: Report up to date
+        if: steps.upstream.outputs.latest == steps.pinned.outputs.pinned
+        run: echo "CI is pinned to the latest NetBox release (v${{ steps.pinned.outputs.pinned }})"

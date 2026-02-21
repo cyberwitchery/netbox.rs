@@ -4,6 +4,9 @@ this release captures the current state of the project. no prior published state
 
 ## [unreleased]
 
+### cli
+- fix table output: render explicit `--columns` headers even when the result set is empty
+
 ## [0.3.2] - 2026-02-08
 
 ### release

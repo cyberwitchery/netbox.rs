@@ -2012,6 +2012,9 @@ fn table_from_items(
                 table.add_row(vec![Cell::new(value_to_cell(Some(item)))]);
             }
         }
+    } else if let Some(cols) = columns {
+        // Empty result set with explicit columns: render the headers anyway.
+        table.set_header(cols.iter().map(Cell::new));
     } else {
         table.set_header(vec![Cell::new("value")]);
         for item in items {
