@@ -16,7 +16,6 @@ Cargo.lock
 Thumbs.db
 
 # Generated files
-scripts/openapi-schema.json
 scripts/openapi-schema.normalized.json
 
 # Test coverage
