@@ -4,8 +4,19 @@ this release captures the current state of the project. no prior published state
 
 ## [unreleased]
 
+## [0.3.3] - 2026-02-21
+
 ### cli
 - fix table output: render explicit `--columns` headers even when the result set is empty
+
+### openapi
+- regenerate bindings from NetBox 4.4.2; adds `ObjectChangeAction` model
+- fix `plugins/mod.rs`: define branch-related types locally since netbox-branching plugin models are no longer in the NetBox core schema
+
+### ci
+- add OpenAPI schema breaking-change detection via oasdiff in integration workflow
+- add weekly upstream drift detection (`upstream-check.yml`) with automatic issue creation on new upstream releases
+- add `docs/compat.md` compatibility matrix mapping client releases to tested NetBox versions
 
 ## [0.3.2] - 2026-02-08
 
@@ -141,7 +152,8 @@ this release captures the current state of the project. no prior published state
 - readme and rustdoc coverage for client and cli
 - contributing guide and script documentation
 
-[unreleased]: https://github.com/cyberwitchery/netbox.rs/compare/v0.3.2...HEAD
+[unreleased]: https://github.com/cyberwitchery/netbox.rs/compare/v0.3.3...HEAD
+[0.3.3]: https://github.com/cyberwitchery/netbox.rs/compare/v0.3.2...v0.3.3
 [0.3.2]: https://github.com/cyberwitchery/netbox.rs/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/cyberwitchery/netbox.rs/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/cyberwitchery/netbox.rs/compare/v0.2.1...v0.3.0
