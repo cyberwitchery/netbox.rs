@@ -119,10 +119,14 @@ else
 fi
 
 # Clean previous generated code (keep Cargo.toml)
-if [ -d "${OUTPUT_DIR}/src" ]; then
+if [ -d "${HOST_OUTPUT_DIR}/src" ]; then
     echo "Cleaning previous generated code..."
-    rm -rf "${OUTPUT_DIR}/src"
+    rm -rf "${HOST_OUTPUT_DIR}/src"
 fi
+
+# Save Cargo.toml before generation — the generator overwrites it with bad metadata
+CARGO_TOML_BACKUP="$(mktemp)"
+cp "${HOST_OUTPUT_DIR}/Cargo.toml" "${CARGO_TOML_BACKUP}"
 
 # Generate the code
 $GENERATOR_CMD \
@@ -130,6 +134,10 @@ $GENERATOR_CMD \
     -g "$GENERATOR" \
     -o "$OUTPUT_DIR" \
     --additional-properties=packageName=netbox-openapi,packageVersion="${PACKAGE_VERSION}"
+
+# Restore Cargo.toml — the generator overwrites [package] with junk metadata
+cp "${CARGO_TOML_BACKUP}" "${HOST_OUTPUT_DIR}/Cargo.toml"
+rm "${CARGO_TOML_BACKUP}"
 
 echo "Applying generated crate lint settings..."
 python3 - <<'PY' "${HOST_OUTPUT_DIR}/src/lib.rs"
