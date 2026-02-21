@@ -114,7 +114,33 @@ jobs:
           curl -sf "${NETBOX_URL}/api/schema/?format=json" \
             -H "Authorization: Token ${NETBOX_TOKEN}" \
             -o /tmp/live-schema.json
-          oasdiff breaking scripts/openapi-schema.json /tmp/live-schema.json --fail-on ERR
+
+          # Deduplicate paths with different parameter names (e.g. /foo/{id}/
+          # and /foo/{name}/) which oasdiff treats as duplicate endpoints.
+          python3 <<'PY'
+          import json, re
+
+          def norm(p):
+              return re.sub(r'\{[^}]+\}', '{p}', p)
+
+          def dedup(src, dst):
+              with open(src) as f:
+                  schema = json.load(f)
+              seen, paths = set(), {}
+              for path, methods in schema.get('paths', {}).items():
+                  n = norm(path)
+                  if n not in seen:
+                      seen.add(n)
+                      paths[path] = methods
+              schema['paths'] = paths
+              with open(dst, 'w') as f:
+                  json.dump(schema, f)
+
+          dedup('scripts/openapi-schema.json', '/tmp/base-deduped.json')
+          dedup('/tmp/live-schema.json', '/tmp/live-deduped.json')
+          PY
+
+          oasdiff breaking /tmp/base-deduped.json /tmp/live-deduped.json --fail-on ERR
 
       - name: Run client smoke tests
         env:
