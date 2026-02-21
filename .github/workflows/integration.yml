@@ -100,12 +100,12 @@ jobs:
           exit 1
 
       - name: Install oasdiff
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          version=$(curl -sfI https://github.com/tufin/oasdiff/releases/latest \
-            | grep -i '^location:' | grep -oE 'v[0-9.]+' | tr -d '\r\n')
-          curl -sSfL \
-            "https://github.com/tufin/oasdiff/releases/download/${version}/oasdiff_${version#v}_linux_amd64.tar.gz" \
-            | tar -xz -C /usr/local/bin
+          url=$(gh api repos/tufin/oasdiff/releases/latest \
+            --jq '.assets[] | select(.name | test("linux_amd64.tar.gz")) | .browser_download_url')
+          curl -sSfL "$url" | tar -xz -C /usr/local/bin
 
       - name: Check OpenAPI schema for breaking changes
         env:
