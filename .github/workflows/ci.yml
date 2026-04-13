@@ -34,3 +34,19 @@ jobs:
         with:
           name: coverage-lcov
           path: lcov.info
+
+  deny:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install cargo-deny
+        uses: taiki-e/install-action@cargo-deny
+
+      - name: cargo-deny
+        run: cargo deny check

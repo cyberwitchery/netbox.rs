@@ -1,0 +1,29 @@
+[advisories]
+ignore = [
+    # async-std is discontinued but pulled in transitively by httpmock
+    # (a dev dependency). No runtime impact.
+    "RUSTSEC-2025-0052",
+]
+
+[licenses]
+allow = [
+    "MIT",
+    "Apache-2.0",
+    "BSD-3-Clause",
+    "BSD-2-Clause",
+    "ISC",
+    "0BSD",
+    "MPL-2.0",
+    "CDLA-Permissive-2.0",
+    "Unicode-3.0",
+    "Unicode-DFS-2016",
+]
+confidence-threshold = 0.8
+
+[bans]
+multiple-versions = "warn"
+wildcards = "allow"
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"
