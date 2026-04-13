@@ -57,7 +57,7 @@ jobs:
           --health-timeout 5s
           --health-retries 10
       netbox:
-        image: netboxcommunity/netbox:v4.4.2
+        image: netboxcommunity/netbox:v4.5.7
         env:
           ALLOWED_HOSTS: "*"
           DB_HOST: postgres
