@@ -331,21 +331,19 @@ impl Client {
                 );
                 #[cfg(feature = "tracing")]
                 let started = Instant::now();
-                let response =
-                    self.execute_request(&method, path, request)
-                        .await
-                        .map_err(|err| {
-                            #[cfg(feature = "tracing")]
-                            tracing::warn!(
-                                method = %method,
-                                path,
-                                attempt,
-                                duration_ms = started.elapsed().as_millis() as u64,
-                                error = %err,
-                                "raw request send failed"
-                            );
-                            err
-                        })?;
+                let result = self.execute_request(&method, path, request).await;
+                #[cfg(feature = "tracing")]
+                if let Err(ref err) = result {
+                    tracing::warn!(
+                        method = %method,
+                        path,
+                        attempt,
+                        duration_ms = started.elapsed().as_millis() as u64,
+                        error = %err,
+                        "raw request send failed"
+                    );
+                }
+                let response = result?;
                 let status = response.status();
                 #[cfg(feature = "tracing")]
                 tracing::debug!(
@@ -412,20 +410,20 @@ impl Client {
         );
         #[cfg(feature = "tracing")]
         let started = Instant::now();
-        let response = self
+        let result = self
             .execute_request(&Method::DELETE, path, self.http_client.delete(url))
-            .await
-            .map_err(|err| {
-                #[cfg(feature = "tracing")]
-                tracing::warn!(
-                    method = %Method::DELETE,
-                    path,
-                    duration_ms = started.elapsed().as_millis() as u64,
-                    error = %err,
-                    "request send failed"
-                );
-                err
-            })?;
+            .await;
+        #[cfg(feature = "tracing")]
+        if let Err(ref err) = result {
+            tracing::warn!(
+                method = %Method::DELETE,
+                path,
+                duration_ms = started.elapsed().as_millis() as u64,
+                error = %err,
+                "request send failed"
+            );
+        }
+        let response = result?;
         #[cfg(feature = "tracing")]
         tracing::debug!(
             method = %Method::DELETE,
@@ -460,24 +458,24 @@ impl Client {
         );
         #[cfg(feature = "tracing")]
         let started = Instant::now();
-        let response = self
+        let result = self
             .execute_request(
                 &Method::DELETE,
                 path,
                 self.http_client.delete(url).json(body),
             )
-            .await
-            .map_err(|err| {
-                #[cfg(feature = "tracing")]
-                tracing::warn!(
-                    method = %Method::DELETE,
-                    path,
-                    duration_ms = started.elapsed().as_millis() as u64,
-                    error = %err,
-                    "request send failed"
-                );
-                err
-            })?;
+            .await;
+        #[cfg(feature = "tracing")]
+        if let Err(ref err) = result {
+            tracing::warn!(
+                method = %Method::DELETE,
+                path,
+                duration_ms = started.elapsed().as_millis() as u64,
+                error = %err,
+                "request send failed"
+            );
+        }
+        let response = result?;
         #[cfg(feature = "tracing")]
         tracing::debug!(
             method = %Method::DELETE,
@@ -553,21 +551,19 @@ impl Client {
         );
         #[cfg(feature = "tracing")]
         let started = Instant::now();
-        let response = self
-            .execute_request(&method, path, request)
-            .await
-            .map_err(|err| {
-                #[cfg(feature = "tracing")]
-                tracing::warn!(
-                    method = %method,
-                    path,
-                    attempt,
-                    duration_ms = started.elapsed().as_millis() as u64,
-                    error = %err,
-                    "request send failed"
-                );
-                err
-            })?;
+        let result = self.execute_request(&method, path, request).await;
+        #[cfg(feature = "tracing")]
+        if let Err(ref err) = result {
+            tracing::warn!(
+                method = %method,
+                path,
+                attempt,
+                duration_ms = started.elapsed().as_millis() as u64,
+                error = %err,
+                "request send failed"
+            );
+        }
+        let response = result?;
         #[cfg(feature = "tracing")]
         tracing::debug!(
             method = %method,
