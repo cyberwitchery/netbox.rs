@@ -68,6 +68,9 @@ jobs:
           REDIS_DATABASE: "0"
           REDIS_CACHE_HOST: redis-cache
           REDIS_CACHE_DATABASE: "1"
+          SUPERUSER_NAME: admin
+          SUPERUSER_EMAIL: admin@example.com
+          SUPERUSER_PASSWORD: admin
           SUPERUSER_API_TOKEN: ci-superuser-api-token
           SECRET_KEY: thisisaverylongfixedsecretkeyforciandtestingonly123
         ports:
