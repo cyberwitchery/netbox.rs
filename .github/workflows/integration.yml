@@ -72,7 +72,7 @@ jobs:
           SUPERUSER_EMAIL: admin@example.com
           SUPERUSER_PASSWORD: admin
           SUPERUSER_API_TOKEN: ci-superuser-api-token
-          API_TOKEN_PEPPER_1: ci-pepper-do-not-use-in-production
+          API_TOKEN_PEPPER_1: ci-pepper-do-not-use-in-production-testing-only-placeholder-value
           SECRET_KEY: thisisaverylongfixedsecretkeyforciandtestingonly123
         ports:
           - 8000:8080
