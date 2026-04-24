@@ -1910,16 +1910,16 @@ fn format_output(
 
 fn format_table(value: &Value, columns: Option<&[String]>, max_columns: usize) -> String {
     let width = terminal_width().unwrap_or(120).min(u16::MAX as usize) as u16;
-    if let Value::Object(map) = value {
-        if let Some(Value::Array(items)) = map.get("results") {
-            let summary = format_table_summary(map);
-            let table = table_from_items(items, width, columns, max_columns);
-            return if summary.is_empty() {
-                table
-            } else {
-                format!("{summary}\n{table}")
-            };
-        }
+    if let Value::Object(map) = value
+        && let Some(Value::Array(items)) = map.get("results")
+    {
+        let summary = format_table_summary(map);
+        let table = table_from_items(items, width, columns, max_columns);
+        return if summary.is_empty() {
+            table
+        } else {
+            format!("{summary}\n{table}")
+        };
     }
 
     match value {
