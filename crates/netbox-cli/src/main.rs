@@ -2116,7 +2116,8 @@ fn extract_display(map: &serde_json::Map<String, Value>) -> Option<String> {
 fn compact_json(value: &Value) -> String {
     let raw = serde_json::to_string(value).unwrap_or_else(|_| "<invalid>".to_string());
     if raw.len() > 120 {
-        format!("{}...", &raw[..117])
+        let end = raw.floor_char_boundary(117);
+        format!("{}...", &raw[..end])
     } else {
         raw
     }
