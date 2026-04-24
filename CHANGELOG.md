@@ -4,6 +4,12 @@ this release captures the current state of the project. no prior published state
 
 ## [unreleased]
 
+### workspace
+- bump MSRV from 1.85 to 1.91 (`floor_char_boundary` requires ≥1.82)
+
+### cli
+- fix `compact_json` panic on multi-byte UTF-8: use `floor_char_boundary` instead of raw byte offset for truncation
+
 ## [0.3.3] - 2026-02-21
 
 ### cli
