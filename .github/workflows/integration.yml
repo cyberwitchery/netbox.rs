@@ -26,10 +26,10 @@ on:
 jobs:
   smoke-and-golden:
     runs-on: big
-    timeout-minutes: 30
+    timeout-minutes: 45
     env:
       NETBOX_URL: http://localhost:8000
-      SUPERUSER_API_TOKEN: ci-superuser-api-token
+      NETBOX_TOKEN: '0123456789abcdef0123456789abcdef01234567'
     services:
       postgres:
         image: postgres:16-alpine
@@ -71,8 +71,6 @@ jobs:
           SUPERUSER_NAME: admin
           SUPERUSER_EMAIL: admin@example.com
           SUPERUSER_PASSWORD: admin
-          SUPERUSER_API_TOKEN: ci-superuser-api-token
-          API_TOKEN_PEPPER_1: ci-pepper-do-not-use-in-production-testing-only-placeholder-value
           SECRET_KEY: thisisaverylongfixedsecretkeyforciandtestingonly123
         ports:
           - 8000:8080
@@ -85,15 +83,16 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
 
       - name: Wait for NetBox readiness
-        env:
-          NETBOX_TOKEN: ci-superuser-api-token
         run: |
           set -euo pipefail
-          for i in $(seq 1 180); do
-            if curl -fsS \
-              -H "Authorization: Token ${NETBOX_TOKEN}" \
-              "${NETBOX_URL}/api/status/" >/dev/null; then
-              echo "NetBox is ready after ${i} checks"
+          # v4.5.8 container initialisation (migrations, static files, data
+          # fixtures) can take 15+ minutes on the first run.  Poll without
+          # authentication — any HTTP response means the web server is up.
+          for i in $(seq 1 300); do
+            http_code=$(curl -sS -o /dev/null -w '%{http_code}' \
+              "${NETBOX_URL}/login/" 2>/dev/null || true)
+            if [ "$http_code" != "000" ] && [ -n "$http_code" ]; then
+              echo "NetBox is ready (HTTP ${http_code}) after ${i} checks"
               exit 0
             fi
             sleep 5
@@ -102,6 +101,24 @@ jobs:
           echo "NetBox failed readiness checks; dumping recent service logs"
           docker logs "${{ job.services.netbox.id }}" --tail 200 || true
           exit 1
+
+      - name: Provision CI API token
+        run: |
+          # The v4.5.8 image only auto-creates v2 (peppered) tokens, which
+          # require "Bearer nbt_<key>.<plaintext>" auth.  The Rust client
+          # sends "Token <key>", so we create a classic v1 token instead.
+          docker exec "${{ job.services.netbox.id }}" \
+            /opt/netbox/venv/bin/python /opt/netbox/netbox/manage.py shell -c "
+          from users.models import Token
+          from django.contrib.auth.models import User
+          u = User.objects.get(username='admin')
+          t = Token.objects.create(user=u, key='${NETBOX_TOKEN}')
+          print(f'v1 token provisioned (key={t.key[:8]}...)')
+          "
+          # Verify the token works
+          curl -fsS -H "Authorization: Token ${NETBOX_TOKEN}" \
+            "${NETBOX_URL}/api/status/" >/dev/null
+          echo "Token verified against /api/status/"
 
       - name: Install oasdiff
         env:
@@ -112,8 +129,6 @@ jobs:
           curl -sSfL "$url" | tar -xz -C /usr/local/bin
 
       - name: Check OpenAPI schema for breaking changes
-        env:
-          NETBOX_TOKEN: ci-superuser-api-token
         run: |
           curl -sf "${NETBOX_URL}/api/schema/?format=json" \
             -H "Authorization: Token ${NETBOX_TOKEN}" \
@@ -148,12 +163,10 @@ jobs:
 
       - name: Run client smoke tests
         env:
-          NETBOX_TOKEN: ci-superuser-api-token
           NETBOX_INSECURE: "1"
         run: ./scripts/run_smoke.sh
 
       - name: Run CLI golden tests
         env:
-          NETBOX_TOKEN: ci-superuser-api-token
           NETBOX_INSECURE: "1"
         run: cargo test -p netbox-cli --test golden -- --ignored
