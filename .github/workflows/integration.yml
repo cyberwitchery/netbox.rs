@@ -110,8 +110,8 @@ jobs:
           docker exec "${{ job.services.netbox.id }}" \
             /opt/netbox/venv/bin/python /opt/netbox/netbox/manage.py shell -c "
           from users.models import Token
-          from django.contrib.auth.models import User
-          u = User.objects.get(username='admin')
+          from django.contrib.auth import get_user_model
+          u = get_user_model().objects.get(username='admin')
           t = Token.objects.create(user=u, key='${NETBOX_TOKEN}')
           print(f'v1 token provisioned (key={t.key[:8]}...)')
           "
