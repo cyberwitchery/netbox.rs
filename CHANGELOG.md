@@ -10,6 +10,9 @@ this release captures the current state of the project. no prior published state
 ### cli
 - fix `compact_json` panic on multi-byte UTF-8: use `floor_char_boundary` instead of raw byte offset for truncation
 
+### ci
+- bump pinned NetBox container from v4.4.2 to v4.5.8
+
 ## [0.3.3] - 2026-02-21
 
 ### cli

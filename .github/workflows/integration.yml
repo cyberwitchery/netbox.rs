@@ -26,10 +26,10 @@ on:
 jobs:
   smoke-and-golden:
     runs-on: big
-    timeout-minutes: 30
+    timeout-minutes: 45
     env:
       NETBOX_URL: http://localhost:8000
-      SUPERUSER_API_TOKEN: ci-superuser-api-token
+      NETBOX_TOKEN: '0123456789abcdef0123456789abcdef01234567'
     services:
       postgres:
         image: postgres:16-alpine
@@ -57,7 +57,7 @@ jobs:
           --health-timeout 5s
           --health-retries 10
       netbox:
-        image: netboxcommunity/netbox:v4.4.2
+        image: netboxcommunity/netbox:v4.5.8
         env:
           ALLOWED_HOSTS: "*"
           DB_HOST: postgres
@@ -68,7 +68,9 @@ jobs:
           REDIS_DATABASE: "0"
           REDIS_CACHE_HOST: redis-cache
           REDIS_CACHE_DATABASE: "1"
-          SUPERUSER_API_TOKEN: ci-superuser-api-token
+          SUPERUSER_NAME: admin
+          SUPERUSER_EMAIL: admin@example.com
+          SUPERUSER_PASSWORD: admin
           SECRET_KEY: thisisaverylongfixedsecretkeyforciandtestingonly123
         ports:
           - 8000:8080
@@ -81,15 +83,16 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
 
       - name: Wait for NetBox readiness
-        env:
-          NETBOX_TOKEN: ci-superuser-api-token
         run: |
           set -euo pipefail
-          for i in $(seq 1 180); do
-            if curl -fsS \
-              -H "Authorization: Token ${NETBOX_TOKEN}" \
-              "${NETBOX_URL}/api/status/" >/dev/null; then
-              echo "NetBox is ready after ${i} checks"
+          # v4.5.8 container initialisation (migrations, static files, data
+          # fixtures) can take 15+ minutes on the first run.  Poll without
+          # authentication — any HTTP response means the web server is up.
+          for i in $(seq 1 300); do
+            http_code=$(curl -sS -o /dev/null -w '%{http_code}' \
+              "${NETBOX_URL}/login/" 2>/dev/null || true)
+            if [ "$http_code" != "000" ] && [ -n "$http_code" ]; then
+              echo "NetBox is ready (HTTP ${http_code}) after ${i} checks"
               exit 0
             fi
             sleep 5
@@ -98,6 +101,36 @@ jobs:
           echo "NetBox failed readiness checks; dumping recent service logs"
           docker logs "${{ job.services.netbox.id }}" --tail 200 || true
           exit 1
+
+      - name: Provision CI API token
+        run: |
+          # NetBox v4.5.8 requires API_TOKEN_PEPPERS for any ORM-based token
+          # creation (Token.save() -> update_digest() -> get_current_pepper()).
+          # Peppered v2 tokens use "Bearer nbt_<id>.<key>" auth, which the
+          # Rust client doesn't support (it sends "Token <key>").
+          #
+          # Bypass the ORM with a raw SQL INSERT to create a v1-compatible
+          # token record (no pepper_id, no digest).
+          docker exec "${{ job.services.netbox.id }}" \
+            /opt/netbox/venv/bin/python /opt/netbox/netbox/manage.py shell -c "
+          from django.db import connection
+          from django.contrib.auth import get_user_model
+          from django.utils import timezone
+          u = get_user_model().objects.get(username='admin')
+          key = '${NETBOX_TOKEN}'
+          with connection.cursor() as cursor:
+              cursor.execute(
+                  '''INSERT INTO users_token
+                     (user_id, version, plaintext, write_enabled, description, created, enabled, allowed_ips)
+                     VALUES (%s, 1, %s, true, %s, %s, true, %s)''',
+                  [u.pk, key, '', timezone.now(), '{}']
+              )
+          print('v1 token provisioned via raw SQL (key=' + key[:8] + '...)')
+          "
+          # Verify the token works
+          curl -fsS -H "Authorization: Token ${NETBOX_TOKEN}" \
+            "${NETBOX_URL}/api/status/" >/dev/null
+          echo "Token verified against /api/status/"
 
       - name: Install oasdiff
         env:
@@ -108,8 +141,6 @@ jobs:
           curl -sSfL "$url" | tar -xz -C /usr/local/bin
 
       - name: Check OpenAPI schema for breaking changes
-        env:
-          NETBOX_TOKEN: ci-superuser-api-token
         run: |
           curl -sf "${NETBOX_URL}/api/schema/?format=json" \
             -H "Authorization: Token ${NETBOX_TOKEN}" \
@@ -144,12 +175,10 @@ jobs:
 
       - name: Run client smoke tests
         env:
-          NETBOX_TOKEN: ci-superuser-api-token
           NETBOX_INSECURE: "1"
         run: ./scripts/run_smoke.sh
 
       - name: Run CLI golden tests
         env:
-          NETBOX_TOKEN: ci-superuser-api-token
           NETBOX_INSECURE: "1"
         run: cargo test -p netbox-cli --test golden -- --ignored
