@@ -104,16 +104,28 @@ jobs:
 
       - name: Provision CI API token
         run: |
-          # The v4.5.8 image only auto-creates v2 (peppered) tokens, which
-          # require "Bearer nbt_<key>.<plaintext>" auth.  The Rust client
-          # sends "Token <key>", so we create a classic v1 token instead.
+          # NetBox v4.5.8 requires API_TOKEN_PEPPERS for any ORM-based token
+          # creation (Token.save() -> update_digest() -> get_current_pepper()).
+          # Peppered v2 tokens use "Bearer nbt_<id>.<key>" auth, which the
+          # Rust client doesn't support (it sends "Token <key>").
+          #
+          # Bypass the ORM with a raw SQL INSERT to create a v1-compatible
+          # token record (no pepper_id, no digest).
           docker exec "${{ job.services.netbox.id }}" \
             /opt/netbox/venv/bin/python /opt/netbox/netbox/manage.py shell -c "
-          from users.models import Token
+          from django.db import connection
           from django.contrib.auth import get_user_model
+          from django.utils import timezone
           u = get_user_model().objects.get(username='admin')
-          t = Token.objects.create(user=u, key='${NETBOX_TOKEN}')
-          print(f'v1 token provisioned (key={t.key[:8]}...)')
+          key = '${NETBOX_TOKEN}'
+          with connection.cursor() as cursor:
+              cursor.execute(
+                  '''INSERT INTO users_token
+                     (user_id, key, write_enabled, description, created, allowed_ips)
+                     VALUES (%s, %s, true, %s, %s, %s)''',
+                  [u.pk, key, '', timezone.now(), '{}']
+              )
+          print('v1 token provisioned via raw SQL (key=' + key[:8] + '...)')
           "
           # Verify the token works
           curl -fsS -H "Authorization: Token ${NETBOX_TOKEN}" \
