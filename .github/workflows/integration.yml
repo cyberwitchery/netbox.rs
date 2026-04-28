@@ -121,8 +121,8 @@ jobs:
           with connection.cursor() as cursor:
               cursor.execute(
                   '''INSERT INTO users_token
-                     (user_id, key, write_enabled, description, created, allowed_ips)
-                     VALUES (%s, %s, true, %s, %s, %s)''',
+                     (user_id, version, plaintext, write_enabled, description, created, enabled, allowed_ips)
+                     VALUES (%s, 1, %s, true, %s, %s, true, %s)''',
                   [u.pk, key, '', timezone.now(), '{}']
               )
           print('v1 token provisioned via raw SQL (key=' + key[:8] + '...)')
