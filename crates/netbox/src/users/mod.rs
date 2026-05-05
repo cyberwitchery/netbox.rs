@@ -486,11 +486,11 @@ mod tests {
         });
 
         let request = TokenProvisionRequest {
-            expires: None,
             write_enabled: Some(true),
             description: Some("provisioned".to_string()),
             username: "admin".to_string(),
             password: "secret".to_string(),
+            ..Default::default()
         };
 
         let token = api.provision_token(&request).await.unwrap();

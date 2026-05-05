@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "NetBox REST API",
-    "version": "4.5.8 (4.5)",
+    "version": "4.5.9-Docker-4.0.2 (4.5)",
     "license": {
       "name": "Apache v2 License"
     }
@@ -47727,7 +47727,7 @@
     "/api/dcim/devices/{id}/render-config/": {
       "post": {
         "operationId": "dcim_devices_render_config_create",
-        "description": "Resolve and render the preferred ConfigTemplate for this Device.",
+        "description": "Resolve and render the preferred ConfigTemplate for this Device or Virtual Machine.",
         "parameters": [
           {
             "in": "query",
@@ -55426,8 +55426,8 @@
               "type": "array",
               "items": {
                 "type": "integer",
-                "maximum": 9223372036854776000,
-                "minimum": -9223372036854776000,
+                "maximum": 9223372036854775807,
+                "minimum": -9223372036854775808,
                 "format": "int64",
                 "nullable": true
               }
@@ -55443,8 +55443,8 @@
               "type": "array",
               "items": {
                 "type": "integer",
-                "maximum": 9223372036854776000,
-                "minimum": -9223372036854776000,
+                "maximum": 9223372036854775807,
+                "minimum": -9223372036854775808,
                 "format": "int64",
                 "nullable": true
               }
@@ -77972,6 +77972,58 @@
               }
             },
             "description": "Owner (ID)",
+            "explode": true,
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "profile",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Profile (name)",
+            "explode": true,
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "profile__n",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "description": "Profile (name)",
+            "explode": true,
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "profile_id",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "description": "Profile (ID)",
+            "explode": true,
+            "style": "form"
+          },
+          {
+            "in": "query",
+            "name": "profile_id__n",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "description": "Profile (ID)",
             "explode": true,
             "style": "form"
           },
@@ -158017,7 +158069,7 @@
               "schema": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/PrefixRequest"
+                  "$ref": "#/components/schemas/PrefixLengthRequest"
                 }
               }
             },
@@ -158025,7 +158077,7 @@
               "schema": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/PrefixRequest"
+                  "$ref": "#/components/schemas/PrefixLengthRequest"
                 }
               }
             }
@@ -161101,8 +161153,8 @@
               "type": "array",
               "items": {
                 "type": "integer",
-                "maximum": 9223372036854776000,
-                "minimum": -9223372036854776000,
+                "maximum": 9223372036854775807,
+                "minimum": -9223372036854775808,
                 "format": "int64",
                 "nullable": true
               }
@@ -161118,8 +161170,8 @@
               "type": "array",
               "items": {
                 "type": "integer",
-                "maximum": 9223372036854776000,
-                "minimum": -9223372036854776000,
+                "maximum": 9223372036854775807,
+                "minimum": -9223372036854775808,
                 "format": "int64",
                 "nullable": true
               }
@@ -161302,8 +161354,8 @@
               "type": "array",
               "items": {
                 "type": "integer",
-                "maximum": 9223372036854776000,
-                "minimum": -9223372036854776000,
+                "maximum": 9223372036854775807,
+                "minimum": -9223372036854775808,
                 "format": "int64",
                 "nullable": true
               }
@@ -161319,8 +161371,8 @@
               "type": "array",
               "items": {
                 "type": "integer",
-                "maximum": 9223372036854776000,
-                "minimum": -9223372036854776000,
+                "maximum": 9223372036854775807,
+                "minimum": -9223372036854775808,
                 "format": "int64",
                 "nullable": true
               }
@@ -167154,7 +167206,7 @@
               "schema": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/VLANRequest"
+                  "$ref": "#/components/schemas/CreateAvailableVLANRequest"
                 }
               }
             },
@@ -167162,7 +167214,7 @@
               "schema": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/components/schemas/VLANRequest"
+                  "$ref": "#/components/schemas/CreateAvailableVLANRequest"
                 }
               }
             }
@@ -169976,8 +170028,8 @@
               "type": "array",
               "items": {
                 "type": "integer",
-                "maximum": 9223372036854776000,
-                "minimum": -9223372036854776000,
+                "maximum": 9223372036854775807,
+                "minimum": -9223372036854775808,
                 "format": "int64",
                 "nullable": true
               }
@@ -169993,8 +170045,8 @@
               "type": "array",
               "items": {
                 "type": "integer",
-                "maximum": 9223372036854776000,
-                "minimum": -9223372036854776000,
+                "maximum": 9223372036854775807,
+                "minimum": -9223372036854775808,
                 "format": "int64",
                 "nullable": true
               }
@@ -194251,8 +194303,8 @@
               "type": "array",
               "items": {
                 "type": "integer",
-                "maximum": 9223372036854776000,
-                "minimum": -9223372036854776000,
+                "maximum": 9223372036854775807,
+                "minimum": -9223372036854775808,
                 "format": "int64",
                 "nullable": true
               }
@@ -194268,8 +194320,8 @@
               "type": "array",
               "items": {
                 "type": "integer",
-                "maximum": 9223372036854776000,
-                "minimum": -9223372036854776000,
+                "maximum": 9223372036854775807,
+                "minimum": -9223372036854775808,
                 "format": "int64",
                 "nullable": true
               }
@@ -200189,7 +200241,7 @@
     "/api/virtualization/virtual-machines/{id}/render-config/": {
       "post": {
         "operationId": "virtualization_virtual_machines_render_config_create",
-        "description": "Resolve and render the preferred ConfigTemplate for this Device.",
+        "description": "Resolve and render the preferred ConfigTemplate for this Device or Virtual Machine.",
         "parameters": [
           {
             "in": "query",
@@ -223626,7 +223678,7 @@
           },
           "object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -223663,7 +223715,7 @@
           },
           "object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -225315,8 +225367,8 @@
           },
           "identifier": {
             "type": "integer",
-            "maximum": 9223372036854776000,
-            "minimum": -9223372036854776000,
+            "maximum": 9223372036854775807,
+            "minimum": -9223372036854775808,
             "format": "int64",
             "nullable": true
           },
@@ -225393,8 +225445,8 @@
         "properties": {
           "identifier": {
             "type": "integer",
-            "maximum": 9223372036854776000,
-            "minimum": -9223372036854776000,
+            "maximum": 9223372036854775807,
+            "minimum": -9223372036854775808,
             "format": "int64",
             "nullable": true
           },
@@ -228954,7 +229006,7 @@
           },
           "member_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -229039,7 +229091,7 @@
           },
           "member_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -232136,7 +232188,7 @@
           },
           "object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -232225,7 +232277,7 @@
           },
           "object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -232653,6 +232705,92 @@
         "required": [
           "name",
           "slug"
+        ]
+      },
+      "CreateAvailableVLANRequest": {
+        "type": "object",
+        "description": "Adds support for custom fields and tags.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "site": {
+            "oneOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/BriefSiteRequest"
+                  }
+                ],
+                "nullable": true
+              }
+            ],
+            "nullable": true
+          },
+          "tenant": {
+            "oneOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/BriefTenantRequest"
+                  }
+                ],
+                "nullable": true
+              }
+            ],
+            "nullable": true
+          },
+          "status": {
+            "enum": [
+              "active",
+              "reserved",
+              "deprecated"
+            ],
+            "type": "string",
+            "description": "* `active` - Active\n* `reserved` - Reserved\n* `deprecated` - Deprecated",
+            "x-spec-enum-id": "ca933c38b935e547"
+          },
+          "role": {
+            "oneOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/BriefRoleRequest"
+                  }
+                ],
+                "nullable": true
+              }
+            ],
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 200
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NestedTagRequest"
+            }
+          },
+          "custom_fields": {
+            "type": "object",
+            "additionalProperties": {}
+          }
+        },
+        "required": [
+          "name"
         ]
       },
       "CustomField": {
@@ -233923,16 +234061,16 @@
           "latitude": {
             "type": "number",
             "format": "double",
-            "maximum": 90,
-            "minimum": -90,
+            "maximum": 90.0,
+            "minimum": -90.0,
             "nullable": true,
             "description": "GPS coordinate in decimal format (xx.yyyyyy)"
           },
           "longitude": {
             "type": "number",
             "format": "double",
-            "maximum": 180,
-            "minimum": -180,
+            "maximum": 180.0,
+            "minimum": -180.0,
             "nullable": true,
             "description": "GPS coordinate in decimal format (xx.yyyyyy)"
           },
@@ -234708,9 +234846,9 @@
             "type": "number",
             "format": "double",
             "maximum": 1000,
-            "minimum": 0,
+            "minimum": 0.0,
             "exclusiveMaximum": true,
-            "default": 1,
+            "default": 1.0,
             "title": "Position (U)"
           },
           "exclude_from_utilization": {
@@ -234987,9 +235125,9 @@
             "type": "number",
             "format": "double",
             "maximum": 1000,
-            "minimum": 0,
+            "minimum": 0.0,
             "exclusiveMaximum": true,
-            "default": 1,
+            "default": 1.0,
             "title": "Position (U)"
           },
           "exclude_from_utilization": {
@@ -235219,16 +235357,16 @@
           "latitude": {
             "type": "number",
             "format": "double",
-            "maximum": 90,
-            "minimum": -90,
+            "maximum": 90.0,
+            "minimum": -90.0,
             "nullable": true,
             "description": "GPS coordinate in decimal format (xx.yyyyyy)"
           },
           "longitude": {
             "type": "number",
             "format": "double",
-            "maximum": 180,
-            "minimum": -180,
+            "maximum": 180.0,
+            "minimum": -180.0,
             "nullable": true,
             "description": "GPS coordinate in decimal format (xx.yyyyyy)"
           },
@@ -235628,16 +235766,16 @@
           "latitude": {
             "type": "number",
             "format": "double",
-            "maximum": 90,
-            "minimum": -90,
+            "maximum": 90.0,
+            "minimum": -90.0,
             "nullable": true,
             "description": "GPS coordinate in decimal format (xx.yyyyyy)"
           },
           "longitude": {
             "type": "number",
             "format": "double",
-            "maximum": 180,
-            "minimum": -180,
+            "maximum": 180.0,
+            "minimum": -180.0,
             "nullable": true,
             "description": "GPS coordinate in decimal format (xx.yyyyyy)"
           },
@@ -235911,7 +236049,7 @@
           },
           "action_object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
@@ -236025,7 +236163,7 @@
           },
           "action_object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
@@ -236418,7 +236556,7 @@
           },
           "interface_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -236476,7 +236614,7 @@
           },
           "interface_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -238260,7 +238398,7 @@
           },
           "assigned_object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
@@ -238415,7 +238553,7 @@
           },
           "assigned_object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
@@ -239423,7 +239561,7 @@
           },
           "object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -239487,7 +239625,7 @@
           },
           "object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -240094,7 +240232,7 @@
           },
           "speed": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true,
@@ -241180,7 +241318,7 @@
           },
           "speed": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true,
@@ -242675,7 +242813,7 @@
           },
           "component_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
@@ -242836,7 +242974,7 @@
           },
           "component_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
@@ -243089,7 +243227,7 @@
           },
           "component_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
@@ -243204,7 +243342,7 @@
           },
           "component_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
@@ -243242,7 +243380,7 @@
           },
           "object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
@@ -243383,7 +243521,7 @@
           },
           "assigned_object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -243468,7 +243606,7 @@
           },
           "assigned_object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -243532,8 +243670,8 @@
           },
           "identifier": {
             "type": "integer",
-            "maximum": 9223372036854776000,
-            "minimum": -9223372036854776000,
+            "maximum": 9223372036854775807,
+            "minimum": -9223372036854775808,
             "format": "int64",
             "nullable": true
           },
@@ -243689,8 +243827,8 @@
         "properties": {
           "identifier": {
             "type": "integer",
-            "maximum": 9223372036854776000,
-            "minimum": -9223372036854776000,
+            "maximum": 9223372036854775807,
+            "minimum": -9223372036854775808,
             "format": "int64",
             "nullable": true
           },
@@ -243833,7 +243971,7 @@
           },
           "assigned_object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -243896,7 +244034,7 @@
           },
           "assigned_object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -244210,7 +244348,7 @@
           },
           "assigned_object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
@@ -244282,7 +244420,7 @@
           },
           "assigned_object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
@@ -246639,7 +246777,7 @@
           },
           "object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -246778,7 +246916,7 @@
           },
           "object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -246893,7 +247031,7 @@
           },
           "changed_object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -251524,7 +251662,7 @@
           },
           "object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -252529,7 +252667,7 @@
           },
           "interface_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -252650,7 +252788,7 @@
           },
           "object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -252800,7 +252938,7 @@
           },
           "component_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
@@ -252826,7 +252964,7 @@
           },
           "assigned_object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -252856,7 +252994,7 @@
           },
           "assigned_object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
@@ -253180,7 +253318,7 @@
           },
           "object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -253887,7 +254025,7 @@
           },
           "object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -254936,7 +255074,7 @@
           },
           "member_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -255633,7 +255771,7 @@
           },
           "object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -256189,9 +256327,9 @@
             "type": "number",
             "format": "double",
             "maximum": 1000,
-            "minimum": 0,
+            "minimum": 0.0,
             "exclusiveMaximum": true,
-            "default": 1,
+            "default": 1.0,
             "title": "Position (U)"
           },
           "exclude_from_utilization": {
@@ -256443,16 +256581,16 @@
           "latitude": {
             "type": "number",
             "format": "double",
-            "maximum": 90,
-            "minimum": -90,
+            "maximum": 90.0,
+            "minimum": -90.0,
             "nullable": true,
             "description": "GPS coordinate in decimal format (xx.yyyyyy)"
           },
           "longitude": {
             "type": "number",
             "format": "double",
-            "maximum": 180,
-            "minimum": -180,
+            "maximum": 180.0,
+            "minimum": -180.0,
             "nullable": true,
             "description": "GPS coordinate in decimal format (xx.yyyyyy)"
           },
@@ -256693,7 +256831,7 @@
           },
           "action_object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
@@ -257299,7 +257437,7 @@
           },
           "assigned_object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
@@ -258028,7 +258166,7 @@
           },
           "speed": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true,
@@ -258896,7 +259034,7 @@
           },
           "component_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
@@ -258938,7 +259076,7 @@
           },
           "assigned_object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -258979,8 +259117,8 @@
         "properties": {
           "identifier": {
             "type": "integer",
-            "maximum": 9223372036854776000,
-            "minimum": -9223372036854776000,
+            "maximum": 9223372036854775807,
+            "minimum": -9223372036854775808,
             "format": "int64",
             "nullable": true
           },
@@ -261469,7 +261607,7 @@
           },
           "parent_object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -261758,16 +261896,16 @@
           "latitude": {
             "type": "number",
             "format": "double",
-            "maximum": 90,
-            "minimum": -90,
+            "maximum": 90.0,
+            "minimum": -90.0,
             "nullable": true,
             "description": "GPS coordinate in decimal format (xx.yyyyyy)"
           },
           "longitude": {
             "type": "number",
             "format": "double",
-            "maximum": 180,
-            "minimum": -180,
+            "maximum": 180.0,
+            "minimum": -180.0,
             "nullable": true,
             "description": "GPS coordinate in decimal format (xx.yyyyyy)"
           },
@@ -261946,7 +262084,7 @@
           },
           "tunnel_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
@@ -262015,7 +262153,7 @@
           },
           "termination_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
@@ -266536,6 +266674,17 @@
           "url"
         ]
       },
+      "PrefixLengthRequest": {
+        "type": "object",
+        "properties": {
+          "prefix_length": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "prefix_length"
+        ]
+      },
       "PrefixRequest": {
         "type": "object",
         "description": "Base serializer class for models inheriting from PrimaryModel.",
@@ -270465,7 +270614,7 @@
           },
           "parent_object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -270576,7 +270725,7 @@
           },
           "parent_object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -270934,16 +271083,16 @@
           "latitude": {
             "type": "number",
             "format": "double",
-            "maximum": 90,
-            "minimum": -90,
+            "maximum": 90.0,
+            "minimum": -90.0,
             "nullable": true,
             "description": "GPS coordinate in decimal format (xx.yyyyyy)"
           },
           "longitude": {
             "type": "number",
             "format": "double",
-            "maximum": 180,
-            "minimum": -180,
+            "maximum": 180.0,
+            "minimum": -180.0,
             "nullable": true,
             "description": "GPS coordinate in decimal format (xx.yyyyyy)"
           },
@@ -271305,16 +271454,16 @@
           "latitude": {
             "type": "number",
             "format": "double",
-            "maximum": 90,
-            "minimum": -90,
+            "maximum": 90.0,
+            "minimum": -90.0,
             "nullable": true,
             "description": "GPS coordinate in decimal format (xx.yyyyyy)"
           },
           "longitude": {
             "type": "number",
             "format": "double",
-            "maximum": 180,
-            "minimum": -180,
+            "maximum": 180.0,
+            "minimum": -180.0,
             "nullable": true,
             "description": "GPS coordinate in decimal format (xx.yyyyyy)"
           },
@@ -271381,7 +271530,7 @@
           },
           "object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -271418,7 +271567,7 @@
           },
           "object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -272543,7 +272692,7 @@
           },
           "tunnel_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
@@ -272828,7 +272977,7 @@
           },
           "tunnel_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
@@ -272926,7 +273075,7 @@
           },
           "termination_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
@@ -273008,7 +273157,7 @@
           },
           "termination_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
@@ -277426,7 +277575,7 @@
           },
           "member_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -278151,7 +278300,7 @@
           },
           "object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -278733,9 +278882,9 @@
             "type": "number",
             "format": "double",
             "maximum": 1000,
-            "minimum": 0,
+            "minimum": 0.0,
             "exclusiveMaximum": true,
-            "default": 1,
+            "default": 1.0,
             "title": "Position (U)"
           },
           "exclude_from_utilization": {
@@ -278992,16 +279141,16 @@
           "latitude": {
             "type": "number",
             "format": "double",
-            "maximum": 90,
-            "minimum": -90,
+            "maximum": 90.0,
+            "minimum": -90.0,
             "nullable": true,
             "description": "GPS coordinate in decimal format (xx.yyyyyy)"
           },
           "longitude": {
             "type": "number",
             "format": "double",
-            "maximum": 180,
-            "minimum": -180,
+            "maximum": 180.0,
+            "minimum": -180.0,
             "nullable": true,
             "description": "GPS coordinate in decimal format (xx.yyyyyy)"
           },
@@ -279247,7 +279396,7 @@
           },
           "action_object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
@@ -279877,7 +280026,7 @@
           },
           "assigned_object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
@@ -280625,7 +280774,7 @@
           },
           "speed": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true,
@@ -281502,7 +281651,7 @@
           },
           "component_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
@@ -281548,7 +281697,7 @@
           },
           "assigned_object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -281594,8 +281743,8 @@
         "properties": {
           "identifier": {
             "type": "integer",
-            "maximum": 9223372036854776000,
-            "minimum": -9223372036854776000,
+            "maximum": 9223372036854775807,
+            "minimum": -9223372036854775808,
             "format": "int64",
             "nullable": true
           },
@@ -284157,7 +284306,7 @@
           },
           "parent_object_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64"
           },
@@ -284462,16 +284611,16 @@
           "latitude": {
             "type": "number",
             "format": "double",
-            "maximum": 90,
-            "minimum": -90,
+            "maximum": 90.0,
+            "minimum": -90.0,
             "nullable": true,
             "description": "GPS coordinate in decimal format (xx.yyyyyy)"
           },
           "longitude": {
             "type": "number",
             "format": "double",
-            "maximum": 180,
-            "minimum": -180,
+            "maximum": 180.0,
+            "minimum": -180.0,
             "nullable": true,
             "description": "GPS coordinate in decimal format (xx.yyyyyy)"
           },
@@ -284658,7 +284807,7 @@
           },
           "tunnel_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
@@ -284731,7 +284880,7 @@
           },
           "termination_id": {
             "type": "integer",
-            "maximum": 9223372036854776000,
+            "maximum": 9223372036854775807,
             "minimum": 0,
             "format": "int64",
             "nullable": true
