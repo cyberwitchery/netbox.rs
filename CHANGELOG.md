@@ -10,8 +10,13 @@ this release captures the current state of the project. no prior published state
 ### cli
 - fix `compact_json` panic on multi-byte UTF-8: use `floor_char_boundary` instead of raw byte offset for truncation
 
+### openapi
+- regenerate bindings from NetBox v4.5.9 schema; `TokenProvisionRequest` now exposes optional `version`, `enabled`, and `token` fields
+- `scripts/generate.sh`: re-include `#![allow(clippy::all)]` in the generated `lib.rs` header so regeneration doesn't break workspace clippy
+
 ### ci
-- bump pinned NetBox container from v4.4.2 to v4.5.8
+- bump pinned NetBox container from v4.5.8 to v4.5.9
+- refresh `scripts/openapi-schema.json` against v4.5.9 (a new required `prefix_length` on `POST /api/ipam/prefixes/{id}/available-prefixes/` would otherwise fail the oasdiff breaking check)
 
 ## [0.3.3] - 2026-02-21
 

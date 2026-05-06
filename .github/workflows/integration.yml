@@ -57,7 +57,7 @@ jobs:
           --health-timeout 5s
           --health-retries 10
       netbox:
-        image: netboxcommunity/netbox:v4.5.8
+        image: netboxcommunity/netbox:v4.5.9
         env:
           ALLOWED_HOSTS: "*"
           DB_HOST: postgres
@@ -85,7 +85,7 @@ jobs:
       - name: Wait for NetBox readiness
         run: |
           set -euo pipefail
-          # v4.5.8 container initialisation (migrations, static files, data
+          # v4.5.9 container initialisation (migrations, static files, data
           # fixtures) can take 15+ minutes on the first run.  Poll without
           # authentication — any HTTP response means the web server is up.
           for i in $(seq 1 300); do
@@ -104,7 +104,7 @@ jobs:
 
       - name: Provision CI API token
         run: |
-          # NetBox v4.5.8 requires API_TOKEN_PEPPERS for any ORM-based token
+          # NetBox v4.5.9 requires API_TOKEN_PEPPERS for any ORM-based token
           # creation (Token.save() -> update_digest() -> get_current_pepper()).
           # Peppered v2 tokens use "Bearer nbt_<id>.<key>" auth, which the
           # Rust client doesn't support (it sends "Token <key>").
