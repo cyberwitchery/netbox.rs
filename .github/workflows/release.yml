@@ -82,17 +82,28 @@ jobs:
           set -euo pipefail
           test -z "$(git status --porcelain)"
 
+      # Each step tolerates "already uploaded" / "already exists on crates.io"
+      # so a re-tagged release can finish what an earlier one left half-published.
       - name: publish netbox-openapi
         env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
-        run: cargo publish -p netbox-openapi --no-verify
+        run: |
+          out=$(cargo publish -p netbox-openapi --no-verify 2>&1) && rc=0 || rc=$?
+          echo "$out"
+          [ $rc -eq 0 ] || echo "$out" | grep -qE "already uploaded|already exists on crates\.io"
 
       - name: publish netbox
         env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
-        run: cargo publish -p netbox --no-verify
+        run: |
+          out=$(cargo publish -p netbox --no-verify 2>&1) && rc=0 || rc=$?
+          echo "$out"
+          [ $rc -eq 0 ] || echo "$out" | grep -qE "already uploaded|already exists on crates\.io"
 
       - name: publish netbox-cli
         env:
           CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
-        run: cargo publish -p netbox-cli --no-verify
+        run: |
+          out=$(cargo publish -p netbox-cli --no-verify 2>&1) && rc=0 || rc=$?
+          echo "$out"
+          [ $rc -eq 0 ] || echo "$out" | grep -qE "already uploaded|already exists on crates\.io"
