@@ -4,6 +4,8 @@ this release captures the current state of the project. no prior published state
 
 ## [unreleased]
 
+## [0.4.0] - 2026-05-06
+
 ### workspace
 - bump MSRV from 1.85 to 1.91 (`floor_char_boundary` requires ≥1.82)
 
