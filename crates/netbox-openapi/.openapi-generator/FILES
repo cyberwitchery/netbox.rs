@@ -28,6 +28,7 @@ src/models/asn_range_request_rir.rs
 src/models/asn_range_request_tenant.rs
 src/models/asn_request.rs
 src/models/asn_request_rir.rs
+src/models/asn_request_role.rs
 src/models/asn_site.rs
 src/models/available_asn.rs
 src/models/available_ip.rs
@@ -40,6 +41,8 @@ src/models/bookmark.rs
 src/models/bookmark_request.rs
 src/models/bookmark_request_user.rs
 src/models/brief_cable.rs
+src/models/brief_cable_bundle.rs
+src/models/brief_cable_bundle_request.rs
 src/models/brief_cable_request.rs
 src/models/brief_circuit.rs
 src/models/brief_circuit_group.rs
@@ -134,6 +137,8 @@ src/models/brief_provider_network.rs
 src/models/brief_provider_network_request.rs
 src/models/brief_provider_request.rs
 src/models/brief_rack.rs
+src/models/brief_rack_group.rs
+src/models/brief_rack_group_request.rs
 src/models/brief_rack_request.rs
 src/models/brief_rack_role.rs
 src/models/brief_rack_role_request.rs
@@ -169,6 +174,8 @@ src/models/brief_virtual_circuit_type.rs
 src/models/brief_virtual_circuit_type_request.rs
 src/models/brief_virtual_machine.rs
 src/models/brief_virtual_machine_request.rs
+src/models/brief_virtual_machine_type.rs
+src/models/brief_virtual_machine_type_request.rs
 src/models/brief_vlan.rs
 src/models/brief_vlan_group.rs
 src/models/brief_vlan_group_request.rs
@@ -180,9 +187,12 @@ src/models/brief_vrf_request.rs
 src/models/brief_wireless_lan_group.rs
 src/models/brief_wireless_lan_group_request.rs
 src/models/cable.rs
+src/models/cable_bundle.rs
+src/models/cable_bundle_request.rs
 src/models/cable_length_unit.rs
 src/models/cable_profile.rs
 src/models/cable_request.rs
+src/models/cable_request_bundle.rs
 src/models/cable_status.rs
 src/models/cable_termination.rs
 src/models/circuit.rs
@@ -255,7 +265,6 @@ src/models/contact_role.rs
 src/models/contact_role_request.rs
 src/models/core_data_sources_create_request.rs
 src/models/create_available_vlan_request.rs
-src/models/create_available_vlan_request_role.rs
 src/models/create_available_vlan_request_site.rs
 src/models/custom_field.rs
 src/models/custom_field_choice_set.rs
@@ -276,6 +285,7 @@ src/models/data_source.rs
 src/models/data_source_request.rs
 src/models/data_source_status.rs
 src/models/data_source_type.rs
+src/models/dcim_cable_bundles_create_request.rs
 src/models/dcim_cables_create_request.rs
 src/models/dcim_console_port_templates_create_request.rs
 src/models/dcim_console_ports_create_request.rs
@@ -308,6 +318,7 @@ src/models/dcim_power_outlets_create_request.rs
 src/models/dcim_power_panels_create_request.rs
 src/models/dcim_power_port_templates_create_request.rs
 src/models/dcim_power_ports_create_request.rs
+src/models/dcim_rack_groups_create_request.rs
 src/models/dcim_rack_reservations_create_request.rs
 src/models/dcim_rack_roles_create_request.rs
 src/models/dcim_rack_types_create_request.rs
@@ -462,6 +473,7 @@ src/models/ipam_vlan_translation_rules_create_request.rs
 src/models/ipam_vlans_create_request.rs
 src/models/ipam_vrfs_create_request.rs
 src/models/job.rs
+src/models/job_notifications.rs
 src/models/journal_entry.rs
 src/models/journal_entry_kind.rs
 src/models/journal_entry_request.rs
@@ -547,6 +559,7 @@ src/models/paginated_aggregate_list.rs
 src/models/paginated_asn_list.rs
 src/models/paginated_asn_range_list.rs
 src/models/paginated_bookmark_list.rs
+src/models/paginated_cable_bundle_list.rs
 src/models/paginated_cable_list.rs
 src/models/paginated_cable_termination_list.rs
 src/models/paginated_circuit_group_assignment_list.rs
@@ -628,6 +641,7 @@ src/models/paginated_prefix_list.rs
 src/models/paginated_provider_account_list.rs
 src/models/paginated_provider_list.rs
 src/models/paginated_provider_network_list.rs
+src/models/paginated_rack_group_list.rs
 src/models/paginated_rack_list.rs
 src/models/paginated_rack_reservation_list.rs
 src/models/paginated_rack_role_list.rs
@@ -662,6 +676,7 @@ src/models/paginated_virtual_circuit_termination_list.rs
 src/models/paginated_virtual_circuit_type_list.rs
 src/models/paginated_virtual_device_context_list.rs
 src/models/paginated_virtual_disk_list.rs
+src/models/paginated_virtual_machine_type_list.rs
 src/models/paginated_virtual_machine_with_config_context_list.rs
 src/models/paginated_vlan_group_list.rs
 src/models/paginated_vlan_list.rs
@@ -676,6 +691,7 @@ src/models/paginated_wireless_link_list.rs
 src/models/patched_asn_range_request.rs
 src/models/patched_asn_request.rs
 src/models/patched_bookmark_request.rs
+src/models/patched_cable_bundle_request.rs
 src/models/patched_circuit_group_request.rs
 src/models/patched_circuit_termination_request.rs
 src/models/patched_circuit_type_request.rs
@@ -712,6 +728,7 @@ src/models/patched_power_panel_request.rs
 src/models/patched_provider_account_request.rs
 src/models/patched_provider_network_request.rs
 src/models/patched_provider_request.rs
+src/models/patched_rack_group_request.rs
 src/models/patched_rack_role_request.rs
 src/models/patched_rir_request.rs
 src/models/patched_role_request.rs
@@ -729,6 +746,7 @@ src/models/patched_user_request.rs
 src/models/patched_virtual_circuit_type_request.rs
 src/models/patched_virtual_disk_request.rs
 src/models/patched_virtual_disk_request_virtual_machine.rs
+src/models/patched_virtual_machine_type_request.rs
 src/models/patched_vlan_group_request.rs
 src/models/patched_vlan_translation_policy_request.rs
 src/models/patched_vlan_translation_rule_request.rs
@@ -780,6 +798,7 @@ src/models/patched_writable_power_port_request.rs
 src/models/patched_writable_power_port_template_request.rs
 src/models/patched_writable_prefix_request.rs
 src/models/patched_writable_rack_request.rs
+src/models/patched_writable_rack_request_group.rs
 src/models/patched_writable_rack_request_rack_type.rs
 src/models/patched_writable_rack_request_role.rs
 src/models/patched_writable_rack_reservation_request.rs
@@ -809,6 +828,7 @@ src/models/patched_writable_virtual_circuit_termination_request_virtual_circuit.
 src/models/patched_writable_virtual_device_context_request.rs
 src/models/patched_writable_virtual_machine_with_config_context_request.rs
 src/models/patched_writable_virtual_machine_with_config_context_request_role.rs
+src/models/patched_writable_virtual_machine_with_config_context_request_virtual_machine_type.rs
 src/models/patched_writable_vlan_request.rs
 src/models/patched_writable_vlan_request_group.rs
 src/models/patched_writable_vm_interface_request.rs
@@ -851,6 +871,8 @@ src/models/provider_request.rs
 src/models/rack.rs
 src/models/rack_airflow.rs
 src/models/rack_form_factor.rs
+src/models/rack_group.rs
+src/models/rack_group_request.rs
 src/models/rack_outer_unit.rs
 src/models/rack_request.rs
 src/models/rack_reservation.rs
@@ -946,6 +968,8 @@ src/models/virtual_device_context_request.rs
 src/models/virtual_device_context_status.rs
 src/models/virtual_disk.rs
 src/models/virtual_disk_request.rs
+src/models/virtual_machine_type.rs
+src/models/virtual_machine_type_request.rs
 src/models/virtual_machine_with_config_context.rs
 src/models/virtual_machine_with_config_context_request.rs
 src/models/virtual_machine_with_config_context_start_on_boot.rs
@@ -955,6 +979,7 @@ src/models/virtualization_cluster_types_create_request.rs
 src/models/virtualization_clusters_create_request.rs
 src/models/virtualization_interfaces_create_request.rs
 src/models/virtualization_virtual_disks_create_request.rs
+src/models/virtualization_virtual_machine_types_create_request.rs
 src/models/virtualization_virtual_machines_create_request.rs
 src/models/vlan.rs
 src/models/vlan_group.rs
