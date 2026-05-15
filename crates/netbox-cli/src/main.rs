@@ -145,6 +145,10 @@ struct ResourceEntry {
 
 const DCIM_RESOURCES: &[ResourceEntry] = &[
     ResourceEntry {
+        name: "cable-bundles",
+        path: "dcim/cable-bundles/",
+    },
+    ResourceEntry {
         name: "cable-terminations",
         path: "dcim/cable-terminations/",
     },
@@ -275,6 +279,10 @@ const DCIM_RESOURCES: &[ResourceEntry] = &[
     ResourceEntry {
         name: "power-ports",
         path: "dcim/power-ports/",
+    },
+    ResourceEntry {
+        name: "rack-groups",
+        path: "dcim/rack-groups/",
     },
     ResourceEntry {
         name: "rack-reservations",
@@ -624,6 +632,10 @@ const VIRTUALIZATION_RESOURCES: &[ResourceEntry] = &[
     ResourceEntry {
         name: "virtual-disks",
         path: "virtualization/virtual-disks/",
+    },
+    ResourceEntry {
+        name: "virtual-machine-types",
+        path: "virtualization/virtual-machine-types/",
     },
     ResourceEntry {
         name: "virtual-machines",

@@ -136,6 +136,8 @@ pub type Device = crate::models::DeviceWithConfigContext;
 /// connected device model.
 pub type ConnectedDevice = crate::models::Device;
 
+/// resource for cable bundles.
+pub type CableBundlesApi = Resource<crate::models::CableBundle>;
 /// resource for cable terminations.
 pub type CableTerminationsApi = Resource<crate::models::CableTermination>;
 /// resource for cables.
@@ -202,6 +204,8 @@ pub type PowerPanelsApi = Resource<crate::models::PowerPanel>;
 pub type PowerPortTemplatesApi = Resource<crate::models::PowerPortTemplate>;
 /// resource for power ports.
 pub type PowerPortsApi = Resource<crate::models::PowerPort>;
+/// resource for rack groups.
+pub type RackGroupsApi = Resource<crate::models::RackGroup>;
 /// resource for rack reservations.
 pub type RackReservationsApi = Resource<crate::models::RackReservation>;
 /// resource for rack roles.
@@ -256,6 +260,11 @@ impl DcimApi {
         self.client
             .get_with_params("dcim/connected-device/", &query)
             .await
+    }
+
+    /// returns the cable bundles resource.
+    pub fn cable_bundles(&self) -> CableBundlesApi {
+        Resource::new(self.client.clone(), "dcim/cable-bundles/")
     }
 
     /// returns the cable terminations resource.
@@ -423,6 +432,11 @@ impl DcimApi {
         Resource::new(self.client.clone(), "dcim/power-ports/")
     }
 
+    /// returns the rack groups resource.
+    pub fn rack_groups(&self) -> RackGroupsApi {
+        Resource::new(self.client.clone(), "dcim/rack-groups/")
+    }
+
     /// returns the rack reservations resource.
     pub fn rack_reservations(&self) -> RackReservationsApi {
         Resource::new(self.client.clone(), "dcim/rack-reservations/")
@@ -554,6 +568,7 @@ mod tests {
     fn dcim_accessors_return_expected_paths() {
         let api = DcimApi::new(test_client());
 
+        assert_path(api.cable_bundles(), "dcim/cable-bundles/");
         assert_path(api.cable_terminations(), "dcim/cable-terminations/");
         assert_path(api.cables(), "dcim/cables/");
         assert_path(api.console_port_templates(), "dcim/console-port-templates/");
@@ -593,6 +608,7 @@ mod tests {
         assert_path(api.power_panels(), "dcim/power-panels/");
         assert_path(api.power_port_templates(), "dcim/power-port-templates/");
         assert_path(api.power_ports(), "dcim/power-ports/");
+        assert_path(api.rack_groups(), "dcim/rack-groups/");
         assert_path(api.rack_reservations(), "dcim/rack-reservations/");
         assert_path(api.rack_roles(), "dcim/rack-roles/");
         assert_path(api.rack_types(), "dcim/rack-types/");

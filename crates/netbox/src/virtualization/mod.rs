@@ -666,6 +666,8 @@ pub type VmInterface = crate::models::VmInterface;
 pub type VirtualDisk = crate::models::VirtualDisk;
 /// virtual machine model with config context.
 pub type VirtualMachine = crate::models::VirtualMachineWithConfigContext;
+/// virtual machine type model.
+pub type VirtualMachineType = crate::models::VirtualMachineType;
 
 /// resource for cluster groups.
 pub type ClusterGroupsApi = Resource<crate::models::ClusterGroup>;
@@ -677,6 +679,8 @@ pub type ClustersApi = Resource<crate::models::Cluster>;
 pub type VmInterfacesApi = Resource<crate::models::VmInterface>;
 /// resource for virtual disks.
 pub type VirtualDisksApi = Resource<crate::models::VirtualDisk>;
+/// resource for virtual machine types.
+pub type VirtualMachineTypesApi = Resource<crate::models::VirtualMachineType>;
 /// resource for virtual machines.
 pub type VirtualMachinesApi = Resource<crate::models::VirtualMachineWithConfigContext>;
 
@@ -714,6 +718,11 @@ impl VirtualizationApi {
     /// returns the virtual disks resource.
     pub fn virtual_disks(&self) -> VirtualDisksApi {
         Resource::new(self.client.clone(), "virtualization/virtual-disks/")
+    }
+
+    /// returns the virtual machine types resource.
+    pub fn virtual_machine_types(&self) -> VirtualMachineTypesApi {
+        Resource::new(self.client.clone(), "virtualization/virtual-machine-types/")
     }
 
     /// returns the virtual machines resource.
