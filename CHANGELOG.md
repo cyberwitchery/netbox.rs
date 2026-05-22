@@ -4,6 +4,8 @@ this release captures the current state of the project. no prior published state
 
 ## [unreleased]
 
+## [0.5.0] - 2026-05-23
+
 ### openapi
 - regenerate bindings from NetBox v4.6.0 schema; adds `CableBundle`, `RackGroup`, `VirtualMachineType`, and `JobNotifications` models; removes `CreateAvailableVlanRequestRole`
 
