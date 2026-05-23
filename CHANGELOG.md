@@ -4,6 +4,11 @@ this release captures the current state of the project. no prior published state
 
 ## [unreleased]
 
+## [0.5.1] - 2026-05-23
+
+### build
+- override `[profile.dev.package.netbox-openapi] debug = 0` so docs.rs no longer OOMs compiling the generated bindings with `-C debuginfo=2`; affects only dev-profile builds of `netbox-openapi` as a dependency
+
 ## [0.5.0] - 2026-05-23
 
 ### openapi
