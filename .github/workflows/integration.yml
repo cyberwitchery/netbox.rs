@@ -82,6 +82,11 @@ jobs:
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
 
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+        with:
+          cache-all-crates: true
+
       - name: Wait for NetBox readiness
         run: |
           set -euo pipefail
