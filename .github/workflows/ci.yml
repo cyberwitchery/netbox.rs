@@ -36,6 +36,8 @@ jobs:
         with:
           components: clippy
       - uses: Swatinem/rust-cache@v2
+        with:
+          cache-all-crates: true
       - run: cargo clippy -p netbox -p netbox-cli --all-targets -- -D warnings
 
   test:
@@ -45,6 +47,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
+        with:
+          cache-all-crates: true
       - run: cargo test -p netbox -p netbox-cli
 
   doc:
@@ -56,6 +60,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
+        with:
+          cache-all-crates: true
       - run: cargo doc --workspace --no-deps
 
   deny:
