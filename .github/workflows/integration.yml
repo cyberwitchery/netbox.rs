@@ -84,6 +84,8 @@ jobs:
 
       - name: Cache cargo
         uses: kunobi-ninja/kache-action@v1
+        with:
+          cache-key-prefix: kache-integration
 
       - name: Wait for NetBox readiness
         run: |
