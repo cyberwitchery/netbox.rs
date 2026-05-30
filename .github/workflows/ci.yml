@@ -35,9 +35,9 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: clippy
-      - uses: Swatinem/rust-cache@v2
+      - uses: kunobi-ninja/kache-action@v1
         with:
-          cache-all-crates: true
+          cache-key-prefix: kache-clippy
       - run: cargo clippy -p netbox -p netbox-cli --all-targets -- -D warnings
 
   test:
@@ -46,9 +46,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@v2
+      - uses: kunobi-ninja/kache-action@v1
         with:
-          cache-all-crates: true
+          cache-key-prefix: kache-test
       - run: cargo test -p netbox -p netbox-cli
 
   doc:
@@ -59,9 +59,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
-      - uses: Swatinem/rust-cache@v2
+      - uses: kunobi-ninja/kache-action@v1
         with:
-          cache-all-crates: true
+          cache-key-prefix: kache-doc
       - run: cargo doc --workspace --no-deps
 
   deny:
