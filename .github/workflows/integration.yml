@@ -83,9 +83,7 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
 
       - name: Cache cargo
-        uses: Swatinem/rust-cache@v2
-        with:
-          cache-all-crates: true
+        uses: kunobi-ninja/kache-action@v1
 
       - name: Wait for NetBox readiness
         run: |
