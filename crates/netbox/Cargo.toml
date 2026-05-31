@@ -35,3 +35,6 @@ tracing = ["dep:tracing"]
 
 [package.metadata.docs.rs]
 all-features = true
+
+[profile.dev.package.netbox-openapi]
+debug = 0

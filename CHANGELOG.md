@@ -4,6 +4,11 @@ this release captures the current state of the project. no prior published state
 
 ## [unreleased]
 
+## [0.5.2] - 2026-05-31
+
+### build
+- duplicate the `[profile.dev.package.netbox-openapi] debug = 0` override into `crates/netbox/Cargo.toml` so it survives `cargo publish` and reaches docs.rs; the workspace-root setting added in 0.5.1 was stripped when packaging the per-crate manifest, leaving docs.rs unfixed
+
 ## [0.5.1] - 2026-05-23
 
 ### build
