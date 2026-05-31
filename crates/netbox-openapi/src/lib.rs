@@ -12,4 +12,5 @@ extern crate serde_json;
 extern crate url;
 
 pub mod apis;
+pub mod generic_fk;
 pub mod models;

@@ -51,8 +51,12 @@ pub use resource::{BulkDelete, BulkUpdate, Resource};
 /// generated openapi types and api functions.
 pub mod openapi {
     pub use netbox_openapi::apis;
+    pub use netbox_openapi::generic_fk;
     pub use netbox_openapi::models;
 }
 
 // re-export the generated models for convenience
 pub use netbox_openapi::models;
+
+/// generic foreign-key field metadata derived from the openapi schema.
+pub use netbox_openapi::generic_fk::{GENERIC_FK_FIELDS, is_generic_fk};
