@@ -4,6 +4,17 @@ this release captures the current state of the project. no prior published state
 
 ## [unreleased]
 
+## [0.5.4] - 2026-06-01
+
+### openapi
+- generate a `generic_fk` module listing the `(app_label.model, field)` pairs whose write payload is a `GenericObjectRequest` (netbox's polymorphic generic foreign keys), derived from the openapi schema. against the v4.6.0 schema this is `dcim.cable.a_terminations` and `dcim.cable.b_terminations`. lets consumers (e.g. the alembic netbox adapter) detect which ref/list_ref fields must be encoded as `{ "object_type": ..., "object_id": ... }` instead of a bare id, without hardcoding a per-type allowlist
+
+### client
+- re-export `is_generic_fk` and `GENERIC_FK_FIELDS` at the `netbox` crate root (and under `openapi::generic_fk`)
+
+### build
+- `scripts/generate.sh`: emit `crates/netbox-openapi/src/generic_fk.rs` from the normalized schema on every regeneration. the table is sorted, so the `regen.sh` idempotency check still passes
+
 ## [0.5.3] - 2026-05-31
 
 ### build
