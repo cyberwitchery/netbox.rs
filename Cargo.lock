@@ -1412,7 +1412,7 @@ dependencies = [
 
 [[package]]
 name = "netbox"
-version = "0.5.2"
+version = "0.5.3"
 dependencies = [
  "httpmock",
  "netbox-openapi",
@@ -1429,7 +1429,7 @@ dependencies = [
 
 [[package]]
 name = "netbox-cli"
-version = "0.5.2"
+version = "0.5.3"
 dependencies = [
  "async-trait",
  "clap",
@@ -1448,7 +1448,7 @@ dependencies = [
 
 [[package]]
 name = "netbox-openapi"
-version = "0.5.2"
+version = "0.5.3"
 dependencies = [
  "reqwest",
  "serde",
