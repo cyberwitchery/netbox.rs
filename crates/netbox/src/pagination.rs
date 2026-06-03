@@ -374,7 +374,7 @@ mod tests {
         let page = limited.next_page().await.unwrap().unwrap();
         assert_eq!(page.results, vec![1]);
         assert!(limited.next_page().await.unwrap().is_none());
-        assert_eq!(second.hits(), 0);
+        assert_eq!(second.calls(), 0);
         first.assert();
     }
 }
