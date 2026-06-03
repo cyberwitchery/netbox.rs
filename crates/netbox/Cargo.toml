@@ -27,7 +27,7 @@ tracing = { version = "0.1", optional = true }
 [dev-dependencies]
 tokio = { workspace = true, features = ["macros"] }
 proptest = "1.5"
-httpmock = "0.7"
+httpmock = "0.8"
 
 [features]
 default = []

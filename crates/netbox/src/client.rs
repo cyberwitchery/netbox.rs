@@ -751,6 +751,9 @@ mod tests {
     use super::*;
     use crate::HttpHooks;
     use httpmock::prelude::*;
+    // httpmock 0.8's prelude also exports `Method`; disambiguate to reqwest's
+    // (what `should_retry` and the client API take).
+    use reqwest::Method;
     use reqwest::header::{HeaderName, HeaderValue};
     use serde_json::json;
     use std::sync::{Arc, Mutex};
