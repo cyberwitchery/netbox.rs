@@ -4,6 +4,9 @@ this release captures the current state of the project. no prior published state
 
 ## [unreleased]
 
+### build
+- bump pinned NetBox container from v4.6.0 to v4.6.1
+
 ## [0.5.4] - 2026-06-01
 
 ### openapi

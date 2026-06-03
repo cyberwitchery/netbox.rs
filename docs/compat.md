@@ -6,7 +6,7 @@ series is inferred from the absence of breaking api changes in that range.
 
 | netbox.rs | netbox  | notes                                |
 |-----------|---------|--------------------------------------|
-| main      | 4.6.x   | CI pinned to v4.6.0                  |
+| main      | 4.6.x   | CI pinned to v4.6.1                  |
 | 0.4.0     | 4.5.x   | CI pinned to v4.5.9                  |
 | ≤ 0.3.3   | 4.4.x   | CI pinned to v4.4.2                  |
 
