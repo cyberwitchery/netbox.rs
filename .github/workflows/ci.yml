@@ -86,7 +86,7 @@ jobs:
         with:
           components: llvm-tools-preview
       - uses: taiki-e/install-action@cargo-llvm-cov
-      - run: cargo llvm-cov --workspace --all-features --ignore-filename-regex 'crates/netbox-openapi' --fail-under-lines 75 --lcov --output-path lcov.info
+      - run: cargo llvm-cov --workspace --exclude netbox-openapi --all-features --fail-under-lines 75 --lcov --output-path lcov.info
       - uses: actions/upload-artifact@v4
         with:
           name: coverage-lcov
