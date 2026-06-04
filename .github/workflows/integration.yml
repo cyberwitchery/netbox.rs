@@ -25,7 +25,7 @@ on:
 
 jobs:
   smoke-and-golden:
-    runs-on: big
+    runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
       NETBOX_URL: http://localhost:8000
