@@ -1,220 +1,165 @@
 # changelog
 
-this release captures the current state of the project. no prior published state exists for comparison.
-
 ## [unreleased]
 
 ## [0.5.4] - 2026-06-01
 
-### openapi
-- generate a `generic_fk` module listing the `(app_label.model, field)` pairs whose write payload is a `GenericObjectRequest` (netbox's polymorphic generic foreign keys), derived from the openapi schema. against the v4.6.0 schema this is `dcim.cable.a_terminations` and `dcim.cable.b_terminations`. lets consumers (e.g. the alembic netbox adapter) detect which ref/list_ref fields must be encoded as `{ "object_type": ..., "object_id": ... }` instead of a bare id, without hardcoding a per-type allowlist
-
-### client
-- re-export `is_generic_fk` and `GENERIC_FK_FIELDS` at the `netbox` crate root (and under `openapi::generic_fk`)
-
-### build
-- `scripts/generate.sh`: emit `crates/netbox-openapi/src/generic_fk.rs` from the normalized schema on every regeneration. the table is sorted, so the `regen.sh` idempotency check still passes
+- expose which fields use NetBox's polymorphic generic foreign keys via the new `generic_fk` module (`is_generic_fk`, `GENERIC_FK_FIELDS`, re-exported at the crate root). Derived from the OpenAPI schema (for v4.6.0: `dcim.cable.a_terminations` and `dcim.cable.b_terminations`), this lets consumers such as the alembic NetBox adapter encode those fields as `{ "object_type": ..., "object_id": ... }` instead of a bare id, without hardcoding an allowlist.
 
 ## [0.5.3] - 2026-05-31
 
-### build
-- gate per-tag API modules (`dcim_api`, `ipam_api`, `vpn_api`, etc.) behind `#[cfg(not(docsrs))]` so docs.rs skips compiling them — they account for ~78% of `netbox-openapi`'s ~420k lines, and rustc OOMs on them at the docs.rs container limit (peak 6.58 GiB needed, 6 GiB available). The high-level `netbox` client never calls these per-tag functions (only re-exports them), so users on crates.io see no behaviour change; only `docs.rs/netbox-openapi/` loses the per-tag pages.
-- the previous `[profile.dev.package.netbox-openapi] debug = 0` override (added in 0.5.1, propagated correctly in 0.5.2) was insufficient on its own — debuginfo wasn't the dominant cost; type-checking the generated derives was.
-- post-processing in `scripts/generate.sh` injects the gates automatically on subsequent regenerations.
-- added a `build.rs` to `netbox-openapi` that translates `DOCS_RS=1` (set by docs.rs) into `cfg(docsrs)` (the standard idiom for crate-local docs.rs cfg).
+- fix: `docs.rs` builds no longer run out of memory. The per-tag OpenAPI API modules (`dcim_api`, `ipam_api`, `vpn_api`, etc.) account for ~78% of `netbox-openapi`'s ~420k lines and exceeded the docs.rs memory limit; they are now gated out of docs builds. The high-level `netbox` client doesn't call them (only re-exports them), so crates.io users see no behavior change; only the per-tag pages on `docs.rs/netbox-openapi/` are dropped.
 
 ## [0.5.2] - 2026-05-31
 
-### build
-- duplicate the `[profile.dev.package.netbox-openapi] debug = 0` override into `crates/netbox/Cargo.toml` so it survives `cargo publish` and reaches docs.rs; the workspace-root setting added in 0.5.1 was stripped when packaging the per-crate manifest, leaving docs.rs unfixed
+- another attempt at fixing docs.rs out-of-memory builds: the `netbox-openapi` debug-info override is now also set in the per-crate manifest so it survives `cargo publish` (the workspace-root setting from 0.5.1 was stripped during packaging). Fully resolved in 0.5.3.
 
 ## [0.5.1] - 2026-05-23
 
-### build
-- override `[profile.dev.package.netbox-openapi] debug = 0` so docs.rs no longer OOMs compiling the generated bindings with `-C debuginfo=2`; affects only dev-profile builds of `netbox-openapi` as a dependency
+- attempt to fix docs.rs out-of-memory builds by disabling debug info for `netbox-openapi` (`[profile.dev.package.netbox-openapi] debug = 0`). Affects only dev-profile builds; fully resolved in 0.5.3.
 
 ## [0.5.0] - 2026-05-23
 
-### openapi
-- regenerate bindings from NetBox v4.6.0 schema; adds `CableBundle`, `RackGroup`, `VirtualMachineType`, and `JobNotifications` models; removes `CreateAvailableVlanRequestRole`
-
 ### client
-- expose `cable_bundles()` and `rack_groups()` on `DcimApi` for new v4.6.0 DCIM endpoints
-- expose `virtual_machine_types()` on `VirtualizationApi` for new v4.6.0 endpoint
+- expose `DcimApi::cable_bundles()`, `DcimApi::rack_groups()`, and `VirtualizationApi::virtual_machine_types()` for the new v4.6.0 endpoints.
 
 ### cli
-- add `cable-bundles`, `rack-groups` (dcim) and `virtual-machine-types` (virtualization) to resource tables
+- add `cable-bundles`, `rack-groups`, and `virtual-machine-types` to the resource tables.
 
-### ci
-- bump pinned NetBox container from v4.5.9 to v4.6.0
-- refresh `scripts/openapi-schema.json` against v4.6.0
+### openapi
+- regenerated bindings from NetBox v4.6.0: adds `CableBundle`, `RackGroup`, `VirtualMachineType`, and `JobNotifications`; removes `CreateAvailableVlanRequestRole`.
 
-### docs
-- update `docs/compat.md` compatibility matrix for v4.6.0
+### compatibility
+- tested against NetBox v4.6.0.
 
 ## [0.4.0] - 2026-05-06
 
-### workspace
-- bump MSRV from 1.85 to 1.91 (`floor_char_boundary` requires ≥1.82)
+### changed
+- MSRV raised from 1.85 to 1.91.
 
 ### cli
-- fix `compact_json` panic on multi-byte UTF-8: use `floor_char_boundary` instead of raw byte offset for truncation
+- fix a panic in `compact_json` on multi-byte UTF-8 (truncation now respects char boundaries).
 
 ### openapi
-- regenerate bindings from NetBox v4.5.9 schema; `TokenProvisionRequest` now exposes optional `version`, `enabled`, and `token` fields
-- `scripts/generate.sh`: re-include `#![allow(clippy::all)]` in the generated `lib.rs` header so regeneration doesn't break workspace clippy
+- regenerated bindings from NetBox v4.5.9: `TokenProvisionRequest` gains optional `version`, `enabled`, and `token` fields.
 
-### ci
-- bump pinned NetBox container from v4.5.8 to v4.5.9
-- refresh `scripts/openapi-schema.json` against v4.5.9 (a new required `prefix_length` on `POST /api/ipam/prefixes/{id}/available-prefixes/` would otherwise fail the oasdiff breaking check)
+### compatibility
+- tested against NetBox v4.5.9.
 
 ## [0.3.3] - 2026-02-21
 
 ### cli
-- fix table output: render explicit `--columns` headers even when the result set is empty
+- fix table output: render explicit `--columns` headers even when the result set is empty.
 
 ### openapi
-- regenerate bindings from NetBox 4.4.2; adds `ObjectChangeAction` model
-- fix `plugins/mod.rs`: define branch-related types locally since netbox-branching plugin models are no longer in the NetBox core schema
+- regenerated bindings from NetBox 4.4.2: adds the `ObjectChangeAction` model.
+- define the netbox-branching plugin types locally, since they are no longer part of the NetBox core schema.
 
-### ci
-- add OpenAPI schema breaking-change detection via oasdiff in integration workflow
-- add weekly upstream drift detection (`upstream-check.yml`) with automatic issue creation on new upstream releases
-- add `docs/compat.md` compatibility matrix mapping client releases to tested NetBox versions
+### docs
+- add a compatibility matrix (`docs/compat.md`) mapping client releases to tested NetBox versions.
+
+### compatibility
+- tested against NetBox 4.4.2.
 
 ## [0.3.2] - 2026-02-08
 
-### release
-- add release SBOM generation and upload (CycloneDX)
-
-### scripts
-- add `regen.sh` combining schema fetch + generation with idempotency check
-- document environment variables for generation scripts
-
 ### client
-- add optional `tracing` feature for request lifecycle instrumentation (URL build, send/response timing, retries, and error classification)
-- add configurable HTTP extension points: injected prebuilt reqwest client, client-builder callback, and request/response hooks (`HttpHooks`)
+- add configurable HTTP extension points: inject a prebuilt `reqwest` client, customize the client builder, or attach request/response hooks (`HttpHooks`).
+- add an optional `tracing` feature for request-lifecycle instrumentation (URL build, send/response timing, retries, error classification).
 
-### tests
-- add golden output test harness for CLI (`cargo test -p netbox-cli --test golden`)
-- add GitHub Actions integration workflow with pinned NetBox service container running smoke + golden tests
+### release
+- releases now ship a CycloneDX SBOM.
 
 ## [0.3.1] - 2026-01-24
 
 ### cli
-- add config file support at `~/.config/netbox-cli/config.toml` with named profiles
-- add `--profile` flag to select a config profile (default: "default")
-- add `config` subcommand with `path`, `list`, `show`, and `validate` actions
-- support `token_env` and `token_command` for secure token retrieval
-- add `--columns` flag for explicit table column selection
-- add `--max-columns` flag to control auto-selected column count (default: 6)
+- add config file support at `~/.config/netbox-cli/config.toml` with named profiles, selectable via `--profile` (default `default`).
+- add a `config` subcommand (`path`, `list`, `show`, `validate`).
+- support `token_env` and `token_command` for secure token retrieval.
+- add `--columns` for explicit table columns and `--max-columns` to cap auto-selected columns (default 6).
 
 ### docs
-- add config profiles documentation with examples
-- expand `--select` documentation with examples for nested arrays and objects
+- document config profiles, and expand `--select` with examples for nested arrays and objects.
 
 ## [0.3.0] - 2026-01-24
 
 ### client
-- add IPAM availability endpoints: `available_ips_in_prefix`, `create_available_ips_in_prefix`, `available_prefixes_in_prefix`, `create_available_prefixes_in_prefix`, `available_ips_in_range`, `create_available_ips_in_range`, `available_vlans_in_group`, `create_available_vlans_in_group`, `available_asns_in_range`, `create_available_asns_in_range`
-- add core task management: `enqueue_task`, `stop_task`, `requeue_task`, `delete_task`, `sync_data_source`
-- add extras sync/render operations: `sync_config_context`, `sync_config_context_profile`, `sync_config_template`, `render_config_template`, `sync_export_template`, `custom_field_choices`
-- add circuits path endpoints: `circuit_termination_paths`, `virtual_circuit_termination_paths`
-- add dcim trace endpoints: `trace_interface`, `trace_console_port`, `trace_console_server_port`, `trace_power_port`, `trace_power_outlet`, `trace_power_feed`
-- add virtualization render config: `render_vm_config`
+- add IPAM availability endpoints (available IPs/prefixes in a prefix, IPs in a range, VLANs in a group, ASNs in a range, plus the matching create operations).
+- add core task management (`enqueue_task`, `stop_task`, `requeue_task`, `delete_task`, `sync_data_source`).
+- add extras sync/render operations (config contexts, config templates, export templates, custom-field choices).
+- add circuits and virtual-circuit termination path endpoints.
+- add DCIM trace endpoints (interface, console port, console server port, power port, power outlet, power feed).
+- add virtualization `render_vm_config`.
 
 ### cli
-- add IPAM availability commands: `ipam-prefix-available-ips`, `ipam-prefix-available-prefixes`, `ipam-range-available-ips`, `ipam-vlan-group-available-vlans`, `ipam-asn-range-available-asns`
-- add core task management commands: `core-task-action` (enqueue/stop/requeue/delete), `core-data-source-sync`
-- add extras sync/render commands: `extras-config-context-sync`, `extras-config-context-profile-sync`, `extras-config-template-sync`, `extras-config-template-render`, `extras-export-template-sync`, `extras-custom-field-choices`
-- add circuits path commands: `circuits-termination-paths`, `circuits-virtual-termination-paths`
-- add dcim trace command: `dcim-trace` (interface/console-port/console-server-port/power-port/power-outlet/power-feed)
-- add virtualization render command: `virtualization-render-config`
+- add commands mirroring the new client endpoints: IPAM availability, core task management, extras sync/render, circuits termination paths, DCIM trace, and virtualization render-config.
 
 ## [0.2.1] - 2026-01-22
 
 ### client
-- allow dynamic resource paths via `Resource::dynamic`
-- add `Client::resource` helper for ad-hoc endpoints
+- allow dynamic resource paths via `Resource::dynamic`, plus a `Client::resource` helper for ad-hoc endpoints.
 
 ## [0.2.0] - 2026-01-21
 
 ### client
-- add read-only graphql helper with query variables
-- add scope_type and scope_id to prefix create/update requests
-
-### docs
-- split user docs and dev docs, improve docs index entrypoints
-- refresh readme text to reflect pre-release stability
+- add a read-only GraphQL helper with query variables.
+- add `scope_type` and `scope_id` to prefix create/update requests.
 
 ### cli
-- add output formats (json, yaml, table) with automatic table shaping for paginated results
-- add simple --select for dot paths
-- add --dry-run for write operations with full request output
-- improve error messages with status, path, and request id when present
+- add `json`, `yaml`, and `table` output formats, with automatic table shaping for paginated results.
+- add `--select` for dot-path extraction and `--dry-run` for write operations (prints the full request).
+- improve error messages with status, path, and request id when present.
 
-### tests
-- expand smoke coverage for graphql, openapi status, pagination, and cli output modes
+### docs
+- split user and developer docs, and refresh the readme for pre-release stability.
 
 ## [0.1.6] - 2026-01-20
 
 ### client
-- add bulk create/update/patch/delete helpers on `Resource` plus `BulkUpdate`/`BulkDelete` wrappers
-- remove duplicate root docs and point to crate docs as the source of truth
+- add bulk create/update/patch/delete helpers on `Resource`, with `BulkUpdate`/`BulkDelete` wrappers.
 
 ## [0.1.5] - 2026-01-16
 
 ### client
-- add field patch request structs for dcim and ipam (custom fields, tags, and device local context) to support typed patch calls
+- add field-patch request structs for DCIM and IPAM (custom fields, tags, device local context) to support typed patch calls.
 
 ## [0.1.4] - 2026-01-15
 
-- fix a bug in the openapi generation that automatically assumed enums were strings and fixed them for integers
+- fix OpenAPI generation incorrectly treating integer enums as string enums.
 
 ## [0.1.3] - 2026-01-14
 
-### metadata
-- fix repository and homepage urls for crates.io metadata
+- fix repository and homepage URLs in crates.io metadata.
 
 ## [0.1.2] - 2026-01-14
 
-### documentation
-- add docs.rs link metadata for `netbox`
+- add docs.rs link metadata for `netbox`.
 
 ## [0.1.1] - 2026-01-14
 
-### documentation
-- add per-crate readme metadata so crates.io shows docs for each crate
-- refresh cli docs to focus on end user usage and examples
-- add local docs build guidance and entrypoints
+### docs
+- add per-crate readme metadata so crates.io shows docs for each crate; refocus the CLI docs on end-user usage and examples; add local docs-build guidance.
 
 ### metadata
-- add docs.rs metadata for `netbox-openapi`
+- add docs.rs metadata for `netbox-openapi`.
 
 ## [0.1.0] - 2026-01-14
 
 ### crates
-- `netbox-openapi`: generated bindings for all netbox endpoints and models
-- `netbox`: high-level client with typed resources, pagination, and query builder
-- `netbox-cli`: fully featured cli for listing, reading, and mutating resources
+- `netbox-openapi`: generated bindings for all NetBox endpoints and models.
+- `netbox`: high-level client with typed resources, pagination, and a query builder.
+- `netbox-cli`: CLI for listing, reading, and mutating resources.
 
 ### client features
-- token-based auth, configurable timeouts, retries, and ssl verification
-- raw request support, openapi config access, and direct http client access
-- error handling with structured api errors and helpers
+- token auth, configurable timeouts, retries, and TLS verification.
+- raw request support, OpenAPI config access, and direct HTTP client access.
+- structured API errors with helpers.
 
 ### coverage
-- full module coverage across dcim, ipam, circuits, tenancy, extras, core, users, virtualization, vpn, wireless, plugins
-- status and schema endpoints
-
-### tooling
-- reproducible openapi generation and schema fetch scripts
-- local smoke tests and assurance scripts
-- ci workflows for docs, tests, coverage, and static analysis
+- full coverage across dcim, ipam, circuits, tenancy, extras, core, users, virtualization, vpn, wireless, and plugins, plus status and schema endpoints.
 
 ### docs
-- readme and rustdoc coverage for client and cli
-- contributing guide and script documentation
+- readme and rustdoc coverage for the client and CLI, plus a contributing guide.
 
 [unreleased]: https://github.com/cyberwitchery/netbox.rs/compare/v0.3.3...HEAD
 [0.3.3]: https://github.com/cyberwitchery/netbox.rs/compare/v0.3.2...v0.3.3
