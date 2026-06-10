@@ -4,6 +4,16 @@ this release captures the current state of the project. no prior published state
 
 ## [unreleased]
 
+### openapi
+- regenerate bindings from NetBox v4.6.2 schema; adds `RenderConfigInputRequest` and `RenderedConfig` models; `user`/`user__n` params on `core_jobs_list` changed from `i32` to `Vec<String>` (now array-valued), with new `user_id`/`user_id__n` integer filters added alongside
+
+### ci
+- bump pinned NetBox container from v4.6.0 to v4.6.2
+- refresh `scripts/openapi-schema.json` against v4.6.2
+
+### docs
+- update `docs/compat.md` compatibility matrix for v4.6.2
+
 ## [0.5.4] - 2026-06-01
 
 ### openapi

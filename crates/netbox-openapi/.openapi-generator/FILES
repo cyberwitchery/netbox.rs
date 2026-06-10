@@ -896,6 +896,8 @@ src/models/rear_port_template_mapping_request.rs
 src/models/rear_port_template_request.rs
 src/models/region.rs
 src/models/region_request.rs
+src/models/render_config_input_request.rs
+src/models/rendered_config.rs
 src/models/rir.rs
 src/models/rir_request.rs
 src/models/role.rs

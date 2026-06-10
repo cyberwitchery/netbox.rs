@@ -31,7 +31,7 @@ tokio = { version = "1.0", features = ["full"] }
 ## version compatibility
 
 current releases are pre-1.0.0 and do not track netbox versions.
-this client targets netbox 4.x; CI is pinned to NetBox v4.6.0.
+this client targets netbox 4.x; CI is pinned to NetBox v4.6.2.
 patch releases include fixes and client improvements.
 
 see [`docs/compat.md`](docs/compat.md) for the full compatibility matrix.
