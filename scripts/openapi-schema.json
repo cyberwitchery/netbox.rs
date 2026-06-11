@@ -2,7 +2,7 @@
     "openapi": "3.0.3",
     "info": {
         "title": "NetBox REST API",
-        "version": "4.6.0 (4.6)",
+        "version": "4.6.2 (4.6)",
         "license": {
             "name": "Apache v2 License"
         }
@@ -21613,6 +21613,169 @@
                     },
                     {
                         "in": "query",
+                        "name": "notifications",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "x-spec-enum-id": "57071f4400340a5c"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "notifications__empty",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "notifications__ic",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "x-spec-enum-id": "57071f4400340a5c"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "notifications__ie",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "x-spec-enum-id": "57071f4400340a5c"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "notifications__iew",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "x-spec-enum-id": "57071f4400340a5c"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "notifications__iregex",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "x-spec-enum-id": "57071f4400340a5c"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "notifications__isw",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "x-spec-enum-id": "57071f4400340a5c"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "notifications__n",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "x-spec-enum-id": "57071f4400340a5c"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "notifications__nic",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "x-spec-enum-id": "57071f4400340a5c"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "notifications__nie",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "x-spec-enum-id": "57071f4400340a5c"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "notifications__niew",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "x-spec-enum-id": "57071f4400340a5c"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "notifications__nisw",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "x-spec-enum-id": "57071f4400340a5c"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "notifications__regex",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "x-spec-enum-id": "57071f4400340a5c"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
                         "name": "object_id",
                         "schema": {
                             "type": "array",
@@ -22087,15 +22250,55 @@
                         "in": "query",
                         "name": "user",
                         "schema": {
-                            "type": "integer"
-                        }
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "description": "User name",
+                        "explode": true,
+                        "style": "form"
                     },
                     {
                         "in": "query",
                         "name": "user__n",
                         "schema": {
-                            "type": "integer"
-                        }
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "description": "User name",
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "user_id",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "nullable": true
+                            }
+                        },
+                        "description": "User (ID)",
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "user_id__n",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "nullable": true
+                            }
+                        },
+                        "description": "User (ID)",
+                        "explode": true,
+                        "style": "form"
                     }
                 ],
                 "tags": [
@@ -25039,6 +25242,71 @@
                     },
                     {
                         "in": "query",
+                        "name": "cable_id",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        },
+                        "description": "Cable (ID)",
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "cable_id__n",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer"
+                            }
+                        },
+                        "description": "Cable (ID)",
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "circuittermination_id",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "consoleport_id",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "consoleserverport_id",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
                         "name": "created",
                         "schema": {
                             "type": "array",
@@ -25138,6 +25406,19 @@
                     },
                     {
                         "in": "query",
+                        "name": "frontport_id",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
                         "name": "id",
                         "schema": {
                             "type": "array",
@@ -25211,6 +25492,19 @@
                     {
                         "in": "query",
                         "name": "id__n",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "interface_id",
                         "schema": {
                             "type": "array",
                             "items": {
@@ -25346,6 +25640,58 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "in": "query",
+                        "name": "powerfeed_id",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "poweroutlet_id",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "powerport_id",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "rearport_id",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
                     },
                     {
                         "name": "start",
@@ -49271,16 +49617,15 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/WritableDeviceWithConfigContextRequest"
+                                "$ref": "#/components/schemas/RenderConfigInputRequest"
                             }
                         },
                         "multipart/form-data": {
                             "schema": {
-                                "$ref": "#/components/schemas/WritableDeviceWithConfigContextRequest"
+                                "$ref": "#/components/schemas/RenderConfigInputRequest"
                             }
                         }
-                    },
-                    "required": true
+                    }
                 },
                 "security": [
                     {
@@ -49295,16 +49640,50 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/DeviceWithConfigContext"
+                                    "$ref": "#/components/schemas/RenderedConfig"
                                 }
                             },
                             "text/plain": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/DeviceWithConfigContext"
+                                    "$ref": "#/components/schemas/RenderedConfig"
                                 }
                             }
                         },
-                        "description": ""
+                        "description": "The rendered config template. When the client requests `text/plain`, the raw rendered content is returned in place of the JSON object."
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {}
+                                }
+                            },
+                            "text/plain": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {}
+                                }
+                            }
+                        },
+                        "description": "No config template could be resolved for this object."
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {}
+                                }
+                            },
+                            "text/plain": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {}
+                                }
+                            }
+                        },
+                        "description": "An error occurred while rendering the config template."
                     }
                 }
             }
@@ -76840,11 +77219,181 @@
                     },
                     {
                         "in": "query",
+                        "name": "console_port_template_count",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "console_port_template_count__empty",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "console_port_template_count__gt",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "console_port_template_count__gte",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "console_port_template_count__lt",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "console_port_template_count__lte",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "console_port_template_count__n",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
                         "name": "console_ports",
                         "schema": {
                             "type": "boolean"
                         },
                         "description": "Has console ports"
+                    },
+                    {
+                        "in": "query",
+                        "name": "console_server_port_template_count",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "console_server_port_template_count__empty",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "console_server_port_template_count__gt",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "console_server_port_template_count__gte",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "console_server_port_template_count__lt",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "console_server_port_template_count__lte",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "console_server_port_template_count__n",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
                     },
                     {
                         "in": "query",
@@ -77106,6 +77655,91 @@
                     },
                     {
                         "in": "query",
+                        "name": "front_port_template_count",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "front_port_template_count__empty",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "front_port_template_count__gt",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "front_port_template_count__gte",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "front_port_template_count__lt",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "front_port_template_count__lte",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "front_port_template_count__n",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
                         "name": "id",
                         "schema": {
                             "type": "array",
@@ -77179,6 +77813,91 @@
                     {
                         "in": "query",
                         "name": "id__n",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "interface_template_count",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "interface_template_count__empty",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "interface_template_count__gt",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "interface_template_count__gte",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "interface_template_count__lt",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "interface_template_count__lte",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "interface_template_count__n",
                         "schema": {
                             "type": "array",
                             "items": {
@@ -77507,6 +78226,99 @@
                             "type": "string",
                             "format": "uuid"
                         }
+                    },
+                    {
+                        "in": "query",
+                        "name": "module_bay_template_count",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "module_bay_template_count__empty",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "module_bay_template_count__gt",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "module_bay_template_count__gte",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "module_bay_template_count__lt",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "module_bay_template_count__lte",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "module_bay_template_count__n",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "module_bays",
+                        "schema": {
+                            "type": "boolean"
+                        },
+                        "description": "Has module bays"
                     },
                     {
                         "in": "query",
@@ -77878,11 +78690,181 @@
                     },
                     {
                         "in": "query",
+                        "name": "power_outlet_template_count",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "power_outlet_template_count__empty",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "power_outlet_template_count__gt",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "power_outlet_template_count__gte",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "power_outlet_template_count__lt",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "power_outlet_template_count__lte",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "power_outlet_template_count__n",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
                         "name": "power_outlets",
                         "schema": {
                             "type": "boolean"
                         },
                         "description": "Has power outlets"
+                    },
+                    {
+                        "in": "query",
+                        "name": "power_port_template_count",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "power_port_template_count__empty",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "power_port_template_count__gt",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "power_port_template_count__gte",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "power_port_template_count__lt",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "power_port_template_count__lte",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "power_port_template_count__n",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
                     },
                     {
                         "in": "query",
@@ -77953,6 +78935,91 @@
                             "type": "string"
                         },
                         "description": "Search"
+                    },
+                    {
+                        "in": "query",
+                        "name": "rear_port_template_count",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "rear_port_template_count__empty",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "rear_port_template_count__gt",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "rear_port_template_count__gte",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "rear_port_template_count__lt",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "rear_port_template_count__lte",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
+                    },
+                    {
+                        "in": "query",
+                        "name": "rear_port_template_count__n",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "format": "int32"
+                            }
+                        },
+                        "explode": true,
+                        "style": "form"
                     },
                     {
                         "name": "start",
@@ -126673,7 +127740,7 @@
         "/api/extras/config-templates/{id}/render/": {
             "post": {
                 "operationId": "extras_config_templates_render_create",
-                "description": "Render a ConfigTemplate using the context data provided (if any). If the client requests \"text/plain\" data,\nreturn the raw rendered content, rather than serialized JSON.",
+                "description": "Render a ConfigTemplate using the context data provided (if any). The request body should be a\nmapping of context variables to make available to the template. If the client requests \"text/plain\"\ndata, return the raw rendered content, rather than serialized JSON.",
                 "parameters": [
                     {
                         "in": "query",
@@ -126703,16 +127770,17 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/ConfigTemplateRequest"
+                                "type": "object",
+                                "additionalProperties": {}
                             }
                         },
                         "multipart/form-data": {
                             "schema": {
-                                "$ref": "#/components/schemas/ConfigTemplateRequest"
+                                "type": "object",
+                                "additionalProperties": {}
                             }
                         }
-                    },
-                    "required": true
+                    }
                 },
                 "security": [
                     {
@@ -126727,16 +127795,33 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ConfigTemplate"
+                                    "$ref": "#/components/schemas/RenderedConfig"
                                 }
                             },
                             "text/plain": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ConfigTemplate"
+                                    "$ref": "#/components/schemas/RenderedConfig"
                                 }
                             }
                         },
-                        "description": ""
+                        "description": "The rendered config template. When the client requests `text/plain`, the raw rendered content is returned in place of the JSON object."
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {}
+                                }
+                            },
+                            "text/plain": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {}
+                                }
+                            }
+                        },
+                        "description": "An error occurred while rendering the config template."
                     }
                 }
             }
@@ -205949,16 +207034,15 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/WritableVirtualMachineWithConfigContextRequest"
+                                "$ref": "#/components/schemas/RenderConfigInputRequest"
                             }
                         },
                         "multipart/form-data": {
                             "schema": {
-                                "$ref": "#/components/schemas/WritableVirtualMachineWithConfigContextRequest"
+                                "$ref": "#/components/schemas/RenderConfigInputRequest"
                             }
                         }
-                    },
-                    "required": true
+                    }
                 },
                 "security": [
                     {
@@ -205973,16 +207057,50 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/VirtualMachineWithConfigContext"
+                                    "$ref": "#/components/schemas/RenderedConfig"
                                 }
                             },
                             "text/plain": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/VirtualMachineWithConfigContext"
+                                    "$ref": "#/components/schemas/RenderedConfig"
                                 }
                             }
                         },
-                        "description": ""
+                        "description": "The rendered config template. When the client requests `text/plain`, the raw rendered content is returned in place of the JSON object."
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {}
+                                }
+                            },
+                            "text/plain": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {}
+                                }
+                            }
+                        },
+                        "description": "No config template could be resolved for this object."
+                    },
+                    "500": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {}
+                                }
+                            },
+                            "text/plain": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {}
+                                }
+                            }
+                        },
+                        "description": "An error occurred while rendering the config template."
                     }
                 }
             }
@@ -251680,17 +252798,57 @@
                     "module_count": {
                         "type": "integer",
                         "readOnly": true
+                    },
+                    "console_port_template_count": {
+                        "type": "integer",
+                        "readOnly": true
+                    },
+                    "console_server_port_template_count": {
+                        "type": "integer",
+                        "readOnly": true
+                    },
+                    "power_port_template_count": {
+                        "type": "integer",
+                        "readOnly": true
+                    },
+                    "power_outlet_template_count": {
+                        "type": "integer",
+                        "readOnly": true
+                    },
+                    "interface_template_count": {
+                        "type": "integer",
+                        "readOnly": true
+                    },
+                    "front_port_template_count": {
+                        "type": "integer",
+                        "readOnly": true
+                    },
+                    "rear_port_template_count": {
+                        "type": "integer",
+                        "readOnly": true
+                    },
+                    "module_bay_template_count": {
+                        "type": "integer",
+                        "readOnly": true
                     }
                 },
                 "required": [
+                    "console_port_template_count",
+                    "console_server_port_template_count",
                     "created",
                     "display",
                     "display_url",
+                    "front_port_template_count",
                     "id",
+                    "interface_template_count",
                     "last_updated",
                     "manufacturer",
                     "model",
+                    "module_bay_template_count",
                     "module_count",
+                    "power_outlet_template_count",
+                    "power_port_template_count",
+                    "rear_port_template_count",
                     "url"
                 ]
             },
@@ -275885,9 +277043,14 @@
                     "display": {
                         "type": "string",
                         "readOnly": true
+                    },
+                    "description": {
+                        "type": "string",
+                        "readOnly": true
                     }
                 },
                 "required": [
+                    "description",
                     "device",
                     "display",
                     "face",
@@ -276949,6 +278112,40 @@
                 "required": [
                     "name",
                     "slug"
+                ]
+            },
+            "RenderConfigInputRequest": {
+                "type": "object",
+                "description": "Describes the request body for the device/VM /render-config/ endpoints. Any additional keys\nsupplied are passed through as context variables to the rendered template.",
+                "properties": {
+                    "config_template_id": {
+                        "type": "integer",
+                        "description": "Optional ID of the ConfigTemplate to render. If omitted, the object's assigned config template is used."
+                    }
+                },
+                "additionalProperties": true
+            },
+            "RenderedConfig": {
+                "type": "object",
+                "description": "Describes the JSON response returned by the /render-config/ and /render/ endpoints.",
+                "properties": {
+                    "configtemplate": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/BriefConfigTemplate"
+                            }
+                        ],
+                        "readOnly": true
+                    },
+                    "content": {
+                        "type": "string",
+                        "readOnly": true,
+                        "description": "The rendered template output."
+                    }
+                },
+                "required": [
+                    "configtemplate",
+                    "content"
                 ]
             },
             "Role": {
