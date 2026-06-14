@@ -492,7 +492,7 @@ impl DcimApi {
         Resource::new(self.client.clone(), "dcim/virtual-device-contexts/")
     }
 
-    // Trace methods
+    // trace methods
 
     /// trace an interface's cable path.
     pub async fn trace_interface(&self, id: u64) -> Result<Interface> {

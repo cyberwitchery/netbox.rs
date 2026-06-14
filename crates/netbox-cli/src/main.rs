@@ -728,27 +728,27 @@ struct Cli {
     #[arg(short, long, env = "NETBOX_TOKEN")]
     token: Option<String>,
 
-    /// Config profile to use (default: "default")
+    /// config profile to use (default: "default")
     #[arg(short, long, default_value = "default")]
     profile: String,
 
-    /// Output format (json, yaml, table)
+    /// output format (json, yaml, table)
     #[arg(long, value_enum)]
     output: Option<OutputFormat>,
 
-    /// Select a field from the response (dot path)
+    /// select a field from the response (dot path)
     #[arg(long)]
     select: Option<String>,
 
-    /// Columns to show in table output (comma-separated)
+    /// columns to show in table output (comma-separated)
     #[arg(long, value_delimiter = ',')]
     columns: Option<Vec<String>>,
 
-    /// Maximum columns in table output (default: 6)
+    /// maximum columns in table output (default: 6)
     #[arg(long, default_value = "6")]
     max_columns: usize,
 
-    /// Print the request and skip write operations
+    /// print the request and skip write operations
     #[arg(long)]
     dry_run: bool,
 
@@ -758,26 +758,26 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum ConfigAction {
-    /// Show the resolved configuration for a profile
+    /// show the resolved configuration for a profile
     Show,
-    /// List all available profiles
+    /// list all available profiles
     List,
-    /// Validate a profile configuration
+    /// validate a profile configuration
     Validate,
-    /// Show the config file path
+    /// show the config file path
     Path,
 }
 
 #[derive(Subcommand)]
 enum Commands {
-    /// Manage configuration profiles
+    /// manage configuration profiles
     Config {
         #[command(subcommand)]
         action: ConfigAction,
     },
-    /// List resources by group (or all resources)
+    /// list resources by group (or all resources)
     Resources {
-        /// Resource group name (dcim, ipam, circuits, tenancy, extras, core, users, virtualization, vpn, wireless, plugins)
+        /// resource group name (dcim, ipam, circuits, tenancy, extras, core, users, virtualization, vpn, wireless, plugins)
         group: Option<String>,
     },
     /// DCIM resources (devices, racks, interfaces, ...)
@@ -792,37 +792,37 @@ enum Commands {
         #[command(subcommand)]
         action: ResourceAction,
     },
-    /// Circuits resources (providers, circuits, ...)
+    /// circuits resources (providers, circuits, ...)
     Circuits {
         resource: String,
         #[command(subcommand)]
         action: ResourceAction,
     },
-    /// Tenancy resources (tenants, contacts, ...)
+    /// tenancy resources (tenants, contacts, ...)
     Tenancy {
         resource: String,
         #[command(subcommand)]
         action: ResourceAction,
     },
-    /// Extras resources (tags, scripts, custom fields, ...)
+    /// extras resources (tags, scripts, custom fields, ...)
     Extras {
         resource: String,
         #[command(subcommand)]
         action: ResourceAction,
     },
-    /// Core resources (jobs, object changes, ...)
+    /// core resources (jobs, object changes, ...)
     Core {
         resource: String,
         #[command(subcommand)]
         action: ResourceAction,
     },
-    /// Users resources (users, groups, tokens, ...)
+    /// users resources (users, groups, tokens, ...)
     Users {
         resource: String,
         #[command(subcommand)]
         action: ResourceAction,
     },
-    /// Virtualization resources (clusters, vms, ...)
+    /// virtualization resources (clusters, vms, ...)
     Virtualization {
         resource: String,
         #[command(subcommand)]
@@ -834,133 +834,133 @@ enum Commands {
         #[command(subcommand)]
         action: ResourceAction,
     },
-    /// Wireless resources (lans, links, ...)
+    /// wireless resources (lans, links, ...)
     Wireless {
         resource: String,
         #[command(subcommand)]
         action: ResourceAction,
     },
-    /// Plugin resources (branching data)
+    /// plugin resources (branching data)
     Plugins {
         resource: String,
         #[command(subcommand)]
         action: ResourceAction,
     },
-    /// Extras dashboard operations
+    /// extras dashboard operations
     ExtrasDashboard {
         #[command(subcommand)]
         action: DashboardAction,
     },
-    /// Core background queue summaries
+    /// core background queue summaries
     CoreBackgroundQueues {
         #[command(subcommand)]
         action: NamedLookupAction,
     },
-    /// Core background worker summaries
+    /// core background worker summaries
     CoreBackgroundWorkers {
         #[command(subcommand)]
         action: NamedLookupAction,
     },
-    /// Fetch current user config
+    /// fetch current user config
     UsersConfig,
-    /// Fetch NetBox status
+    /// fetch NetBox status
     Status,
-    /// Fetch OpenAPI schema
+    /// fetch OpenAPI schema
     Schema {
-        /// Schema format (json, yaml)
+        /// schema format (json, yaml)
         #[arg(long)]
         format: Option<String>,
-        /// Schema language
+        /// schema language
         #[arg(long)]
         lang: Option<String>,
     },
-    /// Run a read-only graphql query
+    /// run a read-only graphql query
     Graphql {
         #[command(flatten)]
         input: GraphqlInput,
     },
-    /// Find a device connected to a peer device/interface
+    /// find a device connected to a peer device/interface
     ConnectedDevice {
-        /// Peer device name
+        /// peer device name
         #[arg(long)]
         peer_device: String,
-        /// Peer interface name
+        /// peer interface name
         #[arg(long)]
         peer_interface: String,
     },
-    /// Provision a token with username/password
+    /// provision a token with username/password
     ProvisionToken {
         #[command(flatten)]
         input: JsonInput,
     },
-    /// Branch actions (branching plugin)
+    /// branch actions (branching plugin)
     PluginBranchAction {
         id: u64,
         #[command(subcommand)]
         action: BranchAction,
     },
-    /// List or create available IPs in a prefix
+    /// list or create available IPs in a prefix
     IpamPrefixAvailableIps {
         id: u64,
         #[command(subcommand)]
         action: AvailabilityAction,
     },
-    /// List or create available prefixes in a prefix
+    /// list or create available prefixes in a prefix
     IpamPrefixAvailablePrefixes {
         id: u64,
         #[command(subcommand)]
         action: AvailabilityAction,
     },
-    /// List or create available IPs in an IP range
+    /// list or create available IPs in an IP range
     IpamRangeAvailableIps {
         id: u64,
         #[command(subcommand)]
         action: AvailabilityAction,
     },
-    /// List or create available VLANs in a VLAN group
+    /// list or create available VLANs in a VLAN group
     IpamVlanGroupAvailableVlans {
         id: u64,
         #[command(subcommand)]
         action: AvailabilityAction,
     },
-    /// List or create available ASNs in an ASN range
+    /// list or create available ASNs in an ASN range
     IpamAsnRangeAvailableAsns {
         id: u64,
         #[command(subcommand)]
         action: AvailabilityAction,
     },
-    /// Background task actions
+    /// background task actions
     CoreTaskAction {
         id: String,
         #[command(subcommand)]
         action: TaskAction,
     },
-    /// Sync a data source
+    /// sync a data source
     CoreDataSourceSync { id: u64 },
-    /// Sync a config context
+    /// sync a config context
     ExtrasConfigContextSync { id: u64 },
-    /// Sync a config context profile
+    /// sync a config context profile
     ExtrasConfigContextProfileSync { id: u64 },
-    /// Sync a config template
+    /// sync a config template
     ExtrasConfigTemplateSync { id: u64 },
-    /// Render a config template
+    /// render a config template
     ExtrasConfigTemplateRender { id: u64 },
-    /// Sync an export template
+    /// sync an export template
     ExtrasExportTemplateSync { id: u64 },
-    /// Get custom field choices
+    /// get custom field choices
     ExtrasCustomFieldChoices { id: u64 },
-    /// Get circuit termination paths
+    /// get circuit termination paths
     CircuitsTerminationPaths { id: u64 },
-    /// Get virtual circuit termination paths
+    /// get virtual circuit termination paths
     CircuitsVirtualTerminationPaths { id: u64 },
-    /// Trace DCIM resources (interfaces, ports, feeds)
+    /// trace DCIM resources (interfaces, ports, feeds)
     DcimTrace {
         #[command(subcommand)]
         resource: TraceableResource,
     },
-    /// Render VM config
+    /// render VM config
     VirtualizationRenderConfig { id: u64 },
-    /// Make a raw API request (covers all endpoints)
+    /// make a raw API request (covers all endpoints)
     Raw {
         /// HTTP method (GET, POST, PATCH, PUT, DELETE)
         #[arg(long)]
@@ -968,7 +968,7 @@ enum Commands {
         /// API path, e.g. "dcim/devices/"
         #[arg(long)]
         path: String,
-        /// Query string parameters (repeatable key=value)
+        /// query string parameters (repeatable key=value)
         #[arg(long = "query")]
         query: Vec<String>,
         #[command(flatten)]
@@ -978,74 +978,74 @@ enum Commands {
 
 #[derive(Subcommand)]
 enum ResourceAction {
-    /// List resources
+    /// list resources
     List {
-        /// Query string parameters (repeatable key=value)
+        /// query string parameters (repeatable key=value)
         #[arg(long = "query")]
         query: Vec<String>,
     },
-    /// Get a resource by id
+    /// get a resource by id
     Get { id: u64 },
-    /// Create a resource
+    /// create a resource
     Create {
         #[command(flatten)]
         input: JsonInput,
     },
-    /// Update a resource (PUT)
+    /// update a resource (PUT)
     Update {
         id: u64,
         #[command(flatten)]
         input: JsonInput,
     },
-    /// Patch a resource
+    /// patch a resource
     Patch {
         id: u64,
         #[command(flatten)]
         input: JsonInput,
     },
-    /// Delete a resource
+    /// delete a resource
     Delete { id: u64 },
 }
 
 #[derive(Subcommand)]
 enum DashboardAction {
-    /// Fetch the dashboard config
+    /// fetch the dashboard config
     Get,
-    /// Update the dashboard config (PUT)
+    /// update the dashboard config (PUT)
     Update {
         #[command(flatten)]
         input: JsonInput,
     },
-    /// Patch the dashboard config
+    /// patch the dashboard config
     Patch {
         #[command(flatten)]
         input: JsonInput,
     },
-    /// Delete the dashboard config
+    /// delete the dashboard config
     Delete,
 }
 
 #[derive(Subcommand)]
 enum NamedLookupAction {
-    /// List summaries
+    /// list summaries
     List,
-    /// Get a summary by name
+    /// get a summary by name
     Get { name: String },
 }
 
 #[derive(Subcommand)]
 enum BranchAction {
-    /// Merge a branch
+    /// merge a branch
     Merge {
         #[command(flatten)]
         input: JsonInput,
     },
-    /// Revert a branch
+    /// revert a branch
     Revert {
         #[command(flatten)]
         input: JsonInput,
     },
-    /// Sync a branch
+    /// sync a branch
     Sync {
         #[command(flatten)]
         input: JsonInput,
@@ -1054,9 +1054,9 @@ enum BranchAction {
 
 #[derive(Subcommand)]
 enum AvailabilityAction {
-    /// List available resources
+    /// list available resources
     List,
-    /// Create resources from available pool
+    /// create resources from available pool
     Create {
         #[command(flatten)]
         input: JsonInput,
@@ -1065,29 +1065,29 @@ enum AvailabilityAction {
 
 #[derive(Subcommand)]
 enum TaskAction {
-    /// Enqueue a background task
+    /// enqueue a background task
     Enqueue,
-    /// Stop a background task
+    /// stop a background task
     Stop,
-    /// Requeue a background task
+    /// requeue a background task
     Requeue,
-    /// Delete a background task
+    /// delete a background task
     Delete,
 }
 
 #[derive(Subcommand)]
 enum TraceableResource {
-    /// Trace an interface
+    /// trace an interface
     Interface { id: u64 },
-    /// Trace a console port
+    /// trace a console port
     ConsolePort { id: u64 },
-    /// Trace a console server port
+    /// trace a console server port
     ConsoleServerPort { id: u64 },
-    /// Trace a power port
+    /// trace a power port
     PowerPort { id: u64 },
-    /// Trace a power outlet
+    /// trace a power outlet
     PowerOutlet { id: u64 },
-    /// Trace a power feed
+    /// trace a power feed
     PowerFeed { id: u64 },
 }
 
@@ -1128,15 +1128,15 @@ struct GraphqlInput {
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
 
-    // Load config file
+    // load config file
     let config_file = load_config().ok().flatten();
 
-    // Handle config commands first (no API access needed)
+    // handle config commands first (no API access needed)
     if let Commands::Config { action } = &cli.command {
         return handle_config_command(action, &cli.profile, config_file.as_ref());
     }
 
-    // Resolve profile from config file
+    // resolve profile from config file
     let mut profile = Profile::default();
     if let Some(ref cf) = config_file {
         if let Some(p) = cf.get_profile(&cli.profile) {
@@ -1157,7 +1157,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         profile.output = cli.output.map(|o| format!("{:?}", o).to_lowercase());
     }
 
-    // Resolve URL and token
+    // resolve URL and token
     let url = profile
         .url
         .clone()
@@ -1166,7 +1166,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         "token not specified (use --token, NETBOX_TOKEN, token_env, or token_command in config)",
     )?;
 
-    // Build client config
+    // build client config
     let mut client_config = ClientConfig::new(&url, &token);
     if let Some(timeout) = profile.timeout {
         client_config = client_config.with_timeout(Duration::from_secs(timeout));
@@ -1181,7 +1181,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = Client::new(client_config)?;
     let api = NetboxApiClient { inner: client };
 
-    // Resolve output format
+    // resolve output format
     let output_format = cli.output.unwrap_or_else(|| {
         profile
             .output
@@ -1778,7 +1778,7 @@ fn handle_config_command(
                         match validate_profile(profile) {
                             Ok(()) => {
                                 println!("profile '{}' is valid", profile_name);
-                                // Try to resolve token to catch command errors
+                                // try to resolve token to catch command errors
                                 match profile.resolve_token() {
                                     Ok(Some(_)) => println!("  token: ok"),
                                     Ok(None) => println!(
@@ -2025,7 +2025,7 @@ fn table_from_items(
             }
         }
     } else if let Some(cols) = columns {
-        // Empty result set with explicit columns: render the headers anyway.
+        // empty result set with explicit columns: render the headers anyway.
         table.set_header(cols.iter().map(Cell::new));
     } else {
         table.set_header(vec![Cell::new("value")]);
@@ -2721,7 +2721,7 @@ mod tests {
             ]
         });
         let table = format_table(&value, None, 2);
-        // Should only have 2 columns
+        // should only have 2 columns
         let header_line = table.lines().nth(1).unwrap_or("");
         let column_count = header_line
             .split('|')

@@ -28,7 +28,7 @@ this release captures the current state of the project. no prior published state
 ## [0.5.3] - 2026-05-31
 
 ### build
-- gate per-tag API modules (`dcim_api`, `ipam_api`, `vpn_api`, etc.) behind `#[cfg(not(docsrs))]` so docs.rs skips compiling them — they account for ~78% of `netbox-openapi`'s ~420k lines, and rustc OOMs on them at the docs.rs container limit (peak 6.58 GiB needed, 6 GiB available). The high-level `netbox` client never calls these per-tag functions (only re-exports them), so users on crates.io see no behaviour change; only `docs.rs/netbox-openapi/` loses the per-tag pages.
+- gate per-tag API modules (`dcim_api`, `ipam_api`, `vpn_api`, etc.) behind `#[cfg(not(docsrs))]` so docs.rs skips compiling them — they account for ~78% of `netbox-openapi`'s ~420k lines, and rustc OOMs on them at the docs.rs container limit (peak 6.58 GiB needed, 6 GiB available). the high-level `netbox` client never calls these per-tag functions (only re-exports them), so users on crates.io see no behaviour change; only `docs.rs/netbox-openapi/` loses the per-tag pages.
 - the previous `[profile.dev.package.netbox-openapi] debug = 0` override (added in 0.5.1, propagated correctly in 0.5.2) was insufficient on its own — debuginfo wasn't the dominant cost; type-checking the generated derives was.
 - post-processing in `scripts/generate.sh` injects the gates automatically on subsequent regenerations.
 - added a `build.rs` to `netbox-openapi` that translates `DOCS_RS=1` (set by docs.rs) into `cfg(docsrs)` (the standard idiom for crate-local docs.rs cfg).

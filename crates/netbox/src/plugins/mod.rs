@@ -15,7 +15,7 @@ use crate::Client;
 use crate::error::Result;
 use crate::resource::Resource;
 
-// Branch types come from the netbox-branching plugin and are not present in
+// branch types come from the netbox-branching plugin and are not present in
 // the core NetBox OpenAPI schema, so they are defined locally here rather
 // than imported from generated code.
 

@@ -66,10 +66,10 @@ impl ClientConfig {
     pub fn new(base_url: impl AsRef<str>, token: impl Into<String>) -> Self {
         let base_url_str = base_url.as_ref();
 
-        // Normalize base URL: ensure it doesn't end with a slash
+        // normalize base URL: ensure it doesn't end with a slash
         let normalized = base_url_str.trim_end_matches('/');
 
-        // Parse URL, this will be validated when building the client
+        // parse URL, this will be validated when building the client
         let (base_url, base_url_valid) = match Url::parse(normalized)
             .or_else(|_| Url::parse(&format!("https://{}", normalized)))
         {
@@ -189,7 +189,7 @@ impl ClientConfig {
             )));
         }
 
-        // Validate base URL
+        // validate base URL
         if self.base_url.scheme() != "http" && self.base_url.scheme() != "https" {
             return Err(Error::Config(format!(
                 "Invalid URL scheme: {}. Must be http or https",
@@ -197,7 +197,7 @@ impl ClientConfig {
             )));
         }
 
-        // Validate token
+        // validate token
         if self.token.is_empty() {
             return Err(Error::Config("API token cannot be empty".to_string()));
         }
@@ -270,7 +270,7 @@ mod tests {
     #[test]
     fn test_normalize_url_with_trailing_slash() {
         let config = ClientConfig::new("https://netbox.example.com/", "token");
-        // Both should normalize to the same thing
+        // both should normalize to the same thing
         let config2 = ClientConfig::new("https://netbox.example.com", "token");
         assert_eq!(
             config.base_url.as_str().trim_end_matches('/'),
@@ -282,11 +282,11 @@ mod tests {
     fn test_build_url() {
         let config = ClientConfig::new("https://netbox.example.com", "token");
 
-        // Test with leading slash
+        // test with leading slash
         let url = config.build_url("/dcim/devices/").unwrap();
         assert_eq!(url.as_str(), "https://netbox.example.com/api/dcim/devices/");
 
-        // Test without leading slash
+        // test without leading slash
         let url = config.build_url("dcim/devices/").unwrap();
         assert_eq!(url.as_str(), "https://netbox.example.com/api/dcim/devices/");
     }

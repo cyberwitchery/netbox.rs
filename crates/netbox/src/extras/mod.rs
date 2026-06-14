@@ -805,7 +805,7 @@ impl ExtrasApi {
         Resource::new(self.client.clone(), "extras/webhooks/")
     }
 
-    // Config context sync operations
+    // config context sync operations
 
     /// sync a config context from its data source.
     pub async fn sync_config_context(&self, id: u64) -> Result<ConfigContext> {
@@ -821,7 +821,7 @@ impl ExtrasApi {
             .await
     }
 
-    // Config template operations
+    // config template operations
 
     /// sync a config template from its data source.
     pub async fn sync_config_template(&self, id: u64) -> Result<ConfigTemplate> {
@@ -837,7 +837,7 @@ impl ExtrasApi {
             .await
     }
 
-    // Export template sync
+    // export template sync
 
     /// sync an export template from its data source.
     pub async fn sync_export_template(&self, id: u64) -> Result<ExportTemplate> {
@@ -846,7 +846,7 @@ impl ExtrasApi {
             .await
     }
 
-    // Custom field choice sets
+    // custom field choice sets
 
     /// get choices for a custom field choice set.
     pub async fn custom_field_choices(&self, id: u64) -> Result<CustomFieldChoiceSet> {

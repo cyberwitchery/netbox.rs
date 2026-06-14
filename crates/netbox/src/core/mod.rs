@@ -128,7 +128,7 @@ impl CoreApi {
         Resource::new(self.client.clone(), "core/object-types/")
     }
 
-    // Background task actions
+    // background task actions
 
     /// enqueue a background task.
     pub async fn enqueue_task(&self, id: &str) -> Result<BackgroundTask> {
@@ -158,7 +158,7 @@ impl CoreApi {
             .await
     }
 
-    // Data source sync
+    // data source sync
 
     /// sync a data source.
     pub async fn sync_data_source(&self, id: u64) -> Result<DataSource> {

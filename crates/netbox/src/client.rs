@@ -63,7 +63,7 @@ impl Client {
         let http_client = if let Some(http_client) = config.http_client.clone() {
             http_client
         } else {
-            // Build default headers
+            // build default headers
             let mut headers = HeaderMap::new();
             headers.insert(
                 AUTHORIZATION,
@@ -78,7 +78,7 @@ impl Client {
             headers.insert(CONTENT_TYPE, HeaderValue::from_static("application/json"));
             headers.extend(config.extra_headers.clone());
 
-            // Build HTTP client
+            // build HTTP client
             let builder = reqwest::Client::builder()
                 .default_headers(headers)
                 .timeout(config.timeout)
@@ -727,10 +727,10 @@ impl Client {
         let status = response.status();
 
         if status.is_success() {
-            // Successful response, deserialize JSON
+            // successful response, deserialize JSON
             response.json().await.map_err(Error::from)
         } else {
-            // Error response
+            // error response
             let body = response.text().await.unwrap_or_default();
             Err(Error::from_response(status, body))
         }

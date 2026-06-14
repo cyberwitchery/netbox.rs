@@ -1063,7 +1063,7 @@ impl CircuitsApi {
         Resource::new(self.client.clone(), "circuits/virtual-circuits/")
     }
 
-    // Path retrieval methods
+    // path retrieval methods
 
     /// get paths for a circuit termination.
     pub async fn circuit_termination_paths(&self, id: u64) -> Result<CircuitTermination> {

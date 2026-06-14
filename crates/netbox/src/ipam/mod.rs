@@ -329,7 +329,7 @@ impl IpamApi {
         Resource::new(self.client.clone(), "ipam/vrfs/")
     }
 
-    // Prefix availability endpoints
+    // prefix availability endpoints
 
     /// list available IPs within a prefix.
     pub async fn available_ips_in_prefix(&self, id: u64) -> Result<Vec<AvailableIp>> {
