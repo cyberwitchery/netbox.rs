@@ -28,6 +28,9 @@ use std::time::Duration;
 use std::time::Instant;
 use tokio::time::sleep;
 
+/// hard ceiling for any single retry delay (prevents unbounded growth)
+const RETRY_MAX_BACKOFF: Duration = Duration::from_secs(30);
+
 /// the main netbox api client
 ///
 /// # Example
@@ -708,7 +711,8 @@ impl Client {
         } else {
             Self::jitter_seed(attempt) % (jitter + 1)
         };
-        Duration::from_millis(backoff_ms.saturating_add(offset))
+        let delay = Duration::from_millis(backoff_ms.saturating_add(offset));
+        delay.min(RETRY_MAX_BACKOFF)
     }
 
     fn jitter_seed(attempt: u32) -> u64 {
@@ -834,6 +838,17 @@ mod tests {
         assert!((200..=700).contains(&delay1));
         assert!((400..=900).contains(&delay2));
         assert!((800..=1300).contains(&delay3));
+    }
+
+    #[test]
+    fn test_retry_delay_capped_at_max() {
+        for attempt in [9, 15, 30] {
+            let delay = Client::retry_delay(attempt);
+            assert_eq!(
+                delay, RETRY_MAX_BACKOFF,
+                "attempt {attempt} delay {delay:?} should hit cap {RETRY_MAX_BACKOFF:?}"
+            );
+        }
     }
 
     #[cfg_attr(miri, ignore)]

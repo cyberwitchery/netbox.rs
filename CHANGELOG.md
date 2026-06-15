@@ -4,6 +4,9 @@ this release captures the current state of the project. no prior published state
 
 ## [unreleased]
 
+### fixed
+- cap retry backoff at 30 seconds via `RETRY_MAX_BACKOFF` (previously grew unbounded at high attempt counts)
+
 ### openapi
 - regenerate bindings from NetBox v4.6.2 schema; adds `RenderConfigInputRequest` and `RenderedConfig` models; `user`/`user__n` params on `core_jobs_list` changed from `i32` to `Vec<String>` (now array-valued), with new `user_id`/`user_id__n` integer filters added alongside
 
