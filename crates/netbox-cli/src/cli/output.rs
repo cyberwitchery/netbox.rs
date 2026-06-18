@@ -49,7 +49,7 @@ pub(crate) fn print_dry_run(
     Ok(())
 }
 
-pub(crate) fn dry_run_payload(method: Method, path: &str, body: Option<&Value>) -> Value {
+fn dry_run_payload(method: Method, path: &str, body: Option<&Value>) -> Value {
     serde_json::json!({
         "method": method.as_str(),
         "path": path,

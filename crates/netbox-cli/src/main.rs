@@ -14,7 +14,7 @@ use cli::{
     normalize_api_path, print_dry_run, print_output, print_resources, request_raw_with_context,
     wrap_request_error,
 };
-use config::{ConfigFile, Profile, load_config};
+use config::{Profile, load_config};
 use netbox::{Client, ClientConfig};
 use reqwest::Method;
 use serde_json::Value;

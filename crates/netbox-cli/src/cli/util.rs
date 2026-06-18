@@ -1,11 +1,9 @@
+use crate::{ApiClient, GraphqlInput, JsonInput, JsonInputOptional};
 use reqwest::Method;
 use serde::de::DeserializeOwned;
 use serde_json::Value;
 use std::fmt;
 use std::fs;
-use std::path::PathBuf;
-
-use crate::{ApiClient, GraphqlInput, JsonInput, JsonInputOptional};
 
 #[derive(Debug)]
 pub(crate) struct RequestError {
@@ -71,7 +69,7 @@ pub(crate) fn append_query(
     Ok(format!("{}{}{}", path, separator, query_string))
 }
 
-pub(crate) fn parse_query_pairs(
+fn parse_query_pairs(
     query: &[String],
 ) -> Result<Vec<(String, String)>, Box<dyn std::error::Error>> {
     let mut pairs = Vec::with_capacity(query.len());
@@ -177,7 +175,7 @@ pub(crate) fn wrap_request_error(
     Box::new(RequestError::new(method, path, err))
 }
 
-pub(crate) fn format_netbox_error(
+fn format_netbox_error(
     method: &Method,
     path: &str,
     err: &(dyn std::error::Error + 'static),
@@ -217,7 +215,7 @@ fn extract_request_id(body: &str) -> Option<String> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use serde_json::{Value, json};
+    use serde_json::Value;
     use std::env;
 
     #[test]

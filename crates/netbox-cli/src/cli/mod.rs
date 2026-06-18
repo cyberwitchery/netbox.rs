@@ -8,12 +8,11 @@ pub(crate) use handlers::{
     handle_dashboard_action, handle_get_action, handle_named_lookup, handle_sync_action,
     handle_task_action, handle_trace_action,
 };
-pub(crate) use output::{format_output, print_dry_run, print_output};
+pub(crate) use output::{print_dry_run, print_output};
 pub(crate) use resources::{
     CIRCUITS_RESOURCES, CORE_RESOURCES, DCIM_RESOURCES, EXTRAS_RESOURCES, IPAM_RESOURCES,
-    PLUGINS_RESOURCES, ResourceEntry, TENANCY_RESOURCES, USERS_RESOURCES, VIRTUALIZATION_RESOURCES,
-    VPN_RESOURCES, WIRELESS_RESOURCES, find_resource_path, handle_resource_action,
-    handle_resource_group, print_resources, resource_path_with_id,
+    PLUGINS_RESOURCES, TENANCY_RESOURCES, USERS_RESOURCES, VIRTUALIZATION_RESOURCES, VPN_RESOURCES,
+    WIRELESS_RESOURCES, handle_resource_group, print_resources,
 };
 pub(crate) use util::{
     append_query, build_schema_path, load_graphql_query, load_graphql_vars, load_json,
