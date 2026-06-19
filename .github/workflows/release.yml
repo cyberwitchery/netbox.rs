@@ -8,11 +8,15 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     permissions:
       contents: write
     env:
-      RUSTFLAGS: "-C debuginfo=0"
+      # codegen-units=1 + one build job at a time keeps peak memory down while
+      # compiling the large generated netbox-openapi crate, which otherwise OOMs
+      # the runner (SIGTERM mid-compile) in the test build.
+      RUSTFLAGS: "-C debuginfo=0 -C codegen-units=1"
+      CARGO_BUILD_JOBS: "1"
       CARGO_TARGET_DIR: target/ci
     steps:
       - name: checkout
