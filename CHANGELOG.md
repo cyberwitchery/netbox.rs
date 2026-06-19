@@ -4,6 +4,8 @@ this release captures the current state of the project. no prior published state
 
 ## [unreleased]
 
+## [0.6.0] - 2026-06-19
+
 ### fixed
 - cap retry backoff at 30 seconds via `RETRY_MAX_BACKOFF` (previously grew unbounded at high attempt counts)
 
