@@ -9,6 +9,7 @@ this release captures the current state of the project. no prior published state
 
 ### openapi
 - regenerate bindings from NetBox v4.6.2 schema; adds `RenderConfigInputRequest` and `RenderedConfig` models; `user`/`user__n` params on `core_jobs_list` changed from `i32` to `Vec<String>` (now array-valued), with new `user_id`/`user_id__n` integer filters added alongside
+- **breaking** `generic_fk` now recognizes the generic relationships NetBox writes as a `<field>_type`/`<field>_id` pair — assigning an IP address to an interface, a prefix's or VLAN group's scope, contact and journal assignments, and more — not just the cable-termination form it knew before. each field now reports how it is encoded (`generic_fk_encoding()`), so these relationships can be created and read back correctly instead of being silently unrecognized. (entries in `GENERIC_FK_FIELDS` gain an encoding element; `is_generic_fk` is unchanged.)
 
 ### ci
 - bump pinned NetBox container from v4.6.0 to v4.6.2
