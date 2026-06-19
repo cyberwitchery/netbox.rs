@@ -12,8 +12,13 @@ pub(crate) use output::{print_dry_run, print_output};
 pub(crate) use resources::{
     CIRCUITS_RESOURCES, CORE_RESOURCES, DCIM_RESOURCES, EXTRAS_RESOURCES, IPAM_RESOURCES,
     PLUGINS_RESOURCES, TENANCY_RESOURCES, USERS_RESOURCES, VIRTUALIZATION_RESOURCES, VPN_RESOURCES,
-    WIRELESS_RESOURCES, handle_resource_action, handle_resource_group, print_resources,
+    WIRELESS_RESOURCES, handle_resource_group, print_resources,
 };
+
+#[cfg(test)]
+pub(crate) use output::format_output;
+#[cfg(test)]
+pub(crate) use resources::handle_resource_action;
 pub(crate) use util::{
     append_query, build_schema_path, load_graphql_query, load_graphql_vars, load_json,
     load_json_optional, normalize_api_path, request_raw_with_context, wrap_request_error,
