@@ -925,7 +925,6 @@ mod tests {
         let server = MockServer::start();
         let client = mock_client(&server);
 
-        // circuit termination paths
         let mock1 = server.mock(|when, then| {
             when.method(GET)
                 .path("/api/circuits/circuit-terminations/42/paths/");
@@ -934,7 +933,6 @@ mod tests {
         let _ = client.circuits().circuit_termination_paths(42).await;
         mock1.assert();
 
-        // virtual circuit termination paths
         let mock2 = server.mock(|when, then| {
             when.method(GET)
                 .path("/api/circuits/virtual-circuit-terminations/10/paths/");
@@ -1062,8 +1060,6 @@ impl CircuitsApi {
     pub fn virtual_circuits(&self) -> VirtualCircuitsApi {
         Resource::new(self.client.clone(), "circuits/virtual-circuits/")
     }
-
-    // path retrieval methods
 
     /// get paths for a circuit termination.
     pub async fn circuit_termination_paths(&self, id: u64) -> Result<CircuitTermination> {

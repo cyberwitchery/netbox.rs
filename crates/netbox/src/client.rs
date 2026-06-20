@@ -66,7 +66,6 @@ impl Client {
         let http_client = if let Some(http_client) = config.http_client.clone() {
             http_client
         } else {
-            // build default headers
             let mut headers = HeaderMap::new();
             headers.insert(
                 AUTHORIZATION,
@@ -731,10 +730,8 @@ impl Client {
         let status = response.status();
 
         if status.is_success() {
-            // successful response, deserialize JSON
             response.json().await.map_err(Error::from)
         } else {
-            // error response
             let body = response.text().await.unwrap_or_default();
             Err(Error::from_response(status, body))
         }

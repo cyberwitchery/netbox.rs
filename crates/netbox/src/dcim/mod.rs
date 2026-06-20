@@ -492,8 +492,6 @@ impl DcimApi {
         Resource::new(self.client.clone(), "dcim/virtual-device-contexts/")
     }
 
-    // trace methods
-
     /// trace an interface's cable path.
     pub async fn trace_interface(&self, id: u64) -> Result<Interface> {
         self.client
@@ -719,7 +717,6 @@ mod tests {
         let server = MockServer::start();
         let client = mock_client(&server);
 
-        // trace interface
         let mock1 = server.mock(|when, then| {
             when.method(GET).path("/api/dcim/interfaces/42/trace/");
             then.status(200).json_body(json!({}));
@@ -727,7 +724,6 @@ mod tests {
         let _ = client.dcim().trace_interface(42).await;
         mock1.assert();
 
-        // trace console port
         let mock2 = server.mock(|when, then| {
             when.method(GET).path("/api/dcim/console-ports/5/trace/");
             then.status(200).json_body(json!({}));
@@ -735,7 +731,6 @@ mod tests {
         let _ = client.dcim().trace_console_port(5).await;
         mock2.assert();
 
-        // trace console server port
         let mock3 = server.mock(|when, then| {
             when.method(GET)
                 .path("/api/dcim/console-server-ports/3/trace/");
@@ -744,7 +739,6 @@ mod tests {
         let _ = client.dcim().trace_console_server_port(3).await;
         mock3.assert();
 
-        // trace power port
         let mock4 = server.mock(|when, then| {
             when.method(GET).path("/api/dcim/power-ports/7/trace/");
             then.status(200).json_body(json!({}));
@@ -752,7 +746,6 @@ mod tests {
         let _ = client.dcim().trace_power_port(7).await;
         mock4.assert();
 
-        // trace power outlet
         let mock5 = server.mock(|when, then| {
             when.method(GET).path("/api/dcim/power-outlets/2/trace/");
             then.status(200).json_body(json!({}));
@@ -760,7 +753,6 @@ mod tests {
         let _ = client.dcim().trace_power_outlet(2).await;
         mock5.assert();
 
-        // trace power feed
         let mock6 = server.mock(|when, then| {
             when.method(GET).path("/api/dcim/power-feeds/9/trace/");
             then.status(200).json_body(json!({}));

@@ -329,8 +329,6 @@ impl IpamApi {
         Resource::new(self.client.clone(), "ipam/vrfs/")
     }
 
-    // prefix availability endpoints
-
     /// list available IPs within a prefix.
     pub async fn available_ips_in_prefix(&self, id: u64) -> Result<Vec<AvailableIp>> {
         self.client
@@ -367,8 +365,6 @@ impl IpamApi {
             .await
     }
 
-    // IP Range availability endpoints
-
     /// list available IPs within an IP range.
     pub async fn available_ips_in_range(&self, id: u64) -> Result<Vec<AvailableIp>> {
         self.client
@@ -387,8 +383,6 @@ impl IpamApi {
             .await
     }
 
-    // VLAN Group availability endpoints
-
     /// list available VLANs within a VLAN group.
     pub async fn available_vlans_in_group(&self, id: u64) -> Result<Vec<AvailableVlan>> {
         self.client
@@ -406,8 +400,6 @@ impl IpamApi {
             .post(&format!("ipam/vlan-groups/{}/available-vlans/", id), body)
             .await
     }
-
-    // ASN Range availability endpoints
 
     /// list available ASNs within an ASN range.
     pub async fn available_asns_in_range(&self, id: u64) -> Result<Vec<AvailableAsn>> {
@@ -550,7 +542,6 @@ mod tests {
         let server = MockServer::start();
         let client = mock_client(&server);
 
-        // available IPs in prefix (GET)
         let mock1 = server.mock(|when, then| {
             when.method(GET)
                 .path("/api/ipam/prefixes/42/available-ips/");
@@ -559,7 +550,6 @@ mod tests {
         let _ = client.ipam().available_ips_in_prefix(42).await;
         mock1.assert();
 
-        // create available IPs in prefix (POST)
         let mock2 = server.mock(|when, then| {
             when.method(POST)
                 .path("/api/ipam/prefixes/42/available-ips/");
@@ -572,7 +562,6 @@ mod tests {
             .await;
         mock2.assert();
 
-        // available prefixes in prefix (GET)
         let mock3 = server.mock(|when, then| {
             when.method(GET)
                 .path("/api/ipam/prefixes/42/available-prefixes/");
@@ -581,7 +570,6 @@ mod tests {
         let _ = client.ipam().available_prefixes_in_prefix(42).await;
         mock3.assert();
 
-        // create available prefixes (POST)
         let mock4 = server.mock(|when, then| {
             when.method(POST)
                 .path("/api/ipam/prefixes/42/available-prefixes/");
@@ -594,7 +582,6 @@ mod tests {
             .await;
         mock4.assert();
 
-        // available IPs in range (GET)
         let mock5 = server.mock(|when, then| {
             when.method(GET)
                 .path("/api/ipam/ip-ranges/10/available-ips/");
@@ -603,7 +590,6 @@ mod tests {
         let _ = client.ipam().available_ips_in_range(10).await;
         mock5.assert();
 
-        // create available IPs in range (POST)
         let mock6 = server.mock(|when, then| {
             when.method(POST)
                 .path("/api/ipam/ip-ranges/10/available-ips/");
@@ -613,7 +599,6 @@ mod tests {
         let _ = client.ipam().create_available_ips_in_range(10, &body).await;
         mock6.assert();
 
-        // available VLANs in group (GET)
         let mock7 = server.mock(|when, then| {
             when.method(GET)
                 .path("/api/ipam/vlan-groups/5/available-vlans/");
@@ -622,7 +607,6 @@ mod tests {
         let _ = client.ipam().available_vlans_in_group(5).await;
         mock7.assert();
 
-        // create available VLANs (POST)
         let mock8 = server.mock(|when, then| {
             when.method(POST)
                 .path("/api/ipam/vlan-groups/5/available-vlans/");
@@ -635,7 +619,6 @@ mod tests {
             .await;
         mock8.assert();
 
-        // available ASNs in range (GET)
         let mock9 = server.mock(|when, then| {
             when.method(GET)
                 .path("/api/ipam/asn-ranges/3/available-asns/");
@@ -644,7 +627,6 @@ mod tests {
         let _ = client.ipam().available_asns_in_range(3).await;
         mock9.assert();
 
-        // create available ASNs (POST)
         let mock10 = server.mock(|when, then| {
             when.method(POST)
                 .path("/api/ipam/asn-ranges/3/available-asns/");

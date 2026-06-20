@@ -10,7 +10,6 @@ mod pagination;
 mod query;
 mod resource;
 
-// api endpoint modules
 /// circuits and provider resources.
 pub mod circuits;
 /// core endpoints and system resources.
@@ -55,7 +54,6 @@ pub mod openapi {
     pub use netbox_openapi::models;
 }
 
-// re-export the generated models for convenience
 pub use netbox_openapi::models;
 
 /// generic foreign-key field metadata derived from the openapi schema.

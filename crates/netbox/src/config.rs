@@ -189,7 +189,6 @@ impl ClientConfig {
             )));
         }
 
-        // validate base URL
         if self.base_url.scheme() != "http" && self.base_url.scheme() != "https" {
             return Err(Error::Config(format!(
                 "Invalid URL scheme: {}. Must be http or https",
@@ -197,7 +196,6 @@ impl ClientConfig {
             )));
         }
 
-        // validate token
         if self.token.is_empty() {
             return Err(Error::Config("API token cannot be empty".to_string()));
         }
@@ -282,11 +280,9 @@ mod tests {
     fn test_build_url() {
         let config = ClientConfig::new("https://netbox.example.com", "token");
 
-        // test with leading slash
         let url = config.build_url("/dcim/devices/").unwrap();
         assert_eq!(url.as_str(), "https://netbox.example.com/api/dcim/devices/");
 
-        // test without leading slash
         let url = config.build_url("dcim/devices/").unwrap();
         assert_eq!(url.as_str(), "https://netbox.example.com/api/dcim/devices/");
     }

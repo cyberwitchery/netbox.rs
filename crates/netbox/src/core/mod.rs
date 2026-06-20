@@ -128,8 +128,6 @@ impl CoreApi {
         Resource::new(self.client.clone(), "core/object-types/")
     }
 
-    // background task actions
-
     /// enqueue a background task.
     pub async fn enqueue_task(&self, id: &str) -> Result<BackgroundTask> {
         self.client
@@ -157,8 +155,6 @@ impl CoreApi {
             .post(&format!("core/background-tasks/{}/delete/", id), &())
             .await
     }
-
-    // data source sync
 
     /// sync a data source.
     pub async fn sync_data_source(&self, id: u64) -> Result<DataSource> {
@@ -211,7 +207,6 @@ mod tests {
         let server = MockServer::start();
         let client = mock_client(&server);
 
-        // mock enqueue
         let enqueue_mock = server.mock(|when, then| {
             when.method(POST)
                 .path("/api/core/background-tasks/abc123/enqueue/");
@@ -220,7 +215,6 @@ mod tests {
         let _ = client.core().enqueue_task("abc123").await;
         enqueue_mock.assert();
 
-        // mock stop
         let stop_mock = server.mock(|when, then| {
             when.method(POST)
                 .path("/api/core/background-tasks/task-id/stop/");
@@ -229,7 +223,6 @@ mod tests {
         let _ = client.core().stop_task("task-id").await;
         stop_mock.assert();
 
-        // mock requeue
         let requeue_mock = server.mock(|when, then| {
             when.method(POST)
                 .path("/api/core/background-tasks/xyz/requeue/");
@@ -238,7 +231,6 @@ mod tests {
         let _ = client.core().requeue_task("xyz").await;
         requeue_mock.assert();
 
-        // mock delete
         let delete_mock = server.mock(|when, then| {
             when.method(POST)
                 .path("/api/core/background-tasks/del-me/delete/");

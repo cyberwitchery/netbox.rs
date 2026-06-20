@@ -513,7 +513,6 @@ pub(crate) struct GraphqlInput {
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
 
-    // load config file
     let config_file = load_config().ok().flatten();
 
     // handle config commands first (no API access needed)
@@ -521,7 +520,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         return handle_config_command(action, &cli.profile, config_file.as_ref());
     }
 
-    // resolve profile from config file
     let mut profile = Profile::default();
     if let Some(ref cf) = config_file {
         if let Some(p) = cf.get_profile(&cli.profile) {
@@ -542,7 +540,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         profile.output = cli.output.map(|o| format!("{:?}", o).to_lowercase());
     }
 
-    // resolve URL and token
     let url = profile
         .url
         .clone()
@@ -551,7 +548,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         "token not specified (use --token, NETBOX_TOKEN, token_env, or token_command in config)",
     )?;
 
-    // build client config
     let mut client_config = ClientConfig::new(&url, &token);
     if let Some(timeout) = profile.timeout {
         client_config = client_config.with_timeout(Duration::from_secs(timeout));
@@ -566,7 +562,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = Client::new(client_config)?;
     let api = NetboxApiClient { inner: client };
 
-    // resolve output format
     let output_format = cli.output.unwrap_or_else(|| {
         profile
             .output
