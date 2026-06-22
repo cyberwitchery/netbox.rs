@@ -8,6 +8,12 @@ this release captures the current state of the project. no prior published state
 - delete requests now retry on transient errors (429 rate-limited, 500+ server errors) with exponential backoff, matching all other API methods
 - graphql queries now retry on transient errors (429 rate-limited, 500+ server errors) with exponential backoff, matching the behaviour of all other API calls
 
+### ci
+- bump pinned NetBox container from v4.6.2 to v4.6.3
+
+### docs
+- update `docs/compat.md` compatibility matrix for v4.6.3
+
 ## [0.6.0] - 2026-06-19
 
 ### fixed
