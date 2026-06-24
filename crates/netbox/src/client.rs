@@ -1123,7 +1123,7 @@ mod tests {
         let err = client.delete("items/1/").await.unwrap_err();
         assert!(matches!(err, Error::ApiError { status: 503, .. }));
         // initial attempt + 2 retries = 3 total
-        fail.assert_hits(3);
+        fail.assert_calls(3);
     }
 
     #[cfg(feature = "tracing")]
