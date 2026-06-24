@@ -401,8 +401,11 @@ impl Client {
 
     /// make a delete request to the api
     pub(crate) async fn delete(&self, path: &str) -> Result<()> {
-        let url = self.build_api_url(path)?;
-        self.delete_inner(path, self.http_client.delete(url)).await
+        self.retry_loop(Method::DELETE, path, false, |_attempt| async move {
+            let url = self.build_api_url(path)?;
+            self.delete_inner(path, self.http_client.delete(url)).await
+        })
+        .await
     }
 
     /// make a delete request with a json body
@@ -410,9 +413,12 @@ impl Client {
     where
         B: Serialize + ?Sized,
     {
-        let url = self.build_api_url(path)?;
-        self.delete_inner(path, self.http_client.delete(url).json(body))
-            .await
+        self.retry_loop(Method::DELETE, path, false, |_attempt| async move {
+            let url = self.build_api_url(path)?;
+            self.delete_inner(path, self.http_client.delete(url).json(body))
+                .await
+        })
+        .await
     }
 
     #[cfg_attr(not(feature = "tracing"), allow(unused_variables))]
@@ -604,7 +610,7 @@ impl Client {
         if attempts >= max_retries {
             return false;
         }
-        if !idempotent && method != Method::GET {
+        if !idempotent && method != Method::GET && method != Method::DELETE {
             return false;
         }
         match err {
@@ -817,8 +823,10 @@ mod tests {
             body: "".to_string(),
         };
         assert!(Client::should_retry(&err, &Method::GET, 0, 3, false));
+        assert!(Client::should_retry(&err, &Method::DELETE, 0, 3, false));
         assert!(!Client::should_retry(&err, &Method::POST, 0, 3, false));
         assert!(!Client::should_retry(&err, &Method::GET, 3, 3, false));
+        assert!(!Client::should_retry(&err, &Method::DELETE, 3, 3, false));
     }
 
     #[test]
@@ -1047,6 +1055,75 @@ mod tests {
             .unwrap();
         assert_eq!(value, json!({ "ready": true }));
         mock.assert();
+    }
+
+    #[cfg_attr(miri, ignore)]
+    #[tokio::test]
+    async fn delete_returns_ok_on_204() {
+        let server = MockServer::start();
+        let mock = server.mock(|when, then| {
+            when.method(DELETE).path("/api/items/1/");
+            then.status(204);
+        });
+
+        let config = ClientConfig::new(server.base_url(), "test-token").with_max_retries(0);
+        let client = Client::new(config).unwrap();
+        client.delete("items/1/").await.unwrap();
+        mock.assert();
+    }
+
+    #[cfg_attr(miri, ignore)]
+    #[tokio::test]
+    async fn delete_with_body_sends_json() {
+        let server = MockServer::start();
+        let mock = server.mock(|when, then| {
+            when.method(DELETE)
+                .path("/api/items/")
+                .json_body(json!([{"id": 1}, {"id": 2}]));
+            then.status(204);
+        });
+
+        let config = ClientConfig::new(server.base_url(), "test-token").with_max_retries(0);
+        let client = Client::new(config).unwrap();
+        client
+            .delete_with_body("items/", &json!([{"id": 1}, {"id": 2}]))
+            .await
+            .unwrap();
+        mock.assert();
+    }
+
+    #[cfg_attr(miri, ignore)]
+    #[tokio::test]
+    async fn delete_returns_error_on_404() {
+        let server = MockServer::start();
+        let mock = server.mock(|when, then| {
+            when.method(DELETE).path("/api/items/999/");
+            then.status(404).body("not found");
+        });
+
+        let config = ClientConfig::new(server.base_url(), "test-token").with_max_retries(0);
+        let client = Client::new(config).unwrap();
+        let err = client.delete("items/999/").await.unwrap_err();
+        assert!(matches!(err, Error::ApiError { status: 404, .. }));
+        mock.assert();
+    }
+
+    #[cfg_attr(miri, ignore)]
+    #[tokio::test]
+    async fn delete_retries_on_503() {
+        let server = MockServer::start();
+
+        let fail = server.mock(|when, then| {
+            when.method(DELETE).path("/api/items/1/");
+            then.status(503).body("service unavailable");
+        });
+
+        let config = ClientConfig::new(server.base_url(), "test-token").with_max_retries(2);
+        let client = Client::new(config).unwrap();
+        let err = client.delete("items/1/").await.unwrap_err();
+        assert!(matches!(err, Error::ApiError { status: 503, .. }));
+        // initial attempt + 2 retries = 3 total
+        fail.assert_calls(3);
     }
 
     #[cfg(feature = "tracing")]
