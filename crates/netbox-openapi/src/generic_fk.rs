@@ -18,6 +18,16 @@ pub enum GenericFkEncoding {
 /// carrying the (array of) `GenericObjectRequest`.
 pub const GENERIC_FK_FIELDS: &[(&str, &str, GenericFkEncoding)] = &[
     (
+        "circuits.bulkcircuitgroupassignment",
+        "member",
+        GenericFkEncoding::Split,
+    ),
+    (
+        "circuits.bulkcircuittermination",
+        "termination",
+        GenericFkEncoding::Split,
+    ),
+    (
         "circuits.circuitgroupassignment",
         "member",
         GenericFkEncoding::Split,
@@ -25,6 +35,31 @@ pub const GENERIC_FK_FIELDS: &[(&str, &str, GenericFkEncoding)] = &[
     (
         "circuits.circuittermination",
         "termination",
+        GenericFkEncoding::Split,
+    ),
+    (
+        "dcim.bulkcable",
+        "a_terminations",
+        GenericFkEncoding::NestedList,
+    ),
+    (
+        "dcim.bulkcable",
+        "b_terminations",
+        GenericFkEncoding::NestedList,
+    ),
+    (
+        "dcim.bulkinventoryitem",
+        "component",
+        GenericFkEncoding::Split,
+    ),
+    (
+        "dcim.bulkinventoryitemtemplate",
+        "component",
+        GenericFkEncoding::Split,
+    ),
+    (
+        "dcim.bulkmacaddress",
+        "assigned_object",
         GenericFkEncoding::Split,
     ),
     (
@@ -49,6 +84,32 @@ pub const GENERIC_FK_FIELDS: &[(&str, &str, GenericFkEncoding)] = &[
         GenericFkEncoding::Split,
     ),
     ("extras.bookmark", "object", GenericFkEncoding::Split),
+    ("extras.bulkbookmark", "object", GenericFkEncoding::Split),
+    (
+        "extras.bulkeventrule",
+        "action_object",
+        GenericFkEncoding::Split,
+    ),
+    (
+        "extras.bulkimageattachment",
+        "object",
+        GenericFkEncoding::Split,
+    ),
+    (
+        "extras.bulkjournalentry",
+        "assigned_object",
+        GenericFkEncoding::Split,
+    ),
+    (
+        "extras.bulknotification",
+        "object",
+        GenericFkEncoding::Split,
+    ),
+    (
+        "extras.bulksubscription",
+        "object",
+        GenericFkEncoding::Split,
+    ),
     (
         "extras.eventrule",
         "action_object",
@@ -63,6 +124,23 @@ pub const GENERIC_FK_FIELDS: &[(&str, &str, GenericFkEncoding)] = &[
     ("extras.notification", "object", GenericFkEncoding::Split),
     ("extras.subscription", "object", GenericFkEncoding::Split),
     (
+        "ipam.bulkfhrpgroupassignment",
+        "interface",
+        GenericFkEncoding::Split,
+    ),
+    (
+        "ipam.bulkipaddress",
+        "assigned_object",
+        GenericFkEncoding::Split,
+    ),
+    ("ipam.bulkprefix", "scope", GenericFkEncoding::Split),
+    (
+        "ipam.bulkservice",
+        "parent_object",
+        GenericFkEncoding::Split,
+    ),
+    ("ipam.bulkvlangroup", "scope", GenericFkEncoding::Split),
+    (
         "ipam.fhrpgroupassignment",
         "interface",
         GenericFkEncoding::Split,
@@ -76,11 +154,31 @@ pub const GENERIC_FK_FIELDS: &[(&str, &str, GenericFkEncoding)] = &[
     ("ipam.service", "parent_object", GenericFkEncoding::Split),
     ("ipam.vlangroup", "scope", GenericFkEncoding::Split),
     (
+        "tenancy.bulkcontactassignment",
+        "object",
+        GenericFkEncoding::Split,
+    ),
+    (
         "tenancy.contactassignment",
         "object",
         GenericFkEncoding::Split,
     ),
+    (
+        "virtualization.bulkcluster",
+        "scope",
+        GenericFkEncoding::Split,
+    ),
     ("virtualization.cluster", "scope", GenericFkEncoding::Split),
+    (
+        "vpn.bulkl2vpntermination",
+        "assigned_object",
+        GenericFkEncoding::Split,
+    ),
+    (
+        "vpn.bulktunneltermination",
+        "termination",
+        GenericFkEncoding::Split,
+    ),
     (
         "vpn.l2vpntermination",
         "assigned_object",
@@ -89,6 +187,11 @@ pub const GENERIC_FK_FIELDS: &[(&str, &str, GenericFkEncoding)] = &[
     (
         "vpn.tunneltermination",
         "termination",
+        GenericFkEncoding::Split,
+    ),
+    (
+        "wireless.bulkwirelesslan",
+        "scope",
         GenericFkEncoding::Split,
     ),
     ("wireless.wirelesslan", "scope", GenericFkEncoding::Split),

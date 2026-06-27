@@ -11,6 +11,9 @@ this release captures the current state of the project. no prior published state
 ### ci
 - bump pinned NetBox container from v4.6.2 to v4.6.3
 
+### openapi
+- regenerate bindings from NetBox v4.6.3 schema; adds ~250 `Bulk*Request` models for bulk PATCH/PUT endpoints, new enum values, and updated query parameters
+
 ### docs
 - update `docs/compat.md` compatibility matrix for v4.6.3
 
