@@ -310,7 +310,7 @@ async fn run_smoke(client: &Client, created: &mut Created) -> Result<()> {
 
     eprintln!("smoke: openapi status");
     let openapi = client.openapi_config()?;
-    let openapi_status = status_api::status_retrieve(&openapi)
+    let openapi_status = status_api::status_retrieve(&openapi, None, None, None)
         .await
         .map_err(|err| netbox::Error::Config(format!("openapi status failed: {err}")))?;
     assert!(

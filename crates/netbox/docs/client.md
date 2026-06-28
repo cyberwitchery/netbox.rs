@@ -494,7 +494,7 @@ use netbox::openapi::apis::dcim_api;
 # async fn example() -> Result<(), Box<dyn std::error::Error>> {
 let client = Client::new(ClientConfig::new("https://netbox.example.com", "token"))?;
 let openapi_config = client.openapi_config()?;
-let device = dcim_api::dcim_devices_retrieve(&openapi_config, 42).await?;
+let device = dcim_api::dcim_devices_retrieve(&openapi_config, 42, None, None, None).await?;
 println!("{}", device.display.as_deref().unwrap_or("<unknown>"));
 # Ok(())
 # }
