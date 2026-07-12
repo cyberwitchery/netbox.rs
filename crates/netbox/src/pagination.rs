@@ -377,4 +377,81 @@ mod tests {
         assert_eq!(second.calls(), 0);
         first.assert();
     }
+
+    // django rest framework returns `next`/`previous` as absolute urls; the
+    // paginator must follow them across pages instead of re-prefixing the base.
+    #[cfg_attr(miri, ignore)]
+    #[tokio::test]
+    async fn paginator_follows_absolute_next_urls() {
+        let server = MockServer::start();
+        let config = ClientConfig::new(server.base_url(), "token").with_max_retries(0);
+        let client = crate::Client::new(config).unwrap();
+
+        // absolute cursor on the same origin as the configured base url
+        let next_url = format!("{}/api/dcim/devices/?offset=1", server.base_url());
+
+        let first = server.mock(|when, then| {
+            when.method(GET)
+                .path("/api/dcim/devices/")
+                .query_param("offset", "0");
+            then.status(200).json_body(serde_json::json!({
+                "count": 2,
+                "next": next_url,
+                "previous": null,
+                "results": [1]
+            }));
+        });
+
+        let second = server.mock(|when, then| {
+            when.method(GET)
+                .path("/api/dcim/devices/")
+                .query_param("offset", "1");
+            then.status(200).json_body(serde_json::json!({
+                "count": 2,
+                "next": null,
+                "previous": null,
+                "results": [2]
+            }));
+        });
+
+        let paginator: Paginator<i32> =
+            Paginator::new(client, "dcim/devices/?offset=0".to_string());
+        let results = paginator.collect_all().await.unwrap();
+        assert_eq!(results, vec![1, 2]);
+        first.assert();
+        second.assert();
+    }
+
+    // a cursor pointing at a foreign host must be rejected so the api token is
+    // never sent off-origin; no request should reach the second page.
+    #[cfg_attr(miri, ignore)]
+    #[tokio::test]
+    async fn paginator_rejects_foreign_next_url() {
+        let server = MockServer::start();
+        let config = ClientConfig::new(server.base_url(), "token").with_max_retries(0);
+        let client = crate::Client::new(config).unwrap();
+
+        let first = server.mock(|when, then| {
+            when.method(GET)
+                .path("/api/dcim/devices/")
+                .query_param("offset", "0");
+            then.status(200).json_body(serde_json::json!({
+                "count": 2,
+                "next": "https://evil.example.com/api/dcim/devices/?offset=1",
+                "previous": null,
+                "results": [1]
+            }));
+        });
+
+        let mut paginator: Paginator<i32> =
+            Paginator::new(client, "dcim/devices/?offset=0".to_string());
+
+        let page1 = paginator.next_page().await.unwrap().unwrap();
+        assert_eq!(page1.results, vec![1]);
+
+        let err = paginator.next_page().await.unwrap_err();
+        assert!(matches!(err, crate::Error::Pagination(_)));
+        assert!(err.to_string().contains("evil.example.com"));
+        first.assert();
+    }
 }
