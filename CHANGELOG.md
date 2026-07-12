@@ -7,6 +7,7 @@ this release captures the current state of the project. no prior published state
 ### fixed
 - delete requests now retry on transient errors (429 rate-limited, 500+ server errors) with exponential backoff, matching all other API methods
 - graphql queries now retry on transient errors (429 rate-limited, 500+ server errors) with exponential backoff, matching the behaviour of all other API calls
+- pagination now follows NetBox's absolute `next`/`previous` cursor URLs instead of re-prepending the base URL (which produced `.../api/https://...` and broke every page after the first); off-origin cursors are refused so the API token is never sent to another host
 
 ### ci
 - bump pinned NetBox container from v4.6.2 to v4.6.3
