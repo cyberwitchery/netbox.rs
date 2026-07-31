@@ -75,7 +75,7 @@ pass the builder to `list()` or `paginate()` to apply filters.
 
 ```toml
 [dependencies]
-netbox = "0.3"
+netbox = "0.6"
 tokio = { version = "1.0", features = ["full"] }
 ```
 
@@ -83,7 +83,7 @@ optional tracing instrumentation:
 
 ```toml
 [dependencies]
-netbox = { version = "0.3", features = ["tracing"] }
+netbox = { version = "0.6", features = ["tracing"] }
 tokio = { version = "1.0", features = ["full"] }
 tracing-subscriber = "0.3"
 ```

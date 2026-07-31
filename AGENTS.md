@@ -18,9 +18,9 @@ guidance for automated agents working in this repo.
   - `error.rs`: error types.
   - `pagination.rs`: `Page<T>` + `Paginator<T>`.
   - `query.rs`: query builder.
-  - `dcim/`, `ipam/`: api modules.
+  - `dcim/`, `ipam/`, `circuits/`, `extras/`, and the other per-module directories: api modules.
 - `crates/netbox-openapi/src/`: generated api bindings.
-- `crates/netbox-cli/src/main.rs`: cli entrypoint.
+- `crates/netbox-cli/src/`: cli entrypoint, config, and subcommand modules.
 
 ## local dev commands
 - build: `cargo build`

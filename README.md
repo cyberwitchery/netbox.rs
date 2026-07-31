@@ -24,14 +24,14 @@ add to `Cargo.toml`:
 
 ```toml
 [dependencies]
-netbox = "0.3.3"
+netbox = "0.6.0"
 tokio = { version = "1.0", features = ["full"] }
 ```
 
 ## version compatibility
 
 current releases are pre-1.0.0 and do not track netbox versions.
-this client targets netbox 4.x; CI is pinned to NetBox v4.6.2.
+this client targets netbox 4.x; CI is pinned to NetBox v4.6.3.
 patch releases include fixes and client improvements.
 
 see [`docs/compat.md`](docs/compat.md) for the full compatibility matrix.
@@ -298,13 +298,13 @@ println!("device: {}", device.display);
 
 ### prerequisites
 
-- rust 1.85+
+- rust 1.91+
 - a netbox instance for schema generation and smoke tests
 
 ### setup
 
 ```bash
-git clone https://github.com/network-auto/netbox.rs
+git clone https://github.com/cyberwitchery/netbox.rs
 cd netbox.rs
 cargo test
 cargo clippy --all-targets --all-features
