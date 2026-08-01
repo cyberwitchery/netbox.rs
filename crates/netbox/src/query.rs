@@ -56,7 +56,7 @@ impl QueryBuilder {
     ///
     /// let query = QueryBuilder::new()
     ///     .filter("site", "dc1")
-    ///     .filter("site", "dc2"); // Will match devices in dc1 OR dc2
+    ///     .filter("site", "dc2");
     /// ```
     pub fn filter(mut self, key: impl Into<String>, value: impl Into<String>) -> Self {
         let key = key.into();
@@ -97,10 +97,8 @@ impl QueryBuilder {
     /// ```
     /// use netbox::QueryBuilder;
     ///
-    /// // Order by name ascending
     /// let query = QueryBuilder::new().order_by("name");
     ///
-    /// // Order by name descending
     /// let query = QueryBuilder::new().order_by("-name");
     /// ```
     pub fn order_by(self, field: impl Into<String>) -> Self {

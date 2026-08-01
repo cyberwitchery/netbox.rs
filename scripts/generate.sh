@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# Generate Rust bindings from NetBox OpenAPI schema using openapi-generator
+# generate Rust bindings from NetBox OpenAPI schema using openapi-generator
 #
-# Prerequisites:
+# prerequisites:
 #   - openapi-generator-cli (via npm or docker)
 #   - jq for JSON processing
 #
-# Usage:
+# usage:
 #   ./scripts/generate.sh
 
 set -euo pipefail
@@ -98,7 +98,7 @@ PY
 
 SCHEMA_FILE="${NORMALIZED_SCHEMA_FILE}"
 
-# Prefer Docker for a pinned, reproducible generator version.
+# prefer Docker for a pinned, reproducible generator version.
 if command -v docker &> /dev/null; then
     echo "Using Docker image for openapi-generator (${OPENAPI_GENERATOR_IMAGE})..."
     GENERATOR_CMD="docker run --rm -v ${PWD}:/local ${OPENAPI_GENERATOR_IMAGE} generate"
@@ -124,7 +124,7 @@ if [ -d "${HOST_OUTPUT_DIR}/src" ]; then
     rm -rf "${HOST_OUTPUT_DIR}/src"
 fi
 
-# Save Cargo.toml before generation — the generator overwrites it with bad metadata
+# save Cargo.toml before generation — the generator overwrites it with bad metadata
 CARGO_TOML_BACKUP="$(mktemp)"
 cp "${HOST_OUTPUT_DIR}/Cargo.toml" "${CARGO_TOML_BACKUP}"
 
@@ -135,7 +135,7 @@ $GENERATOR_CMD \
     -o "$OUTPUT_DIR" \
     --additional-properties=packageName=netbox-openapi,packageVersion="${PACKAGE_VERSION}"
 
-# Restore Cargo.toml — the generator overwrites [package] with junk metadata
+# restore Cargo.toml
 cp "${CARGO_TOML_BACKUP}" "${HOST_OUTPUT_DIR}/Cargo.toml"
 rm "${CARGO_TOML_BACKUP}"
 

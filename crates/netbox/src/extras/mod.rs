@@ -149,10 +149,10 @@ pub struct CreateCustomFieldRequest {
     /// filter logic identifier.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub filter_logic: Option<String>,
-    /// uI visibility identifier.
+    /// UI visibility identifier.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ui_visible: Option<String>,
-    /// uI editable identifier.
+    /// UI editable identifier.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ui_editable: Option<String>,
     /// cloneable flag.
@@ -442,7 +442,7 @@ pub struct CreateConfigTemplateRequest {
     /// jinja environment params.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub environment_params: Option<Value>,
-    /// mIME type.
+    /// MIME type.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mime_type: Option<String>,
     /// file name.
@@ -525,7 +525,7 @@ pub struct CreateWebhookRequest {
     /// ssl verification flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ssl_verification: Option<bool>,
-    /// cA file path.
+    /// CA file path.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ca_file_path: Option<String>,
     /// custom fields payload.

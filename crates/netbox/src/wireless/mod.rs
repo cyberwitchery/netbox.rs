@@ -70,7 +70,7 @@ pub struct UpdateWirelessLanGroupRequest {
 /// request for creating a wireless LAN.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateWirelessLanRequest {
-    /// sSID string.
+    /// SSID string.
     pub ssid: String,
     /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -81,7 +81,7 @@ pub struct CreateWirelessLanRequest {
     /// status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
-    /// vLAN id.
+    /// VLAN id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vlan: Option<i32>,
     /// scope type string.
@@ -167,7 +167,7 @@ pub struct CreateWirelessLinkRequest {
     pub interface_a: i32,
     /// interface B id.
     pub interface_b: i32,
-    /// sSID string.
+    /// SSID string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ssid: Option<String>,
     /// status slug.

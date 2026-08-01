@@ -28,7 +28,7 @@ use std::time::Duration;
 use std::time::Instant;
 use tokio::time::sleep;
 
-/// hard ceiling for any single retry delay (prevents unbounded growth)
+/// hard ceiling for any single retry delay
 const RETRY_MAX_BACKOFF: Duration = Duration::from_secs(30);
 
 /// the main netbox api client
@@ -42,7 +42,7 @@ const RETRY_MAX_BACKOFF: Duration = Duration::from_secs(30);
 /// let config = ClientConfig::new("https://netbox.example.com", "your-api-token");
 /// let client = Client::new(config)?;
 ///
-/// // Use the client to access different api modules
+/// // use the client to access different api modules
 /// // let devices = client.dcim().devices().list().await?;
 /// # Ok(())
 /// # }
@@ -80,7 +80,6 @@ impl Client {
             headers.insert(CONTENT_TYPE, HeaderValue::from_static("application/json"));
             headers.extend(config.extra_headers.clone());
 
-            // build HTTP client
             let builder = reqwest::Client::builder()
                 .default_headers(headers)
                 .timeout(config.timeout)

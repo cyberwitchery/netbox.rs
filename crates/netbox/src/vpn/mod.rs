@@ -59,7 +59,7 @@ pub struct CreateTunnelRequest {
     /// tunnel group id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub group: Option<i32>,
-    /// iPsec profile id.
+    /// IPsec profile id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ipsec_profile: Option<i32>,
     /// tenant id.
@@ -236,7 +236,7 @@ pub struct CreateIkeProposalRequest {
     pub authentication_algorithm: Option<String>,
     /// group slug.
     pub group: String,
-    /// sA lifetime in seconds.
+    /// SA lifetime in seconds.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub sa_lifetime: Option<i32>,
     /// comments text.
@@ -287,7 +287,7 @@ pub struct CreateIkePolicyRequest {
     /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
-    /// iKE version string.
+    /// IKE version string.
     pub version: String,
     /// mode slug.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -349,10 +349,10 @@ pub struct CreateIpSecProposalRequest {
     /// authentication algorithm slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub authentication_algorithm: Option<String>,
-    /// sA lifetime in seconds.
+    /// SA lifetime in seconds.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub sa_lifetime_seconds: Option<i32>,
-    /// sA lifetime in kilobytes.
+    /// SA lifetime in kilobytes.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub sa_lifetime_data: Option<i32>,
     /// comments text.
@@ -403,7 +403,7 @@ pub struct CreateIpSecPolicyRequest {
     /// proposal IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub proposals: Option<Vec<i32>>,
-    /// pFS group slug.
+    /// PFS group slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pfs_group: Option<String>,
     /// comments text.
@@ -447,9 +447,9 @@ pub struct CreateIpSecProfileRequest {
     pub description: Option<String>,
     /// mode slug.
     pub mode: String,
-    /// iKE policy id.
+    /// IKE policy id.
     pub ike_policy: i32,
-    /// iPsec policy id.
+    /// IPsec policy id.
     pub ipsec_policy: i32,
     /// comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -900,15 +900,15 @@ mod tests {
     }
 }
 
-/// iKE policy model.
+/// IKE policy model.
 pub type IkePolicy = crate::models::IkePolicy;
-/// iKE proposal model.
+/// IKE proposal model.
 pub type IkeProposal = crate::models::IkeProposal;
-/// iPsec policy model.
+/// IPsec policy model.
 pub type IpSecPolicy = crate::models::IpSecPolicy;
-/// iPsec profile model.
+/// IPsec profile model.
 pub type IpSecProfile = crate::models::IpSecProfile;
-/// iPsec proposal model.
+/// IPsec proposal model.
 pub type IpSecProposal = crate::models::IpSecProposal;
 /// l2vpn model.
 pub type L2Vpn = crate::models::L2Vpn;

@@ -1,6 +1,6 @@
-//! Local smoke tests against a live NetBox instance.
+//! local smoke tests against a live NetBox instance.
 //!
-//! Run manually with:
+//! run manually with:
 //! NETBOX_TOKEN=... NETBOX_URL=http://localhost:8000 cargo test -p netbox --test smoke_local -- --ignored
 
 use netbox::openapi::apis::status_api;
@@ -493,7 +493,7 @@ async fn run_smoke(client: &Client, created: &mut Created) -> Result<()> {
     let tenant_page = tenant_pages.next_page().await?;
     assert!(tenant_page.is_some(), "expected at least one tenant page");
 
-    // smoke test for new availability endpoints
+    // smoke test for availability endpoints
     if let Some(prefix_id) = created.prefix_id {
         eprintln!("smoke: available IPs in prefix");
         let available = client.ipam().available_ips_in_prefix(prefix_id).await?;

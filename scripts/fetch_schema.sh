@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Fetch OpenAPI schema from a running NetBox instance
+# fetch OpenAPI schema from a running NetBox instance
 #
-# Usage:
+# usage:
 #   ./scripts/fetch_schema.sh [NETBOX_URL]
 #
-# Environment variables:
+# environment variables:
 #   NETBOX_URL: URL of the NetBox instance (default: http://localhost:8000)
-#   NETBOX_TOKEN: Optional API token for authenticated access
+#   NETBOX_TOKEN: optional API token for authenticated access
 
 set -euo pipefail
 
@@ -15,13 +15,11 @@ SCHEMA_FILE="scripts/openapi-schema.json"
 
 echo "Fetching OpenAPI schema from ${NETBOX_URL}/api/schema/..."
 
-# Construct curl command with optional auth header
 CURL_CMD="curl -fsSL"
 if [ -n "${NETBOX_TOKEN:-}" ]; then
     CURL_CMD="$CURL_CMD -H 'Authorization: Token ${NETBOX_TOKEN}'"
 fi
 
-# Fetch and pretty-print the schema
 eval "$CURL_CMD '${NETBOX_URL}/api/schema/?format=json'" | \
     jq '.' > "${SCHEMA_FILE}"
 

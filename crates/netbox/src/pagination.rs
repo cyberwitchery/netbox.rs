@@ -125,7 +125,7 @@ where
 
     /// collect all results from all pages into a single vector
     ///
-    /// **Warning**: This will fetch all pages, which could be slow and memory-intensive
+    /// **warning**: this will fetch all pages, which could be slow and memory-intensive
     /// for large result sets.
     pub async fn collect_all(mut self) -> Result<Vec<T>> {
         let mut all_results = Vec::new();
@@ -422,8 +422,8 @@ mod tests {
         second.assert();
     }
 
-    // a cursor pointing at a foreign host must be rejected so the api token is
-    // never sent off-origin; no request should reach the second page.
+    // a cursor pointing at a foreign host must be rejected; no request reaches
+    // the second page.
     #[cfg_attr(miri, ignore)]
     #[tokio::test]
     async fn paginator_rejects_foreign_next_url() {

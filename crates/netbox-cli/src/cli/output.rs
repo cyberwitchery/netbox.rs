@@ -166,7 +166,7 @@ fn table_from_items(
             }
         }
     } else if let Some(cols) = columns {
-        // empty result set with explicit columns: render the headers anyway.
+        // non-object items with explicit columns: render only the headers.
         table.set_header(cols.iter().map(Cell::new));
     } else {
         table.set_header(vec![Cell::new("value")]);
@@ -385,7 +385,6 @@ mod tests {
             ]
         });
         let table = format_table(&value, None, 2);
-        // should only have 2 columns
         let header_line = table.lines().nth(1).unwrap_or("");
         let column_count = header_line
             .split('|')

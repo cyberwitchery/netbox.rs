@@ -53,8 +53,8 @@ impl ClientConfig {
     ///
     /// # Arguments
     ///
-    /// * `base_url` - The base url of the netbox instance (with or without trailing slash)
-    /// * `token` - The api authentication token
+    /// * `base_url` - the base url of the netbox instance (with or without trailing slash)
+    /// * `token` - the api authentication token
     ///
     /// # Example
     ///
@@ -66,7 +66,6 @@ impl ClientConfig {
     pub fn new(base_url: impl AsRef<str>, token: impl Into<String>) -> Self {
         let base_url_str = base_url.as_ref();
 
-        // normalize base URL: ensure it doesn't end with a slash
         let normalized = base_url_str.trim_end_matches('/');
 
         // parse URL, this will be validated when building the client
@@ -105,7 +104,7 @@ impl ClientConfig {
     ///
     /// default: 3
     ///
-    /// retries apply to get requests for transient network errors and 429/5xx responses.
+    /// retries apply to get/delete requests (and operations marked idempotent) for transient network errors and 429/5xx responses.
     pub fn with_max_retries(mut self, max_retries: u32) -> Self {
         self.max_retries = max_retries;
         self
@@ -296,7 +295,6 @@ mod tests {
     #[test]
     fn test_normalize_url_with_trailing_slash() {
         let config = ClientConfig::new("https://netbox.example.com/", "token");
-        // both should normalize to the same thing
         let config2 = ClientConfig::new("https://netbox.example.com", "token");
         assert_eq!(
             config.base_url.as_str().trim_end_matches('/'),

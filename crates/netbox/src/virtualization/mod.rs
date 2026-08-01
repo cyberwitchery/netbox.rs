@@ -237,7 +237,7 @@ pub struct CreateVmInterfaceRequest {
     /// bridge interface id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub bridge: Option<i32>,
-    /// mTU value.
+    /// MTU value.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mtu: Option<i32>,
     /// primary MAC address id.
@@ -255,13 +255,13 @@ pub struct CreateVmInterfaceRequest {
     /// tagged VLAN IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tagged_vlans: Option<Vec<i32>>,
-    /// q-in-Q SVLAN id.
+    /// Q-in-Q SVLAN id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub qinq_svlan: Option<i32>,
-    /// vLAN translation policy id.
+    /// VLAN translation policy id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vlan_translation_policy: Option<i32>,
-    /// vRF id.
+    /// VRF id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vrf: Option<i32>,
     /// tag IDs.
@@ -660,7 +660,7 @@ pub type ClusterGroup = crate::models::ClusterGroup;
 pub type ClusterType = crate::models::ClusterType;
 /// cluster model.
 pub type Cluster = crate::models::Cluster;
-/// vM interface model.
+/// VM interface model.
 pub type VmInterface = crate::models::VmInterface;
 /// virtual disk model.
 pub type VirtualDisk = crate::models::VirtualDisk;

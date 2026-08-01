@@ -26,22 +26,18 @@ echo "=== NetBox OpenAPI Regeneration ==="
 echo "Target: ${NETBOX_URL}"
 echo ""
 
-# Step 1: Fetch schema
 echo "Step 1/4: Fetching OpenAPI schema..."
 "${SCRIPT_DIR}/fetch_schema.sh" "${NETBOX_URL}"
 echo ""
 
-# Step 2: Generate bindings
 echo "Step 2/4: Generating Rust bindings..."
 "${SCRIPT_DIR}/generate.sh"
 echo ""
 
-# Step 3: Verify build
 echo "Step 3/4: Verifying build..."
 cargo check --workspace
 echo ""
 
-# Step 4: Idempotency check
 if [[ "${SKIP_IDEMPOTENCY:-}" == "1" ]]; then
     echo "Step 4/4: Skipping idempotency check (SKIP_IDEMPOTENCY=1)"
 else

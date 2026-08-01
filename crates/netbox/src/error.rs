@@ -62,7 +62,6 @@ impl Error {
             if let Some(detail) = json.get("detail").and_then(|v| v.as_str()) {
                 detail.to_string()
             } else if let Some(obj) = json.as_object() {
-                // collect all field errors
                 let errors: Vec<String> = obj
                     .iter()
                     .map(|(key, value)| {

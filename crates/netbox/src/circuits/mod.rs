@@ -45,7 +45,7 @@ pub struct CreateProviderRequest {
     /// comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
-    /// aSN IDs.
+    /// ASN IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub asns: Option<Vec<i32>>,
     /// tag IDs.

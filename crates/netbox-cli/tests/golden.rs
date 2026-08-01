@@ -1,13 +1,15 @@
-//! Golden output tests for CLI commands.
+//! golden output tests for CLI commands.
 //!
-//! These tests run CLI commands against a live NetBox instance and compare
-//! output against stored golden files. Run with:
+//! all tests are #[ignore]d. `golden_help_output` only runs the binary's
+//! `--help` and needs no live instance; the rest run commands against a
+//! live NetBox instance and compare output against stored golden files.
+//! run with:
 //!
 //! ```bash
 //! NETBOX_URL=http://localhost:8000 NETBOX_TOKEN=... cargo test -p netbox-cli --test golden -- --ignored
 //! ```
 //!
-//! To update golden files when output intentionally changes:
+//! to update golden files when output intentionally changes:
 //!
 //! ```bash
 //! UPDATE_GOLDEN=1 NETBOX_URL=... NETBOX_TOKEN=... cargo test -p netbox-cli --test golden -- --ignored
@@ -74,7 +76,6 @@ fn normalize_output(output: &str) -> String {
         })
         .collect();
 
-    // Remove trailing empty lines
     while lines.last().is_some_and(|l| l.is_empty()) {
         lines.pop();
     }
@@ -116,7 +117,6 @@ fn check_golden(name: &str, actual: &str) {
 #[test]
 #[ignore]
 fn golden_status_json() {
-    // Build CLI first
     let status = Command::new("cargo")
         .args(["build", "-p", "netbox-cli"])
         .status()
@@ -126,7 +126,7 @@ fn golden_status_json() {
     let (stdout, stderr, code) = run_cli(&["--output", "json", "status"]);
     assert_eq!(code, 0, "CLI failed: {}", stderr);
 
-    // For status, we just check structure since values are dynamic
+    // check structure only since values are dynamic
     let json: serde_json::Value = serde_json::from_str(&stdout).expect("invalid JSON output");
     assert!(
         json.get("netbox-version").is_some(),
@@ -170,7 +170,6 @@ fn golden_list_json_structure() {
     ]);
     assert_eq!(code, 0, "CLI failed: {}", stderr);
 
-    // Verify JSON structure (content varies by instance)
     let json: serde_json::Value = serde_json::from_str(&stdout).expect("invalid JSON output");
     assert!(json.get("count").is_some(), "missing count field");
     assert!(json.get("results").is_some(), "missing results field");

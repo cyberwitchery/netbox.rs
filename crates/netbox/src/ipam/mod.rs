@@ -53,9 +53,9 @@ pub type Vlan = crate::models::Vlan;
 /// request for creating a new IP address (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateIpAddressRequest {
-    /// cIDR address string.
+    /// CIDR address string.
     pub address: String,
-    /// vRF id.
+    /// VRF id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vrf: Option<i32>,
     /// tenant id.
@@ -73,7 +73,7 @@ pub struct CreateIpAddressRequest {
     /// assigned object id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub assigned_object_id: Option<i32>,
-    /// dNS name value.
+    /// DNS name value.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub dns_name: Option<String>,
     /// description text.
@@ -115,18 +115,18 @@ pub struct PatchIpAddressFieldsRequest {
 /// request for creating a new prefix (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreatePrefixRequest {
-    /// cIDR prefix string.
+    /// CIDR prefix string.
     pub prefix: String,
     /// site id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub site: Option<i32>,
-    /// vRF id.
+    /// VRF id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vrf: Option<i32>,
     /// tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tenant: Option<i32>,
-    /// vLAN id.
+    /// VLAN id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vlan: Option<i32>,
     /// scope type.
@@ -186,7 +186,7 @@ pub struct PatchPrefixFieldsRequest {
     pub tags: Option<Vec<crate::models::NestedTag>>,
 }
 
-/// iP address model.
+/// IP address model.
 pub type IpAddress = crate::models::IpAddress;
 /// prefix model.
 pub type Prefix = crate::models::Prefix;
