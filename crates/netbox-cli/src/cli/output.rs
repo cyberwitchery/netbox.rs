@@ -165,10 +165,9 @@ fn table_from_items(
                 table.add_row(vec![Cell::new(value_to_cell(Some(item)))]);
             }
         }
-    } else if let Some(cols) = columns {
-        // non-object items with explicit columns: render only the headers.
-        table.set_header(cols.iter().map(Cell::new));
     } else {
+        // scalars have no fields to select, so explicit columns are ignored here
+        // rather than used to drop the rows.
         table.set_header(vec![Cell::new("value")]);
         for item in items {
             table.add_row(vec![Cell::new(value_to_cell(Some(item)))]);
@@ -375,6 +374,54 @@ mod tests {
         assert!(table.contains("name"));
         assert!(table.contains("slug"));
         assert!(!table.contains("value"));
+    }
+
+    #[test]
+    fn format_table_keeps_non_object_rows_with_explicit_columns() {
+        let value = json!(["alpha", "beta", 42]);
+        let columns = vec!["name".to_string()];
+        let table = format_table(&value, Some(&columns), 6);
+        assert!(table.contains("value"));
+        assert!(!table.contains("name"));
+        assert!(table.contains("alpha"));
+        assert!(table.contains("beta"));
+        assert!(table.contains("42"));
+    }
+
+    #[test]
+    fn format_table_keeps_non_object_rows_when_first_item_is_scalar() {
+        let value = json!(["bare", {"name": "alpha"}]);
+        let columns = vec!["name".to_string()];
+        let table = format_table(&value, Some(&columns), 6);
+        assert!(table.contains("bare"));
+        assert!(table.contains("alpha"));
+    }
+
+    #[test]
+    fn format_table_keeps_non_object_rows_when_first_item_is_object() {
+        let value = json!([{"name": "alpha", "status": "active"}, "bare"]);
+        let columns = vec!["name".to_string()];
+        let table = format_table(&value, Some(&columns), 6);
+        assert!(table.contains("name"));
+        assert!(table.contains("alpha"));
+        assert!(table.contains("bare"));
+        assert!(!table.contains("active"));
+    }
+
+    #[test]
+    fn format_table_renders_non_object_items_without_columns() {
+        let value = json!(["alpha", "beta"]);
+        let table = format_table(&value, None, 6);
+        assert!(table.contains("value"));
+        assert!(table.contains("alpha"));
+        assert!(table.contains("beta"));
+    }
+
+    #[test]
+    fn format_table_renders_empty_array_without_columns() {
+        let value = json!([]);
+        let table = format_table(&value, None, 6);
+        assert!(table.contains("value"));
     }
 
     #[test]
