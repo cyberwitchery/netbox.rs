@@ -187,6 +187,8 @@ netbox-cli --output table --max-columns 3 dcim devices list
 
 when `--columns` is specified, only those columns are shown. when not specified, columns are auto-selected from preferred fields (id, name, display, status, etc.) up to `--max-columns`.
 
+over a list of plain values rather than objects (e.g. `--select results.id`), there are no fields to project: a single `--columns` name is used as the header, and two or more fall back to a single `value` column. the header does not depend on how many rows came back.
+
 ## dry run
 
 print the request for write operations without sending them:

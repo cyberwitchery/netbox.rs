@@ -166,9 +166,12 @@ fn table_from_items(
             }
         }
     } else {
-        // scalars have no fields to select, so explicit columns are ignored here
-        // rather than used to drop the rows.
-        table.set_header(vec![Cell::new("value")]);
+        // one explicit column names the scalar; several have no unambiguous mapping
+        let header = columns
+            .filter(|cols| cols.len() == 1)
+            .map(|cols| cols[0].clone())
+            .unwrap_or_else(|| "value".to_string());
+        table.set_header(vec![Cell::new(header)]);
         for item in items {
             table.add_row(vec![Cell::new(value_to_cell(Some(item)))]);
         }
@@ -305,6 +308,21 @@ mod tests {
     use super::*;
     use serde_json::json;
 
+    /// the header row with its padding collapsed, e.g. `| id | name |`.
+    fn header_line(table: &str) -> String {
+        let rule = table
+            .lines()
+            .position(|line| line.starts_with('+') && line.contains('='))
+            .unwrap_or(1);
+        table
+            .lines()
+            .nth(rule - 1)
+            .unwrap_or("")
+            .split_whitespace()
+            .collect::<Vec<_>>()
+            .join(" ")
+    }
+
     #[test]
     fn format_table_handles_objects() {
         let value = json!({"name": "leaf-1", "status": "active"});
@@ -381,11 +399,39 @@ mod tests {
         let value = json!(["alpha", "beta", 42]);
         let columns = vec!["name".to_string()];
         let table = format_table(&value, Some(&columns), 6);
-        assert!(table.contains("value"));
-        assert!(!table.contains("name"));
+        assert_eq!(header_line(&table), "| name |");
+        assert!(!table.contains("value"));
         assert!(table.contains("alpha"));
         assert!(table.contains("beta"));
         assert!(table.contains("42"));
+    }
+
+    #[test]
+    fn format_table_scalar_header_does_not_depend_on_row_count() {
+        let specs: [Option<Vec<String>>; 4] = [
+            None,
+            Some(vec![]),
+            Some(vec![String::new()]),
+            Some(vec!["id".to_string()]),
+        ];
+        for columns in specs {
+            let columns = columns.as_deref();
+            let empty = format_table(&json!([]), columns, 6);
+            let rows = format_table(&json!([101, 202]), columns, 6);
+            assert_eq!(header_line(&empty), header_line(&rows), "{columns:?}");
+        }
+    }
+
+    #[test]
+    fn format_table_falls_back_to_value_for_several_columns_over_scalars() {
+        let columns = vec!["id".to_string(), "name".to_string()];
+        let rows = format_table(&json!([101, 202]), Some(&columns), 6);
+        assert_eq!(header_line(&rows), "| value |");
+        assert!(rows.contains("101"));
+        assert!(rows.contains("202"));
+
+        let empty = format_table(&json!([]), Some(&columns), 6);
+        assert_eq!(header_line(&empty), "| id | name |");
     }
 
     #[test]
@@ -459,6 +505,7 @@ mod tests {
             dry_run: false,
         };
         let table = format_output(&value, &output).unwrap();
+        assert_eq!(header_line(&table), "| id |");
         assert!(table.contains("101"));
         assert!(table.contains("202"));
         assert!(!table.contains("alpha"));
