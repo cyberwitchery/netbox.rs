@@ -441,6 +441,30 @@ mod tests {
     }
 
     #[test]
+    fn format_output_keeps_selected_scalar_rows_with_explicit_columns() {
+        let value = json!({
+            "count": 2,
+            "next": null,
+            "previous": null,
+            "results": [
+                {"id": 101, "name": "alpha"},
+                {"id": 202, "name": "beta"}
+            ]
+        });
+        let output = OutputConfig {
+            format: crate::OutputFormat::Table,
+            select: Some("results.id".to_string()),
+            columns: Some(vec!["id".to_string()]),
+            max_columns: 6,
+            dry_run: false,
+        };
+        let table = format_output(&value, &output).unwrap();
+        assert!(table.contains("101"));
+        assert!(table.contains("202"));
+        assert!(!table.contains("alpha"));
+    }
+
+    #[test]
     fn select_value_handles_arrays() {
         let value = json!({
             "results": [
