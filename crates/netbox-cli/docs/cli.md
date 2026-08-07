@@ -22,7 +22,7 @@ cargo install --path crates/netbox-cli
 netbox-cli --url https://netbox.example.com --token $TOKEN dcim devices list
 ```
 
-`--url`, `--token`, `--profile`, `--output`, `--select`, `--columns`, `--max-columns` and `--dry-run` are global (`netbox-cli [OPTIONS] <COMMAND>`) and must come before the subcommand; `--query`, `--json` and `--file` belong to the subcommand and come after it.
+`--url`, `--token`, `--profile`, `--output`, `--select`, `--columns`, `--max-columns` and `--dry-run` are global (`netbox-cli [OPTIONS] <COMMAND>`) and must come before the subcommand; every other flag (`--query`, `--json`, `--file` and the rest) belongs to the subcommand and comes after it.
 
 ## auth
 
