@@ -22,6 +22,8 @@ cargo install --path crates/netbox-cli
 netbox-cli --url https://netbox.example.com --token $TOKEN dcim devices list
 ```
 
+`--url`, `--token`, `--profile`, `--output`, `--select`, `--columns`, `--max-columns` and `--dry-run` are global (`netbox-cli [OPTIONS] <COMMAND>`) and must come before the subcommand; `--query`, `--json` and `--file` belong to the subcommand and come after it.
+
 ## auth
 
 credentials can come from (in priority order):
@@ -107,16 +109,16 @@ netbox-cli virtualization virtual-machines update 42 --file vm-update.json
 ## output formats
 
 ```bash
-netbox-cli dcim devices list --output json
-netbox-cli dcim devices list --output yaml
-netbox-cli dcim devices list --output table
+netbox-cli --output json dcim devices list
+netbox-cli --output yaml dcim devices list
+netbox-cli --output table dcim devices list
 ```
 
 select a field with a dot path:
 
 ```bash
-netbox-cli dcim devices list --select results
-netbox-cli dcim devices list --select results.name
+netbox-cli --select results dcim devices list
+netbox-cli --select results.name dcim devices list
 ```
 
 ### select path examples
@@ -126,22 +128,22 @@ the `--select` flag uses dot notation to navigate nested structures. when traver
 **basic field selection:**
 ```bash
 # get just the results array from a paginated response
-netbox-cli dcim devices list --select results
+netbox-cli --select results dcim devices list
 
 # get the count field
-netbox-cli dcim devices list --select count
+netbox-cli --select count dcim devices list
 ```
 
 **nested object navigation:**
 ```bash
 # get the site object from each device
-netbox-cli dcim devices list --select results.site
+netbox-cli --select results.site dcim devices list
 
 # get the site name from each device
-netbox-cli dcim devices list --select results.site.name
+netbox-cli --select results.site.name dcim devices list
 
 # get the device type's manufacturer name
-netbox-cli dcim devices list --select results.device_type.manufacturer.name
+netbox-cli --select results.device_type.manufacturer.name dcim devices list
 ```
 
 **array mapping:**
@@ -159,10 +161,10 @@ when the path crosses an array, subsequent segments apply to each element:
 **combining with output formats:**
 ```bash
 # extract names and output as yaml
-netbox-cli dcim devices list --select results.name --output yaml
+netbox-cli --select results.name --output yaml dcim devices list
 
 # extract nested field for table display
-netbox-cli dcim devices list --select results --output table
+netbox-cli --select results --output table dcim devices list
 ```
 
 table output flattens paginated responses by showing the `results` rows and a summary line with count/next/previous when present.
@@ -172,15 +174,15 @@ table output flattens paginated responses by showing the `results` rows and a su
 specify which columns to show in table output:
 
 ```bash
-netbox-cli dcim devices list --output table --columns id,name,status
-netbox-cli ipam prefixes list --output table --columns prefix,site,status,vlan
+netbox-cli --output table --columns id,name,status dcim devices list
+netbox-cli --output table --columns prefix,site,status,vlan ipam prefixes list
 ```
 
 change the maximum number of auto-selected columns (default: 6):
 
 ```bash
-netbox-cli dcim devices list --output table --max-columns 10
-netbox-cli dcim devices list --output table --max-columns 3
+netbox-cli --output table --max-columns 10 dcim devices list
+netbox-cli --output table --max-columns 3 dcim devices list
 ```
 
 when `--columns` is specified, only those columns are shown. when not specified, columns are auto-selected from preferred fields (id, name, display, status, etc.) up to `--max-columns`.
@@ -190,7 +192,7 @@ when `--columns` is specified, only those columns are shown. when not specified,
 print the request for write operations without sending them:
 
 ```bash
-netbox-cli dcim devices create --json '{"name":"switch-01","device_type":1,"role":1,"site":1}' --dry-run
+netbox-cli --dry-run dcim devices create --json '{"name":"switch-01","device_type":1,"role":1,"site":1}'
 ```
 
 ## raw requests
