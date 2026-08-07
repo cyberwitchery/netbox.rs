@@ -253,14 +253,14 @@ netbox-cli raw --method POST --path ipam/vrfs/ --json '{"name":"blue","rd":"6500
 output formats and selection:
 
 ```bash
-netbox-cli dcim devices list --output table
-netbox-cli dcim devices list --select results.name
+netbox-cli --output table dcim devices list
+netbox-cli --select results.name dcim devices list
 ```
 
 dry run for writes:
 
 ```bash
-netbox-cli dcim devices create --json '{"name":"switch-01","device_type":1,"role":1,"site":1}' --dry-run
+netbox-cli --dry-run dcim devices create --json '{"name":"switch-01","device_type":1,"role":1,"site":1}'
 ```
 
 graphql:
