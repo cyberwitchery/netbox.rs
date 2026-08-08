@@ -140,7 +140,7 @@ fn table_from_items(
     let mut table = base_table(width);
     if items.is_empty() {
         let headers = columns
-            .filter(|cols| !cols.is_empty())
+            .filter(|cols| names_a_column(cols))
             .map(|cols| cols.to_vec())
             .unwrap_or_else(|| vec!["value".to_string()]);
         table.set_header(headers.iter().map(Cell::new));
@@ -166,9 +166,10 @@ fn table_from_items(
             }
         }
     } else {
-        // one explicit column names the scalar; several have no unambiguous mapping
+        // a name fits one column of rows that print themselves; anything else has no mapping
         let header = columns
-            .filter(|cols| cols.len() == 1)
+            .filter(|cols| cols.len() == 1 && names_a_column(cols))
+            .filter(|_| items.iter().all(prints_itself))
             .map(|cols| cols[0].clone())
             .unwrap_or_else(|| "value".to_string());
         table.set_header(vec![Cell::new(header)]);
@@ -177,6 +178,15 @@ fn table_from_items(
         }
     }
     table.to_string()
+}
+
+fn names_a_column(cols: &[String]) -> bool {
+    cols.iter().any(|name| !name.is_empty())
+}
+
+/// whether `value_to_cell` renders this as the value itself rather than a summary of it.
+fn prints_itself(value: &Value) -> bool {
+    !matches!(value, Value::Object(_) | Value::Array(_))
 }
 
 fn infer_columns(
@@ -432,6 +442,36 @@ mod tests {
 
         let empty = format_table(&json!([]), Some(&columns), 6);
         assert_eq!(header_line(&empty), "| id | name |");
+    }
+
+    #[test]
+    fn format_table_falls_back_to_value_when_a_row_does_not_print_itself() {
+        let columns = vec!["id".to_string()];
+
+        let mixed = format_table(
+            &json!([101, {"id": 7, "name": "widget"}]),
+            Some(&columns),
+            6,
+        );
+        assert_eq!(header_line(&mixed), "| value |");
+        assert!(mixed.contains("101"));
+        assert!(mixed.contains("widget"));
+
+        let nested = format_table(&json!([[1, 2], [3]]), Some(&columns), 6);
+        assert_eq!(header_line(&nested), "| value |");
+        assert!(nested.contains("[2]"));
+        assert!(nested.contains("[1]"));
+    }
+
+    #[test]
+    fn format_table_ignores_a_blank_column_name() {
+        let columns = vec![String::new()];
+        let rows = format_table(&json!([101, 202]), Some(&columns), 6);
+        assert_eq!(header_line(&rows), "| value |");
+        assert!(rows.contains("101"));
+
+        let empty = format_table(&json!([]), Some(&columns), 6);
+        assert_eq!(header_line(&empty), "| value |");
     }
 
     #[test]
