@@ -4,6 +4,9 @@ this release captures the current state of the project. no prior published state
 
 ## [unreleased]
 
+### fixed
+- table output over a list of plain values (e.g. `--select results.id --columns id`) now heads the column with the requested name instead of always calling it `value`, so the header no longer depends on how many rows came back — 0.7.0 printed `id` over an empty result and `value` over a non-empty one. asking for two or more names, asking for none (`--columns ""`), and lists that mix plain values with objects or nested lists all still fall back to a single `value` column, since those rows are summarised rather than printed and no single name describes them.
+
 ## [0.7.0] - 2026-08-07
 
 ### fixed
@@ -11,7 +14,6 @@ this release captures the current state of the project. no prior published state
 - graphql queries now retry on transient errors (429 rate-limited, 500+ server errors) with exponential backoff, matching the behaviour of all other API calls
 - pagination now follows NetBox's absolute `next`/`previous` cursor URLs instead of re-prepending the base URL (which produced `.../api/https://...` and broke every page after the first); off-origin cursors are refused so the API token is never sent to another host
 - table output no longer drops every row when `--columns` is combined with a list of plain values (e.g. `--select results.id --columns id`), which previously printed just the header line and exited 0; the values now render under a single `value` column
-- the header over a list of plain values no longer depends on whether any rows came back: a single `--columns id` now heads the column `id` whether the list is empty or not (it printed `id` over 0 rows and `value` over 2). asking for two or more columns over plain values still falls back to a single `value` column, since there is no field to map them onto
 
 ### ci
 - bump pinned NetBox container from v4.6.2 to v4.6.3
