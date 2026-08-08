@@ -4,6 +4,8 @@ this release captures the current state of the project. no prior published state
 
 ## [unreleased]
 
+## [0.7.0] - 2026-08-07
+
 ### fixed
 - delete requests now retry on transient errors (429 rate-limited, 500+ server errors) with exponential backoff, matching all other API methods
 - graphql queries now retry on transient errors (429 rate-limited, 500+ server errors) with exponential backoff, matching the behaviour of all other API calls
