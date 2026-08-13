@@ -16,14 +16,14 @@ echo "checking compat table"
 compat_file="docs/compat.md"
 version_pattern=${version//./\\.}
 
-if ! grep -qE "^\| *${version_pattern} +\|" "$compat_file"; then
+if ! rg -q "^\| *${version_pattern} +\|" "$compat_file"; then
   echo "error: ${compat_file} has no row for ${version}" >&2
   echo "cutting a release renames the 'main' row to the released version," >&2
   echo "then starts a fresh 'main' row carrying the same pin" >&2
   exit 1
 fi
 
-if ! grep -qE '^\| *main +\|' "$compat_file"; then
+if ! rg -q '^\| *main +\|' "$compat_file"; then
   echo "error: ${compat_file} has no 'main' row" >&2
   echo "start a fresh one after renaming the old row to ${version}" >&2
   exit 1
