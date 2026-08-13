@@ -10,11 +10,15 @@ this release captures the current state of the project. no prior published state
 ### ci
 - bump pinned NetBox container from v4.6.3 to v4.6.8
 
+### scripts
+- `release_local.sh` stops before doing any work when `docs/compat.md` has no row for the version being released, which is how 0.7.0 shipped without one
+
 ### openapi
 - regenerate bindings from NetBox v4.6.8 schema; 95 list endpoints gain `tag__any`/`tag_id__any` for matching any of several tags rather than all of them. circuit group assignments gain `member_type_id`/`member_type_id__n`, image attachments gain the `image_size` comparison filters, and vlans gain `available_at_site_group`. scripts gain an upload endpoint with `ScriptDetail` and `PatchedScriptModuleRequest`; `BriefJobRequest` and `PatchedScriptInputRequest` are gone. the new filters are positional parameters, so callers of the affected list functions pass `None` for them.
 
 ### docs
 - update `docs/compat.md` compatibility matrix for v4.6.8
+- document the release checklist in `docs/dev.md`
 
 ## [0.7.0] - 2026-08-07
 
