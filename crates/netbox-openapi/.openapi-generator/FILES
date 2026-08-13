@@ -91,13 +91,13 @@ src/models/brief_interface_request_device.rs
 src/models/brief_inventory_item_role.rs
 src/models/brief_inventory_item_role_request.rs
 src/models/brief_ip_address.rs
+src/models/brief_ip_address_dns_name.rs
 src/models/brief_ip_address_request.rs
 src/models/brief_ip_sec_policy.rs
 src/models/brief_ip_sec_policy_request.rs
 src/models/brief_ip_sec_profile.rs
 src/models/brief_ip_sec_profile_request.rs
 src/models/brief_job.rs
-src/models/brief_job_request.rs
 src/models/brief_job_status.rs
 src/models/brief_l2_vpn.rs
 src/models/brief_l2_vpn_request.rs
@@ -193,6 +193,7 @@ src/models/bulk_bookmark_request.rs
 src/models/bulk_cable_bundle_request.rs
 src/models/bulk_cable_request.rs
 src/models/bulk_cable_request_bundle.rs
+src/models/bulk_cable_request_color.rs
 src/models/bulk_circuit_group_assignment_request.rs
 src/models/bulk_circuit_group_request.rs
 src/models/bulk_circuit_request.rs
@@ -223,6 +224,8 @@ src/models/bulk_contact_assignment_request_contact.rs
 src/models/bulk_contact_assignment_request_role.rs
 src/models/bulk_contact_group_request.rs
 src/models/bulk_contact_request.rs
+src/models/bulk_contact_request_email.rs
+src/models/bulk_contact_request_link.rs
 src/models/bulk_contact_role_request.rs
 src/models/bulk_custom_field_choice_set_request.rs
 src/models/bulk_custom_field_request.rs
@@ -515,6 +518,7 @@ src/models/device_type_subdevice_role.rs
 src/models/device_type_weight_unit.rs
 src/models/device_with_config_context.rs
 src/models/device_with_config_context_request.rs
+src/models/email_address.rs
 src/models/event_rule.rs
 src/models/event_rule_action_type.rs
 src/models/event_rule_request.rs
@@ -1005,7 +1009,7 @@ src/models/patched_rir_request.rs
 src/models/patched_role_request.rs
 src/models/patched_route_target_request.rs
 src/models/patched_saved_filter_request.rs
-src/models/patched_script_input_request.rs
+src/models/patched_script_module_request.rs
 src/models/patched_subscription_request.rs
 src/models/patched_table_config_request.rs
 src/models/patched_tag_request.rs
@@ -1157,6 +1161,7 @@ src/models/route_target_request.rs
 src/models/saved_filter.rs
 src/models/saved_filter_request.rs
 src/models/script.rs
+src/models/script_detail.rs
 src/models/script_input_request.rs
 src/models/script_module.rs
 src/models/script_module_request.rs
