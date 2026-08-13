@@ -4,6 +4,8 @@ this release captures the current state of the project. no prior published state
 
 ## [unreleased]
 
+## [0.8.0] - 2026-08-13
+
 ### fixed
 - table output over a list of plain values (e.g. `--select results.id --columns id`) now heads the column with the requested name instead of always calling it `value`, so the header no longer depends on how many rows came back — 0.7.0 printed `id` over an empty result and `value` over a non-empty one. asking for two or more names, asking for none (`--columns ""`), and lists that mix plain values with objects or nested lists all still fall back to a single `value` column, since those rows are summarised rather than printed and no single name describes them.
 
