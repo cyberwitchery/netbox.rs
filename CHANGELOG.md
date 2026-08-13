@@ -7,6 +7,15 @@ this release captures the current state of the project. no prior published state
 ### fixed
 - table output over a list of plain values (e.g. `--select results.id --columns id`) now heads the column with the requested name instead of always calling it `value`, so the header no longer depends on how many rows came back — 0.7.0 printed `id` over an empty result and `value` over a non-empty one. asking for two or more names, asking for none (`--columns ""`), and lists that mix plain values with objects or nested lists all still fall back to a single `value` column, since those rows are summarised rather than printed and no single name describes them.
 
+### ci
+- bump pinned NetBox container from v4.6.3 to v4.6.8
+
+### openapi
+- regenerate bindings from NetBox v4.6.8 schema; 95 list endpoints gain `tag__any`/`tag_id__any` for matching any of several tags rather than all of them. circuit group assignments gain `member_type_id`/`member_type_id__n`, image attachments gain the `image_size` comparison filters, and vlans gain `available_at_site_group`. scripts gain an upload endpoint with `ScriptDetail` and `PatchedScriptModuleRequest`; `BriefJobRequest` and `PatchedScriptInputRequest` are gone. the new filters are positional parameters, so callers of the affected list functions pass `None` for them.
+
+### docs
+- update `docs/compat.md` compatibility matrix for v4.6.8
+
 ## [0.7.0] - 2026-08-07
 
 ### fixed
