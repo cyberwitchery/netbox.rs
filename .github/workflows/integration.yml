@@ -57,7 +57,7 @@ jobs:
           --health-timeout 5s
           --health-retries 10
       netbox:
-        image: netboxcommunity/netbox:v4.6.3
+        image: netboxcommunity/netbox:v4.6.8
         env:
           ALLOWED_HOSTS: "*"
           DB_HOST: postgres
@@ -90,7 +90,7 @@ jobs:
       - name: Wait for NetBox readiness
         run: |
           set -euo pipefail
-          # v4.6.3 container initialisation (migrations, static files, data
+          # v4.6.8 container initialisation (migrations, static files, data
           # fixtures) can take 15+ minutes on the first run.  Poll without
           # authentication — any HTTP response means the web server is up.
           for i in $(seq 1 300); do
