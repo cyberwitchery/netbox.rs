@@ -125,7 +125,7 @@ fn value_to_cell(value: Option<&Value>) -> String {
 fn base_table(width: u16) -> Table {
     let mut table = Table::new();
     table
-        .load_preset(comfy_table::presets::ASCII_FULL)
+        .load_style(comfy_table::presets::ASCII_FULL)
         .set_content_arrangement(ContentArrangement::Dynamic)
         .set_width(width);
     table
