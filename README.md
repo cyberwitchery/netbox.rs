@@ -248,6 +248,7 @@ raw requests:
 ```bash
 netbox-cli raw --method GET --path dcim/devices/ --query "name=leaf-1" --query "limit=5"
 netbox-cli raw --method POST --path ipam/vrfs/ --json '{"name":"blue","rd":"65000:100"}'
+netbox-cli raw --method GET --path plugins/secrets/secrets/1/ -H "X-Session-Key: $SESSION_KEY"
 ```
 
 output formats and selection:

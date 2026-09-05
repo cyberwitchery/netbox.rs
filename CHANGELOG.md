@@ -4,6 +4,9 @@ this release captures the current state of the project. no prior published state
 
 ## [unreleased]
 
+### added
+- `netbox-cli raw` accepts repeatable `-H`/`--header "name: value"` request headers
+
 ## [0.8.0] - 2026-08-13
 
 ### fixed

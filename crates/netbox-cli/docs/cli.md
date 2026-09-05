@@ -204,12 +204,14 @@ use `raw` for any endpoint:
 ```bash
 netbox-cli raw --method GET --path dcim/devices/ --query "name=leaf-1" --query "limit=5"
 netbox-cli raw --method POST --path ipam/vrfs/ --json '{"name":"blue","rd":"65000:100"}'
+netbox-cli raw --method GET --path plugins/secrets/secrets/1/ --header "X-Session-Key: $SESSION_KEY"
 ```
 
 notes:
 - `--path` is api-relative, e.g. `dcim/devices/`
 - a leading `api/` is stripped if present
 - repeat `--query key=value` for multiple params
+- repeat `-H "name: value"` or `--header "name: value"` for multiple request headers
 
 ## graphql
 

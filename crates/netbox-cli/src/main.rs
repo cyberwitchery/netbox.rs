@@ -16,9 +16,13 @@ use cli::{
 };
 use config::{Profile, load_config};
 use netbox::{Client, ClientConfig};
-use reqwest::Method;
+use reqwest::{
+    Method,
+    header::{HeaderMap, HeaderName, HeaderValue},
+};
 use serde_json::Value;
 use std::path::PathBuf;
+use std::str::FromStr;
 use std::time::Duration;
 
 #[async_trait::async_trait]
@@ -99,6 +103,27 @@ pub(crate) struct OutputConfig {
     pub(crate) columns: Option<Vec<String>>,
     pub(crate) max_columns: usize,
     pub(crate) dry_run: bool,
+}
+
+#[derive(Clone, Debug)]
+struct RequestHeader {
+    name: HeaderName,
+    value: HeaderValue,
+}
+
+impl FromStr for RequestHeader {
+    type Err = String;
+
+    fn from_str(header: &str) -> Result<Self, Self::Err> {
+        let (name, value) = header
+            .split_once(':')
+            .ok_or_else(|| "header must use NAME: VALUE syntax".to_string())?;
+        let name = HeaderName::from_str(name.trim())
+            .map_err(|err| format!("invalid header name: {err}"))?;
+        let value = HeaderValue::from_str(value.trim())
+            .map_err(|err| format!("invalid value for header '{name}': {err}"))?;
+        Ok(Self { name, value })
+    }
 }
 
 #[derive(Parser)]
@@ -356,6 +381,9 @@ pub(crate) enum Commands {
         /// query string parameters (repeatable key=value)
         #[arg(long = "query")]
         query: Vec<String>,
+        /// request header (repeatable NAME: VALUE)
+        #[arg(short = 'H', long = "header", value_name = "NAME: VALUE")]
+        headers: Vec<RequestHeader>,
         #[command(flatten)]
         input: JsonInputOptional,
     },
@@ -557,6 +585,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
     if let Some(ssl_verify) = profile.ssl_verify {
         client_config = client_config.with_ssl_verification(ssl_verify);
+    }
+    if let Commands::Raw { headers, .. } = &cli.command {
+        let mut header_map = HeaderMap::new();
+        for header in headers {
+            header_map.append(header.name.clone(), header.value.clone());
+        }
+        client_config = client_config.with_headers(header_map);
     }
 
     let client = Client::new(client_config)?;
@@ -808,6 +843,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             method,
             path,
             query,
+            headers: _,
             input,
         } => {
             let method = Method::from_bytes(method.as_bytes())?;
@@ -946,16 +982,61 @@ mod tests {
                 method,
                 path,
                 query,
+                headers,
                 input,
             } => {
                 assert_eq!(method, "POST");
                 assert_eq!(path, "api/dcim/sites/");
                 assert_eq!(query, vec!["name=dc1"]);
+                assert!(headers.is_empty());
                 assert!(input.json.is_some());
                 assert!(input.file.is_none());
             }
             _ => panic!("expected raw command"),
         }
+    }
+
+    #[test]
+    fn parse_raw_command_with_headers() {
+        let mut args = base_args();
+        args.extend([
+            "raw",
+            "--method",
+            "GET",
+            "--path",
+            "plugins/secrets/secrets/1/",
+            "-H",
+            "X-Session-Key: session-key",
+            "--header",
+            "X-Trace-Id: trace-id",
+        ]);
+
+        let cli = Cli::try_parse_from(&args).unwrap();
+        match cli.command {
+            Commands::Raw { headers, .. } => {
+                assert_eq!(headers.len(), 2);
+                assert_eq!(headers[0].name.as_str(), "x-session-key");
+                assert_eq!(headers[0].value, "session-key");
+                assert_eq!(headers[1].name.as_str(), "x-trace-id");
+                assert_eq!(headers[1].value, "trace-id");
+            }
+            _ => panic!("expected raw command"),
+        }
+    }
+
+    #[test]
+    fn parse_raw_header_preserves_colons_in_value() {
+        let header = RequestHeader::from_str("X-Callback: https://example.com:8443/path").unwrap();
+
+        assert_eq!(header.name.as_str(), "x-callback");
+        assert_eq!(header.value, "https://example.com:8443/path");
+    }
+
+    #[test]
+    fn parse_raw_header_rejects_invalid_syntax() {
+        assert!(RequestHeader::from_str("X-Session-Key").is_err());
+        assert!(RequestHeader::from_str("invalid name: value").is_err());
+        assert!(RequestHeader::from_str("X-Session-Key: value\nother").is_err());
     }
 
     #[test]
