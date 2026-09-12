@@ -2,6 +2,14 @@
 
 this release captures the current state of the project. no prior published state exists for comparison.
 
+## [unreleased]
+
+### scripts
+- `generate.sh` deletes the generator's `.travis.yml` and `git_push.sh` after generating, instead of leaving them for the next regen to re-add
+
+### docs
+- drop the stale `[unreleased]` changelog link reference; it still named v0.3.3 as its base, five releases behind, and the compare-link references stop at 0.3.3 and are not maintained
+
 ## [0.9.0] - 2026-09-12
 
 ### added
@@ -287,7 +295,6 @@ this release captures the current state of the project. no prior published state
 - readme and rustdoc coverage for client and cli
 - contributing guide and script documentation
 
-[unreleased]: https://github.com/cyberwitchery/netbox.rs/compare/v0.3.3...HEAD
 [0.3.3]: https://github.com/cyberwitchery/netbox.rs/compare/v0.3.2...v0.3.3
 [0.3.2]: https://github.com/cyberwitchery/netbox.rs/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/cyberwitchery/netbox.rs/compare/v0.3.0...v0.3.1

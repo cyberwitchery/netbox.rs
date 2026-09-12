@@ -139,6 +139,9 @@ $GENERATOR_CMD \
 cp "${CARGO_TOML_BACKUP}" "${HOST_OUTPUT_DIR}/Cargo.toml"
 rm "${CARGO_TOML_BACKUP}"
 
+# drop generator scaffolding we do not ship
+rm -f "${HOST_OUTPUT_DIR}/.travis.yml" "${HOST_OUTPUT_DIR}/git_push.sh"
+
 echo "Applying generated crate lint settings..."
 python3 - <<'PY' "${HOST_OUTPUT_DIR}/src/lib.rs"
 import sys
