@@ -132,7 +132,7 @@ pub struct PatchInterfaceFieldsRequest {
 }
 
 /// device model with config context.
-pub type Device = crate::models::DeviceWithConfigContext;
+pub type Device = crate::models::Device;
 /// connected device model.
 pub type ConnectedDevice = crate::models::Device;
 
@@ -159,7 +159,7 @@ pub type DeviceRolesApi = Resource<crate::models::DeviceRole>;
 /// resource for device types.
 pub type DeviceTypesApi = Resource<crate::models::DeviceType>;
 /// resource for devices.
-pub type DevicesApi = Resource<crate::models::DeviceWithConfigContext>;
+pub type DevicesApi = Resource<crate::models::Device>;
 /// resource for front port templates.
 pub type FrontPortTemplatesApi = Resource<crate::models::FrontPortTemplate>;
 /// resource for front ports.

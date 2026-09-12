@@ -665,7 +665,7 @@ pub type VmInterface = crate::models::VmInterface;
 /// virtual disk model.
 pub type VirtualDisk = crate::models::VirtualDisk;
 /// virtual machine model with config context.
-pub type VirtualMachine = crate::models::VirtualMachineWithConfigContext;
+pub type VirtualMachine = crate::models::VirtualMachine;
 /// virtual machine type model.
 pub type VirtualMachineType = crate::models::VirtualMachineType;
 
@@ -682,7 +682,7 @@ pub type VirtualDisksApi = Resource<crate::models::VirtualDisk>;
 /// resource for virtual machine types.
 pub type VirtualMachineTypesApi = Resource<crate::models::VirtualMachineType>;
 /// resource for virtual machines.
-pub type VirtualMachinesApi = Resource<crate::models::VirtualMachineWithConfigContext>;
+pub type VirtualMachinesApi = Resource<crate::models::VirtualMachine>;
 
 /// api for virtualization endpoints.
 #[derive(Clone)]

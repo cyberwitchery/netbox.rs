@@ -7,6 +7,23 @@ this release captures the current state of the project. no prior published state
 ### added
 - `netbox-cli raw` accepts repeatable `-H`/`--header "name: value"` request headers
 
+### changed
+- **breaking:** NetBox 4.7 folds config context into the plain device and virtual-machine serializers, so `DeviceWithConfigContext` is now `Device` and `VirtualMachineWithConfigContext` is now `VirtualMachine`, along with every bulk, patched, writable and paginated variant of the two. `netbox::dcim::Device` and `netbox::virtualization::VirtualMachine` follow the rename and keep `config_context`, so field access is unchanged; `netbox::dcim::ConnectedDevice` now aliases the same model as `Device` rather than a separate, smaller one
+
+### ci
+- bump pinned NetBox container from v4.6.8 to v4.7.0 (closes #68)
+
+### openapi
+- regenerate bindings from the NetBox v4.7.0 schema
+- new dcim cooling subsystem: cooling feeds, sources, intakes and outflows, each with a template endpoint. devices gain `cooling_method`, `cooling_intake_count` and `cooling_outflow_count`, and racks gain `cooling_capacity`/`cooling_capability` filters
+- new `/api/dcim/module-bay-types/` endpoint with the usual list, detail, bulk and patched models
+- sixteen list endpoints gain filters, notably `dcim_module_types_list` (+38), `dcim_device_types_list` (+34), `dcim_devices_list` (+27), `dcim_racks_list` and `dcim_rack_types_list` (+20 each), and `dcim_interfaces_list` (`channels`, `channel_id`). the new filters are positional parameters, so callers of the affected functions pass `None` for them
+- **breaking:** `ipam_services_list` and `ipam_service_templates_list` drop the twelve `protocol__*` string lookups and `port__empty`, and gain `port_mappings`/`port_mappings__n`
+
+### docs
+- update `docs/compat.md` compatibility matrix for v4.7.0
+- correct `docs/compat.md`: the `≤ 0.3.3` row claimed a v4.4.2 CI pin, but integration CI only landed in 0.3.2, so 0.3.1 and older are now their own row and claim no pin
+
 ## [0.8.0] - 2026-08-13
 
 ### fixed
