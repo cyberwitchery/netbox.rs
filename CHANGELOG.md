@@ -2,7 +2,7 @@
 
 this release captures the current state of the project. no prior published state exists for comparison.
 
-## [unreleased]
+## [0.9.1] - 2026-09-21
 
 ### ci
 - bump pinned netbox container from v4.7.0 to v4.7.1 (closes #73)
