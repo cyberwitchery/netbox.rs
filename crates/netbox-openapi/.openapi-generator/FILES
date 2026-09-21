@@ -198,6 +198,8 @@ src/models/brief_vlan_group_request.rs
 src/models/brief_vlan_request.rs
 src/models/brief_vlan_translation_policy.rs
 src/models/brief_vlan_translation_policy_request.rs
+src/models/brief_vlan_translation_rule.rs
+src/models/brief_vlan_translation_rule_request.rs
 src/models/brief_vrf.rs
 src/models/brief_vrf_request.rs
 src/models/brief_wireless_lan.rs
@@ -1216,6 +1218,7 @@ src/models/rack_role.rs
 src/models/rack_role_request.rs
 src/models/rack_status.rs
 src/models/rack_type.rs
+src/models/rack_type_form_factor.rs
 src/models/rack_type_request.rs
 src/models/rack_unit.rs
 src/models/rack_unit_face.rs

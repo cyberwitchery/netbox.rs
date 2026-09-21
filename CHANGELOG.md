@@ -4,6 +4,16 @@ this release captures the current state of the project. no prior published state
 
 ## [unreleased]
 
+### ci
+- bump pinned netbox container from v4.7.0 to v4.7.1 (closes #73)
+
+### openapi
+- regenerate bindings from the netbox v4.7.1 schema
+- rack type `form_factor` and l2vpn `type` are now declared required, so `RackTypeRequest::new` and `L2VpnRequest::new` take them and the fields are no longer `Option`, and `FormFactor` drops its `Empty` and `Null` variants. netbox 4.7.0 already rejected both fields when blank, so a call that compiled and then failed with a 400 now fails to compile instead
+- vlan translation policies and rules gain the standard `display_url`, `tags`, `custom_fields`, `created` and `last_updated` fields, and `VlanTranslationPolicy::rules` holds `BriefVlanTranslationRule`
+- data sources gain `tags`
+- interface and interface-template types gain the infiniband `HDR100`, `NDR200` and `XDR400` variants
+
 ### scripts
 - `generate.sh` deletes the generator's `.travis.yml` and `git_push.sh` after generating, instead of leaving them for the next regen to re-add
 
