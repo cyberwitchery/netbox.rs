@@ -3,7 +3,7 @@
 //! run manually with:
 //! NETBOX_TOKEN=... NETBOX_URL=http://localhost:8000 cargo test -p netbox --test smoke_local -- --ignored
 
-use netbox::openapi::apis::status_api;
+use netbox::openapi::apis::status_api::{self, StatusRetrieveParams};
 use netbox::{Client, ClientConfig, Page, QueryBuilder, Result};
 use reqwest::Method;
 use serde_json::{Value, json};
@@ -310,7 +310,7 @@ async fn run_smoke(client: &Client, created: &mut Created) -> Result<()> {
 
     eprintln!("smoke: openapi status");
     let openapi = client.openapi_config()?;
-    let openapi_status = status_api::status_retrieve(&openapi, None, None, None)
+    let openapi_status = status_api::status_retrieve(&openapi, StatusRetrieveParams::default())
         .await
         .map_err(|err| netbox::Error::Config(format!("openapi status failed: {err}")))?;
     assert!(

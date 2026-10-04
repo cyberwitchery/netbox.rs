@@ -13,6 +13,17 @@ use reqwest;
 use super::{Error, configuration};
 use crate::apis::ResponseContent;
 
+/// struct for passing parameters to the method [`authentication_check_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct AuthenticationCheckRetrieveParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
 /// struct for typed errors of method [`authentication_check_retrieve`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -23,14 +34,17 @@ pub enum AuthenticationCheckRetrieveError {
 /// Return the user making the request, if authenticated successfully.
 pub async fn authentication_check_retrieve(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: AuthenticationCheckRetrieveParams,
 ) -> Result<
     ::std::collections::HashMap<String, serde_json::Value>,
     Error<AuthenticationCheckRetrieveError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 

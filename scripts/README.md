@@ -40,6 +40,10 @@ OPENAPI_GENERATOR_IMAGE=openapitools/openapi-generator-cli:v6.6.0 ./scripts/gene
 
 notes about the generator:
 - uses workspace version as `packageVersion`
+- passes `useSingleRequestParameter=true`, so each parameterised function takes one
+  `<Operation>Params` struct instead of positional parameters. the structs derive
+  `Default`, so callers spread `..Default::default()` and survive upstream filter
+  additions
 - normalizes schema enums with value `"---------"` to `"none"`
 - injects crate-level allow attributes in `crates/netbox-openapi/src/lib.rs`
 - normalizes generated `Cargo.toml` for `rustls-tls`
@@ -63,9 +67,9 @@ curl -fsSL https://netbox.example.com/api/schema/?format=json \
 
 ## generator options
 
-we use openapi generator with the `rust` generator. to customize, edit `scripts/generate.sh` and add properties like:
-- `packageName`
-- `useSingleRequestParameter`
+we use openapi generator with the `rust` generator and set `packageName`,
+`packageVersion` and `useSingleRequestParameter`. to customize further, edit the
+`--additional-properties` line in `scripts/generate.sh`.
 
 see https://openapi-generator.tech/docs/generators/rust
 

@@ -2,6 +2,11 @@
 
 this release captures the current state of the project. no prior published state exists for comparison.
 
+## [unreleased]
+
+### openapi
+- **breaking:** generated api functions take one params struct instead of positional parameters: `dcim_devices_list(&config, DcimDevicesListParams { asset_tag: Some(vec![..]), ..Default::default() })`. all 1255 parameterised functions are affected. the structs derive `Default`, so a caller that spreads it keeps compiling when upstream adds a filter (closes #72)
+
 ## [0.9.1] - 2026-09-21
 
 ### ci

@@ -13,6 +13,682 @@ use reqwest;
 use super::{Error, configuration};
 use crate::apis::ResponseContent;
 
+/// struct for passing parameters to the method [`wireless_wireless_lan_groups_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLanGroupsBulkDestroyParams {
+    pub wireless_lan_group_request: Vec<crate::models::WirelessLanGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`wireless_wireless_lan_groups_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLanGroupsBulkPartialUpdateParams {
+    pub patched_bulk_wireless_lan_group_request:
+        Vec<crate::models::PatchedBulkWirelessLanGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`wireless_wireless_lan_groups_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLanGroupsBulkUpdateParams {
+    pub bulk_wireless_lan_group_request: Vec<crate::models::BulkWirelessLanGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`wireless_wireless_lan_groups_create`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLanGroupsCreateParams {
+    pub wireless_wireless_lan_groups_create_request:
+        crate::models::WirelessWirelessLanGroupsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`wireless_wireless_lan_groups_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLanGroupsDestroyParams {
+    /// A unique integer value identifying this wireless LAN group.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`wireless_wireless_lan_groups_list`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLanGroupsListParams {
+    pub ancestor: Option<Vec<String>>,
+    pub ancestor__n: Option<Vec<String>>,
+    pub ancestor_id: Option<Vec<String>>,
+    pub ancestor_id__n: Option<Vec<String>>,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    pub parent: Option<Vec<String>>,
+    pub parent__n: Option<Vec<String>>,
+    pub parent_id: Option<Vec<i32>>,
+    pub parent_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub slug: Option<Vec<String>>,
+    pub slug__empty: Option<bool>,
+    pub slug__ic: Option<Vec<String>>,
+    pub slug__ie: Option<Vec<String>>,
+    pub slug__iew: Option<Vec<String>>,
+    pub slug__iregex: Option<Vec<String>>,
+    pub slug__isw: Option<Vec<String>>,
+    pub slug__n: Option<Vec<String>>,
+    pub slug__nic: Option<Vec<String>>,
+    pub slug__nie: Option<Vec<String>>,
+    pub slug__niew: Option<Vec<String>>,
+    pub slug__nisw: Option<Vec<String>>,
+    pub slug__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`wireless_wireless_lan_groups_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLanGroupsPartialUpdateParams {
+    /// A unique integer value identifying this wireless LAN group.
+    pub id: i32,
+    pub patched_writable_wireless_lan_group_request:
+        Option<crate::models::PatchedWritableWirelessLanGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`wireless_wireless_lan_groups_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLanGroupsRetrieveParams {
+    /// A unique integer value identifying this wireless LAN group.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`wireless_wireless_lan_groups_update`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLanGroupsUpdateParams {
+    /// A unique integer value identifying this wireless LAN group.
+    pub id: i32,
+    pub writable_wireless_lan_group_request: crate::models::WritableWirelessLanGroupRequest,
+}
+
+/// struct for passing parameters to the method [`wireless_wireless_lans_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLansBulkDestroyParams {
+    pub wireless_lan_request: Vec<crate::models::WirelessLanRequest>,
+}
+
+/// struct for passing parameters to the method [`wireless_wireless_lans_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLansBulkPartialUpdateParams {
+    pub patched_bulk_wireless_lan_request: Vec<crate::models::PatchedBulkWirelessLanRequest>,
+}
+
+/// struct for passing parameters to the method [`wireless_wireless_lans_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLansBulkUpdateParams {
+    pub bulk_wireless_lan_request: Vec<crate::models::BulkWirelessLanRequest>,
+}
+
+/// struct for passing parameters to the method [`wireless_wireless_lans_create`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLansCreateParams {
+    pub wireless_wireless_lans_create_request: crate::models::WirelessWirelessLansCreateRequest,
+}
+
+/// struct for passing parameters to the method [`wireless_wireless_lans_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLansDestroyParams {
+    /// A unique integer value identifying this wireless LAN.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`wireless_wireless_lans_list`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLansListParams {
+    pub auth_cipher: Option<Vec<String>>,
+    pub auth_cipher__empty: Option<bool>,
+    pub auth_cipher__ic: Option<Vec<String>>,
+    pub auth_cipher__ie: Option<Vec<String>>,
+    pub auth_cipher__iew: Option<Vec<String>>,
+    pub auth_cipher__iregex: Option<Vec<String>>,
+    pub auth_cipher__isw: Option<Vec<String>>,
+    pub auth_cipher__n: Option<Vec<String>>,
+    pub auth_cipher__nic: Option<Vec<String>>,
+    pub auth_cipher__nie: Option<Vec<String>>,
+    pub auth_cipher__niew: Option<Vec<String>>,
+    pub auth_cipher__nisw: Option<Vec<String>>,
+    pub auth_cipher__regex: Option<Vec<String>>,
+    pub auth_psk: Option<Vec<String>>,
+    pub auth_psk__empty: Option<bool>,
+    pub auth_psk__ic: Option<Vec<String>>,
+    pub auth_psk__ie: Option<Vec<String>>,
+    pub auth_psk__iew: Option<Vec<String>>,
+    pub auth_psk__iregex: Option<Vec<String>>,
+    pub auth_psk__isw: Option<Vec<String>>,
+    pub auth_psk__n: Option<Vec<String>>,
+    pub auth_psk__nic: Option<Vec<String>>,
+    pub auth_psk__nie: Option<Vec<String>>,
+    pub auth_psk__niew: Option<Vec<String>>,
+    pub auth_psk__nisw: Option<Vec<String>>,
+    pub auth_psk__regex: Option<Vec<String>>,
+    pub auth_type: Option<Vec<String>>,
+    pub auth_type__empty: Option<bool>,
+    pub auth_type__ic: Option<Vec<String>>,
+    pub auth_type__ie: Option<Vec<String>>,
+    pub auth_type__iew: Option<Vec<String>>,
+    pub auth_type__iregex: Option<Vec<String>>,
+    pub auth_type__isw: Option<Vec<String>>,
+    pub auth_type__n: Option<Vec<String>>,
+    pub auth_type__nic: Option<Vec<String>>,
+    pub auth_type__nie: Option<Vec<String>>,
+    pub auth_type__niew: Option<Vec<String>>,
+    pub auth_type__nisw: Option<Vec<String>>,
+    pub auth_type__regex: Option<Vec<String>>,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub group: Option<Vec<String>>,
+    pub group__n: Option<Vec<String>>,
+    pub group_id: Option<Vec<String>>,
+    pub group_id__n: Option<Vec<String>>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub interface_id: Option<Vec<i32>>,
+    pub interface_id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub location: Option<Vec<String>>,
+    pub location__n: Option<Vec<String>>,
+    pub location_id: Option<Vec<String>>,
+    pub location_id__n: Option<Vec<String>>,
+    pub modified_by_request: Option<String>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub region: Option<Vec<String>>,
+    pub region__n: Option<Vec<String>>,
+    pub region_id: Option<Vec<String>>,
+    pub region_id__n: Option<Vec<String>>,
+    pub scope_id: Option<Vec<i32>>,
+    pub scope_id__empty: Option<bool>,
+    pub scope_id__gt: Option<Vec<i32>>,
+    pub scope_id__gte: Option<Vec<i32>>,
+    pub scope_id__lt: Option<Vec<i32>>,
+    pub scope_id__lte: Option<Vec<i32>>,
+    pub scope_id__n: Option<Vec<i32>>,
+    pub scope_type: Option<Vec<String>>,
+    pub scope_type__n: Option<Vec<String>>,
+    /// Site (slug)
+    pub site: Option<Vec<String>>,
+    /// Site (slug)
+    pub site__n: Option<Vec<String>>,
+    pub site_group: Option<Vec<String>>,
+    pub site_group__n: Option<Vec<String>>,
+    pub site_group_id: Option<Vec<String>>,
+    pub site_group_id__n: Option<Vec<String>>,
+    /// Site (ID)
+    pub site_id: Option<Vec<i32>>,
+    /// Site (ID)
+    pub site_id__n: Option<Vec<i32>>,
+    pub ssid: Option<Vec<String>>,
+    pub ssid__empty: Option<bool>,
+    pub ssid__ic: Option<Vec<String>>,
+    pub ssid__ie: Option<Vec<String>>,
+    pub ssid__iew: Option<Vec<String>>,
+    pub ssid__iregex: Option<Vec<String>>,
+    pub ssid__isw: Option<Vec<String>>,
+    pub ssid__n: Option<Vec<String>>,
+    pub ssid__nic: Option<Vec<String>>,
+    pub ssid__nie: Option<Vec<String>>,
+    pub ssid__niew: Option<Vec<String>>,
+    pub ssid__nisw: Option<Vec<String>>,
+    pub ssid__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub status: Option<Vec<String>>,
+    pub status__empty: Option<bool>,
+    pub status__ic: Option<Vec<String>>,
+    pub status__ie: Option<Vec<String>>,
+    pub status__iew: Option<Vec<String>>,
+    pub status__iregex: Option<Vec<String>>,
+    pub status__isw: Option<Vec<String>>,
+    pub status__n: Option<Vec<String>>,
+    pub status__nic: Option<Vec<String>>,
+    pub status__nie: Option<Vec<String>>,
+    pub status__niew: Option<Vec<String>>,
+    pub status__nisw: Option<Vec<String>>,
+    pub status__regex: Option<Vec<String>>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    /// Tenant (slug)
+    pub tenant: Option<Vec<String>>,
+    /// Tenant (slug)
+    pub tenant__n: Option<Vec<String>>,
+    pub tenant_group: Option<Vec<String>>,
+    pub tenant_group__n: Option<Vec<String>>,
+    pub tenant_group_id: Option<Vec<String>>,
+    pub tenant_group_id__n: Option<Vec<String>>,
+    /// Tenant (ID)
+    pub tenant_id: Option<Vec<i32>>,
+    /// Tenant (ID)
+    pub tenant_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+    pub vlan_id: Option<Vec<i32>>,
+    pub vlan_id__n: Option<Vec<i32>>,
+}
+
+/// struct for passing parameters to the method [`wireless_wireless_lans_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLansPartialUpdateParams {
+    /// A unique integer value identifying this wireless LAN.
+    pub id: i32,
+    pub patched_writable_wireless_lan_request:
+        Option<crate::models::PatchedWritableWirelessLanRequest>,
+}
+
+/// struct for passing parameters to the method [`wireless_wireless_lans_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLansRetrieveParams {
+    /// A unique integer value identifying this wireless LAN.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`wireless_wireless_lans_update`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLansUpdateParams {
+    /// A unique integer value identifying this wireless LAN.
+    pub id: i32,
+    pub writable_wireless_lan_request: crate::models::WritableWirelessLanRequest,
+}
+
+/// struct for passing parameters to the method [`wireless_wireless_links_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLinksBulkDestroyParams {
+    pub wireless_link_request: Vec<crate::models::WirelessLinkRequest>,
+}
+
+/// struct for passing parameters to the method [`wireless_wireless_links_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLinksBulkPartialUpdateParams {
+    pub patched_bulk_wireless_link_request: Vec<crate::models::PatchedBulkWirelessLinkRequest>,
+}
+
+/// struct for passing parameters to the method [`wireless_wireless_links_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLinksBulkUpdateParams {
+    pub bulk_wireless_link_request: Vec<crate::models::BulkWirelessLinkRequest>,
+}
+
+/// struct for passing parameters to the method [`wireless_wireless_links_create`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLinksCreateParams {
+    pub wireless_wireless_links_create_request: crate::models::WirelessWirelessLinksCreateRequest,
+}
+
+/// struct for passing parameters to the method [`wireless_wireless_links_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLinksDestroyParams {
+    /// A unique integer value identifying this wireless link.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`wireless_wireless_links_list`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLinksListParams {
+    pub auth_cipher: Option<Vec<String>>,
+    pub auth_cipher__empty: Option<bool>,
+    pub auth_cipher__ic: Option<Vec<String>>,
+    pub auth_cipher__ie: Option<Vec<String>>,
+    pub auth_cipher__iew: Option<Vec<String>>,
+    pub auth_cipher__iregex: Option<Vec<String>>,
+    pub auth_cipher__isw: Option<Vec<String>>,
+    pub auth_cipher__n: Option<Vec<String>>,
+    pub auth_cipher__nic: Option<Vec<String>>,
+    pub auth_cipher__nie: Option<Vec<String>>,
+    pub auth_cipher__niew: Option<Vec<String>>,
+    pub auth_cipher__nisw: Option<Vec<String>>,
+    pub auth_cipher__regex: Option<Vec<String>>,
+    pub auth_psk: Option<Vec<String>>,
+    pub auth_psk__empty: Option<bool>,
+    pub auth_psk__ic: Option<Vec<String>>,
+    pub auth_psk__ie: Option<Vec<String>>,
+    pub auth_psk__iew: Option<Vec<String>>,
+    pub auth_psk__iregex: Option<Vec<String>>,
+    pub auth_psk__isw: Option<Vec<String>>,
+    pub auth_psk__n: Option<Vec<String>>,
+    pub auth_psk__nic: Option<Vec<String>>,
+    pub auth_psk__nie: Option<Vec<String>>,
+    pub auth_psk__niew: Option<Vec<String>>,
+    pub auth_psk__nisw: Option<Vec<String>>,
+    pub auth_psk__regex: Option<Vec<String>>,
+    pub auth_type: Option<Vec<String>>,
+    pub auth_type__empty: Option<bool>,
+    pub auth_type__ic: Option<Vec<String>>,
+    pub auth_type__ie: Option<Vec<String>>,
+    pub auth_type__iew: Option<Vec<String>>,
+    pub auth_type__iregex: Option<Vec<String>>,
+    pub auth_type__isw: Option<Vec<String>>,
+    pub auth_type__n: Option<Vec<String>>,
+    pub auth_type__nic: Option<Vec<String>>,
+    pub auth_type__nie: Option<Vec<String>>,
+    pub auth_type__niew: Option<Vec<String>>,
+    pub auth_type__nisw: Option<Vec<String>>,
+    pub auth_type__regex: Option<Vec<String>>,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    pub distance: Option<Vec<f64>>,
+    pub distance__empty: Option<bool>,
+    pub distance__gt: Option<Vec<f64>>,
+    pub distance__gte: Option<Vec<f64>>,
+    pub distance__lt: Option<Vec<f64>>,
+    pub distance__lte: Option<Vec<f64>>,
+    pub distance__n: Option<Vec<f64>>,
+    /// * `km` - Kilometers * `m` - Meters * `mi` - Miles * `ft` - Feet
+    pub distance_unit: Option<String>,
+    pub distance_unit__empty: Option<bool>,
+    pub distance_unit__ic: Option<Vec<String>>,
+    pub distance_unit__ie: Option<Vec<String>>,
+    pub distance_unit__iew: Option<Vec<String>>,
+    pub distance_unit__iregex: Option<Vec<String>>,
+    pub distance_unit__isw: Option<Vec<String>>,
+    /// * `km` - Kilometers * `m` - Meters * `mi` - Miles * `ft` - Feet
+    pub distance_unit__n: Option<String>,
+    pub distance_unit__nic: Option<Vec<String>>,
+    pub distance_unit__nie: Option<Vec<String>>,
+    pub distance_unit__niew: Option<Vec<String>>,
+    pub distance_unit__nisw: Option<Vec<String>>,
+    pub distance_unit__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub interface_a_id: Option<Vec<i32>>,
+    pub interface_a_id__n: Option<Vec<i32>>,
+    pub interface_b_id: Option<Vec<i32>>,
+    pub interface_b_id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub ssid: Option<Vec<String>>,
+    pub ssid__empty: Option<bool>,
+    pub ssid__ic: Option<Vec<String>>,
+    pub ssid__ie: Option<Vec<String>>,
+    pub ssid__iew: Option<Vec<String>>,
+    pub ssid__iregex: Option<Vec<String>>,
+    pub ssid__isw: Option<Vec<String>>,
+    pub ssid__n: Option<Vec<String>>,
+    pub ssid__nic: Option<Vec<String>>,
+    pub ssid__nie: Option<Vec<String>>,
+    pub ssid__niew: Option<Vec<String>>,
+    pub ssid__nisw: Option<Vec<String>>,
+    pub ssid__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub status: Option<Vec<String>>,
+    pub status__empty: Option<bool>,
+    pub status__ic: Option<Vec<String>>,
+    pub status__ie: Option<Vec<String>>,
+    pub status__iew: Option<Vec<String>>,
+    pub status__iregex: Option<Vec<String>>,
+    pub status__isw: Option<Vec<String>>,
+    pub status__n: Option<Vec<String>>,
+    pub status__nic: Option<Vec<String>>,
+    pub status__nie: Option<Vec<String>>,
+    pub status__niew: Option<Vec<String>>,
+    pub status__nisw: Option<Vec<String>>,
+    pub status__regex: Option<Vec<String>>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    /// Tenant (slug)
+    pub tenant: Option<Vec<String>>,
+    /// Tenant (slug)
+    pub tenant__n: Option<Vec<String>>,
+    pub tenant_group: Option<Vec<String>>,
+    pub tenant_group__n: Option<Vec<String>>,
+    pub tenant_group_id: Option<Vec<String>>,
+    pub tenant_group_id__n: Option<Vec<String>>,
+    /// Tenant (ID)
+    pub tenant_id: Option<Vec<i32>>,
+    /// Tenant (ID)
+    pub tenant_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`wireless_wireless_links_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLinksPartialUpdateParams {
+    /// A unique integer value identifying this wireless link.
+    pub id: i32,
+    pub patched_writable_wireless_link_request:
+        Option<crate::models::PatchedWritableWirelessLinkRequest>,
+}
+
+/// struct for passing parameters to the method [`wireless_wireless_links_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLinksRetrieveParams {
+    /// A unique integer value identifying this wireless link.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`wireless_wireless_links_update`]
+#[derive(Clone, Debug, Default)]
+pub struct WirelessWirelessLinksUpdateParams {
+    /// A unique integer value identifying this wireless link.
+    pub id: i32,
+    pub writable_wireless_link_request: crate::models::WritableWirelessLinkRequest,
+}
+
 /// struct for typed errors of method [`wireless_wireless_lan_groups_bulk_destroy`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -232,9 +908,12 @@ pub enum WirelessWirelessLinksUpdateError {
 /// Delete a list of wireless LAN group objects.
 pub async fn wireless_wireless_lan_groups_bulk_destroy(
     configuration: &configuration::Configuration,
-    wireless_lan_group_request: Vec<crate::models::WirelessLanGroupRequest>,
+    params: WirelessWirelessLanGroupsBulkDestroyParams,
 ) -> Result<(), Error<WirelessWirelessLanGroupsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let wireless_lan_group_request = params.wireless_lan_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -282,12 +961,15 @@ pub async fn wireless_wireless_lan_groups_bulk_destroy(
 /// Patch a list of wireless LAN group objects.
 pub async fn wireless_wireless_lan_groups_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_wireless_lan_group_request: Vec<crate::models::PatchedBulkWirelessLanGroupRequest>,
+    params: WirelessWirelessLanGroupsBulkPartialUpdateParams,
 ) -> Result<
     Vec<crate::models::WirelessLanGroup>,
     Error<WirelessWirelessLanGroupsBulkPartialUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_wireless_lan_group_request = params.patched_bulk_wireless_lan_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -335,9 +1017,12 @@ pub async fn wireless_wireless_lan_groups_bulk_partial_update(
 /// Put a list of wireless LAN group objects.
 pub async fn wireless_wireless_lan_groups_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_wireless_lan_group_request: Vec<crate::models::BulkWirelessLanGroupRequest>,
+    params: WirelessWirelessLanGroupsBulkUpdateParams,
 ) -> Result<Vec<crate::models::WirelessLanGroup>, Error<WirelessWirelessLanGroupsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_wireless_lan_group_request = params.bulk_wireless_lan_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -385,9 +1070,13 @@ pub async fn wireless_wireless_lan_groups_bulk_update(
 /// Post a list of wireless LAN group objects.
 pub async fn wireless_wireless_lan_groups_create(
     configuration: &configuration::Configuration,
-    wireless_wireless_lan_groups_create_request: crate::models::WirelessWirelessLanGroupsCreateRequest,
+    params: WirelessWirelessLanGroupsCreateParams,
 ) -> Result<crate::models::WirelessLanGroup, Error<WirelessWirelessLanGroupsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let wireless_wireless_lan_groups_create_request =
+        params.wireless_wireless_lan_groups_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -436,9 +1125,12 @@ pub async fn wireless_wireless_lan_groups_create(
 /// Delete a wireless LAN group object.
 pub async fn wireless_wireless_lan_groups_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: WirelessWirelessLanGroupsDestroyParams,
 ) -> Result<(), Error<WirelessWirelessLanGroupsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -486,102 +1178,105 @@ pub async fn wireless_wireless_lan_groups_destroy(
 /// Get a list of wireless LAN group objects.
 pub async fn wireless_wireless_lan_groups_list(
     configuration: &configuration::Configuration,
-    ancestor: Option<Vec<String>>,
-    ancestor__n: Option<Vec<String>>,
-    ancestor_id: Option<Vec<String>>,
-    ancestor_id__n: Option<Vec<String>>,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    parent: Option<Vec<String>>,
-    parent__n: Option<Vec<String>>,
-    parent_id: Option<Vec<i32>>,
-    parent_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    slug: Option<Vec<String>>,
-    slug__empty: Option<bool>,
-    slug__ic: Option<Vec<String>>,
-    slug__ie: Option<Vec<String>>,
-    slug__iew: Option<Vec<String>>,
-    slug__iregex: Option<Vec<String>>,
-    slug__isw: Option<Vec<String>>,
-    slug__n: Option<Vec<String>>,
-    slug__nic: Option<Vec<String>>,
-    slug__nie: Option<Vec<String>>,
-    slug__niew: Option<Vec<String>>,
-    slug__nisw: Option<Vec<String>>,
-    slug__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: WirelessWirelessLanGroupsListParams,
 ) -> Result<crate::models::PaginatedWirelessLanGroupList, Error<WirelessWirelessLanGroupsListError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ancestor = params.ancestor;
+    let ancestor__n = params.ancestor__n;
+    let ancestor_id = params.ancestor_id;
+    let ancestor_id__n = params.ancestor_id__n;
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let parent = params.parent;
+    let parent__n = params.parent__n;
+    let parent_id = params.parent_id;
+    let parent_id__n = params.parent_id__n;
+    let q = params.q;
+    let slug = params.slug;
+    let slug__empty = params.slug__empty;
+    let slug__ic = params.slug__ic;
+    let slug__ie = params.slug__ie;
+    let slug__iew = params.slug__iew;
+    let slug__iregex = params.slug__iregex;
+    let slug__isw = params.slug__isw;
+    let slug__n = params.slug__n;
+    let slug__nic = params.slug__nic;
+    let slug__nie = params.slug__nie;
+    let slug__niew = params.slug__niew;
+    let slug__nisw = params.slug__nisw;
+    let slug__regex = params.slug__regex;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2169,12 +2864,14 @@ pub async fn wireless_wireless_lan_groups_list(
 /// Patch a wireless LAN group object.
 pub async fn wireless_wireless_lan_groups_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_wireless_lan_group_request: Option<
-        crate::models::PatchedWritableWirelessLanGroupRequest,
-    >,
+    params: WirelessWirelessLanGroupsPartialUpdateParams,
 ) -> Result<crate::models::WirelessLanGroup, Error<WirelessWirelessLanGroupsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_wireless_lan_group_request =
+        params.patched_writable_wireless_lan_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2224,12 +2921,15 @@ pub async fn wireless_wireless_lan_groups_partial_update(
 /// Get a wireless LAN group object.
 pub async fn wireless_wireless_lan_groups_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: WirelessWirelessLanGroupsRetrieveParams,
 ) -> Result<crate::models::WirelessLanGroup, Error<WirelessWirelessLanGroupsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2289,10 +2989,13 @@ pub async fn wireless_wireless_lan_groups_retrieve(
 /// Put a wireless LAN group object.
 pub async fn wireless_wireless_lan_groups_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_wireless_lan_group_request: crate::models::WritableWirelessLanGroupRequest,
+    params: WirelessWirelessLanGroupsUpdateParams,
 ) -> Result<crate::models::WirelessLanGroup, Error<WirelessWirelessLanGroupsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_wireless_lan_group_request = params.writable_wireless_lan_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2341,9 +3044,12 @@ pub async fn wireless_wireless_lan_groups_update(
 /// Delete a list of wireless LAN objects.
 pub async fn wireless_wireless_lans_bulk_destroy(
     configuration: &configuration::Configuration,
-    wireless_lan_request: Vec<crate::models::WirelessLanRequest>,
+    params: WirelessWirelessLansBulkDestroyParams,
 ) -> Result<(), Error<WirelessWirelessLansBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let wireless_lan_request = params.wireless_lan_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2391,9 +3097,12 @@ pub async fn wireless_wireless_lans_bulk_destroy(
 /// Patch a list of wireless LAN objects.
 pub async fn wireless_wireless_lans_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_wireless_lan_request: Vec<crate::models::PatchedBulkWirelessLanRequest>,
+    params: WirelessWirelessLansBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::WirelessLan>, Error<WirelessWirelessLansBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_wireless_lan_request = params.patched_bulk_wireless_lan_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2441,9 +3150,12 @@ pub async fn wireless_wireless_lans_bulk_partial_update(
 /// Put a list of wireless LAN objects.
 pub async fn wireless_wireless_lans_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_wireless_lan_request: Vec<crate::models::BulkWirelessLanRequest>,
+    params: WirelessWirelessLansBulkUpdateParams,
 ) -> Result<Vec<crate::models::WirelessLan>, Error<WirelessWirelessLansBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_wireless_lan_request = params.bulk_wireless_lan_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2491,9 +3203,12 @@ pub async fn wireless_wireless_lans_bulk_update(
 /// Post a list of wireless LAN objects.
 pub async fn wireless_wireless_lans_create(
     configuration: &configuration::Configuration,
-    wireless_wireless_lans_create_request: crate::models::WirelessWirelessLansCreateRequest,
+    params: WirelessWirelessLansCreateParams,
 ) -> Result<crate::models::WirelessLan, Error<WirelessWirelessLansCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let wireless_wireless_lans_create_request = params.wireless_wireless_lans_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2541,9 +3256,12 @@ pub async fn wireless_wireless_lans_create(
 /// Delete a wireless LAN object.
 pub async fn wireless_wireless_lans_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: WirelessWirelessLansDestroyParams,
 ) -> Result<(), Error<WirelessWirelessLansDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2591,173 +3309,176 @@ pub async fn wireless_wireless_lans_destroy(
 /// Get a list of wireless LAN objects.
 pub async fn wireless_wireless_lans_list(
     configuration: &configuration::Configuration,
-    auth_cipher: Option<Vec<String>>,
-    auth_cipher__empty: Option<bool>,
-    auth_cipher__ic: Option<Vec<String>>,
-    auth_cipher__ie: Option<Vec<String>>,
-    auth_cipher__iew: Option<Vec<String>>,
-    auth_cipher__iregex: Option<Vec<String>>,
-    auth_cipher__isw: Option<Vec<String>>,
-    auth_cipher__n: Option<Vec<String>>,
-    auth_cipher__nic: Option<Vec<String>>,
-    auth_cipher__nie: Option<Vec<String>>,
-    auth_cipher__niew: Option<Vec<String>>,
-    auth_cipher__nisw: Option<Vec<String>>,
-    auth_cipher__regex: Option<Vec<String>>,
-    auth_psk: Option<Vec<String>>,
-    auth_psk__empty: Option<bool>,
-    auth_psk__ic: Option<Vec<String>>,
-    auth_psk__ie: Option<Vec<String>>,
-    auth_psk__iew: Option<Vec<String>>,
-    auth_psk__iregex: Option<Vec<String>>,
-    auth_psk__isw: Option<Vec<String>>,
-    auth_psk__n: Option<Vec<String>>,
-    auth_psk__nic: Option<Vec<String>>,
-    auth_psk__nie: Option<Vec<String>>,
-    auth_psk__niew: Option<Vec<String>>,
-    auth_psk__nisw: Option<Vec<String>>,
-    auth_psk__regex: Option<Vec<String>>,
-    auth_type: Option<Vec<String>>,
-    auth_type__empty: Option<bool>,
-    auth_type__ic: Option<Vec<String>>,
-    auth_type__ie: Option<Vec<String>>,
-    auth_type__iew: Option<Vec<String>>,
-    auth_type__iregex: Option<Vec<String>>,
-    auth_type__isw: Option<Vec<String>>,
-    auth_type__n: Option<Vec<String>>,
-    auth_type__nic: Option<Vec<String>>,
-    auth_type__nie: Option<Vec<String>>,
-    auth_type__niew: Option<Vec<String>>,
-    auth_type__nisw: Option<Vec<String>>,
-    auth_type__regex: Option<Vec<String>>,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    group: Option<Vec<String>>,
-    group__n: Option<Vec<String>>,
-    group_id: Option<Vec<String>>,
-    group_id__n: Option<Vec<String>>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    interface_id: Option<Vec<i32>>,
-    interface_id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    location: Option<Vec<String>>,
-    location__n: Option<Vec<String>>,
-    location_id: Option<Vec<String>>,
-    location_id__n: Option<Vec<String>>,
-    modified_by_request: Option<&str>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    region: Option<Vec<String>>,
-    region__n: Option<Vec<String>>,
-    region_id: Option<Vec<String>>,
-    region_id__n: Option<Vec<String>>,
-    scope_id: Option<Vec<i32>>,
-    scope_id__empty: Option<bool>,
-    scope_id__gt: Option<Vec<i32>>,
-    scope_id__gte: Option<Vec<i32>>,
-    scope_id__lt: Option<Vec<i32>>,
-    scope_id__lte: Option<Vec<i32>>,
-    scope_id__n: Option<Vec<i32>>,
-    scope_type: Option<Vec<String>>,
-    scope_type__n: Option<Vec<String>>,
-    site: Option<Vec<String>>,
-    site__n: Option<Vec<String>>,
-    site_group: Option<Vec<String>>,
-    site_group__n: Option<Vec<String>>,
-    site_group_id: Option<Vec<String>>,
-    site_group_id__n: Option<Vec<String>>,
-    site_id: Option<Vec<i32>>,
-    site_id__n: Option<Vec<i32>>,
-    ssid: Option<Vec<String>>,
-    ssid__empty: Option<bool>,
-    ssid__ic: Option<Vec<String>>,
-    ssid__ie: Option<Vec<String>>,
-    ssid__iew: Option<Vec<String>>,
-    ssid__iregex: Option<Vec<String>>,
-    ssid__isw: Option<Vec<String>>,
-    ssid__n: Option<Vec<String>>,
-    ssid__nic: Option<Vec<String>>,
-    ssid__nie: Option<Vec<String>>,
-    ssid__niew: Option<Vec<String>>,
-    ssid__nisw: Option<Vec<String>>,
-    ssid__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    status: Option<Vec<String>>,
-    status__empty: Option<bool>,
-    status__ic: Option<Vec<String>>,
-    status__ie: Option<Vec<String>>,
-    status__iew: Option<Vec<String>>,
-    status__iregex: Option<Vec<String>>,
-    status__isw: Option<Vec<String>>,
-    status__n: Option<Vec<String>>,
-    status__nic: Option<Vec<String>>,
-    status__nie: Option<Vec<String>>,
-    status__niew: Option<Vec<String>>,
-    status__nisw: Option<Vec<String>>,
-    status__regex: Option<Vec<String>>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    tenant: Option<Vec<String>>,
-    tenant__n: Option<Vec<String>>,
-    tenant_group: Option<Vec<String>>,
-    tenant_group__n: Option<Vec<String>>,
-    tenant_group_id: Option<Vec<String>>,
-    tenant_group_id__n: Option<Vec<String>>,
-    tenant_id: Option<Vec<i32>>,
-    tenant_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
-    vlan_id: Option<Vec<i32>>,
-    vlan_id__n: Option<Vec<i32>>,
+    params: WirelessWirelessLansListParams,
 ) -> Result<crate::models::PaginatedWirelessLanList, Error<WirelessWirelessLansListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let auth_cipher = params.auth_cipher;
+    let auth_cipher__empty = params.auth_cipher__empty;
+    let auth_cipher__ic = params.auth_cipher__ic;
+    let auth_cipher__ie = params.auth_cipher__ie;
+    let auth_cipher__iew = params.auth_cipher__iew;
+    let auth_cipher__iregex = params.auth_cipher__iregex;
+    let auth_cipher__isw = params.auth_cipher__isw;
+    let auth_cipher__n = params.auth_cipher__n;
+    let auth_cipher__nic = params.auth_cipher__nic;
+    let auth_cipher__nie = params.auth_cipher__nie;
+    let auth_cipher__niew = params.auth_cipher__niew;
+    let auth_cipher__nisw = params.auth_cipher__nisw;
+    let auth_cipher__regex = params.auth_cipher__regex;
+    let auth_psk = params.auth_psk;
+    let auth_psk__empty = params.auth_psk__empty;
+    let auth_psk__ic = params.auth_psk__ic;
+    let auth_psk__ie = params.auth_psk__ie;
+    let auth_psk__iew = params.auth_psk__iew;
+    let auth_psk__iregex = params.auth_psk__iregex;
+    let auth_psk__isw = params.auth_psk__isw;
+    let auth_psk__n = params.auth_psk__n;
+    let auth_psk__nic = params.auth_psk__nic;
+    let auth_psk__nie = params.auth_psk__nie;
+    let auth_psk__niew = params.auth_psk__niew;
+    let auth_psk__nisw = params.auth_psk__nisw;
+    let auth_psk__regex = params.auth_psk__regex;
+    let auth_type = params.auth_type;
+    let auth_type__empty = params.auth_type__empty;
+    let auth_type__ic = params.auth_type__ic;
+    let auth_type__ie = params.auth_type__ie;
+    let auth_type__iew = params.auth_type__iew;
+    let auth_type__iregex = params.auth_type__iregex;
+    let auth_type__isw = params.auth_type__isw;
+    let auth_type__n = params.auth_type__n;
+    let auth_type__nic = params.auth_type__nic;
+    let auth_type__nie = params.auth_type__nie;
+    let auth_type__niew = params.auth_type__niew;
+    let auth_type__nisw = params.auth_type__nisw;
+    let auth_type__regex = params.auth_type__regex;
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let group = params.group;
+    let group__n = params.group__n;
+    let group_id = params.group_id;
+    let group_id__n = params.group_id__n;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let interface_id = params.interface_id;
+    let interface_id__n = params.interface_id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let location = params.location;
+    let location__n = params.location__n;
+    let location_id = params.location_id;
+    let location_id__n = params.location_id__n;
+    let modified_by_request = params.modified_by_request;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let region = params.region;
+    let region__n = params.region__n;
+    let region_id = params.region_id;
+    let region_id__n = params.region_id__n;
+    let scope_id = params.scope_id;
+    let scope_id__empty = params.scope_id__empty;
+    let scope_id__gt = params.scope_id__gt;
+    let scope_id__gte = params.scope_id__gte;
+    let scope_id__lt = params.scope_id__lt;
+    let scope_id__lte = params.scope_id__lte;
+    let scope_id__n = params.scope_id__n;
+    let scope_type = params.scope_type;
+    let scope_type__n = params.scope_type__n;
+    let site = params.site;
+    let site__n = params.site__n;
+    let site_group = params.site_group;
+    let site_group__n = params.site_group__n;
+    let site_group_id = params.site_group_id;
+    let site_group_id__n = params.site_group_id__n;
+    let site_id = params.site_id;
+    let site_id__n = params.site_id__n;
+    let ssid = params.ssid;
+    let ssid__empty = params.ssid__empty;
+    let ssid__ic = params.ssid__ic;
+    let ssid__ie = params.ssid__ie;
+    let ssid__iew = params.ssid__iew;
+    let ssid__iregex = params.ssid__iregex;
+    let ssid__isw = params.ssid__isw;
+    let ssid__n = params.ssid__n;
+    let ssid__nic = params.ssid__nic;
+    let ssid__nie = params.ssid__nie;
+    let ssid__niew = params.ssid__niew;
+    let ssid__nisw = params.ssid__nisw;
+    let ssid__regex = params.ssid__regex;
+    let start = params.start;
+    let status = params.status;
+    let status__empty = params.status__empty;
+    let status__ic = params.status__ic;
+    let status__ie = params.status__ie;
+    let status__iew = params.status__iew;
+    let status__iregex = params.status__iregex;
+    let status__isw = params.status__isw;
+    let status__n = params.status__n;
+    let status__nic = params.status__nic;
+    let status__nie = params.status__nie;
+    let status__niew = params.status__niew;
+    let status__nisw = params.status__nisw;
+    let status__regex = params.status__regex;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let tenant = params.tenant;
+    let tenant__n = params.tenant__n;
+    let tenant_group = params.tenant_group;
+    let tenant_group__n = params.tenant_group__n;
+    let tenant_group_id = params.tenant_group_id;
+    let tenant_group_id__n = params.tenant_group_id__n;
+    let tenant_id = params.tenant_id;
+    let tenant_id__n = params.tenant_id__n;
+    let updated_by_request = params.updated_by_request;
+    let vlan_id = params.vlan_id;
+    let vlan_id__n = params.vlan_id__n;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -5653,10 +6374,13 @@ pub async fn wireless_wireless_lans_list(
 /// Patch a wireless LAN object.
 pub async fn wireless_wireless_lans_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_wireless_lan_request: Option<crate::models::PatchedWritableWirelessLanRequest>,
+    params: WirelessWirelessLansPartialUpdateParams,
 ) -> Result<crate::models::WirelessLan, Error<WirelessWirelessLansPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_wireless_lan_request = params.patched_writable_wireless_lan_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -5705,12 +6429,15 @@ pub async fn wireless_wireless_lans_partial_update(
 /// Get a wireless LAN object.
 pub async fn wireless_wireless_lans_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: WirelessWirelessLansRetrieveParams,
 ) -> Result<crate::models::WirelessLan, Error<WirelessWirelessLansRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -5770,10 +6497,13 @@ pub async fn wireless_wireless_lans_retrieve(
 /// Put a wireless LAN object.
 pub async fn wireless_wireless_lans_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_wireless_lan_request: crate::models::WritableWirelessLanRequest,
+    params: WirelessWirelessLansUpdateParams,
 ) -> Result<crate::models::WirelessLan, Error<WirelessWirelessLansUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_wireless_lan_request = params.writable_wireless_lan_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -5822,9 +6552,12 @@ pub async fn wireless_wireless_lans_update(
 /// Delete a list of wireless link objects.
 pub async fn wireless_wireless_links_bulk_destroy(
     configuration: &configuration::Configuration,
-    wireless_link_request: Vec<crate::models::WirelessLinkRequest>,
+    params: WirelessWirelessLinksBulkDestroyParams,
 ) -> Result<(), Error<WirelessWirelessLinksBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let wireless_link_request = params.wireless_link_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -5872,9 +6605,12 @@ pub async fn wireless_wireless_links_bulk_destroy(
 /// Patch a list of wireless link objects.
 pub async fn wireless_wireless_links_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_wireless_link_request: Vec<crate::models::PatchedBulkWirelessLinkRequest>,
+    params: WirelessWirelessLinksBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::WirelessLink>, Error<WirelessWirelessLinksBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_wireless_link_request = params.patched_bulk_wireless_link_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -5922,9 +6658,12 @@ pub async fn wireless_wireless_links_bulk_partial_update(
 /// Put a list of wireless link objects.
 pub async fn wireless_wireless_links_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_wireless_link_request: Vec<crate::models::BulkWirelessLinkRequest>,
+    params: WirelessWirelessLinksBulkUpdateParams,
 ) -> Result<Vec<crate::models::WirelessLink>, Error<WirelessWirelessLinksBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_wireless_link_request = params.bulk_wireless_link_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -5972,9 +6711,12 @@ pub async fn wireless_wireless_links_bulk_update(
 /// Post a list of wireless link objects.
 pub async fn wireless_wireless_links_create(
     configuration: &configuration::Configuration,
-    wireless_wireless_links_create_request: crate::models::WirelessWirelessLinksCreateRequest,
+    params: WirelessWirelessLinksCreateParams,
 ) -> Result<crate::models::WirelessLink, Error<WirelessWirelessLinksCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let wireless_wireless_links_create_request = params.wireless_wireless_links_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -6022,9 +6764,12 @@ pub async fn wireless_wireless_links_create(
 /// Delete a wireless link object.
 pub async fn wireless_wireless_links_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: WirelessWirelessLinksDestroyParams,
 ) -> Result<(), Error<WirelessWirelessLinksDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -6072,164 +6817,167 @@ pub async fn wireless_wireless_links_destroy(
 /// Get a list of wireless link objects.
 pub async fn wireless_wireless_links_list(
     configuration: &configuration::Configuration,
-    auth_cipher: Option<Vec<String>>,
-    auth_cipher__empty: Option<bool>,
-    auth_cipher__ic: Option<Vec<String>>,
-    auth_cipher__ie: Option<Vec<String>>,
-    auth_cipher__iew: Option<Vec<String>>,
-    auth_cipher__iregex: Option<Vec<String>>,
-    auth_cipher__isw: Option<Vec<String>>,
-    auth_cipher__n: Option<Vec<String>>,
-    auth_cipher__nic: Option<Vec<String>>,
-    auth_cipher__nie: Option<Vec<String>>,
-    auth_cipher__niew: Option<Vec<String>>,
-    auth_cipher__nisw: Option<Vec<String>>,
-    auth_cipher__regex: Option<Vec<String>>,
-    auth_psk: Option<Vec<String>>,
-    auth_psk__empty: Option<bool>,
-    auth_psk__ic: Option<Vec<String>>,
-    auth_psk__ie: Option<Vec<String>>,
-    auth_psk__iew: Option<Vec<String>>,
-    auth_psk__iregex: Option<Vec<String>>,
-    auth_psk__isw: Option<Vec<String>>,
-    auth_psk__n: Option<Vec<String>>,
-    auth_psk__nic: Option<Vec<String>>,
-    auth_psk__nie: Option<Vec<String>>,
-    auth_psk__niew: Option<Vec<String>>,
-    auth_psk__nisw: Option<Vec<String>>,
-    auth_psk__regex: Option<Vec<String>>,
-    auth_type: Option<Vec<String>>,
-    auth_type__empty: Option<bool>,
-    auth_type__ic: Option<Vec<String>>,
-    auth_type__ie: Option<Vec<String>>,
-    auth_type__iew: Option<Vec<String>>,
-    auth_type__iregex: Option<Vec<String>>,
-    auth_type__isw: Option<Vec<String>>,
-    auth_type__n: Option<Vec<String>>,
-    auth_type__nic: Option<Vec<String>>,
-    auth_type__nie: Option<Vec<String>>,
-    auth_type__niew: Option<Vec<String>>,
-    auth_type__nisw: Option<Vec<String>>,
-    auth_type__regex: Option<Vec<String>>,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    distance: Option<Vec<f64>>,
-    distance__empty: Option<bool>,
-    distance__gt: Option<Vec<f64>>,
-    distance__gte: Option<Vec<f64>>,
-    distance__lt: Option<Vec<f64>>,
-    distance__lte: Option<Vec<f64>>,
-    distance__n: Option<Vec<f64>>,
-    distance_unit: Option<&str>,
-    distance_unit__empty: Option<bool>,
-    distance_unit__ic: Option<Vec<String>>,
-    distance_unit__ie: Option<Vec<String>>,
-    distance_unit__iew: Option<Vec<String>>,
-    distance_unit__iregex: Option<Vec<String>>,
-    distance_unit__isw: Option<Vec<String>>,
-    distance_unit__n: Option<&str>,
-    distance_unit__nic: Option<Vec<String>>,
-    distance_unit__nie: Option<Vec<String>>,
-    distance_unit__niew: Option<Vec<String>>,
-    distance_unit__nisw: Option<Vec<String>>,
-    distance_unit__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    interface_a_id: Option<Vec<i32>>,
-    interface_a_id__n: Option<Vec<i32>>,
-    interface_b_id: Option<Vec<i32>>,
-    interface_b_id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    ssid: Option<Vec<String>>,
-    ssid__empty: Option<bool>,
-    ssid__ic: Option<Vec<String>>,
-    ssid__ie: Option<Vec<String>>,
-    ssid__iew: Option<Vec<String>>,
-    ssid__iregex: Option<Vec<String>>,
-    ssid__isw: Option<Vec<String>>,
-    ssid__n: Option<Vec<String>>,
-    ssid__nic: Option<Vec<String>>,
-    ssid__nie: Option<Vec<String>>,
-    ssid__niew: Option<Vec<String>>,
-    ssid__nisw: Option<Vec<String>>,
-    ssid__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    status: Option<Vec<String>>,
-    status__empty: Option<bool>,
-    status__ic: Option<Vec<String>>,
-    status__ie: Option<Vec<String>>,
-    status__iew: Option<Vec<String>>,
-    status__iregex: Option<Vec<String>>,
-    status__isw: Option<Vec<String>>,
-    status__n: Option<Vec<String>>,
-    status__nic: Option<Vec<String>>,
-    status__nie: Option<Vec<String>>,
-    status__niew: Option<Vec<String>>,
-    status__nisw: Option<Vec<String>>,
-    status__regex: Option<Vec<String>>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    tenant: Option<Vec<String>>,
-    tenant__n: Option<Vec<String>>,
-    tenant_group: Option<Vec<String>>,
-    tenant_group__n: Option<Vec<String>>,
-    tenant_group_id: Option<Vec<String>>,
-    tenant_group_id__n: Option<Vec<String>>,
-    tenant_id: Option<Vec<i32>>,
-    tenant_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: WirelessWirelessLinksListParams,
 ) -> Result<crate::models::PaginatedWirelessLinkList, Error<WirelessWirelessLinksListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let auth_cipher = params.auth_cipher;
+    let auth_cipher__empty = params.auth_cipher__empty;
+    let auth_cipher__ic = params.auth_cipher__ic;
+    let auth_cipher__ie = params.auth_cipher__ie;
+    let auth_cipher__iew = params.auth_cipher__iew;
+    let auth_cipher__iregex = params.auth_cipher__iregex;
+    let auth_cipher__isw = params.auth_cipher__isw;
+    let auth_cipher__n = params.auth_cipher__n;
+    let auth_cipher__nic = params.auth_cipher__nic;
+    let auth_cipher__nie = params.auth_cipher__nie;
+    let auth_cipher__niew = params.auth_cipher__niew;
+    let auth_cipher__nisw = params.auth_cipher__nisw;
+    let auth_cipher__regex = params.auth_cipher__regex;
+    let auth_psk = params.auth_psk;
+    let auth_psk__empty = params.auth_psk__empty;
+    let auth_psk__ic = params.auth_psk__ic;
+    let auth_psk__ie = params.auth_psk__ie;
+    let auth_psk__iew = params.auth_psk__iew;
+    let auth_psk__iregex = params.auth_psk__iregex;
+    let auth_psk__isw = params.auth_psk__isw;
+    let auth_psk__n = params.auth_psk__n;
+    let auth_psk__nic = params.auth_psk__nic;
+    let auth_psk__nie = params.auth_psk__nie;
+    let auth_psk__niew = params.auth_psk__niew;
+    let auth_psk__nisw = params.auth_psk__nisw;
+    let auth_psk__regex = params.auth_psk__regex;
+    let auth_type = params.auth_type;
+    let auth_type__empty = params.auth_type__empty;
+    let auth_type__ic = params.auth_type__ic;
+    let auth_type__ie = params.auth_type__ie;
+    let auth_type__iew = params.auth_type__iew;
+    let auth_type__iregex = params.auth_type__iregex;
+    let auth_type__isw = params.auth_type__isw;
+    let auth_type__n = params.auth_type__n;
+    let auth_type__nic = params.auth_type__nic;
+    let auth_type__nie = params.auth_type__nie;
+    let auth_type__niew = params.auth_type__niew;
+    let auth_type__nisw = params.auth_type__nisw;
+    let auth_type__regex = params.auth_type__regex;
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let distance = params.distance;
+    let distance__empty = params.distance__empty;
+    let distance__gt = params.distance__gt;
+    let distance__gte = params.distance__gte;
+    let distance__lt = params.distance__lt;
+    let distance__lte = params.distance__lte;
+    let distance__n = params.distance__n;
+    let distance_unit = params.distance_unit;
+    let distance_unit__empty = params.distance_unit__empty;
+    let distance_unit__ic = params.distance_unit__ic;
+    let distance_unit__ie = params.distance_unit__ie;
+    let distance_unit__iew = params.distance_unit__iew;
+    let distance_unit__iregex = params.distance_unit__iregex;
+    let distance_unit__isw = params.distance_unit__isw;
+    let distance_unit__n = params.distance_unit__n;
+    let distance_unit__nic = params.distance_unit__nic;
+    let distance_unit__nie = params.distance_unit__nie;
+    let distance_unit__niew = params.distance_unit__niew;
+    let distance_unit__nisw = params.distance_unit__nisw;
+    let distance_unit__regex = params.distance_unit__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let interface_a_id = params.interface_a_id;
+    let interface_a_id__n = params.interface_a_id__n;
+    let interface_b_id = params.interface_b_id;
+    let interface_b_id__n = params.interface_b_id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let ssid = params.ssid;
+    let ssid__empty = params.ssid__empty;
+    let ssid__ic = params.ssid__ic;
+    let ssid__ie = params.ssid__ie;
+    let ssid__iew = params.ssid__iew;
+    let ssid__iregex = params.ssid__iregex;
+    let ssid__isw = params.ssid__isw;
+    let ssid__n = params.ssid__n;
+    let ssid__nic = params.ssid__nic;
+    let ssid__nie = params.ssid__nie;
+    let ssid__niew = params.ssid__niew;
+    let ssid__nisw = params.ssid__nisw;
+    let ssid__regex = params.ssid__regex;
+    let start = params.start;
+    let status = params.status;
+    let status__empty = params.status__empty;
+    let status__ic = params.status__ic;
+    let status__ie = params.status__ie;
+    let status__iew = params.status__iew;
+    let status__iregex = params.status__iregex;
+    let status__isw = params.status__isw;
+    let status__n = params.status__n;
+    let status__nic = params.status__nic;
+    let status__nie = params.status__nie;
+    let status__niew = params.status__niew;
+    let status__nisw = params.status__nisw;
+    let status__regex = params.status__regex;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let tenant = params.tenant;
+    let tenant__n = params.tenant__n;
+    let tenant_group = params.tenant_group;
+    let tenant_group__n = params.tenant_group__n;
+    let tenant_group_id = params.tenant_group_id;
+    let tenant_group_id__n = params.tenant_group_id__n;
+    let tenant_id = params.tenant_id;
+    let tenant_id__n = params.tenant_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -8909,12 +9657,13 @@ pub async fn wireless_wireless_links_list(
 /// Patch a wireless link object.
 pub async fn wireless_wireless_links_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_wireless_link_request: Option<
-        crate::models::PatchedWritableWirelessLinkRequest,
-    >,
+    params: WirelessWirelessLinksPartialUpdateParams,
 ) -> Result<crate::models::WirelessLink, Error<WirelessWirelessLinksPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_wireless_link_request = params.patched_writable_wireless_link_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -8963,12 +9712,15 @@ pub async fn wireless_wireless_links_partial_update(
 /// Get a wireless link object.
 pub async fn wireless_wireless_links_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: WirelessWirelessLinksRetrieveParams,
 ) -> Result<crate::models::WirelessLink, Error<WirelessWirelessLinksRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -9028,10 +9780,13 @@ pub async fn wireless_wireless_links_retrieve(
 /// Put a wireless link object.
 pub async fn wireless_wireless_links_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_wireless_link_request: crate::models::WritableWirelessLinkRequest,
+    params: WirelessWirelessLinksUpdateParams,
 ) -> Result<crate::models::WirelessLink, Error<WirelessWirelessLinksUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_wireless_link_request = params.writable_wireless_link_request;
 
     let local_var_client = &local_var_configuration.client;
 

@@ -13,6 +13,2210 @@ use reqwest;
 use super::{Error, configuration};
 use crate::apis::ResponseContent;
 
+/// struct for passing parameters to the method [`circuits_circuit_group_assignments_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitGroupAssignmentsBulkDestroyParams {
+    pub circuit_group_assignment_request: Vec<crate::models::CircuitGroupAssignmentRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_group_assignments_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitGroupAssignmentsBulkPartialUpdateParams {
+    pub patched_bulk_circuit_group_assignment_request:
+        Vec<crate::models::PatchedBulkCircuitGroupAssignmentRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_group_assignments_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitGroupAssignmentsBulkUpdateParams {
+    pub bulk_circuit_group_assignment_request:
+        Vec<crate::models::BulkCircuitGroupAssignmentRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_group_assignments_create`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitGroupAssignmentsCreateParams {
+    pub circuits_circuit_group_assignments_create_request:
+        crate::models::CircuitsCircuitGroupAssignmentsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_group_assignments_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitGroupAssignmentsDestroyParams {
+    /// A unique integer value identifying this Circuit group assignment.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_group_assignments_list`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitGroupAssignmentsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub circuit: Option<Vec<String>>,
+    pub circuit_id: Option<Vec<i32>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Circuit group (slug)
+    pub group: Option<Vec<String>>,
+    /// Circuit group (slug)
+    pub group__n: Option<Vec<String>>,
+    /// Circuit group (ID)
+    pub group_id: Option<Vec<i32>>,
+    /// Circuit group (ID)
+    pub group_id__n: Option<Vec<i32>>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub member_id: Option<Vec<i32>>,
+    pub member_id__empty: Option<bool>,
+    pub member_id__gt: Option<Vec<i32>>,
+    pub member_id__gte: Option<Vec<i32>>,
+    pub member_id__lt: Option<Vec<i32>>,
+    pub member_id__lte: Option<Vec<i32>>,
+    pub member_id__n: Option<Vec<i32>>,
+    pub member_type: Option<Vec<String>>,
+    pub member_type__n: Option<Vec<String>>,
+    pub member_type_id: Option<Vec<i32>>,
+    pub member_type_id__n: Option<Vec<i32>>,
+    pub modified_by_request: Option<String>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// * `primary` - Primary * `secondary` - Secondary * `tertiary` - Tertiary * `inactive` - Inactive
+    pub priority: Option<String>,
+    pub priority__empty: Option<bool>,
+    pub priority__ic: Option<Vec<String>>,
+    pub priority__ie: Option<Vec<String>>,
+    pub priority__iew: Option<Vec<String>>,
+    pub priority__iregex: Option<Vec<String>>,
+    pub priority__isw: Option<Vec<String>>,
+    /// * `primary` - Primary * `secondary` - Secondary * `tertiary` - Tertiary * `inactive` - Inactive
+    pub priority__n: Option<String>,
+    pub priority__nic: Option<Vec<String>>,
+    pub priority__nie: Option<Vec<String>>,
+    pub priority__niew: Option<Vec<String>>,
+    pub priority__nisw: Option<Vec<String>>,
+    pub priority__regex: Option<Vec<String>>,
+    pub provider: Option<Vec<String>>,
+    pub provider_id: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+    pub virtual_circuit: Option<Vec<String>>,
+    pub virtual_circuit_id: Option<Vec<i32>>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_group_assignments_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitGroupAssignmentsPartialUpdateParams {
+    /// A unique integer value identifying this Circuit group assignment.
+    pub id: i32,
+    pub patched_writable_circuit_group_assignment_request:
+        Option<crate::models::PatchedWritableCircuitGroupAssignmentRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_group_assignments_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitGroupAssignmentsRetrieveParams {
+    /// A unique integer value identifying this Circuit group assignment.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_group_assignments_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitGroupAssignmentsUpdateParams {
+    /// A unique integer value identifying this Circuit group assignment.
+    pub id: i32,
+    pub writable_circuit_group_assignment_request:
+        crate::models::WritableCircuitGroupAssignmentRequest,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_groups_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitGroupsBulkDestroyParams {
+    pub circuit_group_request: Vec<crate::models::CircuitGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_groups_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitGroupsBulkPartialUpdateParams {
+    pub patched_bulk_circuit_group_request: Vec<crate::models::PatchedBulkCircuitGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_groups_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitGroupsBulkUpdateParams {
+    pub bulk_circuit_group_request: Vec<crate::models::BulkCircuitGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_groups_create`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitGroupsCreateParams {
+    pub circuits_circuit_groups_create_request: crate::models::CircuitsCircuitGroupsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_groups_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitGroupsDestroyParams {
+    /// A unique integer value identifying this circuit group.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_groups_list`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitGroupsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub slug: Option<Vec<String>>,
+    pub slug__empty: Option<bool>,
+    pub slug__ic: Option<Vec<String>>,
+    pub slug__ie: Option<Vec<String>>,
+    pub slug__iew: Option<Vec<String>>,
+    pub slug__iregex: Option<Vec<String>>,
+    pub slug__isw: Option<Vec<String>>,
+    pub slug__n: Option<Vec<String>>,
+    pub slug__nic: Option<Vec<String>>,
+    pub slug__nie: Option<Vec<String>>,
+    pub slug__niew: Option<Vec<String>>,
+    pub slug__nisw: Option<Vec<String>>,
+    pub slug__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    /// Tenant (slug)
+    pub tenant: Option<Vec<String>>,
+    /// Tenant (slug)
+    pub tenant__n: Option<Vec<String>>,
+    pub tenant_group: Option<Vec<String>>,
+    pub tenant_group__n: Option<Vec<String>>,
+    pub tenant_group_id: Option<Vec<String>>,
+    pub tenant_group_id__n: Option<Vec<String>>,
+    /// Tenant (ID)
+    pub tenant_id: Option<Vec<i32>>,
+    /// Tenant (ID)
+    pub tenant_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_groups_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitGroupsPartialUpdateParams {
+    /// A unique integer value identifying this circuit group.
+    pub id: i32,
+    pub patched_circuit_group_request: Option<crate::models::PatchedCircuitGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_groups_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitGroupsRetrieveParams {
+    /// A unique integer value identifying this circuit group.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_groups_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitGroupsUpdateParams {
+    /// A unique integer value identifying this circuit group.
+    pub id: i32,
+    pub circuit_group_request: crate::models::CircuitGroupRequest,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_terminations_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitTerminationsBulkDestroyParams {
+    pub circuit_termination_request: Vec<crate::models::CircuitTerminationRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_terminations_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitTerminationsBulkPartialUpdateParams {
+    pub patched_bulk_circuit_termination_request:
+        Vec<crate::models::PatchedBulkCircuitTerminationRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_terminations_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitTerminationsBulkUpdateParams {
+    pub bulk_circuit_termination_request: Vec<crate::models::BulkCircuitTerminationRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_terminations_create`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitTerminationsCreateParams {
+    pub circuits_circuit_terminations_create_request:
+        crate::models::CircuitsCircuitTerminationsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_terminations_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitTerminationsDestroyParams {
+    /// A unique integer value identifying this circuit termination.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_terminations_list`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitTerminationsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub cable_connector: Option<Vec<i32>>,
+    pub cable_connector__empty: Option<bool>,
+    pub cable_connector__gt: Option<Vec<i32>>,
+    pub cable_connector__gte: Option<Vec<i32>>,
+    pub cable_connector__lt: Option<Vec<i32>>,
+    pub cable_connector__lte: Option<Vec<i32>>,
+    pub cable_connector__n: Option<Vec<i32>>,
+    /// * `A` - A * `B` - B
+    pub cable_end: Option<String>,
+    pub cable_end__empty: Option<bool>,
+    pub cable_end__ic: Option<Vec<String>>,
+    pub cable_end__ie: Option<Vec<String>>,
+    pub cable_end__iew: Option<Vec<String>>,
+    pub cable_end__iregex: Option<Vec<String>>,
+    pub cable_end__isw: Option<Vec<String>>,
+    /// * `A` - A * `B` - B
+    pub cable_end__n: Option<String>,
+    pub cable_end__nic: Option<Vec<String>>,
+    pub cable_end__nie: Option<Vec<String>>,
+    pub cable_end__niew: Option<Vec<String>>,
+    pub cable_end__nisw: Option<Vec<String>>,
+    pub cable_end__regex: Option<Vec<String>>,
+    /// Cable (ID)
+    pub cable_id: Option<Vec<i32>>,
+    /// Cable (ID)
+    pub cable_id__n: Option<Vec<i32>>,
+    pub cabled: Option<bool>,
+    /// Circuit
+    pub circuit_id: Option<Vec<i32>>,
+    /// Circuit
+    pub circuit_id__n: Option<Vec<i32>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub location: Option<Vec<String>>,
+    pub location__n: Option<Vec<String>>,
+    pub location_id: Option<Vec<String>>,
+    pub location_id__n: Option<Vec<String>>,
+    pub mark_connected: Option<bool>,
+    pub modified_by_request: Option<String>,
+    pub occupied: Option<bool>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    pub port_speed: Option<Vec<i32>>,
+    pub port_speed__empty: Option<bool>,
+    pub port_speed__gt: Option<Vec<i32>>,
+    pub port_speed__gte: Option<Vec<i32>>,
+    pub port_speed__lt: Option<Vec<i32>>,
+    pub port_speed__lte: Option<Vec<i32>>,
+    pub port_speed__n: Option<Vec<i32>>,
+    pub pp_info: Option<Vec<String>>,
+    pub pp_info__empty: Option<bool>,
+    pub pp_info__ic: Option<Vec<String>>,
+    pub pp_info__ie: Option<Vec<String>>,
+    pub pp_info__iew: Option<Vec<String>>,
+    pub pp_info__iregex: Option<Vec<String>>,
+    pub pp_info__isw: Option<Vec<String>>,
+    pub pp_info__n: Option<Vec<String>>,
+    pub pp_info__nic: Option<Vec<String>>,
+    pub pp_info__nie: Option<Vec<String>>,
+    pub pp_info__niew: Option<Vec<String>>,
+    pub pp_info__nisw: Option<Vec<String>>,
+    pub pp_info__regex: Option<Vec<String>>,
+    /// Provider (slug)
+    pub provider: Option<Vec<String>>,
+    /// Provider (slug)
+    pub provider__n: Option<Vec<String>>,
+    /// Provider (ID)
+    pub provider_id: Option<Vec<i32>>,
+    /// Provider (ID)
+    pub provider_id__n: Option<Vec<i32>>,
+    /// ProviderNetwork (ID)
+    pub provider_network_id: Option<Vec<i32>>,
+    /// ProviderNetwork (ID)
+    pub provider_network_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub region: Option<Vec<String>>,
+    pub region__n: Option<Vec<String>>,
+    pub region_id: Option<Vec<String>>,
+    pub region_id__n: Option<Vec<String>>,
+    /// Site (slug)
+    pub site: Option<Vec<String>>,
+    /// Site (slug)
+    pub site__n: Option<Vec<String>>,
+    pub site_group: Option<Vec<String>>,
+    pub site_group__n: Option<Vec<String>>,
+    pub site_group_id: Option<Vec<String>>,
+    pub site_group_id__n: Option<Vec<String>>,
+    /// Site (ID)
+    pub site_id: Option<Vec<i32>>,
+    /// Site (ID)
+    pub site_id__n: Option<Vec<i32>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    /// * `A` - A * `Z` - Z
+    pub term_side: Option<String>,
+    pub term_side__empty: Option<bool>,
+    pub term_side__ic: Option<Vec<String>>,
+    pub term_side__ie: Option<Vec<String>>,
+    pub term_side__iew: Option<Vec<String>>,
+    pub term_side__iregex: Option<Vec<String>>,
+    pub term_side__isw: Option<Vec<String>>,
+    /// * `A` - A * `Z` - Z
+    pub term_side__n: Option<String>,
+    pub term_side__nic: Option<Vec<String>>,
+    pub term_side__nie: Option<Vec<String>>,
+    pub term_side__niew: Option<Vec<String>>,
+    pub term_side__nisw: Option<Vec<String>>,
+    pub term_side__regex: Option<Vec<String>>,
+    pub termination_id: Option<Vec<i32>>,
+    pub termination_id__empty: Option<bool>,
+    pub termination_id__gt: Option<Vec<i32>>,
+    pub termination_id__gte: Option<Vec<i32>>,
+    pub termination_id__lt: Option<Vec<i32>>,
+    pub termination_id__lte: Option<Vec<i32>>,
+    pub termination_id__n: Option<Vec<i32>>,
+    pub termination_type: Option<Vec<String>>,
+    pub termination_type__n: Option<Vec<String>>,
+    pub updated_by_request: Option<String>,
+    pub upstream_speed: Option<Vec<i32>>,
+    pub upstream_speed__empty: Option<bool>,
+    pub upstream_speed__gt: Option<Vec<i32>>,
+    pub upstream_speed__gte: Option<Vec<i32>>,
+    pub upstream_speed__lt: Option<Vec<i32>>,
+    pub upstream_speed__lte: Option<Vec<i32>>,
+    pub upstream_speed__n: Option<Vec<i32>>,
+    pub xconnect_id: Option<Vec<String>>,
+    pub xconnect_id__empty: Option<bool>,
+    pub xconnect_id__ic: Option<Vec<String>>,
+    pub xconnect_id__ie: Option<Vec<String>>,
+    pub xconnect_id__iew: Option<Vec<String>>,
+    pub xconnect_id__iregex: Option<Vec<String>>,
+    pub xconnect_id__isw: Option<Vec<String>>,
+    pub xconnect_id__n: Option<Vec<String>>,
+    pub xconnect_id__nic: Option<Vec<String>>,
+    pub xconnect_id__nie: Option<Vec<String>>,
+    pub xconnect_id__niew: Option<Vec<String>>,
+    pub xconnect_id__nisw: Option<Vec<String>>,
+    pub xconnect_id__regex: Option<Vec<String>>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_terminations_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitTerminationsPartialUpdateParams {
+    /// A unique integer value identifying this circuit termination.
+    pub id: i32,
+    pub patched_circuit_termination_request:
+        Option<crate::models::PatchedCircuitTerminationRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_terminations_paths_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitTerminationsPathsRetrieveParams {
+    /// A unique integer value identifying this circuit termination.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_terminations_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitTerminationsRetrieveParams {
+    /// A unique integer value identifying this circuit termination.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_terminations_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitTerminationsUpdateParams {
+    /// A unique integer value identifying this circuit termination.
+    pub id: i32,
+    pub circuit_termination_request: crate::models::CircuitTerminationRequest,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_types_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitTypesBulkDestroyParams {
+    pub circuit_type_request: Vec<crate::models::CircuitTypeRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_types_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitTypesBulkPartialUpdateParams {
+    pub patched_bulk_circuit_type_request: Vec<crate::models::PatchedBulkCircuitTypeRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_types_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitTypesBulkUpdateParams {
+    pub bulk_circuit_type_request: Vec<crate::models::BulkCircuitTypeRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_types_create`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitTypesCreateParams {
+    pub circuits_circuit_types_create_request: crate::models::CircuitsCircuitTypesCreateRequest,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_types_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitTypesDestroyParams {
+    /// A unique integer value identifying this circuit type.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_types_list`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitTypesListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub color: Option<Vec<String>>,
+    pub color__empty: Option<bool>,
+    pub color__ic: Option<Vec<String>>,
+    pub color__ie: Option<Vec<String>>,
+    pub color__iew: Option<Vec<String>>,
+    pub color__iregex: Option<Vec<String>>,
+    pub color__isw: Option<Vec<String>>,
+    pub color__n: Option<Vec<String>>,
+    pub color__nic: Option<Vec<String>>,
+    pub color__nie: Option<Vec<String>>,
+    pub color__niew: Option<Vec<String>>,
+    pub color__nisw: Option<Vec<String>>,
+    pub color__regex: Option<Vec<String>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub slug: Option<Vec<String>>,
+    pub slug__empty: Option<bool>,
+    pub slug__ic: Option<Vec<String>>,
+    pub slug__ie: Option<Vec<String>>,
+    pub slug__iew: Option<Vec<String>>,
+    pub slug__iregex: Option<Vec<String>>,
+    pub slug__isw: Option<Vec<String>>,
+    pub slug__n: Option<Vec<String>>,
+    pub slug__nic: Option<Vec<String>>,
+    pub slug__nie: Option<Vec<String>>,
+    pub slug__niew: Option<Vec<String>>,
+    pub slug__nisw: Option<Vec<String>>,
+    pub slug__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_types_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitTypesPartialUpdateParams {
+    /// A unique integer value identifying this circuit type.
+    pub id: i32,
+    pub patched_circuit_type_request: Option<crate::models::PatchedCircuitTypeRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_types_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitTypesRetrieveParams {
+    /// A unique integer value identifying this circuit type.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuit_types_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitTypesUpdateParams {
+    /// A unique integer value identifying this circuit type.
+    pub id: i32,
+    pub circuit_type_request: crate::models::CircuitTypeRequest,
+}
+
+/// struct for passing parameters to the method [`circuits_circuits_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitsBulkDestroyParams {
+    pub circuit_request: Vec<crate::models::CircuitRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuits_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitsBulkPartialUpdateParams {
+    pub patched_bulk_circuit_request: Vec<crate::models::PatchedBulkCircuitRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuits_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitsBulkUpdateParams {
+    pub bulk_circuit_request: Vec<crate::models::BulkCircuitRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuits_create`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitsCreateParams {
+    pub circuits_circuits_create_request: crate::models::CircuitsCircuitsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`circuits_circuits_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitsDestroyParams {
+    /// A unique integer value identifying this circuit.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`circuits_circuits_list`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub cid: Option<Vec<String>>,
+    pub cid__empty: Option<bool>,
+    pub cid__ic: Option<Vec<String>>,
+    pub cid__ie: Option<Vec<String>>,
+    pub cid__iew: Option<Vec<String>>,
+    pub cid__iregex: Option<Vec<String>>,
+    pub cid__isw: Option<Vec<String>>,
+    pub cid__n: Option<Vec<String>>,
+    pub cid__nic: Option<Vec<String>>,
+    pub cid__nie: Option<Vec<String>>,
+    pub cid__niew: Option<Vec<String>>,
+    pub cid__nisw: Option<Vec<String>>,
+    pub cid__regex: Option<Vec<String>>,
+    pub commit_rate: Option<Vec<i32>>,
+    pub commit_rate__empty: Option<bool>,
+    pub commit_rate__gt: Option<Vec<i32>>,
+    pub commit_rate__gte: Option<Vec<i32>>,
+    pub commit_rate__lt: Option<Vec<i32>>,
+    pub commit_rate__lte: Option<Vec<i32>>,
+    pub commit_rate__n: Option<Vec<i32>>,
+    /// Contact
+    pub contact: Option<Vec<i32>>,
+    /// Contact
+    pub contact__n: Option<Vec<i32>>,
+    pub contact_group: Option<Vec<String>>,
+    pub contact_group__n: Option<Vec<String>>,
+    /// Contact Role
+    pub contact_role: Option<Vec<i32>>,
+    /// Contact Role
+    pub contact_role__n: Option<Vec<i32>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    pub distance: Option<Vec<f64>>,
+    pub distance__empty: Option<bool>,
+    pub distance__gt: Option<Vec<f64>>,
+    pub distance__gte: Option<Vec<f64>>,
+    pub distance__lt: Option<Vec<f64>>,
+    pub distance__lte: Option<Vec<f64>>,
+    pub distance__n: Option<Vec<f64>>,
+    /// * `km` - Kilometers * `m` - Meters * `mi` - Miles * `ft` - Feet
+    pub distance_unit: Option<String>,
+    pub distance_unit__empty: Option<bool>,
+    pub distance_unit__ic: Option<Vec<String>>,
+    pub distance_unit__ie: Option<Vec<String>>,
+    pub distance_unit__iew: Option<Vec<String>>,
+    pub distance_unit__iregex: Option<Vec<String>>,
+    pub distance_unit__isw: Option<Vec<String>>,
+    /// * `km` - Kilometers * `m` - Meters * `mi` - Miles * `ft` - Feet
+    pub distance_unit__n: Option<String>,
+    pub distance_unit__nic: Option<Vec<String>>,
+    pub distance_unit__nie: Option<Vec<String>>,
+    pub distance_unit__niew: Option<Vec<String>>,
+    pub distance_unit__nisw: Option<Vec<String>>,
+    pub distance_unit__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub install_date: Option<Vec<String>>,
+    pub install_date__empty: Option<bool>,
+    pub install_date__gt: Option<Vec<String>>,
+    pub install_date__gte: Option<Vec<String>>,
+    pub install_date__lt: Option<Vec<String>>,
+    pub install_date__lte: Option<Vec<String>>,
+    pub install_date__n: Option<Vec<String>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    /// Location (ID)
+    pub location_id: Option<Vec<i32>>,
+    /// Location (ID)
+    pub location_id__n: Option<Vec<i32>>,
+    pub modified_by_request: Option<String>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Provider (slug)
+    pub provider: Option<Vec<String>>,
+    /// Provider (slug)
+    pub provider__n: Option<Vec<String>>,
+    /// Provider account (account)
+    pub provider_account: Option<Vec<String>>,
+    /// Provider account (account)
+    pub provider_account__n: Option<Vec<String>>,
+    /// Provider account (ID)
+    pub provider_account_id: Option<Vec<i32>>,
+    /// Provider account (ID)
+    pub provider_account_id__n: Option<Vec<i32>>,
+    /// Provider (ID)
+    pub provider_id: Option<Vec<i32>>,
+    /// Provider (ID)
+    pub provider_id__n: Option<Vec<i32>>,
+    /// Provider network (ID)
+    pub provider_network_id: Option<Vec<i32>>,
+    /// Provider network (ID)
+    pub provider_network_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub region: Option<Vec<String>>,
+    pub region__n: Option<Vec<String>>,
+    pub region_id: Option<Vec<String>>,
+    pub region_id__n: Option<Vec<String>>,
+    /// Site (slug)
+    pub site: Option<Vec<String>>,
+    /// Site (slug)
+    pub site__n: Option<Vec<String>>,
+    pub site_group: Option<Vec<String>>,
+    pub site_group__n: Option<Vec<String>>,
+    pub site_group_id: Option<Vec<String>>,
+    pub site_group_id__n: Option<Vec<String>>,
+    /// Site (ID)
+    pub site_id: Option<Vec<i32>>,
+    /// Site (ID)
+    pub site_id__n: Option<Vec<i32>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub status: Option<Vec<String>>,
+    pub status__empty: Option<bool>,
+    pub status__ic: Option<Vec<String>>,
+    pub status__ie: Option<Vec<String>>,
+    pub status__iew: Option<Vec<String>>,
+    pub status__iregex: Option<Vec<String>>,
+    pub status__isw: Option<Vec<String>>,
+    pub status__n: Option<Vec<String>>,
+    pub status__nic: Option<Vec<String>>,
+    pub status__nie: Option<Vec<String>>,
+    pub status__niew: Option<Vec<String>>,
+    pub status__nisw: Option<Vec<String>>,
+    pub status__regex: Option<Vec<String>>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    /// Tenant (slug)
+    pub tenant: Option<Vec<String>>,
+    /// Tenant (slug)
+    pub tenant__n: Option<Vec<String>>,
+    pub tenant_group: Option<Vec<String>>,
+    pub tenant_group__n: Option<Vec<String>>,
+    pub tenant_group_id: Option<Vec<String>>,
+    pub tenant_group_id__n: Option<Vec<String>>,
+    /// Tenant (ID)
+    pub tenant_id: Option<Vec<i32>>,
+    /// Tenant (ID)
+    pub tenant_id__n: Option<Vec<i32>>,
+    /// Termination A (ID)
+    pub termination_a_id: Option<Vec<i32>>,
+    /// Termination A (ID)
+    pub termination_a_id__n: Option<Vec<i32>>,
+    pub termination_date: Option<Vec<String>>,
+    pub termination_date__empty: Option<bool>,
+    pub termination_date__gt: Option<Vec<String>>,
+    pub termination_date__gte: Option<Vec<String>>,
+    pub termination_date__lt: Option<Vec<String>>,
+    pub termination_date__lte: Option<Vec<String>>,
+    pub termination_date__n: Option<Vec<String>>,
+    /// Termination A (ID)
+    pub termination_z_id: Option<Vec<i32>>,
+    /// Termination A (ID)
+    pub termination_z_id__n: Option<Vec<i32>>,
+    /// Circuit type (slug)
+    pub r#type: Option<Vec<String>>,
+    /// Circuit type (slug)
+    pub type__n: Option<Vec<String>>,
+    /// Circuit type (ID)
+    pub type_id: Option<Vec<i32>>,
+    /// Circuit type (ID)
+    pub type_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuits_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitsPartialUpdateParams {
+    /// A unique integer value identifying this circuit.
+    pub id: i32,
+    pub patched_writable_circuit_request: Option<crate::models::PatchedWritableCircuitRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuits_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitsRetrieveParams {
+    /// A unique integer value identifying this circuit.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`circuits_circuits_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsCircuitsUpdateParams {
+    /// A unique integer value identifying this circuit.
+    pub id: i32,
+    pub writable_circuit_request: crate::models::WritableCircuitRequest,
+}
+
+/// struct for passing parameters to the method [`circuits_provider_accounts_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProviderAccountsBulkDestroyParams {
+    pub provider_account_request: Vec<crate::models::ProviderAccountRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_provider_accounts_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProviderAccountsBulkPartialUpdateParams {
+    pub patched_bulk_provider_account_request:
+        Vec<crate::models::PatchedBulkProviderAccountRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_provider_accounts_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProviderAccountsBulkUpdateParams {
+    pub bulk_provider_account_request: Vec<crate::models::BulkProviderAccountRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_provider_accounts_create`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProviderAccountsCreateParams {
+    pub circuits_provider_accounts_create_request:
+        crate::models::CircuitsProviderAccountsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`circuits_provider_accounts_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProviderAccountsDestroyParams {
+    /// A unique integer value identifying this provider account.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`circuits_provider_accounts_list`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProviderAccountsListParams {
+    pub account: Option<Vec<String>>,
+    pub account__empty: Option<bool>,
+    pub account__ic: Option<Vec<String>>,
+    pub account__ie: Option<Vec<String>>,
+    pub account__iew: Option<Vec<String>>,
+    pub account__iregex: Option<Vec<String>>,
+    pub account__isw: Option<Vec<String>>,
+    pub account__n: Option<Vec<String>>,
+    pub account__nic: Option<Vec<String>>,
+    pub account__nie: Option<Vec<String>>,
+    pub account__niew: Option<Vec<String>>,
+    pub account__nisw: Option<Vec<String>>,
+    pub account__regex: Option<Vec<String>>,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Contact
+    pub contact: Option<Vec<i32>>,
+    /// Contact
+    pub contact__n: Option<Vec<i32>>,
+    pub contact_group: Option<Vec<String>>,
+    pub contact_group__n: Option<Vec<String>>,
+    /// Contact Role
+    pub contact_role: Option<Vec<i32>>,
+    /// Contact Role
+    pub contact_role__n: Option<Vec<i32>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Provider (slug)
+    pub provider: Option<Vec<String>>,
+    /// Provider (slug)
+    pub provider__n: Option<Vec<String>>,
+    /// Provider (ID)
+    pub provider_id: Option<Vec<i32>>,
+    /// Provider (ID)
+    pub provider_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`circuits_provider_accounts_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProviderAccountsPartialUpdateParams {
+    /// A unique integer value identifying this provider account.
+    pub id: i32,
+    pub patched_provider_account_request: Option<crate::models::PatchedProviderAccountRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_provider_accounts_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProviderAccountsRetrieveParams {
+    /// A unique integer value identifying this provider account.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`circuits_provider_accounts_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProviderAccountsUpdateParams {
+    /// A unique integer value identifying this provider account.
+    pub id: i32,
+    pub provider_account_request: crate::models::ProviderAccountRequest,
+}
+
+/// struct for passing parameters to the method [`circuits_provider_networks_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProviderNetworksBulkDestroyParams {
+    pub provider_network_request: Vec<crate::models::ProviderNetworkRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_provider_networks_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProviderNetworksBulkPartialUpdateParams {
+    pub patched_bulk_provider_network_request:
+        Vec<crate::models::PatchedBulkProviderNetworkRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_provider_networks_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProviderNetworksBulkUpdateParams {
+    pub bulk_provider_network_request: Vec<crate::models::BulkProviderNetworkRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_provider_networks_create`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProviderNetworksCreateParams {
+    pub circuits_provider_networks_create_request:
+        crate::models::CircuitsProviderNetworksCreateRequest,
+}
+
+/// struct for passing parameters to the method [`circuits_provider_networks_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProviderNetworksDestroyParams {
+    /// A unique integer value identifying this provider network.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`circuits_provider_networks_list`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProviderNetworksListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Provider (slug)
+    pub provider: Option<Vec<String>>,
+    /// Provider (slug)
+    pub provider__n: Option<Vec<String>>,
+    /// Provider (ID)
+    pub provider_id: Option<Vec<i32>>,
+    /// Provider (ID)
+    pub provider_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub service_id: Option<Vec<String>>,
+    pub service_id__empty: Option<bool>,
+    pub service_id__ic: Option<Vec<String>>,
+    pub service_id__ie: Option<Vec<String>>,
+    pub service_id__iew: Option<Vec<String>>,
+    pub service_id__iregex: Option<Vec<String>>,
+    pub service_id__isw: Option<Vec<String>>,
+    pub service_id__n: Option<Vec<String>>,
+    pub service_id__nic: Option<Vec<String>>,
+    pub service_id__nie: Option<Vec<String>>,
+    pub service_id__niew: Option<Vec<String>>,
+    pub service_id__nisw: Option<Vec<String>>,
+    pub service_id__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`circuits_provider_networks_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProviderNetworksPartialUpdateParams {
+    /// A unique integer value identifying this provider network.
+    pub id: i32,
+    pub patched_provider_network_request: Option<crate::models::PatchedProviderNetworkRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_provider_networks_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProviderNetworksRetrieveParams {
+    /// A unique integer value identifying this provider network.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`circuits_provider_networks_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProviderNetworksUpdateParams {
+    /// A unique integer value identifying this provider network.
+    pub id: i32,
+    pub provider_network_request: crate::models::ProviderNetworkRequest,
+}
+
+/// struct for passing parameters to the method [`circuits_providers_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProvidersBulkDestroyParams {
+    pub provider_request: Vec<crate::models::ProviderRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_providers_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProvidersBulkPartialUpdateParams {
+    pub patched_bulk_provider_request: Vec<crate::models::PatchedBulkProviderRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_providers_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProvidersBulkUpdateParams {
+    pub bulk_provider_request: Vec<crate::models::BulkProviderRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_providers_create`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProvidersCreateParams {
+    pub circuits_providers_create_request: crate::models::CircuitsProvidersCreateRequest,
+}
+
+/// struct for passing parameters to the method [`circuits_providers_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProvidersDestroyParams {
+    /// A unique integer value identifying this provider.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`circuits_providers_list`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProvidersListParams {
+    /// ASN
+    pub asn: Option<Vec<i64>>,
+    /// ASN
+    pub asn__n: Option<Vec<i64>>,
+    /// ASN (ID)
+    pub asn_id: Option<Vec<i32>>,
+    /// ASN (ID)
+    pub asn_id__n: Option<Vec<i32>>,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Contact
+    pub contact: Option<Vec<i32>>,
+    /// Contact
+    pub contact__n: Option<Vec<i32>>,
+    pub contact_group: Option<Vec<String>>,
+    pub contact_group__n: Option<Vec<String>>,
+    /// Contact Role
+    pub contact_role: Option<Vec<i32>>,
+    /// Contact Role
+    pub contact_role__n: Option<Vec<i32>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub region: Option<Vec<String>>,
+    pub region__n: Option<Vec<String>>,
+    pub region_id: Option<Vec<String>>,
+    pub region_id__n: Option<Vec<String>>,
+    /// Site (slug)
+    pub site: Option<Vec<String>>,
+    /// Site (slug)
+    pub site__n: Option<Vec<String>>,
+    pub site_group: Option<Vec<String>>,
+    pub site_group__n: Option<Vec<String>>,
+    pub site_group_id: Option<Vec<String>>,
+    pub site_group_id__n: Option<Vec<String>>,
+    /// Site
+    pub site_id: Option<Vec<i32>>,
+    /// Site
+    pub site_id__n: Option<Vec<i32>>,
+    pub slug: Option<Vec<String>>,
+    pub slug__empty: Option<bool>,
+    pub slug__ic: Option<Vec<String>>,
+    pub slug__ie: Option<Vec<String>>,
+    pub slug__iew: Option<Vec<String>>,
+    pub slug__iregex: Option<Vec<String>>,
+    pub slug__isw: Option<Vec<String>>,
+    pub slug__n: Option<Vec<String>>,
+    pub slug__nic: Option<Vec<String>>,
+    pub slug__nie: Option<Vec<String>>,
+    pub slug__niew: Option<Vec<String>>,
+    pub slug__nisw: Option<Vec<String>>,
+    pub slug__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`circuits_providers_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProvidersPartialUpdateParams {
+    /// A unique integer value identifying this provider.
+    pub id: i32,
+    pub patched_provider_request: Option<crate::models::PatchedProviderRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_providers_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProvidersRetrieveParams {
+    /// A unique integer value identifying this provider.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`circuits_providers_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsProvidersUpdateParams {
+    /// A unique integer value identifying this provider.
+    pub id: i32,
+    pub provider_request: crate::models::ProviderRequest,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuit_terminations_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitTerminationsBulkDestroyParams {
+    pub virtual_circuit_termination_request: Vec<crate::models::VirtualCircuitTerminationRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuit_terminations_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitTerminationsBulkPartialUpdateParams {
+    pub patched_bulk_virtual_circuit_termination_request:
+        Vec<crate::models::PatchedBulkVirtualCircuitTerminationRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuit_terminations_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitTerminationsBulkUpdateParams {
+    pub bulk_virtual_circuit_termination_request:
+        Vec<crate::models::BulkVirtualCircuitTerminationRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuit_terminations_create`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitTerminationsCreateParams {
+    pub circuits_virtual_circuit_terminations_create_request:
+        crate::models::CircuitsVirtualCircuitTerminationsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuit_terminations_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitTerminationsDestroyParams {
+    /// A unique integer value identifying this virtual circuit termination.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuit_terminations_list`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitTerminationsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    /// Interface (ID)
+    pub interface_id: Option<Vec<i32>>,
+    /// Interface (ID)
+    pub interface_id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Provider (slug)
+    pub provider: Option<Vec<String>>,
+    /// Provider (slug)
+    pub provider__n: Option<Vec<String>>,
+    /// Provider account (account)
+    pub provider_account: Option<Vec<String>>,
+    /// Provider account (account)
+    pub provider_account__n: Option<Vec<String>>,
+    /// Provider account (ID)
+    pub provider_account_id: Option<Vec<i32>>,
+    /// Provider account (ID)
+    pub provider_account_id__n: Option<Vec<i32>>,
+    /// Provider (ID)
+    pub provider_id: Option<Vec<i32>>,
+    /// Provider (ID)
+    pub provider_id__n: Option<Vec<i32>>,
+    /// Provider network (ID)
+    pub provider_network_id: Option<Vec<i32>>,
+    /// Provider network (ID)
+    pub provider_network_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub role: Option<Vec<String>>,
+    pub role__empty: Option<bool>,
+    pub role__ic: Option<Vec<String>>,
+    pub role__ie: Option<Vec<String>>,
+    pub role__iew: Option<Vec<String>>,
+    pub role__iregex: Option<Vec<String>>,
+    pub role__isw: Option<Vec<String>>,
+    pub role__n: Option<Vec<String>>,
+    pub role__nic: Option<Vec<String>>,
+    pub role__nie: Option<Vec<String>>,
+    pub role__niew: Option<Vec<String>>,
+    pub role__nisw: Option<Vec<String>>,
+    pub role__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+    /// Virtual circuit
+    pub virtual_circuit_id: Option<Vec<i32>>,
+    /// Virtual circuit
+    pub virtual_circuit_id__n: Option<Vec<i32>>,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuit_terminations_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitTerminationsPartialUpdateParams {
+    /// A unique integer value identifying this virtual circuit termination.
+    pub id: i32,
+    pub patched_writable_virtual_circuit_termination_request:
+        Option<crate::models::PatchedWritableVirtualCircuitTerminationRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuit_terminations_paths_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitTerminationsPathsRetrieveParams {
+    /// A unique integer value identifying this virtual circuit termination.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuit_terminations_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitTerminationsRetrieveParams {
+    /// A unique integer value identifying this virtual circuit termination.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuit_terminations_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitTerminationsUpdateParams {
+    /// A unique integer value identifying this virtual circuit termination.
+    pub id: i32,
+    pub writable_virtual_circuit_termination_request:
+        crate::models::WritableVirtualCircuitTerminationRequest,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuit_types_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitTypesBulkDestroyParams {
+    pub virtual_circuit_type_request: Vec<crate::models::VirtualCircuitTypeRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuit_types_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitTypesBulkPartialUpdateParams {
+    pub patched_bulk_virtual_circuit_type_request:
+        Vec<crate::models::PatchedBulkVirtualCircuitTypeRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuit_types_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitTypesBulkUpdateParams {
+    pub bulk_virtual_circuit_type_request: Vec<crate::models::BulkVirtualCircuitTypeRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuit_types_create`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitTypesCreateParams {
+    pub circuits_virtual_circuit_types_create_request:
+        crate::models::CircuitsVirtualCircuitTypesCreateRequest,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuit_types_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitTypesDestroyParams {
+    /// A unique integer value identifying this virtual circuit type.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuit_types_list`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitTypesListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub color: Option<Vec<String>>,
+    pub color__empty: Option<bool>,
+    pub color__ic: Option<Vec<String>>,
+    pub color__ie: Option<Vec<String>>,
+    pub color__iew: Option<Vec<String>>,
+    pub color__iregex: Option<Vec<String>>,
+    pub color__isw: Option<Vec<String>>,
+    pub color__n: Option<Vec<String>>,
+    pub color__nic: Option<Vec<String>>,
+    pub color__nie: Option<Vec<String>>,
+    pub color__niew: Option<Vec<String>>,
+    pub color__nisw: Option<Vec<String>>,
+    pub color__regex: Option<Vec<String>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub slug: Option<Vec<String>>,
+    pub slug__empty: Option<bool>,
+    pub slug__ic: Option<Vec<String>>,
+    pub slug__ie: Option<Vec<String>>,
+    pub slug__iew: Option<Vec<String>>,
+    pub slug__iregex: Option<Vec<String>>,
+    pub slug__isw: Option<Vec<String>>,
+    pub slug__n: Option<Vec<String>>,
+    pub slug__nic: Option<Vec<String>>,
+    pub slug__nie: Option<Vec<String>>,
+    pub slug__niew: Option<Vec<String>>,
+    pub slug__nisw: Option<Vec<String>>,
+    pub slug__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuit_types_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitTypesPartialUpdateParams {
+    /// A unique integer value identifying this virtual circuit type.
+    pub id: i32,
+    pub patched_virtual_circuit_type_request:
+        Option<crate::models::PatchedVirtualCircuitTypeRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuit_types_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitTypesRetrieveParams {
+    /// A unique integer value identifying this virtual circuit type.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuit_types_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitTypesUpdateParams {
+    /// A unique integer value identifying this virtual circuit type.
+    pub id: i32,
+    pub virtual_circuit_type_request: crate::models::VirtualCircuitTypeRequest,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuits_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitsBulkDestroyParams {
+    pub virtual_circuit_request: Vec<crate::models::VirtualCircuitRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuits_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitsBulkPartialUpdateParams {
+    pub patched_bulk_virtual_circuit_request: Vec<crate::models::PatchedBulkVirtualCircuitRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuits_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitsBulkUpdateParams {
+    pub bulk_virtual_circuit_request: Vec<crate::models::BulkVirtualCircuitRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuits_create`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitsCreateParams {
+    pub circuits_virtual_circuits_create_request:
+        crate::models::CircuitsVirtualCircuitsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuits_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitsDestroyParams {
+    /// A unique integer value identifying this virtual circuit.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuits_list`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub cid: Option<Vec<String>>,
+    pub cid__empty: Option<bool>,
+    pub cid__ic: Option<Vec<String>>,
+    pub cid__ie: Option<Vec<String>>,
+    pub cid__iew: Option<Vec<String>>,
+    pub cid__iregex: Option<Vec<String>>,
+    pub cid__isw: Option<Vec<String>>,
+    pub cid__n: Option<Vec<String>>,
+    pub cid__nic: Option<Vec<String>>,
+    pub cid__nie: Option<Vec<String>>,
+    pub cid__niew: Option<Vec<String>>,
+    pub cid__nisw: Option<Vec<String>>,
+    pub cid__regex: Option<Vec<String>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Provider (slug)
+    pub provider: Option<Vec<String>>,
+    /// Provider (slug)
+    pub provider__n: Option<Vec<String>>,
+    /// Provider account (account)
+    pub provider_account: Option<Vec<String>>,
+    /// Provider account (account)
+    pub provider_account__n: Option<Vec<String>>,
+    /// Provider account (ID)
+    pub provider_account_id: Option<Vec<i32>>,
+    /// Provider account (ID)
+    pub provider_account_id__n: Option<Vec<i32>>,
+    /// Provider (ID)
+    pub provider_id: Option<Vec<i32>>,
+    /// Provider (ID)
+    pub provider_id__n: Option<Vec<i32>>,
+    /// Provider network (ID)
+    pub provider_network_id: Option<Vec<i32>>,
+    /// Provider network (ID)
+    pub provider_network_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub status: Option<Vec<String>>,
+    pub status__empty: Option<bool>,
+    pub status__ic: Option<Vec<String>>,
+    pub status__ie: Option<Vec<String>>,
+    pub status__iew: Option<Vec<String>>,
+    pub status__iregex: Option<Vec<String>>,
+    pub status__isw: Option<Vec<String>>,
+    pub status__n: Option<Vec<String>>,
+    pub status__nic: Option<Vec<String>>,
+    pub status__nie: Option<Vec<String>>,
+    pub status__niew: Option<Vec<String>>,
+    pub status__nisw: Option<Vec<String>>,
+    pub status__regex: Option<Vec<String>>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    /// Tenant (slug)
+    pub tenant: Option<Vec<String>>,
+    /// Tenant (slug)
+    pub tenant__n: Option<Vec<String>>,
+    pub tenant_group: Option<Vec<String>>,
+    pub tenant_group__n: Option<Vec<String>>,
+    pub tenant_group_id: Option<Vec<String>>,
+    pub tenant_group_id__n: Option<Vec<String>>,
+    /// Tenant (ID)
+    pub tenant_id: Option<Vec<i32>>,
+    /// Tenant (ID)
+    pub tenant_id__n: Option<Vec<i32>>,
+    /// Virtual circuit type (slug)
+    pub r#type: Option<Vec<String>>,
+    /// Virtual circuit type (slug)
+    pub type__n: Option<Vec<String>>,
+    /// Virtual circuit type (ID)
+    pub type_id: Option<Vec<i32>>,
+    /// Virtual circuit type (ID)
+    pub type_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuits_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitsPartialUpdateParams {
+    /// A unique integer value identifying this virtual circuit.
+    pub id: i32,
+    pub patched_writable_virtual_circuit_request:
+        Option<crate::models::PatchedWritableVirtualCircuitRequest>,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuits_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitsRetrieveParams {
+    /// A unique integer value identifying this virtual circuit.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`circuits_virtual_circuits_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CircuitsVirtualCircuitsUpdateParams {
+    /// A unique integer value identifying this virtual circuit.
+    pub id: i32,
+    pub writable_virtual_circuit_request: crate::models::WritableVirtualCircuitRequest,
+}
+
 /// struct for typed errors of method [`circuits_circuit_group_assignments_bulk_destroy`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -822,9 +3026,12 @@ pub enum CircuitsVirtualCircuitsUpdateError {
 /// Delete a list of Circuit group assignment objects.
 pub async fn circuits_circuit_group_assignments_bulk_destroy(
     configuration: &configuration::Configuration,
-    circuit_group_assignment_request: Vec<crate::models::CircuitGroupAssignmentRequest>,
+    params: CircuitsCircuitGroupAssignmentsBulkDestroyParams,
 ) -> Result<(), Error<CircuitsCircuitGroupAssignmentsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let circuit_group_assignment_request = params.circuit_group_assignment_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -872,14 +3079,16 @@ pub async fn circuits_circuit_group_assignments_bulk_destroy(
 /// Patch a list of Circuit group assignment objects.
 pub async fn circuits_circuit_group_assignments_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_circuit_group_assignment_request: Vec<
-        crate::models::PatchedBulkCircuitGroupAssignmentRequest,
-    >,
+    params: CircuitsCircuitGroupAssignmentsBulkPartialUpdateParams,
 ) -> Result<
     Vec<crate::models::CircuitGroupAssignment>,
     Error<CircuitsCircuitGroupAssignmentsBulkPartialUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_circuit_group_assignment_request =
+        params.patched_bulk_circuit_group_assignment_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -928,12 +3137,15 @@ pub async fn circuits_circuit_group_assignments_bulk_partial_update(
 /// Put a list of Circuit group assignment objects.
 pub async fn circuits_circuit_group_assignments_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_circuit_group_assignment_request: Vec<crate::models::BulkCircuitGroupAssignmentRequest>,
+    params: CircuitsCircuitGroupAssignmentsBulkUpdateParams,
 ) -> Result<
     Vec<crate::models::CircuitGroupAssignment>,
     Error<CircuitsCircuitGroupAssignmentsBulkUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_circuit_group_assignment_request = params.bulk_circuit_group_assignment_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -981,10 +3193,14 @@ pub async fn circuits_circuit_group_assignments_bulk_update(
 /// Post a list of Circuit group assignment objects.
 pub async fn circuits_circuit_group_assignments_create(
     configuration: &configuration::Configuration,
-    circuits_circuit_group_assignments_create_request: crate::models::CircuitsCircuitGroupAssignmentsCreateRequest,
+    params: CircuitsCircuitGroupAssignmentsCreateParams,
 ) -> Result<crate::models::CircuitGroupAssignment, Error<CircuitsCircuitGroupAssignmentsCreateError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let circuits_circuit_group_assignments_create_request =
+        params.circuits_circuit_group_assignments_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -1033,9 +3249,12 @@ pub async fn circuits_circuit_group_assignments_create(
 /// Delete a Circuit group assignment object.
 pub async fn circuits_circuit_group_assignments_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: CircuitsCircuitGroupAssignmentsDestroyParams,
 ) -> Result<(), Error<CircuitsCircuitGroupAssignmentsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -1083,83 +3302,86 @@ pub async fn circuits_circuit_group_assignments_destroy(
 /// Get a list of Circuit group assignment objects.
 pub async fn circuits_circuit_group_assignments_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    circuit: Option<Vec<String>>,
-    circuit_id: Option<Vec<i32>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    fields: Option<&str>,
-    group: Option<Vec<String>>,
-    group__n: Option<Vec<String>>,
-    group_id: Option<Vec<i32>>,
-    group_id__n: Option<Vec<i32>>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    member_id: Option<Vec<i32>>,
-    member_id__empty: Option<bool>,
-    member_id__gt: Option<Vec<i32>>,
-    member_id__gte: Option<Vec<i32>>,
-    member_id__lt: Option<Vec<i32>>,
-    member_id__lte: Option<Vec<i32>>,
-    member_id__n: Option<Vec<i32>>,
-    member_type: Option<Vec<String>>,
-    member_type__n: Option<Vec<String>>,
-    member_type_id: Option<Vec<i32>>,
-    member_type_id__n: Option<Vec<i32>>,
-    modified_by_request: Option<&str>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    priority: Option<&str>,
-    priority__empty: Option<bool>,
-    priority__ic: Option<Vec<String>>,
-    priority__ie: Option<Vec<String>>,
-    priority__iew: Option<Vec<String>>,
-    priority__iregex: Option<Vec<String>>,
-    priority__isw: Option<Vec<String>>,
-    priority__n: Option<&str>,
-    priority__nic: Option<Vec<String>>,
-    priority__nie: Option<Vec<String>>,
-    priority__niew: Option<Vec<String>>,
-    priority__nisw: Option<Vec<String>>,
-    priority__regex: Option<Vec<String>>,
-    provider: Option<Vec<String>>,
-    provider_id: Option<Vec<i32>>,
-    q: Option<&str>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
-    virtual_circuit: Option<Vec<String>>,
-    virtual_circuit_id: Option<Vec<i32>>,
+    params: CircuitsCircuitGroupAssignmentsListParams,
 ) -> Result<
     crate::models::PaginatedCircuitGroupAssignmentList,
     Error<CircuitsCircuitGroupAssignmentsListError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let circuit = params.circuit;
+    let circuit_id = params.circuit_id;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let fields = params.fields;
+    let group = params.group;
+    let group__n = params.group__n;
+    let group_id = params.group_id;
+    let group_id__n = params.group_id__n;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let member_id = params.member_id;
+    let member_id__empty = params.member_id__empty;
+    let member_id__gt = params.member_id__gt;
+    let member_id__gte = params.member_id__gte;
+    let member_id__lt = params.member_id__lt;
+    let member_id__lte = params.member_id__lte;
+    let member_id__n = params.member_id__n;
+    let member_type = params.member_type;
+    let member_type__n = params.member_type__n;
+    let member_type_id = params.member_type_id;
+    let member_type_id__n = params.member_type_id__n;
+    let modified_by_request = params.modified_by_request;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let priority = params.priority;
+    let priority__empty = params.priority__empty;
+    let priority__ic = params.priority__ic;
+    let priority__ie = params.priority__ie;
+    let priority__iew = params.priority__iew;
+    let priority__iregex = params.priority__iregex;
+    let priority__isw = params.priority__isw;
+    let priority__n = params.priority__n;
+    let priority__nic = params.priority__nic;
+    let priority__nie = params.priority__nie;
+    let priority__niew = params.priority__niew;
+    let priority__nisw = params.priority__nisw;
+    let priority__regex = params.priority__regex;
+    let provider = params.provider;
+    let provider_id = params.provider_id;
+    let q = params.q;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
+    let virtual_circuit = params.virtual_circuit;
+    let virtual_circuit_id = params.virtual_circuit_id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2333,15 +4555,17 @@ pub async fn circuits_circuit_group_assignments_list(
 /// Patch a Circuit group assignment object.
 pub async fn circuits_circuit_group_assignments_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_circuit_group_assignment_request: Option<
-        crate::models::PatchedWritableCircuitGroupAssignmentRequest,
-    >,
+    params: CircuitsCircuitGroupAssignmentsPartialUpdateParams,
 ) -> Result<
     crate::models::CircuitGroupAssignment,
     Error<CircuitsCircuitGroupAssignmentsPartialUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_circuit_group_assignment_request =
+        params.patched_writable_circuit_group_assignment_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2391,15 +4615,18 @@ pub async fn circuits_circuit_group_assignments_partial_update(
 /// Get a Circuit group assignment object.
 pub async fn circuits_circuit_group_assignments_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: CircuitsCircuitGroupAssignmentsRetrieveParams,
 ) -> Result<
     crate::models::CircuitGroupAssignment,
     Error<CircuitsCircuitGroupAssignmentsRetrieveError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2459,11 +4686,15 @@ pub async fn circuits_circuit_group_assignments_retrieve(
 /// Put a Circuit group assignment object.
 pub async fn circuits_circuit_group_assignments_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_circuit_group_assignment_request: crate::models::WritableCircuitGroupAssignmentRequest,
+    params: CircuitsCircuitGroupAssignmentsUpdateParams,
 ) -> Result<crate::models::CircuitGroupAssignment, Error<CircuitsCircuitGroupAssignmentsUpdateError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_circuit_group_assignment_request =
+        params.writable_circuit_group_assignment_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2512,9 +4743,12 @@ pub async fn circuits_circuit_group_assignments_update(
 /// Delete a list of circuit group objects.
 pub async fn circuits_circuit_groups_bulk_destroy(
     configuration: &configuration::Configuration,
-    circuit_group_request: Vec<crate::models::CircuitGroupRequest>,
+    params: CircuitsCircuitGroupsBulkDestroyParams,
 ) -> Result<(), Error<CircuitsCircuitGroupsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let circuit_group_request = params.circuit_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2562,9 +4796,12 @@ pub async fn circuits_circuit_groups_bulk_destroy(
 /// Patch a list of circuit group objects.
 pub async fn circuits_circuit_groups_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_circuit_group_request: Vec<crate::models::PatchedBulkCircuitGroupRequest>,
+    params: CircuitsCircuitGroupsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::CircuitGroup>, Error<CircuitsCircuitGroupsBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_circuit_group_request = params.patched_bulk_circuit_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2612,9 +4849,12 @@ pub async fn circuits_circuit_groups_bulk_partial_update(
 /// Put a list of circuit group objects.
 pub async fn circuits_circuit_groups_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_circuit_group_request: Vec<crate::models::BulkCircuitGroupRequest>,
+    params: CircuitsCircuitGroupsBulkUpdateParams,
 ) -> Result<Vec<crate::models::CircuitGroup>, Error<CircuitsCircuitGroupsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_circuit_group_request = params.bulk_circuit_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2662,9 +4902,12 @@ pub async fn circuits_circuit_groups_bulk_update(
 /// Post a list of circuit group objects.
 pub async fn circuits_circuit_groups_create(
     configuration: &configuration::Configuration,
-    circuits_circuit_groups_create_request: crate::models::CircuitsCircuitGroupsCreateRequest,
+    params: CircuitsCircuitGroupsCreateParams,
 ) -> Result<crate::models::CircuitGroup, Error<CircuitsCircuitGroupsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let circuits_circuit_groups_create_request = params.circuits_circuit_groups_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2712,9 +4955,12 @@ pub async fn circuits_circuit_groups_create(
 /// Delete a circuit group object.
 pub async fn circuits_circuit_groups_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: CircuitsCircuitGroupsDestroyParams,
 ) -> Result<(), Error<CircuitsCircuitGroupsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2762,101 +5008,104 @@ pub async fn circuits_circuit_groups_destroy(
 /// Get a list of circuit group objects.
 pub async fn circuits_circuit_groups_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    slug: Option<Vec<String>>,
-    slug__empty: Option<bool>,
-    slug__ic: Option<Vec<String>>,
-    slug__ie: Option<Vec<String>>,
-    slug__iew: Option<Vec<String>>,
-    slug__iregex: Option<Vec<String>>,
-    slug__isw: Option<Vec<String>>,
-    slug__n: Option<Vec<String>>,
-    slug__nic: Option<Vec<String>>,
-    slug__nie: Option<Vec<String>>,
-    slug__niew: Option<Vec<String>>,
-    slug__nisw: Option<Vec<String>>,
-    slug__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    tenant: Option<Vec<String>>,
-    tenant__n: Option<Vec<String>>,
-    tenant_group: Option<Vec<String>>,
-    tenant_group__n: Option<Vec<String>>,
-    tenant_group_id: Option<Vec<String>>,
-    tenant_group_id__n: Option<Vec<String>>,
-    tenant_id: Option<Vec<i32>>,
-    tenant_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: CircuitsCircuitGroupsListParams,
 ) -> Result<crate::models::PaginatedCircuitGroupList, Error<CircuitsCircuitGroupsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let slug = params.slug;
+    let slug__empty = params.slug__empty;
+    let slug__ic = params.slug__ic;
+    let slug__ie = params.slug__ie;
+    let slug__iew = params.slug__iew;
+    let slug__iregex = params.slug__iregex;
+    let slug__isw = params.slug__isw;
+    let slug__n = params.slug__n;
+    let slug__nic = params.slug__nic;
+    let slug__nie = params.slug__nie;
+    let slug__niew = params.slug__niew;
+    let slug__nisw = params.slug__nisw;
+    let slug__regex = params.slug__regex;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let tenant = params.tenant;
+    let tenant__n = params.tenant__n;
+    let tenant_group = params.tenant_group;
+    let tenant_group__n = params.tenant_group__n;
+    let tenant_group_id = params.tenant_group_id;
+    let tenant_group_id__n = params.tenant_group_id__n;
+    let tenant_id = params.tenant_id;
+    let tenant_id__n = params.tenant_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4444,10 +6693,13 @@ pub async fn circuits_circuit_groups_list(
 /// Patch a circuit group object.
 pub async fn circuits_circuit_groups_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_circuit_group_request: Option<crate::models::PatchedCircuitGroupRequest>,
+    params: CircuitsCircuitGroupsPartialUpdateParams,
 ) -> Result<crate::models::CircuitGroup, Error<CircuitsCircuitGroupsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_circuit_group_request = params.patched_circuit_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4496,12 +6748,15 @@ pub async fn circuits_circuit_groups_partial_update(
 /// Get a circuit group object.
 pub async fn circuits_circuit_groups_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: CircuitsCircuitGroupsRetrieveParams,
 ) -> Result<crate::models::CircuitGroup, Error<CircuitsCircuitGroupsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4561,10 +6816,13 @@ pub async fn circuits_circuit_groups_retrieve(
 /// Put a circuit group object.
 pub async fn circuits_circuit_groups_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    circuit_group_request: crate::models::CircuitGroupRequest,
+    params: CircuitsCircuitGroupsUpdateParams,
 ) -> Result<crate::models::CircuitGroup, Error<CircuitsCircuitGroupsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let circuit_group_request = params.circuit_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4613,9 +6871,12 @@ pub async fn circuits_circuit_groups_update(
 /// Delete a list of circuit termination objects.
 pub async fn circuits_circuit_terminations_bulk_destroy(
     configuration: &configuration::Configuration,
-    circuit_termination_request: Vec<crate::models::CircuitTerminationRequest>,
+    params: CircuitsCircuitTerminationsBulkDestroyParams,
 ) -> Result<(), Error<CircuitsCircuitTerminationsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let circuit_termination_request = params.circuit_termination_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4663,14 +6924,15 @@ pub async fn circuits_circuit_terminations_bulk_destroy(
 /// Patch a list of circuit termination objects.
 pub async fn circuits_circuit_terminations_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_circuit_termination_request: Vec<
-        crate::models::PatchedBulkCircuitTerminationRequest,
-    >,
+    params: CircuitsCircuitTerminationsBulkPartialUpdateParams,
 ) -> Result<
     Vec<crate::models::CircuitTermination>,
     Error<CircuitsCircuitTerminationsBulkPartialUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_circuit_termination_request = params.patched_bulk_circuit_termination_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4718,10 +6980,13 @@ pub async fn circuits_circuit_terminations_bulk_partial_update(
 /// Put a list of circuit termination objects.
 pub async fn circuits_circuit_terminations_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_circuit_termination_request: Vec<crate::models::BulkCircuitTerminationRequest>,
+    params: CircuitsCircuitTerminationsBulkUpdateParams,
 ) -> Result<Vec<crate::models::CircuitTermination>, Error<CircuitsCircuitTerminationsBulkUpdateError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_circuit_termination_request = params.bulk_circuit_termination_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4769,9 +7034,13 @@ pub async fn circuits_circuit_terminations_bulk_update(
 /// Post a list of circuit termination objects.
 pub async fn circuits_circuit_terminations_create(
     configuration: &configuration::Configuration,
-    circuits_circuit_terminations_create_request: crate::models::CircuitsCircuitTerminationsCreateRequest,
+    params: CircuitsCircuitTerminationsCreateParams,
 ) -> Result<crate::models::CircuitTermination, Error<CircuitsCircuitTerminationsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let circuits_circuit_terminations_create_request =
+        params.circuits_circuit_terminations_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4820,9 +7089,12 @@ pub async fn circuits_circuit_terminations_create(
 /// Delete a circuit termination object.
 pub async fn circuits_circuit_terminations_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: CircuitsCircuitTerminationsDestroyParams,
 ) -> Result<(), Error<CircuitsCircuitTerminationsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4870,173 +7142,176 @@ pub async fn circuits_circuit_terminations_destroy(
 /// Get a list of circuit termination objects.
 pub async fn circuits_circuit_terminations_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    cable_connector: Option<Vec<i32>>,
-    cable_connector__empty: Option<bool>,
-    cable_connector__gt: Option<Vec<i32>>,
-    cable_connector__gte: Option<Vec<i32>>,
-    cable_connector__lt: Option<Vec<i32>>,
-    cable_connector__lte: Option<Vec<i32>>,
-    cable_connector__n: Option<Vec<i32>>,
-    cable_end: Option<&str>,
-    cable_end__empty: Option<bool>,
-    cable_end__ic: Option<Vec<String>>,
-    cable_end__ie: Option<Vec<String>>,
-    cable_end__iew: Option<Vec<String>>,
-    cable_end__iregex: Option<Vec<String>>,
-    cable_end__isw: Option<Vec<String>>,
-    cable_end__n: Option<&str>,
-    cable_end__nic: Option<Vec<String>>,
-    cable_end__nie: Option<Vec<String>>,
-    cable_end__niew: Option<Vec<String>>,
-    cable_end__nisw: Option<Vec<String>>,
-    cable_end__regex: Option<Vec<String>>,
-    cable_id: Option<Vec<i32>>,
-    cable_id__n: Option<Vec<i32>>,
-    cabled: Option<bool>,
-    circuit_id: Option<Vec<i32>>,
-    circuit_id__n: Option<Vec<i32>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    location: Option<Vec<String>>,
-    location__n: Option<Vec<String>>,
-    location_id: Option<Vec<String>>,
-    location_id__n: Option<Vec<String>>,
-    mark_connected: Option<bool>,
-    modified_by_request: Option<&str>,
-    occupied: Option<bool>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    port_speed: Option<Vec<i32>>,
-    port_speed__empty: Option<bool>,
-    port_speed__gt: Option<Vec<i32>>,
-    port_speed__gte: Option<Vec<i32>>,
-    port_speed__lt: Option<Vec<i32>>,
-    port_speed__lte: Option<Vec<i32>>,
-    port_speed__n: Option<Vec<i32>>,
-    pp_info: Option<Vec<String>>,
-    pp_info__empty: Option<bool>,
-    pp_info__ic: Option<Vec<String>>,
-    pp_info__ie: Option<Vec<String>>,
-    pp_info__iew: Option<Vec<String>>,
-    pp_info__iregex: Option<Vec<String>>,
-    pp_info__isw: Option<Vec<String>>,
-    pp_info__n: Option<Vec<String>>,
-    pp_info__nic: Option<Vec<String>>,
-    pp_info__nie: Option<Vec<String>>,
-    pp_info__niew: Option<Vec<String>>,
-    pp_info__nisw: Option<Vec<String>>,
-    pp_info__regex: Option<Vec<String>>,
-    provider: Option<Vec<String>>,
-    provider__n: Option<Vec<String>>,
-    provider_id: Option<Vec<i32>>,
-    provider_id__n: Option<Vec<i32>>,
-    provider_network_id: Option<Vec<i32>>,
-    provider_network_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    region: Option<Vec<String>>,
-    region__n: Option<Vec<String>>,
-    region_id: Option<Vec<String>>,
-    region_id__n: Option<Vec<String>>,
-    site: Option<Vec<String>>,
-    site__n: Option<Vec<String>>,
-    site_group: Option<Vec<String>>,
-    site_group__n: Option<Vec<String>>,
-    site_group_id: Option<Vec<String>>,
-    site_group_id__n: Option<Vec<String>>,
-    site_id: Option<Vec<i32>>,
-    site_id__n: Option<Vec<i32>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    term_side: Option<&str>,
-    term_side__empty: Option<bool>,
-    term_side__ic: Option<Vec<String>>,
-    term_side__ie: Option<Vec<String>>,
-    term_side__iew: Option<Vec<String>>,
-    term_side__iregex: Option<Vec<String>>,
-    term_side__isw: Option<Vec<String>>,
-    term_side__n: Option<&str>,
-    term_side__nic: Option<Vec<String>>,
-    term_side__nie: Option<Vec<String>>,
-    term_side__niew: Option<Vec<String>>,
-    term_side__nisw: Option<Vec<String>>,
-    term_side__regex: Option<Vec<String>>,
-    termination_id: Option<Vec<i32>>,
-    termination_id__empty: Option<bool>,
-    termination_id__gt: Option<Vec<i32>>,
-    termination_id__gte: Option<Vec<i32>>,
-    termination_id__lt: Option<Vec<i32>>,
-    termination_id__lte: Option<Vec<i32>>,
-    termination_id__n: Option<Vec<i32>>,
-    termination_type: Option<Vec<String>>,
-    termination_type__n: Option<Vec<String>>,
-    updated_by_request: Option<&str>,
-    upstream_speed: Option<Vec<i32>>,
-    upstream_speed__empty: Option<bool>,
-    upstream_speed__gt: Option<Vec<i32>>,
-    upstream_speed__gte: Option<Vec<i32>>,
-    upstream_speed__lt: Option<Vec<i32>>,
-    upstream_speed__lte: Option<Vec<i32>>,
-    upstream_speed__n: Option<Vec<i32>>,
-    xconnect_id: Option<Vec<String>>,
-    xconnect_id__empty: Option<bool>,
-    xconnect_id__ic: Option<Vec<String>>,
-    xconnect_id__ie: Option<Vec<String>>,
-    xconnect_id__iew: Option<Vec<String>>,
-    xconnect_id__iregex: Option<Vec<String>>,
-    xconnect_id__isw: Option<Vec<String>>,
-    xconnect_id__n: Option<Vec<String>>,
-    xconnect_id__nic: Option<Vec<String>>,
-    xconnect_id__nie: Option<Vec<String>>,
-    xconnect_id__niew: Option<Vec<String>>,
-    xconnect_id__nisw: Option<Vec<String>>,
-    xconnect_id__regex: Option<Vec<String>>,
+    params: CircuitsCircuitTerminationsListParams,
 ) -> Result<
     crate::models::PaginatedCircuitTerminationList,
     Error<CircuitsCircuitTerminationsListError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let cable_connector = params.cable_connector;
+    let cable_connector__empty = params.cable_connector__empty;
+    let cable_connector__gt = params.cable_connector__gt;
+    let cable_connector__gte = params.cable_connector__gte;
+    let cable_connector__lt = params.cable_connector__lt;
+    let cable_connector__lte = params.cable_connector__lte;
+    let cable_connector__n = params.cable_connector__n;
+    let cable_end = params.cable_end;
+    let cable_end__empty = params.cable_end__empty;
+    let cable_end__ic = params.cable_end__ic;
+    let cable_end__ie = params.cable_end__ie;
+    let cable_end__iew = params.cable_end__iew;
+    let cable_end__iregex = params.cable_end__iregex;
+    let cable_end__isw = params.cable_end__isw;
+    let cable_end__n = params.cable_end__n;
+    let cable_end__nic = params.cable_end__nic;
+    let cable_end__nie = params.cable_end__nie;
+    let cable_end__niew = params.cable_end__niew;
+    let cable_end__nisw = params.cable_end__nisw;
+    let cable_end__regex = params.cable_end__regex;
+    let cable_id = params.cable_id;
+    let cable_id__n = params.cable_id__n;
+    let cabled = params.cabled;
+    let circuit_id = params.circuit_id;
+    let circuit_id__n = params.circuit_id__n;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let location = params.location;
+    let location__n = params.location__n;
+    let location_id = params.location_id;
+    let location_id__n = params.location_id__n;
+    let mark_connected = params.mark_connected;
+    let modified_by_request = params.modified_by_request;
+    let occupied = params.occupied;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let port_speed = params.port_speed;
+    let port_speed__empty = params.port_speed__empty;
+    let port_speed__gt = params.port_speed__gt;
+    let port_speed__gte = params.port_speed__gte;
+    let port_speed__lt = params.port_speed__lt;
+    let port_speed__lte = params.port_speed__lte;
+    let port_speed__n = params.port_speed__n;
+    let pp_info = params.pp_info;
+    let pp_info__empty = params.pp_info__empty;
+    let pp_info__ic = params.pp_info__ic;
+    let pp_info__ie = params.pp_info__ie;
+    let pp_info__iew = params.pp_info__iew;
+    let pp_info__iregex = params.pp_info__iregex;
+    let pp_info__isw = params.pp_info__isw;
+    let pp_info__n = params.pp_info__n;
+    let pp_info__nic = params.pp_info__nic;
+    let pp_info__nie = params.pp_info__nie;
+    let pp_info__niew = params.pp_info__niew;
+    let pp_info__nisw = params.pp_info__nisw;
+    let pp_info__regex = params.pp_info__regex;
+    let provider = params.provider;
+    let provider__n = params.provider__n;
+    let provider_id = params.provider_id;
+    let provider_id__n = params.provider_id__n;
+    let provider_network_id = params.provider_network_id;
+    let provider_network_id__n = params.provider_network_id__n;
+    let q = params.q;
+    let region = params.region;
+    let region__n = params.region__n;
+    let region_id = params.region_id;
+    let region_id__n = params.region_id__n;
+    let site = params.site;
+    let site__n = params.site__n;
+    let site_group = params.site_group;
+    let site_group__n = params.site_group__n;
+    let site_group_id = params.site_group_id;
+    let site_group_id__n = params.site_group_id__n;
+    let site_id = params.site_id;
+    let site_id__n = params.site_id__n;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let term_side = params.term_side;
+    let term_side__empty = params.term_side__empty;
+    let term_side__ic = params.term_side__ic;
+    let term_side__ie = params.term_side__ie;
+    let term_side__iew = params.term_side__iew;
+    let term_side__iregex = params.term_side__iregex;
+    let term_side__isw = params.term_side__isw;
+    let term_side__n = params.term_side__n;
+    let term_side__nic = params.term_side__nic;
+    let term_side__nie = params.term_side__nie;
+    let term_side__niew = params.term_side__niew;
+    let term_side__nisw = params.term_side__nisw;
+    let term_side__regex = params.term_side__regex;
+    let termination_id = params.termination_id;
+    let termination_id__empty = params.termination_id__empty;
+    let termination_id__gt = params.termination_id__gt;
+    let termination_id__gte = params.termination_id__gte;
+    let termination_id__lt = params.termination_id__lt;
+    let termination_id__lte = params.termination_id__lte;
+    let termination_id__n = params.termination_id__n;
+    let termination_type = params.termination_type;
+    let termination_type__n = params.termination_type__n;
+    let updated_by_request = params.updated_by_request;
+    let upstream_speed = params.upstream_speed;
+    let upstream_speed__empty = params.upstream_speed__empty;
+    let upstream_speed__gt = params.upstream_speed__gt;
+    let upstream_speed__gte = params.upstream_speed__gte;
+    let upstream_speed__lt = params.upstream_speed__lt;
+    let upstream_speed__lte = params.upstream_speed__lte;
+    let upstream_speed__n = params.upstream_speed__n;
+    let xconnect_id = params.xconnect_id;
+    let xconnect_id__empty = params.xconnect_id__empty;
+    let xconnect_id__ic = params.xconnect_id__ic;
+    let xconnect_id__ie = params.xconnect_id__ie;
+    let xconnect_id__iew = params.xconnect_id__iew;
+    let xconnect_id__iregex = params.xconnect_id__iregex;
+    let xconnect_id__isw = params.xconnect_id__isw;
+    let xconnect_id__n = params.xconnect_id__n;
+    let xconnect_id__nic = params.xconnect_id__nic;
+    let xconnect_id__nie = params.xconnect_id__nie;
+    let xconnect_id__niew = params.xconnect_id__niew;
+    let xconnect_id__nisw = params.xconnect_id__nisw;
+    let xconnect_id__regex = params.xconnect_id__regex;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7740,11 +10015,14 @@ pub async fn circuits_circuit_terminations_list(
 /// Patch a circuit termination object.
 pub async fn circuits_circuit_terminations_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_circuit_termination_request: Option<crate::models::PatchedCircuitTerminationRequest>,
+    params: CircuitsCircuitTerminationsPartialUpdateParams,
 ) -> Result<crate::models::CircuitTermination, Error<CircuitsCircuitTerminationsPartialUpdateError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_circuit_termination_request = params.patched_circuit_termination_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7793,13 +10071,16 @@ pub async fn circuits_circuit_terminations_partial_update(
 /// Return all CablePaths which traverse a given pass-through port.
 pub async fn circuits_circuit_terminations_paths_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: CircuitsCircuitTerminationsPathsRetrieveParams,
 ) -> Result<crate::models::CircuitTermination, Error<CircuitsCircuitTerminationsPathsRetrieveError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7859,12 +10140,15 @@ pub async fn circuits_circuit_terminations_paths_retrieve(
 /// Get a circuit termination object.
 pub async fn circuits_circuit_terminations_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: CircuitsCircuitTerminationsRetrieveParams,
 ) -> Result<crate::models::CircuitTermination, Error<CircuitsCircuitTerminationsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7924,10 +10208,13 @@ pub async fn circuits_circuit_terminations_retrieve(
 /// Put a circuit termination object.
 pub async fn circuits_circuit_terminations_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    circuit_termination_request: crate::models::CircuitTerminationRequest,
+    params: CircuitsCircuitTerminationsUpdateParams,
 ) -> Result<crate::models::CircuitTermination, Error<CircuitsCircuitTerminationsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let circuit_termination_request = params.circuit_termination_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7976,9 +10263,12 @@ pub async fn circuits_circuit_terminations_update(
 /// Delete a list of circuit type objects.
 pub async fn circuits_circuit_types_bulk_destroy(
     configuration: &configuration::Configuration,
-    circuit_type_request: Vec<crate::models::CircuitTypeRequest>,
+    params: CircuitsCircuitTypesBulkDestroyParams,
 ) -> Result<(), Error<CircuitsCircuitTypesBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let circuit_type_request = params.circuit_type_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -8026,9 +10316,12 @@ pub async fn circuits_circuit_types_bulk_destroy(
 /// Patch a list of circuit type objects.
 pub async fn circuits_circuit_types_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_circuit_type_request: Vec<crate::models::PatchedBulkCircuitTypeRequest>,
+    params: CircuitsCircuitTypesBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::CircuitType>, Error<CircuitsCircuitTypesBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_circuit_type_request = params.patched_bulk_circuit_type_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -8076,9 +10369,12 @@ pub async fn circuits_circuit_types_bulk_partial_update(
 /// Put a list of circuit type objects.
 pub async fn circuits_circuit_types_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_circuit_type_request: Vec<crate::models::BulkCircuitTypeRequest>,
+    params: CircuitsCircuitTypesBulkUpdateParams,
 ) -> Result<Vec<crate::models::CircuitType>, Error<CircuitsCircuitTypesBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_circuit_type_request = params.bulk_circuit_type_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -8126,9 +10422,12 @@ pub async fn circuits_circuit_types_bulk_update(
 /// Post a list of circuit type objects.
 pub async fn circuits_circuit_types_create(
     configuration: &configuration::Configuration,
-    circuits_circuit_types_create_request: crate::models::CircuitsCircuitTypesCreateRequest,
+    params: CircuitsCircuitTypesCreateParams,
 ) -> Result<crate::models::CircuitType, Error<CircuitsCircuitTypesCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let circuits_circuit_types_create_request = params.circuits_circuit_types_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -8176,9 +10475,12 @@ pub async fn circuits_circuit_types_create(
 /// Delete a circuit type object.
 pub async fn circuits_circuit_types_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: CircuitsCircuitTypesDestroyParams,
 ) -> Result<(), Error<CircuitsCircuitTypesDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -8226,106 +10528,109 @@ pub async fn circuits_circuit_types_destroy(
 /// Get a list of circuit type objects.
 pub async fn circuits_circuit_types_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    color: Option<Vec<String>>,
-    color__empty: Option<bool>,
-    color__ic: Option<Vec<String>>,
-    color__ie: Option<Vec<String>>,
-    color__iew: Option<Vec<String>>,
-    color__iregex: Option<Vec<String>>,
-    color__isw: Option<Vec<String>>,
-    color__n: Option<Vec<String>>,
-    color__nic: Option<Vec<String>>,
-    color__nie: Option<Vec<String>>,
-    color__niew: Option<Vec<String>>,
-    color__nisw: Option<Vec<String>>,
-    color__regex: Option<Vec<String>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    slug: Option<Vec<String>>,
-    slug__empty: Option<bool>,
-    slug__ic: Option<Vec<String>>,
-    slug__ie: Option<Vec<String>>,
-    slug__iew: Option<Vec<String>>,
-    slug__iregex: Option<Vec<String>>,
-    slug__isw: Option<Vec<String>>,
-    slug__n: Option<Vec<String>>,
-    slug__nic: Option<Vec<String>>,
-    slug__nie: Option<Vec<String>>,
-    slug__niew: Option<Vec<String>>,
-    slug__nisw: Option<Vec<String>>,
-    slug__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: CircuitsCircuitTypesListParams,
 ) -> Result<crate::models::PaginatedCircuitTypeList, Error<CircuitsCircuitTypesListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let color = params.color;
+    let color__empty = params.color__empty;
+    let color__ic = params.color__ic;
+    let color__ie = params.color__ie;
+    let color__iew = params.color__iew;
+    let color__iregex = params.color__iregex;
+    let color__isw = params.color__isw;
+    let color__n = params.color__n;
+    let color__nic = params.color__nic;
+    let color__nie = params.color__nie;
+    let color__niew = params.color__niew;
+    let color__nisw = params.color__nisw;
+    let color__regex = params.color__regex;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let slug = params.slug;
+    let slug__empty = params.slug__empty;
+    let slug__ic = params.slug__ic;
+    let slug__ie = params.slug__ie;
+    let slug__iew = params.slug__iew;
+    let slug__iregex = params.slug__iregex;
+    let slug__isw = params.slug__isw;
+    let slug__n = params.slug__n;
+    let slug__nic = params.slug__nic;
+    let slug__nie = params.slug__nie;
+    let slug__niew = params.slug__niew;
+    let slug__nisw = params.slug__nisw;
+    let slug__regex = params.slug__regex;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -9993,10 +12298,13 @@ pub async fn circuits_circuit_types_list(
 /// Patch a circuit type object.
 pub async fn circuits_circuit_types_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_circuit_type_request: Option<crate::models::PatchedCircuitTypeRequest>,
+    params: CircuitsCircuitTypesPartialUpdateParams,
 ) -> Result<crate::models::CircuitType, Error<CircuitsCircuitTypesPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_circuit_type_request = params.patched_circuit_type_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10045,12 +12353,15 @@ pub async fn circuits_circuit_types_partial_update(
 /// Get a circuit type object.
 pub async fn circuits_circuit_types_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: CircuitsCircuitTypesRetrieveParams,
 ) -> Result<crate::models::CircuitType, Error<CircuitsCircuitTypesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10110,10 +12421,13 @@ pub async fn circuits_circuit_types_retrieve(
 /// Put a circuit type object.
 pub async fn circuits_circuit_types_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    circuit_type_request: crate::models::CircuitTypeRequest,
+    params: CircuitsCircuitTypesUpdateParams,
 ) -> Result<crate::models::CircuitType, Error<CircuitsCircuitTypesUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let circuit_type_request = params.circuit_type_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10162,9 +12476,12 @@ pub async fn circuits_circuit_types_update(
 /// Delete a list of circuit objects.
 pub async fn circuits_circuits_bulk_destroy(
     configuration: &configuration::Configuration,
-    circuit_request: Vec<crate::models::CircuitRequest>,
+    params: CircuitsCircuitsBulkDestroyParams,
 ) -> Result<(), Error<CircuitsCircuitsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let circuit_request = params.circuit_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10212,9 +12529,12 @@ pub async fn circuits_circuits_bulk_destroy(
 /// Patch a list of circuit objects.
 pub async fn circuits_circuits_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_circuit_request: Vec<crate::models::PatchedBulkCircuitRequest>,
+    params: CircuitsCircuitsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::Circuit>, Error<CircuitsCircuitsBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_circuit_request = params.patched_bulk_circuit_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10262,9 +12582,12 @@ pub async fn circuits_circuits_bulk_partial_update(
 /// Put a list of circuit objects.
 pub async fn circuits_circuits_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_circuit_request: Vec<crate::models::BulkCircuitRequest>,
+    params: CircuitsCircuitsBulkUpdateParams,
 ) -> Result<Vec<crate::models::Circuit>, Error<CircuitsCircuitsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_circuit_request = params.bulk_circuit_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10312,9 +12635,12 @@ pub async fn circuits_circuits_bulk_update(
 /// Post a list of circuit objects.
 pub async fn circuits_circuits_create(
     configuration: &configuration::Configuration,
-    circuits_circuits_create_request: crate::models::CircuitsCircuitsCreateRequest,
+    params: CircuitsCircuitsCreateParams,
 ) -> Result<crate::models::Circuit, Error<CircuitsCircuitsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let circuits_circuits_create_request = params.circuits_circuits_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10362,9 +12688,12 @@ pub async fn circuits_circuits_create(
 /// Delete a circuit object.
 pub async fn circuits_circuits_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: CircuitsCircuitsDestroyParams,
 ) -> Result<(), Error<CircuitsCircuitsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10412,180 +12741,183 @@ pub async fn circuits_circuits_destroy(
 /// Get a list of circuit objects.
 pub async fn circuits_circuits_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    cid: Option<Vec<String>>,
-    cid__empty: Option<bool>,
-    cid__ic: Option<Vec<String>>,
-    cid__ie: Option<Vec<String>>,
-    cid__iew: Option<Vec<String>>,
-    cid__iregex: Option<Vec<String>>,
-    cid__isw: Option<Vec<String>>,
-    cid__n: Option<Vec<String>>,
-    cid__nic: Option<Vec<String>>,
-    cid__nie: Option<Vec<String>>,
-    cid__niew: Option<Vec<String>>,
-    cid__nisw: Option<Vec<String>>,
-    cid__regex: Option<Vec<String>>,
-    commit_rate: Option<Vec<i32>>,
-    commit_rate__empty: Option<bool>,
-    commit_rate__gt: Option<Vec<i32>>,
-    commit_rate__gte: Option<Vec<i32>>,
-    commit_rate__lt: Option<Vec<i32>>,
-    commit_rate__lte: Option<Vec<i32>>,
-    commit_rate__n: Option<Vec<i32>>,
-    contact: Option<Vec<i32>>,
-    contact__n: Option<Vec<i32>>,
-    contact_group: Option<Vec<String>>,
-    contact_group__n: Option<Vec<String>>,
-    contact_role: Option<Vec<i32>>,
-    contact_role__n: Option<Vec<i32>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    distance: Option<Vec<f64>>,
-    distance__empty: Option<bool>,
-    distance__gt: Option<Vec<f64>>,
-    distance__gte: Option<Vec<f64>>,
-    distance__lt: Option<Vec<f64>>,
-    distance__lte: Option<Vec<f64>>,
-    distance__n: Option<Vec<f64>>,
-    distance_unit: Option<&str>,
-    distance_unit__empty: Option<bool>,
-    distance_unit__ic: Option<Vec<String>>,
-    distance_unit__ie: Option<Vec<String>>,
-    distance_unit__iew: Option<Vec<String>>,
-    distance_unit__iregex: Option<Vec<String>>,
-    distance_unit__isw: Option<Vec<String>>,
-    distance_unit__n: Option<&str>,
-    distance_unit__nic: Option<Vec<String>>,
-    distance_unit__nie: Option<Vec<String>>,
-    distance_unit__niew: Option<Vec<String>>,
-    distance_unit__nisw: Option<Vec<String>>,
-    distance_unit__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    install_date: Option<Vec<String>>,
-    install_date__empty: Option<bool>,
-    install_date__gt: Option<Vec<String>>,
-    install_date__gte: Option<Vec<String>>,
-    install_date__lt: Option<Vec<String>>,
-    install_date__lte: Option<Vec<String>>,
-    install_date__n: Option<Vec<String>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    location_id: Option<Vec<i32>>,
-    location_id__n: Option<Vec<i32>>,
-    modified_by_request: Option<&str>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    provider: Option<Vec<String>>,
-    provider__n: Option<Vec<String>>,
-    provider_account: Option<Vec<String>>,
-    provider_account__n: Option<Vec<String>>,
-    provider_account_id: Option<Vec<i32>>,
-    provider_account_id__n: Option<Vec<i32>>,
-    provider_id: Option<Vec<i32>>,
-    provider_id__n: Option<Vec<i32>>,
-    provider_network_id: Option<Vec<i32>>,
-    provider_network_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    region: Option<Vec<String>>,
-    region__n: Option<Vec<String>>,
-    region_id: Option<Vec<String>>,
-    region_id__n: Option<Vec<String>>,
-    site: Option<Vec<String>>,
-    site__n: Option<Vec<String>>,
-    site_group: Option<Vec<String>>,
-    site_group__n: Option<Vec<String>>,
-    site_group_id: Option<Vec<String>>,
-    site_group_id__n: Option<Vec<String>>,
-    site_id: Option<Vec<i32>>,
-    site_id__n: Option<Vec<i32>>,
-    start: Option<i32>,
-    status: Option<Vec<String>>,
-    status__empty: Option<bool>,
-    status__ic: Option<Vec<String>>,
-    status__ie: Option<Vec<String>>,
-    status__iew: Option<Vec<String>>,
-    status__iregex: Option<Vec<String>>,
-    status__isw: Option<Vec<String>>,
-    status__n: Option<Vec<String>>,
-    status__nic: Option<Vec<String>>,
-    status__nie: Option<Vec<String>>,
-    status__niew: Option<Vec<String>>,
-    status__nisw: Option<Vec<String>>,
-    status__regex: Option<Vec<String>>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    tenant: Option<Vec<String>>,
-    tenant__n: Option<Vec<String>>,
-    tenant_group: Option<Vec<String>>,
-    tenant_group__n: Option<Vec<String>>,
-    tenant_group_id: Option<Vec<String>>,
-    tenant_group_id__n: Option<Vec<String>>,
-    tenant_id: Option<Vec<i32>>,
-    tenant_id__n: Option<Vec<i32>>,
-    termination_a_id: Option<Vec<i32>>,
-    termination_a_id__n: Option<Vec<i32>>,
-    termination_date: Option<Vec<String>>,
-    termination_date__empty: Option<bool>,
-    termination_date__gt: Option<Vec<String>>,
-    termination_date__gte: Option<Vec<String>>,
-    termination_date__lt: Option<Vec<String>>,
-    termination_date__lte: Option<Vec<String>>,
-    termination_date__n: Option<Vec<String>>,
-    termination_z_id: Option<Vec<i32>>,
-    termination_z_id__n: Option<Vec<i32>>,
-    r#type: Option<Vec<String>>,
-    type__n: Option<Vec<String>>,
-    type_id: Option<Vec<i32>>,
-    type_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: CircuitsCircuitsListParams,
 ) -> Result<crate::models::PaginatedCircuitList, Error<CircuitsCircuitsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let cid = params.cid;
+    let cid__empty = params.cid__empty;
+    let cid__ic = params.cid__ic;
+    let cid__ie = params.cid__ie;
+    let cid__iew = params.cid__iew;
+    let cid__iregex = params.cid__iregex;
+    let cid__isw = params.cid__isw;
+    let cid__n = params.cid__n;
+    let cid__nic = params.cid__nic;
+    let cid__nie = params.cid__nie;
+    let cid__niew = params.cid__niew;
+    let cid__nisw = params.cid__nisw;
+    let cid__regex = params.cid__regex;
+    let commit_rate = params.commit_rate;
+    let commit_rate__empty = params.commit_rate__empty;
+    let commit_rate__gt = params.commit_rate__gt;
+    let commit_rate__gte = params.commit_rate__gte;
+    let commit_rate__lt = params.commit_rate__lt;
+    let commit_rate__lte = params.commit_rate__lte;
+    let commit_rate__n = params.commit_rate__n;
+    let contact = params.contact;
+    let contact__n = params.contact__n;
+    let contact_group = params.contact_group;
+    let contact_group__n = params.contact_group__n;
+    let contact_role = params.contact_role;
+    let contact_role__n = params.contact_role__n;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let distance = params.distance;
+    let distance__empty = params.distance__empty;
+    let distance__gt = params.distance__gt;
+    let distance__gte = params.distance__gte;
+    let distance__lt = params.distance__lt;
+    let distance__lte = params.distance__lte;
+    let distance__n = params.distance__n;
+    let distance_unit = params.distance_unit;
+    let distance_unit__empty = params.distance_unit__empty;
+    let distance_unit__ic = params.distance_unit__ic;
+    let distance_unit__ie = params.distance_unit__ie;
+    let distance_unit__iew = params.distance_unit__iew;
+    let distance_unit__iregex = params.distance_unit__iregex;
+    let distance_unit__isw = params.distance_unit__isw;
+    let distance_unit__n = params.distance_unit__n;
+    let distance_unit__nic = params.distance_unit__nic;
+    let distance_unit__nie = params.distance_unit__nie;
+    let distance_unit__niew = params.distance_unit__niew;
+    let distance_unit__nisw = params.distance_unit__nisw;
+    let distance_unit__regex = params.distance_unit__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let install_date = params.install_date;
+    let install_date__empty = params.install_date__empty;
+    let install_date__gt = params.install_date__gt;
+    let install_date__gte = params.install_date__gte;
+    let install_date__lt = params.install_date__lt;
+    let install_date__lte = params.install_date__lte;
+    let install_date__n = params.install_date__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let location_id = params.location_id;
+    let location_id__n = params.location_id__n;
+    let modified_by_request = params.modified_by_request;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let provider = params.provider;
+    let provider__n = params.provider__n;
+    let provider_account = params.provider_account;
+    let provider_account__n = params.provider_account__n;
+    let provider_account_id = params.provider_account_id;
+    let provider_account_id__n = params.provider_account_id__n;
+    let provider_id = params.provider_id;
+    let provider_id__n = params.provider_id__n;
+    let provider_network_id = params.provider_network_id;
+    let provider_network_id__n = params.provider_network_id__n;
+    let q = params.q;
+    let region = params.region;
+    let region__n = params.region__n;
+    let region_id = params.region_id;
+    let region_id__n = params.region_id__n;
+    let site = params.site;
+    let site__n = params.site__n;
+    let site_group = params.site_group;
+    let site_group__n = params.site_group__n;
+    let site_group_id = params.site_group_id;
+    let site_group_id__n = params.site_group_id__n;
+    let site_id = params.site_id;
+    let site_id__n = params.site_id__n;
+    let start = params.start;
+    let status = params.status;
+    let status__empty = params.status__empty;
+    let status__ic = params.status__ic;
+    let status__ie = params.status__ie;
+    let status__iew = params.status__iew;
+    let status__iregex = params.status__iregex;
+    let status__isw = params.status__isw;
+    let status__n = params.status__n;
+    let status__nic = params.status__nic;
+    let status__nie = params.status__nie;
+    let status__niew = params.status__niew;
+    let status__nisw = params.status__nisw;
+    let status__regex = params.status__regex;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let tenant = params.tenant;
+    let tenant__n = params.tenant__n;
+    let tenant_group = params.tenant_group;
+    let tenant_group__n = params.tenant_group__n;
+    let tenant_group_id = params.tenant_group_id;
+    let tenant_group_id__n = params.tenant_group_id__n;
+    let tenant_id = params.tenant_id;
+    let tenant_id__n = params.tenant_id__n;
+    let termination_a_id = params.termination_a_id;
+    let termination_a_id__n = params.termination_a_id__n;
+    let termination_date = params.termination_date;
+    let termination_date__empty = params.termination_date__empty;
+    let termination_date__gt = params.termination_date__gt;
+    let termination_date__gte = params.termination_date__gte;
+    let termination_date__lt = params.termination_date__lt;
+    let termination_date__lte = params.termination_date__lte;
+    let termination_date__n = params.termination_date__n;
+    let termination_z_id = params.termination_z_id;
+    let termination_z_id__n = params.termination_z_id__n;
+    let r#type = params.r#type;
+    let type__n = params.type__n;
+    let type_id = params.type_id;
+    let type_id__n = params.type_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -13569,10 +15901,13 @@ pub async fn circuits_circuits_list(
 /// Patch a circuit object.
 pub async fn circuits_circuits_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_circuit_request: Option<crate::models::PatchedWritableCircuitRequest>,
+    params: CircuitsCircuitsPartialUpdateParams,
 ) -> Result<crate::models::Circuit, Error<CircuitsCircuitsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_circuit_request = params.patched_writable_circuit_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -13621,12 +15956,15 @@ pub async fn circuits_circuits_partial_update(
 /// Get a circuit object.
 pub async fn circuits_circuits_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: CircuitsCircuitsRetrieveParams,
 ) -> Result<crate::models::Circuit, Error<CircuitsCircuitsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -13686,10 +16024,13 @@ pub async fn circuits_circuits_retrieve(
 /// Put a circuit object.
 pub async fn circuits_circuits_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_circuit_request: crate::models::WritableCircuitRequest,
+    params: CircuitsCircuitsUpdateParams,
 ) -> Result<crate::models::Circuit, Error<CircuitsCircuitsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_circuit_request = params.writable_circuit_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -13738,9 +16079,12 @@ pub async fn circuits_circuits_update(
 /// Delete a list of provider account objects.
 pub async fn circuits_provider_accounts_bulk_destroy(
     configuration: &configuration::Configuration,
-    provider_account_request: Vec<crate::models::ProviderAccountRequest>,
+    params: CircuitsProviderAccountsBulkDestroyParams,
 ) -> Result<(), Error<CircuitsProviderAccountsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let provider_account_request = params.provider_account_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -13788,12 +16132,15 @@ pub async fn circuits_provider_accounts_bulk_destroy(
 /// Patch a list of provider account objects.
 pub async fn circuits_provider_accounts_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_provider_account_request: Vec<crate::models::PatchedBulkProviderAccountRequest>,
+    params: CircuitsProviderAccountsBulkPartialUpdateParams,
 ) -> Result<
     Vec<crate::models::ProviderAccount>,
     Error<CircuitsProviderAccountsBulkPartialUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_provider_account_request = params.patched_bulk_provider_account_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -13841,9 +16188,12 @@ pub async fn circuits_provider_accounts_bulk_partial_update(
 /// Put a list of provider account objects.
 pub async fn circuits_provider_accounts_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_provider_account_request: Vec<crate::models::BulkProviderAccountRequest>,
+    params: CircuitsProviderAccountsBulkUpdateParams,
 ) -> Result<Vec<crate::models::ProviderAccount>, Error<CircuitsProviderAccountsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_provider_account_request = params.bulk_provider_account_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -13891,9 +16241,13 @@ pub async fn circuits_provider_accounts_bulk_update(
 /// Post a list of provider account objects.
 pub async fn circuits_provider_accounts_create(
     configuration: &configuration::Configuration,
-    circuits_provider_accounts_create_request: crate::models::CircuitsProviderAccountsCreateRequest,
+    params: CircuitsProviderAccountsCreateParams,
 ) -> Result<crate::models::ProviderAccount, Error<CircuitsProviderAccountsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let circuits_provider_accounts_create_request =
+        params.circuits_provider_accounts_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -13941,9 +16295,12 @@ pub async fn circuits_provider_accounts_create(
 /// Delete a provider account object.
 pub async fn circuits_provider_accounts_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: CircuitsProviderAccountsDestroyParams,
 ) -> Result<(), Error<CircuitsProviderAccountsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -13991,103 +16348,106 @@ pub async fn circuits_provider_accounts_destroy(
 /// Get a list of provider account objects.
 pub async fn circuits_provider_accounts_list(
     configuration: &configuration::Configuration,
-    account: Option<Vec<String>>,
-    account__empty: Option<bool>,
-    account__ic: Option<Vec<String>>,
-    account__ie: Option<Vec<String>>,
-    account__iew: Option<Vec<String>>,
-    account__iregex: Option<Vec<String>>,
-    account__isw: Option<Vec<String>>,
-    account__n: Option<Vec<String>>,
-    account__nic: Option<Vec<String>>,
-    account__nie: Option<Vec<String>>,
-    account__niew: Option<Vec<String>>,
-    account__nisw: Option<Vec<String>>,
-    account__regex: Option<Vec<String>>,
-    brief: Option<bool>,
-    contact: Option<Vec<i32>>,
-    contact__n: Option<Vec<i32>>,
-    contact_group: Option<Vec<String>>,
-    contact_group__n: Option<Vec<String>>,
-    contact_role: Option<Vec<i32>>,
-    contact_role__n: Option<Vec<i32>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    provider: Option<Vec<String>>,
-    provider__n: Option<Vec<String>>,
-    provider_id: Option<Vec<i32>>,
-    provider_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: CircuitsProviderAccountsListParams,
 ) -> Result<crate::models::PaginatedProviderAccountList, Error<CircuitsProviderAccountsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let account = params.account;
+    let account__empty = params.account__empty;
+    let account__ic = params.account__ic;
+    let account__ie = params.account__ie;
+    let account__iew = params.account__iew;
+    let account__iregex = params.account__iregex;
+    let account__isw = params.account__isw;
+    let account__n = params.account__n;
+    let account__nic = params.account__nic;
+    let account__nie = params.account__nie;
+    let account__niew = params.account__niew;
+    let account__nisw = params.account__nisw;
+    let account__regex = params.account__regex;
+    let brief = params.brief;
+    let contact = params.contact;
+    let contact__n = params.contact__n;
+    let contact_group = params.contact_group;
+    let contact_group__n = params.contact_group__n;
+    let contact_role = params.contact_role;
+    let contact_role__n = params.contact_role__n;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let provider = params.provider;
+    let provider__n = params.provider__n;
+    let provider_id = params.provider_id;
+    let provider_id__n = params.provider_id__n;
+    let q = params.q;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -15713,10 +18073,13 @@ pub async fn circuits_provider_accounts_list(
 /// Patch a provider account object.
 pub async fn circuits_provider_accounts_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_provider_account_request: Option<crate::models::PatchedProviderAccountRequest>,
+    params: CircuitsProviderAccountsPartialUpdateParams,
 ) -> Result<crate::models::ProviderAccount, Error<CircuitsProviderAccountsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_provider_account_request = params.patched_provider_account_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -15765,12 +18128,15 @@ pub async fn circuits_provider_accounts_partial_update(
 /// Get a provider account object.
 pub async fn circuits_provider_accounts_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: CircuitsProviderAccountsRetrieveParams,
 ) -> Result<crate::models::ProviderAccount, Error<CircuitsProviderAccountsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -15830,10 +18196,13 @@ pub async fn circuits_provider_accounts_retrieve(
 /// Put a provider account object.
 pub async fn circuits_provider_accounts_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    provider_account_request: crate::models::ProviderAccountRequest,
+    params: CircuitsProviderAccountsUpdateParams,
 ) -> Result<crate::models::ProviderAccount, Error<CircuitsProviderAccountsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let provider_account_request = params.provider_account_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -15882,9 +18251,12 @@ pub async fn circuits_provider_accounts_update(
 /// Delete a list of provider network objects.
 pub async fn circuits_provider_networks_bulk_destroy(
     configuration: &configuration::Configuration,
-    provider_network_request: Vec<crate::models::ProviderNetworkRequest>,
+    params: CircuitsProviderNetworksBulkDestroyParams,
 ) -> Result<(), Error<CircuitsProviderNetworksBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let provider_network_request = params.provider_network_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -15932,12 +18304,15 @@ pub async fn circuits_provider_networks_bulk_destroy(
 /// Patch a list of provider network objects.
 pub async fn circuits_provider_networks_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_provider_network_request: Vec<crate::models::PatchedBulkProviderNetworkRequest>,
+    params: CircuitsProviderNetworksBulkPartialUpdateParams,
 ) -> Result<
     Vec<crate::models::ProviderNetwork>,
     Error<CircuitsProviderNetworksBulkPartialUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_provider_network_request = params.patched_bulk_provider_network_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -15985,9 +18360,12 @@ pub async fn circuits_provider_networks_bulk_partial_update(
 /// Put a list of provider network objects.
 pub async fn circuits_provider_networks_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_provider_network_request: Vec<crate::models::BulkProviderNetworkRequest>,
+    params: CircuitsProviderNetworksBulkUpdateParams,
 ) -> Result<Vec<crate::models::ProviderNetwork>, Error<CircuitsProviderNetworksBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_provider_network_request = params.bulk_provider_network_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -16035,9 +18413,13 @@ pub async fn circuits_provider_networks_bulk_update(
 /// Post a list of provider network objects.
 pub async fn circuits_provider_networks_create(
     configuration: &configuration::Configuration,
-    circuits_provider_networks_create_request: crate::models::CircuitsProviderNetworksCreateRequest,
+    params: CircuitsProviderNetworksCreateParams,
 ) -> Result<crate::models::ProviderNetwork, Error<CircuitsProviderNetworksCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let circuits_provider_networks_create_request =
+        params.circuits_provider_networks_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -16085,9 +18467,12 @@ pub async fn circuits_provider_networks_create(
 /// Delete a provider network object.
 pub async fn circuits_provider_networks_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: CircuitsProviderNetworksDestroyParams,
 ) -> Result<(), Error<CircuitsProviderNetworksDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -16135,97 +18520,100 @@ pub async fn circuits_provider_networks_destroy(
 /// Get a list of provider network objects.
 pub async fn circuits_provider_networks_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    provider: Option<Vec<String>>,
-    provider__n: Option<Vec<String>>,
-    provider_id: Option<Vec<i32>>,
-    provider_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    service_id: Option<Vec<String>>,
-    service_id__empty: Option<bool>,
-    service_id__ic: Option<Vec<String>>,
-    service_id__ie: Option<Vec<String>>,
-    service_id__iew: Option<Vec<String>>,
-    service_id__iregex: Option<Vec<String>>,
-    service_id__isw: Option<Vec<String>>,
-    service_id__n: Option<Vec<String>>,
-    service_id__nic: Option<Vec<String>>,
-    service_id__nie: Option<Vec<String>>,
-    service_id__niew: Option<Vec<String>>,
-    service_id__nisw: Option<Vec<String>>,
-    service_id__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: CircuitsProviderNetworksListParams,
 ) -> Result<crate::models::PaginatedProviderNetworkList, Error<CircuitsProviderNetworksListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let provider = params.provider;
+    let provider__n = params.provider__n;
+    let provider_id = params.provider_id;
+    let provider_id__n = params.provider_id__n;
+    let q = params.q;
+    let service_id = params.service_id;
+    let service_id__empty = params.service_id__empty;
+    let service_id__ic = params.service_id__ic;
+    let service_id__ie = params.service_id__ie;
+    let service_id__iew = params.service_id__iew;
+    let service_id__iregex = params.service_id__iregex;
+    let service_id__isw = params.service_id__isw;
+    let service_id__n = params.service_id__n;
+    let service_id__nic = params.service_id__nic;
+    let service_id__nie = params.service_id__nie;
+    let service_id__niew = params.service_id__niew;
+    let service_id__nisw = params.service_id__nisw;
+    let service_id__regex = params.service_id__regex;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17737,10 +20125,13 @@ pub async fn circuits_provider_networks_list(
 /// Patch a provider network object.
 pub async fn circuits_provider_networks_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_provider_network_request: Option<crate::models::PatchedProviderNetworkRequest>,
+    params: CircuitsProviderNetworksPartialUpdateParams,
 ) -> Result<crate::models::ProviderNetwork, Error<CircuitsProviderNetworksPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_provider_network_request = params.patched_provider_network_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17789,12 +20180,15 @@ pub async fn circuits_provider_networks_partial_update(
 /// Get a provider network object.
 pub async fn circuits_provider_networks_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: CircuitsProviderNetworksRetrieveParams,
 ) -> Result<crate::models::ProviderNetwork, Error<CircuitsProviderNetworksRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17854,10 +20248,13 @@ pub async fn circuits_provider_networks_retrieve(
 /// Put a provider network object.
 pub async fn circuits_provider_networks_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    provider_network_request: crate::models::ProviderNetworkRequest,
+    params: CircuitsProviderNetworksUpdateParams,
 ) -> Result<crate::models::ProviderNetwork, Error<CircuitsProviderNetworksUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let provider_network_request = params.provider_network_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17906,9 +20303,12 @@ pub async fn circuits_provider_networks_update(
 /// Delete a list of provider objects.
 pub async fn circuits_providers_bulk_destroy(
     configuration: &configuration::Configuration,
-    provider_request: Vec<crate::models::ProviderRequest>,
+    params: CircuitsProvidersBulkDestroyParams,
 ) -> Result<(), Error<CircuitsProvidersBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let provider_request = params.provider_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17956,9 +20356,12 @@ pub async fn circuits_providers_bulk_destroy(
 /// Patch a list of provider objects.
 pub async fn circuits_providers_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_provider_request: Vec<crate::models::PatchedBulkProviderRequest>,
+    params: CircuitsProvidersBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::Provider>, Error<CircuitsProvidersBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_provider_request = params.patched_bulk_provider_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -18006,9 +20409,12 @@ pub async fn circuits_providers_bulk_partial_update(
 /// Put a list of provider objects.
 pub async fn circuits_providers_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_provider_request: Vec<crate::models::BulkProviderRequest>,
+    params: CircuitsProvidersBulkUpdateParams,
 ) -> Result<Vec<crate::models::Provider>, Error<CircuitsProvidersBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_provider_request = params.bulk_provider_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -18056,9 +20462,12 @@ pub async fn circuits_providers_bulk_update(
 /// Post a list of provider objects.
 pub async fn circuits_providers_create(
     configuration: &configuration::Configuration,
-    circuits_providers_create_request: crate::models::CircuitsProvidersCreateRequest,
+    params: CircuitsProvidersCreateParams,
 ) -> Result<crate::models::Provider, Error<CircuitsProvidersCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let circuits_providers_create_request = params.circuits_providers_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -18106,9 +20515,12 @@ pub async fn circuits_providers_create(
 /// Delete a provider object.
 pub async fn circuits_providers_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: CircuitsProvidersDestroyParams,
 ) -> Result<(), Error<CircuitsProvidersDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -18156,115 +20568,118 @@ pub async fn circuits_providers_destroy(
 /// Get a list of provider objects.
 pub async fn circuits_providers_list(
     configuration: &configuration::Configuration,
-    asn: Option<Vec<i64>>,
-    asn__n: Option<Vec<i64>>,
-    asn_id: Option<Vec<i32>>,
-    asn_id__n: Option<Vec<i32>>,
-    brief: Option<bool>,
-    contact: Option<Vec<i32>>,
-    contact__n: Option<Vec<i32>>,
-    contact_group: Option<Vec<String>>,
-    contact_group__n: Option<Vec<String>>,
-    contact_role: Option<Vec<i32>>,
-    contact_role__n: Option<Vec<i32>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    region: Option<Vec<String>>,
-    region__n: Option<Vec<String>>,
-    region_id: Option<Vec<String>>,
-    region_id__n: Option<Vec<String>>,
-    site: Option<Vec<String>>,
-    site__n: Option<Vec<String>>,
-    site_group: Option<Vec<String>>,
-    site_group__n: Option<Vec<String>>,
-    site_group_id: Option<Vec<String>>,
-    site_group_id__n: Option<Vec<String>>,
-    site_id: Option<Vec<i32>>,
-    site_id__n: Option<Vec<i32>>,
-    slug: Option<Vec<String>>,
-    slug__empty: Option<bool>,
-    slug__ic: Option<Vec<String>>,
-    slug__ie: Option<Vec<String>>,
-    slug__iew: Option<Vec<String>>,
-    slug__iregex: Option<Vec<String>>,
-    slug__isw: Option<Vec<String>>,
-    slug__n: Option<Vec<String>>,
-    slug__nic: Option<Vec<String>>,
-    slug__nie: Option<Vec<String>>,
-    slug__niew: Option<Vec<String>>,
-    slug__nisw: Option<Vec<String>>,
-    slug__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: CircuitsProvidersListParams,
 ) -> Result<crate::models::PaginatedProviderList, Error<CircuitsProvidersListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let asn = params.asn;
+    let asn__n = params.asn__n;
+    let asn_id = params.asn_id;
+    let asn_id__n = params.asn_id__n;
+    let brief = params.brief;
+    let contact = params.contact;
+    let contact__n = params.contact__n;
+    let contact_group = params.contact_group;
+    let contact_group__n = params.contact_group__n;
+    let contact_role = params.contact_role;
+    let contact_role__n = params.contact_role__n;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let region = params.region;
+    let region__n = params.region__n;
+    let region_id = params.region_id;
+    let region_id__n = params.region_id__n;
+    let site = params.site;
+    let site__n = params.site__n;
+    let site_group = params.site_group;
+    let site_group__n = params.site_group__n;
+    let site_group_id = params.site_group_id;
+    let site_group_id__n = params.site_group_id__n;
+    let site_id = params.site_id;
+    let site_id__n = params.site_id__n;
+    let slug = params.slug;
+    let slug__empty = params.slug__empty;
+    let slug__ic = params.slug__ic;
+    let slug__ie = params.slug__ie;
+    let slug__iew = params.slug__iew;
+    let slug__iregex = params.slug__iregex;
+    let slug__isw = params.slug__isw;
+    let slug__n = params.slug__n;
+    let slug__nic = params.slug__nic;
+    let slug__nie = params.slug__nie;
+    let slug__niew = params.slug__niew;
+    let slug__nisw = params.slug__nisw;
+    let slug__regex = params.slug__regex;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -20118,10 +22533,13 @@ pub async fn circuits_providers_list(
 /// Patch a provider object.
 pub async fn circuits_providers_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_provider_request: Option<crate::models::PatchedProviderRequest>,
+    params: CircuitsProvidersPartialUpdateParams,
 ) -> Result<crate::models::Provider, Error<CircuitsProvidersPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_provider_request = params.patched_provider_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -20170,12 +22588,15 @@ pub async fn circuits_providers_partial_update(
 /// Get a provider object.
 pub async fn circuits_providers_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: CircuitsProvidersRetrieveParams,
 ) -> Result<crate::models::Provider, Error<CircuitsProvidersRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -20235,10 +22656,13 @@ pub async fn circuits_providers_retrieve(
 /// Put a provider object.
 pub async fn circuits_providers_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    provider_request: crate::models::ProviderRequest,
+    params: CircuitsProvidersUpdateParams,
 ) -> Result<crate::models::Provider, Error<CircuitsProvidersUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let provider_request = params.provider_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -20287,9 +22711,12 @@ pub async fn circuits_providers_update(
 /// Delete a list of virtual circuit termination objects.
 pub async fn circuits_virtual_circuit_terminations_bulk_destroy(
     configuration: &configuration::Configuration,
-    virtual_circuit_termination_request: Vec<crate::models::VirtualCircuitTerminationRequest>,
+    params: CircuitsVirtualCircuitTerminationsBulkDestroyParams,
 ) -> Result<(), Error<CircuitsVirtualCircuitTerminationsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let virtual_circuit_termination_request = params.virtual_circuit_termination_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -20337,14 +22764,16 @@ pub async fn circuits_virtual_circuit_terminations_bulk_destroy(
 /// Patch a list of virtual circuit termination objects.
 pub async fn circuits_virtual_circuit_terminations_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_virtual_circuit_termination_request: Vec<
-        crate::models::PatchedBulkVirtualCircuitTerminationRequest,
-    >,
+    params: CircuitsVirtualCircuitTerminationsBulkPartialUpdateParams,
 ) -> Result<
     Vec<crate::models::VirtualCircuitTermination>,
     Error<CircuitsVirtualCircuitTerminationsBulkPartialUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_virtual_circuit_termination_request =
+        params.patched_bulk_virtual_circuit_termination_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -20393,14 +22822,15 @@ pub async fn circuits_virtual_circuit_terminations_bulk_partial_update(
 /// Put a list of virtual circuit termination objects.
 pub async fn circuits_virtual_circuit_terminations_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_virtual_circuit_termination_request: Vec<
-        crate::models::BulkVirtualCircuitTerminationRequest,
-    >,
+    params: CircuitsVirtualCircuitTerminationsBulkUpdateParams,
 ) -> Result<
     Vec<crate::models::VirtualCircuitTermination>,
     Error<CircuitsVirtualCircuitTerminationsBulkUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_virtual_circuit_termination_request = params.bulk_virtual_circuit_termination_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -20448,12 +22878,16 @@ pub async fn circuits_virtual_circuit_terminations_bulk_update(
 /// Post a list of virtual circuit termination objects.
 pub async fn circuits_virtual_circuit_terminations_create(
     configuration: &configuration::Configuration,
-    circuits_virtual_circuit_terminations_create_request: crate::models::CircuitsVirtualCircuitTerminationsCreateRequest,
+    params: CircuitsVirtualCircuitTerminationsCreateParams,
 ) -> Result<
     crate::models::VirtualCircuitTermination,
     Error<CircuitsVirtualCircuitTerminationsCreateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let circuits_virtual_circuit_terminations_create_request =
+        params.circuits_virtual_circuit_terminations_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -20502,9 +22936,12 @@ pub async fn circuits_virtual_circuit_terminations_create(
 /// Delete a virtual circuit termination object.
 pub async fn circuits_virtual_circuit_terminations_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: CircuitsVirtualCircuitTerminationsDestroyParams,
 ) -> Result<(), Error<CircuitsVirtualCircuitTerminationsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -20552,89 +22989,92 @@ pub async fn circuits_virtual_circuit_terminations_destroy(
 /// Get a list of virtual circuit termination objects.
 pub async fn circuits_virtual_circuit_terminations_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    interface_id: Option<Vec<i32>>,
-    interface_id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    provider: Option<Vec<String>>,
-    provider__n: Option<Vec<String>>,
-    provider_account: Option<Vec<String>>,
-    provider_account__n: Option<Vec<String>>,
-    provider_account_id: Option<Vec<i32>>,
-    provider_account_id__n: Option<Vec<i32>>,
-    provider_id: Option<Vec<i32>>,
-    provider_id__n: Option<Vec<i32>>,
-    provider_network_id: Option<Vec<i32>>,
-    provider_network_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    role: Option<Vec<String>>,
-    role__empty: Option<bool>,
-    role__ic: Option<Vec<String>>,
-    role__ie: Option<Vec<String>>,
-    role__iew: Option<Vec<String>>,
-    role__iregex: Option<Vec<String>>,
-    role__isw: Option<Vec<String>>,
-    role__n: Option<Vec<String>>,
-    role__nic: Option<Vec<String>>,
-    role__nie: Option<Vec<String>>,
-    role__niew: Option<Vec<String>>,
-    role__nisw: Option<Vec<String>>,
-    role__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
-    virtual_circuit_id: Option<Vec<i32>>,
-    virtual_circuit_id__n: Option<Vec<i32>>,
+    params: CircuitsVirtualCircuitTerminationsListParams,
 ) -> Result<
     crate::models::PaginatedVirtualCircuitTerminationList,
     Error<CircuitsVirtualCircuitTerminationsListError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let interface_id = params.interface_id;
+    let interface_id__n = params.interface_id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let provider = params.provider;
+    let provider__n = params.provider__n;
+    let provider_account = params.provider_account;
+    let provider_account__n = params.provider_account__n;
+    let provider_account_id = params.provider_account_id;
+    let provider_account_id__n = params.provider_account_id__n;
+    let provider_id = params.provider_id;
+    let provider_id__n = params.provider_id__n;
+    let provider_network_id = params.provider_network_id;
+    let provider_network_id__n = params.provider_network_id__n;
+    let q = params.q;
+    let role = params.role;
+    let role__empty = params.role__empty;
+    let role__ic = params.role__ic;
+    let role__ie = params.role__ie;
+    let role__iew = params.role__iew;
+    let role__iregex = params.role__iregex;
+    let role__isw = params.role__isw;
+    let role__n = params.role__n;
+    let role__nic = params.role__nic;
+    let role__nie = params.role__nie;
+    let role__niew = params.role__niew;
+    let role__nisw = params.role__nisw;
+    let role__regex = params.role__regex;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
+    let virtual_circuit_id = params.virtual_circuit_id;
+    let virtual_circuit_id__n = params.virtual_circuit_id__n;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -21952,15 +24392,17 @@ pub async fn circuits_virtual_circuit_terminations_list(
 /// Patch a virtual circuit termination object.
 pub async fn circuits_virtual_circuit_terminations_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_virtual_circuit_termination_request: Option<
-        crate::models::PatchedWritableVirtualCircuitTerminationRequest,
-    >,
+    params: CircuitsVirtualCircuitTerminationsPartialUpdateParams,
 ) -> Result<
     crate::models::VirtualCircuitTermination,
     Error<CircuitsVirtualCircuitTerminationsPartialUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_virtual_circuit_termination_request =
+        params.patched_writable_virtual_circuit_termination_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -22010,15 +24452,18 @@ pub async fn circuits_virtual_circuit_terminations_partial_update(
 /// Return all CablePaths which traverse a given pass-through port.
 pub async fn circuits_virtual_circuit_terminations_paths_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: CircuitsVirtualCircuitTerminationsPathsRetrieveParams,
 ) -> Result<
     crate::models::VirtualCircuitTermination,
     Error<CircuitsVirtualCircuitTerminationsPathsRetrieveError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -22078,15 +24523,18 @@ pub async fn circuits_virtual_circuit_terminations_paths_retrieve(
 /// Get a virtual circuit termination object.
 pub async fn circuits_virtual_circuit_terminations_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: CircuitsVirtualCircuitTerminationsRetrieveParams,
 ) -> Result<
     crate::models::VirtualCircuitTermination,
     Error<CircuitsVirtualCircuitTerminationsRetrieveError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -22146,13 +24594,17 @@ pub async fn circuits_virtual_circuit_terminations_retrieve(
 /// Put a virtual circuit termination object.
 pub async fn circuits_virtual_circuit_terminations_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_virtual_circuit_termination_request: crate::models::WritableVirtualCircuitTerminationRequest,
+    params: CircuitsVirtualCircuitTerminationsUpdateParams,
 ) -> Result<
     crate::models::VirtualCircuitTermination,
     Error<CircuitsVirtualCircuitTerminationsUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_virtual_circuit_termination_request =
+        params.writable_virtual_circuit_termination_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -22202,9 +24654,12 @@ pub async fn circuits_virtual_circuit_terminations_update(
 /// Delete a list of virtual circuit type objects.
 pub async fn circuits_virtual_circuit_types_bulk_destroy(
     configuration: &configuration::Configuration,
-    virtual_circuit_type_request: Vec<crate::models::VirtualCircuitTypeRequest>,
+    params: CircuitsVirtualCircuitTypesBulkDestroyParams,
 ) -> Result<(), Error<CircuitsVirtualCircuitTypesBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let virtual_circuit_type_request = params.virtual_circuit_type_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -22252,14 +24707,16 @@ pub async fn circuits_virtual_circuit_types_bulk_destroy(
 /// Patch a list of virtual circuit type objects.
 pub async fn circuits_virtual_circuit_types_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_virtual_circuit_type_request: Vec<
-        crate::models::PatchedBulkVirtualCircuitTypeRequest,
-    >,
+    params: CircuitsVirtualCircuitTypesBulkPartialUpdateParams,
 ) -> Result<
     Vec<crate::models::VirtualCircuitType>,
     Error<CircuitsVirtualCircuitTypesBulkPartialUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_virtual_circuit_type_request =
+        params.patched_bulk_virtual_circuit_type_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -22307,10 +24764,13 @@ pub async fn circuits_virtual_circuit_types_bulk_partial_update(
 /// Put a list of virtual circuit type objects.
 pub async fn circuits_virtual_circuit_types_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_virtual_circuit_type_request: Vec<crate::models::BulkVirtualCircuitTypeRequest>,
+    params: CircuitsVirtualCircuitTypesBulkUpdateParams,
 ) -> Result<Vec<crate::models::VirtualCircuitType>, Error<CircuitsVirtualCircuitTypesBulkUpdateError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_virtual_circuit_type_request = params.bulk_virtual_circuit_type_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -22358,9 +24818,13 @@ pub async fn circuits_virtual_circuit_types_bulk_update(
 /// Post a list of virtual circuit type objects.
 pub async fn circuits_virtual_circuit_types_create(
     configuration: &configuration::Configuration,
-    circuits_virtual_circuit_types_create_request: crate::models::CircuitsVirtualCircuitTypesCreateRequest,
+    params: CircuitsVirtualCircuitTypesCreateParams,
 ) -> Result<crate::models::VirtualCircuitType, Error<CircuitsVirtualCircuitTypesCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let circuits_virtual_circuit_types_create_request =
+        params.circuits_virtual_circuit_types_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -22409,9 +24873,12 @@ pub async fn circuits_virtual_circuit_types_create(
 /// Delete a virtual circuit type object.
 pub async fn circuits_virtual_circuit_types_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: CircuitsVirtualCircuitTypesDestroyParams,
 ) -> Result<(), Error<CircuitsVirtualCircuitTypesDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -22459,109 +24926,112 @@ pub async fn circuits_virtual_circuit_types_destroy(
 /// Get a list of virtual circuit type objects.
 pub async fn circuits_virtual_circuit_types_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    color: Option<Vec<String>>,
-    color__empty: Option<bool>,
-    color__ic: Option<Vec<String>>,
-    color__ie: Option<Vec<String>>,
-    color__iew: Option<Vec<String>>,
-    color__iregex: Option<Vec<String>>,
-    color__isw: Option<Vec<String>>,
-    color__n: Option<Vec<String>>,
-    color__nic: Option<Vec<String>>,
-    color__nie: Option<Vec<String>>,
-    color__niew: Option<Vec<String>>,
-    color__nisw: Option<Vec<String>>,
-    color__regex: Option<Vec<String>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    slug: Option<Vec<String>>,
-    slug__empty: Option<bool>,
-    slug__ic: Option<Vec<String>>,
-    slug__ie: Option<Vec<String>>,
-    slug__iew: Option<Vec<String>>,
-    slug__iregex: Option<Vec<String>>,
-    slug__isw: Option<Vec<String>>,
-    slug__n: Option<Vec<String>>,
-    slug__nic: Option<Vec<String>>,
-    slug__nie: Option<Vec<String>>,
-    slug__niew: Option<Vec<String>>,
-    slug__nisw: Option<Vec<String>>,
-    slug__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: CircuitsVirtualCircuitTypesListParams,
 ) -> Result<
     crate::models::PaginatedVirtualCircuitTypeList,
     Error<CircuitsVirtualCircuitTypesListError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let color = params.color;
+    let color__empty = params.color__empty;
+    let color__ic = params.color__ic;
+    let color__ie = params.color__ie;
+    let color__iew = params.color__iew;
+    let color__iregex = params.color__iregex;
+    let color__isw = params.color__isw;
+    let color__n = params.color__n;
+    let color__nic = params.color__nic;
+    let color__nie = params.color__nie;
+    let color__niew = params.color__niew;
+    let color__nisw = params.color__nisw;
+    let color__regex = params.color__regex;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let slug = params.slug;
+    let slug__empty = params.slug__empty;
+    let slug__ic = params.slug__ic;
+    let slug__ie = params.slug__ie;
+    let slug__iew = params.slug__iew;
+    let slug__iregex = params.slug__iregex;
+    let slug__isw = params.slug__isw;
+    let slug__n = params.slug__n;
+    let slug__nic = params.slug__nic;
+    let slug__nie = params.slug__nie;
+    let slug__niew = params.slug__niew;
+    let slug__nisw = params.slug__nisw;
+    let slug__regex = params.slug__regex;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -24229,11 +26699,14 @@ pub async fn circuits_virtual_circuit_types_list(
 /// Patch a virtual circuit type object.
 pub async fn circuits_virtual_circuit_types_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_virtual_circuit_type_request: Option<crate::models::PatchedVirtualCircuitTypeRequest>,
+    params: CircuitsVirtualCircuitTypesPartialUpdateParams,
 ) -> Result<crate::models::VirtualCircuitType, Error<CircuitsVirtualCircuitTypesPartialUpdateError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_virtual_circuit_type_request = params.patched_virtual_circuit_type_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -24282,12 +26755,15 @@ pub async fn circuits_virtual_circuit_types_partial_update(
 /// Get a virtual circuit type object.
 pub async fn circuits_virtual_circuit_types_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: CircuitsVirtualCircuitTypesRetrieveParams,
 ) -> Result<crate::models::VirtualCircuitType, Error<CircuitsVirtualCircuitTypesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -24347,10 +26823,13 @@ pub async fn circuits_virtual_circuit_types_retrieve(
 /// Put a virtual circuit type object.
 pub async fn circuits_virtual_circuit_types_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    virtual_circuit_type_request: crate::models::VirtualCircuitTypeRequest,
+    params: CircuitsVirtualCircuitTypesUpdateParams,
 ) -> Result<crate::models::VirtualCircuitType, Error<CircuitsVirtualCircuitTypesUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let virtual_circuit_type_request = params.virtual_circuit_type_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -24399,9 +26878,12 @@ pub async fn circuits_virtual_circuit_types_update(
 /// Delete a list of virtual circuit objects.
 pub async fn circuits_virtual_circuits_bulk_destroy(
     configuration: &configuration::Configuration,
-    virtual_circuit_request: Vec<crate::models::VirtualCircuitRequest>,
+    params: CircuitsVirtualCircuitsBulkDestroyParams,
 ) -> Result<(), Error<CircuitsVirtualCircuitsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let virtual_circuit_request = params.virtual_circuit_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -24449,10 +26931,13 @@ pub async fn circuits_virtual_circuits_bulk_destroy(
 /// Patch a list of virtual circuit objects.
 pub async fn circuits_virtual_circuits_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_virtual_circuit_request: Vec<crate::models::PatchedBulkVirtualCircuitRequest>,
+    params: CircuitsVirtualCircuitsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::VirtualCircuit>, Error<CircuitsVirtualCircuitsBulkPartialUpdateError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_virtual_circuit_request = params.patched_bulk_virtual_circuit_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -24500,9 +26985,12 @@ pub async fn circuits_virtual_circuits_bulk_partial_update(
 /// Put a list of virtual circuit objects.
 pub async fn circuits_virtual_circuits_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_virtual_circuit_request: Vec<crate::models::BulkVirtualCircuitRequest>,
+    params: CircuitsVirtualCircuitsBulkUpdateParams,
 ) -> Result<Vec<crate::models::VirtualCircuit>, Error<CircuitsVirtualCircuitsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_virtual_circuit_request = params.bulk_virtual_circuit_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -24550,9 +27038,12 @@ pub async fn circuits_virtual_circuits_bulk_update(
 /// Post a list of virtual circuit objects.
 pub async fn circuits_virtual_circuits_create(
     configuration: &configuration::Configuration,
-    circuits_virtual_circuits_create_request: crate::models::CircuitsVirtualCircuitsCreateRequest,
+    params: CircuitsVirtualCircuitsCreateParams,
 ) -> Result<crate::models::VirtualCircuit, Error<CircuitsVirtualCircuitsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let circuits_virtual_circuits_create_request = params.circuits_virtual_circuits_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -24600,9 +27091,12 @@ pub async fn circuits_virtual_circuits_create(
 /// Delete a virtual circuit object.
 pub async fn circuits_virtual_circuits_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: CircuitsVirtualCircuitsDestroyParams,
 ) -> Result<(), Error<CircuitsVirtualCircuitsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -24650,115 +27144,118 @@ pub async fn circuits_virtual_circuits_destroy(
 /// Get a list of virtual circuit objects.
 pub async fn circuits_virtual_circuits_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    cid: Option<Vec<String>>,
-    cid__empty: Option<bool>,
-    cid__ic: Option<Vec<String>>,
-    cid__ie: Option<Vec<String>>,
-    cid__iew: Option<Vec<String>>,
-    cid__iregex: Option<Vec<String>>,
-    cid__isw: Option<Vec<String>>,
-    cid__n: Option<Vec<String>>,
-    cid__nic: Option<Vec<String>>,
-    cid__nie: Option<Vec<String>>,
-    cid__niew: Option<Vec<String>>,
-    cid__nisw: Option<Vec<String>>,
-    cid__regex: Option<Vec<String>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    provider: Option<Vec<String>>,
-    provider__n: Option<Vec<String>>,
-    provider_account: Option<Vec<String>>,
-    provider_account__n: Option<Vec<String>>,
-    provider_account_id: Option<Vec<i32>>,
-    provider_account_id__n: Option<Vec<i32>>,
-    provider_id: Option<Vec<i32>>,
-    provider_id__n: Option<Vec<i32>>,
-    provider_network_id: Option<Vec<i32>>,
-    provider_network_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    start: Option<i32>,
-    status: Option<Vec<String>>,
-    status__empty: Option<bool>,
-    status__ic: Option<Vec<String>>,
-    status__ie: Option<Vec<String>>,
-    status__iew: Option<Vec<String>>,
-    status__iregex: Option<Vec<String>>,
-    status__isw: Option<Vec<String>>,
-    status__n: Option<Vec<String>>,
-    status__nic: Option<Vec<String>>,
-    status__nie: Option<Vec<String>>,
-    status__niew: Option<Vec<String>>,
-    status__nisw: Option<Vec<String>>,
-    status__regex: Option<Vec<String>>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    tenant: Option<Vec<String>>,
-    tenant__n: Option<Vec<String>>,
-    tenant_group: Option<Vec<String>>,
-    tenant_group__n: Option<Vec<String>>,
-    tenant_group_id: Option<Vec<String>>,
-    tenant_group_id__n: Option<Vec<String>>,
-    tenant_id: Option<Vec<i32>>,
-    tenant_id__n: Option<Vec<i32>>,
-    r#type: Option<Vec<String>>,
-    type__n: Option<Vec<String>>,
-    type_id: Option<Vec<i32>>,
-    type_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: CircuitsVirtualCircuitsListParams,
 ) -> Result<crate::models::PaginatedVirtualCircuitList, Error<CircuitsVirtualCircuitsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let cid = params.cid;
+    let cid__empty = params.cid__empty;
+    let cid__ic = params.cid__ic;
+    let cid__ie = params.cid__ie;
+    let cid__iew = params.cid__iew;
+    let cid__iregex = params.cid__iregex;
+    let cid__isw = params.cid__isw;
+    let cid__n = params.cid__n;
+    let cid__nic = params.cid__nic;
+    let cid__nie = params.cid__nie;
+    let cid__niew = params.cid__niew;
+    let cid__nisw = params.cid__nisw;
+    let cid__regex = params.cid__regex;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let provider = params.provider;
+    let provider__n = params.provider__n;
+    let provider_account = params.provider_account;
+    let provider_account__n = params.provider_account__n;
+    let provider_account_id = params.provider_account_id;
+    let provider_account_id__n = params.provider_account_id__n;
+    let provider_id = params.provider_id;
+    let provider_id__n = params.provider_id__n;
+    let provider_network_id = params.provider_network_id;
+    let provider_network_id__n = params.provider_network_id__n;
+    let q = params.q;
+    let start = params.start;
+    let status = params.status;
+    let status__empty = params.status__empty;
+    let status__ic = params.status__ic;
+    let status__ie = params.status__ie;
+    let status__iew = params.status__iew;
+    let status__iregex = params.status__iregex;
+    let status__isw = params.status__isw;
+    let status__n = params.status__n;
+    let status__nic = params.status__nic;
+    let status__nie = params.status__nie;
+    let status__niew = params.status__niew;
+    let status__nisw = params.status__nisw;
+    let status__regex = params.status__regex;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let tenant = params.tenant;
+    let tenant__n = params.tenant__n;
+    let tenant_group = params.tenant_group;
+    let tenant_group__n = params.tenant_group__n;
+    let tenant_group_id = params.tenant_group_id;
+    let tenant_group_id__n = params.tenant_group_id__n;
+    let tenant_id = params.tenant_id;
+    let tenant_id__n = params.tenant_id__n;
+    let r#type = params.r#type;
+    let type__n = params.type__n;
+    let type_id = params.type_id;
+    let type_id__n = params.type_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -26612,12 +29109,13 @@ pub async fn circuits_virtual_circuits_list(
 /// Patch a virtual circuit object.
 pub async fn circuits_virtual_circuits_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_virtual_circuit_request: Option<
-        crate::models::PatchedWritableVirtualCircuitRequest,
-    >,
+    params: CircuitsVirtualCircuitsPartialUpdateParams,
 ) -> Result<crate::models::VirtualCircuit, Error<CircuitsVirtualCircuitsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_virtual_circuit_request = params.patched_writable_virtual_circuit_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -26666,12 +29164,15 @@ pub async fn circuits_virtual_circuits_partial_update(
 /// Get a virtual circuit object.
 pub async fn circuits_virtual_circuits_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: CircuitsVirtualCircuitsRetrieveParams,
 ) -> Result<crate::models::VirtualCircuit, Error<CircuitsVirtualCircuitsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -26731,10 +29232,13 @@ pub async fn circuits_virtual_circuits_retrieve(
 /// Put a virtual circuit object.
 pub async fn circuits_virtual_circuits_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_virtual_circuit_request: crate::models::WritableVirtualCircuitRequest,
+    params: CircuitsVirtualCircuitsUpdateParams,
 ) -> Result<crate::models::VirtualCircuit, Error<CircuitsVirtualCircuitsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_virtual_circuit_request = params.writable_virtual_circuit_request;
 
     let local_var_client = &local_var_configuration.client;
 

@@ -13,6 +13,19 @@ use reqwest;
 use super::{Error, configuration};
 use crate::apis::ResponseContent;
 
+/// struct for passing parameters to the method [`schema_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct SchemaRetrieveParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub format: Option<String>,
+    pub lang: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
 /// struct for typed errors of method [`schema_retrieve`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -23,13 +36,16 @@ pub enum SchemaRetrieveError {
 /// OpenApi3 schema for this API. Format can be selected via content negotiation.  - YAML: application/vnd.oai.openapi - JSON: application/vnd.oai.openapi+json
 pub async fn schema_retrieve(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    format: Option<&str>,
-    lang: Option<&str>,
-    omit: Option<&str>,
+    params: SchemaRetrieveParams,
 ) -> Result<::std::collections::HashMap<String, serde_json::Value>, Error<SchemaRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let fields = params.fields;
+    let format = params.format;
+    let lang = params.lang;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
