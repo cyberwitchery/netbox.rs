@@ -5,8 +5,21 @@ on:
     tags:
       - "v*"
 
+permissions: {}
+
 jobs:
+  sbom:
+    name: sbom
+    uses: cyberwitchery/.github/.github/workflows/sbom.yml@d8cdf87f9048c369e1ab49281da13e7e72a782fb # main
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+    with:
+      mode: release
+
   publish:
+    needs: sbom
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -23,12 +36,6 @@ jobs:
         with:
           toolchain: stable
 
-      - name: cache cargo
-        uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
-        with:
-          prefix-key: v0-rust-release
-          cache-targets: true
-
       - name: doc build
         env:
           RUSTDOCFLAGS: "--cfg docsrs"
@@ -39,50 +46,16 @@ jobs:
       # at a tested commit, so the release job does not recompile them (the test
       # build of the large generated netbox-openapi crate OOMs the runner).
 
-      - name: install sbom tool
-        uses: taiki-e/install-action@83ac0ad63c0167e6f06796fab0fce28db1bf3db0 # v2.87.22
+      - name: download sbom
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
-          tool: cargo-cyclonedx
-
-      - name: generate sbom
-        env:
-          REF_NAME: ${{ github.ref_name }}
-        run: |
-          for manifest in "$GITHUB_WORKSPACE"/crates/*/Cargo.toml; do
-            crate="$(basename "$(dirname "$manifest")")"
-            (cd /tmp && cargo cyclonedx --manifest-path "$manifest" \
-              --format json \
-              --override-filename "sbom-${REF_NAME}-${crate}.cdx" \
-              --all-features)
-          done
-
-      - name: collect and clean sbom files
-        env:
-          REF_NAME: ${{ github.ref_name }}
-        run: |
-          set -euo pipefail
-          mkdir -p /tmp/netbox-sbom
-
-          # Collect SBOMs emitted in /tmp.
-          find /tmp -maxdepth 1 -type f -name "sbom-${REF_NAME}-*.cdx.json" \
-            -exec cp {} /tmp/netbox-sbom/ \;
-
-          # Some cargo-cyclonedx invocations can emit next to manifests; collect then remove
-          # to keep the git working tree clean for cargo publish.
-          find "$GITHUB_WORKSPACE" -type f -name "sbom-${REF_NAME}-*.cdx.json" \
-            -exec cp {} /tmp/netbox-sbom/ \; \
-            -delete
-
-      - name: upload sbom
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: sbom-${{ github.ref_name }}
-          path: "/tmp/netbox-sbom/sbom-${{ github.ref_name }}-*.cdx.json"
+          name: release-evidence
+          path: ${{ runner.temp }}/evidence
 
       - name: attach sbom to release
         uses: softprops/action-gh-release@efb35369e0ad2afab669f228072c1b0d510eae64 # v3.0.3
         with:
-          files: /tmp/netbox-sbom/sbom-${{ github.ref_name }}-*.cdx.json
+          files: ${{ runner.temp }}/evidence/release/*.cdx.json
 
       - name: verify clean tree before publish
         run: |
