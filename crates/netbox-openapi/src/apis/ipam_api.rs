@@ -13,6 +13,3676 @@ use reqwest;
 use super::{Error, configuration};
 use crate::apis::ResponseContent;
 
+/// struct for passing parameters to the method [`ipam_aggregates_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAggregatesBulkDestroyParams {
+    pub aggregate_request: Vec<crate::models::AggregateRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_aggregates_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAggregatesBulkPartialUpdateParams {
+    pub patched_bulk_aggregate_request: Vec<crate::models::PatchedBulkAggregateRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_aggregates_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAggregatesBulkUpdateParams {
+    pub bulk_aggregate_request: Vec<crate::models::BulkAggregateRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_aggregates_create`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAggregatesCreateParams {
+    pub ipam_aggregates_create_request: crate::models::IpamAggregatesCreateRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_aggregates_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAggregatesDestroyParams {
+    /// A unique integer value identifying this aggregate.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`ipam_aggregates_list`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAggregatesListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Contact
+    pub contact: Option<Vec<i32>>,
+    /// Contact
+    pub contact__n: Option<Vec<i32>>,
+    pub contact_group: Option<Vec<String>>,
+    pub contact_group__n: Option<Vec<String>>,
+    /// Contact Role
+    pub contact_role: Option<Vec<i32>>,
+    /// Contact Role
+    pub contact_role__n: Option<Vec<i32>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub date_added: Option<Vec<String>>,
+    pub date_added__empty: Option<bool>,
+    pub date_added__gt: Option<Vec<String>>,
+    pub date_added__gte: Option<Vec<String>>,
+    pub date_added__lt: Option<Vec<String>>,
+    pub date_added__lte: Option<Vec<String>>,
+    pub date_added__n: Option<Vec<String>>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    pub family: Option<f32>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Prefix
+    pub prefix: Option<String>,
+    /// Search
+    pub q: Option<String>,
+    /// RIR (slug)
+    pub rir: Option<Vec<String>>,
+    /// RIR (slug)
+    pub rir__n: Option<Vec<String>>,
+    /// RIR (ID)
+    pub rir_id: Option<Vec<i32>>,
+    /// RIR (ID)
+    pub rir_id__n: Option<Vec<i32>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    /// Tenant (slug)
+    pub tenant: Option<Vec<String>>,
+    /// Tenant (slug)
+    pub tenant__n: Option<Vec<String>>,
+    pub tenant_group: Option<Vec<String>>,
+    pub tenant_group__n: Option<Vec<String>>,
+    pub tenant_group_id: Option<Vec<String>>,
+    pub tenant_group_id__n: Option<Vec<String>>,
+    /// Tenant (ID)
+    pub tenant_id: Option<Vec<i32>>,
+    /// Tenant (ID)
+    pub tenant_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_aggregates_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAggregatesPartialUpdateParams {
+    /// A unique integer value identifying this aggregate.
+    pub id: i32,
+    pub patched_writable_aggregate_request: Option<crate::models::PatchedWritableAggregateRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_aggregates_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAggregatesRetrieveParams {
+    /// A unique integer value identifying this aggregate.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_aggregates_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAggregatesUpdateParams {
+    /// A unique integer value identifying this aggregate.
+    pub id: i32,
+    pub writable_aggregate_request: crate::models::WritableAggregateRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_asn_ranges_available_asns_create`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAsnRangesAvailableAsnsCreateParams {
+    pub id: i32,
+    pub asn_request: Vec<crate::models::AsnRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_asn_ranges_available_asns_list`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAsnRangesAvailableAsnsListParams {
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_asn_ranges_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAsnRangesBulkDestroyParams {
+    pub asn_range_request: Vec<crate::models::AsnRangeRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_asn_ranges_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAsnRangesBulkPartialUpdateParams {
+    pub patched_bulk_asn_range_request: Vec<crate::models::PatchedBulkAsnRangeRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_asn_ranges_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAsnRangesBulkUpdateParams {
+    pub bulk_asn_range_request: Vec<crate::models::BulkAsnRangeRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_asn_ranges_create`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAsnRangesCreateParams {
+    pub ipam_asn_ranges_create_request: crate::models::IpamAsnRangesCreateRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_asn_ranges_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAsnRangesDestroyParams {
+    /// A unique integer value identifying this ASN range.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`ipam_asn_ranges_list`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAsnRangesListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    pub end: Option<Vec<i32>>,
+    pub end__empty: Option<bool>,
+    pub end__gt: Option<Vec<i32>>,
+    pub end__gte: Option<Vec<i32>>,
+    pub end__lt: Option<Vec<i32>>,
+    pub end__lte: Option<Vec<i32>>,
+    pub end__n: Option<Vec<i32>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    /// RIR (slug)
+    pub rir: Option<Vec<String>>,
+    /// RIR (slug)
+    pub rir__n: Option<Vec<String>>,
+    /// RIR (ID)
+    pub rir_id: Option<Vec<i32>>,
+    /// RIR (ID)
+    pub rir_id__n: Option<Vec<i32>>,
+    pub slug: Option<Vec<String>>,
+    pub slug__empty: Option<bool>,
+    pub slug__ic: Option<Vec<String>>,
+    pub slug__ie: Option<Vec<String>>,
+    pub slug__iew: Option<Vec<String>>,
+    pub slug__iregex: Option<Vec<String>>,
+    pub slug__isw: Option<Vec<String>>,
+    pub slug__n: Option<Vec<String>>,
+    pub slug__nic: Option<Vec<String>>,
+    pub slug__nie: Option<Vec<String>>,
+    pub slug__niew: Option<Vec<String>>,
+    pub slug__nisw: Option<Vec<String>>,
+    pub slug__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub start__empty: Option<bool>,
+    pub start__gt: Option<Vec<i32>>,
+    pub start__gte: Option<Vec<i32>>,
+    pub start__lt: Option<Vec<i32>>,
+    pub start__lte: Option<Vec<i32>>,
+    pub start__n: Option<Vec<i32>>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    /// Tenant (slug)
+    pub tenant: Option<Vec<String>>,
+    /// Tenant (slug)
+    pub tenant__n: Option<Vec<String>>,
+    pub tenant_group: Option<Vec<String>>,
+    pub tenant_group__n: Option<Vec<String>>,
+    pub tenant_group_id: Option<Vec<String>>,
+    pub tenant_group_id__n: Option<Vec<String>>,
+    /// Tenant (ID)
+    pub tenant_id: Option<Vec<i32>>,
+    /// Tenant (ID)
+    pub tenant_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_asn_ranges_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAsnRangesPartialUpdateParams {
+    /// A unique integer value identifying this ASN range.
+    pub id: i32,
+    pub patched_asn_range_request: Option<crate::models::PatchedAsnRangeRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_asn_ranges_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAsnRangesRetrieveParams {
+    /// A unique integer value identifying this ASN range.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_asn_ranges_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAsnRangesUpdateParams {
+    /// A unique integer value identifying this ASN range.
+    pub id: i32,
+    pub asn_range_request: crate::models::AsnRangeRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_asns_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAsnsBulkDestroyParams {
+    pub asn_request: Vec<crate::models::AsnRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_asns_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAsnsBulkPartialUpdateParams {
+    pub patched_bulk_asn_request: Vec<crate::models::PatchedBulkAsnRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_asns_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAsnsBulkUpdateParams {
+    pub bulk_asn_request: Vec<crate::models::BulkAsnRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_asns_create`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAsnsCreateParams {
+    pub ipam_asns_create_request: crate::models::IpamAsnsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_asns_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAsnsDestroyParams {
+    /// A unique integer value identifying this ASN.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`ipam_asns_list`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAsnsListParams {
+    pub asn: Option<Vec<i32>>,
+    pub asn__empty: Option<bool>,
+    pub asn__gt: Option<Vec<i32>>,
+    pub asn__gte: Option<Vec<i32>>,
+    pub asn__lt: Option<Vec<i32>>,
+    pub asn__lte: Option<Vec<i32>>,
+    pub asn__n: Option<Vec<i32>>,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Provider (slug)
+    pub provider: Option<Vec<String>>,
+    /// Provider (slug)
+    pub provider__n: Option<Vec<String>>,
+    /// Provider (ID)
+    pub provider_id: Option<Vec<i32>>,
+    /// Provider (ID)
+    pub provider_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    /// RIR (slug)
+    pub rir: Option<Vec<String>>,
+    /// RIR (slug)
+    pub rir__n: Option<Vec<String>>,
+    /// RIR (ID)
+    pub rir_id: Option<Vec<i32>>,
+    /// RIR (ID)
+    pub rir_id__n: Option<Vec<i32>>,
+    /// Role (slug)
+    pub role: Option<Vec<String>>,
+    /// Role (slug)
+    pub role__n: Option<Vec<String>>,
+    /// Role (ID)
+    pub role_id: Option<Vec<i32>>,
+    /// Role (ID)
+    pub role_id__n: Option<Vec<i32>>,
+    /// Site (slug)
+    pub site: Option<Vec<String>>,
+    /// Site (slug)
+    pub site__n: Option<Vec<String>>,
+    pub site_group: Option<Vec<String>>,
+    pub site_group__n: Option<Vec<String>>,
+    pub site_group_id: Option<Vec<String>>,
+    pub site_group_id__n: Option<Vec<String>>,
+    /// Site (ID)
+    pub site_id: Option<Vec<i32>>,
+    /// Site (ID)
+    pub site_id__n: Option<Vec<i32>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    /// Tenant (slug)
+    pub tenant: Option<Vec<String>>,
+    /// Tenant (slug)
+    pub tenant__n: Option<Vec<String>>,
+    pub tenant_group: Option<Vec<String>>,
+    pub tenant_group__n: Option<Vec<String>>,
+    pub tenant_group_id: Option<Vec<String>>,
+    pub tenant_group_id__n: Option<Vec<String>>,
+    /// Tenant (ID)
+    pub tenant_id: Option<Vec<i32>>,
+    /// Tenant (ID)
+    pub tenant_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_asns_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAsnsPartialUpdateParams {
+    /// A unique integer value identifying this ASN.
+    pub id: i32,
+    pub patched_asn_request: Option<crate::models::PatchedAsnRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_asns_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAsnsRetrieveParams {
+    /// A unique integer value identifying this ASN.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_asns_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamAsnsUpdateParams {
+    /// A unique integer value identifying this ASN.
+    pub id: i32,
+    pub asn_request: crate::models::AsnRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_fhrp_group_assignments_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamFhrpGroupAssignmentsBulkDestroyParams {
+    pub fhrp_group_assignment_request: Vec<crate::models::FhrpGroupAssignmentRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_fhrp_group_assignments_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamFhrpGroupAssignmentsBulkPartialUpdateParams {
+    pub patched_bulk_fhrp_group_assignment_request:
+        Vec<crate::models::PatchedBulkFhrpGroupAssignmentRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_fhrp_group_assignments_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamFhrpGroupAssignmentsBulkUpdateParams {
+    pub bulk_fhrp_group_assignment_request: Vec<crate::models::BulkFhrpGroupAssignmentRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_fhrp_group_assignments_create`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamFhrpGroupAssignmentsCreateParams {
+    pub ipam_fhrp_group_assignments_create_request:
+        crate::models::IpamFhrpGroupAssignmentsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_fhrp_group_assignments_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamFhrpGroupAssignmentsDestroyParams {
+    /// A unique integer value identifying this FHRP group assignment.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`ipam_fhrp_group_assignments_list`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamFhrpGroupAssignmentsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub device: Option<Vec<String>>,
+    pub device_id: Option<Vec<i32>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Group (ID)
+    pub group_id: Option<Vec<i32>>,
+    /// Group (ID)
+    pub group_id__n: Option<Vec<i32>>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub interface_id: Option<Vec<i32>>,
+    pub interface_id__empty: Option<bool>,
+    pub interface_id__gt: Option<Vec<i32>>,
+    pub interface_id__gte: Option<Vec<i32>>,
+    pub interface_id__lt: Option<Vec<i32>>,
+    pub interface_id__lte: Option<Vec<i32>>,
+    pub interface_id__n: Option<Vec<i32>>,
+    pub interface_type: Option<Vec<String>>,
+    pub interface_type__n: Option<Vec<String>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    pub priority: Option<Vec<i32>>,
+    pub priority__empty: Option<bool>,
+    pub priority__gt: Option<Vec<i32>>,
+    pub priority__gte: Option<Vec<i32>>,
+    pub priority__lt: Option<Vec<i32>>,
+    pub priority__lte: Option<Vec<i32>>,
+    pub priority__n: Option<Vec<i32>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub updated_by_request: Option<String>,
+    pub virtual_machine: Option<Vec<String>>,
+    pub virtual_machine_id: Option<Vec<i32>>,
+}
+
+/// struct for passing parameters to the method [`ipam_fhrp_group_assignments_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamFhrpGroupAssignmentsPartialUpdateParams {
+    /// A unique integer value identifying this FHRP group assignment.
+    pub id: i32,
+    pub patched_fhrp_group_assignment_request:
+        Option<crate::models::PatchedFhrpGroupAssignmentRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_fhrp_group_assignments_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamFhrpGroupAssignmentsRetrieveParams {
+    /// A unique integer value identifying this FHRP group assignment.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_fhrp_group_assignments_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamFhrpGroupAssignmentsUpdateParams {
+    /// A unique integer value identifying this FHRP group assignment.
+    pub id: i32,
+    pub fhrp_group_assignment_request: crate::models::FhrpGroupAssignmentRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_fhrp_groups_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamFhrpGroupsBulkDestroyParams {
+    pub fhrp_group_request: Vec<crate::models::FhrpGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_fhrp_groups_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamFhrpGroupsBulkPartialUpdateParams {
+    pub patched_bulk_fhrp_group_request: Vec<crate::models::PatchedBulkFhrpGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_fhrp_groups_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamFhrpGroupsBulkUpdateParams {
+    pub bulk_fhrp_group_request: Vec<crate::models::BulkFhrpGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_fhrp_groups_create`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamFhrpGroupsCreateParams {
+    pub ipam_fhrp_groups_create_request: crate::models::IpamFhrpGroupsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_fhrp_groups_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamFhrpGroupsDestroyParams {
+    /// A unique integer value identifying this FHRP group.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`ipam_fhrp_groups_list`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamFhrpGroupsListParams {
+    pub auth_key: Option<Vec<String>>,
+    pub auth_key__empty: Option<bool>,
+    pub auth_key__ic: Option<Vec<String>>,
+    pub auth_key__ie: Option<Vec<String>>,
+    pub auth_key__iew: Option<Vec<String>>,
+    pub auth_key__iregex: Option<Vec<String>>,
+    pub auth_key__isw: Option<Vec<String>>,
+    pub auth_key__n: Option<Vec<String>>,
+    pub auth_key__nic: Option<Vec<String>>,
+    pub auth_key__nie: Option<Vec<String>>,
+    pub auth_key__niew: Option<Vec<String>>,
+    pub auth_key__nisw: Option<Vec<String>>,
+    pub auth_key__regex: Option<Vec<String>>,
+    pub auth_type: Option<Vec<String>>,
+    pub auth_type__empty: Option<bool>,
+    pub auth_type__ic: Option<Vec<String>>,
+    pub auth_type__ie: Option<Vec<String>>,
+    pub auth_type__iew: Option<Vec<String>>,
+    pub auth_type__iregex: Option<Vec<String>>,
+    pub auth_type__isw: Option<Vec<String>>,
+    pub auth_type__n: Option<Vec<String>>,
+    pub auth_type__nic: Option<Vec<String>>,
+    pub auth_type__nie: Option<Vec<String>>,
+    pub auth_type__niew: Option<Vec<String>>,
+    pub auth_type__nisw: Option<Vec<String>>,
+    pub auth_type__regex: Option<Vec<String>>,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub group_id: Option<Vec<i32>>,
+    pub group_id__empty: Option<bool>,
+    pub group_id__gt: Option<Vec<i32>>,
+    pub group_id__gte: Option<Vec<i32>>,
+    pub group_id__lt: Option<Vec<i32>>,
+    pub group_id__lte: Option<Vec<i32>>,
+    pub group_id__n: Option<Vec<i32>>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    pub protocol: Option<Vec<String>>,
+    pub protocol__empty: Option<bool>,
+    pub protocol__ic: Option<Vec<String>>,
+    pub protocol__ie: Option<Vec<String>>,
+    pub protocol__iew: Option<Vec<String>>,
+    pub protocol__iregex: Option<Vec<String>>,
+    pub protocol__isw: Option<Vec<String>>,
+    pub protocol__n: Option<Vec<String>>,
+    pub protocol__nic: Option<Vec<String>>,
+    pub protocol__nie: Option<Vec<String>>,
+    pub protocol__niew: Option<Vec<String>>,
+    pub protocol__nisw: Option<Vec<String>>,
+    pub protocol__regex: Option<Vec<String>>,
+    /// Search
+    pub q: Option<String>,
+    pub related_ip: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_fhrp_groups_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamFhrpGroupsPartialUpdateParams {
+    /// A unique integer value identifying this FHRP group.
+    pub id: i32,
+    pub patched_fhrp_group_request: Option<crate::models::PatchedFhrpGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_fhrp_groups_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamFhrpGroupsRetrieveParams {
+    /// A unique integer value identifying this FHRP group.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_fhrp_groups_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamFhrpGroupsUpdateParams {
+    /// A unique integer value identifying this FHRP group.
+    pub id: i32,
+    pub fhrp_group_request: crate::models::FhrpGroupRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_ip_addresses_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamIpAddressesBulkDestroyParams {
+    pub ip_address_request: Vec<crate::models::IpAddressRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_ip_addresses_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamIpAddressesBulkPartialUpdateParams {
+    pub patched_bulk_ip_address_request: Vec<crate::models::PatchedBulkIpAddressRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_ip_addresses_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamIpAddressesBulkUpdateParams {
+    pub bulk_ip_address_request: Vec<crate::models::BulkIpAddressRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_ip_addresses_create`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamIpAddressesCreateParams {
+    pub ipam_ip_addresses_create_request: crate::models::IpamIpAddressesCreateRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_ip_addresses_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamIpAddressesDestroyParams {
+    /// A unique integer value identifying this IP address.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`ipam_ip_addresses_list`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamIpAddressesListParams {
+    pub address: Option<Vec<String>>,
+    /// Is assigned
+    pub assigned: Option<bool>,
+    pub assigned_object_id: Option<Vec<i32>>,
+    pub assigned_object_id__empty: Option<bool>,
+    pub assigned_object_id__gt: Option<Vec<i32>>,
+    pub assigned_object_id__gte: Option<Vec<i32>>,
+    pub assigned_object_id__lt: Option<Vec<i32>>,
+    pub assigned_object_id__lte: Option<Vec<i32>>,
+    pub assigned_object_id__n: Option<Vec<i32>>,
+    pub assigned_object_type: Option<Vec<String>>,
+    pub assigned_object_type__n: Option<Vec<String>>,
+    /// Is assigned to an interface
+    pub assigned_to_interface: Option<bool>,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Contact
+    pub contact: Option<Vec<i32>>,
+    /// Contact
+    pub contact__n: Option<Vec<i32>>,
+    pub contact_group: Option<Vec<String>>,
+    pub contact_group__n: Option<Vec<String>>,
+    /// Contact Role
+    pub contact_role: Option<Vec<i32>>,
+    /// Contact Role
+    pub contact_role__n: Option<Vec<i32>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    pub device: Option<Vec<String>>,
+    pub device_id: Option<Vec<i32>>,
+    pub dns_name: Option<Vec<String>>,
+    pub dns_name__empty: Option<bool>,
+    pub dns_name__ic: Option<Vec<String>>,
+    pub dns_name__ie: Option<Vec<String>>,
+    pub dns_name__iew: Option<Vec<String>>,
+    pub dns_name__iregex: Option<Vec<String>>,
+    pub dns_name__isw: Option<Vec<String>>,
+    pub dns_name__n: Option<Vec<String>>,
+    pub dns_name__nic: Option<Vec<String>>,
+    pub dns_name__nie: Option<Vec<String>>,
+    pub dns_name__niew: Option<Vec<String>>,
+    pub dns_name__nisw: Option<Vec<String>>,
+    pub dns_name__regex: Option<Vec<String>>,
+    pub family: Option<f32>,
+    /// FHRP group (ID)
+    pub fhrpgroup_id: Option<Vec<i32>>,
+    /// FHRP group (ID)
+    pub fhrpgroup_id__n: Option<Vec<i32>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    /// Interface (name)
+    pub interface: Option<Vec<String>>,
+    /// Interface (name)
+    pub interface__n: Option<Vec<String>>,
+    /// Interface (ID)
+    pub interface_id: Option<Vec<i32>>,
+    /// Interface (ID)
+    pub interface_id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub mask_length: Option<Vec<i32>>,
+    pub mask_length__gte: Option<f32>,
+    pub mask_length__lte: Option<f32>,
+    pub modified_by_request: Option<String>,
+    /// NAT inside IP address (ID)
+    pub nat_inside_id: Option<Vec<i32>>,
+    /// NAT inside IP address (ID)
+    pub nat_inside_id__n: Option<Vec<i32>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    pub parent: Option<Vec<String>>,
+    pub present_in_vrf: Option<String>,
+    pub present_in_vrf_id: Option<String>,
+    /// Search
+    pub q: Option<String>,
+    /// The functional role of this IP
+    pub role: Option<Vec<String>>,
+    pub role__empty: Option<bool>,
+    /// The functional role of this IP
+    pub role__ic: Option<Vec<String>>,
+    /// The functional role of this IP
+    pub role__ie: Option<Vec<String>>,
+    /// The functional role of this IP
+    pub role__iew: Option<Vec<String>>,
+    /// The functional role of this IP
+    pub role__iregex: Option<Vec<String>>,
+    /// The functional role of this IP
+    pub role__isw: Option<Vec<String>>,
+    /// The functional role of this IP
+    pub role__n: Option<Vec<String>>,
+    /// The functional role of this IP
+    pub role__nic: Option<Vec<String>>,
+    /// The functional role of this IP
+    pub role__nie: Option<Vec<String>>,
+    /// The functional role of this IP
+    pub role__niew: Option<Vec<String>>,
+    /// The functional role of this IP
+    pub role__nisw: Option<Vec<String>>,
+    /// The functional role of this IP
+    pub role__regex: Option<Vec<String>>,
+    /// Application Service (ID)
+    pub service_id: Option<Vec<i32>>,
+    /// Application Service (ID)
+    pub service_id__n: Option<Vec<i32>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    /// The operational status of this IP
+    pub status: Option<Vec<String>>,
+    pub status__empty: Option<bool>,
+    /// The operational status of this IP
+    pub status__ic: Option<Vec<String>>,
+    /// The operational status of this IP
+    pub status__ie: Option<Vec<String>>,
+    /// The operational status of this IP
+    pub status__iew: Option<Vec<String>>,
+    /// The operational status of this IP
+    pub status__iregex: Option<Vec<String>>,
+    /// The operational status of this IP
+    pub status__isw: Option<Vec<String>>,
+    /// The operational status of this IP
+    pub status__n: Option<Vec<String>>,
+    /// The operational status of this IP
+    pub status__nic: Option<Vec<String>>,
+    /// The operational status of this IP
+    pub status__nie: Option<Vec<String>>,
+    /// The operational status of this IP
+    pub status__niew: Option<Vec<String>>,
+    /// The operational status of this IP
+    pub status__nisw: Option<Vec<String>>,
+    /// The operational status of this IP
+    pub status__regex: Option<Vec<String>>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    /// Tenant (slug)
+    pub tenant: Option<Vec<String>>,
+    /// Tenant (slug)
+    pub tenant__n: Option<Vec<String>>,
+    pub tenant_group: Option<Vec<String>>,
+    pub tenant_group__n: Option<Vec<String>>,
+    pub tenant_group_id: Option<Vec<String>>,
+    pub tenant_group_id__n: Option<Vec<String>>,
+    /// Tenant (ID)
+    pub tenant_id: Option<Vec<i32>>,
+    /// Tenant (ID)
+    pub tenant_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+    pub virtual_machine: Option<Vec<String>>,
+    pub virtual_machine_id: Option<Vec<i32>>,
+    /// VM interface (name)
+    pub vminterface: Option<Vec<String>>,
+    /// VM interface (name)
+    pub vminterface__n: Option<Vec<String>>,
+    /// VM interface (ID)
+    pub vminterface_id: Option<Vec<i32>>,
+    /// VM interface (ID)
+    pub vminterface_id__n: Option<Vec<i32>>,
+    /// VRF (RD)
+    pub vrf: Option<Vec<String>>,
+    /// VRF (RD)
+    pub vrf__n: Option<Vec<String>>,
+    /// VRF
+    pub vrf_id: Option<Vec<i32>>,
+    /// VRF
+    pub vrf_id__n: Option<Vec<i32>>,
+}
+
+/// struct for passing parameters to the method [`ipam_ip_addresses_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamIpAddressesPartialUpdateParams {
+    /// A unique integer value identifying this IP address.
+    pub id: i32,
+    pub patched_writable_ip_address_request: Option<crate::models::PatchedWritableIpAddressRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_ip_addresses_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamIpAddressesRetrieveParams {
+    /// A unique integer value identifying this IP address.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_ip_addresses_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamIpAddressesUpdateParams {
+    /// A unique integer value identifying this IP address.
+    pub id: i32,
+    pub writable_ip_address_request: crate::models::WritableIpAddressRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_ip_ranges_available_ips_create`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamIpRangesAvailableIpsCreateParams {
+    pub id: i32,
+    pub available_ip_request_request: Vec<crate::models::AvailableIpRequestRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_ip_ranges_available_ips_list`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamIpRangesAvailableIpsListParams {
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_ip_ranges_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamIpRangesBulkDestroyParams {
+    pub ip_range_request: Vec<crate::models::IpRangeRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_ip_ranges_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamIpRangesBulkPartialUpdateParams {
+    pub patched_bulk_ip_range_request: Vec<crate::models::PatchedBulkIpRangeRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_ip_ranges_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamIpRangesBulkUpdateParams {
+    pub bulk_ip_range_request: Vec<crate::models::BulkIpRangeRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_ip_ranges_create`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamIpRangesCreateParams {
+    pub ipam_ip_ranges_create_request: crate::models::IpamIpRangesCreateRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_ip_ranges_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamIpRangesDestroyParams {
+    /// A unique integer value identifying this IP range.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`ipam_ip_ranges_list`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamIpRangesListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Contact
+    pub contact: Option<Vec<i32>>,
+    /// Contact
+    pub contact__n: Option<Vec<i32>>,
+    pub contact_group: Option<Vec<String>>,
+    pub contact_group__n: Option<Vec<String>>,
+    /// Contact Role
+    pub contact_role: Option<Vec<i32>>,
+    /// Contact Role
+    pub contact_role__n: Option<Vec<i32>>,
+    /// Ranges which contain this prefix or IP
+    pub contains: Option<String>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    pub end_address: Option<Vec<String>>,
+    pub family: Option<f32>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub mark_populated: Option<bool>,
+    pub mark_utilized: Option<bool>,
+    pub modified_by_request: Option<String>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    pub parent: Option<Vec<String>>,
+    /// Search
+    pub q: Option<String>,
+    /// Role (slug)
+    pub role: Option<Vec<String>>,
+    /// Role (slug)
+    pub role__n: Option<Vec<String>>,
+    /// Role (ID)
+    pub role_id: Option<Vec<i32>>,
+    /// Role (ID)
+    pub role_id__n: Option<Vec<i32>>,
+    pub size: Option<Vec<i32>>,
+    pub size__empty: Option<bool>,
+    pub size__gt: Option<Vec<i32>>,
+    pub size__gte: Option<Vec<i32>>,
+    pub size__lt: Option<Vec<i32>>,
+    pub size__lte: Option<Vec<i32>>,
+    pub size__n: Option<Vec<i32>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub start_address: Option<Vec<String>>,
+    /// Operational status of this range
+    pub status: Option<Vec<String>>,
+    pub status__empty: Option<bool>,
+    /// Operational status of this range
+    pub status__ic: Option<Vec<String>>,
+    /// Operational status of this range
+    pub status__ie: Option<Vec<String>>,
+    /// Operational status of this range
+    pub status__iew: Option<Vec<String>>,
+    /// Operational status of this range
+    pub status__iregex: Option<Vec<String>>,
+    /// Operational status of this range
+    pub status__isw: Option<Vec<String>>,
+    /// Operational status of this range
+    pub status__n: Option<Vec<String>>,
+    /// Operational status of this range
+    pub status__nic: Option<Vec<String>>,
+    /// Operational status of this range
+    pub status__nie: Option<Vec<String>>,
+    /// Operational status of this range
+    pub status__niew: Option<Vec<String>>,
+    /// Operational status of this range
+    pub status__nisw: Option<Vec<String>>,
+    /// Operational status of this range
+    pub status__regex: Option<Vec<String>>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    /// Tenant (slug)
+    pub tenant: Option<Vec<String>>,
+    /// Tenant (slug)
+    pub tenant__n: Option<Vec<String>>,
+    pub tenant_group: Option<Vec<String>>,
+    pub tenant_group__n: Option<Vec<String>>,
+    pub tenant_group_id: Option<Vec<String>>,
+    pub tenant_group_id__n: Option<Vec<String>>,
+    /// Tenant (ID)
+    pub tenant_id: Option<Vec<i32>>,
+    /// Tenant (ID)
+    pub tenant_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+    /// VRF (RD)
+    pub vrf: Option<Vec<String>>,
+    /// VRF (RD)
+    pub vrf__n: Option<Vec<String>>,
+    /// VRF
+    pub vrf_id: Option<Vec<i32>>,
+    /// VRF
+    pub vrf_id__n: Option<Vec<i32>>,
+}
+
+/// struct for passing parameters to the method [`ipam_ip_ranges_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamIpRangesPartialUpdateParams {
+    /// A unique integer value identifying this IP range.
+    pub id: i32,
+    pub patched_writable_ip_range_request: Option<crate::models::PatchedWritableIpRangeRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_ip_ranges_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamIpRangesRetrieveParams {
+    /// A unique integer value identifying this IP range.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_ip_ranges_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamIpRangesUpdateParams {
+    /// A unique integer value identifying this IP range.
+    pub id: i32,
+    pub writable_ip_range_request: crate::models::WritableIpRangeRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_prefixes_available_ips_create`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamPrefixesAvailableIpsCreateParams {
+    pub id: i32,
+    pub available_ip_request_request: Vec<crate::models::AvailableIpRequestRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_prefixes_available_ips_list`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamPrefixesAvailableIpsListParams {
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_prefixes_available_prefixes_create`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamPrefixesAvailablePrefixesCreateParams {
+    pub id: i32,
+    pub prefix_length_request: Vec<crate::models::PrefixLengthRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_prefixes_available_prefixes_list`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamPrefixesAvailablePrefixesListParams {
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_prefixes_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamPrefixesBulkDestroyParams {
+    pub prefix_request: Vec<crate::models::PrefixRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_prefixes_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamPrefixesBulkPartialUpdateParams {
+    pub patched_bulk_prefix_request: Vec<crate::models::PatchedBulkPrefixRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_prefixes_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamPrefixesBulkUpdateParams {
+    pub bulk_prefix_request: Vec<crate::models::BulkPrefixRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_prefixes_create`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamPrefixesCreateParams {
+    pub ipam_prefixes_create_request: crate::models::IpamPrefixesCreateRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_prefixes_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamPrefixesDestroyParams {
+    /// A unique integer value identifying this prefix.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`ipam_prefixes_list`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamPrefixesListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub children: Option<Vec<i32>>,
+    pub children__empty: Option<Vec<i32>>,
+    pub children__gt: Option<Vec<i32>>,
+    pub children__gte: Option<Vec<i32>>,
+    pub children__lt: Option<Vec<i32>>,
+    pub children__lte: Option<Vec<i32>>,
+    pub children__n: Option<Vec<i32>>,
+    /// Contact
+    pub contact: Option<Vec<i32>>,
+    /// Contact
+    pub contact__n: Option<Vec<i32>>,
+    pub contact_group: Option<Vec<String>>,
+    pub contact_group__n: Option<Vec<String>>,
+    /// Contact Role
+    pub contact_role: Option<Vec<i32>>,
+    /// Contact Role
+    pub contact_role__n: Option<Vec<i32>>,
+    /// Prefixes which contain this prefix or IP
+    pub contains: Option<String>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub depth: Option<Vec<i32>>,
+    pub depth__empty: Option<Vec<i32>>,
+    pub depth__gt: Option<Vec<i32>>,
+    pub depth__gte: Option<Vec<i32>>,
+    pub depth__lt: Option<Vec<i32>>,
+    pub depth__lte: Option<Vec<i32>>,
+    pub depth__n: Option<Vec<i32>>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    pub family: Option<f32>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub is_pool: Option<bool>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub location: Option<Vec<String>>,
+    pub location__n: Option<Vec<String>>,
+    pub location_id: Option<Vec<String>>,
+    pub location_id__n: Option<Vec<String>>,
+    pub mark_utilized: Option<bool>,
+    pub mask_length: Option<Vec<i32>>,
+    pub mask_length__gte: Option<f32>,
+    pub mask_length__lte: Option<f32>,
+    pub modified_by_request: Option<String>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    pub prefix: Option<Vec<String>>,
+    pub present_in_vrf: Option<String>,
+    pub present_in_vrf_id: Option<String>,
+    /// Search
+    pub q: Option<String>,
+    pub region: Option<Vec<String>>,
+    pub region__n: Option<Vec<String>>,
+    pub region_id: Option<Vec<String>>,
+    pub region_id__n: Option<Vec<String>>,
+    /// Role (slug)
+    pub role: Option<Vec<String>>,
+    /// Role (slug)
+    pub role__n: Option<Vec<String>>,
+    /// Role (ID)
+    pub role_id: Option<Vec<i32>>,
+    /// Role (ID)
+    pub role_id__n: Option<Vec<i32>>,
+    pub scope_id: Option<Vec<i32>>,
+    pub scope_id__empty: Option<bool>,
+    pub scope_id__gt: Option<Vec<i32>>,
+    pub scope_id__gte: Option<Vec<i32>>,
+    pub scope_id__lt: Option<Vec<i32>>,
+    pub scope_id__lte: Option<Vec<i32>>,
+    pub scope_id__n: Option<Vec<i32>>,
+    pub scope_type: Option<Vec<String>>,
+    pub scope_type__n: Option<Vec<String>>,
+    /// Site (slug)
+    pub site: Option<Vec<String>>,
+    /// Site (slug)
+    pub site__n: Option<Vec<String>>,
+    pub site_group: Option<Vec<String>>,
+    pub site_group__n: Option<Vec<String>>,
+    pub site_group_id: Option<Vec<String>>,
+    pub site_group_id__n: Option<Vec<String>>,
+    /// Site (ID)
+    pub site_id: Option<Vec<i32>>,
+    /// Site (ID)
+    pub site_id__n: Option<Vec<i32>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    /// Operational status of this prefix
+    pub status: Option<Vec<String>>,
+    pub status__empty: Option<bool>,
+    /// Operational status of this prefix
+    pub status__ic: Option<Vec<String>>,
+    /// Operational status of this prefix
+    pub status__ie: Option<Vec<String>>,
+    /// Operational status of this prefix
+    pub status__iew: Option<Vec<String>>,
+    /// Operational status of this prefix
+    pub status__iregex: Option<Vec<String>>,
+    /// Operational status of this prefix
+    pub status__isw: Option<Vec<String>>,
+    /// Operational status of this prefix
+    pub status__n: Option<Vec<String>>,
+    /// Operational status of this prefix
+    pub status__nic: Option<Vec<String>>,
+    /// Operational status of this prefix
+    pub status__nie: Option<Vec<String>>,
+    /// Operational status of this prefix
+    pub status__niew: Option<Vec<String>>,
+    /// Operational status of this prefix
+    pub status__nisw: Option<Vec<String>>,
+    /// Operational status of this prefix
+    pub status__regex: Option<Vec<String>>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    /// Tenant (slug)
+    pub tenant: Option<Vec<String>>,
+    /// Tenant (slug)
+    pub tenant__n: Option<Vec<String>>,
+    pub tenant_group: Option<Vec<String>>,
+    pub tenant_group__n: Option<Vec<String>>,
+    pub tenant_group_id: Option<Vec<String>>,
+    pub tenant_group_id__n: Option<Vec<String>>,
+    /// Tenant (ID)
+    pub tenant_id: Option<Vec<i32>>,
+    /// Tenant (ID)
+    pub tenant_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+    /// VLAN Group (slug)
+    pub vlan_group: Option<Vec<String>>,
+    /// VLAN Group (slug)
+    pub vlan_group__n: Option<Vec<String>>,
+    /// VLAN Group (ID)
+    pub vlan_group_id: Option<Vec<i32>>,
+    /// VLAN Group (ID)
+    pub vlan_group_id__n: Option<Vec<i32>>,
+    /// VLAN (ID)
+    pub vlan_id: Option<Vec<i32>>,
+    /// VLAN (ID)
+    pub vlan_id__n: Option<Vec<i32>>,
+    /// VLAN number (1-4094)
+    pub vlan_vid: Option<i32>,
+    /// VLAN number (1-4094)
+    pub vlan_vid__empty: Option<i32>,
+    /// VLAN number (1-4094)
+    pub vlan_vid__gt: Option<i32>,
+    /// VLAN number (1-4094)
+    pub vlan_vid__gte: Option<i32>,
+    /// VLAN number (1-4094)
+    pub vlan_vid__lt: Option<i32>,
+    /// VLAN number (1-4094)
+    pub vlan_vid__lte: Option<i32>,
+    /// VLAN number (1-4094)
+    pub vlan_vid__n: Option<i32>,
+    /// VRF (RD)
+    pub vrf: Option<Vec<String>>,
+    /// VRF (RD)
+    pub vrf__n: Option<Vec<String>>,
+    /// VRF
+    pub vrf_id: Option<Vec<i32>>,
+    /// VRF
+    pub vrf_id__n: Option<Vec<i32>>,
+    /// Within prefix
+    pub within: Option<String>,
+    /// Within and including prefix
+    pub within_include: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_prefixes_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamPrefixesPartialUpdateParams {
+    /// A unique integer value identifying this prefix.
+    pub id: i32,
+    pub patched_writable_prefix_request: Option<crate::models::PatchedWritablePrefixRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_prefixes_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamPrefixesRetrieveParams {
+    /// A unique integer value identifying this prefix.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_prefixes_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamPrefixesUpdateParams {
+    /// A unique integer value identifying this prefix.
+    pub id: i32,
+    pub writable_prefix_request: crate::models::WritablePrefixRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_rirs_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRirsBulkDestroyParams {
+    pub rir_request: Vec<crate::models::RirRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_rirs_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRirsBulkPartialUpdateParams {
+    pub patched_bulk_rir_request: Vec<crate::models::PatchedBulkRirRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_rirs_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRirsBulkUpdateParams {
+    pub bulk_rir_request: Vec<crate::models::BulkRirRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_rirs_create`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRirsCreateParams {
+    pub ipam_rirs_create_request: crate::models::IpamRirsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_rirs_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRirsDestroyParams {
+    /// A unique integer value identifying this RIR.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`ipam_rirs_list`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRirsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub is_private: Option<bool>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub slug: Option<Vec<String>>,
+    pub slug__empty: Option<bool>,
+    pub slug__ic: Option<Vec<String>>,
+    pub slug__ie: Option<Vec<String>>,
+    pub slug__iew: Option<Vec<String>>,
+    pub slug__iregex: Option<Vec<String>>,
+    pub slug__isw: Option<Vec<String>>,
+    pub slug__n: Option<Vec<String>>,
+    pub slug__nic: Option<Vec<String>>,
+    pub slug__nie: Option<Vec<String>>,
+    pub slug__niew: Option<Vec<String>>,
+    pub slug__nisw: Option<Vec<String>>,
+    pub slug__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_rirs_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRirsPartialUpdateParams {
+    /// A unique integer value identifying this RIR.
+    pub id: i32,
+    pub patched_rir_request: Option<crate::models::PatchedRirRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_rirs_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRirsRetrieveParams {
+    /// A unique integer value identifying this RIR.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_rirs_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRirsUpdateParams {
+    /// A unique integer value identifying this RIR.
+    pub id: i32,
+    pub rir_request: crate::models::RirRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_roles_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRolesBulkDestroyParams {
+    pub role_request: Vec<crate::models::RoleRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_roles_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRolesBulkPartialUpdateParams {
+    pub patched_bulk_role_request: Vec<crate::models::PatchedBulkRoleRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_roles_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRolesBulkUpdateParams {
+    pub bulk_role_request: Vec<crate::models::BulkRoleRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_roles_create`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRolesCreateParams {
+    pub ipam_roles_create_request: crate::models::IpamRolesCreateRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_roles_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRolesDestroyParams {
+    /// A unique integer value identifying this role.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`ipam_roles_list`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRolesListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub slug: Option<Vec<String>>,
+    pub slug__empty: Option<bool>,
+    pub slug__ic: Option<Vec<String>>,
+    pub slug__ie: Option<Vec<String>>,
+    pub slug__iew: Option<Vec<String>>,
+    pub slug__iregex: Option<Vec<String>>,
+    pub slug__isw: Option<Vec<String>>,
+    pub slug__n: Option<Vec<String>>,
+    pub slug__nic: Option<Vec<String>>,
+    pub slug__nie: Option<Vec<String>>,
+    pub slug__niew: Option<Vec<String>>,
+    pub slug__nisw: Option<Vec<String>>,
+    pub slug__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+    pub weight: Option<Vec<i32>>,
+    pub weight__empty: Option<bool>,
+    pub weight__gt: Option<Vec<i32>>,
+    pub weight__gte: Option<Vec<i32>>,
+    pub weight__lt: Option<Vec<i32>>,
+    pub weight__lte: Option<Vec<i32>>,
+    pub weight__n: Option<Vec<i32>>,
+}
+
+/// struct for passing parameters to the method [`ipam_roles_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRolesPartialUpdateParams {
+    /// A unique integer value identifying this role.
+    pub id: i32,
+    pub patched_role_request: Option<crate::models::PatchedRoleRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_roles_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRolesRetrieveParams {
+    /// A unique integer value identifying this role.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_roles_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRolesUpdateParams {
+    /// A unique integer value identifying this role.
+    pub id: i32,
+    pub role_request: crate::models::RoleRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_route_targets_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRouteTargetsBulkDestroyParams {
+    pub route_target_request: Vec<crate::models::RouteTargetRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_route_targets_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRouteTargetsBulkPartialUpdateParams {
+    pub patched_bulk_route_target_request: Vec<crate::models::PatchedBulkRouteTargetRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_route_targets_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRouteTargetsBulkUpdateParams {
+    pub bulk_route_target_request: Vec<crate::models::BulkRouteTargetRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_route_targets_create`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRouteTargetsCreateParams {
+    pub ipam_route_targets_create_request: crate::models::IpamRouteTargetsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_route_targets_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRouteTargetsDestroyParams {
+    /// A unique integer value identifying this route target.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`ipam_route_targets_list`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRouteTargetsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Exporting L2VPN (identifier)
+    pub exporting_l2vpn: Option<Vec<i64>>,
+    /// Exporting L2VPN (identifier)
+    pub exporting_l2vpn__n: Option<Vec<i64>>,
+    /// Exporting L2VPN
+    pub exporting_l2vpn_id: Option<Vec<i32>>,
+    /// Exporting L2VPN
+    pub exporting_l2vpn_id__n: Option<Vec<i32>>,
+    /// Export VRF (RD)
+    pub exporting_vrf: Option<Vec<String>>,
+    /// Export VRF (RD)
+    pub exporting_vrf__n: Option<Vec<String>>,
+    /// Exporting VRF
+    pub exporting_vrf_id: Option<Vec<i32>>,
+    /// Exporting VRF
+    pub exporting_vrf_id__n: Option<Vec<i32>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    /// Importing L2VPN (identifier)
+    pub importing_l2vpn: Option<Vec<i64>>,
+    /// Importing L2VPN (identifier)
+    pub importing_l2vpn__n: Option<Vec<i64>>,
+    /// Importing L2VPN
+    pub importing_l2vpn_id: Option<Vec<i32>>,
+    /// Importing L2VPN
+    pub importing_l2vpn_id__n: Option<Vec<i32>>,
+    /// Import VRF (RD)
+    pub importing_vrf: Option<Vec<String>>,
+    /// Import VRF (RD)
+    pub importing_vrf__n: Option<Vec<String>>,
+    /// Importing VRF
+    pub importing_vrf_id: Option<Vec<i32>>,
+    /// Importing VRF
+    pub importing_vrf_id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    /// Tenant (slug)
+    pub tenant: Option<Vec<String>>,
+    /// Tenant (slug)
+    pub tenant__n: Option<Vec<String>>,
+    pub tenant_group: Option<Vec<String>>,
+    pub tenant_group__n: Option<Vec<String>>,
+    pub tenant_group_id: Option<Vec<String>>,
+    pub tenant_group_id__n: Option<Vec<String>>,
+    /// Tenant (ID)
+    pub tenant_id: Option<Vec<i32>>,
+    /// Tenant (ID)
+    pub tenant_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_route_targets_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRouteTargetsPartialUpdateParams {
+    /// A unique integer value identifying this route target.
+    pub id: i32,
+    pub patched_route_target_request: Option<crate::models::PatchedRouteTargetRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_route_targets_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRouteTargetsRetrieveParams {
+    /// A unique integer value identifying this route target.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_route_targets_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamRouteTargetsUpdateParams {
+    /// A unique integer value identifying this route target.
+    pub id: i32,
+    pub route_target_request: crate::models::RouteTargetRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_service_templates_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamServiceTemplatesBulkDestroyParams {
+    pub service_template_request: Vec<crate::models::ServiceTemplateRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_service_templates_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamServiceTemplatesBulkPartialUpdateParams {
+    pub patched_bulk_service_template_request:
+        Vec<crate::models::PatchedBulkServiceTemplateRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_service_templates_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamServiceTemplatesBulkUpdateParams {
+    pub bulk_service_template_request: Vec<crate::models::BulkServiceTemplateRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_service_templates_create`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamServiceTemplatesCreateParams {
+    pub ipam_service_templates_create_request: crate::models::IpamServiceTemplatesCreateRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_service_templates_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamServiceTemplatesDestroyParams {
+    /// A unique integer value identifying this application service template.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`ipam_service_templates_list`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamServiceTemplatesListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    pub port: Option<Vec<i32>>,
+    pub port__gt: Option<Vec<i32>>,
+    pub port__gte: Option<Vec<i32>>,
+    pub port__lt: Option<Vec<i32>>,
+    pub port__lte: Option<Vec<i32>>,
+    pub port__n: Option<Vec<i32>>,
+    pub port_mappings: Option<Vec<String>>,
+    pub port_mappings__n: Option<Vec<String>>,
+    pub protocol: Option<Vec<String>>,
+    pub protocol__n: Option<Vec<String>>,
+    /// Search
+    pub q: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_service_templates_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamServiceTemplatesPartialUpdateParams {
+    /// A unique integer value identifying this application service template.
+    pub id: i32,
+    pub patched_writable_service_template_request:
+        Option<crate::models::PatchedWritableServiceTemplateRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_service_templates_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamServiceTemplatesRetrieveParams {
+    /// A unique integer value identifying this application service template.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_service_templates_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamServiceTemplatesUpdateParams {
+    /// A unique integer value identifying this application service template.
+    pub id: i32,
+    pub writable_service_template_request: crate::models::WritableServiceTemplateRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_services_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamServicesBulkDestroyParams {
+    pub service_request: Vec<crate::models::ServiceRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_services_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamServicesBulkPartialUpdateParams {
+    pub patched_bulk_service_request: Vec<crate::models::PatchedBulkServiceRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_services_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamServicesBulkUpdateParams {
+    pub bulk_service_request: Vec<crate::models::BulkServiceRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_services_create`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamServicesCreateParams {
+    pub ipam_services_create_request: crate::models::IpamServicesCreateRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_services_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamServicesDestroyParams {
+    /// A unique integer value identifying this application service.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`ipam_services_list`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamServicesListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Contact
+    pub contact: Option<Vec<i32>>,
+    /// Contact
+    pub contact__n: Option<Vec<i32>>,
+    pub contact_group: Option<Vec<String>>,
+    pub contact_group__n: Option<Vec<String>>,
+    /// Contact Role
+    pub contact_role: Option<Vec<i32>>,
+    /// Contact Role
+    pub contact_role__n: Option<Vec<i32>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    pub device: Option<Vec<String>>,
+    pub device_id: Option<Vec<i32>>,
+    pub fhrpgroup: Option<Vec<String>>,
+    pub fhrpgroup_id: Option<Vec<i32>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    /// IP address
+    pub ip_address: Option<Vec<String>>,
+    /// IP address
+    pub ip_address__n: Option<Vec<String>>,
+    /// IP address (ID)
+    pub ip_address_id: Option<Vec<i32>>,
+    /// IP address (ID)
+    pub ip_address_id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    pub parent_object_id: Option<Vec<i32>>,
+    pub parent_object_id__empty: Option<bool>,
+    pub parent_object_id__gt: Option<Vec<i32>>,
+    pub parent_object_id__gte: Option<Vec<i32>>,
+    pub parent_object_id__lt: Option<Vec<i32>>,
+    pub parent_object_id__lte: Option<Vec<i32>>,
+    pub parent_object_id__n: Option<Vec<i32>>,
+    pub parent_object_type: Option<Vec<String>>,
+    pub parent_object_type__n: Option<Vec<String>>,
+    pub port: Option<Vec<i32>>,
+    pub port__gt: Option<Vec<i32>>,
+    pub port__gte: Option<Vec<i32>>,
+    pub port__lt: Option<Vec<i32>>,
+    pub port__lte: Option<Vec<i32>>,
+    pub port__n: Option<Vec<i32>>,
+    pub port_mappings: Option<Vec<String>>,
+    pub port_mappings__n: Option<Vec<String>>,
+    pub protocol: Option<Vec<String>>,
+    pub protocol__n: Option<Vec<String>>,
+    /// Search
+    pub q: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+    pub virtual_machine: Option<Vec<String>>,
+    pub virtual_machine_id: Option<Vec<i32>>,
+}
+
+/// struct for passing parameters to the method [`ipam_services_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamServicesPartialUpdateParams {
+    /// A unique integer value identifying this application service.
+    pub id: i32,
+    pub patched_writable_service_request: Option<crate::models::PatchedWritableServiceRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_services_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamServicesRetrieveParams {
+    /// A unique integer value identifying this application service.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_services_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamServicesUpdateParams {
+    /// A unique integer value identifying this application service.
+    pub id: i32,
+    pub writable_service_request: crate::models::WritableServiceRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_groups_available_vlans_create`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanGroupsAvailableVlansCreateParams {
+    pub id: i32,
+    pub create_available_vlan_request: Vec<crate::models::CreateAvailableVlanRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_groups_available_vlans_list`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanGroupsAvailableVlansListParams {
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_groups_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanGroupsBulkDestroyParams {
+    pub vlan_group_request: Vec<crate::models::VlanGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_groups_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanGroupsBulkPartialUpdateParams {
+    pub patched_bulk_vlan_group_request: Vec<crate::models::PatchedBulkVlanGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_groups_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanGroupsBulkUpdateParams {
+    pub bulk_vlan_group_request: Vec<crate::models::BulkVlanGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_groups_create`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanGroupsCreateParams {
+    pub ipam_vlan_groups_create_request: crate::models::IpamVlanGroupsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_groups_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanGroupsDestroyParams {
+    /// A unique integer value identifying this VLAN group.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_groups_list`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanGroupsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub cluster: Option<Vec<i32>>,
+    pub cluster_group: Option<Vec<i32>>,
+    pub contains_vid: Option<f32>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub location: Option<Vec<i32>>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub rack: Option<Vec<i32>>,
+    pub rack_group: Option<Vec<i32>>,
+    pub region: Option<Vec<i32>>,
+    pub scope_id: Option<Vec<i32>>,
+    pub scope_id__empty: Option<bool>,
+    pub scope_id__gt: Option<Vec<i32>>,
+    pub scope_id__gte: Option<Vec<i32>>,
+    pub scope_id__lt: Option<Vec<i32>>,
+    pub scope_id__lte: Option<Vec<i32>>,
+    pub scope_id__n: Option<Vec<i32>>,
+    pub scope_type: Option<Vec<String>>,
+    pub scope_type__n: Option<Vec<String>>,
+    pub site: Option<Vec<i32>>,
+    pub site_group: Option<Vec<i32>>,
+    pub slug: Option<Vec<String>>,
+    pub slug__empty: Option<bool>,
+    pub slug__ic: Option<Vec<String>>,
+    pub slug__ie: Option<Vec<String>>,
+    pub slug__iew: Option<Vec<String>>,
+    pub slug__iregex: Option<Vec<String>>,
+    pub slug__isw: Option<Vec<String>>,
+    pub slug__n: Option<Vec<String>>,
+    pub slug__nic: Option<Vec<String>>,
+    pub slug__nie: Option<Vec<String>>,
+    pub slug__niew: Option<Vec<String>>,
+    pub slug__nisw: Option<Vec<String>>,
+    pub slug__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    /// Tenant (slug)
+    pub tenant: Option<Vec<String>>,
+    /// Tenant (slug)
+    pub tenant__n: Option<Vec<String>>,
+    pub tenant_group: Option<Vec<String>>,
+    pub tenant_group__n: Option<Vec<String>>,
+    pub tenant_group_id: Option<Vec<String>>,
+    pub tenant_group_id__n: Option<Vec<String>>,
+    /// Tenant (ID)
+    pub tenant_id: Option<Vec<i32>>,
+    /// Tenant (ID)
+    pub tenant_id__n: Option<Vec<i32>>,
+    pub total_vlan_ids: Option<Vec<i32>>,
+    pub total_vlan_ids__empty: Option<bool>,
+    pub total_vlan_ids__gt: Option<Vec<i32>>,
+    pub total_vlan_ids__gte: Option<Vec<i32>>,
+    pub total_vlan_ids__lt: Option<Vec<i32>>,
+    pub total_vlan_ids__lte: Option<Vec<i32>>,
+    pub total_vlan_ids__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_groups_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanGroupsPartialUpdateParams {
+    /// A unique integer value identifying this VLAN group.
+    pub id: i32,
+    pub patched_vlan_group_request: Option<crate::models::PatchedVlanGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_groups_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanGroupsRetrieveParams {
+    /// A unique integer value identifying this VLAN group.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_groups_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanGroupsUpdateParams {
+    /// A unique integer value identifying this VLAN group.
+    pub id: i32,
+    pub vlan_group_request: crate::models::VlanGroupRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_translation_policies_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanTranslationPoliciesBulkDestroyParams {
+    pub vlan_translation_policy_request: Vec<crate::models::VlanTranslationPolicyRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_translation_policies_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanTranslationPoliciesBulkPartialUpdateParams {
+    pub patched_bulk_vlan_translation_policy_request:
+        Vec<crate::models::PatchedBulkVlanTranslationPolicyRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_translation_policies_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanTranslationPoliciesBulkUpdateParams {
+    pub bulk_vlan_translation_policy_request: Vec<crate::models::BulkVlanTranslationPolicyRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_translation_policies_create`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanTranslationPoliciesCreateParams {
+    pub ipam_vlan_translation_policies_create_request:
+        crate::models::IpamVlanTranslationPoliciesCreateRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_translation_policies_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanTranslationPoliciesDestroyParams {
+    /// A unique integer value identifying this VLAN translation policy.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_translation_policies_list`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanTranslationPoliciesListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_translation_policies_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanTranslationPoliciesPartialUpdateParams {
+    /// A unique integer value identifying this VLAN translation policy.
+    pub id: i32,
+    pub patched_vlan_translation_policy_request:
+        Option<crate::models::PatchedVlanTranslationPolicyRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_translation_policies_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanTranslationPoliciesRetrieveParams {
+    /// A unique integer value identifying this VLAN translation policy.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_translation_policies_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanTranslationPoliciesUpdateParams {
+    /// A unique integer value identifying this VLAN translation policy.
+    pub id: i32,
+    pub vlan_translation_policy_request: crate::models::VlanTranslationPolicyRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_translation_rules_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanTranslationRulesBulkDestroyParams {
+    pub vlan_translation_rule_request: Vec<crate::models::VlanTranslationRuleRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_translation_rules_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanTranslationRulesBulkPartialUpdateParams {
+    pub patched_bulk_vlan_translation_rule_request:
+        Vec<crate::models::PatchedBulkVlanTranslationRuleRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_translation_rules_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanTranslationRulesBulkUpdateParams {
+    pub bulk_vlan_translation_rule_request: Vec<crate::models::BulkVlanTranslationRuleRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_translation_rules_create`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanTranslationRulesCreateParams {
+    pub ipam_vlan_translation_rules_create_request:
+        crate::models::IpamVlanTranslationRulesCreateRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_translation_rules_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanTranslationRulesDestroyParams {
+    /// A unique integer value identifying this VLAN translation rule.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_translation_rules_list`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanTranslationRulesListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub local_vid: Option<Vec<i32>>,
+    pub local_vid__empty: Option<bool>,
+    pub local_vid__gt: Option<Vec<i32>>,
+    pub local_vid__gte: Option<Vec<i32>>,
+    pub local_vid__lt: Option<Vec<i32>>,
+    pub local_vid__lte: Option<Vec<i32>>,
+    pub local_vid__n: Option<Vec<i32>>,
+    pub modified_by_request: Option<String>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// VLAN Translation Policy (name)
+    pub policy: Option<Vec<String>>,
+    /// VLAN Translation Policy (name)
+    pub policy__n: Option<Vec<String>>,
+    /// VLAN Translation Policy (ID)
+    pub policy_id: Option<Vec<i32>>,
+    /// VLAN Translation Policy (ID)
+    pub policy_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub remote_vid: Option<Vec<i32>>,
+    pub remote_vid__empty: Option<bool>,
+    pub remote_vid__gt: Option<Vec<i32>>,
+    pub remote_vid__gte: Option<Vec<i32>>,
+    pub remote_vid__lt: Option<Vec<i32>>,
+    pub remote_vid__lte: Option<Vec<i32>>,
+    pub remote_vid__n: Option<Vec<i32>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_translation_rules_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanTranslationRulesPartialUpdateParams {
+    /// A unique integer value identifying this VLAN translation rule.
+    pub id: i32,
+    pub patched_vlan_translation_rule_request:
+        Option<crate::models::PatchedVlanTranslationRuleRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_translation_rules_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanTranslationRulesRetrieveParams {
+    /// A unique integer value identifying this VLAN translation rule.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_vlan_translation_rules_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlanTranslationRulesUpdateParams {
+    /// A unique integer value identifying this VLAN translation rule.
+    pub id: i32,
+    pub vlan_translation_rule_request: crate::models::VlanTranslationRuleRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_vlans_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlansBulkDestroyParams {
+    pub vlan_request: Vec<crate::models::VlanRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_vlans_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlansBulkPartialUpdateParams {
+    pub patched_bulk_vlan_request: Vec<crate::models::PatchedBulkVlanRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_vlans_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlansBulkUpdateParams {
+    pub bulk_vlan_request: Vec<crate::models::BulkVlanRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_vlans_create`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlansCreateParams {
+    pub ipam_vlans_create_request: crate::models::IpamVlansCreateRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_vlans_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlansDestroyParams {
+    /// A unique integer value identifying this VLAN.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`ipam_vlans_list`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlansListParams {
+    pub available_at_site: Option<String>,
+    pub available_at_site_group: Option<String>,
+    pub available_on_device: Option<String>,
+    pub available_on_virtualmachine: Option<String>,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Group
+    pub group: Option<Vec<String>>,
+    /// Group
+    pub group__n: Option<Vec<String>>,
+    /// Group (ID)
+    pub group_id: Option<Vec<i32>>,
+    /// Group (ID)
+    pub group_id__n: Option<Vec<i32>>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub interface_id: Option<i32>,
+    /// L2VPN
+    pub l2vpn: Option<Vec<i64>>,
+    /// L2VPN
+    pub l2vpn__n: Option<Vec<i64>>,
+    /// L2VPN (ID)
+    pub l2vpn_id: Option<Vec<i32>>,
+    /// L2VPN (ID)
+    pub l2vpn_id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    /// Customer/service VLAN designation (for Q-in-Q/IEEE 802.1ad)
+    pub qinq_role: Option<Vec<String>>,
+    pub qinq_role__empty: Option<bool>,
+    /// Customer/service VLAN designation (for Q-in-Q/IEEE 802.1ad)
+    pub qinq_role__ic: Option<Vec<String>>,
+    /// Customer/service VLAN designation (for Q-in-Q/IEEE 802.1ad)
+    pub qinq_role__ie: Option<Vec<String>>,
+    /// Customer/service VLAN designation (for Q-in-Q/IEEE 802.1ad)
+    pub qinq_role__iew: Option<Vec<String>>,
+    /// Customer/service VLAN designation (for Q-in-Q/IEEE 802.1ad)
+    pub qinq_role__iregex: Option<Vec<String>>,
+    /// Customer/service VLAN designation (for Q-in-Q/IEEE 802.1ad)
+    pub qinq_role__isw: Option<Vec<String>>,
+    /// Customer/service VLAN designation (for Q-in-Q/IEEE 802.1ad)
+    pub qinq_role__n: Option<Vec<String>>,
+    /// Customer/service VLAN designation (for Q-in-Q/IEEE 802.1ad)
+    pub qinq_role__nic: Option<Vec<String>>,
+    /// Customer/service VLAN designation (for Q-in-Q/IEEE 802.1ad)
+    pub qinq_role__nie: Option<Vec<String>>,
+    /// Customer/service VLAN designation (for Q-in-Q/IEEE 802.1ad)
+    pub qinq_role__niew: Option<Vec<String>>,
+    /// Customer/service VLAN designation (for Q-in-Q/IEEE 802.1ad)
+    pub qinq_role__nisw: Option<Vec<String>>,
+    /// Customer/service VLAN designation (for Q-in-Q/IEEE 802.1ad)
+    pub qinq_role__regex: Option<Vec<String>>,
+    /// Q-in-Q SVLAN (ID)
+    pub qinq_svlan_id: Option<Vec<i32>>,
+    /// Q-in-Q SVLAN (ID)
+    pub qinq_svlan_id__n: Option<Vec<i32>>,
+    pub qinq_svlan_vid: Option<Vec<i32>>,
+    pub qinq_svlan_vid__empty: Option<Vec<i32>>,
+    pub qinq_svlan_vid__gt: Option<Vec<i32>>,
+    pub qinq_svlan_vid__gte: Option<Vec<i32>>,
+    pub qinq_svlan_vid__lt: Option<Vec<i32>>,
+    pub qinq_svlan_vid__lte: Option<Vec<i32>>,
+    pub qinq_svlan_vid__n: Option<Vec<i32>>,
+    pub region: Option<Vec<String>>,
+    pub region__n: Option<Vec<String>>,
+    pub region_id: Option<Vec<String>>,
+    pub region_id__n: Option<Vec<String>>,
+    /// Role (slug)
+    pub role: Option<Vec<String>>,
+    /// Role (slug)
+    pub role__n: Option<Vec<String>>,
+    /// Role (ID)
+    pub role_id: Option<Vec<i32>>,
+    /// Role (ID)
+    pub role_id__n: Option<Vec<i32>>,
+    /// Site (slug)
+    pub site: Option<Vec<String>>,
+    /// Site (slug)
+    pub site__n: Option<Vec<String>>,
+    pub site_group: Option<Vec<String>>,
+    pub site_group__n: Option<Vec<String>>,
+    pub site_group_id: Option<Vec<String>>,
+    pub site_group_id__n: Option<Vec<String>>,
+    /// Site (ID)
+    pub site_id: Option<Vec<i32>>,
+    /// Site (ID)
+    pub site_id__n: Option<Vec<i32>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    /// Operational status of this VLAN
+    pub status: Option<Vec<String>>,
+    pub status__empty: Option<bool>,
+    /// Operational status of this VLAN
+    pub status__ic: Option<Vec<String>>,
+    /// Operational status of this VLAN
+    pub status__ie: Option<Vec<String>>,
+    /// Operational status of this VLAN
+    pub status__iew: Option<Vec<String>>,
+    /// Operational status of this VLAN
+    pub status__iregex: Option<Vec<String>>,
+    /// Operational status of this VLAN
+    pub status__isw: Option<Vec<String>>,
+    /// Operational status of this VLAN
+    pub status__n: Option<Vec<String>>,
+    /// Operational status of this VLAN
+    pub status__nic: Option<Vec<String>>,
+    /// Operational status of this VLAN
+    pub status__nie: Option<Vec<String>>,
+    /// Operational status of this VLAN
+    pub status__niew: Option<Vec<String>>,
+    /// Operational status of this VLAN
+    pub status__nisw: Option<Vec<String>>,
+    /// Operational status of this VLAN
+    pub status__regex: Option<Vec<String>>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    /// Tenant (slug)
+    pub tenant: Option<Vec<String>>,
+    /// Tenant (slug)
+    pub tenant__n: Option<Vec<String>>,
+    pub tenant_group: Option<Vec<String>>,
+    pub tenant_group__n: Option<Vec<String>>,
+    pub tenant_group_id: Option<Vec<String>>,
+    pub tenant_group_id__n: Option<Vec<String>>,
+    /// Tenant (ID)
+    pub tenant_id: Option<Vec<i32>>,
+    /// Tenant (ID)
+    pub tenant_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+    pub vid: Option<Vec<i32>>,
+    pub vid__empty: Option<bool>,
+    pub vid__gt: Option<Vec<i32>>,
+    pub vid__gte: Option<Vec<i32>>,
+    pub vid__lt: Option<Vec<i32>>,
+    pub vid__lte: Option<Vec<i32>>,
+    pub vid__n: Option<Vec<i32>>,
+    pub vminterface_id: Option<i32>,
+}
+
+/// struct for passing parameters to the method [`ipam_vlans_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlansPartialUpdateParams {
+    /// A unique integer value identifying this VLAN.
+    pub id: i32,
+    pub patched_writable_vlan_request: Option<crate::models::PatchedWritableVlanRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_vlans_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlansRetrieveParams {
+    /// A unique integer value identifying this VLAN.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_vlans_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVlansUpdateParams {
+    /// A unique integer value identifying this VLAN.
+    pub id: i32,
+    pub writable_vlan_request: crate::models::WritableVlanRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_vrfs_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVrfsBulkDestroyParams {
+    pub vrf_request: Vec<crate::models::VrfRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_vrfs_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVrfsBulkPartialUpdateParams {
+    pub patched_bulk_vrf_request: Vec<crate::models::PatchedBulkVrfRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_vrfs_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVrfsBulkUpdateParams {
+    pub bulk_vrf_request: Vec<crate::models::BulkVrfRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_vrfs_create`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVrfsCreateParams {
+    pub ipam_vrfs_create_request: crate::models::IpamVrfsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`ipam_vrfs_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVrfsDestroyParams {
+    /// A unique integer value identifying this VRF.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`ipam_vrfs_list`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVrfsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    pub enforce_unique: Option<bool>,
+    /// Export target (name)
+    pub export_target: Option<Vec<String>>,
+    /// Export target (name)
+    pub export_target__n: Option<Vec<String>>,
+    /// Export target
+    pub export_target_id: Option<Vec<i32>>,
+    /// Export target
+    pub export_target_id__n: Option<Vec<i32>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    /// Import target (name)
+    pub import_target: Option<Vec<String>>,
+    /// Import target (name)
+    pub import_target__n: Option<Vec<String>>,
+    /// Import target
+    pub import_target_id: Option<Vec<i32>>,
+    /// Import target
+    pub import_target_id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub rd: Option<Vec<String>>,
+    pub rd__empty: Option<bool>,
+    pub rd__ic: Option<Vec<String>>,
+    pub rd__ie: Option<Vec<String>>,
+    pub rd__iew: Option<Vec<String>>,
+    pub rd__iregex: Option<Vec<String>>,
+    pub rd__isw: Option<Vec<String>>,
+    pub rd__n: Option<Vec<String>>,
+    pub rd__nic: Option<Vec<String>>,
+    pub rd__nie: Option<Vec<String>>,
+    pub rd__niew: Option<Vec<String>>,
+    pub rd__nisw: Option<Vec<String>>,
+    pub rd__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    /// Tenant (slug)
+    pub tenant: Option<Vec<String>>,
+    /// Tenant (slug)
+    pub tenant__n: Option<Vec<String>>,
+    pub tenant_group: Option<Vec<String>>,
+    pub tenant_group__n: Option<Vec<String>>,
+    pub tenant_group_id: Option<Vec<String>>,
+    pub tenant_group_id__n: Option<Vec<String>>,
+    /// Tenant (ID)
+    pub tenant_id: Option<Vec<i32>>,
+    /// Tenant (ID)
+    pub tenant_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_vrfs_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVrfsPartialUpdateParams {
+    /// A unique integer value identifying this VRF.
+    pub id: i32,
+    pub patched_vrf_request: Option<crate::models::PatchedVrfRequest>,
+}
+
+/// struct for passing parameters to the method [`ipam_vrfs_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVrfsRetrieveParams {
+    /// A unique integer value identifying this VRF.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`ipam_vrfs_update`]
+#[derive(Clone, Debug, Default)]
+pub struct IpamVrfsUpdateParams {
+    /// A unique integer value identifying this VRF.
+    pub id: i32,
+    pub vrf_request: crate::models::VrfRequest,
+}
+
 /// struct for typed errors of method [`ipam_aggregates_bulk_destroy`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -1382,9 +5052,12 @@ pub enum IpamVrfsUpdateError {
 /// Delete a list of aggregate objects.
 pub async fn ipam_aggregates_bulk_destroy(
     configuration: &configuration::Configuration,
-    aggregate_request: Vec<crate::models::AggregateRequest>,
+    params: IpamAggregatesBulkDestroyParams,
 ) -> Result<(), Error<IpamAggregatesBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let aggregate_request = params.aggregate_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -1429,9 +5102,12 @@ pub async fn ipam_aggregates_bulk_destroy(
 /// Patch a list of aggregate objects.
 pub async fn ipam_aggregates_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_aggregate_request: Vec<crate::models::PatchedBulkAggregateRequest>,
+    params: IpamAggregatesBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::Aggregate>, Error<IpamAggregatesBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_aggregate_request = params.patched_bulk_aggregate_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -1476,9 +5152,12 @@ pub async fn ipam_aggregates_bulk_partial_update(
 /// Put a list of aggregate objects.
 pub async fn ipam_aggregates_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_aggregate_request: Vec<crate::models::BulkAggregateRequest>,
+    params: IpamAggregatesBulkUpdateParams,
 ) -> Result<Vec<crate::models::Aggregate>, Error<IpamAggregatesBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_aggregate_request = params.bulk_aggregate_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -1523,9 +5202,12 @@ pub async fn ipam_aggregates_bulk_update(
 /// Post a list of aggregate objects.
 pub async fn ipam_aggregates_create(
     configuration: &configuration::Configuration,
-    ipam_aggregates_create_request: crate::models::IpamAggregatesCreateRequest,
+    params: IpamAggregatesCreateParams,
 ) -> Result<crate::models::Aggregate, Error<IpamAggregatesCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ipam_aggregates_create_request = params.ipam_aggregates_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -1570,9 +5252,12 @@ pub async fn ipam_aggregates_create(
 /// Delete a aggregate object.
 pub async fn ipam_aggregates_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: IpamAggregatesDestroyParams,
 ) -> Result<(), Error<IpamAggregatesDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -1620,94 +5305,97 @@ pub async fn ipam_aggregates_destroy(
 /// Get a list of aggregate objects.
 pub async fn ipam_aggregates_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    contact: Option<Vec<i32>>,
-    contact__n: Option<Vec<i32>>,
-    contact_group: Option<Vec<String>>,
-    contact_group__n: Option<Vec<String>>,
-    contact_role: Option<Vec<i32>>,
-    contact_role__n: Option<Vec<i32>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    date_added: Option<Vec<String>>,
-    date_added__empty: Option<bool>,
-    date_added__gt: Option<Vec<String>>,
-    date_added__gte: Option<Vec<String>>,
-    date_added__lt: Option<Vec<String>>,
-    date_added__lte: Option<Vec<String>>,
-    date_added__n: Option<Vec<String>>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    family: Option<f32>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    prefix: Option<&str>,
-    q: Option<&str>,
-    rir: Option<Vec<String>>,
-    rir__n: Option<Vec<String>>,
-    rir_id: Option<Vec<i32>>,
-    rir_id__n: Option<Vec<i32>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    tenant: Option<Vec<String>>,
-    tenant__n: Option<Vec<String>>,
-    tenant_group: Option<Vec<String>>,
-    tenant_group__n: Option<Vec<String>>,
-    tenant_group_id: Option<Vec<String>>,
-    tenant_group_id__n: Option<Vec<String>>,
-    tenant_id: Option<Vec<i32>>,
-    tenant_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: IpamAggregatesListParams,
 ) -> Result<crate::models::PaginatedAggregateList, Error<IpamAggregatesListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let contact = params.contact;
+    let contact__n = params.contact__n;
+    let contact_group = params.contact_group;
+    let contact_group__n = params.contact_group__n;
+    let contact_role = params.contact_role;
+    let contact_role__n = params.contact_role__n;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let date_added = params.date_added;
+    let date_added__empty = params.date_added__empty;
+    let date_added__gt = params.date_added__gt;
+    let date_added__gte = params.date_added__gte;
+    let date_added__lt = params.date_added__lt;
+    let date_added__lte = params.date_added__lte;
+    let date_added__n = params.date_added__n;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let family = params.family;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let prefix = params.prefix;
+    let q = params.q;
+    let rir = params.rir;
+    let rir__n = params.rir__n;
+    let rir_id = params.rir_id;
+    let rir_id__n = params.rir_id__n;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let tenant = params.tenant;
+    let tenant__n = params.tenant__n;
+    let tenant_group = params.tenant_group;
+    let tenant_group__n = params.tenant_group__n;
+    let tenant_group_id = params.tenant_group_id;
+    let tenant_group_id__n = params.tenant_group_id__n;
+    let tenant_id = params.tenant_id;
+    let tenant_id__n = params.tenant_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -3144,10 +6832,13 @@ pub async fn ipam_aggregates_list(
 /// Patch a aggregate object.
 pub async fn ipam_aggregates_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_aggregate_request: Option<crate::models::PatchedWritableAggregateRequest>,
+    params: IpamAggregatesPartialUpdateParams,
 ) -> Result<crate::models::Aggregate, Error<IpamAggregatesPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_aggregate_request = params.patched_writable_aggregate_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -3196,12 +6887,15 @@ pub async fn ipam_aggregates_partial_update(
 /// Get a aggregate object.
 pub async fn ipam_aggregates_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: IpamAggregatesRetrieveParams,
 ) -> Result<crate::models::Aggregate, Error<IpamAggregatesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -3261,10 +6955,13 @@ pub async fn ipam_aggregates_retrieve(
 /// Put a aggregate object.
 pub async fn ipam_aggregates_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_aggregate_request: crate::models::WritableAggregateRequest,
+    params: IpamAggregatesUpdateParams,
 ) -> Result<crate::models::Aggregate, Error<IpamAggregatesUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_aggregate_request = params.writable_aggregate_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -3313,10 +7010,13 @@ pub async fn ipam_aggregates_update(
 /// Post a ASN object.
 pub async fn ipam_asn_ranges_available_asns_create(
     configuration: &configuration::Configuration,
-    id: i32,
-    asn_request: Vec<crate::models::AsnRequest>,
+    params: IpamAsnRangesAvailableAsnsCreateParams,
 ) -> Result<Vec<crate::models::Asn>, Error<IpamAsnRangesAvailableAsnsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let asn_request = params.asn_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -3365,12 +7065,15 @@ pub async fn ipam_asn_ranges_available_asns_create(
 /// Get a ASN object.
 pub async fn ipam_asn_ranges_available_asns_list(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: IpamAsnRangesAvailableAsnsListParams,
 ) -> Result<Vec<crate::models::AvailableAsn>, Error<IpamAsnRangesAvailableAsnsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -3430,9 +7133,12 @@ pub async fn ipam_asn_ranges_available_asns_list(
 /// Delete a list of ASN range objects.
 pub async fn ipam_asn_ranges_bulk_destroy(
     configuration: &configuration::Configuration,
-    asn_range_request: Vec<crate::models::AsnRangeRequest>,
+    params: IpamAsnRangesBulkDestroyParams,
 ) -> Result<(), Error<IpamAsnRangesBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let asn_range_request = params.asn_range_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -3477,9 +7183,12 @@ pub async fn ipam_asn_ranges_bulk_destroy(
 /// Patch a list of ASN range objects.
 pub async fn ipam_asn_ranges_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_asn_range_request: Vec<crate::models::PatchedBulkAsnRangeRequest>,
+    params: IpamAsnRangesBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::AsnRange>, Error<IpamAsnRangesBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_asn_range_request = params.patched_bulk_asn_range_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -3524,9 +7233,12 @@ pub async fn ipam_asn_ranges_bulk_partial_update(
 /// Put a list of ASN range objects.
 pub async fn ipam_asn_ranges_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_asn_range_request: Vec<crate::models::BulkAsnRangeRequest>,
+    params: IpamAsnRangesBulkUpdateParams,
 ) -> Result<Vec<crate::models::AsnRange>, Error<IpamAsnRangesBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_asn_range_request = params.bulk_asn_range_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -3571,9 +7283,12 @@ pub async fn ipam_asn_ranges_bulk_update(
 /// Post a list of ASN range objects.
 pub async fn ipam_asn_ranges_create(
     configuration: &configuration::Configuration,
-    ipam_asn_ranges_create_request: crate::models::IpamAsnRangesCreateRequest,
+    params: IpamAsnRangesCreateParams,
 ) -> Result<crate::models::AsnRange, Error<IpamAsnRangesCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ipam_asn_ranges_create_request = params.ipam_asn_ranges_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -3618,9 +7333,12 @@ pub async fn ipam_asn_ranges_create(
 /// Delete a ASN range object.
 pub async fn ipam_asn_ranges_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: IpamAsnRangesDestroyParams,
 ) -> Result<(), Error<IpamAsnRangesDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -3668,118 +7386,121 @@ pub async fn ipam_asn_ranges_destroy(
 /// Get a list of ASN range objects.
 pub async fn ipam_asn_ranges_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    end: Option<Vec<i32>>,
-    end__empty: Option<bool>,
-    end__gt: Option<Vec<i32>>,
-    end__gte: Option<Vec<i32>>,
-    end__lt: Option<Vec<i32>>,
-    end__lte: Option<Vec<i32>>,
-    end__n: Option<Vec<i32>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    rir: Option<Vec<String>>,
-    rir__n: Option<Vec<String>>,
-    rir_id: Option<Vec<i32>>,
-    rir_id__n: Option<Vec<i32>>,
-    slug: Option<Vec<String>>,
-    slug__empty: Option<bool>,
-    slug__ic: Option<Vec<String>>,
-    slug__ie: Option<Vec<String>>,
-    slug__iew: Option<Vec<String>>,
-    slug__iregex: Option<Vec<String>>,
-    slug__isw: Option<Vec<String>>,
-    slug__n: Option<Vec<String>>,
-    slug__nic: Option<Vec<String>>,
-    slug__nie: Option<Vec<String>>,
-    slug__niew: Option<Vec<String>>,
-    slug__nisw: Option<Vec<String>>,
-    slug__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    start__empty: Option<bool>,
-    start__gt: Option<Vec<i32>>,
-    start__gte: Option<Vec<i32>>,
-    start__lt: Option<Vec<i32>>,
-    start__lte: Option<Vec<i32>>,
-    start__n: Option<Vec<i32>>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    tenant: Option<Vec<String>>,
-    tenant__n: Option<Vec<String>>,
-    tenant_group: Option<Vec<String>>,
-    tenant_group__n: Option<Vec<String>>,
-    tenant_group_id: Option<Vec<String>>,
-    tenant_group_id__n: Option<Vec<String>>,
-    tenant_id: Option<Vec<i32>>,
-    tenant_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: IpamAsnRangesListParams,
 ) -> Result<crate::models::PaginatedAsnRangeList, Error<IpamAsnRangesListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let end = params.end;
+    let end__empty = params.end__empty;
+    let end__gt = params.end__gt;
+    let end__gte = params.end__gte;
+    let end__lt = params.end__lt;
+    let end__lte = params.end__lte;
+    let end__n = params.end__n;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let rir = params.rir;
+    let rir__n = params.rir__n;
+    let rir_id = params.rir_id;
+    let rir_id__n = params.rir_id__n;
+    let slug = params.slug;
+    let slug__empty = params.slug__empty;
+    let slug__ic = params.slug__ic;
+    let slug__ie = params.slug__ie;
+    let slug__iew = params.slug__iew;
+    let slug__iregex = params.slug__iregex;
+    let slug__isw = params.slug__isw;
+    let slug__n = params.slug__n;
+    let slug__nic = params.slug__nic;
+    let slug__nie = params.slug__nie;
+    let slug__niew = params.slug__niew;
+    let slug__nisw = params.slug__nisw;
+    let slug__regex = params.slug__regex;
+    let start = params.start;
+    let start__empty = params.start__empty;
+    let start__gt = params.start__gt;
+    let start__gte = params.start__gte;
+    let start__lt = params.start__lt;
+    let start__lte = params.start__lte;
+    let start__n = params.start__n;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let tenant = params.tenant;
+    let tenant__n = params.tenant__n;
+    let tenant_group = params.tenant_group;
+    let tenant_group__n = params.tenant_group__n;
+    let tenant_group_id = params.tenant_group_id;
+    let tenant_group_id__n = params.tenant_group_id__n;
+    let tenant_id = params.tenant_id;
+    let tenant_id__n = params.tenant_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -5657,10 +9378,13 @@ pub async fn ipam_asn_ranges_list(
 /// Patch a ASN range object.
 pub async fn ipam_asn_ranges_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_asn_range_request: Option<crate::models::PatchedAsnRangeRequest>,
+    params: IpamAsnRangesPartialUpdateParams,
 ) -> Result<crate::models::AsnRange, Error<IpamAsnRangesPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_asn_range_request = params.patched_asn_range_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -5709,12 +9433,15 @@ pub async fn ipam_asn_ranges_partial_update(
 /// Get a ASN range object.
 pub async fn ipam_asn_ranges_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: IpamAsnRangesRetrieveParams,
 ) -> Result<crate::models::AsnRange, Error<IpamAsnRangesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -5774,10 +9501,13 @@ pub async fn ipam_asn_ranges_retrieve(
 /// Put a ASN range object.
 pub async fn ipam_asn_ranges_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    asn_range_request: crate::models::AsnRangeRequest,
+    params: IpamAsnRangesUpdateParams,
 ) -> Result<crate::models::AsnRange, Error<IpamAsnRangesUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let asn_range_request = params.asn_range_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -5826,9 +9556,12 @@ pub async fn ipam_asn_ranges_update(
 /// Delete a list of ASN objects.
 pub async fn ipam_asns_bulk_destroy(
     configuration: &configuration::Configuration,
-    asn_request: Vec<crate::models::AsnRequest>,
+    params: IpamAsnsBulkDestroyParams,
 ) -> Result<(), Error<IpamAsnsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let asn_request = params.asn_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -5873,9 +9606,12 @@ pub async fn ipam_asns_bulk_destroy(
 /// Patch a list of ASN objects.
 pub async fn ipam_asns_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_asn_request: Vec<crate::models::PatchedBulkAsnRequest>,
+    params: IpamAsnsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::Asn>, Error<IpamAsnsBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_asn_request = params.patched_bulk_asn_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -5920,9 +9656,12 @@ pub async fn ipam_asns_bulk_partial_update(
 /// Put a list of ASN objects.
 pub async fn ipam_asns_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_asn_request: Vec<crate::models::BulkAsnRequest>,
+    params: IpamAsnsBulkUpdateParams,
 ) -> Result<Vec<crate::models::Asn>, Error<IpamAsnsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_asn_request = params.bulk_asn_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -5967,9 +9706,12 @@ pub async fn ipam_asns_bulk_update(
 /// Post a list of ASN objects.
 pub async fn ipam_asns_create(
     configuration: &configuration::Configuration,
-    ipam_asns_create_request: crate::models::IpamAsnsCreateRequest,
+    params: IpamAsnsCreateParams,
 ) -> Result<crate::models::Asn, Error<IpamAsnsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ipam_asns_create_request = params.ipam_asns_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -6014,9 +9756,12 @@ pub async fn ipam_asns_create(
 /// Delete a ASN object.
 pub async fn ipam_asns_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: IpamAsnsDestroyParams,
 ) -> Result<(), Error<IpamAsnsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -6064,102 +9809,105 @@ pub async fn ipam_asns_destroy(
 /// Get a list of ASN objects.
 pub async fn ipam_asns_list(
     configuration: &configuration::Configuration,
-    asn: Option<Vec<i32>>,
-    asn__empty: Option<bool>,
-    asn__gt: Option<Vec<i32>>,
-    asn__gte: Option<Vec<i32>>,
-    asn__lt: Option<Vec<i32>>,
-    asn__lte: Option<Vec<i32>>,
-    asn__n: Option<Vec<i32>>,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    provider: Option<Vec<String>>,
-    provider__n: Option<Vec<String>>,
-    provider_id: Option<Vec<i32>>,
-    provider_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    rir: Option<Vec<String>>,
-    rir__n: Option<Vec<String>>,
-    rir_id: Option<Vec<i32>>,
-    rir_id__n: Option<Vec<i32>>,
-    role: Option<Vec<String>>,
-    role__n: Option<Vec<String>>,
-    role_id: Option<Vec<i32>>,
-    role_id__n: Option<Vec<i32>>,
-    site: Option<Vec<String>>,
-    site__n: Option<Vec<String>>,
-    site_group: Option<Vec<String>>,
-    site_group__n: Option<Vec<String>>,
-    site_group_id: Option<Vec<String>>,
-    site_group_id__n: Option<Vec<String>>,
-    site_id: Option<Vec<i32>>,
-    site_id__n: Option<Vec<i32>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    tenant: Option<Vec<String>>,
-    tenant__n: Option<Vec<String>>,
-    tenant_group: Option<Vec<String>>,
-    tenant_group__n: Option<Vec<String>>,
-    tenant_group_id: Option<Vec<String>>,
-    tenant_group_id__n: Option<Vec<String>>,
-    tenant_id: Option<Vec<i32>>,
-    tenant_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: IpamAsnsListParams,
 ) -> Result<crate::models::PaginatedAsnList, Error<IpamAsnsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let asn = params.asn;
+    let asn__empty = params.asn__empty;
+    let asn__gt = params.asn__gt;
+    let asn__gte = params.asn__gte;
+    let asn__lt = params.asn__lt;
+    let asn__lte = params.asn__lte;
+    let asn__n = params.asn__n;
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let provider = params.provider;
+    let provider__n = params.provider__n;
+    let provider_id = params.provider_id;
+    let provider_id__n = params.provider_id__n;
+    let q = params.q;
+    let rir = params.rir;
+    let rir__n = params.rir__n;
+    let rir_id = params.rir_id;
+    let rir_id__n = params.rir_id__n;
+    let role = params.role;
+    let role__n = params.role__n;
+    let role_id = params.role_id;
+    let role_id__n = params.role_id__n;
+    let site = params.site;
+    let site__n = params.site__n;
+    let site_group = params.site_group;
+    let site_group__n = params.site_group__n;
+    let site_group_id = params.site_group_id;
+    let site_group_id__n = params.site_group_id__n;
+    let site_id = params.site_id;
+    let site_id__n = params.site_id__n;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let tenant = params.tenant;
+    let tenant__n = params.tenant__n;
+    let tenant_group = params.tenant_group;
+    let tenant_group__n = params.tenant_group__n;
+    let tenant_group_id = params.tenant_group_id;
+    let tenant_group_id__n = params.tenant_group_id__n;
+    let tenant_id = params.tenant_id;
+    let tenant_id__n = params.tenant_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7778,10 +11526,13 @@ pub async fn ipam_asns_list(
 /// Patch a ASN object.
 pub async fn ipam_asns_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_asn_request: Option<crate::models::PatchedAsnRequest>,
+    params: IpamAsnsPartialUpdateParams,
 ) -> Result<crate::models::Asn, Error<IpamAsnsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_asn_request = params.patched_asn_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7830,12 +11581,15 @@ pub async fn ipam_asns_partial_update(
 /// Get a ASN object.
 pub async fn ipam_asns_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: IpamAsnsRetrieveParams,
 ) -> Result<crate::models::Asn, Error<IpamAsnsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7895,10 +11649,13 @@ pub async fn ipam_asns_retrieve(
 /// Put a ASN object.
 pub async fn ipam_asns_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    asn_request: crate::models::AsnRequest,
+    params: IpamAsnsUpdateParams,
 ) -> Result<crate::models::Asn, Error<IpamAsnsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let asn_request = params.asn_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7947,9 +11704,12 @@ pub async fn ipam_asns_update(
 /// Delete a list of FHRP group assignment objects.
 pub async fn ipam_fhrp_group_assignments_bulk_destroy(
     configuration: &configuration::Configuration,
-    fhrp_group_assignment_request: Vec<crate::models::FhrpGroupAssignmentRequest>,
+    params: IpamFhrpGroupAssignmentsBulkDestroyParams,
 ) -> Result<(), Error<IpamFhrpGroupAssignmentsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let fhrp_group_assignment_request = params.fhrp_group_assignment_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7997,14 +11757,16 @@ pub async fn ipam_fhrp_group_assignments_bulk_destroy(
 /// Patch a list of FHRP group assignment objects.
 pub async fn ipam_fhrp_group_assignments_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_fhrp_group_assignment_request: Vec<
-        crate::models::PatchedBulkFhrpGroupAssignmentRequest,
-    >,
+    params: IpamFhrpGroupAssignmentsBulkPartialUpdateParams,
 ) -> Result<
     Vec<crate::models::FhrpGroupAssignment>,
     Error<IpamFhrpGroupAssignmentsBulkPartialUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_fhrp_group_assignment_request =
+        params.patched_bulk_fhrp_group_assignment_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -8052,10 +11814,13 @@ pub async fn ipam_fhrp_group_assignments_bulk_partial_update(
 /// Put a list of FHRP group assignment objects.
 pub async fn ipam_fhrp_group_assignments_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_fhrp_group_assignment_request: Vec<crate::models::BulkFhrpGroupAssignmentRequest>,
+    params: IpamFhrpGroupAssignmentsBulkUpdateParams,
 ) -> Result<Vec<crate::models::FhrpGroupAssignment>, Error<IpamFhrpGroupAssignmentsBulkUpdateError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_fhrp_group_assignment_request = params.bulk_fhrp_group_assignment_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -8103,9 +11868,13 @@ pub async fn ipam_fhrp_group_assignments_bulk_update(
 /// Post a list of FHRP group assignment objects.
 pub async fn ipam_fhrp_group_assignments_create(
     configuration: &configuration::Configuration,
-    ipam_fhrp_group_assignments_create_request: crate::models::IpamFhrpGroupAssignmentsCreateRequest,
+    params: IpamFhrpGroupAssignmentsCreateParams,
 ) -> Result<crate::models::FhrpGroupAssignment, Error<IpamFhrpGroupAssignmentsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ipam_fhrp_group_assignments_create_request =
+        params.ipam_fhrp_group_assignments_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -8153,9 +11922,12 @@ pub async fn ipam_fhrp_group_assignments_create(
 /// Delete a FHRP group assignment object.
 pub async fn ipam_fhrp_group_assignments_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: IpamFhrpGroupAssignmentsDestroyParams,
 ) -> Result<(), Error<IpamFhrpGroupAssignmentsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -8203,62 +11975,65 @@ pub async fn ipam_fhrp_group_assignments_destroy(
 /// Get a list of FHRP group assignment objects.
 pub async fn ipam_fhrp_group_assignments_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    device: Option<Vec<String>>,
-    device_id: Option<Vec<i32>>,
-    fields: Option<&str>,
-    group_id: Option<Vec<i32>>,
-    group_id__n: Option<Vec<i32>>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    interface_id: Option<Vec<i32>>,
-    interface_id__empty: Option<bool>,
-    interface_id__gt: Option<Vec<i32>>,
-    interface_id__gte: Option<Vec<i32>>,
-    interface_id__lt: Option<Vec<i32>>,
-    interface_id__lte: Option<Vec<i32>>,
-    interface_id__n: Option<Vec<i32>>,
-    interface_type: Option<Vec<String>>,
-    interface_type__n: Option<Vec<String>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    priority: Option<Vec<i32>>,
-    priority__empty: Option<bool>,
-    priority__gt: Option<Vec<i32>>,
-    priority__gte: Option<Vec<i32>>,
-    priority__lt: Option<Vec<i32>>,
-    priority__lte: Option<Vec<i32>>,
-    priority__n: Option<Vec<i32>>,
-    start: Option<i32>,
-    updated_by_request: Option<&str>,
-    virtual_machine: Option<Vec<String>>,
-    virtual_machine_id: Option<Vec<i32>>,
+    params: IpamFhrpGroupAssignmentsListParams,
 ) -> Result<crate::models::PaginatedFhrpGroupAssignmentList, Error<IpamFhrpGroupAssignmentsListError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let device = params.device;
+    let device_id = params.device_id;
+    let fields = params.fields;
+    let group_id = params.group_id;
+    let group_id__n = params.group_id__n;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let interface_id = params.interface_id;
+    let interface_id__empty = params.interface_id__empty;
+    let interface_id__gt = params.interface_id__gt;
+    let interface_id__gte = params.interface_id__gte;
+    let interface_id__lt = params.interface_id__lt;
+    let interface_id__lte = params.interface_id__lte;
+    let interface_id__n = params.interface_id__n;
+    let interface_type = params.interface_type;
+    let interface_type__n = params.interface_type__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let priority = params.priority;
+    let priority__empty = params.priority__empty;
+    let priority__gt = params.priority__gt;
+    let priority__gte = params.priority__gte;
+    let priority__lt = params.priority__lt;
+    let priority__lte = params.priority__lte;
+    let priority__n = params.priority__n;
+    let start = params.start;
+    let updated_by_request = params.updated_by_request;
+    let virtual_machine = params.virtual_machine;
+    let virtual_machine_id = params.virtual_machine_id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -9117,10 +12892,13 @@ pub async fn ipam_fhrp_group_assignments_list(
 /// Patch a FHRP group assignment object.
 pub async fn ipam_fhrp_group_assignments_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_fhrp_group_assignment_request: Option<crate::models::PatchedFhrpGroupAssignmentRequest>,
+    params: IpamFhrpGroupAssignmentsPartialUpdateParams,
 ) -> Result<crate::models::FhrpGroupAssignment, Error<IpamFhrpGroupAssignmentsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_fhrp_group_assignment_request = params.patched_fhrp_group_assignment_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -9169,12 +12947,15 @@ pub async fn ipam_fhrp_group_assignments_partial_update(
 /// Get a FHRP group assignment object.
 pub async fn ipam_fhrp_group_assignments_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: IpamFhrpGroupAssignmentsRetrieveParams,
 ) -> Result<crate::models::FhrpGroupAssignment, Error<IpamFhrpGroupAssignmentsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -9234,10 +13015,13 @@ pub async fn ipam_fhrp_group_assignments_retrieve(
 /// Put a FHRP group assignment object.
 pub async fn ipam_fhrp_group_assignments_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    fhrp_group_assignment_request: crate::models::FhrpGroupAssignmentRequest,
+    params: IpamFhrpGroupAssignmentsUpdateParams,
 ) -> Result<crate::models::FhrpGroupAssignment, Error<IpamFhrpGroupAssignmentsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let fhrp_group_assignment_request = params.fhrp_group_assignment_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -9286,9 +13070,12 @@ pub async fn ipam_fhrp_group_assignments_update(
 /// Delete a list of FHRP group objects.
 pub async fn ipam_fhrp_groups_bulk_destroy(
     configuration: &configuration::Configuration,
-    fhrp_group_request: Vec<crate::models::FhrpGroupRequest>,
+    params: IpamFhrpGroupsBulkDestroyParams,
 ) -> Result<(), Error<IpamFhrpGroupsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let fhrp_group_request = params.fhrp_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -9336,9 +13123,12 @@ pub async fn ipam_fhrp_groups_bulk_destroy(
 /// Patch a list of FHRP group objects.
 pub async fn ipam_fhrp_groups_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_fhrp_group_request: Vec<crate::models::PatchedBulkFhrpGroupRequest>,
+    params: IpamFhrpGroupsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::FhrpGroup>, Error<IpamFhrpGroupsBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_fhrp_group_request = params.patched_bulk_fhrp_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -9386,9 +13176,12 @@ pub async fn ipam_fhrp_groups_bulk_partial_update(
 /// Put a list of FHRP group objects.
 pub async fn ipam_fhrp_groups_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_fhrp_group_request: Vec<crate::models::BulkFhrpGroupRequest>,
+    params: IpamFhrpGroupsBulkUpdateParams,
 ) -> Result<Vec<crate::models::FhrpGroup>, Error<IpamFhrpGroupsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_fhrp_group_request = params.bulk_fhrp_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -9436,9 +13229,12 @@ pub async fn ipam_fhrp_groups_bulk_update(
 /// Post a list of FHRP group objects.
 pub async fn ipam_fhrp_groups_create(
     configuration: &configuration::Configuration,
-    ipam_fhrp_groups_create_request: crate::models::IpamFhrpGroupsCreateRequest,
+    params: IpamFhrpGroupsCreateParams,
 ) -> Result<crate::models::FhrpGroup, Error<IpamFhrpGroupsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ipam_fhrp_groups_create_request = params.ipam_fhrp_groups_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -9486,9 +13282,12 @@ pub async fn ipam_fhrp_groups_create(
 /// Delete a FHRP group object.
 pub async fn ipam_fhrp_groups_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: IpamFhrpGroupsDestroyParams,
 ) -> Result<(), Error<IpamFhrpGroupsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -9536,127 +13335,130 @@ pub async fn ipam_fhrp_groups_destroy(
 /// Get a list of FHRP group objects.
 pub async fn ipam_fhrp_groups_list(
     configuration: &configuration::Configuration,
-    auth_key: Option<Vec<String>>,
-    auth_key__empty: Option<bool>,
-    auth_key__ic: Option<Vec<String>>,
-    auth_key__ie: Option<Vec<String>>,
-    auth_key__iew: Option<Vec<String>>,
-    auth_key__iregex: Option<Vec<String>>,
-    auth_key__isw: Option<Vec<String>>,
-    auth_key__n: Option<Vec<String>>,
-    auth_key__nic: Option<Vec<String>>,
-    auth_key__nie: Option<Vec<String>>,
-    auth_key__niew: Option<Vec<String>>,
-    auth_key__nisw: Option<Vec<String>>,
-    auth_key__regex: Option<Vec<String>>,
-    auth_type: Option<Vec<String>>,
-    auth_type__empty: Option<bool>,
-    auth_type__ic: Option<Vec<String>>,
-    auth_type__ie: Option<Vec<String>>,
-    auth_type__iew: Option<Vec<String>>,
-    auth_type__iregex: Option<Vec<String>>,
-    auth_type__isw: Option<Vec<String>>,
-    auth_type__n: Option<Vec<String>>,
-    auth_type__nic: Option<Vec<String>>,
-    auth_type__nie: Option<Vec<String>>,
-    auth_type__niew: Option<Vec<String>>,
-    auth_type__nisw: Option<Vec<String>>,
-    auth_type__regex: Option<Vec<String>>,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    group_id: Option<Vec<i32>>,
-    group_id__empty: Option<bool>,
-    group_id__gt: Option<Vec<i32>>,
-    group_id__gte: Option<Vec<i32>>,
-    group_id__lt: Option<Vec<i32>>,
-    group_id__lte: Option<Vec<i32>>,
-    group_id__n: Option<Vec<i32>>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    protocol: Option<Vec<String>>,
-    protocol__empty: Option<bool>,
-    protocol__ic: Option<Vec<String>>,
-    protocol__ie: Option<Vec<String>>,
-    protocol__iew: Option<Vec<String>>,
-    protocol__iregex: Option<Vec<String>>,
-    protocol__isw: Option<Vec<String>>,
-    protocol__n: Option<Vec<String>>,
-    protocol__nic: Option<Vec<String>>,
-    protocol__nie: Option<Vec<String>>,
-    protocol__niew: Option<Vec<String>>,
-    protocol__nisw: Option<Vec<String>>,
-    protocol__regex: Option<Vec<String>>,
-    q: Option<&str>,
-    related_ip: Option<Vec<String>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: IpamFhrpGroupsListParams,
 ) -> Result<crate::models::PaginatedFhrpGroupList, Error<IpamFhrpGroupsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let auth_key = params.auth_key;
+    let auth_key__empty = params.auth_key__empty;
+    let auth_key__ic = params.auth_key__ic;
+    let auth_key__ie = params.auth_key__ie;
+    let auth_key__iew = params.auth_key__iew;
+    let auth_key__iregex = params.auth_key__iregex;
+    let auth_key__isw = params.auth_key__isw;
+    let auth_key__n = params.auth_key__n;
+    let auth_key__nic = params.auth_key__nic;
+    let auth_key__nie = params.auth_key__nie;
+    let auth_key__niew = params.auth_key__niew;
+    let auth_key__nisw = params.auth_key__nisw;
+    let auth_key__regex = params.auth_key__regex;
+    let auth_type = params.auth_type;
+    let auth_type__empty = params.auth_type__empty;
+    let auth_type__ic = params.auth_type__ic;
+    let auth_type__ie = params.auth_type__ie;
+    let auth_type__iew = params.auth_type__iew;
+    let auth_type__iregex = params.auth_type__iregex;
+    let auth_type__isw = params.auth_type__isw;
+    let auth_type__n = params.auth_type__n;
+    let auth_type__nic = params.auth_type__nic;
+    let auth_type__nie = params.auth_type__nie;
+    let auth_type__niew = params.auth_type__niew;
+    let auth_type__nisw = params.auth_type__nisw;
+    let auth_type__regex = params.auth_type__regex;
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let group_id = params.group_id;
+    let group_id__empty = params.group_id__empty;
+    let group_id__gt = params.group_id__gt;
+    let group_id__gte = params.group_id__gte;
+    let group_id__lt = params.group_id__lt;
+    let group_id__lte = params.group_id__lte;
+    let group_id__n = params.group_id__n;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let protocol = params.protocol;
+    let protocol__empty = params.protocol__empty;
+    let protocol__ic = params.protocol__ic;
+    let protocol__ie = params.protocol__ie;
+    let protocol__iew = params.protocol__iew;
+    let protocol__iregex = params.protocol__iregex;
+    let protocol__isw = params.protocol__isw;
+    let protocol__n = params.protocol__n;
+    let protocol__nic = params.protocol__nic;
+    let protocol__nie = params.protocol__nie;
+    let protocol__niew = params.protocol__niew;
+    let protocol__nisw = params.protocol__nisw;
+    let protocol__regex = params.protocol__regex;
+    let q = params.q;
+    let related_ip = params.related_ip;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -11693,10 +15495,13 @@ pub async fn ipam_fhrp_groups_list(
 /// Patch a FHRP group object.
 pub async fn ipam_fhrp_groups_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_fhrp_group_request: Option<crate::models::PatchedFhrpGroupRequest>,
+    params: IpamFhrpGroupsPartialUpdateParams,
 ) -> Result<crate::models::FhrpGroup, Error<IpamFhrpGroupsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_fhrp_group_request = params.patched_fhrp_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -11745,12 +15550,15 @@ pub async fn ipam_fhrp_groups_partial_update(
 /// Get a FHRP group object.
 pub async fn ipam_fhrp_groups_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: IpamFhrpGroupsRetrieveParams,
 ) -> Result<crate::models::FhrpGroup, Error<IpamFhrpGroupsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -11810,10 +15618,13 @@ pub async fn ipam_fhrp_groups_retrieve(
 /// Put a FHRP group object.
 pub async fn ipam_fhrp_groups_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    fhrp_group_request: crate::models::FhrpGroupRequest,
+    params: IpamFhrpGroupsUpdateParams,
 ) -> Result<crate::models::FhrpGroup, Error<IpamFhrpGroupsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let fhrp_group_request = params.fhrp_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -11862,9 +15673,12 @@ pub async fn ipam_fhrp_groups_update(
 /// Delete a list of IP address objects.
 pub async fn ipam_ip_addresses_bulk_destroy(
     configuration: &configuration::Configuration,
-    ip_address_request: Vec<crate::models::IpAddressRequest>,
+    params: IpamIpAddressesBulkDestroyParams,
 ) -> Result<(), Error<IpamIpAddressesBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ip_address_request = params.ip_address_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -11912,9 +15726,12 @@ pub async fn ipam_ip_addresses_bulk_destroy(
 /// Patch a list of IP address objects.
 pub async fn ipam_ip_addresses_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_ip_address_request: Vec<crate::models::PatchedBulkIpAddressRequest>,
+    params: IpamIpAddressesBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::IpAddress>, Error<IpamIpAddressesBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_ip_address_request = params.patched_bulk_ip_address_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -11962,9 +15779,12 @@ pub async fn ipam_ip_addresses_bulk_partial_update(
 /// Put a list of IP address objects.
 pub async fn ipam_ip_addresses_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_ip_address_request: Vec<crate::models::BulkIpAddressRequest>,
+    params: IpamIpAddressesBulkUpdateParams,
 ) -> Result<Vec<crate::models::IpAddress>, Error<IpamIpAddressesBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_ip_address_request = params.bulk_ip_address_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12012,9 +15832,12 @@ pub async fn ipam_ip_addresses_bulk_update(
 /// Post a list of IP address objects.
 pub async fn ipam_ip_addresses_create(
     configuration: &configuration::Configuration,
-    ipam_ip_addresses_create_request: crate::models::IpamIpAddressesCreateRequest,
+    params: IpamIpAddressesCreateParams,
 ) -> Result<crate::models::IpAddress, Error<IpamIpAddressesCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ipam_ip_addresses_create_request = params.ipam_ip_addresses_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12062,9 +15885,12 @@ pub async fn ipam_ip_addresses_create(
 /// Delete a IP address object.
 pub async fn ipam_ip_addresses_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: IpamIpAddressesDestroyParams,
 ) -> Result<(), Error<IpamIpAddressesDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12112,161 +15938,164 @@ pub async fn ipam_ip_addresses_destroy(
 /// Get a list of IP address objects.
 pub async fn ipam_ip_addresses_list(
     configuration: &configuration::Configuration,
-    address: Option<Vec<String>>,
-    assigned: Option<bool>,
-    assigned_object_id: Option<Vec<i32>>,
-    assigned_object_id__empty: Option<bool>,
-    assigned_object_id__gt: Option<Vec<i32>>,
-    assigned_object_id__gte: Option<Vec<i32>>,
-    assigned_object_id__lt: Option<Vec<i32>>,
-    assigned_object_id__lte: Option<Vec<i32>>,
-    assigned_object_id__n: Option<Vec<i32>>,
-    assigned_object_type: Option<Vec<String>>,
-    assigned_object_type__n: Option<Vec<String>>,
-    assigned_to_interface: Option<bool>,
-    brief: Option<bool>,
-    contact: Option<Vec<i32>>,
-    contact__n: Option<Vec<i32>>,
-    contact_group: Option<Vec<String>>,
-    contact_group__n: Option<Vec<String>>,
-    contact_role: Option<Vec<i32>>,
-    contact_role__n: Option<Vec<i32>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    device: Option<Vec<String>>,
-    device_id: Option<Vec<i32>>,
-    dns_name: Option<Vec<String>>,
-    dns_name__empty: Option<bool>,
-    dns_name__ic: Option<Vec<String>>,
-    dns_name__ie: Option<Vec<String>>,
-    dns_name__iew: Option<Vec<String>>,
-    dns_name__iregex: Option<Vec<String>>,
-    dns_name__isw: Option<Vec<String>>,
-    dns_name__n: Option<Vec<String>>,
-    dns_name__nic: Option<Vec<String>>,
-    dns_name__nie: Option<Vec<String>>,
-    dns_name__niew: Option<Vec<String>>,
-    dns_name__nisw: Option<Vec<String>>,
-    dns_name__regex: Option<Vec<String>>,
-    family: Option<f32>,
-    fhrpgroup_id: Option<Vec<i32>>,
-    fhrpgroup_id__n: Option<Vec<i32>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    interface: Option<Vec<String>>,
-    interface__n: Option<Vec<String>>,
-    interface_id: Option<Vec<i32>>,
-    interface_id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    mask_length: Option<Vec<i32>>,
-    mask_length__gte: Option<f32>,
-    mask_length__lte: Option<f32>,
-    modified_by_request: Option<&str>,
-    nat_inside_id: Option<Vec<i32>>,
-    nat_inside_id__n: Option<Vec<i32>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    parent: Option<Vec<String>>,
-    present_in_vrf: Option<&str>,
-    present_in_vrf_id: Option<&str>,
-    q: Option<&str>,
-    role: Option<Vec<String>>,
-    role__empty: Option<bool>,
-    role__ic: Option<Vec<String>>,
-    role__ie: Option<Vec<String>>,
-    role__iew: Option<Vec<String>>,
-    role__iregex: Option<Vec<String>>,
-    role__isw: Option<Vec<String>>,
-    role__n: Option<Vec<String>>,
-    role__nic: Option<Vec<String>>,
-    role__nie: Option<Vec<String>>,
-    role__niew: Option<Vec<String>>,
-    role__nisw: Option<Vec<String>>,
-    role__regex: Option<Vec<String>>,
-    service_id: Option<Vec<i32>>,
-    service_id__n: Option<Vec<i32>>,
-    start: Option<i32>,
-    status: Option<Vec<String>>,
-    status__empty: Option<bool>,
-    status__ic: Option<Vec<String>>,
-    status__ie: Option<Vec<String>>,
-    status__iew: Option<Vec<String>>,
-    status__iregex: Option<Vec<String>>,
-    status__isw: Option<Vec<String>>,
-    status__n: Option<Vec<String>>,
-    status__nic: Option<Vec<String>>,
-    status__nie: Option<Vec<String>>,
-    status__niew: Option<Vec<String>>,
-    status__nisw: Option<Vec<String>>,
-    status__regex: Option<Vec<String>>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    tenant: Option<Vec<String>>,
-    tenant__n: Option<Vec<String>>,
-    tenant_group: Option<Vec<String>>,
-    tenant_group__n: Option<Vec<String>>,
-    tenant_group_id: Option<Vec<String>>,
-    tenant_group_id__n: Option<Vec<String>>,
-    tenant_id: Option<Vec<i32>>,
-    tenant_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
-    virtual_machine: Option<Vec<String>>,
-    virtual_machine_id: Option<Vec<i32>>,
-    vminterface: Option<Vec<String>>,
-    vminterface__n: Option<Vec<String>>,
-    vminterface_id: Option<Vec<i32>>,
-    vminterface_id__n: Option<Vec<i32>>,
-    vrf: Option<Vec<String>>,
-    vrf__n: Option<Vec<String>>,
-    vrf_id: Option<Vec<i32>>,
-    vrf_id__n: Option<Vec<i32>>,
+    params: IpamIpAddressesListParams,
 ) -> Result<crate::models::PaginatedIpAddressList, Error<IpamIpAddressesListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let address = params.address;
+    let assigned = params.assigned;
+    let assigned_object_id = params.assigned_object_id;
+    let assigned_object_id__empty = params.assigned_object_id__empty;
+    let assigned_object_id__gt = params.assigned_object_id__gt;
+    let assigned_object_id__gte = params.assigned_object_id__gte;
+    let assigned_object_id__lt = params.assigned_object_id__lt;
+    let assigned_object_id__lte = params.assigned_object_id__lte;
+    let assigned_object_id__n = params.assigned_object_id__n;
+    let assigned_object_type = params.assigned_object_type;
+    let assigned_object_type__n = params.assigned_object_type__n;
+    let assigned_to_interface = params.assigned_to_interface;
+    let brief = params.brief;
+    let contact = params.contact;
+    let contact__n = params.contact__n;
+    let contact_group = params.contact_group;
+    let contact_group__n = params.contact_group__n;
+    let contact_role = params.contact_role;
+    let contact_role__n = params.contact_role__n;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let device = params.device;
+    let device_id = params.device_id;
+    let dns_name = params.dns_name;
+    let dns_name__empty = params.dns_name__empty;
+    let dns_name__ic = params.dns_name__ic;
+    let dns_name__ie = params.dns_name__ie;
+    let dns_name__iew = params.dns_name__iew;
+    let dns_name__iregex = params.dns_name__iregex;
+    let dns_name__isw = params.dns_name__isw;
+    let dns_name__n = params.dns_name__n;
+    let dns_name__nic = params.dns_name__nic;
+    let dns_name__nie = params.dns_name__nie;
+    let dns_name__niew = params.dns_name__niew;
+    let dns_name__nisw = params.dns_name__nisw;
+    let dns_name__regex = params.dns_name__regex;
+    let family = params.family;
+    let fhrpgroup_id = params.fhrpgroup_id;
+    let fhrpgroup_id__n = params.fhrpgroup_id__n;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let interface = params.interface;
+    let interface__n = params.interface__n;
+    let interface_id = params.interface_id;
+    let interface_id__n = params.interface_id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let mask_length = params.mask_length;
+    let mask_length__gte = params.mask_length__gte;
+    let mask_length__lte = params.mask_length__lte;
+    let modified_by_request = params.modified_by_request;
+    let nat_inside_id = params.nat_inside_id;
+    let nat_inside_id__n = params.nat_inside_id__n;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let parent = params.parent;
+    let present_in_vrf = params.present_in_vrf;
+    let present_in_vrf_id = params.present_in_vrf_id;
+    let q = params.q;
+    let role = params.role;
+    let role__empty = params.role__empty;
+    let role__ic = params.role__ic;
+    let role__ie = params.role__ie;
+    let role__iew = params.role__iew;
+    let role__iregex = params.role__iregex;
+    let role__isw = params.role__isw;
+    let role__n = params.role__n;
+    let role__nic = params.role__nic;
+    let role__nie = params.role__nie;
+    let role__niew = params.role__niew;
+    let role__nisw = params.role__nisw;
+    let role__regex = params.role__regex;
+    let service_id = params.service_id;
+    let service_id__n = params.service_id__n;
+    let start = params.start;
+    let status = params.status;
+    let status__empty = params.status__empty;
+    let status__ic = params.status__ic;
+    let status__ie = params.status__ie;
+    let status__iew = params.status__iew;
+    let status__iregex = params.status__iregex;
+    let status__isw = params.status__isw;
+    let status__n = params.status__n;
+    let status__nic = params.status__nic;
+    let status__nie = params.status__nie;
+    let status__niew = params.status__niew;
+    let status__nisw = params.status__nisw;
+    let status__regex = params.status__regex;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let tenant = params.tenant;
+    let tenant__n = params.tenant__n;
+    let tenant_group = params.tenant_group;
+    let tenant_group__n = params.tenant_group__n;
+    let tenant_group_id = params.tenant_group_id;
+    let tenant_group_id__n = params.tenant_group_id__n;
+    let tenant_id = params.tenant_id;
+    let tenant_id__n = params.tenant_id__n;
+    let updated_by_request = params.updated_by_request;
+    let virtual_machine = params.virtual_machine;
+    let virtual_machine_id = params.virtual_machine_id;
+    let vminterface = params.vminterface;
+    let vminterface__n = params.vminterface__n;
+    let vminterface_id = params.vminterface_id;
+    let vminterface_id__n = params.vminterface_id__n;
+    let vrf = params.vrf;
+    let vrf__n = params.vrf__n;
+    let vrf_id = params.vrf_id;
+    let vrf_id__n = params.vrf_id__n;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -14859,10 +18688,13 @@ pub async fn ipam_ip_addresses_list(
 /// Patch a IP address object.
 pub async fn ipam_ip_addresses_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_ip_address_request: Option<crate::models::PatchedWritableIpAddressRequest>,
+    params: IpamIpAddressesPartialUpdateParams,
 ) -> Result<crate::models::IpAddress, Error<IpamIpAddressesPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_ip_address_request = params.patched_writable_ip_address_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -14911,12 +18743,15 @@ pub async fn ipam_ip_addresses_partial_update(
 /// Get a IP address object.
 pub async fn ipam_ip_addresses_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: IpamIpAddressesRetrieveParams,
 ) -> Result<crate::models::IpAddress, Error<IpamIpAddressesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -14976,10 +18811,13 @@ pub async fn ipam_ip_addresses_retrieve(
 /// Put a IP address object.
 pub async fn ipam_ip_addresses_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_ip_address_request: crate::models::WritableIpAddressRequest,
+    params: IpamIpAddressesUpdateParams,
 ) -> Result<crate::models::IpAddress, Error<IpamIpAddressesUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_ip_address_request = params.writable_ip_address_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -15028,10 +18866,13 @@ pub async fn ipam_ip_addresses_update(
 /// Post a IP address object.
 pub async fn ipam_ip_ranges_available_ips_create(
     configuration: &configuration::Configuration,
-    id: i32,
-    available_ip_request_request: Vec<crate::models::AvailableIpRequestRequest>,
+    params: IpamIpRangesAvailableIpsCreateParams,
 ) -> Result<Vec<crate::models::IpAddress>, Error<IpamIpRangesAvailableIpsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let available_ip_request_request = params.available_ip_request_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -15080,12 +18921,15 @@ pub async fn ipam_ip_ranges_available_ips_create(
 /// Get a IP address object.
 pub async fn ipam_ip_ranges_available_ips_list(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: IpamIpRangesAvailableIpsListParams,
 ) -> Result<Vec<crate::models::AvailableIp>, Error<IpamIpRangesAvailableIpsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -15145,9 +18989,12 @@ pub async fn ipam_ip_ranges_available_ips_list(
 /// Delete a list of IP range objects.
 pub async fn ipam_ip_ranges_bulk_destroy(
     configuration: &configuration::Configuration,
-    ip_range_request: Vec<crate::models::IpRangeRequest>,
+    params: IpamIpRangesBulkDestroyParams,
 ) -> Result<(), Error<IpamIpRangesBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ip_range_request = params.ip_range_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -15192,9 +19039,12 @@ pub async fn ipam_ip_ranges_bulk_destroy(
 /// Patch a list of IP range objects.
 pub async fn ipam_ip_ranges_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_ip_range_request: Vec<crate::models::PatchedBulkIpRangeRequest>,
+    params: IpamIpRangesBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::IpRange>, Error<IpamIpRangesBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_ip_range_request = params.patched_bulk_ip_range_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -15239,9 +19089,12 @@ pub async fn ipam_ip_ranges_bulk_partial_update(
 /// Put a list of IP range objects.
 pub async fn ipam_ip_ranges_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_ip_range_request: Vec<crate::models::BulkIpRangeRequest>,
+    params: IpamIpRangesBulkUpdateParams,
 ) -> Result<Vec<crate::models::IpRange>, Error<IpamIpRangesBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_ip_range_request = params.bulk_ip_range_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -15286,9 +19139,12 @@ pub async fn ipam_ip_ranges_bulk_update(
 /// Post a list of IP range objects.
 pub async fn ipam_ip_ranges_create(
     configuration: &configuration::Configuration,
-    ipam_ip_ranges_create_request: crate::models::IpamIpRangesCreateRequest,
+    params: IpamIpRangesCreateParams,
 ) -> Result<crate::models::IpRange, Error<IpamIpRangesCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ipam_ip_ranges_create_request = params.ipam_ip_ranges_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -15333,9 +19189,12 @@ pub async fn ipam_ip_ranges_create(
 /// Delete a IP range object.
 pub async fn ipam_ip_ranges_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: IpamIpRangesDestroyParams,
 ) -> Result<(), Error<IpamIpRangesDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -15383,116 +19242,119 @@ pub async fn ipam_ip_ranges_destroy(
 /// Get a list of IP range objects.
 pub async fn ipam_ip_ranges_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    contact: Option<Vec<i32>>,
-    contact__n: Option<Vec<i32>>,
-    contact_group: Option<Vec<String>>,
-    contact_group__n: Option<Vec<String>>,
-    contact_role: Option<Vec<i32>>,
-    contact_role__n: Option<Vec<i32>>,
-    contains: Option<&str>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    end_address: Option<Vec<String>>,
-    family: Option<f32>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    mark_populated: Option<bool>,
-    mark_utilized: Option<bool>,
-    modified_by_request: Option<&str>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    parent: Option<Vec<String>>,
-    q: Option<&str>,
-    role: Option<Vec<String>>,
-    role__n: Option<Vec<String>>,
-    role_id: Option<Vec<i32>>,
-    role_id__n: Option<Vec<i32>>,
-    size: Option<Vec<i32>>,
-    size__empty: Option<bool>,
-    size__gt: Option<Vec<i32>>,
-    size__gte: Option<Vec<i32>>,
-    size__lt: Option<Vec<i32>>,
-    size__lte: Option<Vec<i32>>,
-    size__n: Option<Vec<i32>>,
-    start: Option<i32>,
-    start_address: Option<Vec<String>>,
-    status: Option<Vec<String>>,
-    status__empty: Option<bool>,
-    status__ic: Option<Vec<String>>,
-    status__ie: Option<Vec<String>>,
-    status__iew: Option<Vec<String>>,
-    status__iregex: Option<Vec<String>>,
-    status__isw: Option<Vec<String>>,
-    status__n: Option<Vec<String>>,
-    status__nic: Option<Vec<String>>,
-    status__nie: Option<Vec<String>>,
-    status__niew: Option<Vec<String>>,
-    status__nisw: Option<Vec<String>>,
-    status__regex: Option<Vec<String>>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    tenant: Option<Vec<String>>,
-    tenant__n: Option<Vec<String>>,
-    tenant_group: Option<Vec<String>>,
-    tenant_group__n: Option<Vec<String>>,
-    tenant_group_id: Option<Vec<String>>,
-    tenant_group_id__n: Option<Vec<String>>,
-    tenant_id: Option<Vec<i32>>,
-    tenant_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
-    vrf: Option<Vec<String>>,
-    vrf__n: Option<Vec<String>>,
-    vrf_id: Option<Vec<i32>>,
-    vrf_id__n: Option<Vec<i32>>,
+    params: IpamIpRangesListParams,
 ) -> Result<crate::models::PaginatedIpRangeList, Error<IpamIpRangesListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let contact = params.contact;
+    let contact__n = params.contact__n;
+    let contact_group = params.contact_group;
+    let contact_group__n = params.contact_group__n;
+    let contact_role = params.contact_role;
+    let contact_role__n = params.contact_role__n;
+    let contains = params.contains;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let end_address = params.end_address;
+    let family = params.family;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let mark_populated = params.mark_populated;
+    let mark_utilized = params.mark_utilized;
+    let modified_by_request = params.modified_by_request;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let parent = params.parent;
+    let q = params.q;
+    let role = params.role;
+    let role__n = params.role__n;
+    let role_id = params.role_id;
+    let role_id__n = params.role_id__n;
+    let size = params.size;
+    let size__empty = params.size__empty;
+    let size__gt = params.size__gt;
+    let size__gte = params.size__gte;
+    let size__lt = params.size__lt;
+    let size__lte = params.size__lte;
+    let size__n = params.size__n;
+    let start = params.start;
+    let start_address = params.start_address;
+    let status = params.status;
+    let status__empty = params.status__empty;
+    let status__ic = params.status__ic;
+    let status__ie = params.status__ie;
+    let status__iew = params.status__iew;
+    let status__iregex = params.status__iregex;
+    let status__isw = params.status__isw;
+    let status__n = params.status__n;
+    let status__nic = params.status__nic;
+    let status__nie = params.status__nie;
+    let status__niew = params.status__niew;
+    let status__nisw = params.status__nisw;
+    let status__regex = params.status__regex;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let tenant = params.tenant;
+    let tenant__n = params.tenant__n;
+    let tenant_group = params.tenant_group;
+    let tenant_group__n = params.tenant_group__n;
+    let tenant_group_id = params.tenant_group_id;
+    let tenant_group_id__n = params.tenant_group_id__n;
+    let tenant_id = params.tenant_id;
+    let tenant_id__n = params.tenant_id__n;
+    let updated_by_request = params.updated_by_request;
+    let vrf = params.vrf;
+    let vrf__n = params.vrf__n;
+    let vrf_id = params.vrf_id;
+    let vrf_id__n = params.vrf_id__n;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17302,10 +21164,13 @@ pub async fn ipam_ip_ranges_list(
 /// Patch a IP range object.
 pub async fn ipam_ip_ranges_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_ip_range_request: Option<crate::models::PatchedWritableIpRangeRequest>,
+    params: IpamIpRangesPartialUpdateParams,
 ) -> Result<crate::models::IpRange, Error<IpamIpRangesPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_ip_range_request = params.patched_writable_ip_range_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17354,12 +21219,15 @@ pub async fn ipam_ip_ranges_partial_update(
 /// Get a IP range object.
 pub async fn ipam_ip_ranges_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: IpamIpRangesRetrieveParams,
 ) -> Result<crate::models::IpRange, Error<IpamIpRangesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17419,10 +21287,13 @@ pub async fn ipam_ip_ranges_retrieve(
 /// Put a IP range object.
 pub async fn ipam_ip_ranges_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_ip_range_request: crate::models::WritableIpRangeRequest,
+    params: IpamIpRangesUpdateParams,
 ) -> Result<crate::models::IpRange, Error<IpamIpRangesUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_ip_range_request = params.writable_ip_range_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17471,10 +21342,13 @@ pub async fn ipam_ip_ranges_update(
 /// Post a IP address object.
 pub async fn ipam_prefixes_available_ips_create(
     configuration: &configuration::Configuration,
-    id: i32,
-    available_ip_request_request: Vec<crate::models::AvailableIpRequestRequest>,
+    params: IpamPrefixesAvailableIpsCreateParams,
 ) -> Result<Vec<crate::models::IpAddress>, Error<IpamPrefixesAvailableIpsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let available_ip_request_request = params.available_ip_request_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17523,12 +21397,15 @@ pub async fn ipam_prefixes_available_ips_create(
 /// Get a IP address object.
 pub async fn ipam_prefixes_available_ips_list(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: IpamPrefixesAvailableIpsListParams,
 ) -> Result<Vec<crate::models::AvailableIp>, Error<IpamPrefixesAvailableIpsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17588,10 +21465,13 @@ pub async fn ipam_prefixes_available_ips_list(
 /// Post a prefix object.
 pub async fn ipam_prefixes_available_prefixes_create(
     configuration: &configuration::Configuration,
-    id: i32,
-    prefix_length_request: Vec<crate::models::PrefixLengthRequest>,
+    params: IpamPrefixesAvailablePrefixesCreateParams,
 ) -> Result<Vec<crate::models::Prefix>, Error<IpamPrefixesAvailablePrefixesCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let prefix_length_request = params.prefix_length_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17640,12 +21520,15 @@ pub async fn ipam_prefixes_available_prefixes_create(
 /// Get a prefix object.
 pub async fn ipam_prefixes_available_prefixes_list(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: IpamPrefixesAvailablePrefixesListParams,
 ) -> Result<Vec<crate::models::AvailablePrefix>, Error<IpamPrefixesAvailablePrefixesListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17705,9 +21588,12 @@ pub async fn ipam_prefixes_available_prefixes_list(
 /// Delete a list of prefix objects.
 pub async fn ipam_prefixes_bulk_destroy(
     configuration: &configuration::Configuration,
-    prefix_request: Vec<crate::models::PrefixRequest>,
+    params: IpamPrefixesBulkDestroyParams,
 ) -> Result<(), Error<IpamPrefixesBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let prefix_request = params.prefix_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17752,9 +21638,12 @@ pub async fn ipam_prefixes_bulk_destroy(
 /// Patch a list of prefix objects.
 pub async fn ipam_prefixes_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_prefix_request: Vec<crate::models::PatchedBulkPrefixRequest>,
+    params: IpamPrefixesBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::Prefix>, Error<IpamPrefixesBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_prefix_request = params.patched_bulk_prefix_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17799,9 +21688,12 @@ pub async fn ipam_prefixes_bulk_partial_update(
 /// Put a list of prefix objects.
 pub async fn ipam_prefixes_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_prefix_request: Vec<crate::models::BulkPrefixRequest>,
+    params: IpamPrefixesBulkUpdateParams,
 ) -> Result<Vec<crate::models::Prefix>, Error<IpamPrefixesBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_prefix_request = params.bulk_prefix_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17846,9 +21738,12 @@ pub async fn ipam_prefixes_bulk_update(
 /// Post a list of prefix objects.
 pub async fn ipam_prefixes_create(
     configuration: &configuration::Configuration,
-    ipam_prefixes_create_request: crate::models::IpamPrefixesCreateRequest,
+    params: IpamPrefixesCreateParams,
 ) -> Result<crate::models::Prefix, Error<IpamPrefixesCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ipam_prefixes_create_request = params.ipam_prefixes_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17893,9 +21788,12 @@ pub async fn ipam_prefixes_create(
 /// Delete a prefix object.
 pub async fn ipam_prefixes_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: IpamPrefixesDestroyParams,
 ) -> Result<(), Error<IpamPrefixesDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17943,166 +21841,169 @@ pub async fn ipam_prefixes_destroy(
 /// Get a list of prefix objects.
 pub async fn ipam_prefixes_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    children: Option<Vec<i32>>,
-    children__empty: Option<Vec<i32>>,
-    children__gt: Option<Vec<i32>>,
-    children__gte: Option<Vec<i32>>,
-    children__lt: Option<Vec<i32>>,
-    children__lte: Option<Vec<i32>>,
-    children__n: Option<Vec<i32>>,
-    contact: Option<Vec<i32>>,
-    contact__n: Option<Vec<i32>>,
-    contact_group: Option<Vec<String>>,
-    contact_group__n: Option<Vec<String>>,
-    contact_role: Option<Vec<i32>>,
-    contact_role__n: Option<Vec<i32>>,
-    contains: Option<&str>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    depth: Option<Vec<i32>>,
-    depth__empty: Option<Vec<i32>>,
-    depth__gt: Option<Vec<i32>>,
-    depth__gte: Option<Vec<i32>>,
-    depth__lt: Option<Vec<i32>>,
-    depth__lte: Option<Vec<i32>>,
-    depth__n: Option<Vec<i32>>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    family: Option<f32>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    is_pool: Option<bool>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    location: Option<Vec<String>>,
-    location__n: Option<Vec<String>>,
-    location_id: Option<Vec<String>>,
-    location_id__n: Option<Vec<String>>,
-    mark_utilized: Option<bool>,
-    mask_length: Option<Vec<i32>>,
-    mask_length__gte: Option<f32>,
-    mask_length__lte: Option<f32>,
-    modified_by_request: Option<&str>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    prefix: Option<Vec<String>>,
-    present_in_vrf: Option<&str>,
-    present_in_vrf_id: Option<&str>,
-    q: Option<&str>,
-    region: Option<Vec<String>>,
-    region__n: Option<Vec<String>>,
-    region_id: Option<Vec<String>>,
-    region_id__n: Option<Vec<String>>,
-    role: Option<Vec<String>>,
-    role__n: Option<Vec<String>>,
-    role_id: Option<Vec<i32>>,
-    role_id__n: Option<Vec<i32>>,
-    scope_id: Option<Vec<i32>>,
-    scope_id__empty: Option<bool>,
-    scope_id__gt: Option<Vec<i32>>,
-    scope_id__gte: Option<Vec<i32>>,
-    scope_id__lt: Option<Vec<i32>>,
-    scope_id__lte: Option<Vec<i32>>,
-    scope_id__n: Option<Vec<i32>>,
-    scope_type: Option<Vec<String>>,
-    scope_type__n: Option<Vec<String>>,
-    site: Option<Vec<String>>,
-    site__n: Option<Vec<String>>,
-    site_group: Option<Vec<String>>,
-    site_group__n: Option<Vec<String>>,
-    site_group_id: Option<Vec<String>>,
-    site_group_id__n: Option<Vec<String>>,
-    site_id: Option<Vec<i32>>,
-    site_id__n: Option<Vec<i32>>,
-    start: Option<i32>,
-    status: Option<Vec<String>>,
-    status__empty: Option<bool>,
-    status__ic: Option<Vec<String>>,
-    status__ie: Option<Vec<String>>,
-    status__iew: Option<Vec<String>>,
-    status__iregex: Option<Vec<String>>,
-    status__isw: Option<Vec<String>>,
-    status__n: Option<Vec<String>>,
-    status__nic: Option<Vec<String>>,
-    status__nie: Option<Vec<String>>,
-    status__niew: Option<Vec<String>>,
-    status__nisw: Option<Vec<String>>,
-    status__regex: Option<Vec<String>>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    tenant: Option<Vec<String>>,
-    tenant__n: Option<Vec<String>>,
-    tenant_group: Option<Vec<String>>,
-    tenant_group__n: Option<Vec<String>>,
-    tenant_group_id: Option<Vec<String>>,
-    tenant_group_id__n: Option<Vec<String>>,
-    tenant_id: Option<Vec<i32>>,
-    tenant_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
-    vlan_group: Option<Vec<String>>,
-    vlan_group__n: Option<Vec<String>>,
-    vlan_group_id: Option<Vec<i32>>,
-    vlan_group_id__n: Option<Vec<i32>>,
-    vlan_id: Option<Vec<i32>>,
-    vlan_id__n: Option<Vec<i32>>,
-    vlan_vid: Option<i32>,
-    vlan_vid__empty: Option<i32>,
-    vlan_vid__gt: Option<i32>,
-    vlan_vid__gte: Option<i32>,
-    vlan_vid__lt: Option<i32>,
-    vlan_vid__lte: Option<i32>,
-    vlan_vid__n: Option<i32>,
-    vrf: Option<Vec<String>>,
-    vrf__n: Option<Vec<String>>,
-    vrf_id: Option<Vec<i32>>,
-    vrf_id__n: Option<Vec<i32>>,
-    within: Option<&str>,
-    within_include: Option<&str>,
+    params: IpamPrefixesListParams,
 ) -> Result<crate::models::PaginatedPrefixList, Error<IpamPrefixesListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let children = params.children;
+    let children__empty = params.children__empty;
+    let children__gt = params.children__gt;
+    let children__gte = params.children__gte;
+    let children__lt = params.children__lt;
+    let children__lte = params.children__lte;
+    let children__n = params.children__n;
+    let contact = params.contact;
+    let contact__n = params.contact__n;
+    let contact_group = params.contact_group;
+    let contact_group__n = params.contact_group__n;
+    let contact_role = params.contact_role;
+    let contact_role__n = params.contact_role__n;
+    let contains = params.contains;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let depth = params.depth;
+    let depth__empty = params.depth__empty;
+    let depth__gt = params.depth__gt;
+    let depth__gte = params.depth__gte;
+    let depth__lt = params.depth__lt;
+    let depth__lte = params.depth__lte;
+    let depth__n = params.depth__n;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let family = params.family;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let is_pool = params.is_pool;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let location = params.location;
+    let location__n = params.location__n;
+    let location_id = params.location_id;
+    let location_id__n = params.location_id__n;
+    let mark_utilized = params.mark_utilized;
+    let mask_length = params.mask_length;
+    let mask_length__gte = params.mask_length__gte;
+    let mask_length__lte = params.mask_length__lte;
+    let modified_by_request = params.modified_by_request;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let prefix = params.prefix;
+    let present_in_vrf = params.present_in_vrf;
+    let present_in_vrf_id = params.present_in_vrf_id;
+    let q = params.q;
+    let region = params.region;
+    let region__n = params.region__n;
+    let region_id = params.region_id;
+    let region_id__n = params.region_id__n;
+    let role = params.role;
+    let role__n = params.role__n;
+    let role_id = params.role_id;
+    let role_id__n = params.role_id__n;
+    let scope_id = params.scope_id;
+    let scope_id__empty = params.scope_id__empty;
+    let scope_id__gt = params.scope_id__gt;
+    let scope_id__gte = params.scope_id__gte;
+    let scope_id__lt = params.scope_id__lt;
+    let scope_id__lte = params.scope_id__lte;
+    let scope_id__n = params.scope_id__n;
+    let scope_type = params.scope_type;
+    let scope_type__n = params.scope_type__n;
+    let site = params.site;
+    let site__n = params.site__n;
+    let site_group = params.site_group;
+    let site_group__n = params.site_group__n;
+    let site_group_id = params.site_group_id;
+    let site_group_id__n = params.site_group_id__n;
+    let site_id = params.site_id;
+    let site_id__n = params.site_id__n;
+    let start = params.start;
+    let status = params.status;
+    let status__empty = params.status__empty;
+    let status__ic = params.status__ic;
+    let status__ie = params.status__ie;
+    let status__iew = params.status__iew;
+    let status__iregex = params.status__iregex;
+    let status__isw = params.status__isw;
+    let status__n = params.status__n;
+    let status__nic = params.status__nic;
+    let status__nie = params.status__nie;
+    let status__niew = params.status__niew;
+    let status__nisw = params.status__nisw;
+    let status__regex = params.status__regex;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let tenant = params.tenant;
+    let tenant__n = params.tenant__n;
+    let tenant_group = params.tenant_group;
+    let tenant_group__n = params.tenant_group__n;
+    let tenant_group_id = params.tenant_group_id;
+    let tenant_group_id__n = params.tenant_group_id__n;
+    let tenant_id = params.tenant_id;
+    let tenant_id__n = params.tenant_id__n;
+    let updated_by_request = params.updated_by_request;
+    let vlan_group = params.vlan_group;
+    let vlan_group__n = params.vlan_group__n;
+    let vlan_group_id = params.vlan_group_id;
+    let vlan_group_id__n = params.vlan_group_id__n;
+    let vlan_id = params.vlan_id;
+    let vlan_id__n = params.vlan_id__n;
+    let vlan_vid = params.vlan_vid;
+    let vlan_vid__empty = params.vlan_vid__empty;
+    let vlan_vid__gt = params.vlan_vid__gt;
+    let vlan_vid__gte = params.vlan_vid__gte;
+    let vlan_vid__lt = params.vlan_vid__lt;
+    let vlan_vid__lte = params.vlan_vid__lte;
+    let vlan_vid__n = params.vlan_vid__n;
+    let vrf = params.vrf;
+    let vrf__n = params.vrf__n;
+    let vrf_id = params.vrf_id;
+    let vrf_id__n = params.vrf_id__n;
+    let within = params.within;
+    let within_include = params.within_include;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -20667,10 +24568,13 @@ pub async fn ipam_prefixes_list(
 /// Patch a prefix object.
 pub async fn ipam_prefixes_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_prefix_request: Option<crate::models::PatchedWritablePrefixRequest>,
+    params: IpamPrefixesPartialUpdateParams,
 ) -> Result<crate::models::Prefix, Error<IpamPrefixesPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_prefix_request = params.patched_writable_prefix_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -20719,12 +24623,15 @@ pub async fn ipam_prefixes_partial_update(
 /// Get a prefix object.
 pub async fn ipam_prefixes_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: IpamPrefixesRetrieveParams,
 ) -> Result<crate::models::Prefix, Error<IpamPrefixesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -20784,10 +24691,13 @@ pub async fn ipam_prefixes_retrieve(
 /// Put a prefix object.
 pub async fn ipam_prefixes_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_prefix_request: crate::models::WritablePrefixRequest,
+    params: IpamPrefixesUpdateParams,
 ) -> Result<crate::models::Prefix, Error<IpamPrefixesUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_prefix_request = params.writable_prefix_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -20836,9 +24746,12 @@ pub async fn ipam_prefixes_update(
 /// Delete a list of RIR objects.
 pub async fn ipam_rirs_bulk_destroy(
     configuration: &configuration::Configuration,
-    rir_request: Vec<crate::models::RirRequest>,
+    params: IpamRirsBulkDestroyParams,
 ) -> Result<(), Error<IpamRirsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let rir_request = params.rir_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -20883,9 +24796,12 @@ pub async fn ipam_rirs_bulk_destroy(
 /// Patch a list of RIR objects.
 pub async fn ipam_rirs_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_rir_request: Vec<crate::models::PatchedBulkRirRequest>,
+    params: IpamRirsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::Rir>, Error<IpamRirsBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_rir_request = params.patched_bulk_rir_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -20930,9 +24846,12 @@ pub async fn ipam_rirs_bulk_partial_update(
 /// Put a list of RIR objects.
 pub async fn ipam_rirs_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_rir_request: Vec<crate::models::BulkRirRequest>,
+    params: IpamRirsBulkUpdateParams,
 ) -> Result<Vec<crate::models::Rir>, Error<IpamRirsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_rir_request = params.bulk_rir_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -20977,9 +24896,12 @@ pub async fn ipam_rirs_bulk_update(
 /// Post a list of RIR objects.
 pub async fn ipam_rirs_create(
     configuration: &configuration::Configuration,
-    ipam_rirs_create_request: crate::models::IpamRirsCreateRequest,
+    params: IpamRirsCreateParams,
 ) -> Result<crate::models::Rir, Error<IpamRirsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ipam_rirs_create_request = params.ipam_rirs_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -21024,9 +24946,12 @@ pub async fn ipam_rirs_create(
 /// Delete a RIR object.
 pub async fn ipam_rirs_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: IpamRirsDestroyParams,
 ) -> Result<(), Error<IpamRirsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -21074,94 +24999,97 @@ pub async fn ipam_rirs_destroy(
 /// Get a list of RIR objects.
 pub async fn ipam_rirs_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    is_private: Option<bool>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    slug: Option<Vec<String>>,
-    slug__empty: Option<bool>,
-    slug__ic: Option<Vec<String>>,
-    slug__ie: Option<Vec<String>>,
-    slug__iew: Option<Vec<String>>,
-    slug__iregex: Option<Vec<String>>,
-    slug__isw: Option<Vec<String>>,
-    slug__n: Option<Vec<String>>,
-    slug__nic: Option<Vec<String>>,
-    slug__nie: Option<Vec<String>>,
-    slug__niew: Option<Vec<String>>,
-    slug__nisw: Option<Vec<String>>,
-    slug__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: IpamRirsListParams,
 ) -> Result<crate::models::PaginatedRirList, Error<IpamRirsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let is_private = params.is_private;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let slug = params.slug;
+    let slug__empty = params.slug__empty;
+    let slug__ic = params.slug__ic;
+    let slug__ie = params.slug__ie;
+    let slug__iew = params.slug__iew;
+    let slug__iregex = params.slug__iregex;
+    let slug__isw = params.slug__isw;
+    let slug__n = params.slug__n;
+    let slug__nic = params.slug__nic;
+    let slug__nie = params.slug__nie;
+    let slug__niew = params.slug__niew;
+    let slug__nisw = params.slug__nisw;
+    let slug__regex = params.slug__regex;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -22598,10 +26526,13 @@ pub async fn ipam_rirs_list(
 /// Patch a RIR object.
 pub async fn ipam_rirs_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_rir_request: Option<crate::models::PatchedRirRequest>,
+    params: IpamRirsPartialUpdateParams,
 ) -> Result<crate::models::Rir, Error<IpamRirsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_rir_request = params.patched_rir_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -22650,12 +26581,15 @@ pub async fn ipam_rirs_partial_update(
 /// Get a RIR object.
 pub async fn ipam_rirs_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: IpamRirsRetrieveParams,
 ) -> Result<crate::models::Rir, Error<IpamRirsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -22715,10 +26649,13 @@ pub async fn ipam_rirs_retrieve(
 /// Put a RIR object.
 pub async fn ipam_rirs_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    rir_request: crate::models::RirRequest,
+    params: IpamRirsUpdateParams,
 ) -> Result<crate::models::Rir, Error<IpamRirsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let rir_request = params.rir_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -22767,9 +26704,12 @@ pub async fn ipam_rirs_update(
 /// Delete a list of role objects.
 pub async fn ipam_roles_bulk_destroy(
     configuration: &configuration::Configuration,
-    role_request: Vec<crate::models::RoleRequest>,
+    params: IpamRolesBulkDestroyParams,
 ) -> Result<(), Error<IpamRolesBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let role_request = params.role_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -22814,9 +26754,12 @@ pub async fn ipam_roles_bulk_destroy(
 /// Patch a list of role objects.
 pub async fn ipam_roles_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_role_request: Vec<crate::models::PatchedBulkRoleRequest>,
+    params: IpamRolesBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::Role>, Error<IpamRolesBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_role_request = params.patched_bulk_role_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -22861,9 +26804,12 @@ pub async fn ipam_roles_bulk_partial_update(
 /// Put a list of role objects.
 pub async fn ipam_roles_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_role_request: Vec<crate::models::BulkRoleRequest>,
+    params: IpamRolesBulkUpdateParams,
 ) -> Result<Vec<crate::models::Role>, Error<IpamRolesBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_role_request = params.bulk_role_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -22908,9 +26854,12 @@ pub async fn ipam_roles_bulk_update(
 /// Post a list of role objects.
 pub async fn ipam_roles_create(
     configuration: &configuration::Configuration,
-    ipam_roles_create_request: crate::models::IpamRolesCreateRequest,
+    params: IpamRolesCreateParams,
 ) -> Result<crate::models::Role, Error<IpamRolesCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ipam_roles_create_request = params.ipam_roles_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -22955,9 +26904,12 @@ pub async fn ipam_roles_create(
 /// Delete a role object.
 pub async fn ipam_roles_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: IpamRolesDestroyParams,
 ) -> Result<(), Error<IpamRolesDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -23005,100 +26957,103 @@ pub async fn ipam_roles_destroy(
 /// Get a list of role objects.
 pub async fn ipam_roles_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    slug: Option<Vec<String>>,
-    slug__empty: Option<bool>,
-    slug__ic: Option<Vec<String>>,
-    slug__ie: Option<Vec<String>>,
-    slug__iew: Option<Vec<String>>,
-    slug__iregex: Option<Vec<String>>,
-    slug__isw: Option<Vec<String>>,
-    slug__n: Option<Vec<String>>,
-    slug__nic: Option<Vec<String>>,
-    slug__nie: Option<Vec<String>>,
-    slug__niew: Option<Vec<String>>,
-    slug__nisw: Option<Vec<String>>,
-    slug__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
-    weight: Option<Vec<i32>>,
-    weight__empty: Option<bool>,
-    weight__gt: Option<Vec<i32>>,
-    weight__gte: Option<Vec<i32>>,
-    weight__lt: Option<Vec<i32>>,
-    weight__lte: Option<Vec<i32>>,
-    weight__n: Option<Vec<i32>>,
+    params: IpamRolesListParams,
 ) -> Result<crate::models::PaginatedRoleList, Error<IpamRolesListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let slug = params.slug;
+    let slug__empty = params.slug__empty;
+    let slug__ic = params.slug__ic;
+    let slug__ie = params.slug__ie;
+    let slug__iew = params.slug__iew;
+    let slug__iregex = params.slug__iregex;
+    let slug__isw = params.slug__isw;
+    let slug__n = params.slug__n;
+    let slug__nic = params.slug__nic;
+    let slug__nie = params.slug__nie;
+    let slug__niew = params.slug__niew;
+    let slug__nisw = params.slug__nisw;
+    let slug__regex = params.slug__regex;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
+    let weight = params.weight;
+    let weight__empty = params.weight__empty;
+    let weight__gt = params.weight__gt;
+    let weight__gte = params.weight__gte;
+    let weight__lt = params.weight__lt;
+    let weight__lte = params.weight__lte;
+    let weight__n = params.weight__n;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -24649,10 +28604,13 @@ pub async fn ipam_roles_list(
 /// Patch a role object.
 pub async fn ipam_roles_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_role_request: Option<crate::models::PatchedRoleRequest>,
+    params: IpamRolesPartialUpdateParams,
 ) -> Result<crate::models::Role, Error<IpamRolesPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_role_request = params.patched_role_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -24701,12 +28659,15 @@ pub async fn ipam_roles_partial_update(
 /// Get a role object.
 pub async fn ipam_roles_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: IpamRolesRetrieveParams,
 ) -> Result<crate::models::Role, Error<IpamRolesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -24766,10 +28727,13 @@ pub async fn ipam_roles_retrieve(
 /// Put a role object.
 pub async fn ipam_roles_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    role_request: crate::models::RoleRequest,
+    params: IpamRolesUpdateParams,
 ) -> Result<crate::models::Role, Error<IpamRolesUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let role_request = params.role_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -24818,9 +28782,12 @@ pub async fn ipam_roles_update(
 /// Delete a list of route target objects.
 pub async fn ipam_route_targets_bulk_destroy(
     configuration: &configuration::Configuration,
-    route_target_request: Vec<crate::models::RouteTargetRequest>,
+    params: IpamRouteTargetsBulkDestroyParams,
 ) -> Result<(), Error<IpamRouteTargetsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let route_target_request = params.route_target_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -24868,9 +28835,12 @@ pub async fn ipam_route_targets_bulk_destroy(
 /// Patch a list of route target objects.
 pub async fn ipam_route_targets_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_route_target_request: Vec<crate::models::PatchedBulkRouteTargetRequest>,
+    params: IpamRouteTargetsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::RouteTarget>, Error<IpamRouteTargetsBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_route_target_request = params.patched_bulk_route_target_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -24918,9 +28888,12 @@ pub async fn ipam_route_targets_bulk_partial_update(
 /// Put a list of route target objects.
 pub async fn ipam_route_targets_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_route_target_request: Vec<crate::models::BulkRouteTargetRequest>,
+    params: IpamRouteTargetsBulkUpdateParams,
 ) -> Result<Vec<crate::models::RouteTarget>, Error<IpamRouteTargetsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_route_target_request = params.bulk_route_target_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -24968,9 +28941,12 @@ pub async fn ipam_route_targets_bulk_update(
 /// Post a list of route target objects.
 pub async fn ipam_route_targets_create(
     configuration: &configuration::Configuration,
-    ipam_route_targets_create_request: crate::models::IpamRouteTargetsCreateRequest,
+    params: IpamRouteTargetsCreateParams,
 ) -> Result<crate::models::RouteTarget, Error<IpamRouteTargetsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ipam_route_targets_create_request = params.ipam_route_targets_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -25018,9 +28994,12 @@ pub async fn ipam_route_targets_create(
 /// Delete a route target object.
 pub async fn ipam_route_targets_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: IpamRouteTargetsDestroyParams,
 ) -> Result<(), Error<IpamRouteTargetsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -25068,104 +29047,107 @@ pub async fn ipam_route_targets_destroy(
 /// Get a list of route target objects.
 pub async fn ipam_route_targets_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    exporting_l2vpn: Option<Vec<i64>>,
-    exporting_l2vpn__n: Option<Vec<i64>>,
-    exporting_l2vpn_id: Option<Vec<i32>>,
-    exporting_l2vpn_id__n: Option<Vec<i32>>,
-    exporting_vrf: Option<Vec<String>>,
-    exporting_vrf__n: Option<Vec<String>>,
-    exporting_vrf_id: Option<Vec<i32>>,
-    exporting_vrf_id__n: Option<Vec<i32>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    importing_l2vpn: Option<Vec<i64>>,
-    importing_l2vpn__n: Option<Vec<i64>>,
-    importing_l2vpn_id: Option<Vec<i32>>,
-    importing_l2vpn_id__n: Option<Vec<i32>>,
-    importing_vrf: Option<Vec<String>>,
-    importing_vrf__n: Option<Vec<String>>,
-    importing_vrf_id: Option<Vec<i32>>,
-    importing_vrf_id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    tenant: Option<Vec<String>>,
-    tenant__n: Option<Vec<String>>,
-    tenant_group: Option<Vec<String>>,
-    tenant_group__n: Option<Vec<String>>,
-    tenant_group_id: Option<Vec<String>>,
-    tenant_group_id__n: Option<Vec<String>>,
-    tenant_id: Option<Vec<i32>>,
-    tenant_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: IpamRouteTargetsListParams,
 ) -> Result<crate::models::PaginatedRouteTargetList, Error<IpamRouteTargetsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let exporting_l2vpn = params.exporting_l2vpn;
+    let exporting_l2vpn__n = params.exporting_l2vpn__n;
+    let exporting_l2vpn_id = params.exporting_l2vpn_id;
+    let exporting_l2vpn_id__n = params.exporting_l2vpn_id__n;
+    let exporting_vrf = params.exporting_vrf;
+    let exporting_vrf__n = params.exporting_vrf__n;
+    let exporting_vrf_id = params.exporting_vrf_id;
+    let exporting_vrf_id__n = params.exporting_vrf_id__n;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let importing_l2vpn = params.importing_l2vpn;
+    let importing_l2vpn__n = params.importing_l2vpn__n;
+    let importing_l2vpn_id = params.importing_l2vpn_id;
+    let importing_l2vpn_id__n = params.importing_l2vpn_id__n;
+    let importing_vrf = params.importing_vrf;
+    let importing_vrf__n = params.importing_vrf__n;
+    let importing_vrf_id = params.importing_vrf_id;
+    let importing_vrf_id__n = params.importing_vrf_id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let tenant = params.tenant;
+    let tenant__n = params.tenant__n;
+    let tenant_group = params.tenant_group;
+    let tenant_group__n = params.tenant_group__n;
+    let tenant_group_id = params.tenant_group_id;
+    let tenant_group_id__n = params.tenant_group_id__n;
+    let tenant_id = params.tenant_id;
+    let tenant_id__n = params.tenant_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -26825,10 +30807,13 @@ pub async fn ipam_route_targets_list(
 /// Patch a route target object.
 pub async fn ipam_route_targets_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_route_target_request: Option<crate::models::PatchedRouteTargetRequest>,
+    params: IpamRouteTargetsPartialUpdateParams,
 ) -> Result<crate::models::RouteTarget, Error<IpamRouteTargetsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_route_target_request = params.patched_route_target_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -26877,12 +30862,15 @@ pub async fn ipam_route_targets_partial_update(
 /// Get a route target object.
 pub async fn ipam_route_targets_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: IpamRouteTargetsRetrieveParams,
 ) -> Result<crate::models::RouteTarget, Error<IpamRouteTargetsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -26942,10 +30930,13 @@ pub async fn ipam_route_targets_retrieve(
 /// Put a route target object.
 pub async fn ipam_route_targets_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    route_target_request: crate::models::RouteTargetRequest,
+    params: IpamRouteTargetsUpdateParams,
 ) -> Result<crate::models::RouteTarget, Error<IpamRouteTargetsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let route_target_request = params.route_target_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -26994,9 +30985,12 @@ pub async fn ipam_route_targets_update(
 /// Delete a list of application service template objects.
 pub async fn ipam_service_templates_bulk_destroy(
     configuration: &configuration::Configuration,
-    service_template_request: Vec<crate::models::ServiceTemplateRequest>,
+    params: IpamServiceTemplatesBulkDestroyParams,
 ) -> Result<(), Error<IpamServiceTemplatesBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let service_template_request = params.service_template_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -27044,10 +31038,13 @@ pub async fn ipam_service_templates_bulk_destroy(
 /// Patch a list of application service template objects.
 pub async fn ipam_service_templates_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_service_template_request: Vec<crate::models::PatchedBulkServiceTemplateRequest>,
+    params: IpamServiceTemplatesBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::ServiceTemplate>, Error<IpamServiceTemplatesBulkPartialUpdateError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_service_template_request = params.patched_bulk_service_template_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -27095,9 +31092,12 @@ pub async fn ipam_service_templates_bulk_partial_update(
 /// Put a list of application service template objects.
 pub async fn ipam_service_templates_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_service_template_request: Vec<crate::models::BulkServiceTemplateRequest>,
+    params: IpamServiceTemplatesBulkUpdateParams,
 ) -> Result<Vec<crate::models::ServiceTemplate>, Error<IpamServiceTemplatesBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_service_template_request = params.bulk_service_template_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -27145,9 +31145,12 @@ pub async fn ipam_service_templates_bulk_update(
 /// Post a list of application service template objects.
 pub async fn ipam_service_templates_create(
     configuration: &configuration::Configuration,
-    ipam_service_templates_create_request: crate::models::IpamServiceTemplatesCreateRequest,
+    params: IpamServiceTemplatesCreateParams,
 ) -> Result<crate::models::ServiceTemplate, Error<IpamServiceTemplatesCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ipam_service_templates_create_request = params.ipam_service_templates_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -27195,9 +31198,12 @@ pub async fn ipam_service_templates_create(
 /// Delete a application service template object.
 pub async fn ipam_service_templates_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: IpamServiceTemplatesDestroyParams,
 ) -> Result<(), Error<IpamServiceTemplatesDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -27245,90 +31251,93 @@ pub async fn ipam_service_templates_destroy(
 /// Get a list of application service template objects.
 pub async fn ipam_service_templates_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    port: Option<Vec<i32>>,
-    port__gt: Option<Vec<i32>>,
-    port__gte: Option<Vec<i32>>,
-    port__lt: Option<Vec<i32>>,
-    port__lte: Option<Vec<i32>>,
-    port__n: Option<Vec<i32>>,
-    port_mappings: Option<Vec<String>>,
-    port_mappings__n: Option<Vec<String>>,
-    protocol: Option<Vec<String>>,
-    protocol__n: Option<Vec<String>>,
-    q: Option<&str>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: IpamServiceTemplatesListParams,
 ) -> Result<crate::models::PaginatedServiceTemplateList, Error<IpamServiceTemplatesListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let port = params.port;
+    let port__gt = params.port__gt;
+    let port__gte = params.port__gte;
+    let port__lt = params.port__lt;
+    let port__lte = params.port__lte;
+    let port__n = params.port__n;
+    let port_mappings = params.port_mappings;
+    let port_mappings__n = params.port_mappings__n;
+    let protocol = params.protocol;
+    let protocol__n = params.protocol__n;
+    let q = params.q;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -28722,12 +32731,14 @@ pub async fn ipam_service_templates_list(
 /// Patch a application service template object.
 pub async fn ipam_service_templates_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_service_template_request: Option<
-        crate::models::PatchedWritableServiceTemplateRequest,
-    >,
+    params: IpamServiceTemplatesPartialUpdateParams,
 ) -> Result<crate::models::ServiceTemplate, Error<IpamServiceTemplatesPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_service_template_request =
+        params.patched_writable_service_template_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -28776,12 +32787,15 @@ pub async fn ipam_service_templates_partial_update(
 /// Get a application service template object.
 pub async fn ipam_service_templates_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: IpamServiceTemplatesRetrieveParams,
 ) -> Result<crate::models::ServiceTemplate, Error<IpamServiceTemplatesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -28841,10 +32855,13 @@ pub async fn ipam_service_templates_retrieve(
 /// Put a application service template object.
 pub async fn ipam_service_templates_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_service_template_request: crate::models::WritableServiceTemplateRequest,
+    params: IpamServiceTemplatesUpdateParams,
 ) -> Result<crate::models::ServiceTemplate, Error<IpamServiceTemplatesUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_service_template_request = params.writable_service_template_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -28893,9 +32910,12 @@ pub async fn ipam_service_templates_update(
 /// Delete a list of application service objects.
 pub async fn ipam_services_bulk_destroy(
     configuration: &configuration::Configuration,
-    service_request: Vec<crate::models::ServiceRequest>,
+    params: IpamServicesBulkDestroyParams,
 ) -> Result<(), Error<IpamServicesBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let service_request = params.service_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -28940,9 +32960,12 @@ pub async fn ipam_services_bulk_destroy(
 /// Patch a list of application service objects.
 pub async fn ipam_services_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_service_request: Vec<crate::models::PatchedBulkServiceRequest>,
+    params: IpamServicesBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::Service>, Error<IpamServicesBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_service_request = params.patched_bulk_service_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -28987,9 +33010,12 @@ pub async fn ipam_services_bulk_partial_update(
 /// Put a list of application service objects.
 pub async fn ipam_services_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_service_request: Vec<crate::models::BulkServiceRequest>,
+    params: IpamServicesBulkUpdateParams,
 ) -> Result<Vec<crate::models::Service>, Error<IpamServicesBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_service_request = params.bulk_service_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -29034,9 +33060,12 @@ pub async fn ipam_services_bulk_update(
 /// Post a list of application service objects.
 pub async fn ipam_services_create(
     configuration: &configuration::Configuration,
-    ipam_services_create_request: crate::models::IpamServicesCreateRequest,
+    params: IpamServicesCreateParams,
 ) -> Result<crate::models::Service, Error<IpamServicesCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ipam_services_create_request = params.ipam_services_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -29081,9 +33110,12 @@ pub async fn ipam_services_create(
 /// Delete a application service object.
 pub async fn ipam_services_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: IpamServicesDestroyParams,
 ) -> Result<(), Error<IpamServicesDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -29131,115 +33163,118 @@ pub async fn ipam_services_destroy(
 /// Get a list of application service objects.
 pub async fn ipam_services_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    contact: Option<Vec<i32>>,
-    contact__n: Option<Vec<i32>>,
-    contact_group: Option<Vec<String>>,
-    contact_group__n: Option<Vec<String>>,
-    contact_role: Option<Vec<i32>>,
-    contact_role__n: Option<Vec<i32>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    device: Option<Vec<String>>,
-    device_id: Option<Vec<i32>>,
-    fhrpgroup: Option<Vec<String>>,
-    fhrpgroup_id: Option<Vec<i32>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    ip_address: Option<Vec<String>>,
-    ip_address__n: Option<Vec<String>>,
-    ip_address_id: Option<Vec<i32>>,
-    ip_address_id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    parent_object_id: Option<Vec<i32>>,
-    parent_object_id__empty: Option<bool>,
-    parent_object_id__gt: Option<Vec<i32>>,
-    parent_object_id__gte: Option<Vec<i32>>,
-    parent_object_id__lt: Option<Vec<i32>>,
-    parent_object_id__lte: Option<Vec<i32>>,
-    parent_object_id__n: Option<Vec<i32>>,
-    parent_object_type: Option<Vec<String>>,
-    parent_object_type__n: Option<Vec<String>>,
-    port: Option<Vec<i32>>,
-    port__gt: Option<Vec<i32>>,
-    port__gte: Option<Vec<i32>>,
-    port__lt: Option<Vec<i32>>,
-    port__lte: Option<Vec<i32>>,
-    port__n: Option<Vec<i32>>,
-    port_mappings: Option<Vec<String>>,
-    port_mappings__n: Option<Vec<String>>,
-    protocol: Option<Vec<String>>,
-    protocol__n: Option<Vec<String>>,
-    q: Option<&str>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
-    virtual_machine: Option<Vec<String>>,
-    virtual_machine_id: Option<Vec<i32>>,
+    params: IpamServicesListParams,
 ) -> Result<crate::models::PaginatedServiceList, Error<IpamServicesListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let contact = params.contact;
+    let contact__n = params.contact__n;
+    let contact_group = params.contact_group;
+    let contact_group__n = params.contact_group__n;
+    let contact_role = params.contact_role;
+    let contact_role__n = params.contact_role__n;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let device = params.device;
+    let device_id = params.device_id;
+    let fhrpgroup = params.fhrpgroup;
+    let fhrpgroup_id = params.fhrpgroup_id;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let ip_address = params.ip_address;
+    let ip_address__n = params.ip_address__n;
+    let ip_address_id = params.ip_address_id;
+    let ip_address_id__n = params.ip_address_id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let parent_object_id = params.parent_object_id;
+    let parent_object_id__empty = params.parent_object_id__empty;
+    let parent_object_id__gt = params.parent_object_id__gt;
+    let parent_object_id__gte = params.parent_object_id__gte;
+    let parent_object_id__lt = params.parent_object_id__lt;
+    let parent_object_id__lte = params.parent_object_id__lte;
+    let parent_object_id__n = params.parent_object_id__n;
+    let parent_object_type = params.parent_object_type;
+    let parent_object_type__n = params.parent_object_type__n;
+    let port = params.port;
+    let port__gt = params.port__gt;
+    let port__gte = params.port__gte;
+    let port__lt = params.port__lt;
+    let port__lte = params.port__lte;
+    let port__n = params.port__n;
+    let port_mappings = params.port_mappings;
+    let port_mappings__n = params.port_mappings__n;
+    let protocol = params.protocol;
+    let protocol__n = params.protocol__n;
+    let q = params.q;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
+    let virtual_machine = params.virtual_machine;
+    let virtual_machine_id = params.virtual_machine_id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -31090,10 +35125,13 @@ pub async fn ipam_services_list(
 /// Patch a application service object.
 pub async fn ipam_services_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_service_request: Option<crate::models::PatchedWritableServiceRequest>,
+    params: IpamServicesPartialUpdateParams,
 ) -> Result<crate::models::Service, Error<IpamServicesPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_service_request = params.patched_writable_service_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -31142,12 +35180,15 @@ pub async fn ipam_services_partial_update(
 /// Get a application service object.
 pub async fn ipam_services_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: IpamServicesRetrieveParams,
 ) -> Result<crate::models::Service, Error<IpamServicesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -31207,10 +35248,13 @@ pub async fn ipam_services_retrieve(
 /// Put a application service object.
 pub async fn ipam_services_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_service_request: crate::models::WritableServiceRequest,
+    params: IpamServicesUpdateParams,
 ) -> Result<crate::models::Service, Error<IpamServicesUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_service_request = params.writable_service_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -31259,10 +35303,13 @@ pub async fn ipam_services_update(
 /// Post a VLAN object.
 pub async fn ipam_vlan_groups_available_vlans_create(
     configuration: &configuration::Configuration,
-    id: i32,
-    create_available_vlan_request: Vec<crate::models::CreateAvailableVlanRequest>,
+    params: IpamVlanGroupsAvailableVlansCreateParams,
 ) -> Result<Vec<crate::models::Vlan>, Error<IpamVlanGroupsAvailableVlansCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let create_available_vlan_request = params.create_available_vlan_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -31311,12 +35358,15 @@ pub async fn ipam_vlan_groups_available_vlans_create(
 /// Get a VLAN object.
 pub async fn ipam_vlan_groups_available_vlans_list(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: IpamVlanGroupsAvailableVlansListParams,
 ) -> Result<Vec<crate::models::AvailableVlan>, Error<IpamVlanGroupsAvailableVlansListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -31376,9 +35426,12 @@ pub async fn ipam_vlan_groups_available_vlans_list(
 /// Delete a list of VLAN group objects.
 pub async fn ipam_vlan_groups_bulk_destroy(
     configuration: &configuration::Configuration,
-    vlan_group_request: Vec<crate::models::VlanGroupRequest>,
+    params: IpamVlanGroupsBulkDestroyParams,
 ) -> Result<(), Error<IpamVlanGroupsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let vlan_group_request = params.vlan_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -31426,9 +35479,12 @@ pub async fn ipam_vlan_groups_bulk_destroy(
 /// Patch a list of VLAN group objects.
 pub async fn ipam_vlan_groups_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_vlan_group_request: Vec<crate::models::PatchedBulkVlanGroupRequest>,
+    params: IpamVlanGroupsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::VlanGroup>, Error<IpamVlanGroupsBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_vlan_group_request = params.patched_bulk_vlan_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -31476,9 +35532,12 @@ pub async fn ipam_vlan_groups_bulk_partial_update(
 /// Put a list of VLAN group objects.
 pub async fn ipam_vlan_groups_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_vlan_group_request: Vec<crate::models::BulkVlanGroupRequest>,
+    params: IpamVlanGroupsBulkUpdateParams,
 ) -> Result<Vec<crate::models::VlanGroup>, Error<IpamVlanGroupsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_vlan_group_request = params.bulk_vlan_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -31526,9 +35585,12 @@ pub async fn ipam_vlan_groups_bulk_update(
 /// Post a list of VLAN group objects.
 pub async fn ipam_vlan_groups_create(
     configuration: &configuration::Configuration,
-    ipam_vlan_groups_create_request: crate::models::IpamVlanGroupsCreateRequest,
+    params: IpamVlanGroupsCreateParams,
 ) -> Result<crate::models::VlanGroup, Error<IpamVlanGroupsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ipam_vlan_groups_create_request = params.ipam_vlan_groups_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -31576,9 +35638,12 @@ pub async fn ipam_vlan_groups_create(
 /// Delete a VLAN group object.
 pub async fn ipam_vlan_groups_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: IpamVlanGroupsDestroyParams,
 ) -> Result<(), Error<IpamVlanGroupsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -31626,126 +35691,129 @@ pub async fn ipam_vlan_groups_destroy(
 /// Get a list of VLAN group objects.
 pub async fn ipam_vlan_groups_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    cluster: Option<Vec<i32>>,
-    cluster_group: Option<Vec<i32>>,
-    contains_vid: Option<f32>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    location: Option<Vec<i32>>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    rack: Option<Vec<i32>>,
-    rack_group: Option<Vec<i32>>,
-    region: Option<Vec<i32>>,
-    scope_id: Option<Vec<i32>>,
-    scope_id__empty: Option<bool>,
-    scope_id__gt: Option<Vec<i32>>,
-    scope_id__gte: Option<Vec<i32>>,
-    scope_id__lt: Option<Vec<i32>>,
-    scope_id__lte: Option<Vec<i32>>,
-    scope_id__n: Option<Vec<i32>>,
-    scope_type: Option<Vec<String>>,
-    scope_type__n: Option<Vec<String>>,
-    site: Option<Vec<i32>>,
-    site_group: Option<Vec<i32>>,
-    slug: Option<Vec<String>>,
-    slug__empty: Option<bool>,
-    slug__ic: Option<Vec<String>>,
-    slug__ie: Option<Vec<String>>,
-    slug__iew: Option<Vec<String>>,
-    slug__iregex: Option<Vec<String>>,
-    slug__isw: Option<Vec<String>>,
-    slug__n: Option<Vec<String>>,
-    slug__nic: Option<Vec<String>>,
-    slug__nie: Option<Vec<String>>,
-    slug__niew: Option<Vec<String>>,
-    slug__nisw: Option<Vec<String>>,
-    slug__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    tenant: Option<Vec<String>>,
-    tenant__n: Option<Vec<String>>,
-    tenant_group: Option<Vec<String>>,
-    tenant_group__n: Option<Vec<String>>,
-    tenant_group_id: Option<Vec<String>>,
-    tenant_group_id__n: Option<Vec<String>>,
-    tenant_id: Option<Vec<i32>>,
-    tenant_id__n: Option<Vec<i32>>,
-    total_vlan_ids: Option<Vec<i32>>,
-    total_vlan_ids__empty: Option<bool>,
-    total_vlan_ids__gt: Option<Vec<i32>>,
-    total_vlan_ids__gte: Option<Vec<i32>>,
-    total_vlan_ids__lt: Option<Vec<i32>>,
-    total_vlan_ids__lte: Option<Vec<i32>>,
-    total_vlan_ids__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: IpamVlanGroupsListParams,
 ) -> Result<crate::models::PaginatedVlanGroupList, Error<IpamVlanGroupsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let cluster = params.cluster;
+    let cluster_group = params.cluster_group;
+    let contains_vid = params.contains_vid;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let location = params.location;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let rack = params.rack;
+    let rack_group = params.rack_group;
+    let region = params.region;
+    let scope_id = params.scope_id;
+    let scope_id__empty = params.scope_id__empty;
+    let scope_id__gt = params.scope_id__gt;
+    let scope_id__gte = params.scope_id__gte;
+    let scope_id__lt = params.scope_id__lt;
+    let scope_id__lte = params.scope_id__lte;
+    let scope_id__n = params.scope_id__n;
+    let scope_type = params.scope_type;
+    let scope_type__n = params.scope_type__n;
+    let site = params.site;
+    let site_group = params.site_group;
+    let slug = params.slug;
+    let slug__empty = params.slug__empty;
+    let slug__ic = params.slug__ic;
+    let slug__ie = params.slug__ie;
+    let slug__iew = params.slug__iew;
+    let slug__iregex = params.slug__iregex;
+    let slug__isw = params.slug__isw;
+    let slug__n = params.slug__n;
+    let slug__nic = params.slug__nic;
+    let slug__nie = params.slug__nie;
+    let slug__niew = params.slug__niew;
+    let slug__nisw = params.slug__nisw;
+    let slug__regex = params.slug__regex;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let tenant = params.tenant;
+    let tenant__n = params.tenant__n;
+    let tenant_group = params.tenant_group;
+    let tenant_group__n = params.tenant_group__n;
+    let tenant_group_id = params.tenant_group_id;
+    let tenant_group_id__n = params.tenant_group_id__n;
+    let tenant_id = params.tenant_id;
+    let tenant_id__n = params.tenant_id__n;
+    let total_vlan_ids = params.total_vlan_ids;
+    let total_vlan_ids__empty = params.total_vlan_ids__empty;
+    let total_vlan_ids__gt = params.total_vlan_ids__gt;
+    let total_vlan_ids__gte = params.total_vlan_ids__gte;
+    let total_vlan_ids__lt = params.total_vlan_ids__lt;
+    let total_vlan_ids__lte = params.total_vlan_ids__lte;
+    let total_vlan_ids__n = params.total_vlan_ids__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -33763,10 +37831,13 @@ pub async fn ipam_vlan_groups_list(
 /// Patch a VLAN group object.
 pub async fn ipam_vlan_groups_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_vlan_group_request: Option<crate::models::PatchedVlanGroupRequest>,
+    params: IpamVlanGroupsPartialUpdateParams,
 ) -> Result<crate::models::VlanGroup, Error<IpamVlanGroupsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_vlan_group_request = params.patched_vlan_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -33815,12 +37886,15 @@ pub async fn ipam_vlan_groups_partial_update(
 /// Get a VLAN group object.
 pub async fn ipam_vlan_groups_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: IpamVlanGroupsRetrieveParams,
 ) -> Result<crate::models::VlanGroup, Error<IpamVlanGroupsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -33880,10 +37954,13 @@ pub async fn ipam_vlan_groups_retrieve(
 /// Put a VLAN group object.
 pub async fn ipam_vlan_groups_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    vlan_group_request: crate::models::VlanGroupRequest,
+    params: IpamVlanGroupsUpdateParams,
 ) -> Result<crate::models::VlanGroup, Error<IpamVlanGroupsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let vlan_group_request = params.vlan_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -33932,9 +38009,12 @@ pub async fn ipam_vlan_groups_update(
 /// Delete a list of VLAN translation policy objects.
 pub async fn ipam_vlan_translation_policies_bulk_destroy(
     configuration: &configuration::Configuration,
-    vlan_translation_policy_request: Vec<crate::models::VlanTranslationPolicyRequest>,
+    params: IpamVlanTranslationPoliciesBulkDestroyParams,
 ) -> Result<(), Error<IpamVlanTranslationPoliciesBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let vlan_translation_policy_request = params.vlan_translation_policy_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -33982,14 +38062,16 @@ pub async fn ipam_vlan_translation_policies_bulk_destroy(
 /// Patch a list of VLAN translation policy objects.
 pub async fn ipam_vlan_translation_policies_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_vlan_translation_policy_request: Vec<
-        crate::models::PatchedBulkVlanTranslationPolicyRequest,
-    >,
+    params: IpamVlanTranslationPoliciesBulkPartialUpdateParams,
 ) -> Result<
     Vec<crate::models::VlanTranslationPolicy>,
     Error<IpamVlanTranslationPoliciesBulkPartialUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_vlan_translation_policy_request =
+        params.patched_bulk_vlan_translation_policy_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -34038,12 +38120,15 @@ pub async fn ipam_vlan_translation_policies_bulk_partial_update(
 /// Put a list of VLAN translation policy objects.
 pub async fn ipam_vlan_translation_policies_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_vlan_translation_policy_request: Vec<crate::models::BulkVlanTranslationPolicyRequest>,
+    params: IpamVlanTranslationPoliciesBulkUpdateParams,
 ) -> Result<
     Vec<crate::models::VlanTranslationPolicy>,
     Error<IpamVlanTranslationPoliciesBulkUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_vlan_translation_policy_request = params.bulk_vlan_translation_policy_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -34091,9 +38176,13 @@ pub async fn ipam_vlan_translation_policies_bulk_update(
 /// Post a list of VLAN translation policy objects.
 pub async fn ipam_vlan_translation_policies_create(
     configuration: &configuration::Configuration,
-    ipam_vlan_translation_policies_create_request: crate::models::IpamVlanTranslationPoliciesCreateRequest,
+    params: IpamVlanTranslationPoliciesCreateParams,
 ) -> Result<crate::models::VlanTranslationPolicy, Error<IpamVlanTranslationPoliciesCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ipam_vlan_translation_policies_create_request =
+        params.ipam_vlan_translation_policies_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -34142,9 +38231,12 @@ pub async fn ipam_vlan_translation_policies_create(
 /// Delete a VLAN translation policy object.
 pub async fn ipam_vlan_translation_policies_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: IpamVlanTranslationPoliciesDestroyParams,
 ) -> Result<(), Error<IpamVlanTranslationPoliciesDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -34192,83 +38284,86 @@ pub async fn ipam_vlan_translation_policies_destroy(
 /// Get a list of VLAN translation policy objects.
 pub async fn ipam_vlan_translation_policies_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: IpamVlanTranslationPoliciesListParams,
 ) -> Result<
     crate::models::PaginatedVlanTranslationPolicyList,
     Error<IpamVlanTranslationPoliciesListError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -35472,15 +39567,16 @@ pub async fn ipam_vlan_translation_policies_list(
 /// Patch a VLAN translation policy object.
 pub async fn ipam_vlan_translation_policies_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_vlan_translation_policy_request: Option<
-        crate::models::PatchedVlanTranslationPolicyRequest,
-    >,
+    params: IpamVlanTranslationPoliciesPartialUpdateParams,
 ) -> Result<
     crate::models::VlanTranslationPolicy,
     Error<IpamVlanTranslationPoliciesPartialUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_vlan_translation_policy_request = params.patched_vlan_translation_policy_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -35529,12 +39625,15 @@ pub async fn ipam_vlan_translation_policies_partial_update(
 /// Get a VLAN translation policy object.
 pub async fn ipam_vlan_translation_policies_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: IpamVlanTranslationPoliciesRetrieveParams,
 ) -> Result<crate::models::VlanTranslationPolicy, Error<IpamVlanTranslationPoliciesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -35594,10 +39693,13 @@ pub async fn ipam_vlan_translation_policies_retrieve(
 /// Put a VLAN translation policy object.
 pub async fn ipam_vlan_translation_policies_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    vlan_translation_policy_request: crate::models::VlanTranslationPolicyRequest,
+    params: IpamVlanTranslationPoliciesUpdateParams,
 ) -> Result<crate::models::VlanTranslationPolicy, Error<IpamVlanTranslationPoliciesUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let vlan_translation_policy_request = params.vlan_translation_policy_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -35646,9 +39748,12 @@ pub async fn ipam_vlan_translation_policies_update(
 /// Delete a list of VLAN translation rule objects.
 pub async fn ipam_vlan_translation_rules_bulk_destroy(
     configuration: &configuration::Configuration,
-    vlan_translation_rule_request: Vec<crate::models::VlanTranslationRuleRequest>,
+    params: IpamVlanTranslationRulesBulkDestroyParams,
 ) -> Result<(), Error<IpamVlanTranslationRulesBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let vlan_translation_rule_request = params.vlan_translation_rule_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -35696,14 +39801,16 @@ pub async fn ipam_vlan_translation_rules_bulk_destroy(
 /// Patch a list of VLAN translation rule objects.
 pub async fn ipam_vlan_translation_rules_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_vlan_translation_rule_request: Vec<
-        crate::models::PatchedBulkVlanTranslationRuleRequest,
-    >,
+    params: IpamVlanTranslationRulesBulkPartialUpdateParams,
 ) -> Result<
     Vec<crate::models::VlanTranslationRule>,
     Error<IpamVlanTranslationRulesBulkPartialUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_vlan_translation_rule_request =
+        params.patched_bulk_vlan_translation_rule_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -35751,10 +39858,13 @@ pub async fn ipam_vlan_translation_rules_bulk_partial_update(
 /// Put a list of VLAN translation rule objects.
 pub async fn ipam_vlan_translation_rules_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_vlan_translation_rule_request: Vec<crate::models::BulkVlanTranslationRuleRequest>,
+    params: IpamVlanTranslationRulesBulkUpdateParams,
 ) -> Result<Vec<crate::models::VlanTranslationRule>, Error<IpamVlanTranslationRulesBulkUpdateError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_vlan_translation_rule_request = params.bulk_vlan_translation_rule_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -35802,9 +39912,13 @@ pub async fn ipam_vlan_translation_rules_bulk_update(
 /// Post a list of VLAN translation rule objects.
 pub async fn ipam_vlan_translation_rules_create(
     configuration: &configuration::Configuration,
-    ipam_vlan_translation_rules_create_request: crate::models::IpamVlanTranslationRulesCreateRequest,
+    params: IpamVlanTranslationRulesCreateParams,
 ) -> Result<crate::models::VlanTranslationRule, Error<IpamVlanTranslationRulesCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ipam_vlan_translation_rules_create_request =
+        params.ipam_vlan_translation_rules_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -35852,9 +39966,12 @@ pub async fn ipam_vlan_translation_rules_create(
 /// Delete a VLAN translation rule object.
 pub async fn ipam_vlan_translation_rules_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: IpamVlanTranslationRulesDestroyParams,
 ) -> Result<(), Error<IpamVlanTranslationRulesDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -35902,78 +40019,81 @@ pub async fn ipam_vlan_translation_rules_destroy(
 /// Get a list of VLAN translation rule objects.
 pub async fn ipam_vlan_translation_rules_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    local_vid: Option<Vec<i32>>,
-    local_vid__empty: Option<bool>,
-    local_vid__gt: Option<Vec<i32>>,
-    local_vid__gte: Option<Vec<i32>>,
-    local_vid__lt: Option<Vec<i32>>,
-    local_vid__lte: Option<Vec<i32>>,
-    local_vid__n: Option<Vec<i32>>,
-    modified_by_request: Option<&str>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    policy: Option<Vec<String>>,
-    policy__n: Option<Vec<String>>,
-    policy_id: Option<Vec<i32>>,
-    policy_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    remote_vid: Option<Vec<i32>>,
-    remote_vid__empty: Option<bool>,
-    remote_vid__gt: Option<Vec<i32>>,
-    remote_vid__gte: Option<Vec<i32>>,
-    remote_vid__lt: Option<Vec<i32>>,
-    remote_vid__lte: Option<Vec<i32>>,
-    remote_vid__n: Option<Vec<i32>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: IpamVlanTranslationRulesListParams,
 ) -> Result<crate::models::PaginatedVlanTranslationRuleList, Error<IpamVlanTranslationRulesListError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let local_vid = params.local_vid;
+    let local_vid__empty = params.local_vid__empty;
+    let local_vid__gt = params.local_vid__gt;
+    let local_vid__gte = params.local_vid__gte;
+    let local_vid__lt = params.local_vid__lt;
+    let local_vid__lte = params.local_vid__lte;
+    let local_vid__n = params.local_vid__n;
+    let modified_by_request = params.modified_by_request;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let policy = params.policy;
+    let policy__n = params.policy__n;
+    let policy_id = params.policy_id;
+    let policy_id__n = params.policy_id__n;
+    let q = params.q;
+    let remote_vid = params.remote_vid;
+    let remote_vid__empty = params.remote_vid__empty;
+    let remote_vid__gt = params.remote_vid__gt;
+    let remote_vid__gte = params.remote_vid__gte;
+    let remote_vid__lt = params.remote_vid__lt;
+    let remote_vid__lte = params.remote_vid__lte;
+    let remote_vid__n = params.remote_vid__n;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -37105,10 +41225,13 @@ pub async fn ipam_vlan_translation_rules_list(
 /// Patch a VLAN translation rule object.
 pub async fn ipam_vlan_translation_rules_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_vlan_translation_rule_request: Option<crate::models::PatchedVlanTranslationRuleRequest>,
+    params: IpamVlanTranslationRulesPartialUpdateParams,
 ) -> Result<crate::models::VlanTranslationRule, Error<IpamVlanTranslationRulesPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_vlan_translation_rule_request = params.patched_vlan_translation_rule_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -37157,12 +41280,15 @@ pub async fn ipam_vlan_translation_rules_partial_update(
 /// Get a VLAN translation rule object.
 pub async fn ipam_vlan_translation_rules_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: IpamVlanTranslationRulesRetrieveParams,
 ) -> Result<crate::models::VlanTranslationRule, Error<IpamVlanTranslationRulesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -37222,10 +41348,13 @@ pub async fn ipam_vlan_translation_rules_retrieve(
 /// Put a VLAN translation rule object.
 pub async fn ipam_vlan_translation_rules_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    vlan_translation_rule_request: crate::models::VlanTranslationRuleRequest,
+    params: IpamVlanTranslationRulesUpdateParams,
 ) -> Result<crate::models::VlanTranslationRule, Error<IpamVlanTranslationRulesUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let vlan_translation_rule_request = params.vlan_translation_rule_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -37274,9 +41403,12 @@ pub async fn ipam_vlan_translation_rules_update(
 /// Delete a list of VLAN objects.
 pub async fn ipam_vlans_bulk_destroy(
     configuration: &configuration::Configuration,
-    vlan_request: Vec<crate::models::VlanRequest>,
+    params: IpamVlansBulkDestroyParams,
 ) -> Result<(), Error<IpamVlansBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let vlan_request = params.vlan_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -37321,9 +41453,12 @@ pub async fn ipam_vlans_bulk_destroy(
 /// Patch a list of VLAN objects.
 pub async fn ipam_vlans_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_vlan_request: Vec<crate::models::PatchedBulkVlanRequest>,
+    params: IpamVlansBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::Vlan>, Error<IpamVlansBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_vlan_request = params.patched_bulk_vlan_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -37368,9 +41503,12 @@ pub async fn ipam_vlans_bulk_partial_update(
 /// Put a list of VLAN objects.
 pub async fn ipam_vlans_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_vlan_request: Vec<crate::models::BulkVlanRequest>,
+    params: IpamVlansBulkUpdateParams,
 ) -> Result<Vec<crate::models::Vlan>, Error<IpamVlansBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_vlan_request = params.bulk_vlan_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -37415,9 +41553,12 @@ pub async fn ipam_vlans_bulk_update(
 /// Post a list of VLAN objects.
 pub async fn ipam_vlans_create(
     configuration: &configuration::Configuration,
-    ipam_vlans_create_request: crate::models::IpamVlansCreateRequest,
+    params: IpamVlansCreateParams,
 ) -> Result<crate::models::Vlan, Error<IpamVlansCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ipam_vlans_create_request = params.ipam_vlans_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -37462,9 +41603,12 @@ pub async fn ipam_vlans_create(
 /// Delete a VLAN object.
 pub async fn ipam_vlans_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: IpamVlansDestroyParams,
 ) -> Result<(), Error<IpamVlansDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -37512,160 +41656,163 @@ pub async fn ipam_vlans_destroy(
 /// Get a list of VLAN objects.
 pub async fn ipam_vlans_list(
     configuration: &configuration::Configuration,
-    available_at_site: Option<&str>,
-    available_at_site_group: Option<&str>,
-    available_on_device: Option<&str>,
-    available_on_virtualmachine: Option<&str>,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    group: Option<Vec<String>>,
-    group__n: Option<Vec<String>>,
-    group_id: Option<Vec<i32>>,
-    group_id__n: Option<Vec<i32>>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    interface_id: Option<i32>,
-    l2vpn: Option<Vec<i64>>,
-    l2vpn__n: Option<Vec<i64>>,
-    l2vpn_id: Option<Vec<i32>>,
-    l2vpn_id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    qinq_role: Option<Vec<String>>,
-    qinq_role__empty: Option<bool>,
-    qinq_role__ic: Option<Vec<String>>,
-    qinq_role__ie: Option<Vec<String>>,
-    qinq_role__iew: Option<Vec<String>>,
-    qinq_role__iregex: Option<Vec<String>>,
-    qinq_role__isw: Option<Vec<String>>,
-    qinq_role__n: Option<Vec<String>>,
-    qinq_role__nic: Option<Vec<String>>,
-    qinq_role__nie: Option<Vec<String>>,
-    qinq_role__niew: Option<Vec<String>>,
-    qinq_role__nisw: Option<Vec<String>>,
-    qinq_role__regex: Option<Vec<String>>,
-    qinq_svlan_id: Option<Vec<i32>>,
-    qinq_svlan_id__n: Option<Vec<i32>>,
-    qinq_svlan_vid: Option<Vec<i32>>,
-    qinq_svlan_vid__empty: Option<Vec<i32>>,
-    qinq_svlan_vid__gt: Option<Vec<i32>>,
-    qinq_svlan_vid__gte: Option<Vec<i32>>,
-    qinq_svlan_vid__lt: Option<Vec<i32>>,
-    qinq_svlan_vid__lte: Option<Vec<i32>>,
-    qinq_svlan_vid__n: Option<Vec<i32>>,
-    region: Option<Vec<String>>,
-    region__n: Option<Vec<String>>,
-    region_id: Option<Vec<String>>,
-    region_id__n: Option<Vec<String>>,
-    role: Option<Vec<String>>,
-    role__n: Option<Vec<String>>,
-    role_id: Option<Vec<i32>>,
-    role_id__n: Option<Vec<i32>>,
-    site: Option<Vec<String>>,
-    site__n: Option<Vec<String>>,
-    site_group: Option<Vec<String>>,
-    site_group__n: Option<Vec<String>>,
-    site_group_id: Option<Vec<String>>,
-    site_group_id__n: Option<Vec<String>>,
-    site_id: Option<Vec<i32>>,
-    site_id__n: Option<Vec<i32>>,
-    start: Option<i32>,
-    status: Option<Vec<String>>,
-    status__empty: Option<bool>,
-    status__ic: Option<Vec<String>>,
-    status__ie: Option<Vec<String>>,
-    status__iew: Option<Vec<String>>,
-    status__iregex: Option<Vec<String>>,
-    status__isw: Option<Vec<String>>,
-    status__n: Option<Vec<String>>,
-    status__nic: Option<Vec<String>>,
-    status__nie: Option<Vec<String>>,
-    status__niew: Option<Vec<String>>,
-    status__nisw: Option<Vec<String>>,
-    status__regex: Option<Vec<String>>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    tenant: Option<Vec<String>>,
-    tenant__n: Option<Vec<String>>,
-    tenant_group: Option<Vec<String>>,
-    tenant_group__n: Option<Vec<String>>,
-    tenant_group_id: Option<Vec<String>>,
-    tenant_group_id__n: Option<Vec<String>>,
-    tenant_id: Option<Vec<i32>>,
-    tenant_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
-    vid: Option<Vec<i32>>,
-    vid__empty: Option<bool>,
-    vid__gt: Option<Vec<i32>>,
-    vid__gte: Option<Vec<i32>>,
-    vid__lt: Option<Vec<i32>>,
-    vid__lte: Option<Vec<i32>>,
-    vid__n: Option<Vec<i32>>,
-    vminterface_id: Option<i32>,
+    params: IpamVlansListParams,
 ) -> Result<crate::models::PaginatedVlanList, Error<IpamVlansListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let available_at_site = params.available_at_site;
+    let available_at_site_group = params.available_at_site_group;
+    let available_on_device = params.available_on_device;
+    let available_on_virtualmachine = params.available_on_virtualmachine;
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let group = params.group;
+    let group__n = params.group__n;
+    let group_id = params.group_id;
+    let group_id__n = params.group_id__n;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let interface_id = params.interface_id;
+    let l2vpn = params.l2vpn;
+    let l2vpn__n = params.l2vpn__n;
+    let l2vpn_id = params.l2vpn_id;
+    let l2vpn_id__n = params.l2vpn_id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let qinq_role = params.qinq_role;
+    let qinq_role__empty = params.qinq_role__empty;
+    let qinq_role__ic = params.qinq_role__ic;
+    let qinq_role__ie = params.qinq_role__ie;
+    let qinq_role__iew = params.qinq_role__iew;
+    let qinq_role__iregex = params.qinq_role__iregex;
+    let qinq_role__isw = params.qinq_role__isw;
+    let qinq_role__n = params.qinq_role__n;
+    let qinq_role__nic = params.qinq_role__nic;
+    let qinq_role__nie = params.qinq_role__nie;
+    let qinq_role__niew = params.qinq_role__niew;
+    let qinq_role__nisw = params.qinq_role__nisw;
+    let qinq_role__regex = params.qinq_role__regex;
+    let qinq_svlan_id = params.qinq_svlan_id;
+    let qinq_svlan_id__n = params.qinq_svlan_id__n;
+    let qinq_svlan_vid = params.qinq_svlan_vid;
+    let qinq_svlan_vid__empty = params.qinq_svlan_vid__empty;
+    let qinq_svlan_vid__gt = params.qinq_svlan_vid__gt;
+    let qinq_svlan_vid__gte = params.qinq_svlan_vid__gte;
+    let qinq_svlan_vid__lt = params.qinq_svlan_vid__lt;
+    let qinq_svlan_vid__lte = params.qinq_svlan_vid__lte;
+    let qinq_svlan_vid__n = params.qinq_svlan_vid__n;
+    let region = params.region;
+    let region__n = params.region__n;
+    let region_id = params.region_id;
+    let region_id__n = params.region_id__n;
+    let role = params.role;
+    let role__n = params.role__n;
+    let role_id = params.role_id;
+    let role_id__n = params.role_id__n;
+    let site = params.site;
+    let site__n = params.site__n;
+    let site_group = params.site_group;
+    let site_group__n = params.site_group__n;
+    let site_group_id = params.site_group_id;
+    let site_group_id__n = params.site_group_id__n;
+    let site_id = params.site_id;
+    let site_id__n = params.site_id__n;
+    let start = params.start;
+    let status = params.status;
+    let status__empty = params.status__empty;
+    let status__ic = params.status__ic;
+    let status__ie = params.status__ie;
+    let status__iew = params.status__iew;
+    let status__iregex = params.status__iregex;
+    let status__isw = params.status__isw;
+    let status__n = params.status__n;
+    let status__nic = params.status__nic;
+    let status__nie = params.status__nie;
+    let status__niew = params.status__niew;
+    let status__nisw = params.status__nisw;
+    let status__regex = params.status__regex;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let tenant = params.tenant;
+    let tenant__n = params.tenant__n;
+    let tenant_group = params.tenant_group;
+    let tenant_group__n = params.tenant_group__n;
+    let tenant_group_id = params.tenant_group_id;
+    let tenant_group_id__n = params.tenant_group_id__n;
+    let tenant_id = params.tenant_id;
+    let tenant_id__n = params.tenant_id__n;
+    let updated_by_request = params.updated_by_request;
+    let vid = params.vid;
+    let vid__empty = params.vid__empty;
+    let vid__gt = params.vid__gt;
+    let vid__gte = params.vid__gte;
+    let vid__lt = params.vid__lt;
+    let vid__lte = params.vid__lte;
+    let vid__n = params.vid__n;
+    let vminterface_id = params.vminterface_id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -40251,10 +44398,13 @@ pub async fn ipam_vlans_list(
 /// Patch a VLAN object.
 pub async fn ipam_vlans_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_vlan_request: Option<crate::models::PatchedWritableVlanRequest>,
+    params: IpamVlansPartialUpdateParams,
 ) -> Result<crate::models::Vlan, Error<IpamVlansPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_vlan_request = params.patched_writable_vlan_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -40303,12 +44453,15 @@ pub async fn ipam_vlans_partial_update(
 /// Get a VLAN object.
 pub async fn ipam_vlans_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: IpamVlansRetrieveParams,
 ) -> Result<crate::models::Vlan, Error<IpamVlansRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -40368,10 +44521,13 @@ pub async fn ipam_vlans_retrieve(
 /// Put a VLAN object.
 pub async fn ipam_vlans_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_vlan_request: crate::models::WritableVlanRequest,
+    params: IpamVlansUpdateParams,
 ) -> Result<crate::models::Vlan, Error<IpamVlansUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_vlan_request = params.writable_vlan_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -40420,9 +44576,12 @@ pub async fn ipam_vlans_update(
 /// Delete a list of VRF objects.
 pub async fn ipam_vrfs_bulk_destroy(
     configuration: &configuration::Configuration,
-    vrf_request: Vec<crate::models::VrfRequest>,
+    params: IpamVrfsBulkDestroyParams,
 ) -> Result<(), Error<IpamVrfsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let vrf_request = params.vrf_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -40467,9 +44626,12 @@ pub async fn ipam_vrfs_bulk_destroy(
 /// Patch a list of VRF objects.
 pub async fn ipam_vrfs_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_vrf_request: Vec<crate::models::PatchedBulkVrfRequest>,
+    params: IpamVrfsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::Vrf>, Error<IpamVrfsBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_vrf_request = params.patched_bulk_vrf_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -40514,9 +44676,12 @@ pub async fn ipam_vrfs_bulk_partial_update(
 /// Put a list of VRF objects.
 pub async fn ipam_vrfs_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_vrf_request: Vec<crate::models::BulkVrfRequest>,
+    params: IpamVrfsBulkUpdateParams,
 ) -> Result<Vec<crate::models::Vrf>, Error<IpamVrfsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_vrf_request = params.bulk_vrf_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -40561,9 +44726,12 @@ pub async fn ipam_vrfs_bulk_update(
 /// Post a list of VRF objects.
 pub async fn ipam_vrfs_create(
     configuration: &configuration::Configuration,
-    ipam_vrfs_create_request: crate::models::IpamVrfsCreateRequest,
+    params: IpamVrfsCreateParams,
 ) -> Result<crate::models::Vrf, Error<IpamVrfsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ipam_vrfs_create_request = params.ipam_vrfs_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -40608,9 +44776,12 @@ pub async fn ipam_vrfs_create(
 /// Delete a VRF object.
 pub async fn ipam_vrfs_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: IpamVrfsDestroyParams,
 ) -> Result<(), Error<IpamVrfsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -40658,110 +44829,113 @@ pub async fn ipam_vrfs_destroy(
 /// Get a list of VRF objects.
 pub async fn ipam_vrfs_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    enforce_unique: Option<bool>,
-    export_target: Option<Vec<String>>,
-    export_target__n: Option<Vec<String>>,
-    export_target_id: Option<Vec<i32>>,
-    export_target_id__n: Option<Vec<i32>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    import_target: Option<Vec<String>>,
-    import_target__n: Option<Vec<String>>,
-    import_target_id: Option<Vec<i32>>,
-    import_target_id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    rd: Option<Vec<String>>,
-    rd__empty: Option<bool>,
-    rd__ic: Option<Vec<String>>,
-    rd__ie: Option<Vec<String>>,
-    rd__iew: Option<Vec<String>>,
-    rd__iregex: Option<Vec<String>>,
-    rd__isw: Option<Vec<String>>,
-    rd__n: Option<Vec<String>>,
-    rd__nic: Option<Vec<String>>,
-    rd__nie: Option<Vec<String>>,
-    rd__niew: Option<Vec<String>>,
-    rd__nisw: Option<Vec<String>>,
-    rd__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    tenant: Option<Vec<String>>,
-    tenant__n: Option<Vec<String>>,
-    tenant_group: Option<Vec<String>>,
-    tenant_group__n: Option<Vec<String>>,
-    tenant_group_id: Option<Vec<String>>,
-    tenant_group_id__n: Option<Vec<String>>,
-    tenant_id: Option<Vec<i32>>,
-    tenant_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: IpamVrfsListParams,
 ) -> Result<crate::models::PaginatedVrfList, Error<IpamVrfsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let enforce_unique = params.enforce_unique;
+    let export_target = params.export_target;
+    let export_target__n = params.export_target__n;
+    let export_target_id = params.export_target_id;
+    let export_target_id__n = params.export_target_id__n;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let import_target = params.import_target;
+    let import_target__n = params.import_target__n;
+    let import_target_id = params.import_target_id;
+    let import_target_id__n = params.import_target_id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let rd = params.rd;
+    let rd__empty = params.rd__empty;
+    let rd__ic = params.rd__ic;
+    let rd__ie = params.rd__ie;
+    let rd__iew = params.rd__iew;
+    let rd__iregex = params.rd__iregex;
+    let rd__isw = params.rd__isw;
+    let rd__n = params.rd__n;
+    let rd__nic = params.rd__nic;
+    let rd__nie = params.rd__nie;
+    let rd__niew = params.rd__niew;
+    let rd__nisw = params.rd__nisw;
+    let rd__regex = params.rd__regex;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let tenant = params.tenant;
+    let tenant__n = params.tenant__n;
+    let tenant_group = params.tenant_group;
+    let tenant_group__n = params.tenant_group__n;
+    let tenant_group_id = params.tenant_group_id;
+    let tenant_group_id__n = params.tenant_group_id__n;
+    let tenant_id = params.tenant_id;
+    let tenant_id__n = params.tenant_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -42502,10 +46676,13 @@ pub async fn ipam_vrfs_list(
 /// Patch a VRF object.
 pub async fn ipam_vrfs_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_vrf_request: Option<crate::models::PatchedVrfRequest>,
+    params: IpamVrfsPartialUpdateParams,
 ) -> Result<crate::models::Vrf, Error<IpamVrfsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_vrf_request = params.patched_vrf_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -42554,12 +46731,15 @@ pub async fn ipam_vrfs_partial_update(
 /// Get a VRF object.
 pub async fn ipam_vrfs_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: IpamVrfsRetrieveParams,
 ) -> Result<crate::models::Vrf, Error<IpamVrfsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -42619,10 +46799,13 @@ pub async fn ipam_vrfs_retrieve(
 /// Put a VRF object.
 pub async fn ipam_vrfs_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    vrf_request: crate::models::VrfRequest,
+    params: IpamVrfsUpdateParams,
 ) -> Result<crate::models::Vrf, Error<IpamVrfsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let vrf_request = params.vrf_request;
 
     let local_var_client = &local_var_configuration.client;
 

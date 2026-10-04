@@ -133,7 +133,7 @@ $GENERATOR_CMD \
     -i "$SCHEMA_FILE" \
     -g "$GENERATOR" \
     -o "$OUTPUT_DIR" \
-    --additional-properties=packageName=netbox-openapi,packageVersion="${PACKAGE_VERSION}"
+    --additional-properties=packageName=netbox-openapi,packageVersion="${PACKAGE_VERSION}",useSingleRequestParameter=true
 
 # restore Cargo.toml
 cp "${CARGO_TOML_BACKUP}" "${HOST_OUTPUT_DIR}/Cargo.toml"

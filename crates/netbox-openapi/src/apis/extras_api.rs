@@ -13,6 +13,3406 @@ use reqwest;
 use super::{Error, configuration};
 use crate::apis::ResponseContent;
 
+/// struct for passing parameters to the method [`extras_bookmarks_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasBookmarksBulkDestroyParams {
+    pub bookmark_request: Vec<crate::models::BookmarkRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_bookmarks_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasBookmarksBulkPartialUpdateParams {
+    pub patched_bulk_bookmark_request: Vec<crate::models::PatchedBulkBookmarkRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_bookmarks_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasBookmarksBulkUpdateParams {
+    pub bulk_bookmark_request: Vec<crate::models::BulkBookmarkRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_bookmarks_create`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasBookmarksCreateParams {
+    pub extras_bookmarks_create_request: crate::models::ExtrasBookmarksCreateRequest,
+}
+
+/// struct for passing parameters to the method [`extras_bookmarks_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasBookmarksDestroyParams {
+    /// A unique integer value identifying this bookmark.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`extras_bookmarks_list`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasBookmarksListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<String>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub object_id: Option<Vec<i32>>,
+    pub object_id__empty: Option<bool>,
+    pub object_id__gt: Option<Vec<i32>>,
+    pub object_id__gte: Option<Vec<i32>>,
+    pub object_id__lt: Option<Vec<i32>>,
+    pub object_id__lte: Option<Vec<i32>>,
+    pub object_id__n: Option<Vec<i32>>,
+    pub object_type: Option<Vec<String>>,
+    pub object_type__n: Option<Vec<String>>,
+    pub object_type_id: Option<Vec<i32>>,
+    pub object_type_id__empty: Option<Vec<i32>>,
+    pub object_type_id__gt: Option<Vec<i32>>,
+    pub object_type_id__gte: Option<Vec<i32>>,
+    pub object_type_id__lt: Option<Vec<i32>>,
+    pub object_type_id__lte: Option<Vec<i32>>,
+    pub object_type_id__n: Option<Vec<i32>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    /// User (name)
+    pub user: Option<Vec<String>>,
+    /// User (name)
+    pub user__n: Option<Vec<String>>,
+    /// User (ID)
+    pub user_id: Option<Vec<i32>>,
+    /// User (ID)
+    pub user_id__n: Option<Vec<i32>>,
+}
+
+/// struct for passing parameters to the method [`extras_bookmarks_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasBookmarksPartialUpdateParams {
+    /// A unique integer value identifying this bookmark.
+    pub id: i32,
+    pub patched_bookmark_request: Option<crate::models::PatchedBookmarkRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_bookmarks_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasBookmarksRetrieveParams {
+    /// A unique integer value identifying this bookmark.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_bookmarks_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasBookmarksUpdateParams {
+    /// A unique integer value identifying this bookmark.
+    pub id: i32,
+    pub bookmark_request: crate::models::BookmarkRequest,
+}
+
+/// struct for passing parameters to the method [`extras_config_context_profiles_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigContextProfilesBulkDestroyParams {
+    pub config_context_profile_request: Vec<crate::models::ConfigContextProfileRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_config_context_profiles_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigContextProfilesBulkPartialUpdateParams {
+    pub patched_bulk_config_context_profile_request:
+        Vec<crate::models::PatchedBulkConfigContextProfileRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_config_context_profiles_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigContextProfilesBulkUpdateParams {
+    pub bulk_config_context_profile_request: Vec<crate::models::BulkConfigContextProfileRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_config_context_profiles_create`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigContextProfilesCreateParams {
+    pub extras_config_context_profiles_create_request:
+        crate::models::ExtrasConfigContextProfilesCreateRequest,
+}
+
+/// struct for passing parameters to the method [`extras_config_context_profiles_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigContextProfilesDestroyParams {
+    /// A unique integer value identifying this config context profile.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`extras_config_context_profiles_list`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigContextProfilesListParams {
+    pub auto_sync_enabled: Option<bool>,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    /// Data file (ID)
+    pub data_file_id: Option<Vec<i32>>,
+    /// Data file (ID)
+    pub data_file_id__n: Option<Vec<i32>>,
+    /// Data source (ID)
+    pub data_source_id: Option<Vec<i32>>,
+    /// Data source (ID)
+    pub data_source_id__n: Option<Vec<i32>>,
+    pub data_synced: Option<Vec<String>>,
+    pub data_synced__empty: Option<bool>,
+    pub data_synced__gt: Option<Vec<String>>,
+    pub data_synced__gte: Option<Vec<String>>,
+    pub data_synced__lt: Option<Vec<String>>,
+    pub data_synced__lte: Option<Vec<String>>,
+    pub data_synced__n: Option<Vec<String>>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_config_context_profiles_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigContextProfilesPartialUpdateParams {
+    /// A unique integer value identifying this config context profile.
+    pub id: i32,
+    pub patched_config_context_profile_request:
+        Option<crate::models::PatchedConfigContextProfileRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_config_context_profiles_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigContextProfilesRetrieveParams {
+    /// A unique integer value identifying this config context profile.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_config_context_profiles_sync_create`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigContextProfilesSyncCreateParams {
+    /// A unique integer value identifying this config context profile.
+    pub id: i32,
+    pub config_context_profile_request: crate::models::ConfigContextProfileRequest,
+}
+
+/// struct for passing parameters to the method [`extras_config_context_profiles_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigContextProfilesUpdateParams {
+    /// A unique integer value identifying this config context profile.
+    pub id: i32,
+    pub config_context_profile_request: crate::models::ConfigContextProfileRequest,
+}
+
+/// struct for passing parameters to the method [`extras_config_contexts_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigContextsBulkDestroyParams {
+    pub config_context_request: Vec<crate::models::ConfigContextRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_config_contexts_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigContextsBulkPartialUpdateParams {
+    pub patched_bulk_config_context_request: Vec<crate::models::PatchedBulkConfigContextRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_config_contexts_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigContextsBulkUpdateParams {
+    pub bulk_config_context_request: Vec<crate::models::BulkConfigContextRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_config_contexts_create`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigContextsCreateParams {
+    pub extras_config_contexts_create_request: crate::models::ExtrasConfigContextsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`extras_config_contexts_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigContextsDestroyParams {
+    /// A unique integer value identifying this config context.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`extras_config_contexts_list`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigContextsListParams {
+    pub auto_sync_enabled: Option<bool>,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Cluster group (slug)
+    pub cluster_group: Option<Vec<String>>,
+    /// Cluster group (slug)
+    pub cluster_group__n: Option<Vec<String>>,
+    /// Cluster group
+    pub cluster_group_id: Option<Vec<i32>>,
+    /// Cluster group
+    pub cluster_group_id__n: Option<Vec<i32>>,
+    /// Cluster
+    pub cluster_id: Option<Vec<i32>>,
+    /// Cluster
+    pub cluster_id__n: Option<Vec<i32>>,
+    /// Cluster type (slug)
+    pub cluster_type: Option<Vec<String>>,
+    /// Cluster type (slug)
+    pub cluster_type__n: Option<Vec<String>>,
+    /// Cluster type
+    pub cluster_type_id: Option<Vec<i32>>,
+    /// Cluster type
+    pub cluster_type_id__n: Option<Vec<i32>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    /// Data file (ID)
+    pub data_file_id: Option<Vec<i32>>,
+    /// Data file (ID)
+    pub data_file_id__n: Option<Vec<i32>>,
+    /// Data source (ID)
+    pub data_source_id: Option<Vec<i32>>,
+    /// Data source (ID)
+    pub data_source_id__n: Option<Vec<i32>>,
+    pub data_synced: Option<Vec<String>>,
+    pub data_synced__empty: Option<bool>,
+    pub data_synced__gt: Option<Vec<String>>,
+    pub data_synced__gte: Option<Vec<String>>,
+    pub data_synced__lt: Option<Vec<String>>,
+    pub data_synced__lte: Option<Vec<String>>,
+    pub data_synced__n: Option<Vec<String>>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Role (slug)
+    pub device_role: Option<Vec<String>>,
+    /// Role (slug)
+    pub device_role__n: Option<Vec<String>>,
+    /// Role
+    pub device_role_id: Option<Vec<i32>>,
+    /// Role
+    pub device_role_id__n: Option<Vec<i32>>,
+    /// Device type
+    pub device_type_id: Option<Vec<i32>>,
+    /// Device type
+    pub device_type_id__n: Option<Vec<i32>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub is_active: Option<bool>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    /// Location (slug)
+    pub location: Option<Vec<String>>,
+    /// Location (slug)
+    pub location__n: Option<Vec<String>>,
+    /// Location
+    pub location_id: Option<Vec<i32>>,
+    /// Location
+    pub location_id__n: Option<Vec<i32>>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Platform (slug)
+    pub platform: Option<Vec<String>>,
+    /// Platform (slug)
+    pub platform__n: Option<Vec<String>>,
+    /// Platform
+    pub platform_id: Option<Vec<i32>>,
+    /// Platform
+    pub platform_id__n: Option<Vec<i32>>,
+    /// Profile (name)
+    pub profile: Option<Vec<String>>,
+    /// Profile (name)
+    pub profile__n: Option<Vec<String>>,
+    /// Profile (ID)
+    pub profile_id: Option<Vec<i32>>,
+    /// Profile (ID)
+    pub profile_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    /// Region (slug)
+    pub region: Option<Vec<String>>,
+    /// Region (slug)
+    pub region__n: Option<Vec<String>>,
+    /// Region
+    pub region_id: Option<Vec<i32>>,
+    /// Region
+    pub region_id__n: Option<Vec<i32>>,
+    /// Site (slug)
+    pub site: Option<Vec<String>>,
+    /// Site (slug)
+    pub site__n: Option<Vec<String>>,
+    /// Site group (slug)
+    pub site_group: Option<Vec<String>>,
+    /// Site group (slug)
+    pub site_group__n: Option<Vec<String>>,
+    /// Site group
+    pub site_group_id: Option<Vec<i32>>,
+    /// Site group
+    pub site_group_id__n: Option<Vec<i32>>,
+    /// Site
+    pub site_id: Option<Vec<i32>>,
+    /// Site
+    pub site_id__n: Option<Vec<i32>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    /// Tag (slug)
+    pub tag: Option<Vec<String>>,
+    /// Tag (slug)
+    pub tag__n: Option<Vec<String>>,
+    /// Tag
+    pub tag_id: Option<Vec<i32>>,
+    /// Tag
+    pub tag_id__n: Option<Vec<i32>>,
+    /// Tenant (slug)
+    pub tenant: Option<Vec<String>>,
+    /// Tenant (slug)
+    pub tenant__n: Option<Vec<String>>,
+    /// Tenant group (slug)
+    pub tenant_group: Option<Vec<String>>,
+    /// Tenant group (slug)
+    pub tenant_group__n: Option<Vec<String>>,
+    /// Tenant group
+    pub tenant_group_id: Option<Vec<i32>>,
+    /// Tenant group
+    pub tenant_group_id__n: Option<Vec<i32>>,
+    /// Tenant
+    pub tenant_id: Option<Vec<i32>>,
+    /// Tenant
+    pub tenant_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+    pub weight: Option<Vec<i32>>,
+    pub weight__empty: Option<bool>,
+    pub weight__gt: Option<Vec<i32>>,
+    pub weight__gte: Option<Vec<i32>>,
+    pub weight__lt: Option<Vec<i32>>,
+    pub weight__lte: Option<Vec<i32>>,
+    pub weight__n: Option<Vec<i32>>,
+}
+
+/// struct for passing parameters to the method [`extras_config_contexts_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigContextsPartialUpdateParams {
+    /// A unique integer value identifying this config context.
+    pub id: i32,
+    pub patched_config_context_request: Option<crate::models::PatchedConfigContextRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_config_contexts_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigContextsRetrieveParams {
+    /// A unique integer value identifying this config context.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_config_contexts_sync_create`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigContextsSyncCreateParams {
+    /// A unique integer value identifying this config context.
+    pub id: i32,
+    pub config_context_request: crate::models::ConfigContextRequest,
+}
+
+/// struct for passing parameters to the method [`extras_config_contexts_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigContextsUpdateParams {
+    /// A unique integer value identifying this config context.
+    pub id: i32,
+    pub config_context_request: crate::models::ConfigContextRequest,
+}
+
+/// struct for passing parameters to the method [`extras_config_templates_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigTemplatesBulkDestroyParams {
+    pub config_template_request: Vec<crate::models::ConfigTemplateRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_config_templates_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigTemplatesBulkPartialUpdateParams {
+    pub patched_bulk_config_template_request: Vec<crate::models::PatchedBulkConfigTemplateRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_config_templates_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigTemplatesBulkUpdateParams {
+    pub bulk_config_template_request: Vec<crate::models::BulkConfigTemplateRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_config_templates_create`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigTemplatesCreateParams {
+    pub extras_config_templates_create_request: crate::models::ExtrasConfigTemplatesCreateRequest,
+}
+
+/// struct for passing parameters to the method [`extras_config_templates_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigTemplatesDestroyParams {
+    /// A unique integer value identifying this config template.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`extras_config_templates_list`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigTemplatesListParams {
+    pub as_attachment: Option<bool>,
+    pub auto_sync_enabled: Option<bool>,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    /// Data file (ID)
+    pub data_file_id: Option<Vec<i32>>,
+    /// Data file (ID)
+    pub data_file_id__n: Option<Vec<i32>>,
+    /// Data source (ID)
+    pub data_source_id: Option<Vec<i32>>,
+    /// Data source (ID)
+    pub data_source_id__n: Option<Vec<i32>>,
+    pub data_synced: Option<Vec<String>>,
+    pub data_synced__empty: Option<bool>,
+    pub data_synced__gt: Option<Vec<String>>,
+    pub data_synced__gte: Option<Vec<String>>,
+    pub data_synced__lt: Option<Vec<String>>,
+    pub data_synced__lte: Option<Vec<String>>,
+    pub data_synced__n: Option<Vec<String>>,
+    pub debug: Option<bool>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub file_extension: Option<Vec<String>>,
+    pub file_extension__empty: Option<bool>,
+    pub file_extension__ic: Option<Vec<String>>,
+    pub file_extension__ie: Option<Vec<String>>,
+    pub file_extension__iew: Option<Vec<String>>,
+    pub file_extension__iregex: Option<Vec<String>>,
+    pub file_extension__isw: Option<Vec<String>>,
+    pub file_extension__n: Option<Vec<String>>,
+    pub file_extension__nic: Option<Vec<String>>,
+    pub file_extension__nie: Option<Vec<String>>,
+    pub file_extension__niew: Option<Vec<String>>,
+    pub file_extension__nisw: Option<Vec<String>>,
+    pub file_extension__regex: Option<Vec<String>>,
+    pub file_name: Option<Vec<String>>,
+    pub file_name__empty: Option<bool>,
+    pub file_name__ic: Option<Vec<String>>,
+    pub file_name__ie: Option<Vec<String>>,
+    pub file_name__iew: Option<Vec<String>>,
+    pub file_name__iregex: Option<Vec<String>>,
+    pub file_name__isw: Option<Vec<String>>,
+    pub file_name__n: Option<Vec<String>>,
+    pub file_name__nic: Option<Vec<String>>,
+    pub file_name__nie: Option<Vec<String>>,
+    pub file_name__niew: Option<Vec<String>>,
+    pub file_name__nisw: Option<Vec<String>>,
+    pub file_name__regex: Option<Vec<String>>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub mime_type: Option<Vec<String>>,
+    pub mime_type__empty: Option<bool>,
+    pub mime_type__ic: Option<Vec<String>>,
+    pub mime_type__ie: Option<Vec<String>>,
+    pub mime_type__iew: Option<Vec<String>>,
+    pub mime_type__iregex: Option<Vec<String>>,
+    pub mime_type__isw: Option<Vec<String>>,
+    pub mime_type__n: Option<Vec<String>>,
+    pub mime_type__nic: Option<Vec<String>>,
+    pub mime_type__nie: Option<Vec<String>>,
+    pub mime_type__niew: Option<Vec<String>>,
+    pub mime_type__nisw: Option<Vec<String>>,
+    pub mime_type__regex: Option<Vec<String>>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_config_templates_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigTemplatesPartialUpdateParams {
+    /// A unique integer value identifying this config template.
+    pub id: i32,
+    pub patched_config_template_request: Option<crate::models::PatchedConfigTemplateRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_config_templates_render_create`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigTemplatesRenderCreateParams {
+    /// A unique integer value identifying this config template.
+    pub id: i32,
+    pub format: Option<String>,
+    pub request_body: Option<::std::collections::HashMap<String, serde_json::Value>>,
+}
+
+/// struct for passing parameters to the method [`extras_config_templates_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigTemplatesRetrieveParams {
+    /// A unique integer value identifying this config template.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_config_templates_sync_create`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigTemplatesSyncCreateParams {
+    /// A unique integer value identifying this config template.
+    pub id: i32,
+    pub config_template_request: crate::models::ConfigTemplateRequest,
+}
+
+/// struct for passing parameters to the method [`extras_config_templates_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasConfigTemplatesUpdateParams {
+    /// A unique integer value identifying this config template.
+    pub id: i32,
+    pub config_template_request: crate::models::ConfigTemplateRequest,
+}
+
+/// struct for passing parameters to the method [`extras_custom_field_choice_sets_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomFieldChoiceSetsBulkDestroyParams {
+    pub custom_field_choice_set_request: Vec<crate::models::CustomFieldChoiceSetRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_custom_field_choice_sets_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomFieldChoiceSetsBulkPartialUpdateParams {
+    pub patched_bulk_custom_field_choice_set_request:
+        Vec<crate::models::PatchedBulkCustomFieldChoiceSetRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_custom_field_choice_sets_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomFieldChoiceSetsBulkUpdateParams {
+    pub bulk_custom_field_choice_set_request: Vec<crate::models::BulkCustomFieldChoiceSetRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_custom_field_choice_sets_choices_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomFieldChoiceSetsChoicesRetrieveParams {
+    /// A unique integer value identifying this custom field choice set.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_custom_field_choice_sets_create`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomFieldChoiceSetsCreateParams {
+    pub extras_custom_field_choice_sets_create_request:
+        crate::models::ExtrasCustomFieldChoiceSetsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`extras_custom_field_choice_sets_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomFieldChoiceSetsDestroyParams {
+    /// A unique integer value identifying this custom field choice set.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`extras_custom_field_choice_sets_list`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomFieldChoiceSetsListParams {
+    /// Base set of predefined choices (optional)  * `IATA` - IATA (Airport codes) * `ISO_3166` - ISO 3166 (Country codes) * `UN_LOCODE` - UN/LOCODE (Location codes)
+    pub base_choices: Option<String>,
+    pub base_choices__empty: Option<bool>,
+    pub base_choices__ic: Option<Vec<String>>,
+    pub base_choices__ie: Option<Vec<String>>,
+    pub base_choices__iew: Option<Vec<String>>,
+    pub base_choices__iregex: Option<Vec<String>>,
+    pub base_choices__isw: Option<Vec<String>>,
+    /// Base set of predefined choices (optional)  * `IATA` - IATA (Airport codes) * `ISO_3166` - ISO 3166 (Country codes) * `UN_LOCODE` - UN/LOCODE (Location codes)
+    pub base_choices__n: Option<String>,
+    pub base_choices__nic: Option<Vec<String>>,
+    pub base_choices__nie: Option<Vec<String>>,
+    pub base_choices__niew: Option<Vec<String>>,
+    pub base_choices__nisw: Option<Vec<String>>,
+    pub base_choices__regex: Option<Vec<String>>,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub choice: Option<Vec<String>>,
+    /// Choice colors
+    pub choice_colors: Option<Vec<serde_json::Value>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    pub order_alphabetically: Option<bool>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_custom_field_choice_sets_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomFieldChoiceSetsPartialUpdateParams {
+    /// A unique integer value identifying this custom field choice set.
+    pub id: i32,
+    pub patched_writable_custom_field_choice_set_request:
+        Option<crate::models::PatchedWritableCustomFieldChoiceSetRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_custom_field_choice_sets_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomFieldChoiceSetsRetrieveParams {
+    /// A unique integer value identifying this custom field choice set.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_custom_field_choice_sets_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomFieldChoiceSetsUpdateParams {
+    /// A unique integer value identifying this custom field choice set.
+    pub id: i32,
+    pub writable_custom_field_choice_set_request:
+        crate::models::WritableCustomFieldChoiceSetRequest,
+}
+
+/// struct for passing parameters to the method [`extras_custom_fields_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomFieldsBulkDestroyParams {
+    pub custom_field_request: Vec<crate::models::CustomFieldRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_custom_fields_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomFieldsBulkPartialUpdateParams {
+    pub patched_bulk_custom_field_request: Vec<crate::models::PatchedBulkCustomFieldRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_custom_fields_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomFieldsBulkUpdateParams {
+    pub bulk_custom_field_request: Vec<crate::models::BulkCustomFieldRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_custom_fields_create`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomFieldsCreateParams {
+    pub extras_custom_fields_create_request: crate::models::ExtrasCustomFieldsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`extras_custom_fields_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomFieldsDestroyParams {
+    /// A unique integer value identifying this custom field.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`extras_custom_fields_list`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomFieldsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub choice_set: Option<Vec<String>>,
+    pub choice_set__n: Option<Vec<String>>,
+    pub choice_set_id: Option<Vec<i32>>,
+    pub choice_set_id__n: Option<Vec<i32>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Loose matches any instance of a given string; exact matches the entire field.  * `disabled` - Disabled * `loose` - Loose * `exact` - Exact
+    pub filter_logic: Option<String>,
+    pub filter_logic__empty: Option<bool>,
+    pub filter_logic__ic: Option<Vec<String>>,
+    pub filter_logic__ie: Option<Vec<String>>,
+    pub filter_logic__iew: Option<Vec<String>>,
+    pub filter_logic__iregex: Option<Vec<String>>,
+    pub filter_logic__isw: Option<Vec<String>>,
+    /// Loose matches any instance of a given string; exact matches the entire field.  * `disabled` - Disabled * `loose` - Loose * `exact` - Exact
+    pub filter_logic__n: Option<String>,
+    pub filter_logic__nic: Option<Vec<String>>,
+    pub filter_logic__nie: Option<Vec<String>>,
+    pub filter_logic__niew: Option<Vec<String>>,
+    pub filter_logic__nisw: Option<Vec<String>>,
+    pub filter_logic__regex: Option<Vec<String>>,
+    pub group_name: Option<Vec<String>>,
+    pub group_name__empty: Option<bool>,
+    pub group_name__ic: Option<Vec<String>>,
+    pub group_name__ie: Option<Vec<String>>,
+    pub group_name__iew: Option<Vec<String>>,
+    pub group_name__iregex: Option<Vec<String>>,
+    pub group_name__isw: Option<Vec<String>>,
+    pub group_name__n: Option<Vec<String>>,
+    pub group_name__nic: Option<Vec<String>>,
+    pub group_name__nie: Option<Vec<String>>,
+    pub group_name__niew: Option<Vec<String>>,
+    pub group_name__nisw: Option<Vec<String>>,
+    pub group_name__regex: Option<Vec<String>>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub is_cloneable: Option<bool>,
+    pub label: Option<Vec<String>>,
+    pub label__empty: Option<bool>,
+    pub label__ic: Option<Vec<String>>,
+    pub label__ie: Option<Vec<String>>,
+    pub label__iew: Option<Vec<String>>,
+    pub label__iregex: Option<Vec<String>>,
+    pub label__isw: Option<Vec<String>>,
+    pub label__n: Option<Vec<String>>,
+    pub label__nic: Option<Vec<String>>,
+    pub label__nie: Option<Vec<String>>,
+    pub label__niew: Option<Vec<String>>,
+    pub label__nisw: Option<Vec<String>>,
+    pub label__regex: Option<Vec<String>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    pub nulls_first: Option<bool>,
+    pub object_type: Option<Vec<String>>,
+    pub object_type__ic: Option<Vec<String>>,
+    pub object_type__ie: Option<Vec<String>>,
+    pub object_type__iew: Option<Vec<String>>,
+    pub object_type__iregex: Option<Vec<String>>,
+    pub object_type__isw: Option<Vec<String>>,
+    pub object_type__n: Option<Vec<String>>,
+    pub object_type__nic: Option<Vec<String>>,
+    pub object_type__nie: Option<Vec<String>>,
+    pub object_type__niew: Option<Vec<String>>,
+    pub object_type__nisw: Option<Vec<String>>,
+    pub object_type__regex: Option<Vec<String>>,
+    pub object_type_id: Option<Vec<i32>>,
+    pub object_type_id__n: Option<Vec<i32>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub related_object_type: Option<Vec<String>>,
+    pub related_object_type__n: Option<Vec<String>>,
+    pub related_object_type_id: Option<Vec<i32>>,
+    pub related_object_type_id__n: Option<Vec<i32>>,
+    pub required: Option<bool>,
+    pub search_weight: Option<Vec<i32>>,
+    pub search_weight__empty: Option<bool>,
+    pub search_weight__gt: Option<Vec<i32>>,
+    pub search_weight__gte: Option<Vec<i32>>,
+    pub search_weight__lt: Option<Vec<i32>>,
+    pub search_weight__lte: Option<Vec<i32>>,
+    pub search_weight__n: Option<Vec<i32>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    /// Operational state of the field  * `active` - Active * `provisioning` - Provisioning * `deleting` - Deleting
+    pub status: Option<String>,
+    pub status__empty: Option<bool>,
+    pub status__ic: Option<Vec<String>>,
+    pub status__ie: Option<Vec<String>>,
+    pub status__iew: Option<Vec<String>>,
+    pub status__iregex: Option<Vec<String>>,
+    pub status__isw: Option<Vec<String>>,
+    /// Operational state of the field  * `active` - Active * `provisioning` - Provisioning * `deleting` - Deleting
+    pub status__n: Option<String>,
+    pub status__nic: Option<Vec<String>>,
+    pub status__nie: Option<Vec<String>>,
+    pub status__niew: Option<Vec<String>>,
+    pub status__nisw: Option<Vec<String>>,
+    pub status__regex: Option<Vec<String>>,
+    /// The type of data this custom field holds
+    pub r#type: Option<Vec<String>>,
+    pub type__empty: Option<bool>,
+    /// The type of data this custom field holds
+    pub type__ic: Option<Vec<String>>,
+    /// The type of data this custom field holds
+    pub type__ie: Option<Vec<String>>,
+    /// The type of data this custom field holds
+    pub type__iew: Option<Vec<String>>,
+    /// The type of data this custom field holds
+    pub type__iregex: Option<Vec<String>>,
+    /// The type of data this custom field holds
+    pub type__isw: Option<Vec<String>>,
+    /// The type of data this custom field holds
+    pub type__n: Option<Vec<String>>,
+    /// The type of data this custom field holds
+    pub type__nic: Option<Vec<String>>,
+    /// The type of data this custom field holds
+    pub type__nie: Option<Vec<String>>,
+    /// The type of data this custom field holds
+    pub type__niew: Option<Vec<String>>,
+    /// The type of data this custom field holds
+    pub type__nisw: Option<Vec<String>>,
+    /// The type of data this custom field holds
+    pub type__regex: Option<Vec<String>>,
+    /// Specifies whether the custom field value can be edited in the UI  * `yes` - Yes * `no` - No * `hidden` - Hidden
+    pub ui_editable: Option<String>,
+    pub ui_editable__empty: Option<bool>,
+    pub ui_editable__ic: Option<Vec<String>>,
+    pub ui_editable__ie: Option<Vec<String>>,
+    pub ui_editable__iew: Option<Vec<String>>,
+    pub ui_editable__iregex: Option<Vec<String>>,
+    pub ui_editable__isw: Option<Vec<String>>,
+    /// Specifies whether the custom field value can be edited in the UI  * `yes` - Yes * `no` - No * `hidden` - Hidden
+    pub ui_editable__n: Option<String>,
+    pub ui_editable__nic: Option<Vec<String>>,
+    pub ui_editable__nie: Option<Vec<String>>,
+    pub ui_editable__niew: Option<Vec<String>>,
+    pub ui_editable__nisw: Option<Vec<String>>,
+    pub ui_editable__regex: Option<Vec<String>>,
+    /// Specifies whether the custom field is displayed in the UI  * `always` - Always * `if-set` - If set * `hidden` - Hidden
+    pub ui_visible: Option<String>,
+    pub ui_visible__empty: Option<bool>,
+    pub ui_visible__ic: Option<Vec<String>>,
+    pub ui_visible__ie: Option<Vec<String>>,
+    pub ui_visible__iew: Option<Vec<String>>,
+    pub ui_visible__iregex: Option<Vec<String>>,
+    pub ui_visible__isw: Option<Vec<String>>,
+    /// Specifies whether the custom field is displayed in the UI  * `always` - Always * `if-set` - If set * `hidden` - Hidden
+    pub ui_visible__n: Option<String>,
+    pub ui_visible__nic: Option<Vec<String>>,
+    pub ui_visible__nie: Option<Vec<String>>,
+    pub ui_visible__niew: Option<Vec<String>>,
+    pub ui_visible__nisw: Option<Vec<String>>,
+    pub ui_visible__regex: Option<Vec<String>>,
+    pub unique: Option<bool>,
+    pub updated_by_request: Option<String>,
+    pub validation_maximum: Option<Vec<f64>>,
+    pub validation_maximum__empty: Option<bool>,
+    pub validation_maximum__gt: Option<Vec<f64>>,
+    pub validation_maximum__gte: Option<Vec<f64>>,
+    pub validation_maximum__lt: Option<Vec<f64>>,
+    pub validation_maximum__lte: Option<Vec<f64>>,
+    pub validation_maximum__n: Option<Vec<f64>>,
+    pub validation_minimum: Option<Vec<f64>>,
+    pub validation_minimum__empty: Option<bool>,
+    pub validation_minimum__gt: Option<Vec<f64>>,
+    pub validation_minimum__gte: Option<Vec<f64>>,
+    pub validation_minimum__lt: Option<Vec<f64>>,
+    pub validation_minimum__lte: Option<Vec<f64>>,
+    pub validation_minimum__n: Option<Vec<f64>>,
+    pub validation_regex: Option<Vec<String>>,
+    pub validation_regex__empty: Option<bool>,
+    pub validation_regex__ic: Option<Vec<String>>,
+    pub validation_regex__ie: Option<Vec<String>>,
+    pub validation_regex__iew: Option<Vec<String>>,
+    pub validation_regex__iregex: Option<Vec<String>>,
+    pub validation_regex__isw: Option<Vec<String>>,
+    pub validation_regex__n: Option<Vec<String>>,
+    pub validation_regex__nic: Option<Vec<String>>,
+    pub validation_regex__nie: Option<Vec<String>>,
+    pub validation_regex__niew: Option<Vec<String>>,
+    pub validation_regex__nisw: Option<Vec<String>>,
+    pub validation_regex__regex: Option<Vec<String>>,
+    pub weight: Option<Vec<i32>>,
+    pub weight__empty: Option<bool>,
+    pub weight__gt: Option<Vec<i32>>,
+    pub weight__gte: Option<Vec<i32>>,
+    pub weight__lt: Option<Vec<i32>>,
+    pub weight__lte: Option<Vec<i32>>,
+    pub weight__n: Option<Vec<i32>>,
+}
+
+/// struct for passing parameters to the method [`extras_custom_fields_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomFieldsPartialUpdateParams {
+    /// A unique integer value identifying this custom field.
+    pub id: i32,
+    pub patched_writable_custom_field_request:
+        Option<crate::models::PatchedWritableCustomFieldRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_custom_fields_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomFieldsRetrieveParams {
+    /// A unique integer value identifying this custom field.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_custom_fields_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomFieldsUpdateParams {
+    /// A unique integer value identifying this custom field.
+    pub id: i32,
+    pub writable_custom_field_request: crate::models::WritableCustomFieldRequest,
+}
+
+/// struct for passing parameters to the method [`extras_custom_links_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomLinksBulkDestroyParams {
+    pub custom_link_request: Vec<crate::models::CustomLinkRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_custom_links_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomLinksBulkPartialUpdateParams {
+    pub patched_bulk_custom_link_request: Vec<crate::models::PatchedBulkCustomLinkRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_custom_links_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomLinksBulkUpdateParams {
+    pub bulk_custom_link_request: Vec<crate::models::BulkCustomLinkRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_custom_links_create`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomLinksCreateParams {
+    pub extras_custom_links_create_request: crate::models::ExtrasCustomLinksCreateRequest,
+}
+
+/// struct for passing parameters to the method [`extras_custom_links_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomLinksDestroyParams {
+    /// A unique integer value identifying this custom link.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`extras_custom_links_list`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomLinksListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// The class of the first link in a group will be used for the dropdown button  * `default` - Default * `blue` - Blue * `indigo` - Indigo * `purple` - Purple * `pink` - Pink * `red` - Red * `orange` - Orange * `yellow` - Yellow * `green` - Green * `teal` - Teal * `cyan` - Cyan * `gray` - Gray * `black` - Black * `white` - White * `ghost-dark` - Link
+    pub button_class: Option<String>,
+    pub button_class__empty: Option<bool>,
+    pub button_class__ic: Option<Vec<String>>,
+    pub button_class__ie: Option<Vec<String>>,
+    pub button_class__iew: Option<Vec<String>>,
+    pub button_class__iregex: Option<Vec<String>>,
+    pub button_class__isw: Option<Vec<String>>,
+    /// The class of the first link in a group will be used for the dropdown button  * `default` - Default * `blue` - Blue * `indigo` - Indigo * `purple` - Purple * `pink` - Pink * `red` - Red * `orange` - Orange * `yellow` - Yellow * `green` - Green * `teal` - Teal * `cyan` - Cyan * `gray` - Gray * `black` - Black * `white` - White * `ghost-dark` - Link
+    pub button_class__n: Option<String>,
+    pub button_class__nic: Option<Vec<String>>,
+    pub button_class__nie: Option<Vec<String>>,
+    pub button_class__niew: Option<Vec<String>>,
+    pub button_class__nisw: Option<Vec<String>>,
+    pub button_class__regex: Option<Vec<String>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub enabled: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub group_name: Option<Vec<String>>,
+    pub group_name__empty: Option<bool>,
+    pub group_name__ic: Option<Vec<String>>,
+    pub group_name__ie: Option<Vec<String>>,
+    pub group_name__iew: Option<Vec<String>>,
+    pub group_name__iregex: Option<Vec<String>>,
+    pub group_name__isw: Option<Vec<String>>,
+    pub group_name__n: Option<Vec<String>>,
+    pub group_name__nic: Option<Vec<String>>,
+    pub group_name__nie: Option<Vec<String>>,
+    pub group_name__niew: Option<Vec<String>>,
+    pub group_name__nisw: Option<Vec<String>>,
+    pub group_name__regex: Option<Vec<String>>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub link_text: Option<String>,
+    pub link_text__ic: Option<String>,
+    pub link_text__ie: Option<String>,
+    pub link_text__iew: Option<String>,
+    pub link_text__iregex: Option<String>,
+    pub link_text__isw: Option<String>,
+    pub link_text__n: Option<String>,
+    pub link_text__nic: Option<String>,
+    pub link_text__nie: Option<String>,
+    pub link_text__niew: Option<String>,
+    pub link_text__nisw: Option<String>,
+    pub link_text__regex: Option<String>,
+    pub link_url: Option<String>,
+    pub link_url__ic: Option<String>,
+    pub link_url__ie: Option<String>,
+    pub link_url__iew: Option<String>,
+    pub link_url__iregex: Option<String>,
+    pub link_url__isw: Option<String>,
+    pub link_url__n: Option<String>,
+    pub link_url__nic: Option<String>,
+    pub link_url__nie: Option<String>,
+    pub link_url__niew: Option<String>,
+    pub link_url__nisw: Option<String>,
+    pub link_url__regex: Option<String>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    pub new_window: Option<bool>,
+    pub object_type: Option<Vec<String>>,
+    pub object_type__ic: Option<Vec<String>>,
+    pub object_type__ie: Option<Vec<String>>,
+    pub object_type__iew: Option<Vec<String>>,
+    pub object_type__iregex: Option<Vec<String>>,
+    pub object_type__isw: Option<Vec<String>>,
+    pub object_type__n: Option<Vec<String>>,
+    pub object_type__nic: Option<Vec<String>>,
+    pub object_type__nie: Option<Vec<String>>,
+    pub object_type__niew: Option<Vec<String>>,
+    pub object_type__nisw: Option<Vec<String>>,
+    pub object_type__regex: Option<Vec<String>>,
+    pub object_type_id: Option<Vec<i32>>,
+    pub object_type_id__n: Option<Vec<i32>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub updated_by_request: Option<String>,
+    pub weight: Option<Vec<i32>>,
+    pub weight__empty: Option<bool>,
+    pub weight__gt: Option<Vec<i32>>,
+    pub weight__gte: Option<Vec<i32>>,
+    pub weight__lt: Option<Vec<i32>>,
+    pub weight__lte: Option<Vec<i32>>,
+    pub weight__n: Option<Vec<i32>>,
+}
+
+/// struct for passing parameters to the method [`extras_custom_links_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomLinksPartialUpdateParams {
+    /// A unique integer value identifying this custom link.
+    pub id: i32,
+    pub patched_custom_link_request: Option<crate::models::PatchedCustomLinkRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_custom_links_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomLinksRetrieveParams {
+    /// A unique integer value identifying this custom link.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_custom_links_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasCustomLinksUpdateParams {
+    /// A unique integer value identifying this custom link.
+    pub id: i32,
+    pub custom_link_request: crate::models::CustomLinkRequest,
+}
+
+/// struct for passing parameters to the method [`extras_dashboard_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasDashboardPartialUpdateParams {
+    pub patched_dashboard_request: Option<crate::models::PatchedDashboardRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_dashboard_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasDashboardRetrieveParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_dashboard_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasDashboardUpdateParams {
+    pub dashboard_request: Option<crate::models::DashboardRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_event_rules_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasEventRulesBulkDestroyParams {
+    pub event_rule_request: Vec<crate::models::EventRuleRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_event_rules_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasEventRulesBulkPartialUpdateParams {
+    pub patched_bulk_event_rule_request: Vec<crate::models::PatchedBulkEventRuleRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_event_rules_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasEventRulesBulkUpdateParams {
+    pub bulk_event_rule_request: Vec<crate::models::BulkEventRuleRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_event_rules_create`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasEventRulesCreateParams {
+    pub extras_event_rules_create_request: crate::models::ExtrasEventRulesCreateRequest,
+}
+
+/// struct for passing parameters to the method [`extras_event_rules_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasEventRulesDestroyParams {
+    /// A unique integer value identifying this event rule.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`extras_event_rules_list`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasEventRulesListParams {
+    /// Action available
+    pub action_is_available: Option<bool>,
+    pub action_object_id: Option<Vec<i32>>,
+    pub action_object_id__empty: Option<Vec<i32>>,
+    pub action_object_id__gt: Option<Vec<i32>>,
+    pub action_object_id__gte: Option<Vec<i32>>,
+    pub action_object_id__lt: Option<Vec<i32>>,
+    pub action_object_id__lte: Option<Vec<i32>>,
+    pub action_object_id__n: Option<Vec<i32>>,
+    pub action_object_type: Option<Vec<String>>,
+    pub action_object_type__n: Option<Vec<String>>,
+    pub action_type: Option<Vec<String>>,
+    pub action_type__empty: Option<bool>,
+    pub action_type__ic: Option<Vec<String>>,
+    pub action_type__ie: Option<Vec<String>>,
+    pub action_type__iew: Option<Vec<String>>,
+    pub action_type__iregex: Option<Vec<String>>,
+    pub action_type__isw: Option<Vec<String>>,
+    pub action_type__n: Option<Vec<String>>,
+    pub action_type__nic: Option<Vec<String>>,
+    pub action_type__nie: Option<Vec<String>>,
+    pub action_type__niew: Option<Vec<String>>,
+    pub action_type__nisw: Option<Vec<String>>,
+    pub action_type__regex: Option<Vec<String>>,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    pub enabled: Option<bool>,
+    pub event_type: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    pub object_type: Option<Vec<String>>,
+    pub object_type__ic: Option<Vec<String>>,
+    pub object_type__ie: Option<Vec<String>>,
+    pub object_type__iew: Option<Vec<String>>,
+    pub object_type__iregex: Option<Vec<String>>,
+    pub object_type__isw: Option<Vec<String>>,
+    pub object_type__n: Option<Vec<String>>,
+    pub object_type__nic: Option<Vec<String>>,
+    pub object_type__nie: Option<Vec<String>>,
+    pub object_type__niew: Option<Vec<String>>,
+    pub object_type__nisw: Option<Vec<String>>,
+    pub object_type__regex: Option<Vec<String>>,
+    pub object_type_id: Option<Vec<i32>>,
+    pub object_type_id__n: Option<Vec<i32>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_event_rules_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasEventRulesPartialUpdateParams {
+    /// A unique integer value identifying this event rule.
+    pub id: i32,
+    pub patched_writable_event_rule_request: Option<crate::models::PatchedWritableEventRuleRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_event_rules_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasEventRulesRetrieveParams {
+    /// A unique integer value identifying this event rule.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_event_rules_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasEventRulesUpdateParams {
+    /// A unique integer value identifying this event rule.
+    pub id: i32,
+    pub writable_event_rule_request: crate::models::WritableEventRuleRequest,
+}
+
+/// struct for passing parameters to the method [`extras_export_templates_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasExportTemplatesBulkDestroyParams {
+    pub export_template_request: Vec<crate::models::ExportTemplateRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_export_templates_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasExportTemplatesBulkPartialUpdateParams {
+    pub patched_bulk_export_template_request: Vec<crate::models::PatchedBulkExportTemplateRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_export_templates_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasExportTemplatesBulkUpdateParams {
+    pub bulk_export_template_request: Vec<crate::models::BulkExportTemplateRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_export_templates_create`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasExportTemplatesCreateParams {
+    pub extras_export_templates_create_request: crate::models::ExtrasExportTemplatesCreateRequest,
+}
+
+/// struct for passing parameters to the method [`extras_export_templates_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasExportTemplatesDestroyParams {
+    /// A unique integer value identifying this export template.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`extras_export_templates_list`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasExportTemplatesListParams {
+    pub as_attachment: Option<bool>,
+    pub auto_sync_enabled: Option<bool>,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    /// Data file (ID)
+    pub data_file_id: Option<Vec<i32>>,
+    /// Data file (ID)
+    pub data_file_id__n: Option<Vec<i32>>,
+    /// Data source (ID)
+    pub data_source_id: Option<Vec<i32>>,
+    /// Data source (ID)
+    pub data_source_id__n: Option<Vec<i32>>,
+    pub data_synced: Option<Vec<String>>,
+    pub data_synced__empty: Option<bool>,
+    pub data_synced__gt: Option<Vec<String>>,
+    pub data_synced__gte: Option<Vec<String>>,
+    pub data_synced__lt: Option<Vec<String>>,
+    pub data_synced__lte: Option<Vec<String>>,
+    pub data_synced__n: Option<Vec<String>>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub file_extension: Option<Vec<String>>,
+    pub file_extension__empty: Option<bool>,
+    pub file_extension__ic: Option<Vec<String>>,
+    pub file_extension__ie: Option<Vec<String>>,
+    pub file_extension__iew: Option<Vec<String>>,
+    pub file_extension__iregex: Option<Vec<String>>,
+    pub file_extension__isw: Option<Vec<String>>,
+    pub file_extension__n: Option<Vec<String>>,
+    pub file_extension__nic: Option<Vec<String>>,
+    pub file_extension__nie: Option<Vec<String>>,
+    pub file_extension__niew: Option<Vec<String>>,
+    pub file_extension__nisw: Option<Vec<String>>,
+    pub file_extension__regex: Option<Vec<String>>,
+    pub file_name: Option<Vec<String>>,
+    pub file_name__empty: Option<bool>,
+    pub file_name__ic: Option<Vec<String>>,
+    pub file_name__ie: Option<Vec<String>>,
+    pub file_name__iew: Option<Vec<String>>,
+    pub file_name__iregex: Option<Vec<String>>,
+    pub file_name__isw: Option<Vec<String>>,
+    pub file_name__n: Option<Vec<String>>,
+    pub file_name__nic: Option<Vec<String>>,
+    pub file_name__nie: Option<Vec<String>>,
+    pub file_name__niew: Option<Vec<String>>,
+    pub file_name__nisw: Option<Vec<String>>,
+    pub file_name__regex: Option<Vec<String>>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub mime_type: Option<Vec<String>>,
+    pub mime_type__empty: Option<bool>,
+    pub mime_type__ic: Option<Vec<String>>,
+    pub mime_type__ie: Option<Vec<String>>,
+    pub mime_type__iew: Option<Vec<String>>,
+    pub mime_type__iregex: Option<Vec<String>>,
+    pub mime_type__isw: Option<Vec<String>>,
+    pub mime_type__n: Option<Vec<String>>,
+    pub mime_type__nic: Option<Vec<String>>,
+    pub mime_type__nie: Option<Vec<String>>,
+    pub mime_type__niew: Option<Vec<String>>,
+    pub mime_type__nisw: Option<Vec<String>>,
+    pub mime_type__regex: Option<Vec<String>>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    pub object_type: Option<Vec<String>>,
+    pub object_type__ic: Option<Vec<String>>,
+    pub object_type__ie: Option<Vec<String>>,
+    pub object_type__iew: Option<Vec<String>>,
+    pub object_type__iregex: Option<Vec<String>>,
+    pub object_type__isw: Option<Vec<String>>,
+    pub object_type__n: Option<Vec<String>>,
+    pub object_type__nic: Option<Vec<String>>,
+    pub object_type__nie: Option<Vec<String>>,
+    pub object_type__niew: Option<Vec<String>>,
+    pub object_type__nisw: Option<Vec<String>>,
+    pub object_type__regex: Option<Vec<String>>,
+    pub object_type_id: Option<Vec<i32>>,
+    pub object_type_id__n: Option<Vec<i32>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_export_templates_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasExportTemplatesPartialUpdateParams {
+    /// A unique integer value identifying this export template.
+    pub id: i32,
+    pub patched_export_template_request: Option<crate::models::PatchedExportTemplateRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_export_templates_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasExportTemplatesRetrieveParams {
+    /// A unique integer value identifying this export template.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_export_templates_sync_create`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasExportTemplatesSyncCreateParams {
+    /// A unique integer value identifying this export template.
+    pub id: i32,
+    pub export_template_request: crate::models::ExportTemplateRequest,
+}
+
+/// struct for passing parameters to the method [`extras_export_templates_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasExportTemplatesUpdateParams {
+    /// A unique integer value identifying this export template.
+    pub id: i32,
+    pub export_template_request: crate::models::ExportTemplateRequest,
+}
+
+/// struct for passing parameters to the method [`extras_image_attachments_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasImageAttachmentsBulkDestroyParams {
+    pub image_attachment_request: Vec<crate::models::ImageAttachmentRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_image_attachments_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasImageAttachmentsBulkPartialUpdateParams {
+    pub patched_bulk_image_attachment_request:
+        Vec<crate::models::PatchedBulkImageAttachmentRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_image_attachments_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasImageAttachmentsBulkUpdateParams {
+    pub bulk_image_attachment_request: Vec<crate::models::BulkImageAttachmentRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_image_attachments_create`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasImageAttachmentsCreateParams {
+    pub extras_image_attachments_create_request: crate::models::ExtrasImageAttachmentsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`extras_image_attachments_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasImageAttachmentsDestroyParams {
+    /// A unique integer value identifying this image attachment.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`extras_image_attachments_list`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasImageAttachmentsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub image_height: Option<Vec<i32>>,
+    pub image_height__empty: Option<bool>,
+    pub image_height__gt: Option<Vec<i32>>,
+    pub image_height__gte: Option<Vec<i32>>,
+    pub image_height__lt: Option<Vec<i32>>,
+    pub image_height__lte: Option<Vec<i32>>,
+    pub image_height__n: Option<Vec<i32>>,
+    pub image_size: Option<Vec<i32>>,
+    pub image_size__empty: Option<bool>,
+    pub image_size__gt: Option<Vec<i32>>,
+    pub image_size__gte: Option<Vec<i32>>,
+    pub image_size__lt: Option<Vec<i32>>,
+    pub image_size__lte: Option<Vec<i32>>,
+    pub image_size__n: Option<Vec<i32>>,
+    pub image_width: Option<Vec<i32>>,
+    pub image_width__empty: Option<bool>,
+    pub image_width__gt: Option<Vec<i32>>,
+    pub image_width__gte: Option<Vec<i32>>,
+    pub image_width__lt: Option<Vec<i32>>,
+    pub image_width__lte: Option<Vec<i32>>,
+    pub image_width__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    pub object_id: Option<Vec<i32>>,
+    pub object_id__empty: Option<bool>,
+    pub object_id__gt: Option<Vec<i32>>,
+    pub object_id__gte: Option<Vec<i32>>,
+    pub object_id__lt: Option<Vec<i32>>,
+    pub object_id__lte: Option<Vec<i32>>,
+    pub object_id__n: Option<Vec<i32>>,
+    pub object_type: Option<Vec<String>>,
+    pub object_type__n: Option<Vec<String>>,
+    pub object_type_id: Option<i32>,
+    pub object_type_id__n: Option<i32>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Search
+    pub q: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_image_attachments_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasImageAttachmentsPartialUpdateParams {
+    /// A unique integer value identifying this image attachment.
+    pub id: i32,
+    pub patched_image_attachment_request: Option<crate::models::PatchedImageAttachmentRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_image_attachments_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasImageAttachmentsRetrieveParams {
+    /// A unique integer value identifying this image attachment.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_image_attachments_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasImageAttachmentsUpdateParams {
+    /// A unique integer value identifying this image attachment.
+    pub id: i32,
+    pub image_attachment_request: crate::models::ImageAttachmentRequest,
+}
+
+/// struct for passing parameters to the method [`extras_journal_entries_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasJournalEntriesBulkDestroyParams {
+    pub journal_entry_request: Vec<crate::models::JournalEntryRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_journal_entries_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasJournalEntriesBulkPartialUpdateParams {
+    pub patched_bulk_journal_entry_request: Vec<crate::models::PatchedBulkJournalEntryRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_journal_entries_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasJournalEntriesBulkUpdateParams {
+    pub bulk_journal_entry_request: Vec<crate::models::BulkJournalEntryRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_journal_entries_create`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasJournalEntriesCreateParams {
+    pub extras_journal_entries_create_request: crate::models::ExtrasJournalEntriesCreateRequest,
+}
+
+/// struct for passing parameters to the method [`extras_journal_entries_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasJournalEntriesDestroyParams {
+    /// A unique integer value identifying this journal entry.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`extras_journal_entries_list`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasJournalEntriesListParams {
+    pub assigned_object_id: Option<Vec<i32>>,
+    pub assigned_object_id__empty: Option<bool>,
+    pub assigned_object_id__gt: Option<Vec<i32>>,
+    pub assigned_object_id__gte: Option<Vec<i32>>,
+    pub assigned_object_id__lt: Option<Vec<i32>>,
+    pub assigned_object_id__lte: Option<Vec<i32>>,
+    pub assigned_object_id__n: Option<Vec<i32>>,
+    pub assigned_object_type: Option<Vec<String>>,
+    pub assigned_object_type__n: Option<Vec<String>>,
+    pub assigned_object_type_id: Option<Vec<i32>>,
+    pub assigned_object_type_id__n: Option<Vec<i32>>,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created_after: Option<String>,
+    pub created_before: Option<String>,
+    /// User (name)
+    pub created_by: Option<Vec<String>>,
+    /// User (name)
+    pub created_by__n: Option<Vec<String>>,
+    /// User (ID)
+    pub created_by_id: Option<Vec<i32>>,
+    /// User (ID)
+    pub created_by_id__n: Option<Vec<i32>>,
+    pub created_by_request: Option<String>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub kind: Option<Vec<String>>,
+    pub kind__empty: Option<bool>,
+    pub kind__ic: Option<Vec<String>>,
+    pub kind__ie: Option<Vec<String>>,
+    pub kind__iew: Option<Vec<String>>,
+    pub kind__iregex: Option<Vec<String>>,
+    pub kind__isw: Option<Vec<String>>,
+    pub kind__n: Option<Vec<String>>,
+    pub kind__nic: Option<Vec<String>>,
+    pub kind__nie: Option<Vec<String>>,
+    pub kind__niew: Option<Vec<String>>,
+    pub kind__nisw: Option<Vec<String>>,
+    pub kind__regex: Option<Vec<String>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Search
+    pub q: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_journal_entries_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasJournalEntriesPartialUpdateParams {
+    /// A unique integer value identifying this journal entry.
+    pub id: i32,
+    pub patched_writable_journal_entry_request:
+        Option<crate::models::PatchedWritableJournalEntryRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_journal_entries_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasJournalEntriesRetrieveParams {
+    /// A unique integer value identifying this journal entry.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_journal_entries_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasJournalEntriesUpdateParams {
+    /// A unique integer value identifying this journal entry.
+    pub id: i32,
+    pub writable_journal_entry_request: crate::models::WritableJournalEntryRequest,
+}
+
+/// struct for passing parameters to the method [`extras_notification_groups_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasNotificationGroupsBulkDestroyParams {
+    pub notification_group_request: Vec<crate::models::NotificationGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_notification_groups_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasNotificationGroupsBulkPartialUpdateParams {
+    pub patched_bulk_notification_group_request:
+        Vec<crate::models::PatchedBulkNotificationGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_notification_groups_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasNotificationGroupsBulkUpdateParams {
+    pub bulk_notification_group_request: Vec<crate::models::BulkNotificationGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_notification_groups_create`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasNotificationGroupsCreateParams {
+    pub extras_notification_groups_create_request:
+        crate::models::ExtrasNotificationGroupsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`extras_notification_groups_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasNotificationGroupsDestroyParams {
+    /// A unique integer value identifying this notification group.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`extras_notification_groups_list`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasNotificationGroupsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+}
+
+/// struct for passing parameters to the method [`extras_notification_groups_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasNotificationGroupsPartialUpdateParams {
+    /// A unique integer value identifying this notification group.
+    pub id: i32,
+    pub patched_notification_group_request: Option<crate::models::PatchedNotificationGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_notification_groups_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasNotificationGroupsRetrieveParams {
+    /// A unique integer value identifying this notification group.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_notification_groups_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasNotificationGroupsUpdateParams {
+    /// A unique integer value identifying this notification group.
+    pub id: i32,
+    pub notification_group_request: crate::models::NotificationGroupRequest,
+}
+
+/// struct for passing parameters to the method [`extras_notifications_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasNotificationsBulkDestroyParams {
+    pub notification_request: Vec<crate::models::NotificationRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_notifications_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasNotificationsBulkPartialUpdateParams {
+    pub patched_bulk_notification_request: Vec<crate::models::PatchedBulkNotificationRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_notifications_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasNotificationsBulkUpdateParams {
+    pub bulk_notification_request: Vec<crate::models::BulkNotificationRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_notifications_create`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasNotificationsCreateParams {
+    pub extras_notifications_create_request: crate::models::ExtrasNotificationsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`extras_notifications_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasNotificationsDestroyParams {
+    /// A unique integer value identifying this notification.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`extras_notifications_list`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasNotificationsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+}
+
+/// struct for passing parameters to the method [`extras_notifications_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasNotificationsPartialUpdateParams {
+    /// A unique integer value identifying this notification.
+    pub id: i32,
+    pub patched_notification_request: Option<crate::models::PatchedNotificationRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_notifications_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasNotificationsRetrieveParams {
+    /// A unique integer value identifying this notification.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_notifications_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasNotificationsUpdateParams {
+    /// A unique integer value identifying this notification.
+    pub id: i32,
+    pub notification_request: crate::models::NotificationRequest,
+}
+
+/// struct for passing parameters to the method [`extras_saved_filters_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasSavedFiltersBulkDestroyParams {
+    pub saved_filter_request: Vec<crate::models::SavedFilterRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_saved_filters_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasSavedFiltersBulkPartialUpdateParams {
+    pub patched_bulk_saved_filter_request: Vec<crate::models::PatchedBulkSavedFilterRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_saved_filters_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasSavedFiltersBulkUpdateParams {
+    pub bulk_saved_filter_request: Vec<crate::models::BulkSavedFilterRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_saved_filters_create`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasSavedFiltersCreateParams {
+    pub extras_saved_filters_create_request: crate::models::ExtrasSavedFiltersCreateRequest,
+}
+
+/// struct for passing parameters to the method [`extras_saved_filters_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasSavedFiltersDestroyParams {
+    /// A unique integer value identifying this saved filter.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`extras_saved_filters_list`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasSavedFiltersListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    pub enabled: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    pub object_type: Option<Vec<String>>,
+    pub object_type__ic: Option<Vec<String>>,
+    pub object_type__ie: Option<Vec<String>>,
+    pub object_type__iew: Option<Vec<String>>,
+    pub object_type__iregex: Option<Vec<String>>,
+    pub object_type__isw: Option<Vec<String>>,
+    pub object_type__n: Option<Vec<String>>,
+    pub object_type__nic: Option<Vec<String>>,
+    pub object_type__nie: Option<Vec<String>>,
+    pub object_type__niew: Option<Vec<String>>,
+    pub object_type__nisw: Option<Vec<String>>,
+    pub object_type__regex: Option<Vec<String>>,
+    pub object_type_id: Option<Vec<i32>>,
+    pub object_type_id__n: Option<Vec<i32>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub shared: Option<bool>,
+    pub slug: Option<Vec<String>>,
+    pub slug__empty: Option<bool>,
+    pub slug__ic: Option<Vec<String>>,
+    pub slug__ie: Option<Vec<String>>,
+    pub slug__iew: Option<Vec<String>>,
+    pub slug__iregex: Option<Vec<String>>,
+    pub slug__isw: Option<Vec<String>>,
+    pub slug__n: Option<Vec<String>>,
+    pub slug__nic: Option<Vec<String>>,
+    pub slug__nie: Option<Vec<String>>,
+    pub slug__niew: Option<Vec<String>>,
+    pub slug__nisw: Option<Vec<String>>,
+    pub slug__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub updated_by_request: Option<String>,
+    pub usable: Option<bool>,
+    /// User (name)
+    pub user: Option<Vec<String>>,
+    /// User (name)
+    pub user__n: Option<Vec<String>>,
+    /// User (ID)
+    pub user_id: Option<Vec<i32>>,
+    /// User (ID)
+    pub user_id__n: Option<Vec<i32>>,
+    pub weight: Option<Vec<i32>>,
+    pub weight__empty: Option<bool>,
+    pub weight__gt: Option<Vec<i32>>,
+    pub weight__gte: Option<Vec<i32>>,
+    pub weight__lt: Option<Vec<i32>>,
+    pub weight__lte: Option<Vec<i32>>,
+    pub weight__n: Option<Vec<i32>>,
+}
+
+/// struct for passing parameters to the method [`extras_saved_filters_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasSavedFiltersPartialUpdateParams {
+    /// A unique integer value identifying this saved filter.
+    pub id: i32,
+    pub patched_saved_filter_request: Option<crate::models::PatchedSavedFilterRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_saved_filters_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasSavedFiltersRetrieveParams {
+    /// A unique integer value identifying this saved filter.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_saved_filters_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasSavedFiltersUpdateParams {
+    /// A unique integer value identifying this saved filter.
+    pub id: i32,
+    pub saved_filter_request: crate::models::SavedFilterRequest,
+}
+
+/// struct for passing parameters to the method [`extras_scripts_list`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasScriptsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub is_executable: Option<bool>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    /// Script module (ID)
+    pub module_id: Option<Vec<i32>>,
+    /// Script module (ID)
+    pub module_id__n: Option<Vec<i32>>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Search
+    pub q: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+}
+
+/// struct for passing parameters to the method [`extras_scripts_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasScriptsRetrieveParams {
+    pub id: String,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_scripts_run`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasScriptsRunParams {
+    pub id: String,
+    pub script_input_request: crate::models::ScriptInputRequest,
+}
+
+/// struct for passing parameters to the method [`extras_scripts_upload_create`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasScriptsUploadCreateParams {
+    pub script_module_request: crate::models::ScriptModuleRequest,
+}
+
+/// struct for passing parameters to the method [`extras_scripts_upload_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasScriptsUploadPartialUpdateParams {
+    pub id: String,
+    pub patched_script_module_request: Option<crate::models::PatchedScriptModuleRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_scripts_upload_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasScriptsUploadUpdateParams {
+    pub id: String,
+    pub script_module_request: crate::models::ScriptModuleRequest,
+}
+
+/// struct for passing parameters to the method [`extras_subscriptions_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasSubscriptionsBulkDestroyParams {
+    pub subscription_request: Vec<crate::models::SubscriptionRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_subscriptions_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasSubscriptionsBulkPartialUpdateParams {
+    pub patched_bulk_subscription_request: Vec<crate::models::PatchedBulkSubscriptionRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_subscriptions_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasSubscriptionsBulkUpdateParams {
+    pub bulk_subscription_request: Vec<crate::models::BulkSubscriptionRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_subscriptions_create`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasSubscriptionsCreateParams {
+    pub extras_subscriptions_create_request: crate::models::ExtrasSubscriptionsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`extras_subscriptions_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasSubscriptionsDestroyParams {
+    /// A unique integer value identifying this subscription.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`extras_subscriptions_list`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasSubscriptionsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+}
+
+/// struct for passing parameters to the method [`extras_subscriptions_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasSubscriptionsPartialUpdateParams {
+    /// A unique integer value identifying this subscription.
+    pub id: i32,
+    pub patched_subscription_request: Option<crate::models::PatchedSubscriptionRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_subscriptions_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasSubscriptionsRetrieveParams {
+    /// A unique integer value identifying this subscription.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_subscriptions_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasSubscriptionsUpdateParams {
+    /// A unique integer value identifying this subscription.
+    pub id: i32,
+    pub subscription_request: crate::models::SubscriptionRequest,
+}
+
+/// struct for passing parameters to the method [`extras_table_configs_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasTableConfigsBulkDestroyParams {
+    pub table_config_request: Vec<crate::models::TableConfigRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_table_configs_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasTableConfigsBulkPartialUpdateParams {
+    pub patched_bulk_table_config_request: Vec<crate::models::PatchedBulkTableConfigRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_table_configs_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasTableConfigsBulkUpdateParams {
+    pub bulk_table_config_request: Vec<crate::models::BulkTableConfigRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_table_configs_create`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasTableConfigsCreateParams {
+    pub extras_table_configs_create_request: crate::models::ExtrasTableConfigsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`extras_table_configs_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasTableConfigsDestroyParams {
+    /// A unique integer value identifying this table config.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`extras_table_configs_list`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasTableConfigsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    pub enabled: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    pub object_type: Option<Vec<String>>,
+    pub object_type__n: Option<Vec<String>>,
+    pub object_type_id: Option<Vec<i32>>,
+    pub object_type_id__n: Option<Vec<i32>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Search
+    pub q: Option<String>,
+    pub shared: Option<bool>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub table: Option<Vec<String>>,
+    pub table__empty: Option<bool>,
+    pub table__ic: Option<Vec<String>>,
+    pub table__ie: Option<Vec<String>>,
+    pub table__iew: Option<Vec<String>>,
+    pub table__iregex: Option<Vec<String>>,
+    pub table__isw: Option<Vec<String>>,
+    pub table__n: Option<Vec<String>>,
+    pub table__nic: Option<Vec<String>>,
+    pub table__nie: Option<Vec<String>>,
+    pub table__niew: Option<Vec<String>>,
+    pub table__nisw: Option<Vec<String>>,
+    pub table__regex: Option<Vec<String>>,
+    pub updated_by_request: Option<String>,
+    pub usable: Option<bool>,
+    /// User (name)
+    pub user: Option<Vec<String>>,
+    /// User (name)
+    pub user__n: Option<Vec<String>>,
+    /// User (ID)
+    pub user_id: Option<Vec<i32>>,
+    /// User (ID)
+    pub user_id__n: Option<Vec<i32>>,
+    pub weight: Option<Vec<i32>>,
+    pub weight__empty: Option<bool>,
+    pub weight__gt: Option<Vec<i32>>,
+    pub weight__gte: Option<Vec<i32>>,
+    pub weight__lt: Option<Vec<i32>>,
+    pub weight__lte: Option<Vec<i32>>,
+    pub weight__n: Option<Vec<i32>>,
+}
+
+/// struct for passing parameters to the method [`extras_table_configs_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasTableConfigsPartialUpdateParams {
+    /// A unique integer value identifying this table config.
+    pub id: i32,
+    pub patched_table_config_request: Option<crate::models::PatchedTableConfigRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_table_configs_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasTableConfigsRetrieveParams {
+    /// A unique integer value identifying this table config.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_table_configs_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasTableConfigsUpdateParams {
+    /// A unique integer value identifying this table config.
+    pub id: i32,
+    pub table_config_request: crate::models::TableConfigRequest,
+}
+
+/// struct for passing parameters to the method [`extras_tagged_objects_list`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasTaggedObjectsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub object_id: Option<Vec<i32>>,
+    pub object_id__empty: Option<bool>,
+    pub object_id__gt: Option<Vec<i32>>,
+    pub object_id__gte: Option<Vec<i32>>,
+    pub object_id__lt: Option<Vec<i32>>,
+    pub object_id__lte: Option<Vec<i32>>,
+    pub object_id__n: Option<Vec<i32>>,
+    pub object_type: Option<Vec<String>>,
+    pub object_type__n: Option<Vec<String>>,
+    pub object_type_id: Option<Vec<i32>>,
+    pub object_type_id__n: Option<Vec<i32>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Search
+    pub q: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+}
+
+/// struct for passing parameters to the method [`extras_tagged_objects_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasTaggedObjectsRetrieveParams {
+    /// A unique integer value identifying this tagged item.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_tags_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasTagsBulkDestroyParams {
+    pub tag_request: Vec<crate::models::TagRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_tags_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasTagsBulkPartialUpdateParams {
+    pub patched_bulk_tag_request: Vec<crate::models::PatchedBulkTagRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_tags_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasTagsBulkUpdateParams {
+    pub bulk_tag_request: Vec<crate::models::BulkTagRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_tags_create`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasTagsCreateParams {
+    pub extras_tags_create_request: crate::models::ExtrasTagsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`extras_tags_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasTagsDestroyParams {
+    /// A unique integer value identifying this tag.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`extras_tags_list`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasTagsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub color: Option<Vec<String>>,
+    pub color__empty: Option<bool>,
+    pub color__ic: Option<Vec<String>>,
+    pub color__ie: Option<Vec<String>>,
+    pub color__iew: Option<Vec<String>>,
+    pub color__iregex: Option<Vec<String>>,
+    pub color__isw: Option<Vec<String>>,
+    pub color__n: Option<Vec<String>>,
+    pub color__nic: Option<Vec<String>>,
+    pub color__nie: Option<Vec<String>>,
+    pub color__niew: Option<Vec<String>>,
+    pub color__nisw: Option<Vec<String>>,
+    pub color__regex: Option<Vec<String>>,
+    pub content_type: Option<Vec<String>>,
+    pub content_type_id: Option<Vec<i32>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub for_object_type_id: Option<Vec<i32>>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    pub object_types: Option<Vec<i32>>,
+    pub object_types__n: Option<Vec<i32>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub slug: Option<Vec<String>>,
+    pub slug__empty: Option<bool>,
+    pub slug__ic: Option<Vec<String>>,
+    pub slug__ie: Option<Vec<String>>,
+    pub slug__iew: Option<Vec<String>>,
+    pub slug__iregex: Option<Vec<String>>,
+    pub slug__isw: Option<Vec<String>>,
+    pub slug__n: Option<Vec<String>>,
+    pub slug__nic: Option<Vec<String>>,
+    pub slug__nie: Option<Vec<String>>,
+    pub slug__niew: Option<Vec<String>>,
+    pub slug__nisw: Option<Vec<String>>,
+    pub slug__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub updated_by_request: Option<String>,
+    pub weight: Option<Vec<i32>>,
+    pub weight__empty: Option<bool>,
+    pub weight__gt: Option<Vec<i32>>,
+    pub weight__gte: Option<Vec<i32>>,
+    pub weight__lt: Option<Vec<i32>>,
+    pub weight__lte: Option<Vec<i32>>,
+    pub weight__n: Option<Vec<i32>>,
+}
+
+/// struct for passing parameters to the method [`extras_tags_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasTagsPartialUpdateParams {
+    /// A unique integer value identifying this tag.
+    pub id: i32,
+    pub patched_tag_request: Option<crate::models::PatchedTagRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_tags_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasTagsRetrieveParams {
+    /// A unique integer value identifying this tag.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_tags_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasTagsUpdateParams {
+    /// A unique integer value identifying this tag.
+    pub id: i32,
+    pub tag_request: crate::models::TagRequest,
+}
+
+/// struct for passing parameters to the method [`extras_webhooks_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasWebhooksBulkDestroyParams {
+    pub webhook_request: Vec<crate::models::WebhookRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_webhooks_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasWebhooksBulkPartialUpdateParams {
+    pub patched_bulk_webhook_request: Vec<crate::models::PatchedBulkWebhookRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_webhooks_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasWebhooksBulkUpdateParams {
+    pub bulk_webhook_request: Vec<crate::models::BulkWebhookRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_webhooks_create`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasWebhooksCreateParams {
+    pub extras_webhooks_create_request: crate::models::ExtrasWebhooksCreateRequest,
+}
+
+/// struct for passing parameters to the method [`extras_webhooks_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasWebhooksDestroyParams {
+    /// A unique integer value identifying this webhook.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`extras_webhooks_list`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasWebhooksListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub ca_file_path: Option<Vec<String>>,
+    pub ca_file_path__empty: Option<bool>,
+    pub ca_file_path__ic: Option<Vec<String>>,
+    pub ca_file_path__ie: Option<Vec<String>>,
+    pub ca_file_path__iew: Option<Vec<String>>,
+    pub ca_file_path__iregex: Option<Vec<String>>,
+    pub ca_file_path__isw: Option<Vec<String>>,
+    pub ca_file_path__n: Option<Vec<String>>,
+    pub ca_file_path__nic: Option<Vec<String>>,
+    pub ca_file_path__nie: Option<Vec<String>>,
+    pub ca_file_path__niew: Option<Vec<String>>,
+    pub ca_file_path__nisw: Option<Vec<String>>,
+    pub ca_file_path__regex: Option<Vec<String>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub http_content_type: Option<Vec<String>>,
+    pub http_content_type__empty: Option<bool>,
+    pub http_content_type__ic: Option<Vec<String>>,
+    pub http_content_type__ie: Option<Vec<String>>,
+    pub http_content_type__iew: Option<Vec<String>>,
+    pub http_content_type__iregex: Option<Vec<String>>,
+    pub http_content_type__isw: Option<Vec<String>>,
+    pub http_content_type__n: Option<Vec<String>>,
+    pub http_content_type__nic: Option<Vec<String>>,
+    pub http_content_type__nie: Option<Vec<String>>,
+    pub http_content_type__niew: Option<Vec<String>>,
+    pub http_content_type__nisw: Option<Vec<String>>,
+    pub http_content_type__regex: Option<Vec<String>>,
+    pub http_method: Option<Vec<String>>,
+    pub http_method__empty: Option<bool>,
+    pub http_method__ic: Option<Vec<String>>,
+    pub http_method__ie: Option<Vec<String>>,
+    pub http_method__iew: Option<Vec<String>>,
+    pub http_method__iregex: Option<Vec<String>>,
+    pub http_method__isw: Option<Vec<String>>,
+    pub http_method__n: Option<Vec<String>>,
+    pub http_method__nic: Option<Vec<String>>,
+    pub http_method__nie: Option<Vec<String>>,
+    pub http_method__niew: Option<Vec<String>>,
+    pub http_method__nisw: Option<Vec<String>>,
+    pub http_method__regex: Option<Vec<String>>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    pub payload_url: Option<Vec<String>>,
+    /// Search
+    pub q: Option<String>,
+    pub secret: Option<Vec<String>>,
+    pub secret__empty: Option<bool>,
+    pub secret__ic: Option<Vec<String>>,
+    pub secret__ie: Option<Vec<String>>,
+    pub secret__iew: Option<Vec<String>>,
+    pub secret__iregex: Option<Vec<String>>,
+    pub secret__isw: Option<Vec<String>>,
+    pub secret__n: Option<Vec<String>>,
+    pub secret__nic: Option<Vec<String>>,
+    pub secret__nie: Option<Vec<String>>,
+    pub secret__niew: Option<Vec<String>>,
+    pub secret__nisw: Option<Vec<String>>,
+    pub secret__regex: Option<Vec<String>>,
+    pub ssl_verification: Option<bool>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub timeout: Option<Vec<i32>>,
+    pub timeout__empty: Option<bool>,
+    pub timeout__gt: Option<Vec<i32>>,
+    pub timeout__gte: Option<Vec<i32>>,
+    pub timeout__lt: Option<Vec<i32>>,
+    pub timeout__lte: Option<Vec<i32>>,
+    pub timeout__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_webhooks_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasWebhooksPartialUpdateParams {
+    /// A unique integer value identifying this webhook.
+    pub id: i32,
+    pub patched_webhook_request: Option<crate::models::PatchedWebhookRequest>,
+}
+
+/// struct for passing parameters to the method [`extras_webhooks_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasWebhooksRetrieveParams {
+    /// A unique integer value identifying this webhook.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`extras_webhooks_update`]
+#[derive(Clone, Debug, Default)]
+pub struct ExtrasWebhooksUpdateParams {
+    /// A unique integer value identifying this webhook.
+    pub id: i32,
+    pub webhook_request: crate::models::WebhookRequest,
+}
+
 /// struct for typed errors of method [`extras_bookmarks_bulk_destroy`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -1439,9 +4839,12 @@ pub enum ExtrasWebhooksUpdateError {
 /// Delete a list of bookmark objects.
 pub async fn extras_bookmarks_bulk_destroy(
     configuration: &configuration::Configuration,
-    bookmark_request: Vec<crate::models::BookmarkRequest>,
+    params: ExtrasBookmarksBulkDestroyParams,
 ) -> Result<(), Error<ExtrasBookmarksBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bookmark_request = params.bookmark_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -1489,9 +4892,12 @@ pub async fn extras_bookmarks_bulk_destroy(
 /// Patch a list of bookmark objects.
 pub async fn extras_bookmarks_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_bookmark_request: Vec<crate::models::PatchedBulkBookmarkRequest>,
+    params: ExtrasBookmarksBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::Bookmark>, Error<ExtrasBookmarksBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_bookmark_request = params.patched_bulk_bookmark_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -1539,9 +4945,12 @@ pub async fn extras_bookmarks_bulk_partial_update(
 /// Put a list of bookmark objects.
 pub async fn extras_bookmarks_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_bookmark_request: Vec<crate::models::BulkBookmarkRequest>,
+    params: ExtrasBookmarksBulkUpdateParams,
 ) -> Result<Vec<crate::models::Bookmark>, Error<ExtrasBookmarksBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_bookmark_request = params.bulk_bookmark_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -1589,9 +4998,12 @@ pub async fn extras_bookmarks_bulk_update(
 /// Post a list of bookmark objects.
 pub async fn extras_bookmarks_create(
     configuration: &configuration::Configuration,
-    extras_bookmarks_create_request: crate::models::ExtrasBookmarksCreateRequest,
+    params: ExtrasBookmarksCreateParams,
 ) -> Result<crate::models::Bookmark, Error<ExtrasBookmarksCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let extras_bookmarks_create_request = params.extras_bookmarks_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -1639,9 +5051,12 @@ pub async fn extras_bookmarks_create(
 /// Delete a bookmark object.
 pub async fn extras_bookmarks_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: ExtrasBookmarksDestroyParams,
 ) -> Result<(), Error<ExtrasBookmarksDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -1689,43 +5104,46 @@ pub async fn extras_bookmarks_destroy(
 /// Get a list of bookmark objects.
 pub async fn extras_bookmarks_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    created: Option<String>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    limit: Option<i32>,
-    object_id: Option<Vec<i32>>,
-    object_id__empty: Option<bool>,
-    object_id__gt: Option<Vec<i32>>,
-    object_id__gte: Option<Vec<i32>>,
-    object_id__lt: Option<Vec<i32>>,
-    object_id__lte: Option<Vec<i32>>,
-    object_id__n: Option<Vec<i32>>,
-    object_type: Option<Vec<String>>,
-    object_type__n: Option<Vec<String>>,
-    object_type_id: Option<Vec<i32>>,
-    object_type_id__empty: Option<Vec<i32>>,
-    object_type_id__gt: Option<Vec<i32>>,
-    object_type_id__gte: Option<Vec<i32>>,
-    object_type_id__lt: Option<Vec<i32>>,
-    object_type_id__lte: Option<Vec<i32>>,
-    object_type_id__n: Option<Vec<i32>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    start: Option<i32>,
-    user: Option<Vec<String>>,
-    user__n: Option<Vec<String>>,
-    user_id: Option<Vec<i32>>,
-    user_id__n: Option<Vec<i32>>,
+    params: ExtrasBookmarksListParams,
 ) -> Result<crate::models::PaginatedBookmarkList, Error<ExtrasBookmarksListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let created = params.created;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let limit = params.limit;
+    let object_id = params.object_id;
+    let object_id__empty = params.object_id__empty;
+    let object_id__gt = params.object_id__gt;
+    let object_id__gte = params.object_id__gte;
+    let object_id__lt = params.object_id__lt;
+    let object_id__lte = params.object_id__lte;
+    let object_id__n = params.object_id__n;
+    let object_type = params.object_type;
+    let object_type__n = params.object_type__n;
+    let object_type_id = params.object_type_id;
+    let object_type_id__empty = params.object_type_id__empty;
+    let object_type_id__gt = params.object_type_id__gt;
+    let object_type_id__gte = params.object_type_id__gte;
+    let object_type_id__lt = params.object_type_id__lt;
+    let object_type_id__lte = params.object_type_id__lte;
+    let object_type_id__n = params.object_type_id__n;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let start = params.start;
+    let user = params.user;
+    let user__n = params.user__n;
+    let user_id = params.user_id;
+    let user_id__n = params.user_id__n;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2287,10 +5705,13 @@ pub async fn extras_bookmarks_list(
 /// Patch a bookmark object.
 pub async fn extras_bookmarks_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_bookmark_request: Option<crate::models::PatchedBookmarkRequest>,
+    params: ExtrasBookmarksPartialUpdateParams,
 ) -> Result<crate::models::Bookmark, Error<ExtrasBookmarksPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_bookmark_request = params.patched_bookmark_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2339,12 +5760,15 @@ pub async fn extras_bookmarks_partial_update(
 /// Get a bookmark object.
 pub async fn extras_bookmarks_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: ExtrasBookmarksRetrieveParams,
 ) -> Result<crate::models::Bookmark, Error<ExtrasBookmarksRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2404,10 +5828,13 @@ pub async fn extras_bookmarks_retrieve(
 /// Put a bookmark object.
 pub async fn extras_bookmarks_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    bookmark_request: crate::models::BookmarkRequest,
+    params: ExtrasBookmarksUpdateParams,
 ) -> Result<crate::models::Bookmark, Error<ExtrasBookmarksUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let bookmark_request = params.bookmark_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2456,9 +5883,12 @@ pub async fn extras_bookmarks_update(
 /// Delete a list of config context profile objects.
 pub async fn extras_config_context_profiles_bulk_destroy(
     configuration: &configuration::Configuration,
-    config_context_profile_request: Vec<crate::models::ConfigContextProfileRequest>,
+    params: ExtrasConfigContextProfilesBulkDestroyParams,
 ) -> Result<(), Error<ExtrasConfigContextProfilesBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let config_context_profile_request = params.config_context_profile_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2506,14 +5936,16 @@ pub async fn extras_config_context_profiles_bulk_destroy(
 /// Patch a list of config context profile objects.
 pub async fn extras_config_context_profiles_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_config_context_profile_request: Vec<
-        crate::models::PatchedBulkConfigContextProfileRequest,
-    >,
+    params: ExtrasConfigContextProfilesBulkPartialUpdateParams,
 ) -> Result<
     Vec<crate::models::ConfigContextProfile>,
     Error<ExtrasConfigContextProfilesBulkPartialUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_config_context_profile_request =
+        params.patched_bulk_config_context_profile_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2562,12 +5994,15 @@ pub async fn extras_config_context_profiles_bulk_partial_update(
 /// Put a list of config context profile objects.
 pub async fn extras_config_context_profiles_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_config_context_profile_request: Vec<crate::models::BulkConfigContextProfileRequest>,
+    params: ExtrasConfigContextProfilesBulkUpdateParams,
 ) -> Result<
     Vec<crate::models::ConfigContextProfile>,
     Error<ExtrasConfigContextProfilesBulkUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_config_context_profile_request = params.bulk_config_context_profile_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2615,9 +6050,13 @@ pub async fn extras_config_context_profiles_bulk_update(
 /// Post a list of config context profile objects.
 pub async fn extras_config_context_profiles_create(
     configuration: &configuration::Configuration,
-    extras_config_context_profiles_create_request: crate::models::ExtrasConfigContextProfilesCreateRequest,
+    params: ExtrasConfigContextProfilesCreateParams,
 ) -> Result<crate::models::ConfigContextProfile, Error<ExtrasConfigContextProfilesCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let extras_config_context_profiles_create_request =
+        params.extras_config_context_profiles_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2666,9 +6105,12 @@ pub async fn extras_config_context_profiles_create(
 /// Delete a config context profile object.
 pub async fn extras_config_context_profiles_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: ExtrasConfigContextProfilesDestroyParams,
 ) -> Result<(), Error<ExtrasConfigContextProfilesDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2716,95 +6158,98 @@ pub async fn extras_config_context_profiles_destroy(
 /// Get a list of config context profile objects.
 pub async fn extras_config_context_profiles_list(
     configuration: &configuration::Configuration,
-    auto_sync_enabled: Option<bool>,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    data_file_id: Option<Vec<i32>>,
-    data_file_id__n: Option<Vec<i32>>,
-    data_source_id: Option<Vec<i32>>,
-    data_source_id__n: Option<Vec<i32>>,
-    data_synced: Option<Vec<String>>,
-    data_synced__empty: Option<bool>,
-    data_synced__gt: Option<Vec<String>>,
-    data_synced__gte: Option<Vec<String>>,
-    data_synced__lt: Option<Vec<String>>,
-    data_synced__lte: Option<Vec<String>>,
-    data_synced__n: Option<Vec<String>>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: ExtrasConfigContextProfilesListParams,
 ) -> Result<
     crate::models::PaginatedConfigContextProfileList,
     Error<ExtrasConfigContextProfilesListError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let auto_sync_enabled = params.auto_sync_enabled;
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let data_file_id = params.data_file_id;
+    let data_file_id__n = params.data_file_id__n;
+    let data_source_id = params.data_source_id;
+    let data_source_id__n = params.data_source_id__n;
+    let data_synced = params.data_synced;
+    let data_synced__empty = params.data_synced__empty;
+    let data_synced__gt = params.data_synced__gt;
+    let data_synced__gte = params.data_synced__gte;
+    let data_synced__lt = params.data_synced__lt;
+    let data_synced__lte = params.data_synced__lte;
+    let data_synced__n = params.data_synced__n;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4206,13 +7651,14 @@ pub async fn extras_config_context_profiles_list(
 /// Patch a config context profile object.
 pub async fn extras_config_context_profiles_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_config_context_profile_request: Option<
-        crate::models::PatchedConfigContextProfileRequest,
-    >,
+    params: ExtrasConfigContextProfilesPartialUpdateParams,
 ) -> Result<crate::models::ConfigContextProfile, Error<ExtrasConfigContextProfilesPartialUpdateError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_config_context_profile_request = params.patched_config_context_profile_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4261,12 +7707,15 @@ pub async fn extras_config_context_profiles_partial_update(
 /// Get a config context profile object.
 pub async fn extras_config_context_profiles_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: ExtrasConfigContextProfilesRetrieveParams,
 ) -> Result<crate::models::ConfigContextProfile, Error<ExtrasConfigContextProfilesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4326,11 +7775,14 @@ pub async fn extras_config_context_profiles_retrieve(
 /// Provide a /sync API endpoint to synchronize an object's data from its associated DataFile (if any).
 pub async fn extras_config_context_profiles_sync_create(
     configuration: &configuration::Configuration,
-    id: i32,
-    config_context_profile_request: crate::models::ConfigContextProfileRequest,
+    params: ExtrasConfigContextProfilesSyncCreateParams,
 ) -> Result<crate::models::ConfigContextProfile, Error<ExtrasConfigContextProfilesSyncCreateError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let config_context_profile_request = params.config_context_profile_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4379,10 +7831,13 @@ pub async fn extras_config_context_profiles_sync_create(
 /// Put a config context profile object.
 pub async fn extras_config_context_profiles_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    config_context_profile_request: crate::models::ConfigContextProfileRequest,
+    params: ExtrasConfigContextProfilesUpdateParams,
 ) -> Result<crate::models::ConfigContextProfile, Error<ExtrasConfigContextProfilesUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let config_context_profile_request = params.config_context_profile_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4431,9 +7886,12 @@ pub async fn extras_config_context_profiles_update(
 /// Delete a list of config context objects.
 pub async fn extras_config_contexts_bulk_destroy(
     configuration: &configuration::Configuration,
-    config_context_request: Vec<crate::models::ConfigContextRequest>,
+    params: ExtrasConfigContextsBulkDestroyParams,
 ) -> Result<(), Error<ExtrasConfigContextsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let config_context_request = params.config_context_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4481,9 +7939,12 @@ pub async fn extras_config_contexts_bulk_destroy(
 /// Patch a list of config context objects.
 pub async fn extras_config_contexts_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_config_context_request: Vec<crate::models::PatchedBulkConfigContextRequest>,
+    params: ExtrasConfigContextsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::ConfigContext>, Error<ExtrasConfigContextsBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_config_context_request = params.patched_bulk_config_context_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4531,9 +7992,12 @@ pub async fn extras_config_contexts_bulk_partial_update(
 /// Put a list of config context objects.
 pub async fn extras_config_contexts_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_config_context_request: Vec<crate::models::BulkConfigContextRequest>,
+    params: ExtrasConfigContextsBulkUpdateParams,
 ) -> Result<Vec<crate::models::ConfigContext>, Error<ExtrasConfigContextsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_config_context_request = params.bulk_config_context_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4581,9 +8045,12 @@ pub async fn extras_config_contexts_bulk_update(
 /// Post a list of config context objects.
 pub async fn extras_config_contexts_create(
     configuration: &configuration::Configuration,
-    extras_config_contexts_create_request: crate::models::ExtrasConfigContextsCreateRequest,
+    params: ExtrasConfigContextsCreateParams,
 ) -> Result<crate::models::ConfigContext, Error<ExtrasConfigContextsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let extras_config_contexts_create_request = params.extras_config_contexts_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4631,9 +8098,12 @@ pub async fn extras_config_contexts_create(
 /// Delete a config context object.
 pub async fn extras_config_contexts_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: ExtrasConfigContextsDestroyParams,
 ) -> Result<(), Error<ExtrasConfigContextsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4681,146 +8151,149 @@ pub async fn extras_config_contexts_destroy(
 /// Get a list of config context objects.
 pub async fn extras_config_contexts_list(
     configuration: &configuration::Configuration,
-    auto_sync_enabled: Option<bool>,
-    brief: Option<bool>,
-    cluster_group: Option<Vec<String>>,
-    cluster_group__n: Option<Vec<String>>,
-    cluster_group_id: Option<Vec<i32>>,
-    cluster_group_id__n: Option<Vec<i32>>,
-    cluster_id: Option<Vec<i32>>,
-    cluster_id__n: Option<Vec<i32>>,
-    cluster_type: Option<Vec<String>>,
-    cluster_type__n: Option<Vec<String>>,
-    cluster_type_id: Option<Vec<i32>>,
-    cluster_type_id__n: Option<Vec<i32>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    data_file_id: Option<Vec<i32>>,
-    data_file_id__n: Option<Vec<i32>>,
-    data_source_id: Option<Vec<i32>>,
-    data_source_id__n: Option<Vec<i32>>,
-    data_synced: Option<Vec<String>>,
-    data_synced__empty: Option<bool>,
-    data_synced__gt: Option<Vec<String>>,
-    data_synced__gte: Option<Vec<String>>,
-    data_synced__lt: Option<Vec<String>>,
-    data_synced__lte: Option<Vec<String>>,
-    data_synced__n: Option<Vec<String>>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    device_role: Option<Vec<String>>,
-    device_role__n: Option<Vec<String>>,
-    device_role_id: Option<Vec<i32>>,
-    device_role_id__n: Option<Vec<i32>>,
-    device_type_id: Option<Vec<i32>>,
-    device_type_id__n: Option<Vec<i32>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    is_active: Option<bool>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    location: Option<Vec<String>>,
-    location__n: Option<Vec<String>>,
-    location_id: Option<Vec<i32>>,
-    location_id__n: Option<Vec<i32>>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    platform: Option<Vec<String>>,
-    platform__n: Option<Vec<String>>,
-    platform_id: Option<Vec<i32>>,
-    platform_id__n: Option<Vec<i32>>,
-    profile: Option<Vec<String>>,
-    profile__n: Option<Vec<String>>,
-    profile_id: Option<Vec<i32>>,
-    profile_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    region: Option<Vec<String>>,
-    region__n: Option<Vec<String>>,
-    region_id: Option<Vec<i32>>,
-    region_id__n: Option<Vec<i32>>,
-    site: Option<Vec<String>>,
-    site__n: Option<Vec<String>>,
-    site_group: Option<Vec<String>>,
-    site_group__n: Option<Vec<String>>,
-    site_group_id: Option<Vec<i32>>,
-    site_group_id__n: Option<Vec<i32>>,
-    site_id: Option<Vec<i32>>,
-    site_id__n: Option<Vec<i32>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    tenant: Option<Vec<String>>,
-    tenant__n: Option<Vec<String>>,
-    tenant_group: Option<Vec<String>>,
-    tenant_group__n: Option<Vec<String>>,
-    tenant_group_id: Option<Vec<i32>>,
-    tenant_group_id__n: Option<Vec<i32>>,
-    tenant_id: Option<Vec<i32>>,
-    tenant_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
-    weight: Option<Vec<i32>>,
-    weight__empty: Option<bool>,
-    weight__gt: Option<Vec<i32>>,
-    weight__gte: Option<Vec<i32>>,
-    weight__lt: Option<Vec<i32>>,
-    weight__lte: Option<Vec<i32>>,
-    weight__n: Option<Vec<i32>>,
+    params: ExtrasConfigContextsListParams,
 ) -> Result<crate::models::PaginatedConfigContextList, Error<ExtrasConfigContextsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let auto_sync_enabled = params.auto_sync_enabled;
+    let brief = params.brief;
+    let cluster_group = params.cluster_group;
+    let cluster_group__n = params.cluster_group__n;
+    let cluster_group_id = params.cluster_group_id;
+    let cluster_group_id__n = params.cluster_group_id__n;
+    let cluster_id = params.cluster_id;
+    let cluster_id__n = params.cluster_id__n;
+    let cluster_type = params.cluster_type;
+    let cluster_type__n = params.cluster_type__n;
+    let cluster_type_id = params.cluster_type_id;
+    let cluster_type_id__n = params.cluster_type_id__n;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let data_file_id = params.data_file_id;
+    let data_file_id__n = params.data_file_id__n;
+    let data_source_id = params.data_source_id;
+    let data_source_id__n = params.data_source_id__n;
+    let data_synced = params.data_synced;
+    let data_synced__empty = params.data_synced__empty;
+    let data_synced__gt = params.data_synced__gt;
+    let data_synced__gte = params.data_synced__gte;
+    let data_synced__lt = params.data_synced__lt;
+    let data_synced__lte = params.data_synced__lte;
+    let data_synced__n = params.data_synced__n;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let device_role = params.device_role;
+    let device_role__n = params.device_role__n;
+    let device_role_id = params.device_role_id;
+    let device_role_id__n = params.device_role_id__n;
+    let device_type_id = params.device_type_id;
+    let device_type_id__n = params.device_type_id__n;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let is_active = params.is_active;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let location = params.location;
+    let location__n = params.location__n;
+    let location_id = params.location_id;
+    let location_id__n = params.location_id__n;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let platform = params.platform;
+    let platform__n = params.platform__n;
+    let platform_id = params.platform_id;
+    let platform_id__n = params.platform_id__n;
+    let profile = params.profile;
+    let profile__n = params.profile__n;
+    let profile_id = params.profile_id;
+    let profile_id__n = params.profile_id__n;
+    let q = params.q;
+    let region = params.region;
+    let region__n = params.region__n;
+    let region_id = params.region_id;
+    let region_id__n = params.region_id__n;
+    let site = params.site;
+    let site__n = params.site__n;
+    let site_group = params.site_group;
+    let site_group__n = params.site_group__n;
+    let site_group_id = params.site_group_id;
+    let site_group_id__n = params.site_group_id__n;
+    let site_id = params.site_id;
+    let site_id__n = params.site_id__n;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__n = params.tag_id__n;
+    let tenant = params.tenant;
+    let tenant__n = params.tenant__n;
+    let tenant_group = params.tenant_group;
+    let tenant_group__n = params.tenant_group__n;
+    let tenant_group_id = params.tenant_group_id;
+    let tenant_group_id__n = params.tenant_group_id__n;
+    let tenant_id = params.tenant_id;
+    let tenant_id__n = params.tenant_id__n;
+    let updated_by_request = params.updated_by_request;
+    let weight = params.weight;
+    let weight__empty = params.weight__empty;
+    let weight__gt = params.weight__gt;
+    let weight__gte = params.weight__gte;
+    let weight__lt = params.weight__lt;
+    let weight__lte = params.weight__lte;
+    let weight__n = params.weight__n;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7218,10 +10691,13 @@ pub async fn extras_config_contexts_list(
 /// Patch a config context object.
 pub async fn extras_config_contexts_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_config_context_request: Option<crate::models::PatchedConfigContextRequest>,
+    params: ExtrasConfigContextsPartialUpdateParams,
 ) -> Result<crate::models::ConfigContext, Error<ExtrasConfigContextsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_config_context_request = params.patched_config_context_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7270,12 +10746,15 @@ pub async fn extras_config_contexts_partial_update(
 /// Get a config context object.
 pub async fn extras_config_contexts_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: ExtrasConfigContextsRetrieveParams,
 ) -> Result<crate::models::ConfigContext, Error<ExtrasConfigContextsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7335,10 +10814,13 @@ pub async fn extras_config_contexts_retrieve(
 /// Provide a /sync API endpoint to synchronize an object's data from its associated DataFile (if any).
 pub async fn extras_config_contexts_sync_create(
     configuration: &configuration::Configuration,
-    id: i32,
-    config_context_request: crate::models::ConfigContextRequest,
+    params: ExtrasConfigContextsSyncCreateParams,
 ) -> Result<crate::models::ConfigContext, Error<ExtrasConfigContextsSyncCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let config_context_request = params.config_context_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7387,10 +10869,13 @@ pub async fn extras_config_contexts_sync_create(
 /// Put a config context object.
 pub async fn extras_config_contexts_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    config_context_request: crate::models::ConfigContextRequest,
+    params: ExtrasConfigContextsUpdateParams,
 ) -> Result<crate::models::ConfigContext, Error<ExtrasConfigContextsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let config_context_request = params.config_context_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7439,9 +10924,12 @@ pub async fn extras_config_contexts_update(
 /// Delete a list of config template objects.
 pub async fn extras_config_templates_bulk_destroy(
     configuration: &configuration::Configuration,
-    config_template_request: Vec<crate::models::ConfigTemplateRequest>,
+    params: ExtrasConfigTemplatesBulkDestroyParams,
 ) -> Result<(), Error<ExtrasConfigTemplatesBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let config_template_request = params.config_template_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7489,10 +10977,13 @@ pub async fn extras_config_templates_bulk_destroy(
 /// Patch a list of config template objects.
 pub async fn extras_config_templates_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_config_template_request: Vec<crate::models::PatchedBulkConfigTemplateRequest>,
+    params: ExtrasConfigTemplatesBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::ConfigTemplate>, Error<ExtrasConfigTemplatesBulkPartialUpdateError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_config_template_request = params.patched_bulk_config_template_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7540,9 +11031,12 @@ pub async fn extras_config_templates_bulk_partial_update(
 /// Put a list of config template objects.
 pub async fn extras_config_templates_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_config_template_request: Vec<crate::models::BulkConfigTemplateRequest>,
+    params: ExtrasConfigTemplatesBulkUpdateParams,
 ) -> Result<Vec<crate::models::ConfigTemplate>, Error<ExtrasConfigTemplatesBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_config_template_request = params.bulk_config_template_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7590,9 +11084,12 @@ pub async fn extras_config_templates_bulk_update(
 /// Post a list of config template objects.
 pub async fn extras_config_templates_create(
     configuration: &configuration::Configuration,
-    extras_config_templates_create_request: crate::models::ExtrasConfigTemplatesCreateRequest,
+    params: ExtrasConfigTemplatesCreateParams,
 ) -> Result<crate::models::ConfigTemplate, Error<ExtrasConfigTemplatesCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let extras_config_templates_create_request = params.extras_config_templates_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7640,9 +11137,12 @@ pub async fn extras_config_templates_create(
 /// Delete a config template object.
 pub async fn extras_config_templates_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: ExtrasConfigTemplatesDestroyParams,
 ) -> Result<(), Error<ExtrasConfigTemplatesDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7690,133 +11190,136 @@ pub async fn extras_config_templates_destroy(
 /// Get a list of config template objects.
 pub async fn extras_config_templates_list(
     configuration: &configuration::Configuration,
-    as_attachment: Option<bool>,
-    auto_sync_enabled: Option<bool>,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    data_file_id: Option<Vec<i32>>,
-    data_file_id__n: Option<Vec<i32>>,
-    data_source_id: Option<Vec<i32>>,
-    data_source_id__n: Option<Vec<i32>>,
-    data_synced: Option<Vec<String>>,
-    data_synced__empty: Option<bool>,
-    data_synced__gt: Option<Vec<String>>,
-    data_synced__gte: Option<Vec<String>>,
-    data_synced__lt: Option<Vec<String>>,
-    data_synced__lte: Option<Vec<String>>,
-    data_synced__n: Option<Vec<String>>,
-    debug: Option<bool>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    file_extension: Option<Vec<String>>,
-    file_extension__empty: Option<bool>,
-    file_extension__ic: Option<Vec<String>>,
-    file_extension__ie: Option<Vec<String>>,
-    file_extension__iew: Option<Vec<String>>,
-    file_extension__iregex: Option<Vec<String>>,
-    file_extension__isw: Option<Vec<String>>,
-    file_extension__n: Option<Vec<String>>,
-    file_extension__nic: Option<Vec<String>>,
-    file_extension__nie: Option<Vec<String>>,
-    file_extension__niew: Option<Vec<String>>,
-    file_extension__nisw: Option<Vec<String>>,
-    file_extension__regex: Option<Vec<String>>,
-    file_name: Option<Vec<String>>,
-    file_name__empty: Option<bool>,
-    file_name__ic: Option<Vec<String>>,
-    file_name__ie: Option<Vec<String>>,
-    file_name__iew: Option<Vec<String>>,
-    file_name__iregex: Option<Vec<String>>,
-    file_name__isw: Option<Vec<String>>,
-    file_name__n: Option<Vec<String>>,
-    file_name__nic: Option<Vec<String>>,
-    file_name__nie: Option<Vec<String>>,
-    file_name__niew: Option<Vec<String>>,
-    file_name__nisw: Option<Vec<String>>,
-    file_name__regex: Option<Vec<String>>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    mime_type: Option<Vec<String>>,
-    mime_type__empty: Option<bool>,
-    mime_type__ic: Option<Vec<String>>,
-    mime_type__ie: Option<Vec<String>>,
-    mime_type__iew: Option<Vec<String>>,
-    mime_type__iregex: Option<Vec<String>>,
-    mime_type__isw: Option<Vec<String>>,
-    mime_type__n: Option<Vec<String>>,
-    mime_type__nic: Option<Vec<String>>,
-    mime_type__nie: Option<Vec<String>>,
-    mime_type__niew: Option<Vec<String>>,
-    mime_type__nisw: Option<Vec<String>>,
-    mime_type__regex: Option<Vec<String>>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: ExtrasConfigTemplatesListParams,
 ) -> Result<crate::models::PaginatedConfigTemplateList, Error<ExtrasConfigTemplatesListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let as_attachment = params.as_attachment;
+    let auto_sync_enabled = params.auto_sync_enabled;
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let data_file_id = params.data_file_id;
+    let data_file_id__n = params.data_file_id__n;
+    let data_source_id = params.data_source_id;
+    let data_source_id__n = params.data_source_id__n;
+    let data_synced = params.data_synced;
+    let data_synced__empty = params.data_synced__empty;
+    let data_synced__gt = params.data_synced__gt;
+    let data_synced__gte = params.data_synced__gte;
+    let data_synced__lt = params.data_synced__lt;
+    let data_synced__lte = params.data_synced__lte;
+    let data_synced__n = params.data_synced__n;
+    let debug = params.debug;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let file_extension = params.file_extension;
+    let file_extension__empty = params.file_extension__empty;
+    let file_extension__ic = params.file_extension__ic;
+    let file_extension__ie = params.file_extension__ie;
+    let file_extension__iew = params.file_extension__iew;
+    let file_extension__iregex = params.file_extension__iregex;
+    let file_extension__isw = params.file_extension__isw;
+    let file_extension__n = params.file_extension__n;
+    let file_extension__nic = params.file_extension__nic;
+    let file_extension__nie = params.file_extension__nie;
+    let file_extension__niew = params.file_extension__niew;
+    let file_extension__nisw = params.file_extension__nisw;
+    let file_extension__regex = params.file_extension__regex;
+    let file_name = params.file_name;
+    let file_name__empty = params.file_name__empty;
+    let file_name__ic = params.file_name__ic;
+    let file_name__ie = params.file_name__ie;
+    let file_name__iew = params.file_name__iew;
+    let file_name__iregex = params.file_name__iregex;
+    let file_name__isw = params.file_name__isw;
+    let file_name__n = params.file_name__n;
+    let file_name__nic = params.file_name__nic;
+    let file_name__nie = params.file_name__nie;
+    let file_name__niew = params.file_name__niew;
+    let file_name__nisw = params.file_name__nisw;
+    let file_name__regex = params.file_name__regex;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let mime_type = params.mime_type;
+    let mime_type__empty = params.mime_type__empty;
+    let mime_type__ic = params.mime_type__ic;
+    let mime_type__ie = params.mime_type__ie;
+    let mime_type__iew = params.mime_type__iew;
+    let mime_type__iregex = params.mime_type__iregex;
+    let mime_type__isw = params.mime_type__isw;
+    let mime_type__n = params.mime_type__n;
+    let mime_type__nic = params.mime_type__nic;
+    let mime_type__nie = params.mime_type__nie;
+    let mime_type__niew = params.mime_type__niew;
+    let mime_type__nisw = params.mime_type__nisw;
+    let mime_type__regex = params.mime_type__regex;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -9922,10 +13425,13 @@ pub async fn extras_config_templates_list(
 /// Patch a config template object.
 pub async fn extras_config_templates_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_config_template_request: Option<crate::models::PatchedConfigTemplateRequest>,
+    params: ExtrasConfigTemplatesPartialUpdateParams,
 ) -> Result<crate::models::ConfigTemplate, Error<ExtrasConfigTemplatesPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_config_template_request = params.patched_config_template_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -9974,11 +13480,14 @@ pub async fn extras_config_templates_partial_update(
 /// Render a ConfigTemplate using the context data provided (if any). The request body should be a mapping of context variables to make available to the template. If the client requests \"text/plain\" data, return the raw rendered content, rather than serialized JSON.
 pub async fn extras_config_templates_render_create(
     configuration: &configuration::Configuration,
-    id: i32,
-    format: Option<&str>,
-    request_body: Option<::std::collections::HashMap<String, serde_json::Value>>,
+    params: ExtrasConfigTemplatesRenderCreateParams,
 ) -> Result<crate::models::RenderedConfig, Error<ExtrasConfigTemplatesRenderCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let format = params.format;
+    let request_body = params.request_body;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10031,12 +13540,15 @@ pub async fn extras_config_templates_render_create(
 /// Get a config template object.
 pub async fn extras_config_templates_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: ExtrasConfigTemplatesRetrieveParams,
 ) -> Result<crate::models::ConfigTemplate, Error<ExtrasConfigTemplatesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10096,10 +13608,13 @@ pub async fn extras_config_templates_retrieve(
 /// Provide a /sync API endpoint to synchronize an object's data from its associated DataFile (if any).
 pub async fn extras_config_templates_sync_create(
     configuration: &configuration::Configuration,
-    id: i32,
-    config_template_request: crate::models::ConfigTemplateRequest,
+    params: ExtrasConfigTemplatesSyncCreateParams,
 ) -> Result<crate::models::ConfigTemplate, Error<ExtrasConfigTemplatesSyncCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let config_template_request = params.config_template_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10148,10 +13663,13 @@ pub async fn extras_config_templates_sync_create(
 /// Put a config template object.
 pub async fn extras_config_templates_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    config_template_request: crate::models::ConfigTemplateRequest,
+    params: ExtrasConfigTemplatesUpdateParams,
 ) -> Result<crate::models::ConfigTemplate, Error<ExtrasConfigTemplatesUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let config_template_request = params.config_template_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10200,9 +13718,12 @@ pub async fn extras_config_templates_update(
 /// Delete a list of custom field choice set objects.
 pub async fn extras_custom_field_choice_sets_bulk_destroy(
     configuration: &configuration::Configuration,
-    custom_field_choice_set_request: Vec<crate::models::CustomFieldChoiceSetRequest>,
+    params: ExtrasCustomFieldChoiceSetsBulkDestroyParams,
 ) -> Result<(), Error<ExtrasCustomFieldChoiceSetsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let custom_field_choice_set_request = params.custom_field_choice_set_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10250,14 +13771,16 @@ pub async fn extras_custom_field_choice_sets_bulk_destroy(
 /// Patch a list of custom field choice set objects.
 pub async fn extras_custom_field_choice_sets_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_custom_field_choice_set_request: Vec<
-        crate::models::PatchedBulkCustomFieldChoiceSetRequest,
-    >,
+    params: ExtrasCustomFieldChoiceSetsBulkPartialUpdateParams,
 ) -> Result<
     Vec<crate::models::CustomFieldChoiceSet>,
     Error<ExtrasCustomFieldChoiceSetsBulkPartialUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_custom_field_choice_set_request =
+        params.patched_bulk_custom_field_choice_set_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10306,12 +13829,15 @@ pub async fn extras_custom_field_choice_sets_bulk_partial_update(
 /// Put a list of custom field choice set objects.
 pub async fn extras_custom_field_choice_sets_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_custom_field_choice_set_request: Vec<crate::models::BulkCustomFieldChoiceSetRequest>,
+    params: ExtrasCustomFieldChoiceSetsBulkUpdateParams,
 ) -> Result<
     Vec<crate::models::CustomFieldChoiceSet>,
     Error<ExtrasCustomFieldChoiceSetsBulkUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_custom_field_choice_set_request = params.bulk_custom_field_choice_set_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10359,15 +13885,18 @@ pub async fn extras_custom_field_choice_sets_bulk_update(
 /// Provides an endpoint to iterate through each choice in a set.
 pub async fn extras_custom_field_choice_sets_choices_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: ExtrasCustomFieldChoiceSetsChoicesRetrieveParams,
 ) -> Result<
     crate::models::CustomFieldChoiceSet,
     Error<ExtrasCustomFieldChoiceSetsChoicesRetrieveError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10427,9 +13956,13 @@ pub async fn extras_custom_field_choice_sets_choices_retrieve(
 /// Post a list of custom field choice set objects.
 pub async fn extras_custom_field_choice_sets_create(
     configuration: &configuration::Configuration,
-    extras_custom_field_choice_sets_create_request: crate::models::ExtrasCustomFieldChoiceSetsCreateRequest,
+    params: ExtrasCustomFieldChoiceSetsCreateParams,
 ) -> Result<crate::models::CustomFieldChoiceSet, Error<ExtrasCustomFieldChoiceSetsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let extras_custom_field_choice_sets_create_request =
+        params.extras_custom_field_choice_sets_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10478,9 +14011,12 @@ pub async fn extras_custom_field_choice_sets_create(
 /// Delete a custom field choice set object.
 pub async fn extras_custom_field_choice_sets_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: ExtrasCustomFieldChoiceSetsDestroyParams,
 ) -> Result<(), Error<ExtrasCustomFieldChoiceSetsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10528,93 +14064,96 @@ pub async fn extras_custom_field_choice_sets_destroy(
 /// Get a list of custom field choice set objects.
 pub async fn extras_custom_field_choice_sets_list(
     configuration: &configuration::Configuration,
-    base_choices: Option<&str>,
-    base_choices__empty: Option<bool>,
-    base_choices__ic: Option<Vec<String>>,
-    base_choices__ie: Option<Vec<String>>,
-    base_choices__iew: Option<Vec<String>>,
-    base_choices__iregex: Option<Vec<String>>,
-    base_choices__isw: Option<Vec<String>>,
-    base_choices__n: Option<&str>,
-    base_choices__nic: Option<Vec<String>>,
-    base_choices__nie: Option<Vec<String>>,
-    base_choices__niew: Option<Vec<String>>,
-    base_choices__nisw: Option<Vec<String>>,
-    base_choices__regex: Option<Vec<String>>,
-    brief: Option<bool>,
-    choice: Option<Vec<String>>,
-    choice_colors: Option<Vec<serde_json::Value>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    order_alphabetically: Option<bool>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    start: Option<i32>,
-    updated_by_request: Option<&str>,
+    params: ExtrasCustomFieldChoiceSetsListParams,
 ) -> Result<
     crate::models::PaginatedCustomFieldChoiceSetList,
     Error<ExtrasCustomFieldChoiceSetsListError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let base_choices = params.base_choices;
+    let base_choices__empty = params.base_choices__empty;
+    let base_choices__ic = params.base_choices__ic;
+    let base_choices__ie = params.base_choices__ie;
+    let base_choices__iew = params.base_choices__iew;
+    let base_choices__iregex = params.base_choices__iregex;
+    let base_choices__isw = params.base_choices__isw;
+    let base_choices__n = params.base_choices__n;
+    let base_choices__nic = params.base_choices__nic;
+    let base_choices__nie = params.base_choices__nie;
+    let base_choices__niew = params.base_choices__niew;
+    let base_choices__nisw = params.base_choices__nisw;
+    let base_choices__regex = params.base_choices__regex;
+    let brief = params.brief;
+    let choice = params.choice;
+    let choice_colors = params.choice_colors;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let order_alphabetically = params.order_alphabetically;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let start = params.start;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -11948,13 +15487,15 @@ pub async fn extras_custom_field_choice_sets_list(
 /// Patch a custom field choice set object.
 pub async fn extras_custom_field_choice_sets_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_custom_field_choice_set_request: Option<
-        crate::models::PatchedWritableCustomFieldChoiceSetRequest,
-    >,
+    params: ExtrasCustomFieldChoiceSetsPartialUpdateParams,
 ) -> Result<crate::models::CustomFieldChoiceSet, Error<ExtrasCustomFieldChoiceSetsPartialUpdateError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_custom_field_choice_set_request =
+        params.patched_writable_custom_field_choice_set_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12004,12 +15545,15 @@ pub async fn extras_custom_field_choice_sets_partial_update(
 /// Get a custom field choice set object.
 pub async fn extras_custom_field_choice_sets_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: ExtrasCustomFieldChoiceSetsRetrieveParams,
 ) -> Result<crate::models::CustomFieldChoiceSet, Error<ExtrasCustomFieldChoiceSetsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12069,10 +15613,13 @@ pub async fn extras_custom_field_choice_sets_retrieve(
 /// Put a custom field choice set object.
 pub async fn extras_custom_field_choice_sets_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_custom_field_choice_set_request: crate::models::WritableCustomFieldChoiceSetRequest,
+    params: ExtrasCustomFieldChoiceSetsUpdateParams,
 ) -> Result<crate::models::CustomFieldChoiceSet, Error<ExtrasCustomFieldChoiceSetsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_custom_field_choice_set_request = params.writable_custom_field_choice_set_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12121,9 +15668,12 @@ pub async fn extras_custom_field_choice_sets_update(
 /// Delete a list of custom field objects.
 pub async fn extras_custom_fields_bulk_destroy(
     configuration: &configuration::Configuration,
-    custom_field_request: Vec<crate::models::CustomFieldRequest>,
+    params: ExtrasCustomFieldsBulkDestroyParams,
 ) -> Result<(), Error<ExtrasCustomFieldsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let custom_field_request = params.custom_field_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12171,9 +15721,12 @@ pub async fn extras_custom_fields_bulk_destroy(
 /// Patch a list of custom field objects.
 pub async fn extras_custom_fields_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_custom_field_request: Vec<crate::models::PatchedBulkCustomFieldRequest>,
+    params: ExtrasCustomFieldsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::CustomField>, Error<ExtrasCustomFieldsBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_custom_field_request = params.patched_bulk_custom_field_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12221,9 +15774,12 @@ pub async fn extras_custom_fields_bulk_partial_update(
 /// Put a list of custom field objects.
 pub async fn extras_custom_fields_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_custom_field_request: Vec<crate::models::BulkCustomFieldRequest>,
+    params: ExtrasCustomFieldsBulkUpdateParams,
 ) -> Result<Vec<crate::models::CustomField>, Error<ExtrasCustomFieldsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_custom_field_request = params.bulk_custom_field_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12271,9 +15827,12 @@ pub async fn extras_custom_fields_bulk_update(
 /// Post a list of custom field objects.
 pub async fn extras_custom_fields_create(
     configuration: &configuration::Configuration,
-    extras_custom_fields_create_request: crate::models::ExtrasCustomFieldsCreateRequest,
+    params: ExtrasCustomFieldsCreateParams,
 ) -> Result<crate::models::CustomField, Error<ExtrasCustomFieldsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let extras_custom_fields_create_request = params.extras_custom_fields_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12321,9 +15880,12 @@ pub async fn extras_custom_fields_create(
 /// Delete a custom field object.
 pub async fn extras_custom_fields_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: ExtrasCustomFieldsDestroyParams,
 ) -> Result<(), Error<ExtrasCustomFieldsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12371,232 +15933,235 @@ pub async fn extras_custom_fields_destroy(
 /// Get a list of custom field objects.
 pub async fn extras_custom_fields_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    choice_set: Option<Vec<String>>,
-    choice_set__n: Option<Vec<String>>,
-    choice_set_id: Option<Vec<i32>>,
-    choice_set_id__n: Option<Vec<i32>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    filter_logic: Option<&str>,
-    filter_logic__empty: Option<bool>,
-    filter_logic__ic: Option<Vec<String>>,
-    filter_logic__ie: Option<Vec<String>>,
-    filter_logic__iew: Option<Vec<String>>,
-    filter_logic__iregex: Option<Vec<String>>,
-    filter_logic__isw: Option<Vec<String>>,
-    filter_logic__n: Option<&str>,
-    filter_logic__nic: Option<Vec<String>>,
-    filter_logic__nie: Option<Vec<String>>,
-    filter_logic__niew: Option<Vec<String>>,
-    filter_logic__nisw: Option<Vec<String>>,
-    filter_logic__regex: Option<Vec<String>>,
-    group_name: Option<Vec<String>>,
-    group_name__empty: Option<bool>,
-    group_name__ic: Option<Vec<String>>,
-    group_name__ie: Option<Vec<String>>,
-    group_name__iew: Option<Vec<String>>,
-    group_name__iregex: Option<Vec<String>>,
-    group_name__isw: Option<Vec<String>>,
-    group_name__n: Option<Vec<String>>,
-    group_name__nic: Option<Vec<String>>,
-    group_name__nie: Option<Vec<String>>,
-    group_name__niew: Option<Vec<String>>,
-    group_name__nisw: Option<Vec<String>>,
-    group_name__regex: Option<Vec<String>>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    is_cloneable: Option<bool>,
-    label: Option<Vec<String>>,
-    label__empty: Option<bool>,
-    label__ic: Option<Vec<String>>,
-    label__ie: Option<Vec<String>>,
-    label__iew: Option<Vec<String>>,
-    label__iregex: Option<Vec<String>>,
-    label__isw: Option<Vec<String>>,
-    label__n: Option<Vec<String>>,
-    label__nic: Option<Vec<String>>,
-    label__nie: Option<Vec<String>>,
-    label__niew: Option<Vec<String>>,
-    label__nisw: Option<Vec<String>>,
-    label__regex: Option<Vec<String>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    nulls_first: Option<bool>,
-    object_type: Option<Vec<String>>,
-    object_type__ic: Option<Vec<String>>,
-    object_type__ie: Option<Vec<String>>,
-    object_type__iew: Option<Vec<String>>,
-    object_type__iregex: Option<Vec<String>>,
-    object_type__isw: Option<Vec<String>>,
-    object_type__n: Option<Vec<String>>,
-    object_type__nic: Option<Vec<String>>,
-    object_type__nie: Option<Vec<String>>,
-    object_type__niew: Option<Vec<String>>,
-    object_type__nisw: Option<Vec<String>>,
-    object_type__regex: Option<Vec<String>>,
-    object_type_id: Option<Vec<i32>>,
-    object_type_id__n: Option<Vec<i32>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    related_object_type: Option<Vec<String>>,
-    related_object_type__n: Option<Vec<String>>,
-    related_object_type_id: Option<Vec<i32>>,
-    related_object_type_id__n: Option<Vec<i32>>,
-    required: Option<bool>,
-    search_weight: Option<Vec<i32>>,
-    search_weight__empty: Option<bool>,
-    search_weight__gt: Option<Vec<i32>>,
-    search_weight__gte: Option<Vec<i32>>,
-    search_weight__lt: Option<Vec<i32>>,
-    search_weight__lte: Option<Vec<i32>>,
-    search_weight__n: Option<Vec<i32>>,
-    start: Option<i32>,
-    status: Option<&str>,
-    status__empty: Option<bool>,
-    status__ic: Option<Vec<String>>,
-    status__ie: Option<Vec<String>>,
-    status__iew: Option<Vec<String>>,
-    status__iregex: Option<Vec<String>>,
-    status__isw: Option<Vec<String>>,
-    status__n: Option<&str>,
-    status__nic: Option<Vec<String>>,
-    status__nie: Option<Vec<String>>,
-    status__niew: Option<Vec<String>>,
-    status__nisw: Option<Vec<String>>,
-    status__regex: Option<Vec<String>>,
-    r#type: Option<Vec<String>>,
-    type__empty: Option<bool>,
-    type__ic: Option<Vec<String>>,
-    type__ie: Option<Vec<String>>,
-    type__iew: Option<Vec<String>>,
-    type__iregex: Option<Vec<String>>,
-    type__isw: Option<Vec<String>>,
-    type__n: Option<Vec<String>>,
-    type__nic: Option<Vec<String>>,
-    type__nie: Option<Vec<String>>,
-    type__niew: Option<Vec<String>>,
-    type__nisw: Option<Vec<String>>,
-    type__regex: Option<Vec<String>>,
-    ui_editable: Option<&str>,
-    ui_editable__empty: Option<bool>,
-    ui_editable__ic: Option<Vec<String>>,
-    ui_editable__ie: Option<Vec<String>>,
-    ui_editable__iew: Option<Vec<String>>,
-    ui_editable__iregex: Option<Vec<String>>,
-    ui_editable__isw: Option<Vec<String>>,
-    ui_editable__n: Option<&str>,
-    ui_editable__nic: Option<Vec<String>>,
-    ui_editable__nie: Option<Vec<String>>,
-    ui_editable__niew: Option<Vec<String>>,
-    ui_editable__nisw: Option<Vec<String>>,
-    ui_editable__regex: Option<Vec<String>>,
-    ui_visible: Option<&str>,
-    ui_visible__empty: Option<bool>,
-    ui_visible__ic: Option<Vec<String>>,
-    ui_visible__ie: Option<Vec<String>>,
-    ui_visible__iew: Option<Vec<String>>,
-    ui_visible__iregex: Option<Vec<String>>,
-    ui_visible__isw: Option<Vec<String>>,
-    ui_visible__n: Option<&str>,
-    ui_visible__nic: Option<Vec<String>>,
-    ui_visible__nie: Option<Vec<String>>,
-    ui_visible__niew: Option<Vec<String>>,
-    ui_visible__nisw: Option<Vec<String>>,
-    ui_visible__regex: Option<Vec<String>>,
-    unique: Option<bool>,
-    updated_by_request: Option<&str>,
-    validation_maximum: Option<Vec<f64>>,
-    validation_maximum__empty: Option<bool>,
-    validation_maximum__gt: Option<Vec<f64>>,
-    validation_maximum__gte: Option<Vec<f64>>,
-    validation_maximum__lt: Option<Vec<f64>>,
-    validation_maximum__lte: Option<Vec<f64>>,
-    validation_maximum__n: Option<Vec<f64>>,
-    validation_minimum: Option<Vec<f64>>,
-    validation_minimum__empty: Option<bool>,
-    validation_minimum__gt: Option<Vec<f64>>,
-    validation_minimum__gte: Option<Vec<f64>>,
-    validation_minimum__lt: Option<Vec<f64>>,
-    validation_minimum__lte: Option<Vec<f64>>,
-    validation_minimum__n: Option<Vec<f64>>,
-    validation_regex: Option<Vec<String>>,
-    validation_regex__empty: Option<bool>,
-    validation_regex__ic: Option<Vec<String>>,
-    validation_regex__ie: Option<Vec<String>>,
-    validation_regex__iew: Option<Vec<String>>,
-    validation_regex__iregex: Option<Vec<String>>,
-    validation_regex__isw: Option<Vec<String>>,
-    validation_regex__n: Option<Vec<String>>,
-    validation_regex__nic: Option<Vec<String>>,
-    validation_regex__nie: Option<Vec<String>>,
-    validation_regex__niew: Option<Vec<String>>,
-    validation_regex__nisw: Option<Vec<String>>,
-    validation_regex__regex: Option<Vec<String>>,
-    weight: Option<Vec<i32>>,
-    weight__empty: Option<bool>,
-    weight__gt: Option<Vec<i32>>,
-    weight__gte: Option<Vec<i32>>,
-    weight__lt: Option<Vec<i32>>,
-    weight__lte: Option<Vec<i32>>,
-    weight__n: Option<Vec<i32>>,
+    params: ExtrasCustomFieldsListParams,
 ) -> Result<crate::models::PaginatedCustomFieldList, Error<ExtrasCustomFieldsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let choice_set = params.choice_set;
+    let choice_set__n = params.choice_set__n;
+    let choice_set_id = params.choice_set_id;
+    let choice_set_id__n = params.choice_set_id__n;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let filter_logic = params.filter_logic;
+    let filter_logic__empty = params.filter_logic__empty;
+    let filter_logic__ic = params.filter_logic__ic;
+    let filter_logic__ie = params.filter_logic__ie;
+    let filter_logic__iew = params.filter_logic__iew;
+    let filter_logic__iregex = params.filter_logic__iregex;
+    let filter_logic__isw = params.filter_logic__isw;
+    let filter_logic__n = params.filter_logic__n;
+    let filter_logic__nic = params.filter_logic__nic;
+    let filter_logic__nie = params.filter_logic__nie;
+    let filter_logic__niew = params.filter_logic__niew;
+    let filter_logic__nisw = params.filter_logic__nisw;
+    let filter_logic__regex = params.filter_logic__regex;
+    let group_name = params.group_name;
+    let group_name__empty = params.group_name__empty;
+    let group_name__ic = params.group_name__ic;
+    let group_name__ie = params.group_name__ie;
+    let group_name__iew = params.group_name__iew;
+    let group_name__iregex = params.group_name__iregex;
+    let group_name__isw = params.group_name__isw;
+    let group_name__n = params.group_name__n;
+    let group_name__nic = params.group_name__nic;
+    let group_name__nie = params.group_name__nie;
+    let group_name__niew = params.group_name__niew;
+    let group_name__nisw = params.group_name__nisw;
+    let group_name__regex = params.group_name__regex;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let is_cloneable = params.is_cloneable;
+    let label = params.label;
+    let label__empty = params.label__empty;
+    let label__ic = params.label__ic;
+    let label__ie = params.label__ie;
+    let label__iew = params.label__iew;
+    let label__iregex = params.label__iregex;
+    let label__isw = params.label__isw;
+    let label__n = params.label__n;
+    let label__nic = params.label__nic;
+    let label__nie = params.label__nie;
+    let label__niew = params.label__niew;
+    let label__nisw = params.label__nisw;
+    let label__regex = params.label__regex;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let nulls_first = params.nulls_first;
+    let object_type = params.object_type;
+    let object_type__ic = params.object_type__ic;
+    let object_type__ie = params.object_type__ie;
+    let object_type__iew = params.object_type__iew;
+    let object_type__iregex = params.object_type__iregex;
+    let object_type__isw = params.object_type__isw;
+    let object_type__n = params.object_type__n;
+    let object_type__nic = params.object_type__nic;
+    let object_type__nie = params.object_type__nie;
+    let object_type__niew = params.object_type__niew;
+    let object_type__nisw = params.object_type__nisw;
+    let object_type__regex = params.object_type__regex;
+    let object_type_id = params.object_type_id;
+    let object_type_id__n = params.object_type_id__n;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let related_object_type = params.related_object_type;
+    let related_object_type__n = params.related_object_type__n;
+    let related_object_type_id = params.related_object_type_id;
+    let related_object_type_id__n = params.related_object_type_id__n;
+    let required = params.required;
+    let search_weight = params.search_weight;
+    let search_weight__empty = params.search_weight__empty;
+    let search_weight__gt = params.search_weight__gt;
+    let search_weight__gte = params.search_weight__gte;
+    let search_weight__lt = params.search_weight__lt;
+    let search_weight__lte = params.search_weight__lte;
+    let search_weight__n = params.search_weight__n;
+    let start = params.start;
+    let status = params.status;
+    let status__empty = params.status__empty;
+    let status__ic = params.status__ic;
+    let status__ie = params.status__ie;
+    let status__iew = params.status__iew;
+    let status__iregex = params.status__iregex;
+    let status__isw = params.status__isw;
+    let status__n = params.status__n;
+    let status__nic = params.status__nic;
+    let status__nie = params.status__nie;
+    let status__niew = params.status__niew;
+    let status__nisw = params.status__nisw;
+    let status__regex = params.status__regex;
+    let r#type = params.r#type;
+    let type__empty = params.type__empty;
+    let type__ic = params.type__ic;
+    let type__ie = params.type__ie;
+    let type__iew = params.type__iew;
+    let type__iregex = params.type__iregex;
+    let type__isw = params.type__isw;
+    let type__n = params.type__n;
+    let type__nic = params.type__nic;
+    let type__nie = params.type__nie;
+    let type__niew = params.type__niew;
+    let type__nisw = params.type__nisw;
+    let type__regex = params.type__regex;
+    let ui_editable = params.ui_editable;
+    let ui_editable__empty = params.ui_editable__empty;
+    let ui_editable__ic = params.ui_editable__ic;
+    let ui_editable__ie = params.ui_editable__ie;
+    let ui_editable__iew = params.ui_editable__iew;
+    let ui_editable__iregex = params.ui_editable__iregex;
+    let ui_editable__isw = params.ui_editable__isw;
+    let ui_editable__n = params.ui_editable__n;
+    let ui_editable__nic = params.ui_editable__nic;
+    let ui_editable__nie = params.ui_editable__nie;
+    let ui_editable__niew = params.ui_editable__niew;
+    let ui_editable__nisw = params.ui_editable__nisw;
+    let ui_editable__regex = params.ui_editable__regex;
+    let ui_visible = params.ui_visible;
+    let ui_visible__empty = params.ui_visible__empty;
+    let ui_visible__ic = params.ui_visible__ic;
+    let ui_visible__ie = params.ui_visible__ie;
+    let ui_visible__iew = params.ui_visible__iew;
+    let ui_visible__iregex = params.ui_visible__iregex;
+    let ui_visible__isw = params.ui_visible__isw;
+    let ui_visible__n = params.ui_visible__n;
+    let ui_visible__nic = params.ui_visible__nic;
+    let ui_visible__nie = params.ui_visible__nie;
+    let ui_visible__niew = params.ui_visible__niew;
+    let ui_visible__nisw = params.ui_visible__nisw;
+    let ui_visible__regex = params.ui_visible__regex;
+    let unique = params.unique;
+    let updated_by_request = params.updated_by_request;
+    let validation_maximum = params.validation_maximum;
+    let validation_maximum__empty = params.validation_maximum__empty;
+    let validation_maximum__gt = params.validation_maximum__gt;
+    let validation_maximum__gte = params.validation_maximum__gte;
+    let validation_maximum__lt = params.validation_maximum__lt;
+    let validation_maximum__lte = params.validation_maximum__lte;
+    let validation_maximum__n = params.validation_maximum__n;
+    let validation_minimum = params.validation_minimum;
+    let validation_minimum__empty = params.validation_minimum__empty;
+    let validation_minimum__gt = params.validation_minimum__gt;
+    let validation_minimum__gte = params.validation_minimum__gte;
+    let validation_minimum__lt = params.validation_minimum__lt;
+    let validation_minimum__lte = params.validation_minimum__lte;
+    let validation_minimum__n = params.validation_minimum__n;
+    let validation_regex = params.validation_regex;
+    let validation_regex__empty = params.validation_regex__empty;
+    let validation_regex__ic = params.validation_regex__ic;
+    let validation_regex__ie = params.validation_regex__ie;
+    let validation_regex__iew = params.validation_regex__iew;
+    let validation_regex__iregex = params.validation_regex__iregex;
+    let validation_regex__isw = params.validation_regex__isw;
+    let validation_regex__n = params.validation_regex__n;
+    let validation_regex__nic = params.validation_regex__nic;
+    let validation_regex__nie = params.validation_regex__nie;
+    let validation_regex__niew = params.validation_regex__niew;
+    let validation_regex__nisw = params.validation_regex__nisw;
+    let validation_regex__regex = params.validation_regex__regex;
+    let weight = params.weight;
+    let weight__empty = params.weight__empty;
+    let weight__gt = params.weight__gt;
+    let weight__gte = params.weight__gte;
+    let weight__lt = params.weight__lt;
+    let weight__lte = params.weight__lte;
+    let weight__n = params.weight__n;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -16328,10 +19893,13 @@ pub async fn extras_custom_fields_list(
 /// Patch a custom field object.
 pub async fn extras_custom_fields_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_custom_field_request: Option<crate::models::PatchedWritableCustomFieldRequest>,
+    params: ExtrasCustomFieldsPartialUpdateParams,
 ) -> Result<crate::models::CustomField, Error<ExtrasCustomFieldsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_custom_field_request = params.patched_writable_custom_field_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -16380,12 +19948,15 @@ pub async fn extras_custom_fields_partial_update(
 /// Get a custom field object.
 pub async fn extras_custom_fields_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: ExtrasCustomFieldsRetrieveParams,
 ) -> Result<crate::models::CustomField, Error<ExtrasCustomFieldsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -16445,10 +20016,13 @@ pub async fn extras_custom_fields_retrieve(
 /// Put a custom field object.
 pub async fn extras_custom_fields_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_custom_field_request: crate::models::WritableCustomFieldRequest,
+    params: ExtrasCustomFieldsUpdateParams,
 ) -> Result<crate::models::CustomField, Error<ExtrasCustomFieldsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_custom_field_request = params.writable_custom_field_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -16497,9 +20071,12 @@ pub async fn extras_custom_fields_update(
 /// Delete a list of custom link objects.
 pub async fn extras_custom_links_bulk_destroy(
     configuration: &configuration::Configuration,
-    custom_link_request: Vec<crate::models::CustomLinkRequest>,
+    params: ExtrasCustomLinksBulkDestroyParams,
 ) -> Result<(), Error<ExtrasCustomLinksBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let custom_link_request = params.custom_link_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -16547,9 +20124,12 @@ pub async fn extras_custom_links_bulk_destroy(
 /// Patch a list of custom link objects.
 pub async fn extras_custom_links_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_custom_link_request: Vec<crate::models::PatchedBulkCustomLinkRequest>,
+    params: ExtrasCustomLinksBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::CustomLink>, Error<ExtrasCustomLinksBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_custom_link_request = params.patched_bulk_custom_link_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -16597,9 +20177,12 @@ pub async fn extras_custom_links_bulk_partial_update(
 /// Put a list of custom link objects.
 pub async fn extras_custom_links_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_custom_link_request: Vec<crate::models::BulkCustomLinkRequest>,
+    params: ExtrasCustomLinksBulkUpdateParams,
 ) -> Result<Vec<crate::models::CustomLink>, Error<ExtrasCustomLinksBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_custom_link_request = params.bulk_custom_link_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -16647,9 +20230,12 @@ pub async fn extras_custom_links_bulk_update(
 /// Post a list of custom link objects.
 pub async fn extras_custom_links_create(
     configuration: &configuration::Configuration,
-    extras_custom_links_create_request: crate::models::ExtrasCustomLinksCreateRequest,
+    params: ExtrasCustomLinksCreateParams,
 ) -> Result<crate::models::CustomLink, Error<ExtrasCustomLinksCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let extras_custom_links_create_request = params.extras_custom_links_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -16697,9 +20283,12 @@ pub async fn extras_custom_links_create(
 /// Delete a custom link object.
 pub async fn extras_custom_links_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: ExtrasCustomLinksDestroyParams,
 ) -> Result<(), Error<ExtrasCustomLinksDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -16747,134 +20336,137 @@ pub async fn extras_custom_links_destroy(
 /// Get a list of custom link objects.
 pub async fn extras_custom_links_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    button_class: Option<&str>,
-    button_class__empty: Option<bool>,
-    button_class__ic: Option<Vec<String>>,
-    button_class__ie: Option<Vec<String>>,
-    button_class__iew: Option<Vec<String>>,
-    button_class__iregex: Option<Vec<String>>,
-    button_class__isw: Option<Vec<String>>,
-    button_class__n: Option<&str>,
-    button_class__nic: Option<Vec<String>>,
-    button_class__nie: Option<Vec<String>>,
-    button_class__niew: Option<Vec<String>>,
-    button_class__nisw: Option<Vec<String>>,
-    button_class__regex: Option<Vec<String>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    enabled: Option<bool>,
-    fields: Option<&str>,
-    group_name: Option<Vec<String>>,
-    group_name__empty: Option<bool>,
-    group_name__ic: Option<Vec<String>>,
-    group_name__ie: Option<Vec<String>>,
-    group_name__iew: Option<Vec<String>>,
-    group_name__iregex: Option<Vec<String>>,
-    group_name__isw: Option<Vec<String>>,
-    group_name__n: Option<Vec<String>>,
-    group_name__nic: Option<Vec<String>>,
-    group_name__nie: Option<Vec<String>>,
-    group_name__niew: Option<Vec<String>>,
-    group_name__nisw: Option<Vec<String>>,
-    group_name__regex: Option<Vec<String>>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    link_text: Option<&str>,
-    link_text__ic: Option<&str>,
-    link_text__ie: Option<&str>,
-    link_text__iew: Option<&str>,
-    link_text__iregex: Option<&str>,
-    link_text__isw: Option<&str>,
-    link_text__n: Option<&str>,
-    link_text__nic: Option<&str>,
-    link_text__nie: Option<&str>,
-    link_text__niew: Option<&str>,
-    link_text__nisw: Option<&str>,
-    link_text__regex: Option<&str>,
-    link_url: Option<&str>,
-    link_url__ic: Option<&str>,
-    link_url__ie: Option<&str>,
-    link_url__iew: Option<&str>,
-    link_url__iregex: Option<&str>,
-    link_url__isw: Option<&str>,
-    link_url__n: Option<&str>,
-    link_url__nic: Option<&str>,
-    link_url__nie: Option<&str>,
-    link_url__niew: Option<&str>,
-    link_url__nisw: Option<&str>,
-    link_url__regex: Option<&str>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    new_window: Option<bool>,
-    object_type: Option<Vec<String>>,
-    object_type__ic: Option<Vec<String>>,
-    object_type__ie: Option<Vec<String>>,
-    object_type__iew: Option<Vec<String>>,
-    object_type__iregex: Option<Vec<String>>,
-    object_type__isw: Option<Vec<String>>,
-    object_type__n: Option<Vec<String>>,
-    object_type__nic: Option<Vec<String>>,
-    object_type__nie: Option<Vec<String>>,
-    object_type__niew: Option<Vec<String>>,
-    object_type__nisw: Option<Vec<String>>,
-    object_type__regex: Option<Vec<String>>,
-    object_type_id: Option<Vec<i32>>,
-    object_type_id__n: Option<Vec<i32>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    start: Option<i32>,
-    updated_by_request: Option<&str>,
-    weight: Option<Vec<i32>>,
-    weight__empty: Option<bool>,
-    weight__gt: Option<Vec<i32>>,
-    weight__gte: Option<Vec<i32>>,
-    weight__lt: Option<Vec<i32>>,
-    weight__lte: Option<Vec<i32>>,
-    weight__n: Option<Vec<i32>>,
+    params: ExtrasCustomLinksListParams,
 ) -> Result<crate::models::PaginatedCustomLinkList, Error<ExtrasCustomLinksListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let button_class = params.button_class;
+    let button_class__empty = params.button_class__empty;
+    let button_class__ic = params.button_class__ic;
+    let button_class__ie = params.button_class__ie;
+    let button_class__iew = params.button_class__iew;
+    let button_class__iregex = params.button_class__iregex;
+    let button_class__isw = params.button_class__isw;
+    let button_class__n = params.button_class__n;
+    let button_class__nic = params.button_class__nic;
+    let button_class__nie = params.button_class__nie;
+    let button_class__niew = params.button_class__niew;
+    let button_class__nisw = params.button_class__nisw;
+    let button_class__regex = params.button_class__regex;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let enabled = params.enabled;
+    let fields = params.fields;
+    let group_name = params.group_name;
+    let group_name__empty = params.group_name__empty;
+    let group_name__ic = params.group_name__ic;
+    let group_name__ie = params.group_name__ie;
+    let group_name__iew = params.group_name__iew;
+    let group_name__iregex = params.group_name__iregex;
+    let group_name__isw = params.group_name__isw;
+    let group_name__n = params.group_name__n;
+    let group_name__nic = params.group_name__nic;
+    let group_name__nie = params.group_name__nie;
+    let group_name__niew = params.group_name__niew;
+    let group_name__nisw = params.group_name__nisw;
+    let group_name__regex = params.group_name__regex;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let link_text = params.link_text;
+    let link_text__ic = params.link_text__ic;
+    let link_text__ie = params.link_text__ie;
+    let link_text__iew = params.link_text__iew;
+    let link_text__iregex = params.link_text__iregex;
+    let link_text__isw = params.link_text__isw;
+    let link_text__n = params.link_text__n;
+    let link_text__nic = params.link_text__nic;
+    let link_text__nie = params.link_text__nie;
+    let link_text__niew = params.link_text__niew;
+    let link_text__nisw = params.link_text__nisw;
+    let link_text__regex = params.link_text__regex;
+    let link_url = params.link_url;
+    let link_url__ic = params.link_url__ic;
+    let link_url__ie = params.link_url__ie;
+    let link_url__iew = params.link_url__iew;
+    let link_url__iregex = params.link_url__iregex;
+    let link_url__isw = params.link_url__isw;
+    let link_url__n = params.link_url__n;
+    let link_url__nic = params.link_url__nic;
+    let link_url__nie = params.link_url__nie;
+    let link_url__niew = params.link_url__niew;
+    let link_url__nisw = params.link_url__nisw;
+    let link_url__regex = params.link_url__regex;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let new_window = params.new_window;
+    let object_type = params.object_type;
+    let object_type__ic = params.object_type__ic;
+    let object_type__ie = params.object_type__ie;
+    let object_type__iew = params.object_type__iew;
+    let object_type__iregex = params.object_type__iregex;
+    let object_type__isw = params.object_type__isw;
+    let object_type__n = params.object_type__n;
+    let object_type__nic = params.object_type__nic;
+    let object_type__nie = params.object_type__nie;
+    let object_type__niew = params.object_type__niew;
+    let object_type__nisw = params.object_type__nisw;
+    let object_type__regex = params.object_type__regex;
+    let object_type_id = params.object_type_id;
+    let object_type_id__n = params.object_type_id__n;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let start = params.start;
+    let updated_by_request = params.updated_by_request;
+    let weight = params.weight;
+    let weight__empty = params.weight__empty;
+    let weight__gt = params.weight__gt;
+    let weight__gte = params.weight__gte;
+    let weight__lt = params.weight__lt;
+    let weight__lte = params.weight__lte;
+    let weight__n = params.weight__n;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -18654,10 +22246,13 @@ pub async fn extras_custom_links_list(
 /// Patch a custom link object.
 pub async fn extras_custom_links_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_custom_link_request: Option<crate::models::PatchedCustomLinkRequest>,
+    params: ExtrasCustomLinksPartialUpdateParams,
 ) -> Result<crate::models::CustomLink, Error<ExtrasCustomLinksPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_custom_link_request = params.patched_custom_link_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -18706,12 +22301,15 @@ pub async fn extras_custom_links_partial_update(
 /// Get a custom link object.
 pub async fn extras_custom_links_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: ExtrasCustomLinksRetrieveParams,
 ) -> Result<crate::models::CustomLink, Error<ExtrasCustomLinksRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -18771,10 +22369,13 @@ pub async fn extras_custom_links_retrieve(
 /// Put a custom link object.
 pub async fn extras_custom_links_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    custom_link_request: crate::models::CustomLinkRequest,
+    params: ExtrasCustomLinksUpdateParams,
 ) -> Result<crate::models::CustomLink, Error<ExtrasCustomLinksUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let custom_link_request = params.custom_link_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -18826,6 +22427,8 @@ pub async fn extras_dashboard_destroy(
 ) -> Result<(), Error<ExtrasDashboardDestroyError>> {
     let local_var_configuration = configuration;
 
+    // unbox the parameters
+
     let local_var_client = &local_var_configuration.client;
 
     let local_var_uri_str = format!(
@@ -18871,9 +22474,12 @@ pub async fn extras_dashboard_destroy(
 /// Patch a list of dashboard objects.
 pub async fn extras_dashboard_partial_update(
     configuration: &configuration::Configuration,
-    patched_dashboard_request: Option<crate::models::PatchedDashboardRequest>,
+    params: ExtrasDashboardPartialUpdateParams,
 ) -> Result<crate::models::Dashboard, Error<ExtrasDashboardPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_dashboard_request = params.patched_dashboard_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -18921,11 +22527,14 @@ pub async fn extras_dashboard_partial_update(
 /// Get a list of dashboard objects.
 pub async fn extras_dashboard_retrieve(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: ExtrasDashboardRetrieveParams,
 ) -> Result<crate::models::Dashboard, Error<ExtrasDashboardRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -18984,9 +22593,12 @@ pub async fn extras_dashboard_retrieve(
 /// Put a list of dashboard objects.
 pub async fn extras_dashboard_update(
     configuration: &configuration::Configuration,
-    dashboard_request: Option<crate::models::DashboardRequest>,
+    params: ExtrasDashboardUpdateParams,
 ) -> Result<crate::models::Dashboard, Error<ExtrasDashboardUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let dashboard_request = params.dashboard_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -19034,9 +22646,12 @@ pub async fn extras_dashboard_update(
 /// Delete a list of event rule objects.
 pub async fn extras_event_rules_bulk_destroy(
     configuration: &configuration::Configuration,
-    event_rule_request: Vec<crate::models::EventRuleRequest>,
+    params: ExtrasEventRulesBulkDestroyParams,
 ) -> Result<(), Error<ExtrasEventRulesBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let event_rule_request = params.event_rule_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -19084,9 +22699,12 @@ pub async fn extras_event_rules_bulk_destroy(
 /// Patch a list of event rule objects.
 pub async fn extras_event_rules_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_event_rule_request: Vec<crate::models::PatchedBulkEventRuleRequest>,
+    params: ExtrasEventRulesBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::EventRule>, Error<ExtrasEventRulesBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_event_rule_request = params.patched_bulk_event_rule_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -19134,9 +22752,12 @@ pub async fn extras_event_rules_bulk_partial_update(
 /// Put a list of event rule objects.
 pub async fn extras_event_rules_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_event_rule_request: Vec<crate::models::BulkEventRuleRequest>,
+    params: ExtrasEventRulesBulkUpdateParams,
 ) -> Result<Vec<crate::models::EventRule>, Error<ExtrasEventRulesBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_event_rule_request = params.bulk_event_rule_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -19184,9 +22805,12 @@ pub async fn extras_event_rules_bulk_update(
 /// Post a list of event rule objects.
 pub async fn extras_event_rules_create(
     configuration: &configuration::Configuration,
-    extras_event_rules_create_request: crate::models::ExtrasEventRulesCreateRequest,
+    params: ExtrasEventRulesCreateParams,
 ) -> Result<crate::models::EventRule, Error<ExtrasEventRulesCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let extras_event_rules_create_request = params.extras_event_rules_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -19234,9 +22858,12 @@ pub async fn extras_event_rules_create(
 /// Delete a event rule object.
 pub async fn extras_event_rules_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: ExtrasEventRulesDestroyParams,
 ) -> Result<(), Error<ExtrasEventRulesDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -19284,119 +22911,122 @@ pub async fn extras_event_rules_destroy(
 /// Get a list of event rule objects.
 pub async fn extras_event_rules_list(
     configuration: &configuration::Configuration,
-    action_is_available: Option<bool>,
-    action_object_id: Option<Vec<i32>>,
-    action_object_id__empty: Option<Vec<i32>>,
-    action_object_id__gt: Option<Vec<i32>>,
-    action_object_id__gte: Option<Vec<i32>>,
-    action_object_id__lt: Option<Vec<i32>>,
-    action_object_id__lte: Option<Vec<i32>>,
-    action_object_id__n: Option<Vec<i32>>,
-    action_object_type: Option<Vec<String>>,
-    action_object_type__n: Option<Vec<String>>,
-    action_type: Option<Vec<String>>,
-    action_type__empty: Option<bool>,
-    action_type__ic: Option<Vec<String>>,
-    action_type__ie: Option<Vec<String>>,
-    action_type__iew: Option<Vec<String>>,
-    action_type__iregex: Option<Vec<String>>,
-    action_type__isw: Option<Vec<String>>,
-    action_type__n: Option<Vec<String>>,
-    action_type__nic: Option<Vec<String>>,
-    action_type__nie: Option<Vec<String>>,
-    action_type__niew: Option<Vec<String>>,
-    action_type__nisw: Option<Vec<String>>,
-    action_type__regex: Option<Vec<String>>,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    enabled: Option<bool>,
-    event_type: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    object_type: Option<Vec<String>>,
-    object_type__ic: Option<Vec<String>>,
-    object_type__ie: Option<Vec<String>>,
-    object_type__iew: Option<Vec<String>>,
-    object_type__iregex: Option<Vec<String>>,
-    object_type__isw: Option<Vec<String>>,
-    object_type__n: Option<Vec<String>>,
-    object_type__nic: Option<Vec<String>>,
-    object_type__nie: Option<Vec<String>>,
-    object_type__niew: Option<Vec<String>>,
-    object_type__nisw: Option<Vec<String>>,
-    object_type__regex: Option<Vec<String>>,
-    object_type_id: Option<Vec<i32>>,
-    object_type_id__n: Option<Vec<i32>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: ExtrasEventRulesListParams,
 ) -> Result<crate::models::PaginatedEventRuleList, Error<ExtrasEventRulesListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let action_is_available = params.action_is_available;
+    let action_object_id = params.action_object_id;
+    let action_object_id__empty = params.action_object_id__empty;
+    let action_object_id__gt = params.action_object_id__gt;
+    let action_object_id__gte = params.action_object_id__gte;
+    let action_object_id__lt = params.action_object_id__lt;
+    let action_object_id__lte = params.action_object_id__lte;
+    let action_object_id__n = params.action_object_id__n;
+    let action_object_type = params.action_object_type;
+    let action_object_type__n = params.action_object_type__n;
+    let action_type = params.action_type;
+    let action_type__empty = params.action_type__empty;
+    let action_type__ic = params.action_type__ic;
+    let action_type__ie = params.action_type__ie;
+    let action_type__iew = params.action_type__iew;
+    let action_type__iregex = params.action_type__iregex;
+    let action_type__isw = params.action_type__isw;
+    let action_type__n = params.action_type__n;
+    let action_type__nic = params.action_type__nic;
+    let action_type__nie = params.action_type__nie;
+    let action_type__niew = params.action_type__niew;
+    let action_type__nisw = params.action_type__nisw;
+    let action_type__regex = params.action_type__regex;
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let enabled = params.enabled;
+    let event_type = params.event_type;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let object_type = params.object_type;
+    let object_type__ic = params.object_type__ic;
+    let object_type__ie = params.object_type__ie;
+    let object_type__iew = params.object_type__iew;
+    let object_type__iregex = params.object_type__iregex;
+    let object_type__isw = params.object_type__isw;
+    let object_type__n = params.object_type__n;
+    let object_type__nic = params.object_type__nic;
+    let object_type__nie = params.object_type__nie;
+    let object_type__niew = params.object_type__niew;
+    let object_type__nisw = params.object_type__nisw;
+    let object_type__regex = params.object_type__regex;
+    let object_type_id = params.object_type_id;
+    let object_type_id__n = params.object_type_id__n;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -21296,10 +24926,13 @@ pub async fn extras_event_rules_list(
 /// Patch a event rule object.
 pub async fn extras_event_rules_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_event_rule_request: Option<crate::models::PatchedWritableEventRuleRequest>,
+    params: ExtrasEventRulesPartialUpdateParams,
 ) -> Result<crate::models::EventRule, Error<ExtrasEventRulesPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_event_rule_request = params.patched_writable_event_rule_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -21348,12 +24981,15 @@ pub async fn extras_event_rules_partial_update(
 /// Get a event rule object.
 pub async fn extras_event_rules_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: ExtrasEventRulesRetrieveParams,
 ) -> Result<crate::models::EventRule, Error<ExtrasEventRulesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -21413,10 +25049,13 @@ pub async fn extras_event_rules_retrieve(
 /// Put a event rule object.
 pub async fn extras_event_rules_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_event_rule_request: crate::models::WritableEventRuleRequest,
+    params: ExtrasEventRulesUpdateParams,
 ) -> Result<crate::models::EventRule, Error<ExtrasEventRulesUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_event_rule_request = params.writable_event_rule_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -21465,9 +25104,12 @@ pub async fn extras_event_rules_update(
 /// Delete a list of export template objects.
 pub async fn extras_export_templates_bulk_destroy(
     configuration: &configuration::Configuration,
-    export_template_request: Vec<crate::models::ExportTemplateRequest>,
+    params: ExtrasExportTemplatesBulkDestroyParams,
 ) -> Result<(), Error<ExtrasExportTemplatesBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let export_template_request = params.export_template_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -21515,10 +25157,13 @@ pub async fn extras_export_templates_bulk_destroy(
 /// Patch a list of export template objects.
 pub async fn extras_export_templates_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_export_template_request: Vec<crate::models::PatchedBulkExportTemplateRequest>,
+    params: ExtrasExportTemplatesBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::ExportTemplate>, Error<ExtrasExportTemplatesBulkPartialUpdateError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_export_template_request = params.patched_bulk_export_template_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -21566,9 +25211,12 @@ pub async fn extras_export_templates_bulk_partial_update(
 /// Put a list of export template objects.
 pub async fn extras_export_templates_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_export_template_request: Vec<crate::models::BulkExportTemplateRequest>,
+    params: ExtrasExportTemplatesBulkUpdateParams,
 ) -> Result<Vec<crate::models::ExportTemplate>, Error<ExtrasExportTemplatesBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_export_template_request = params.bulk_export_template_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -21616,9 +25264,12 @@ pub async fn extras_export_templates_bulk_update(
 /// Post a list of export template objects.
 pub async fn extras_export_templates_create(
     configuration: &configuration::Configuration,
-    extras_export_templates_create_request: crate::models::ExtrasExportTemplatesCreateRequest,
+    params: ExtrasExportTemplatesCreateParams,
 ) -> Result<crate::models::ExportTemplate, Error<ExtrasExportTemplatesCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let extras_export_templates_create_request = params.extras_export_templates_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -21666,9 +25317,12 @@ pub async fn extras_export_templates_create(
 /// Delete a export template object.
 pub async fn extras_export_templates_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: ExtrasExportTemplatesDestroyParams,
 ) -> Result<(), Error<ExtrasExportTemplatesDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -21716,140 +25370,143 @@ pub async fn extras_export_templates_destroy(
 /// Get a list of export template objects.
 pub async fn extras_export_templates_list(
     configuration: &configuration::Configuration,
-    as_attachment: Option<bool>,
-    auto_sync_enabled: Option<bool>,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    data_file_id: Option<Vec<i32>>,
-    data_file_id__n: Option<Vec<i32>>,
-    data_source_id: Option<Vec<i32>>,
-    data_source_id__n: Option<Vec<i32>>,
-    data_synced: Option<Vec<String>>,
-    data_synced__empty: Option<bool>,
-    data_synced__gt: Option<Vec<String>>,
-    data_synced__gte: Option<Vec<String>>,
-    data_synced__lt: Option<Vec<String>>,
-    data_synced__lte: Option<Vec<String>>,
-    data_synced__n: Option<Vec<String>>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    file_extension: Option<Vec<String>>,
-    file_extension__empty: Option<bool>,
-    file_extension__ic: Option<Vec<String>>,
-    file_extension__ie: Option<Vec<String>>,
-    file_extension__iew: Option<Vec<String>>,
-    file_extension__iregex: Option<Vec<String>>,
-    file_extension__isw: Option<Vec<String>>,
-    file_extension__n: Option<Vec<String>>,
-    file_extension__nic: Option<Vec<String>>,
-    file_extension__nie: Option<Vec<String>>,
-    file_extension__niew: Option<Vec<String>>,
-    file_extension__nisw: Option<Vec<String>>,
-    file_extension__regex: Option<Vec<String>>,
-    file_name: Option<Vec<String>>,
-    file_name__empty: Option<bool>,
-    file_name__ic: Option<Vec<String>>,
-    file_name__ie: Option<Vec<String>>,
-    file_name__iew: Option<Vec<String>>,
-    file_name__iregex: Option<Vec<String>>,
-    file_name__isw: Option<Vec<String>>,
-    file_name__n: Option<Vec<String>>,
-    file_name__nic: Option<Vec<String>>,
-    file_name__nie: Option<Vec<String>>,
-    file_name__niew: Option<Vec<String>>,
-    file_name__nisw: Option<Vec<String>>,
-    file_name__regex: Option<Vec<String>>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    mime_type: Option<Vec<String>>,
-    mime_type__empty: Option<bool>,
-    mime_type__ic: Option<Vec<String>>,
-    mime_type__ie: Option<Vec<String>>,
-    mime_type__iew: Option<Vec<String>>,
-    mime_type__iregex: Option<Vec<String>>,
-    mime_type__isw: Option<Vec<String>>,
-    mime_type__n: Option<Vec<String>>,
-    mime_type__nic: Option<Vec<String>>,
-    mime_type__nie: Option<Vec<String>>,
-    mime_type__niew: Option<Vec<String>>,
-    mime_type__nisw: Option<Vec<String>>,
-    mime_type__regex: Option<Vec<String>>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    object_type: Option<Vec<String>>,
-    object_type__ic: Option<Vec<String>>,
-    object_type__ie: Option<Vec<String>>,
-    object_type__iew: Option<Vec<String>>,
-    object_type__iregex: Option<Vec<String>>,
-    object_type__isw: Option<Vec<String>>,
-    object_type__n: Option<Vec<String>>,
-    object_type__nic: Option<Vec<String>>,
-    object_type__nie: Option<Vec<String>>,
-    object_type__niew: Option<Vec<String>>,
-    object_type__nisw: Option<Vec<String>>,
-    object_type__regex: Option<Vec<String>>,
-    object_type_id: Option<Vec<i32>>,
-    object_type_id__n: Option<Vec<i32>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    start: Option<i32>,
-    updated_by_request: Option<&str>,
+    params: ExtrasExportTemplatesListParams,
 ) -> Result<crate::models::PaginatedExportTemplateList, Error<ExtrasExportTemplatesListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let as_attachment = params.as_attachment;
+    let auto_sync_enabled = params.auto_sync_enabled;
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let data_file_id = params.data_file_id;
+    let data_file_id__n = params.data_file_id__n;
+    let data_source_id = params.data_source_id;
+    let data_source_id__n = params.data_source_id__n;
+    let data_synced = params.data_synced;
+    let data_synced__empty = params.data_synced__empty;
+    let data_synced__gt = params.data_synced__gt;
+    let data_synced__gte = params.data_synced__gte;
+    let data_synced__lt = params.data_synced__lt;
+    let data_synced__lte = params.data_synced__lte;
+    let data_synced__n = params.data_synced__n;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let file_extension = params.file_extension;
+    let file_extension__empty = params.file_extension__empty;
+    let file_extension__ic = params.file_extension__ic;
+    let file_extension__ie = params.file_extension__ie;
+    let file_extension__iew = params.file_extension__iew;
+    let file_extension__iregex = params.file_extension__iregex;
+    let file_extension__isw = params.file_extension__isw;
+    let file_extension__n = params.file_extension__n;
+    let file_extension__nic = params.file_extension__nic;
+    let file_extension__nie = params.file_extension__nie;
+    let file_extension__niew = params.file_extension__niew;
+    let file_extension__nisw = params.file_extension__nisw;
+    let file_extension__regex = params.file_extension__regex;
+    let file_name = params.file_name;
+    let file_name__empty = params.file_name__empty;
+    let file_name__ic = params.file_name__ic;
+    let file_name__ie = params.file_name__ie;
+    let file_name__iew = params.file_name__iew;
+    let file_name__iregex = params.file_name__iregex;
+    let file_name__isw = params.file_name__isw;
+    let file_name__n = params.file_name__n;
+    let file_name__nic = params.file_name__nic;
+    let file_name__nie = params.file_name__nie;
+    let file_name__niew = params.file_name__niew;
+    let file_name__nisw = params.file_name__nisw;
+    let file_name__regex = params.file_name__regex;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let mime_type = params.mime_type;
+    let mime_type__empty = params.mime_type__empty;
+    let mime_type__ic = params.mime_type__ic;
+    let mime_type__ie = params.mime_type__ie;
+    let mime_type__iew = params.mime_type__iew;
+    let mime_type__iregex = params.mime_type__iregex;
+    let mime_type__isw = params.mime_type__isw;
+    let mime_type__n = params.mime_type__n;
+    let mime_type__nic = params.mime_type__nic;
+    let mime_type__nie = params.mime_type__nie;
+    let mime_type__niew = params.mime_type__niew;
+    let mime_type__nisw = params.mime_type__nisw;
+    let mime_type__regex = params.mime_type__regex;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let object_type = params.object_type;
+    let object_type__ic = params.object_type__ic;
+    let object_type__ie = params.object_type__ie;
+    let object_type__iew = params.object_type__iew;
+    let object_type__iregex = params.object_type__iregex;
+    let object_type__isw = params.object_type__isw;
+    let object_type__n = params.object_type__n;
+    let object_type__nic = params.object_type__nic;
+    let object_type__nie = params.object_type__nie;
+    let object_type__niew = params.object_type__niew;
+    let object_type__nisw = params.object_type__nisw;
+    let object_type__regex = params.object_type__regex;
+    let object_type_id = params.object_type_id;
+    let object_type_id__n = params.object_type_id__n;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let start = params.start;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -24103,10 +27760,13 @@ pub async fn extras_export_templates_list(
 /// Patch a export template object.
 pub async fn extras_export_templates_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_export_template_request: Option<crate::models::PatchedExportTemplateRequest>,
+    params: ExtrasExportTemplatesPartialUpdateParams,
 ) -> Result<crate::models::ExportTemplate, Error<ExtrasExportTemplatesPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_export_template_request = params.patched_export_template_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -24155,12 +27815,15 @@ pub async fn extras_export_templates_partial_update(
 /// Get a export template object.
 pub async fn extras_export_templates_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: ExtrasExportTemplatesRetrieveParams,
 ) -> Result<crate::models::ExportTemplate, Error<ExtrasExportTemplatesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -24220,10 +27883,13 @@ pub async fn extras_export_templates_retrieve(
 /// Provide a /sync API endpoint to synchronize an object's data from its associated DataFile (if any).
 pub async fn extras_export_templates_sync_create(
     configuration: &configuration::Configuration,
-    id: i32,
-    export_template_request: crate::models::ExportTemplateRequest,
+    params: ExtrasExportTemplatesSyncCreateParams,
 ) -> Result<crate::models::ExportTemplate, Error<ExtrasExportTemplatesSyncCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let export_template_request = params.export_template_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -24272,10 +27938,13 @@ pub async fn extras_export_templates_sync_create(
 /// Put a export template object.
 pub async fn extras_export_templates_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    export_template_request: crate::models::ExportTemplateRequest,
+    params: ExtrasExportTemplatesUpdateParams,
 ) -> Result<crate::models::ExportTemplate, Error<ExtrasExportTemplatesUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let export_template_request = params.export_template_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -24324,9 +27993,12 @@ pub async fn extras_export_templates_update(
 /// Delete a list of image attachment objects.
 pub async fn extras_image_attachments_bulk_destroy(
     configuration: &configuration::Configuration,
-    image_attachment_request: Vec<crate::models::ImageAttachmentRequest>,
+    params: ExtrasImageAttachmentsBulkDestroyParams,
 ) -> Result<(), Error<ExtrasImageAttachmentsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let image_attachment_request = params.image_attachment_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -24374,10 +28046,13 @@ pub async fn extras_image_attachments_bulk_destroy(
 /// Patch a list of image attachment objects.
 pub async fn extras_image_attachments_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_image_attachment_request: Vec<crate::models::PatchedBulkImageAttachmentRequest>,
+    params: ExtrasImageAttachmentsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::ImageAttachment>, Error<ExtrasImageAttachmentsBulkPartialUpdateError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_image_attachment_request = params.patched_bulk_image_attachment_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -24425,9 +28100,12 @@ pub async fn extras_image_attachments_bulk_partial_update(
 /// Put a list of image attachment objects.
 pub async fn extras_image_attachments_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_image_attachment_request: Vec<crate::models::BulkImageAttachmentRequest>,
+    params: ExtrasImageAttachmentsBulkUpdateParams,
 ) -> Result<Vec<crate::models::ImageAttachment>, Error<ExtrasImageAttachmentsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_image_attachment_request = params.bulk_image_attachment_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -24475,9 +28153,12 @@ pub async fn extras_image_attachments_bulk_update(
 /// Post a list of image attachment objects.
 pub async fn extras_image_attachments_create(
     configuration: &configuration::Configuration,
-    extras_image_attachments_create_request: crate::models::ExtrasImageAttachmentsCreateRequest,
+    params: ExtrasImageAttachmentsCreateParams,
 ) -> Result<crate::models::ImageAttachment, Error<ExtrasImageAttachmentsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let extras_image_attachments_create_request = params.extras_image_attachments_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -24525,9 +28206,12 @@ pub async fn extras_image_attachments_create(
 /// Delete a image attachment object.
 pub async fn extras_image_attachments_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: ExtrasImageAttachmentsDestroyParams,
 ) -> Result<(), Error<ExtrasImageAttachmentsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -24575,98 +28259,101 @@ pub async fn extras_image_attachments_destroy(
 /// Get a list of image attachment objects.
 pub async fn extras_image_attachments_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    image_height: Option<Vec<i32>>,
-    image_height__empty: Option<bool>,
-    image_height__gt: Option<Vec<i32>>,
-    image_height__gte: Option<Vec<i32>>,
-    image_height__lt: Option<Vec<i32>>,
-    image_height__lte: Option<Vec<i32>>,
-    image_height__n: Option<Vec<i32>>,
-    image_size: Option<Vec<i32>>,
-    image_size__empty: Option<bool>,
-    image_size__gt: Option<Vec<i32>>,
-    image_size__gte: Option<Vec<i32>>,
-    image_size__lt: Option<Vec<i32>>,
-    image_size__lte: Option<Vec<i32>>,
-    image_size__n: Option<Vec<i32>>,
-    image_width: Option<Vec<i32>>,
-    image_width__empty: Option<bool>,
-    image_width__gt: Option<Vec<i32>>,
-    image_width__gte: Option<Vec<i32>>,
-    image_width__lt: Option<Vec<i32>>,
-    image_width__lte: Option<Vec<i32>>,
-    image_width__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    object_id: Option<Vec<i32>>,
-    object_id__empty: Option<bool>,
-    object_id__gt: Option<Vec<i32>>,
-    object_id__gte: Option<Vec<i32>>,
-    object_id__lt: Option<Vec<i32>>,
-    object_id__lte: Option<Vec<i32>>,
-    object_id__n: Option<Vec<i32>>,
-    object_type: Option<Vec<String>>,
-    object_type__n: Option<Vec<String>>,
-    object_type_id: Option<i32>,
-    object_type_id__n: Option<i32>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    q: Option<&str>,
-    start: Option<i32>,
-    updated_by_request: Option<&str>,
+    params: ExtrasImageAttachmentsListParams,
 ) -> Result<crate::models::PaginatedImageAttachmentList, Error<ExtrasImageAttachmentsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let image_height = params.image_height;
+    let image_height__empty = params.image_height__empty;
+    let image_height__gt = params.image_height__gt;
+    let image_height__gte = params.image_height__gte;
+    let image_height__lt = params.image_height__lt;
+    let image_height__lte = params.image_height__lte;
+    let image_height__n = params.image_height__n;
+    let image_size = params.image_size;
+    let image_size__empty = params.image_size__empty;
+    let image_size__gt = params.image_size__gt;
+    let image_size__gte = params.image_size__gte;
+    let image_size__lt = params.image_size__lt;
+    let image_size__lte = params.image_size__lte;
+    let image_size__n = params.image_size__n;
+    let image_width = params.image_width;
+    let image_width__empty = params.image_width__empty;
+    let image_width__gt = params.image_width__gt;
+    let image_width__gte = params.image_width__gte;
+    let image_width__lt = params.image_width__lt;
+    let image_width__lte = params.image_width__lte;
+    let image_width__n = params.image_width__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let object_id = params.object_id;
+    let object_id__empty = params.object_id__empty;
+    let object_id__gt = params.object_id__gt;
+    let object_id__gte = params.object_id__gte;
+    let object_id__lt = params.object_id__lt;
+    let object_id__lte = params.object_id__lte;
+    let object_id__n = params.object_id__n;
+    let object_type = params.object_type;
+    let object_type__n = params.object_type__n;
+    let object_type_id = params.object_type_id;
+    let object_type_id__n = params.object_type_id__n;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let q = params.q;
+    let start = params.start;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -26122,10 +29809,13 @@ pub async fn extras_image_attachments_list(
 /// Patch a image attachment object.
 pub async fn extras_image_attachments_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_image_attachment_request: Option<crate::models::PatchedImageAttachmentRequest>,
+    params: ExtrasImageAttachmentsPartialUpdateParams,
 ) -> Result<crate::models::ImageAttachment, Error<ExtrasImageAttachmentsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_image_attachment_request = params.patched_image_attachment_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -26174,12 +29864,15 @@ pub async fn extras_image_attachments_partial_update(
 /// Get a image attachment object.
 pub async fn extras_image_attachments_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: ExtrasImageAttachmentsRetrieveParams,
 ) -> Result<crate::models::ImageAttachment, Error<ExtrasImageAttachmentsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -26239,10 +29932,13 @@ pub async fn extras_image_attachments_retrieve(
 /// Put a image attachment object.
 pub async fn extras_image_attachments_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    image_attachment_request: crate::models::ImageAttachmentRequest,
+    params: ExtrasImageAttachmentsUpdateParams,
 ) -> Result<crate::models::ImageAttachment, Error<ExtrasImageAttachmentsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let image_attachment_request = params.image_attachment_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -26291,9 +29987,12 @@ pub async fn extras_image_attachments_update(
 /// Delete a list of journal entry objects.
 pub async fn extras_journal_entries_bulk_destroy(
     configuration: &configuration::Configuration,
-    journal_entry_request: Vec<crate::models::JournalEntryRequest>,
+    params: ExtrasJournalEntriesBulkDestroyParams,
 ) -> Result<(), Error<ExtrasJournalEntriesBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let journal_entry_request = params.journal_entry_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -26341,9 +30040,12 @@ pub async fn extras_journal_entries_bulk_destroy(
 /// Patch a list of journal entry objects.
 pub async fn extras_journal_entries_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_journal_entry_request: Vec<crate::models::PatchedBulkJournalEntryRequest>,
+    params: ExtrasJournalEntriesBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::JournalEntry>, Error<ExtrasJournalEntriesBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_journal_entry_request = params.patched_bulk_journal_entry_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -26391,9 +30093,12 @@ pub async fn extras_journal_entries_bulk_partial_update(
 /// Put a list of journal entry objects.
 pub async fn extras_journal_entries_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_journal_entry_request: Vec<crate::models::BulkJournalEntryRequest>,
+    params: ExtrasJournalEntriesBulkUpdateParams,
 ) -> Result<Vec<crate::models::JournalEntry>, Error<ExtrasJournalEntriesBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_journal_entry_request = params.bulk_journal_entry_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -26441,9 +30146,12 @@ pub async fn extras_journal_entries_bulk_update(
 /// Post a list of journal entry objects.
 pub async fn extras_journal_entries_create(
     configuration: &configuration::Configuration,
-    extras_journal_entries_create_request: crate::models::ExtrasJournalEntriesCreateRequest,
+    params: ExtrasJournalEntriesCreateParams,
 ) -> Result<crate::models::JournalEntry, Error<ExtrasJournalEntriesCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let extras_journal_entries_create_request = params.extras_journal_entries_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -26491,9 +30199,12 @@ pub async fn extras_journal_entries_create(
 /// Delete a journal entry object.
 pub async fn extras_journal_entries_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: ExtrasJournalEntriesDestroyParams,
 ) -> Result<(), Error<ExtrasJournalEntriesDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -26541,69 +30252,72 @@ pub async fn extras_journal_entries_destroy(
 /// Get a list of journal entry objects.
 pub async fn extras_journal_entries_list(
     configuration: &configuration::Configuration,
-    assigned_object_id: Option<Vec<i32>>,
-    assigned_object_id__empty: Option<bool>,
-    assigned_object_id__gt: Option<Vec<i32>>,
-    assigned_object_id__gte: Option<Vec<i32>>,
-    assigned_object_id__lt: Option<Vec<i32>>,
-    assigned_object_id__lte: Option<Vec<i32>>,
-    assigned_object_id__n: Option<Vec<i32>>,
-    assigned_object_type: Option<Vec<String>>,
-    assigned_object_type__n: Option<Vec<String>>,
-    assigned_object_type_id: Option<Vec<i32>>,
-    assigned_object_type_id__n: Option<Vec<i32>>,
-    brief: Option<bool>,
-    created_after: Option<String>,
-    created_before: Option<String>,
-    created_by: Option<Vec<String>>,
-    created_by__n: Option<Vec<String>>,
-    created_by_id: Option<Vec<i32>>,
-    created_by_id__n: Option<Vec<i32>>,
-    created_by_request: Option<&str>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    kind: Option<Vec<String>>,
-    kind__empty: Option<bool>,
-    kind__ic: Option<Vec<String>>,
-    kind__ie: Option<Vec<String>>,
-    kind__iew: Option<Vec<String>>,
-    kind__iregex: Option<Vec<String>>,
-    kind__isw: Option<Vec<String>>,
-    kind__n: Option<Vec<String>>,
-    kind__nic: Option<Vec<String>>,
-    kind__nie: Option<Vec<String>>,
-    kind__niew: Option<Vec<String>>,
-    kind__nisw: Option<Vec<String>>,
-    kind__regex: Option<Vec<String>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    q: Option<&str>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: ExtrasJournalEntriesListParams,
 ) -> Result<crate::models::PaginatedJournalEntryList, Error<ExtrasJournalEntriesListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let assigned_object_id = params.assigned_object_id;
+    let assigned_object_id__empty = params.assigned_object_id__empty;
+    let assigned_object_id__gt = params.assigned_object_id__gt;
+    let assigned_object_id__gte = params.assigned_object_id__gte;
+    let assigned_object_id__lt = params.assigned_object_id__lt;
+    let assigned_object_id__lte = params.assigned_object_id__lte;
+    let assigned_object_id__n = params.assigned_object_id__n;
+    let assigned_object_type = params.assigned_object_type;
+    let assigned_object_type__n = params.assigned_object_type__n;
+    let assigned_object_type_id = params.assigned_object_type_id;
+    let assigned_object_type_id__n = params.assigned_object_type_id__n;
+    let brief = params.brief;
+    let created_after = params.created_after;
+    let created_before = params.created_before;
+    let created_by = params.created_by;
+    let created_by__n = params.created_by__n;
+    let created_by_id = params.created_by_id;
+    let created_by_id__n = params.created_by_id__n;
+    let created_by_request = params.created_by_request;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let kind = params.kind;
+    let kind__empty = params.kind__empty;
+    let kind__ic = params.kind__ic;
+    let kind__ie = params.kind__ie;
+    let kind__iew = params.kind__iew;
+    let kind__iregex = params.kind__iregex;
+    let kind__isw = params.kind__isw;
+    let kind__n = params.kind__n;
+    let kind__nic = params.kind__nic;
+    let kind__nie = params.kind__nie;
+    let kind__niew = params.kind__niew;
+    let kind__nisw = params.kind__nisw;
+    let kind__regex = params.kind__regex;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let q = params.q;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -27568,12 +31282,13 @@ pub async fn extras_journal_entries_list(
 /// Patch a journal entry object.
 pub async fn extras_journal_entries_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_journal_entry_request: Option<
-        crate::models::PatchedWritableJournalEntryRequest,
-    >,
+    params: ExtrasJournalEntriesPartialUpdateParams,
 ) -> Result<crate::models::JournalEntry, Error<ExtrasJournalEntriesPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_journal_entry_request = params.patched_writable_journal_entry_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -27622,12 +31337,15 @@ pub async fn extras_journal_entries_partial_update(
 /// Get a journal entry object.
 pub async fn extras_journal_entries_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: ExtrasJournalEntriesRetrieveParams,
 ) -> Result<crate::models::JournalEntry, Error<ExtrasJournalEntriesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -27687,10 +31405,13 @@ pub async fn extras_journal_entries_retrieve(
 /// Put a journal entry object.
 pub async fn extras_journal_entries_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_journal_entry_request: crate::models::WritableJournalEntryRequest,
+    params: ExtrasJournalEntriesUpdateParams,
 ) -> Result<crate::models::JournalEntry, Error<ExtrasJournalEntriesUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_journal_entry_request = params.writable_journal_entry_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -27739,9 +31460,12 @@ pub async fn extras_journal_entries_update(
 /// Delete a list of notification group objects.
 pub async fn extras_notification_groups_bulk_destroy(
     configuration: &configuration::Configuration,
-    notification_group_request: Vec<crate::models::NotificationGroupRequest>,
+    params: ExtrasNotificationGroupsBulkDestroyParams,
 ) -> Result<(), Error<ExtrasNotificationGroupsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let notification_group_request = params.notification_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -27789,14 +31513,15 @@ pub async fn extras_notification_groups_bulk_destroy(
 /// Patch a list of notification group objects.
 pub async fn extras_notification_groups_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_notification_group_request: Vec<
-        crate::models::PatchedBulkNotificationGroupRequest,
-    >,
+    params: ExtrasNotificationGroupsBulkPartialUpdateParams,
 ) -> Result<
     Vec<crate::models::NotificationGroup>,
     Error<ExtrasNotificationGroupsBulkPartialUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_notification_group_request = params.patched_bulk_notification_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -27844,9 +31569,12 @@ pub async fn extras_notification_groups_bulk_partial_update(
 /// Put a list of notification group objects.
 pub async fn extras_notification_groups_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_notification_group_request: Vec<crate::models::BulkNotificationGroupRequest>,
+    params: ExtrasNotificationGroupsBulkUpdateParams,
 ) -> Result<Vec<crate::models::NotificationGroup>, Error<ExtrasNotificationGroupsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_notification_group_request = params.bulk_notification_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -27894,9 +31622,13 @@ pub async fn extras_notification_groups_bulk_update(
 /// Post a list of notification group objects.
 pub async fn extras_notification_groups_create(
     configuration: &configuration::Configuration,
-    extras_notification_groups_create_request: crate::models::ExtrasNotificationGroupsCreateRequest,
+    params: ExtrasNotificationGroupsCreateParams,
 ) -> Result<crate::models::NotificationGroup, Error<ExtrasNotificationGroupsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let extras_notification_groups_create_request =
+        params.extras_notification_groups_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -27944,9 +31676,12 @@ pub async fn extras_notification_groups_create(
 /// Delete a notification group object.
 pub async fn extras_notification_groups_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: ExtrasNotificationGroupsDestroyParams,
 ) -> Result<(), Error<ExtrasNotificationGroupsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -27994,16 +31729,19 @@ pub async fn extras_notification_groups_destroy(
 /// Get a list of notification group objects.
 pub async fn extras_notification_groups_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    limit: Option<i32>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    start: Option<i32>,
+    params: ExtrasNotificationGroupsListParams,
 ) -> Result<crate::models::PaginatedNotificationGroupList, Error<ExtrasNotificationGroupsListError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let fields = params.fields;
+    let limit = params.limit;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let start = params.start;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -28078,10 +31816,13 @@ pub async fn extras_notification_groups_list(
 /// Patch a notification group object.
 pub async fn extras_notification_groups_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_notification_group_request: Option<crate::models::PatchedNotificationGroupRequest>,
+    params: ExtrasNotificationGroupsPartialUpdateParams,
 ) -> Result<crate::models::NotificationGroup, Error<ExtrasNotificationGroupsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_notification_group_request = params.patched_notification_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -28130,12 +31871,15 @@ pub async fn extras_notification_groups_partial_update(
 /// Get a notification group object.
 pub async fn extras_notification_groups_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: ExtrasNotificationGroupsRetrieveParams,
 ) -> Result<crate::models::NotificationGroup, Error<ExtrasNotificationGroupsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -28195,10 +31939,13 @@ pub async fn extras_notification_groups_retrieve(
 /// Put a notification group object.
 pub async fn extras_notification_groups_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    notification_group_request: crate::models::NotificationGroupRequest,
+    params: ExtrasNotificationGroupsUpdateParams,
 ) -> Result<crate::models::NotificationGroup, Error<ExtrasNotificationGroupsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let notification_group_request = params.notification_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -28247,9 +31994,12 @@ pub async fn extras_notification_groups_update(
 /// Delete a list of notification objects.
 pub async fn extras_notifications_bulk_destroy(
     configuration: &configuration::Configuration,
-    notification_request: Vec<crate::models::NotificationRequest>,
+    params: ExtrasNotificationsBulkDestroyParams,
 ) -> Result<(), Error<ExtrasNotificationsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let notification_request = params.notification_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -28297,9 +32047,12 @@ pub async fn extras_notifications_bulk_destroy(
 /// Patch a list of notification objects.
 pub async fn extras_notifications_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_notification_request: Vec<crate::models::PatchedBulkNotificationRequest>,
+    params: ExtrasNotificationsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::Notification>, Error<ExtrasNotificationsBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_notification_request = params.patched_bulk_notification_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -28347,9 +32100,12 @@ pub async fn extras_notifications_bulk_partial_update(
 /// Put a list of notification objects.
 pub async fn extras_notifications_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_notification_request: Vec<crate::models::BulkNotificationRequest>,
+    params: ExtrasNotificationsBulkUpdateParams,
 ) -> Result<Vec<crate::models::Notification>, Error<ExtrasNotificationsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_notification_request = params.bulk_notification_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -28397,9 +32153,12 @@ pub async fn extras_notifications_bulk_update(
 /// Post a list of notification objects.
 pub async fn extras_notifications_create(
     configuration: &configuration::Configuration,
-    extras_notifications_create_request: crate::models::ExtrasNotificationsCreateRequest,
+    params: ExtrasNotificationsCreateParams,
 ) -> Result<crate::models::Notification, Error<ExtrasNotificationsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let extras_notifications_create_request = params.extras_notifications_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -28447,9 +32206,12 @@ pub async fn extras_notifications_create(
 /// Delete a notification object.
 pub async fn extras_notifications_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: ExtrasNotificationsDestroyParams,
 ) -> Result<(), Error<ExtrasNotificationsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -28497,15 +32259,18 @@ pub async fn extras_notifications_destroy(
 /// Get a list of notification objects.
 pub async fn extras_notifications_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    limit: Option<i32>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    start: Option<i32>,
+    params: ExtrasNotificationsListParams,
 ) -> Result<crate::models::PaginatedNotificationList, Error<ExtrasNotificationsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let fields = params.fields;
+    let limit = params.limit;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let start = params.start;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -28580,10 +32345,13 @@ pub async fn extras_notifications_list(
 /// Patch a notification object.
 pub async fn extras_notifications_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_notification_request: Option<crate::models::PatchedNotificationRequest>,
+    params: ExtrasNotificationsPartialUpdateParams,
 ) -> Result<crate::models::Notification, Error<ExtrasNotificationsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_notification_request = params.patched_notification_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -28632,12 +32400,15 @@ pub async fn extras_notifications_partial_update(
 /// Get a notification object.
 pub async fn extras_notifications_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: ExtrasNotificationsRetrieveParams,
 ) -> Result<crate::models::Notification, Error<ExtrasNotificationsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -28697,10 +32468,13 @@ pub async fn extras_notifications_retrieve(
 /// Put a notification object.
 pub async fn extras_notifications_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    notification_request: crate::models::NotificationRequest,
+    params: ExtrasNotificationsUpdateParams,
 ) -> Result<crate::models::Notification, Error<ExtrasNotificationsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let notification_request = params.notification_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -28749,9 +32523,12 @@ pub async fn extras_notifications_update(
 /// Delete a list of saved filter objects.
 pub async fn extras_saved_filters_bulk_destroy(
     configuration: &configuration::Configuration,
-    saved_filter_request: Vec<crate::models::SavedFilterRequest>,
+    params: ExtrasSavedFiltersBulkDestroyParams,
 ) -> Result<(), Error<ExtrasSavedFiltersBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let saved_filter_request = params.saved_filter_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -28799,9 +32576,12 @@ pub async fn extras_saved_filters_bulk_destroy(
 /// Patch a list of saved filter objects.
 pub async fn extras_saved_filters_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_saved_filter_request: Vec<crate::models::PatchedBulkSavedFilterRequest>,
+    params: ExtrasSavedFiltersBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::SavedFilter>, Error<ExtrasSavedFiltersBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_saved_filter_request = params.patched_bulk_saved_filter_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -28849,9 +32629,12 @@ pub async fn extras_saved_filters_bulk_partial_update(
 /// Put a list of saved filter objects.
 pub async fn extras_saved_filters_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_saved_filter_request: Vec<crate::models::BulkSavedFilterRequest>,
+    params: ExtrasSavedFiltersBulkUpdateParams,
 ) -> Result<Vec<crate::models::SavedFilter>, Error<ExtrasSavedFiltersBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_saved_filter_request = params.bulk_saved_filter_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -28899,9 +32682,12 @@ pub async fn extras_saved_filters_bulk_update(
 /// Post a list of saved filter objects.
 pub async fn extras_saved_filters_create(
     configuration: &configuration::Configuration,
-    extras_saved_filters_create_request: crate::models::ExtrasSavedFiltersCreateRequest,
+    params: ExtrasSavedFiltersCreateParams,
 ) -> Result<crate::models::SavedFilter, Error<ExtrasSavedFiltersCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let extras_saved_filters_create_request = params.extras_saved_filters_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -28949,9 +32735,12 @@ pub async fn extras_saved_filters_create(
 /// Delete a saved filter object.
 pub async fn extras_saved_filters_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: ExtrasSavedFiltersDestroyParams,
 ) -> Result<(), Error<ExtrasSavedFiltersDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -28999,115 +32788,118 @@ pub async fn extras_saved_filters_destroy(
 /// Get a list of saved filter objects.
 pub async fn extras_saved_filters_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    enabled: Option<bool>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    object_type: Option<Vec<String>>,
-    object_type__ic: Option<Vec<String>>,
-    object_type__ie: Option<Vec<String>>,
-    object_type__iew: Option<Vec<String>>,
-    object_type__iregex: Option<Vec<String>>,
-    object_type__isw: Option<Vec<String>>,
-    object_type__n: Option<Vec<String>>,
-    object_type__nic: Option<Vec<String>>,
-    object_type__nie: Option<Vec<String>>,
-    object_type__niew: Option<Vec<String>>,
-    object_type__nisw: Option<Vec<String>>,
-    object_type__regex: Option<Vec<String>>,
-    object_type_id: Option<Vec<i32>>,
-    object_type_id__n: Option<Vec<i32>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    shared: Option<bool>,
-    slug: Option<Vec<String>>,
-    slug__empty: Option<bool>,
-    slug__ic: Option<Vec<String>>,
-    slug__ie: Option<Vec<String>>,
-    slug__iew: Option<Vec<String>>,
-    slug__iregex: Option<Vec<String>>,
-    slug__isw: Option<Vec<String>>,
-    slug__n: Option<Vec<String>>,
-    slug__nic: Option<Vec<String>>,
-    slug__nie: Option<Vec<String>>,
-    slug__niew: Option<Vec<String>>,
-    slug__nisw: Option<Vec<String>>,
-    slug__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    updated_by_request: Option<&str>,
-    usable: Option<bool>,
-    user: Option<Vec<String>>,
-    user__n: Option<Vec<String>>,
-    user_id: Option<Vec<i32>>,
-    user_id__n: Option<Vec<i32>>,
-    weight: Option<Vec<i32>>,
-    weight__empty: Option<bool>,
-    weight__gt: Option<Vec<i32>>,
-    weight__gte: Option<Vec<i32>>,
-    weight__lt: Option<Vec<i32>>,
-    weight__lte: Option<Vec<i32>>,
-    weight__n: Option<Vec<i32>>,
+    params: ExtrasSavedFiltersListParams,
 ) -> Result<crate::models::PaginatedSavedFilterList, Error<ExtrasSavedFiltersListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let enabled = params.enabled;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let object_type = params.object_type;
+    let object_type__ic = params.object_type__ic;
+    let object_type__ie = params.object_type__ie;
+    let object_type__iew = params.object_type__iew;
+    let object_type__iregex = params.object_type__iregex;
+    let object_type__isw = params.object_type__isw;
+    let object_type__n = params.object_type__n;
+    let object_type__nic = params.object_type__nic;
+    let object_type__nie = params.object_type__nie;
+    let object_type__niew = params.object_type__niew;
+    let object_type__nisw = params.object_type__nisw;
+    let object_type__regex = params.object_type__regex;
+    let object_type_id = params.object_type_id;
+    let object_type_id__n = params.object_type_id__n;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let shared = params.shared;
+    let slug = params.slug;
+    let slug__empty = params.slug__empty;
+    let slug__ic = params.slug__ic;
+    let slug__ie = params.slug__ie;
+    let slug__iew = params.slug__iew;
+    let slug__iregex = params.slug__iregex;
+    let slug__isw = params.slug__isw;
+    let slug__n = params.slug__n;
+    let slug__nic = params.slug__nic;
+    let slug__nie = params.slug__nie;
+    let slug__niew = params.slug__niew;
+    let slug__nisw = params.slug__nisw;
+    let slug__regex = params.slug__regex;
+    let start = params.start;
+    let updated_by_request = params.updated_by_request;
+    let usable = params.usable;
+    let user = params.user;
+    let user__n = params.user__n;
+    let user_id = params.user_id;
+    let user_id__n = params.user_id__n;
+    let weight = params.weight;
+    let weight__empty = params.weight__empty;
+    let weight__gt = params.weight__gt;
+    let weight__gte = params.weight__gte;
+    let weight__lt = params.weight__lt;
+    let weight__lte = params.weight__lte;
+    let weight__n = params.weight__n;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -30901,10 +34693,13 @@ pub async fn extras_saved_filters_list(
 /// Patch a saved filter object.
 pub async fn extras_saved_filters_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_saved_filter_request: Option<crate::models::PatchedSavedFilterRequest>,
+    params: ExtrasSavedFiltersPartialUpdateParams,
 ) -> Result<crate::models::SavedFilter, Error<ExtrasSavedFiltersPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_saved_filter_request = params.patched_saved_filter_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -30953,12 +34748,15 @@ pub async fn extras_saved_filters_partial_update(
 /// Get a saved filter object.
 pub async fn extras_saved_filters_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: ExtrasSavedFiltersRetrieveParams,
 ) -> Result<crate::models::SavedFilter, Error<ExtrasSavedFiltersRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -31018,10 +34816,13 @@ pub async fn extras_saved_filters_retrieve(
 /// Put a saved filter object.
 pub async fn extras_saved_filters_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    saved_filter_request: crate::models::SavedFilterRequest,
+    params: ExtrasSavedFiltersUpdateParams,
 ) -> Result<crate::models::SavedFilter, Error<ExtrasSavedFiltersUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let saved_filter_request = params.saved_filter_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -31070,39 +34871,42 @@ pub async fn extras_saved_filters_update(
 /// Get a list of script objects.
 pub async fn extras_scripts_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    is_executable: Option<bool>,
-    limit: Option<i32>,
-    module_id: Option<Vec<i32>>,
-    module_id__n: Option<Vec<i32>>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    q: Option<&str>,
-    start: Option<i32>,
+    params: ExtrasScriptsListParams,
 ) -> Result<crate::models::PaginatedScriptList, Error<ExtrasScriptsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let is_executable = params.is_executable;
+    let limit = params.limit;
+    let module_id = params.module_id;
+    let module_id__n = params.module_id__n;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let q = params.q;
+    let start = params.start;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -31569,12 +35373,15 @@ pub async fn extras_scripts_list(
 /// Get a script object.
 pub async fn extras_scripts_retrieve(
     configuration: &configuration::Configuration,
-    id: &str,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: ExtrasScriptsRetrieveParams,
 ) -> Result<crate::models::Script, Error<ExtrasScriptsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -31634,10 +35441,13 @@ pub async fn extras_scripts_retrieve(
 /// Run a Script identified by its numeric PK or module & name and return the pending Job as the result
 pub async fn extras_scripts_run(
     configuration: &configuration::Configuration,
-    id: &str,
-    script_input_request: crate::models::ScriptInputRequest,
+    params: ExtrasScriptsRunParams,
 ) -> Result<crate::models::ScriptDetail, Error<ExtrasScriptsRunError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let script_input_request = params.script_input_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -31686,9 +35496,12 @@ pub async fn extras_scripts_run(
 /// Post a list of script module objects.
 pub async fn extras_scripts_upload_create(
     configuration: &configuration::Configuration,
-    script_module_request: crate::models::ScriptModuleRequest,
+    params: ExtrasScriptsUploadCreateParams,
 ) -> Result<crate::models::ScriptModule, Error<ExtrasScriptsUploadCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let script_module_request = params.script_module_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -31736,10 +35549,13 @@ pub async fn extras_scripts_upload_create(
 /// Patch a script module object.
 pub async fn extras_scripts_upload_partial_update(
     configuration: &configuration::Configuration,
-    id: &str,
-    patched_script_module_request: Option<crate::models::PatchedScriptModuleRequest>,
+    params: ExtrasScriptsUploadPartialUpdateParams,
 ) -> Result<crate::models::ScriptModule, Error<ExtrasScriptsUploadPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_script_module_request = params.patched_script_module_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -31788,10 +35604,13 @@ pub async fn extras_scripts_upload_partial_update(
 /// Put a script module object.
 pub async fn extras_scripts_upload_update(
     configuration: &configuration::Configuration,
-    id: &str,
-    script_module_request: crate::models::ScriptModuleRequest,
+    params: ExtrasScriptsUploadUpdateParams,
 ) -> Result<crate::models::ScriptModule, Error<ExtrasScriptsUploadUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let script_module_request = params.script_module_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -31840,9 +35659,12 @@ pub async fn extras_scripts_upload_update(
 /// Delete a list of subscription objects.
 pub async fn extras_subscriptions_bulk_destroy(
     configuration: &configuration::Configuration,
-    subscription_request: Vec<crate::models::SubscriptionRequest>,
+    params: ExtrasSubscriptionsBulkDestroyParams,
 ) -> Result<(), Error<ExtrasSubscriptionsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let subscription_request = params.subscription_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -31890,9 +35712,12 @@ pub async fn extras_subscriptions_bulk_destroy(
 /// Patch a list of subscription objects.
 pub async fn extras_subscriptions_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_subscription_request: Vec<crate::models::PatchedBulkSubscriptionRequest>,
+    params: ExtrasSubscriptionsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::Subscription>, Error<ExtrasSubscriptionsBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_subscription_request = params.patched_bulk_subscription_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -31940,9 +35765,12 @@ pub async fn extras_subscriptions_bulk_partial_update(
 /// Put a list of subscription objects.
 pub async fn extras_subscriptions_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_subscription_request: Vec<crate::models::BulkSubscriptionRequest>,
+    params: ExtrasSubscriptionsBulkUpdateParams,
 ) -> Result<Vec<crate::models::Subscription>, Error<ExtrasSubscriptionsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_subscription_request = params.bulk_subscription_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -31990,9 +35818,12 @@ pub async fn extras_subscriptions_bulk_update(
 /// Post a list of subscription objects.
 pub async fn extras_subscriptions_create(
     configuration: &configuration::Configuration,
-    extras_subscriptions_create_request: crate::models::ExtrasSubscriptionsCreateRequest,
+    params: ExtrasSubscriptionsCreateParams,
 ) -> Result<crate::models::Subscription, Error<ExtrasSubscriptionsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let extras_subscriptions_create_request = params.extras_subscriptions_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -32040,9 +35871,12 @@ pub async fn extras_subscriptions_create(
 /// Delete a subscription object.
 pub async fn extras_subscriptions_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: ExtrasSubscriptionsDestroyParams,
 ) -> Result<(), Error<ExtrasSubscriptionsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -32090,15 +35924,18 @@ pub async fn extras_subscriptions_destroy(
 /// Get a list of subscription objects.
 pub async fn extras_subscriptions_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    limit: Option<i32>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    start: Option<i32>,
+    params: ExtrasSubscriptionsListParams,
 ) -> Result<crate::models::PaginatedSubscriptionList, Error<ExtrasSubscriptionsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let fields = params.fields;
+    let limit = params.limit;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let start = params.start;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -32173,10 +36010,13 @@ pub async fn extras_subscriptions_list(
 /// Patch a subscription object.
 pub async fn extras_subscriptions_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_subscription_request: Option<crate::models::PatchedSubscriptionRequest>,
+    params: ExtrasSubscriptionsPartialUpdateParams,
 ) -> Result<crate::models::Subscription, Error<ExtrasSubscriptionsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_subscription_request = params.patched_subscription_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -32225,12 +36065,15 @@ pub async fn extras_subscriptions_partial_update(
 /// Get a subscription object.
 pub async fn extras_subscriptions_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: ExtrasSubscriptionsRetrieveParams,
 ) -> Result<crate::models::Subscription, Error<ExtrasSubscriptionsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -32290,10 +36133,13 @@ pub async fn extras_subscriptions_retrieve(
 /// Put a subscription object.
 pub async fn extras_subscriptions_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    subscription_request: crate::models::SubscriptionRequest,
+    params: ExtrasSubscriptionsUpdateParams,
 ) -> Result<crate::models::Subscription, Error<ExtrasSubscriptionsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let subscription_request = params.subscription_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -32342,9 +36188,12 @@ pub async fn extras_subscriptions_update(
 /// Delete a list of table config objects.
 pub async fn extras_table_configs_bulk_destroy(
     configuration: &configuration::Configuration,
-    table_config_request: Vec<crate::models::TableConfigRequest>,
+    params: ExtrasTableConfigsBulkDestroyParams,
 ) -> Result<(), Error<ExtrasTableConfigsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let table_config_request = params.table_config_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -32392,9 +36241,12 @@ pub async fn extras_table_configs_bulk_destroy(
 /// Patch a list of table config objects.
 pub async fn extras_table_configs_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_table_config_request: Vec<crate::models::PatchedBulkTableConfigRequest>,
+    params: ExtrasTableConfigsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::TableConfig>, Error<ExtrasTableConfigsBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_table_config_request = params.patched_bulk_table_config_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -32442,9 +36294,12 @@ pub async fn extras_table_configs_bulk_partial_update(
 /// Put a list of table config objects.
 pub async fn extras_table_configs_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_table_config_request: Vec<crate::models::BulkTableConfigRequest>,
+    params: ExtrasTableConfigsBulkUpdateParams,
 ) -> Result<Vec<crate::models::TableConfig>, Error<ExtrasTableConfigsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_table_config_request = params.bulk_table_config_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -32492,9 +36347,12 @@ pub async fn extras_table_configs_bulk_update(
 /// Post a list of table config objects.
 pub async fn extras_table_configs_create(
     configuration: &configuration::Configuration,
-    extras_table_configs_create_request: crate::models::ExtrasTableConfigsCreateRequest,
+    params: ExtrasTableConfigsCreateParams,
 ) -> Result<crate::models::TableConfig, Error<ExtrasTableConfigsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let extras_table_configs_create_request = params.extras_table_configs_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -32542,9 +36400,12 @@ pub async fn extras_table_configs_create(
 /// Delete a table config object.
 pub async fn extras_table_configs_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: ExtrasTableConfigsDestroyParams,
 ) -> Result<(), Error<ExtrasTableConfigsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -32592,97 +36453,100 @@ pub async fn extras_table_configs_destroy(
 /// Get a list of table config objects.
 pub async fn extras_table_configs_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    enabled: Option<bool>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    object_type: Option<Vec<String>>,
-    object_type__n: Option<Vec<String>>,
-    object_type_id: Option<Vec<i32>>,
-    object_type_id__n: Option<Vec<i32>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    q: Option<&str>,
-    shared: Option<bool>,
-    start: Option<i32>,
-    table: Option<Vec<String>>,
-    table__empty: Option<bool>,
-    table__ic: Option<Vec<String>>,
-    table__ie: Option<Vec<String>>,
-    table__iew: Option<Vec<String>>,
-    table__iregex: Option<Vec<String>>,
-    table__isw: Option<Vec<String>>,
-    table__n: Option<Vec<String>>,
-    table__nic: Option<Vec<String>>,
-    table__nie: Option<Vec<String>>,
-    table__niew: Option<Vec<String>>,
-    table__nisw: Option<Vec<String>>,
-    table__regex: Option<Vec<String>>,
-    updated_by_request: Option<&str>,
-    usable: Option<bool>,
-    user: Option<Vec<String>>,
-    user__n: Option<Vec<String>>,
-    user_id: Option<Vec<i32>>,
-    user_id__n: Option<Vec<i32>>,
-    weight: Option<Vec<i32>>,
-    weight__empty: Option<bool>,
-    weight__gt: Option<Vec<i32>>,
-    weight__gte: Option<Vec<i32>>,
-    weight__lt: Option<Vec<i32>>,
-    weight__lte: Option<Vec<i32>>,
-    weight__n: Option<Vec<i32>>,
+    params: ExtrasTableConfigsListParams,
 ) -> Result<crate::models::PaginatedTableConfigList, Error<ExtrasTableConfigsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let enabled = params.enabled;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let object_type = params.object_type;
+    let object_type__n = params.object_type__n;
+    let object_type_id = params.object_type_id;
+    let object_type_id__n = params.object_type_id__n;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let q = params.q;
+    let shared = params.shared;
+    let start = params.start;
+    let table = params.table;
+    let table__empty = params.table__empty;
+    let table__ic = params.table__ic;
+    let table__ie = params.table__ie;
+    let table__iew = params.table__iew;
+    let table__iregex = params.table__iregex;
+    let table__isw = params.table__isw;
+    let table__n = params.table__n;
+    let table__nic = params.table__nic;
+    let table__nie = params.table__nie;
+    let table__niew = params.table__niew;
+    let table__nisw = params.table__nisw;
+    let table__regex = params.table__regex;
+    let updated_by_request = params.updated_by_request;
+    let usable = params.usable;
+    let user = params.user;
+    let user__n = params.user__n;
+    let user_id = params.user_id;
+    let user_id__n = params.user_id__n;
+    let weight = params.weight;
+    let weight__empty = params.weight__empty;
+    let weight__gt = params.weight__gt;
+    let weight__gte = params.weight__gte;
+    let weight__lt = params.weight__lt;
+    let weight__lte = params.weight__lte;
+    let weight__n = params.weight__n;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -34134,10 +37998,13 @@ pub async fn extras_table_configs_list(
 /// Patch a table config object.
 pub async fn extras_table_configs_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_table_config_request: Option<crate::models::PatchedTableConfigRequest>,
+    params: ExtrasTableConfigsPartialUpdateParams,
 ) -> Result<crate::models::TableConfig, Error<ExtrasTableConfigsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_table_config_request = params.patched_table_config_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -34186,12 +38053,15 @@ pub async fn extras_table_configs_partial_update(
 /// Get a table config object.
 pub async fn extras_table_configs_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: ExtrasTableConfigsRetrieveParams,
 ) -> Result<crate::models::TableConfig, Error<ExtrasTableConfigsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -34251,10 +38121,13 @@ pub async fn extras_table_configs_retrieve(
 /// Put a table config object.
 pub async fn extras_table_configs_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    table_config_request: crate::models::TableConfigRequest,
+    params: ExtrasTableConfigsUpdateParams,
 ) -> Result<crate::models::TableConfig, Error<ExtrasTableConfigsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let table_config_request = params.table_config_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -34303,38 +38176,41 @@ pub async fn extras_table_configs_update(
 /// Get a list of tagged item objects.
 pub async fn extras_tagged_objects_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    limit: Option<i32>,
-    object_id: Option<Vec<i32>>,
-    object_id__empty: Option<bool>,
-    object_id__gt: Option<Vec<i32>>,
-    object_id__gte: Option<Vec<i32>>,
-    object_id__lt: Option<Vec<i32>>,
-    object_id__lte: Option<Vec<i32>>,
-    object_id__n: Option<Vec<i32>>,
-    object_type: Option<Vec<String>>,
-    object_type__n: Option<Vec<String>>,
-    object_type_id: Option<Vec<i32>>,
-    object_type_id__n: Option<Vec<i32>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    q: Option<&str>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
+    params: ExtrasTaggedObjectsListParams,
 ) -> Result<crate::models::PaginatedTaggedItemList, Error<ExtrasTaggedObjectsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let limit = params.limit;
+    let object_id = params.object_id;
+    let object_id__empty = params.object_id__empty;
+    let object_id__gt = params.object_id__gt;
+    let object_id__gte = params.object_id__gte;
+    let object_id__lt = params.object_id__lt;
+    let object_id__lte = params.object_id__lte;
+    let object_id__n = params.object_id__n;
+    let object_type = params.object_type;
+    let object_type__n = params.object_type__n;
+    let object_type_id = params.object_type_id;
+    let object_type_id__n = params.object_type_id__n;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let q = params.q;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__n = params.tag_id__n;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -34800,12 +38676,15 @@ pub async fn extras_tagged_objects_list(
 /// Get a tagged item object.
 pub async fn extras_tagged_objects_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: ExtrasTaggedObjectsRetrieveParams,
 ) -> Result<crate::models::TaggedItem, Error<ExtrasTaggedObjectsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -34865,9 +38744,12 @@ pub async fn extras_tagged_objects_retrieve(
 /// Delete a list of tag objects.
 pub async fn extras_tags_bulk_destroy(
     configuration: &configuration::Configuration,
-    tag_request: Vec<crate::models::TagRequest>,
+    params: ExtrasTagsBulkDestroyParams,
 ) -> Result<(), Error<ExtrasTagsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let tag_request = params.tag_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -34912,9 +38794,12 @@ pub async fn extras_tags_bulk_destroy(
 /// Patch a list of tag objects.
 pub async fn extras_tags_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_tag_request: Vec<crate::models::PatchedBulkTagRequest>,
+    params: ExtrasTagsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::Tag>, Error<ExtrasTagsBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_tag_request = params.patched_bulk_tag_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -34959,9 +38844,12 @@ pub async fn extras_tags_bulk_partial_update(
 /// Put a list of tag objects.
 pub async fn extras_tags_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_tag_request: Vec<crate::models::BulkTagRequest>,
+    params: ExtrasTagsBulkUpdateParams,
 ) -> Result<Vec<crate::models::Tag>, Error<ExtrasTagsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_tag_request = params.bulk_tag_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -35006,9 +38894,12 @@ pub async fn extras_tags_bulk_update(
 /// Post a list of tag objects.
 pub async fn extras_tags_create(
     configuration: &configuration::Configuration,
-    extras_tags_create_request: crate::models::ExtrasTagsCreateRequest,
+    params: ExtrasTagsCreateParams,
 ) -> Result<crate::models::Tag, Error<ExtrasTagsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let extras_tags_create_request = params.extras_tags_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -35053,9 +38944,12 @@ pub async fn extras_tags_create(
 /// Delete a tag object.
 pub async fn extras_tags_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: ExtrasTagsDestroyParams,
 ) -> Result<(), Error<ExtrasTagsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -35103,112 +38997,115 @@ pub async fn extras_tags_destroy(
 /// Get a list of tag objects.
 pub async fn extras_tags_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    color: Option<Vec<String>>,
-    color__empty: Option<bool>,
-    color__ic: Option<Vec<String>>,
-    color__ie: Option<Vec<String>>,
-    color__iew: Option<Vec<String>>,
-    color__iregex: Option<Vec<String>>,
-    color__isw: Option<Vec<String>>,
-    color__n: Option<Vec<String>>,
-    color__nic: Option<Vec<String>>,
-    color__nie: Option<Vec<String>>,
-    color__niew: Option<Vec<String>>,
-    color__nisw: Option<Vec<String>>,
-    color__regex: Option<Vec<String>>,
-    content_type: Option<Vec<String>>,
-    content_type_id: Option<Vec<i32>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    for_object_type_id: Option<Vec<i32>>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    object_types: Option<Vec<i32>>,
-    object_types__n: Option<Vec<i32>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    slug: Option<Vec<String>>,
-    slug__empty: Option<bool>,
-    slug__ic: Option<Vec<String>>,
-    slug__ie: Option<Vec<String>>,
-    slug__iew: Option<Vec<String>>,
-    slug__iregex: Option<Vec<String>>,
-    slug__isw: Option<Vec<String>>,
-    slug__n: Option<Vec<String>>,
-    slug__nic: Option<Vec<String>>,
-    slug__nie: Option<Vec<String>>,
-    slug__niew: Option<Vec<String>>,
-    slug__nisw: Option<Vec<String>>,
-    slug__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    updated_by_request: Option<&str>,
-    weight: Option<Vec<i32>>,
-    weight__empty: Option<bool>,
-    weight__gt: Option<Vec<i32>>,
-    weight__gte: Option<Vec<i32>>,
-    weight__lt: Option<Vec<i32>>,
-    weight__lte: Option<Vec<i32>>,
-    weight__n: Option<Vec<i32>>,
+    params: ExtrasTagsListParams,
 ) -> Result<crate::models::PaginatedTagList, Error<ExtrasTagsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let color = params.color;
+    let color__empty = params.color__empty;
+    let color__ic = params.color__ic;
+    let color__ie = params.color__ie;
+    let color__iew = params.color__iew;
+    let color__iregex = params.color__iregex;
+    let color__isw = params.color__isw;
+    let color__n = params.color__n;
+    let color__nic = params.color__nic;
+    let color__nie = params.color__nie;
+    let color__niew = params.color__niew;
+    let color__nisw = params.color__nisw;
+    let color__regex = params.color__regex;
+    let content_type = params.content_type;
+    let content_type_id = params.content_type_id;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let for_object_type_id = params.for_object_type_id;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let object_types = params.object_types;
+    let object_types__n = params.object_types__n;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let slug = params.slug;
+    let slug__empty = params.slug__empty;
+    let slug__ic = params.slug__ic;
+    let slug__ie = params.slug__ie;
+    let slug__iew = params.slug__iew;
+    let slug__iregex = params.slug__iregex;
+    let slug__isw = params.slug__isw;
+    let slug__n = params.slug__n;
+    let slug__nic = params.slug__nic;
+    let slug__nie = params.slug__nie;
+    let slug__niew = params.slug__niew;
+    let slug__nisw = params.slug__nisw;
+    let slug__regex = params.slug__regex;
+    let start = params.start;
+    let updated_by_request = params.updated_by_request;
+    let weight = params.weight;
+    let weight__empty = params.weight__empty;
+    let weight__gt = params.weight__gt;
+    let weight__gte = params.weight__gte;
+    let weight__lt = params.weight__lt;
+    let weight__lte = params.weight__lte;
+    let weight__n = params.weight__n;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -36972,10 +40869,13 @@ pub async fn extras_tags_list(
 /// Patch a tag object.
 pub async fn extras_tags_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_tag_request: Option<crate::models::PatchedTagRequest>,
+    params: ExtrasTagsPartialUpdateParams,
 ) -> Result<crate::models::Tag, Error<ExtrasTagsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_tag_request = params.patched_tag_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -37024,12 +40924,15 @@ pub async fn extras_tags_partial_update(
 /// Get a tag object.
 pub async fn extras_tags_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: ExtrasTagsRetrieveParams,
 ) -> Result<crate::models::Tag, Error<ExtrasTagsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -37089,10 +40992,13 @@ pub async fn extras_tags_retrieve(
 /// Put a tag object.
 pub async fn extras_tags_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    tag_request: crate::models::TagRequest,
+    params: ExtrasTagsUpdateParams,
 ) -> Result<crate::models::Tag, Error<ExtrasTagsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let tag_request = params.tag_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -37141,9 +41047,12 @@ pub async fn extras_tags_update(
 /// Delete a list of webhook objects.
 pub async fn extras_webhooks_bulk_destroy(
     configuration: &configuration::Configuration,
-    webhook_request: Vec<crate::models::WebhookRequest>,
+    params: ExtrasWebhooksBulkDestroyParams,
 ) -> Result<(), Error<ExtrasWebhooksBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let webhook_request = params.webhook_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -37188,9 +41097,12 @@ pub async fn extras_webhooks_bulk_destroy(
 /// Patch a list of webhook objects.
 pub async fn extras_webhooks_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_webhook_request: Vec<crate::models::PatchedBulkWebhookRequest>,
+    params: ExtrasWebhooksBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::Webhook>, Error<ExtrasWebhooksBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_webhook_request = params.patched_bulk_webhook_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -37235,9 +41147,12 @@ pub async fn extras_webhooks_bulk_partial_update(
 /// Put a list of webhook objects.
 pub async fn extras_webhooks_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_webhook_request: Vec<crate::models::BulkWebhookRequest>,
+    params: ExtrasWebhooksBulkUpdateParams,
 ) -> Result<Vec<crate::models::Webhook>, Error<ExtrasWebhooksBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_webhook_request = params.bulk_webhook_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -37282,9 +41197,12 @@ pub async fn extras_webhooks_bulk_update(
 /// Post a list of webhook objects.
 pub async fn extras_webhooks_create(
     configuration: &configuration::Configuration,
-    extras_webhooks_create_request: crate::models::ExtrasWebhooksCreateRequest,
+    params: ExtrasWebhooksCreateParams,
 ) -> Result<crate::models::Webhook, Error<ExtrasWebhooksCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let extras_webhooks_create_request = params.extras_webhooks_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -37329,9 +41247,12 @@ pub async fn extras_webhooks_create(
 /// Delete a webhook object.
 pub async fn extras_webhooks_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: ExtrasWebhooksDestroyParams,
 ) -> Result<(), Error<ExtrasWebhooksDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -37379,141 +41300,144 @@ pub async fn extras_webhooks_destroy(
 /// Get a list of webhook objects.
 pub async fn extras_webhooks_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    ca_file_path: Option<Vec<String>>,
-    ca_file_path__empty: Option<bool>,
-    ca_file_path__ic: Option<Vec<String>>,
-    ca_file_path__ie: Option<Vec<String>>,
-    ca_file_path__iew: Option<Vec<String>>,
-    ca_file_path__iregex: Option<Vec<String>>,
-    ca_file_path__isw: Option<Vec<String>>,
-    ca_file_path__n: Option<Vec<String>>,
-    ca_file_path__nic: Option<Vec<String>>,
-    ca_file_path__nie: Option<Vec<String>>,
-    ca_file_path__niew: Option<Vec<String>>,
-    ca_file_path__nisw: Option<Vec<String>>,
-    ca_file_path__regex: Option<Vec<String>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    http_content_type: Option<Vec<String>>,
-    http_content_type__empty: Option<bool>,
-    http_content_type__ic: Option<Vec<String>>,
-    http_content_type__ie: Option<Vec<String>>,
-    http_content_type__iew: Option<Vec<String>>,
-    http_content_type__iregex: Option<Vec<String>>,
-    http_content_type__isw: Option<Vec<String>>,
-    http_content_type__n: Option<Vec<String>>,
-    http_content_type__nic: Option<Vec<String>>,
-    http_content_type__nie: Option<Vec<String>>,
-    http_content_type__niew: Option<Vec<String>>,
-    http_content_type__nisw: Option<Vec<String>>,
-    http_content_type__regex: Option<Vec<String>>,
-    http_method: Option<Vec<String>>,
-    http_method__empty: Option<bool>,
-    http_method__ic: Option<Vec<String>>,
-    http_method__ie: Option<Vec<String>>,
-    http_method__iew: Option<Vec<String>>,
-    http_method__iregex: Option<Vec<String>>,
-    http_method__isw: Option<Vec<String>>,
-    http_method__n: Option<Vec<String>>,
-    http_method__nic: Option<Vec<String>>,
-    http_method__nie: Option<Vec<String>>,
-    http_method__niew: Option<Vec<String>>,
-    http_method__nisw: Option<Vec<String>>,
-    http_method__regex: Option<Vec<String>>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    payload_url: Option<Vec<String>>,
-    q: Option<&str>,
-    secret: Option<Vec<String>>,
-    secret__empty: Option<bool>,
-    secret__ic: Option<Vec<String>>,
-    secret__ie: Option<Vec<String>>,
-    secret__iew: Option<Vec<String>>,
-    secret__iregex: Option<Vec<String>>,
-    secret__isw: Option<Vec<String>>,
-    secret__n: Option<Vec<String>>,
-    secret__nic: Option<Vec<String>>,
-    secret__nie: Option<Vec<String>>,
-    secret__niew: Option<Vec<String>>,
-    secret__nisw: Option<Vec<String>>,
-    secret__regex: Option<Vec<String>>,
-    ssl_verification: Option<bool>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    timeout: Option<Vec<i32>>,
-    timeout__empty: Option<bool>,
-    timeout__gt: Option<Vec<i32>>,
-    timeout__gte: Option<Vec<i32>>,
-    timeout__lt: Option<Vec<i32>>,
-    timeout__lte: Option<Vec<i32>>,
-    timeout__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: ExtrasWebhooksListParams,
 ) -> Result<crate::models::PaginatedWebhookList, Error<ExtrasWebhooksListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let ca_file_path = params.ca_file_path;
+    let ca_file_path__empty = params.ca_file_path__empty;
+    let ca_file_path__ic = params.ca_file_path__ic;
+    let ca_file_path__ie = params.ca_file_path__ie;
+    let ca_file_path__iew = params.ca_file_path__iew;
+    let ca_file_path__iregex = params.ca_file_path__iregex;
+    let ca_file_path__isw = params.ca_file_path__isw;
+    let ca_file_path__n = params.ca_file_path__n;
+    let ca_file_path__nic = params.ca_file_path__nic;
+    let ca_file_path__nie = params.ca_file_path__nie;
+    let ca_file_path__niew = params.ca_file_path__niew;
+    let ca_file_path__nisw = params.ca_file_path__nisw;
+    let ca_file_path__regex = params.ca_file_path__regex;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let http_content_type = params.http_content_type;
+    let http_content_type__empty = params.http_content_type__empty;
+    let http_content_type__ic = params.http_content_type__ic;
+    let http_content_type__ie = params.http_content_type__ie;
+    let http_content_type__iew = params.http_content_type__iew;
+    let http_content_type__iregex = params.http_content_type__iregex;
+    let http_content_type__isw = params.http_content_type__isw;
+    let http_content_type__n = params.http_content_type__n;
+    let http_content_type__nic = params.http_content_type__nic;
+    let http_content_type__nie = params.http_content_type__nie;
+    let http_content_type__niew = params.http_content_type__niew;
+    let http_content_type__nisw = params.http_content_type__nisw;
+    let http_content_type__regex = params.http_content_type__regex;
+    let http_method = params.http_method;
+    let http_method__empty = params.http_method__empty;
+    let http_method__ic = params.http_method__ic;
+    let http_method__ie = params.http_method__ie;
+    let http_method__iew = params.http_method__iew;
+    let http_method__iregex = params.http_method__iregex;
+    let http_method__isw = params.http_method__isw;
+    let http_method__n = params.http_method__n;
+    let http_method__nic = params.http_method__nic;
+    let http_method__nie = params.http_method__nie;
+    let http_method__niew = params.http_method__niew;
+    let http_method__nisw = params.http_method__nisw;
+    let http_method__regex = params.http_method__regex;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let payload_url = params.payload_url;
+    let q = params.q;
+    let secret = params.secret;
+    let secret__empty = params.secret__empty;
+    let secret__ic = params.secret__ic;
+    let secret__ie = params.secret__ie;
+    let secret__iew = params.secret__iew;
+    let secret__iregex = params.secret__iregex;
+    let secret__isw = params.secret__isw;
+    let secret__n = params.secret__n;
+    let secret__nic = params.secret__nic;
+    let secret__nie = params.secret__nie;
+    let secret__niew = params.secret__niew;
+    let secret__nisw = params.secret__nisw;
+    let secret__regex = params.secret__regex;
+    let ssl_verification = params.ssl_verification;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let timeout = params.timeout;
+    let timeout__empty = params.timeout__empty;
+    let timeout__gt = params.timeout__gt;
+    let timeout__gte = params.timeout__gte;
+    let timeout__lt = params.timeout__lt;
+    let timeout__lte = params.timeout__lte;
+    let timeout__n = params.timeout__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -39783,10 +43707,13 @@ pub async fn extras_webhooks_list(
 /// Patch a webhook object.
 pub async fn extras_webhooks_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_webhook_request: Option<crate::models::PatchedWebhookRequest>,
+    params: ExtrasWebhooksPartialUpdateParams,
 ) -> Result<crate::models::Webhook, Error<ExtrasWebhooksPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_webhook_request = params.patched_webhook_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -39835,12 +43762,15 @@ pub async fn extras_webhooks_partial_update(
 /// Get a webhook object.
 pub async fn extras_webhooks_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: ExtrasWebhooksRetrieveParams,
 ) -> Result<crate::models::Webhook, Error<ExtrasWebhooksRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -39900,10 +43830,13 @@ pub async fn extras_webhooks_retrieve(
 /// Put a webhook object.
 pub async fn extras_webhooks_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    webhook_request: crate::models::WebhookRequest,
+    params: ExtrasWebhooksUpdateParams,
 ) -> Result<crate::models::Webhook, Error<ExtrasWebhooksUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let webhook_request = params.webhook_request;
 
     let local_var_client = &local_var_configuration.client;
 

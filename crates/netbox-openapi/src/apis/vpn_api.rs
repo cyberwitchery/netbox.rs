@@ -13,6 +13,1988 @@ use reqwest;
 use super::{Error, configuration};
 use crate::apis::ResponseContent;
 
+/// struct for passing parameters to the method [`vpn_ike_policies_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIkePoliciesBulkDestroyParams {
+    pub ike_policy_request: Vec<crate::models::IkePolicyRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_ike_policies_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIkePoliciesBulkPartialUpdateParams {
+    pub patched_bulk_ike_policy_request: Vec<crate::models::PatchedBulkIkePolicyRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_ike_policies_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIkePoliciesBulkUpdateParams {
+    pub bulk_ike_policy_request: Vec<crate::models::BulkIkePolicyRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_ike_policies_create`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIkePoliciesCreateParams {
+    pub vpn_ike_policies_create_request: crate::models::VpnIkePoliciesCreateRequest,
+}
+
+/// struct for passing parameters to the method [`vpn_ike_policies_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIkePoliciesDestroyParams {
+    /// A unique integer value identifying this IKE policy.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`vpn_ike_policies_list`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIkePoliciesListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub ike_proposal: Option<Vec<String>>,
+    pub ike_proposal__n: Option<Vec<String>>,
+    pub ike_proposal_id: Option<Vec<i32>>,
+    pub ike_proposal_id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub mode: Option<Vec<String>>,
+    pub mode__empty: Option<bool>,
+    pub mode__ic: Option<Vec<String>>,
+    pub mode__ie: Option<Vec<String>>,
+    pub mode__iew: Option<Vec<String>>,
+    pub mode__iregex: Option<Vec<String>>,
+    pub mode__isw: Option<Vec<String>>,
+    pub mode__n: Option<Vec<String>>,
+    pub mode__nic: Option<Vec<String>>,
+    pub mode__nie: Option<Vec<String>>,
+    pub mode__niew: Option<Vec<String>>,
+    pub mode__nisw: Option<Vec<String>>,
+    pub mode__regex: Option<Vec<String>>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    pub preshared_key: Option<String>,
+    pub preshared_key__ic: Option<String>,
+    pub preshared_key__ie: Option<String>,
+    pub preshared_key__iew: Option<String>,
+    pub preshared_key__iregex: Option<String>,
+    pub preshared_key__isw: Option<String>,
+    pub preshared_key__n: Option<String>,
+    pub preshared_key__nic: Option<String>,
+    pub preshared_key__nie: Option<String>,
+    pub preshared_key__niew: Option<String>,
+    pub preshared_key__nisw: Option<String>,
+    pub preshared_key__regex: Option<String>,
+    /// Search
+    pub q: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+    pub version: Option<Vec<i32>>,
+    pub version__ic: Option<Vec<i32>>,
+    pub version__ie: Option<Vec<i32>>,
+    pub version__iew: Option<Vec<i32>>,
+    pub version__iregex: Option<Vec<i32>>,
+    pub version__isw: Option<Vec<i32>>,
+    pub version__n: Option<Vec<i32>>,
+    pub version__nic: Option<Vec<i32>>,
+    pub version__nie: Option<Vec<i32>>,
+    pub version__niew: Option<Vec<i32>>,
+    pub version__nisw: Option<Vec<i32>>,
+    pub version__regex: Option<Vec<i32>>,
+}
+
+/// struct for passing parameters to the method [`vpn_ike_policies_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIkePoliciesPartialUpdateParams {
+    /// A unique integer value identifying this IKE policy.
+    pub id: i32,
+    pub patched_writable_ike_policy_request: Option<crate::models::PatchedWritableIkePolicyRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_ike_policies_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIkePoliciesRetrieveParams {
+    /// A unique integer value identifying this IKE policy.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`vpn_ike_policies_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIkePoliciesUpdateParams {
+    /// A unique integer value identifying this IKE policy.
+    pub id: i32,
+    pub writable_ike_policy_request: crate::models::WritableIkePolicyRequest,
+}
+
+/// struct for passing parameters to the method [`vpn_ike_proposals_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIkeProposalsBulkDestroyParams {
+    pub ike_proposal_request: Vec<crate::models::IkeProposalRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_ike_proposals_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIkeProposalsBulkPartialUpdateParams {
+    pub patched_bulk_ike_proposal_request: Vec<crate::models::PatchedBulkIkeProposalRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_ike_proposals_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIkeProposalsBulkUpdateParams {
+    pub bulk_ike_proposal_request: Vec<crate::models::BulkIkeProposalRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_ike_proposals_create`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIkeProposalsCreateParams {
+    pub vpn_ike_proposals_create_request: crate::models::VpnIkeProposalsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`vpn_ike_proposals_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIkeProposalsDestroyParams {
+    /// A unique integer value identifying this IKE proposal.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`vpn_ike_proposals_list`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIkeProposalsListParams {
+    pub authentication_algorithm: Option<Vec<String>>,
+    pub authentication_algorithm__empty: Option<bool>,
+    pub authentication_algorithm__ic: Option<Vec<String>>,
+    pub authentication_algorithm__ie: Option<Vec<String>>,
+    pub authentication_algorithm__iew: Option<Vec<String>>,
+    pub authentication_algorithm__iregex: Option<Vec<String>>,
+    pub authentication_algorithm__isw: Option<Vec<String>>,
+    pub authentication_algorithm__n: Option<Vec<String>>,
+    pub authentication_algorithm__nic: Option<Vec<String>>,
+    pub authentication_algorithm__nie: Option<Vec<String>>,
+    pub authentication_algorithm__niew: Option<Vec<String>>,
+    pub authentication_algorithm__nisw: Option<Vec<String>>,
+    pub authentication_algorithm__regex: Option<Vec<String>>,
+    pub authentication_method: Option<Vec<String>>,
+    pub authentication_method__empty: Option<bool>,
+    pub authentication_method__ic: Option<Vec<String>>,
+    pub authentication_method__ie: Option<Vec<String>>,
+    pub authentication_method__iew: Option<Vec<String>>,
+    pub authentication_method__iregex: Option<Vec<String>>,
+    pub authentication_method__isw: Option<Vec<String>>,
+    pub authentication_method__n: Option<Vec<String>>,
+    pub authentication_method__nic: Option<Vec<String>>,
+    pub authentication_method__nie: Option<Vec<String>>,
+    pub authentication_method__niew: Option<Vec<String>>,
+    pub authentication_method__nisw: Option<Vec<String>>,
+    pub authentication_method__regex: Option<Vec<String>>,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    pub encryption_algorithm: Option<Vec<String>>,
+    pub encryption_algorithm__empty: Option<bool>,
+    pub encryption_algorithm__ic: Option<Vec<String>>,
+    pub encryption_algorithm__ie: Option<Vec<String>>,
+    pub encryption_algorithm__iew: Option<Vec<String>>,
+    pub encryption_algorithm__iregex: Option<Vec<String>>,
+    pub encryption_algorithm__isw: Option<Vec<String>>,
+    pub encryption_algorithm__n: Option<Vec<String>>,
+    pub encryption_algorithm__nic: Option<Vec<String>>,
+    pub encryption_algorithm__nie: Option<Vec<String>>,
+    pub encryption_algorithm__niew: Option<Vec<String>>,
+    pub encryption_algorithm__nisw: Option<Vec<String>>,
+    pub encryption_algorithm__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Diffie-Hellman group ID
+    pub group: Option<Vec<i32>>,
+    /// Diffie-Hellman group ID
+    pub group__ic: Option<Vec<i32>>,
+    /// Diffie-Hellman group ID
+    pub group__ie: Option<Vec<i32>>,
+    /// Diffie-Hellman group ID
+    pub group__iew: Option<Vec<i32>>,
+    /// Diffie-Hellman group ID
+    pub group__iregex: Option<Vec<i32>>,
+    /// Diffie-Hellman group ID
+    pub group__isw: Option<Vec<i32>>,
+    /// Diffie-Hellman group ID
+    pub group__n: Option<Vec<i32>>,
+    /// Diffie-Hellman group ID
+    pub group__nic: Option<Vec<i32>>,
+    /// Diffie-Hellman group ID
+    pub group__nie: Option<Vec<i32>>,
+    /// Diffie-Hellman group ID
+    pub group__niew: Option<Vec<i32>>,
+    /// Diffie-Hellman group ID
+    pub group__nisw: Option<Vec<i32>>,
+    /// Diffie-Hellman group ID
+    pub group__regex: Option<Vec<i32>>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    /// IKE policy (name)
+    pub ike_policy: Option<Vec<String>>,
+    /// IKE policy (name)
+    pub ike_policy__n: Option<Vec<String>>,
+    /// IKE policy (ID)
+    pub ike_policy_id: Option<Vec<i32>>,
+    /// IKE policy (ID)
+    pub ike_policy_id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub sa_lifetime: Option<Vec<i32>>,
+    pub sa_lifetime__empty: Option<bool>,
+    pub sa_lifetime__gt: Option<Vec<i32>>,
+    pub sa_lifetime__gte: Option<Vec<i32>>,
+    pub sa_lifetime__lt: Option<Vec<i32>>,
+    pub sa_lifetime__lte: Option<Vec<i32>>,
+    pub sa_lifetime__n: Option<Vec<i32>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`vpn_ike_proposals_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIkeProposalsPartialUpdateParams {
+    /// A unique integer value identifying this IKE proposal.
+    pub id: i32,
+    pub patched_writable_ike_proposal_request:
+        Option<crate::models::PatchedWritableIkeProposalRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_ike_proposals_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIkeProposalsRetrieveParams {
+    /// A unique integer value identifying this IKE proposal.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`vpn_ike_proposals_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIkeProposalsUpdateParams {
+    /// A unique integer value identifying this IKE proposal.
+    pub id: i32,
+    pub writable_ike_proposal_request: crate::models::WritableIkeProposalRequest,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_policies_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecPoliciesBulkDestroyParams {
+    pub ip_sec_policy_request: Vec<crate::models::IpSecPolicyRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_policies_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecPoliciesBulkPartialUpdateParams {
+    pub patched_bulk_ip_sec_policy_request: Vec<crate::models::PatchedBulkIpSecPolicyRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_policies_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecPoliciesBulkUpdateParams {
+    pub bulk_ip_sec_policy_request: Vec<crate::models::BulkIpSecPolicyRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_policies_create`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecPoliciesCreateParams {
+    pub vpn_ipsec_policies_create_request: crate::models::VpnIpsecPoliciesCreateRequest,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_policies_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecPoliciesDestroyParams {
+    /// A unique integer value identifying this IPSec policy.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_policies_list`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecPoliciesListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub ipsec_proposal: Option<Vec<String>>,
+    pub ipsec_proposal__n: Option<Vec<String>>,
+    pub ipsec_proposal_id: Option<Vec<i32>>,
+    pub ipsec_proposal_id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Diffie-Hellman group for Perfect Forward Secrecy
+    pub pfs_group: Option<Vec<i32>>,
+    /// Diffie-Hellman group for Perfect Forward Secrecy
+    pub pfs_group__ic: Option<Vec<i32>>,
+    /// Diffie-Hellman group for Perfect Forward Secrecy
+    pub pfs_group__ie: Option<Vec<i32>>,
+    /// Diffie-Hellman group for Perfect Forward Secrecy
+    pub pfs_group__iew: Option<Vec<i32>>,
+    /// Diffie-Hellman group for Perfect Forward Secrecy
+    pub pfs_group__iregex: Option<Vec<i32>>,
+    /// Diffie-Hellman group for Perfect Forward Secrecy
+    pub pfs_group__isw: Option<Vec<i32>>,
+    /// Diffie-Hellman group for Perfect Forward Secrecy
+    pub pfs_group__n: Option<Vec<i32>>,
+    /// Diffie-Hellman group for Perfect Forward Secrecy
+    pub pfs_group__nic: Option<Vec<i32>>,
+    /// Diffie-Hellman group for Perfect Forward Secrecy
+    pub pfs_group__nie: Option<Vec<i32>>,
+    /// Diffie-Hellman group for Perfect Forward Secrecy
+    pub pfs_group__niew: Option<Vec<i32>>,
+    /// Diffie-Hellman group for Perfect Forward Secrecy
+    pub pfs_group__nisw: Option<Vec<i32>>,
+    /// Diffie-Hellman group for Perfect Forward Secrecy
+    pub pfs_group__regex: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_policies_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecPoliciesPartialUpdateParams {
+    /// A unique integer value identifying this IPSec policy.
+    pub id: i32,
+    pub patched_writable_ip_sec_policy_request:
+        Option<crate::models::PatchedWritableIpSecPolicyRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_policies_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecPoliciesRetrieveParams {
+    /// A unique integer value identifying this IPSec policy.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_policies_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecPoliciesUpdateParams {
+    /// A unique integer value identifying this IPSec policy.
+    pub id: i32,
+    pub writable_ip_sec_policy_request: crate::models::WritableIpSecPolicyRequest,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_profiles_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecProfilesBulkDestroyParams {
+    pub ip_sec_profile_request: Vec<crate::models::IpSecProfileRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_profiles_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecProfilesBulkPartialUpdateParams {
+    pub patched_bulk_ip_sec_profile_request: Vec<crate::models::PatchedBulkIpSecProfileRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_profiles_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecProfilesBulkUpdateParams {
+    pub bulk_ip_sec_profile_request: Vec<crate::models::BulkIpSecProfileRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_profiles_create`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecProfilesCreateParams {
+    pub vpn_ipsec_profiles_create_request: crate::models::VpnIpsecProfilesCreateRequest,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_profiles_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecProfilesDestroyParams {
+    /// A unique integer value identifying this IPSec profile.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_profiles_list`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecProfilesListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    /// IKE policy (name)
+    pub ike_policy: Option<Vec<String>>,
+    /// IKE policy (name)
+    pub ike_policy__n: Option<Vec<String>>,
+    /// IKE policy (ID)
+    pub ike_policy_id: Option<Vec<i32>>,
+    /// IKE policy (ID)
+    pub ike_policy_id__n: Option<Vec<i32>>,
+    /// IPSec policy (name)
+    pub ipsec_policy: Option<Vec<String>>,
+    /// IPSec policy (name)
+    pub ipsec_policy__n: Option<Vec<String>>,
+    /// IPSec policy (ID)
+    pub ipsec_policy_id: Option<Vec<i32>>,
+    /// IPSec policy (ID)
+    pub ipsec_policy_id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub mode: Option<Vec<String>>,
+    pub mode__empty: Option<bool>,
+    pub mode__ic: Option<Vec<String>>,
+    pub mode__ie: Option<Vec<String>>,
+    pub mode__iew: Option<Vec<String>>,
+    pub mode__iregex: Option<Vec<String>>,
+    pub mode__isw: Option<Vec<String>>,
+    pub mode__n: Option<Vec<String>>,
+    pub mode__nic: Option<Vec<String>>,
+    pub mode__nie: Option<Vec<String>>,
+    pub mode__niew: Option<Vec<String>>,
+    pub mode__nisw: Option<Vec<String>>,
+    pub mode__regex: Option<Vec<String>>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_profiles_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecProfilesPartialUpdateParams {
+    /// A unique integer value identifying this IPSec profile.
+    pub id: i32,
+    pub patched_writable_ip_sec_profile_request:
+        Option<crate::models::PatchedWritableIpSecProfileRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_profiles_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecProfilesRetrieveParams {
+    /// A unique integer value identifying this IPSec profile.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_profiles_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecProfilesUpdateParams {
+    /// A unique integer value identifying this IPSec profile.
+    pub id: i32,
+    pub writable_ip_sec_profile_request: crate::models::WritableIpSecProfileRequest,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_proposals_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecProposalsBulkDestroyParams {
+    pub ip_sec_proposal_request: Vec<crate::models::IpSecProposalRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_proposals_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecProposalsBulkPartialUpdateParams {
+    pub patched_bulk_ip_sec_proposal_request: Vec<crate::models::PatchedBulkIpSecProposalRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_proposals_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecProposalsBulkUpdateParams {
+    pub bulk_ip_sec_proposal_request: Vec<crate::models::BulkIpSecProposalRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_proposals_create`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecProposalsCreateParams {
+    pub vpn_ipsec_proposals_create_request: crate::models::VpnIpsecProposalsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_proposals_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecProposalsDestroyParams {
+    /// A unique integer value identifying this IPSec proposal.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_proposals_list`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecProposalsListParams {
+    pub authentication_algorithm: Option<Vec<String>>,
+    pub authentication_algorithm__empty: Option<bool>,
+    pub authentication_algorithm__ic: Option<Vec<String>>,
+    pub authentication_algorithm__ie: Option<Vec<String>>,
+    pub authentication_algorithm__iew: Option<Vec<String>>,
+    pub authentication_algorithm__iregex: Option<Vec<String>>,
+    pub authentication_algorithm__isw: Option<Vec<String>>,
+    pub authentication_algorithm__n: Option<Vec<String>>,
+    pub authentication_algorithm__nic: Option<Vec<String>>,
+    pub authentication_algorithm__nie: Option<Vec<String>>,
+    pub authentication_algorithm__niew: Option<Vec<String>>,
+    pub authentication_algorithm__nisw: Option<Vec<String>>,
+    pub authentication_algorithm__regex: Option<Vec<String>>,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    pub encryption_algorithm: Option<Vec<String>>,
+    pub encryption_algorithm__empty: Option<bool>,
+    pub encryption_algorithm__ic: Option<Vec<String>>,
+    pub encryption_algorithm__ie: Option<Vec<String>>,
+    pub encryption_algorithm__iew: Option<Vec<String>>,
+    pub encryption_algorithm__iregex: Option<Vec<String>>,
+    pub encryption_algorithm__isw: Option<Vec<String>>,
+    pub encryption_algorithm__n: Option<Vec<String>>,
+    pub encryption_algorithm__nic: Option<Vec<String>>,
+    pub encryption_algorithm__nie: Option<Vec<String>>,
+    pub encryption_algorithm__niew: Option<Vec<String>>,
+    pub encryption_algorithm__nisw: Option<Vec<String>>,
+    pub encryption_algorithm__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    /// IPSec policy (name)
+    pub ipsec_policy: Option<Vec<String>>,
+    /// IPSec policy (name)
+    pub ipsec_policy__n: Option<Vec<String>>,
+    /// IPSec policy (ID)
+    pub ipsec_policy_id: Option<Vec<i32>>,
+    /// IPSec policy (ID)
+    pub ipsec_policy_id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub sa_lifetime_data: Option<Vec<i32>>,
+    pub sa_lifetime_data__empty: Option<bool>,
+    pub sa_lifetime_data__gt: Option<Vec<i32>>,
+    pub sa_lifetime_data__gte: Option<Vec<i32>>,
+    pub sa_lifetime_data__lt: Option<Vec<i32>>,
+    pub sa_lifetime_data__lte: Option<Vec<i32>>,
+    pub sa_lifetime_data__n: Option<Vec<i32>>,
+    pub sa_lifetime_seconds: Option<Vec<i32>>,
+    pub sa_lifetime_seconds__empty: Option<bool>,
+    pub sa_lifetime_seconds__gt: Option<Vec<i32>>,
+    pub sa_lifetime_seconds__gte: Option<Vec<i32>>,
+    pub sa_lifetime_seconds__lt: Option<Vec<i32>>,
+    pub sa_lifetime_seconds__lte: Option<Vec<i32>>,
+    pub sa_lifetime_seconds__n: Option<Vec<i32>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_proposals_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecProposalsPartialUpdateParams {
+    /// A unique integer value identifying this IPSec proposal.
+    pub id: i32,
+    pub patched_writable_ip_sec_proposal_request:
+        Option<crate::models::PatchedWritableIpSecProposalRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_proposals_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecProposalsRetrieveParams {
+    /// A unique integer value identifying this IPSec proposal.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`vpn_ipsec_proposals_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnIpsecProposalsUpdateParams {
+    /// A unique integer value identifying this IPSec proposal.
+    pub id: i32,
+    pub writable_ip_sec_proposal_request: crate::models::WritableIpSecProposalRequest,
+}
+
+/// struct for passing parameters to the method [`vpn_l2vpn_terminations_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnL2vpnTerminationsBulkDestroyParams {
+    pub l2_vpn_termination_request: Vec<crate::models::L2VpnTerminationRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_l2vpn_terminations_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnL2vpnTerminationsBulkPartialUpdateParams {
+    pub patched_bulk_l2_vpn_termination_request:
+        Vec<crate::models::PatchedBulkL2VpnTerminationRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_l2vpn_terminations_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnL2vpnTerminationsBulkUpdateParams {
+    pub bulk_l2_vpn_termination_request: Vec<crate::models::BulkL2VpnTerminationRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_l2vpn_terminations_create`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnL2vpnTerminationsCreateParams {
+    pub vpn_l2vpn_terminations_create_request: crate::models::VpnL2vpnTerminationsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`vpn_l2vpn_terminations_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnL2vpnTerminationsDestroyParams {
+    /// A unique integer value identifying this L2VPN termination.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`vpn_l2vpn_terminations_list`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnL2vpnTerminationsListParams {
+    pub assigned_object_id: Option<Vec<i32>>,
+    pub assigned_object_id__empty: Option<bool>,
+    pub assigned_object_id__gt: Option<Vec<i32>>,
+    pub assigned_object_id__gte: Option<Vec<i32>>,
+    pub assigned_object_id__lt: Option<Vec<i32>>,
+    pub assigned_object_id__lte: Option<Vec<i32>>,
+    pub assigned_object_id__n: Option<Vec<i32>>,
+    pub assigned_object_type: Option<Vec<String>>,
+    pub assigned_object_type__n: Option<Vec<String>>,
+    pub assigned_object_type_id: Option<Vec<i32>>,
+    pub assigned_object_type_id__n: Option<Vec<i32>>,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    /// Device (name)
+    pub device: Option<Vec<String>>,
+    /// Device (name)
+    pub device__n: Option<Vec<String>>,
+    /// Device (ID)
+    pub device_id: Option<Vec<i32>>,
+    /// Device (ID)
+    pub device_id__n: Option<Vec<i32>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    /// Interface (name)
+    pub interface: Option<Vec<String>>,
+    /// Interface (name)
+    pub interface__n: Option<Vec<String>>,
+    /// Interface (ID)
+    pub interface_id: Option<Vec<i32>>,
+    /// Interface (ID)
+    pub interface_id__n: Option<Vec<i32>>,
+    /// L2VPN (slug)
+    pub l2vpn: Option<Vec<String>>,
+    /// L2VPN (slug)
+    pub l2vpn__n: Option<Vec<String>>,
+    /// L2VPN (ID)
+    pub l2vpn_id: Option<Vec<i32>>,
+    /// L2VPN (ID)
+    pub l2vpn_id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Search
+    pub q: Option<String>,
+    pub region: Option<Vec<String>>,
+    pub region_id: Option<Vec<i32>>,
+    pub site: Option<Vec<String>>,
+    pub site_id: Option<Vec<i32>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+    /// Virtual machine (name)
+    pub virtual_machine: Option<Vec<String>>,
+    /// Virtual machine (name)
+    pub virtual_machine__n: Option<Vec<String>>,
+    /// Virtual machine (ID)
+    pub virtual_machine_id: Option<Vec<i32>>,
+    /// Virtual machine (ID)
+    pub virtual_machine_id__n: Option<Vec<i32>>,
+    /// VLAN (name)
+    pub vlan: Option<Vec<String>>,
+    /// VLAN (name)
+    pub vlan__n: Option<Vec<String>>,
+    /// VLAN (ID)
+    pub vlan_id: Option<Vec<i32>>,
+    /// VLAN (ID)
+    pub vlan_id__n: Option<Vec<i32>>,
+    /// VLAN number (1-4094)
+    pub vlan_vid: Option<i32>,
+    /// VLAN number (1-4094)
+    pub vlan_vid__empty: Option<i32>,
+    /// VLAN number (1-4094)
+    pub vlan_vid__gt: Option<i32>,
+    /// VLAN number (1-4094)
+    pub vlan_vid__gte: Option<i32>,
+    /// VLAN number (1-4094)
+    pub vlan_vid__lt: Option<i32>,
+    /// VLAN number (1-4094)
+    pub vlan_vid__lte: Option<i32>,
+    /// VLAN number (1-4094)
+    pub vlan_vid__n: Option<i32>,
+    /// VM interface (name)
+    pub vminterface: Option<Vec<String>>,
+    /// VM interface (name)
+    pub vminterface__n: Option<Vec<String>>,
+    /// VM Interface (ID)
+    pub vminterface_id: Option<Vec<i32>>,
+    /// VM Interface (ID)
+    pub vminterface_id__n: Option<Vec<i32>>,
+}
+
+/// struct for passing parameters to the method [`vpn_l2vpn_terminations_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnL2vpnTerminationsPartialUpdateParams {
+    /// A unique integer value identifying this L2VPN termination.
+    pub id: i32,
+    pub patched_l2_vpn_termination_request: Option<crate::models::PatchedL2VpnTerminationRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_l2vpn_terminations_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnL2vpnTerminationsRetrieveParams {
+    /// A unique integer value identifying this L2VPN termination.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`vpn_l2vpn_terminations_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnL2vpnTerminationsUpdateParams {
+    /// A unique integer value identifying this L2VPN termination.
+    pub id: i32,
+    pub l2_vpn_termination_request: crate::models::L2VpnTerminationRequest,
+}
+
+/// struct for passing parameters to the method [`vpn_l2vpns_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnL2vpnsBulkDestroyParams {
+    pub l2_vpn_request: Vec<crate::models::L2VpnRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_l2vpns_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnL2vpnsBulkPartialUpdateParams {
+    pub patched_bulk_l2_vpn_request: Vec<crate::models::PatchedBulkL2VpnRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_l2vpns_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnL2vpnsBulkUpdateParams {
+    pub bulk_l2_vpn_request: Vec<crate::models::BulkL2VpnRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_l2vpns_create`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnL2vpnsCreateParams {
+    pub vpn_l2vpns_create_request: crate::models::VpnL2vpnsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`vpn_l2vpns_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnL2vpnsDestroyParams {
+    /// A unique integer value identifying this L2VPN.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`vpn_l2vpns_list`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnL2vpnsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Contact
+    pub contact: Option<Vec<i32>>,
+    /// Contact
+    pub contact__n: Option<Vec<i32>>,
+    pub contact_group: Option<Vec<String>>,
+    pub contact_group__n: Option<Vec<String>>,
+    /// Contact Role
+    pub contact_role: Option<Vec<i32>>,
+    /// Contact Role
+    pub contact_role__n: Option<Vec<i32>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Export target (name)
+    pub export_target: Option<Vec<String>>,
+    /// Export target (name)
+    pub export_target__n: Option<Vec<String>>,
+    /// Export target
+    pub export_target_id: Option<Vec<i32>>,
+    /// Export target
+    pub export_target_id__n: Option<Vec<i32>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub identifier: Option<Vec<i32>>,
+    pub identifier__empty: Option<bool>,
+    pub identifier__gt: Option<Vec<i32>>,
+    pub identifier__gte: Option<Vec<i32>>,
+    pub identifier__lt: Option<Vec<i32>>,
+    pub identifier__lte: Option<Vec<i32>>,
+    pub identifier__n: Option<Vec<i32>>,
+    /// Import target (name)
+    pub import_target: Option<Vec<String>>,
+    /// Import target (name)
+    pub import_target__n: Option<Vec<String>>,
+    /// Import target
+    pub import_target_id: Option<Vec<i32>>,
+    /// Import target
+    pub import_target_id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub slug: Option<Vec<String>>,
+    pub slug__empty: Option<bool>,
+    pub slug__ic: Option<Vec<String>>,
+    pub slug__ie: Option<Vec<String>>,
+    pub slug__iew: Option<Vec<String>>,
+    pub slug__iregex: Option<Vec<String>>,
+    pub slug__isw: Option<Vec<String>>,
+    pub slug__n: Option<Vec<String>>,
+    pub slug__nic: Option<Vec<String>>,
+    pub slug__nie: Option<Vec<String>>,
+    pub slug__niew: Option<Vec<String>>,
+    pub slug__nisw: Option<Vec<String>>,
+    pub slug__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub status: Option<Vec<String>>,
+    pub status__empty: Option<bool>,
+    pub status__ic: Option<Vec<String>>,
+    pub status__ie: Option<Vec<String>>,
+    pub status__iew: Option<Vec<String>>,
+    pub status__iregex: Option<Vec<String>>,
+    pub status__isw: Option<Vec<String>>,
+    pub status__n: Option<Vec<String>>,
+    pub status__nic: Option<Vec<String>>,
+    pub status__nie: Option<Vec<String>>,
+    pub status__niew: Option<Vec<String>>,
+    pub status__nisw: Option<Vec<String>>,
+    pub status__regex: Option<Vec<String>>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    /// Tenant (slug)
+    pub tenant: Option<Vec<String>>,
+    /// Tenant (slug)
+    pub tenant__n: Option<Vec<String>>,
+    pub tenant_group: Option<Vec<String>>,
+    pub tenant_group__n: Option<Vec<String>>,
+    pub tenant_group_id: Option<Vec<String>>,
+    pub tenant_group_id__n: Option<Vec<String>>,
+    /// Tenant (ID)
+    pub tenant_id: Option<Vec<i32>>,
+    /// Tenant (ID)
+    pub tenant_id__n: Option<Vec<i32>>,
+    pub r#type: Option<Vec<String>>,
+    pub type__empty: Option<bool>,
+    pub type__ic: Option<Vec<String>>,
+    pub type__ie: Option<Vec<String>>,
+    pub type__iew: Option<Vec<String>>,
+    pub type__iregex: Option<Vec<String>>,
+    pub type__isw: Option<Vec<String>>,
+    pub type__n: Option<Vec<String>>,
+    pub type__nic: Option<Vec<String>>,
+    pub type__nie: Option<Vec<String>>,
+    pub type__niew: Option<Vec<String>>,
+    pub type__nisw: Option<Vec<String>>,
+    pub type__regex: Option<Vec<String>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`vpn_l2vpns_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnL2vpnsPartialUpdateParams {
+    /// A unique integer value identifying this L2VPN.
+    pub id: i32,
+    pub patched_writable_l2_vpn_request: Option<crate::models::PatchedWritableL2VpnRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_l2vpns_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnL2vpnsRetrieveParams {
+    /// A unique integer value identifying this L2VPN.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`vpn_l2vpns_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnL2vpnsUpdateParams {
+    /// A unique integer value identifying this L2VPN.
+    pub id: i32,
+    pub writable_l2_vpn_request: crate::models::WritableL2VpnRequest,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnel_groups_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelGroupsBulkDestroyParams {
+    pub tunnel_group_request: Vec<crate::models::TunnelGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnel_groups_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelGroupsBulkPartialUpdateParams {
+    pub patched_bulk_tunnel_group_request: Vec<crate::models::PatchedBulkTunnelGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnel_groups_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelGroupsBulkUpdateParams {
+    pub bulk_tunnel_group_request: Vec<crate::models::BulkTunnelGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnel_groups_create`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelGroupsCreateParams {
+    pub vpn_tunnel_groups_create_request: crate::models::VpnTunnelGroupsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnel_groups_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelGroupsDestroyParams {
+    /// A unique integer value identifying this tunnel group.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnel_groups_list`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelGroupsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Contact
+    pub contact: Option<Vec<i32>>,
+    /// Contact
+    pub contact__n: Option<Vec<i32>>,
+    pub contact_group: Option<Vec<String>>,
+    pub contact_group__n: Option<Vec<String>>,
+    /// Contact Role
+    pub contact_role: Option<Vec<i32>>,
+    /// Contact Role
+    pub contact_role__n: Option<Vec<i32>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub slug: Option<Vec<String>>,
+    pub slug__empty: Option<bool>,
+    pub slug__ic: Option<Vec<String>>,
+    pub slug__ie: Option<Vec<String>>,
+    pub slug__iew: Option<Vec<String>>,
+    pub slug__iregex: Option<Vec<String>>,
+    pub slug__isw: Option<Vec<String>>,
+    pub slug__n: Option<Vec<String>>,
+    pub slug__nic: Option<Vec<String>>,
+    pub slug__nie: Option<Vec<String>>,
+    pub slug__niew: Option<Vec<String>>,
+    pub slug__nisw: Option<Vec<String>>,
+    pub slug__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnel_groups_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelGroupsPartialUpdateParams {
+    /// A unique integer value identifying this tunnel group.
+    pub id: i32,
+    pub patched_tunnel_group_request: Option<crate::models::PatchedTunnelGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnel_groups_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelGroupsRetrieveParams {
+    /// A unique integer value identifying this tunnel group.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnel_groups_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelGroupsUpdateParams {
+    /// A unique integer value identifying this tunnel group.
+    pub id: i32,
+    pub tunnel_group_request: crate::models::TunnelGroupRequest,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnel_terminations_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelTerminationsBulkDestroyParams {
+    pub tunnel_termination_request: Vec<crate::models::TunnelTerminationRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnel_terminations_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelTerminationsBulkPartialUpdateParams {
+    pub patched_bulk_tunnel_termination_request:
+        Vec<crate::models::PatchedBulkTunnelTerminationRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnel_terminations_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelTerminationsBulkUpdateParams {
+    pub bulk_tunnel_termination_request: Vec<crate::models::BulkTunnelTerminationRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnel_terminations_create`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelTerminationsCreateParams {
+    pub vpn_tunnel_terminations_create_request: crate::models::VpnTunnelTerminationsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnel_terminations_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelTerminationsDestroyParams {
+    /// A unique integer value identifying this tunnel termination.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnel_terminations_list`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelTerminationsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    /// Interface (name)
+    pub interface: Option<Vec<String>>,
+    /// Interface (name)
+    pub interface__n: Option<Vec<String>>,
+    /// Interface (ID)
+    pub interface_id: Option<Vec<i32>>,
+    /// Interface (ID)
+    pub interface_id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Outside IP (ID)
+    pub outside_ip_id: Option<Vec<i32>>,
+    /// Outside IP (ID)
+    pub outside_ip_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub role: Option<Vec<String>>,
+    pub role__empty: Option<bool>,
+    pub role__ic: Option<Vec<String>>,
+    pub role__ie: Option<Vec<String>>,
+    pub role__iew: Option<Vec<String>>,
+    pub role__iregex: Option<Vec<String>>,
+    pub role__isw: Option<Vec<String>>,
+    pub role__n: Option<Vec<String>>,
+    pub role__nic: Option<Vec<String>>,
+    pub role__nie: Option<Vec<String>>,
+    pub role__niew: Option<Vec<String>>,
+    pub role__nisw: Option<Vec<String>>,
+    pub role__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub termination_id: Option<Vec<i32>>,
+    pub termination_id__empty: Option<bool>,
+    pub termination_id__gt: Option<Vec<i32>>,
+    pub termination_id__gte: Option<Vec<i32>>,
+    pub termination_id__lt: Option<Vec<i32>>,
+    pub termination_id__lte: Option<Vec<i32>>,
+    pub termination_id__n: Option<Vec<i32>>,
+    pub termination_type: Option<Vec<String>>,
+    pub termination_type__n: Option<Vec<String>>,
+    /// Tunnel (name)
+    pub tunnel: Option<Vec<String>>,
+    /// Tunnel (name)
+    pub tunnel__n: Option<Vec<String>>,
+    /// Tunnel (ID)
+    pub tunnel_id: Option<Vec<i32>>,
+    /// Tunnel (ID)
+    pub tunnel_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+    /// VM interface (name)
+    pub vminterface: Option<Vec<String>>,
+    /// VM interface (name)
+    pub vminterface__n: Option<Vec<String>>,
+    /// VM interface (ID)
+    pub vminterface_id: Option<Vec<i32>>,
+    /// VM interface (ID)
+    pub vminterface_id__n: Option<Vec<i32>>,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnel_terminations_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelTerminationsPartialUpdateParams {
+    /// A unique integer value identifying this tunnel termination.
+    pub id: i32,
+    pub patched_writable_tunnel_termination_request:
+        Option<crate::models::PatchedWritableTunnelTerminationRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnel_terminations_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelTerminationsRetrieveParams {
+    /// A unique integer value identifying this tunnel termination.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnel_terminations_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelTerminationsUpdateParams {
+    /// A unique integer value identifying this tunnel termination.
+    pub id: i32,
+    pub writable_tunnel_termination_request: crate::models::WritableTunnelTerminationRequest,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnels_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelsBulkDestroyParams {
+    pub tunnel_request: Vec<crate::models::TunnelRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnels_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelsBulkPartialUpdateParams {
+    pub patched_bulk_tunnel_request: Vec<crate::models::PatchedBulkTunnelRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnels_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelsBulkUpdateParams {
+    pub bulk_tunnel_request: Vec<crate::models::BulkTunnelRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnels_create`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelsCreateParams {
+    pub vpn_tunnels_create_request: crate::models::VpnTunnelsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnels_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelsDestroyParams {
+    /// A unique integer value identifying this tunnel.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnels_list`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Contact
+    pub contact: Option<Vec<i32>>,
+    /// Contact
+    pub contact__n: Option<Vec<i32>>,
+    pub contact_group: Option<Vec<String>>,
+    pub contact_group__n: Option<Vec<String>>,
+    /// Contact Role
+    pub contact_role: Option<Vec<i32>>,
+    /// Contact Role
+    pub contact_role__n: Option<Vec<i32>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    pub encapsulation: Option<Vec<String>>,
+    pub encapsulation__empty: Option<bool>,
+    pub encapsulation__ic: Option<Vec<String>>,
+    pub encapsulation__ie: Option<Vec<String>>,
+    pub encapsulation__iew: Option<Vec<String>>,
+    pub encapsulation__iregex: Option<Vec<String>>,
+    pub encapsulation__isw: Option<Vec<String>>,
+    pub encapsulation__n: Option<Vec<String>>,
+    pub encapsulation__nic: Option<Vec<String>>,
+    pub encapsulation__nie: Option<Vec<String>>,
+    pub encapsulation__niew: Option<Vec<String>>,
+    pub encapsulation__nisw: Option<Vec<String>>,
+    pub encapsulation__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Tunnel group (slug)
+    pub group: Option<Vec<String>>,
+    /// Tunnel group (slug)
+    pub group__n: Option<Vec<String>>,
+    /// Tunnel group (ID)
+    pub group_id: Option<Vec<i32>>,
+    /// Tunnel group (ID)
+    pub group_id__n: Option<Vec<i32>>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    /// IPSec profile (name)
+    pub ipsec_profile: Option<Vec<String>>,
+    /// IPSec profile (name)
+    pub ipsec_profile__n: Option<Vec<String>>,
+    /// IPSec profile (ID)
+    pub ipsec_profile_id: Option<Vec<i32>>,
+    /// IPSec profile (ID)
+    pub ipsec_profile_id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub status: Option<Vec<String>>,
+    pub status__empty: Option<bool>,
+    pub status__ic: Option<Vec<String>>,
+    pub status__ie: Option<Vec<String>>,
+    pub status__iew: Option<Vec<String>>,
+    pub status__iregex: Option<Vec<String>>,
+    pub status__isw: Option<Vec<String>>,
+    pub status__n: Option<Vec<String>>,
+    pub status__nic: Option<Vec<String>>,
+    pub status__nie: Option<Vec<String>>,
+    pub status__niew: Option<Vec<String>>,
+    pub status__nisw: Option<Vec<String>>,
+    pub status__regex: Option<Vec<String>>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    /// Tenant (slug)
+    pub tenant: Option<Vec<String>>,
+    /// Tenant (slug)
+    pub tenant__n: Option<Vec<String>>,
+    pub tenant_group: Option<Vec<String>>,
+    pub tenant_group__n: Option<Vec<String>>,
+    pub tenant_group_id: Option<Vec<String>>,
+    pub tenant_group_id__n: Option<Vec<String>>,
+    /// Tenant (ID)
+    pub tenant_id: Option<Vec<i32>>,
+    /// Tenant (ID)
+    pub tenant_id__n: Option<Vec<i32>>,
+    pub tunnel_id: Option<Vec<i32>>,
+    pub tunnel_id__empty: Option<bool>,
+    pub tunnel_id__gt: Option<Vec<i32>>,
+    pub tunnel_id__gte: Option<Vec<i32>>,
+    pub tunnel_id__lt: Option<Vec<i32>>,
+    pub tunnel_id__lte: Option<Vec<i32>>,
+    pub tunnel_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnels_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelsPartialUpdateParams {
+    /// A unique integer value identifying this tunnel.
+    pub id: i32,
+    pub patched_writable_tunnel_request: Option<crate::models::PatchedWritableTunnelRequest>,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnels_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelsRetrieveParams {
+    /// A unique integer value identifying this tunnel.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`vpn_tunnels_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VpnTunnelsUpdateParams {
+    /// A unique integer value identifying this tunnel.
+    pub id: i32,
+    pub writable_tunnel_request: crate::models::WritableTunnelRequest,
+}
+
 /// struct for typed errors of method [`vpn_ike_policies_bulk_destroy`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -736,9 +2718,12 @@ pub enum VpnTunnelsUpdateError {
 /// Delete a list of IKE policy objects.
 pub async fn vpn_ike_policies_bulk_destroy(
     configuration: &configuration::Configuration,
-    ike_policy_request: Vec<crate::models::IkePolicyRequest>,
+    params: VpnIkePoliciesBulkDestroyParams,
 ) -> Result<(), Error<VpnIkePoliciesBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ike_policy_request = params.ike_policy_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -786,9 +2771,12 @@ pub async fn vpn_ike_policies_bulk_destroy(
 /// Patch a list of IKE policy objects.
 pub async fn vpn_ike_policies_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_ike_policy_request: Vec<crate::models::PatchedBulkIkePolicyRequest>,
+    params: VpnIkePoliciesBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::IkePolicy>, Error<VpnIkePoliciesBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_ike_policy_request = params.patched_bulk_ike_policy_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -836,9 +2824,12 @@ pub async fn vpn_ike_policies_bulk_partial_update(
 /// Put a list of IKE policy objects.
 pub async fn vpn_ike_policies_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_ike_policy_request: Vec<crate::models::BulkIkePolicyRequest>,
+    params: VpnIkePoliciesBulkUpdateParams,
 ) -> Result<Vec<crate::models::IkePolicy>, Error<VpnIkePoliciesBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_ike_policy_request = params.bulk_ike_policy_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -886,9 +2877,12 @@ pub async fn vpn_ike_policies_bulk_update(
 /// Post a list of IKE policy objects.
 pub async fn vpn_ike_policies_create(
     configuration: &configuration::Configuration,
-    vpn_ike_policies_create_request: crate::models::VpnIkePoliciesCreateRequest,
+    params: VpnIkePoliciesCreateParams,
 ) -> Result<crate::models::IkePolicy, Error<VpnIkePoliciesCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let vpn_ike_policies_create_request = params.vpn_ike_policies_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -936,9 +2930,12 @@ pub async fn vpn_ike_policies_create(
 /// Delete a IKE policy object.
 pub async fn vpn_ike_policies_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: VpnIkePoliciesDestroyParams,
 ) -> Result<(), Error<VpnIkePoliciesDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -986,121 +2983,124 @@ pub async fn vpn_ike_policies_destroy(
 /// Get a list of IKE policy objects.
 pub async fn vpn_ike_policies_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    ike_proposal: Option<Vec<String>>,
-    ike_proposal__n: Option<Vec<String>>,
-    ike_proposal_id: Option<Vec<i32>>,
-    ike_proposal_id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    mode: Option<Vec<String>>,
-    mode__empty: Option<bool>,
-    mode__ic: Option<Vec<String>>,
-    mode__ie: Option<Vec<String>>,
-    mode__iew: Option<Vec<String>>,
-    mode__iregex: Option<Vec<String>>,
-    mode__isw: Option<Vec<String>>,
-    mode__n: Option<Vec<String>>,
-    mode__nic: Option<Vec<String>>,
-    mode__nie: Option<Vec<String>>,
-    mode__niew: Option<Vec<String>>,
-    mode__nisw: Option<Vec<String>>,
-    mode__regex: Option<Vec<String>>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    preshared_key: Option<&str>,
-    preshared_key__ic: Option<&str>,
-    preshared_key__ie: Option<&str>,
-    preshared_key__iew: Option<&str>,
-    preshared_key__iregex: Option<&str>,
-    preshared_key__isw: Option<&str>,
-    preshared_key__n: Option<&str>,
-    preshared_key__nic: Option<&str>,
-    preshared_key__nie: Option<&str>,
-    preshared_key__niew: Option<&str>,
-    preshared_key__nisw: Option<&str>,
-    preshared_key__regex: Option<&str>,
-    q: Option<&str>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
-    version: Option<Vec<i32>>,
-    version__ic: Option<Vec<i32>>,
-    version__ie: Option<Vec<i32>>,
-    version__iew: Option<Vec<i32>>,
-    version__iregex: Option<Vec<i32>>,
-    version__isw: Option<Vec<i32>>,
-    version__n: Option<Vec<i32>>,
-    version__nic: Option<Vec<i32>>,
-    version__nie: Option<Vec<i32>>,
-    version__niew: Option<Vec<i32>>,
-    version__nisw: Option<Vec<i32>>,
-    version__regex: Option<Vec<i32>>,
+    params: VpnIkePoliciesListParams,
 ) -> Result<crate::models::PaginatedIkePolicyList, Error<VpnIkePoliciesListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let ike_proposal = params.ike_proposal;
+    let ike_proposal__n = params.ike_proposal__n;
+    let ike_proposal_id = params.ike_proposal_id;
+    let ike_proposal_id__n = params.ike_proposal_id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let mode = params.mode;
+    let mode__empty = params.mode__empty;
+    let mode__ic = params.mode__ic;
+    let mode__ie = params.mode__ie;
+    let mode__iew = params.mode__iew;
+    let mode__iregex = params.mode__iregex;
+    let mode__isw = params.mode__isw;
+    let mode__n = params.mode__n;
+    let mode__nic = params.mode__nic;
+    let mode__nie = params.mode__nie;
+    let mode__niew = params.mode__niew;
+    let mode__nisw = params.mode__nisw;
+    let mode__regex = params.mode__regex;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let preshared_key = params.preshared_key;
+    let preshared_key__ic = params.preshared_key__ic;
+    let preshared_key__ie = params.preshared_key__ie;
+    let preshared_key__iew = params.preshared_key__iew;
+    let preshared_key__iregex = params.preshared_key__iregex;
+    let preshared_key__isw = params.preshared_key__isw;
+    let preshared_key__n = params.preshared_key__n;
+    let preshared_key__nic = params.preshared_key__nic;
+    let preshared_key__nie = params.preshared_key__nie;
+    let preshared_key__niew = params.preshared_key__niew;
+    let preshared_key__nisw = params.preshared_key__nisw;
+    let preshared_key__regex = params.preshared_key__regex;
+    let q = params.q;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
+    let version = params.version;
+    let version__ic = params.version__ic;
+    let version__ie = params.version__ie;
+    let version__iew = params.version__iew;
+    let version__iregex = params.version__iregex;
+    let version__isw = params.version__isw;
+    let version__n = params.version__n;
+    let version__nic = params.version__nic;
+    let version__nie = params.version__nie;
+    let version__niew = params.version__niew;
+    let version__nisw = params.version__nisw;
+    let version__regex = params.version__regex;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2888,10 +4888,13 @@ pub async fn vpn_ike_policies_list(
 /// Patch a IKE policy object.
 pub async fn vpn_ike_policies_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_ike_policy_request: Option<crate::models::PatchedWritableIkePolicyRequest>,
+    params: VpnIkePoliciesPartialUpdateParams,
 ) -> Result<crate::models::IkePolicy, Error<VpnIkePoliciesPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_ike_policy_request = params.patched_writable_ike_policy_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2940,12 +4943,15 @@ pub async fn vpn_ike_policies_partial_update(
 /// Get a IKE policy object.
 pub async fn vpn_ike_policies_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: VpnIkePoliciesRetrieveParams,
 ) -> Result<crate::models::IkePolicy, Error<VpnIkePoliciesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -3005,10 +5011,13 @@ pub async fn vpn_ike_policies_retrieve(
 /// Put a IKE policy object.
 pub async fn vpn_ike_policies_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_ike_policy_request: crate::models::WritableIkePolicyRequest,
+    params: VpnIkePoliciesUpdateParams,
 ) -> Result<crate::models::IkePolicy, Error<VpnIkePoliciesUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_ike_policy_request = params.writable_ike_policy_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -3057,9 +5066,12 @@ pub async fn vpn_ike_policies_update(
 /// Delete a list of IKE proposal objects.
 pub async fn vpn_ike_proposals_bulk_destroy(
     configuration: &configuration::Configuration,
-    ike_proposal_request: Vec<crate::models::IkeProposalRequest>,
+    params: VpnIkeProposalsBulkDestroyParams,
 ) -> Result<(), Error<VpnIkeProposalsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ike_proposal_request = params.ike_proposal_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -3107,9 +5119,12 @@ pub async fn vpn_ike_proposals_bulk_destroy(
 /// Patch a list of IKE proposal objects.
 pub async fn vpn_ike_proposals_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_ike_proposal_request: Vec<crate::models::PatchedBulkIkeProposalRequest>,
+    params: VpnIkeProposalsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::IkeProposal>, Error<VpnIkeProposalsBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_ike_proposal_request = params.patched_bulk_ike_proposal_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -3157,9 +5172,12 @@ pub async fn vpn_ike_proposals_bulk_partial_update(
 /// Put a list of IKE proposal objects.
 pub async fn vpn_ike_proposals_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_ike_proposal_request: Vec<crate::models::BulkIkeProposalRequest>,
+    params: VpnIkeProposalsBulkUpdateParams,
 ) -> Result<Vec<crate::models::IkeProposal>, Error<VpnIkeProposalsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_ike_proposal_request = params.bulk_ike_proposal_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -3207,9 +5225,12 @@ pub async fn vpn_ike_proposals_bulk_update(
 /// Post a list of IKE proposal objects.
 pub async fn vpn_ike_proposals_create(
     configuration: &configuration::Configuration,
-    vpn_ike_proposals_create_request: crate::models::VpnIkeProposalsCreateRequest,
+    params: VpnIkeProposalsCreateParams,
 ) -> Result<crate::models::IkeProposal, Error<VpnIkeProposalsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let vpn_ike_proposals_create_request = params.vpn_ike_proposals_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -3257,9 +5278,12 @@ pub async fn vpn_ike_proposals_create(
 /// Delete a IKE proposal object.
 pub async fn vpn_ike_proposals_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: VpnIkeProposalsDestroyParams,
 ) -> Result<(), Error<VpnIkeProposalsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -3307,142 +5331,145 @@ pub async fn vpn_ike_proposals_destroy(
 /// Get a list of IKE proposal objects.
 pub async fn vpn_ike_proposals_list(
     configuration: &configuration::Configuration,
-    authentication_algorithm: Option<Vec<String>>,
-    authentication_algorithm__empty: Option<bool>,
-    authentication_algorithm__ic: Option<Vec<String>>,
-    authentication_algorithm__ie: Option<Vec<String>>,
-    authentication_algorithm__iew: Option<Vec<String>>,
-    authentication_algorithm__iregex: Option<Vec<String>>,
-    authentication_algorithm__isw: Option<Vec<String>>,
-    authentication_algorithm__n: Option<Vec<String>>,
-    authentication_algorithm__nic: Option<Vec<String>>,
-    authentication_algorithm__nie: Option<Vec<String>>,
-    authentication_algorithm__niew: Option<Vec<String>>,
-    authentication_algorithm__nisw: Option<Vec<String>>,
-    authentication_algorithm__regex: Option<Vec<String>>,
-    authentication_method: Option<Vec<String>>,
-    authentication_method__empty: Option<bool>,
-    authentication_method__ic: Option<Vec<String>>,
-    authentication_method__ie: Option<Vec<String>>,
-    authentication_method__iew: Option<Vec<String>>,
-    authentication_method__iregex: Option<Vec<String>>,
-    authentication_method__isw: Option<Vec<String>>,
-    authentication_method__n: Option<Vec<String>>,
-    authentication_method__nic: Option<Vec<String>>,
-    authentication_method__nie: Option<Vec<String>>,
-    authentication_method__niew: Option<Vec<String>>,
-    authentication_method__nisw: Option<Vec<String>>,
-    authentication_method__regex: Option<Vec<String>>,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    encryption_algorithm: Option<Vec<String>>,
-    encryption_algorithm__empty: Option<bool>,
-    encryption_algorithm__ic: Option<Vec<String>>,
-    encryption_algorithm__ie: Option<Vec<String>>,
-    encryption_algorithm__iew: Option<Vec<String>>,
-    encryption_algorithm__iregex: Option<Vec<String>>,
-    encryption_algorithm__isw: Option<Vec<String>>,
-    encryption_algorithm__n: Option<Vec<String>>,
-    encryption_algorithm__nic: Option<Vec<String>>,
-    encryption_algorithm__nie: Option<Vec<String>>,
-    encryption_algorithm__niew: Option<Vec<String>>,
-    encryption_algorithm__nisw: Option<Vec<String>>,
-    encryption_algorithm__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    group: Option<Vec<i32>>,
-    group__ic: Option<Vec<i32>>,
-    group__ie: Option<Vec<i32>>,
-    group__iew: Option<Vec<i32>>,
-    group__iregex: Option<Vec<i32>>,
-    group__isw: Option<Vec<i32>>,
-    group__n: Option<Vec<i32>>,
-    group__nic: Option<Vec<i32>>,
-    group__nie: Option<Vec<i32>>,
-    group__niew: Option<Vec<i32>>,
-    group__nisw: Option<Vec<i32>>,
-    group__regex: Option<Vec<i32>>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    ike_policy: Option<Vec<String>>,
-    ike_policy__n: Option<Vec<String>>,
-    ike_policy_id: Option<Vec<i32>>,
-    ike_policy_id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    sa_lifetime: Option<Vec<i32>>,
-    sa_lifetime__empty: Option<bool>,
-    sa_lifetime__gt: Option<Vec<i32>>,
-    sa_lifetime__gte: Option<Vec<i32>>,
-    sa_lifetime__lt: Option<Vec<i32>>,
-    sa_lifetime__lte: Option<Vec<i32>>,
-    sa_lifetime__n: Option<Vec<i32>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: VpnIkeProposalsListParams,
 ) -> Result<crate::models::PaginatedIkeProposalList, Error<VpnIkeProposalsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let authentication_algorithm = params.authentication_algorithm;
+    let authentication_algorithm__empty = params.authentication_algorithm__empty;
+    let authentication_algorithm__ic = params.authentication_algorithm__ic;
+    let authentication_algorithm__ie = params.authentication_algorithm__ie;
+    let authentication_algorithm__iew = params.authentication_algorithm__iew;
+    let authentication_algorithm__iregex = params.authentication_algorithm__iregex;
+    let authentication_algorithm__isw = params.authentication_algorithm__isw;
+    let authentication_algorithm__n = params.authentication_algorithm__n;
+    let authentication_algorithm__nic = params.authentication_algorithm__nic;
+    let authentication_algorithm__nie = params.authentication_algorithm__nie;
+    let authentication_algorithm__niew = params.authentication_algorithm__niew;
+    let authentication_algorithm__nisw = params.authentication_algorithm__nisw;
+    let authentication_algorithm__regex = params.authentication_algorithm__regex;
+    let authentication_method = params.authentication_method;
+    let authentication_method__empty = params.authentication_method__empty;
+    let authentication_method__ic = params.authentication_method__ic;
+    let authentication_method__ie = params.authentication_method__ie;
+    let authentication_method__iew = params.authentication_method__iew;
+    let authentication_method__iregex = params.authentication_method__iregex;
+    let authentication_method__isw = params.authentication_method__isw;
+    let authentication_method__n = params.authentication_method__n;
+    let authentication_method__nic = params.authentication_method__nic;
+    let authentication_method__nie = params.authentication_method__nie;
+    let authentication_method__niew = params.authentication_method__niew;
+    let authentication_method__nisw = params.authentication_method__nisw;
+    let authentication_method__regex = params.authentication_method__regex;
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let encryption_algorithm = params.encryption_algorithm;
+    let encryption_algorithm__empty = params.encryption_algorithm__empty;
+    let encryption_algorithm__ic = params.encryption_algorithm__ic;
+    let encryption_algorithm__ie = params.encryption_algorithm__ie;
+    let encryption_algorithm__iew = params.encryption_algorithm__iew;
+    let encryption_algorithm__iregex = params.encryption_algorithm__iregex;
+    let encryption_algorithm__isw = params.encryption_algorithm__isw;
+    let encryption_algorithm__n = params.encryption_algorithm__n;
+    let encryption_algorithm__nic = params.encryption_algorithm__nic;
+    let encryption_algorithm__nie = params.encryption_algorithm__nie;
+    let encryption_algorithm__niew = params.encryption_algorithm__niew;
+    let encryption_algorithm__nisw = params.encryption_algorithm__nisw;
+    let encryption_algorithm__regex = params.encryption_algorithm__regex;
+    let fields = params.fields;
+    let group = params.group;
+    let group__ic = params.group__ic;
+    let group__ie = params.group__ie;
+    let group__iew = params.group__iew;
+    let group__iregex = params.group__iregex;
+    let group__isw = params.group__isw;
+    let group__n = params.group__n;
+    let group__nic = params.group__nic;
+    let group__nie = params.group__nie;
+    let group__niew = params.group__niew;
+    let group__nisw = params.group__nisw;
+    let group__regex = params.group__regex;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let ike_policy = params.ike_policy;
+    let ike_policy__n = params.ike_policy__n;
+    let ike_policy_id = params.ike_policy_id;
+    let ike_policy_id__n = params.ike_policy_id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let sa_lifetime = params.sa_lifetime;
+    let sa_lifetime__empty = params.sa_lifetime__empty;
+    let sa_lifetime__gt = params.sa_lifetime__gt;
+    let sa_lifetime__gte = params.sa_lifetime__gte;
+    let sa_lifetime__lt = params.sa_lifetime__lt;
+    let sa_lifetime__lte = params.sa_lifetime__lte;
+    let sa_lifetime__n = params.sa_lifetime__n;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -5766,10 +7793,13 @@ pub async fn vpn_ike_proposals_list(
 /// Patch a IKE proposal object.
 pub async fn vpn_ike_proposals_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_ike_proposal_request: Option<crate::models::PatchedWritableIkeProposalRequest>,
+    params: VpnIkeProposalsPartialUpdateParams,
 ) -> Result<crate::models::IkeProposal, Error<VpnIkeProposalsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_ike_proposal_request = params.patched_writable_ike_proposal_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -5818,12 +7848,15 @@ pub async fn vpn_ike_proposals_partial_update(
 /// Get a IKE proposal object.
 pub async fn vpn_ike_proposals_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: VpnIkeProposalsRetrieveParams,
 ) -> Result<crate::models::IkeProposal, Error<VpnIkeProposalsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -5883,10 +7916,13 @@ pub async fn vpn_ike_proposals_retrieve(
 /// Put a IKE proposal object.
 pub async fn vpn_ike_proposals_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_ike_proposal_request: crate::models::WritableIkeProposalRequest,
+    params: VpnIkeProposalsUpdateParams,
 ) -> Result<crate::models::IkeProposal, Error<VpnIkeProposalsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_ike_proposal_request = params.writable_ike_proposal_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -5935,9 +7971,12 @@ pub async fn vpn_ike_proposals_update(
 /// Delete a list of IPSec policy objects.
 pub async fn vpn_ipsec_policies_bulk_destroy(
     configuration: &configuration::Configuration,
-    ip_sec_policy_request: Vec<crate::models::IpSecPolicyRequest>,
+    params: VpnIpsecPoliciesBulkDestroyParams,
 ) -> Result<(), Error<VpnIpsecPoliciesBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ip_sec_policy_request = params.ip_sec_policy_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -5985,9 +8024,12 @@ pub async fn vpn_ipsec_policies_bulk_destroy(
 /// Patch a list of IPSec policy objects.
 pub async fn vpn_ipsec_policies_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_ip_sec_policy_request: Vec<crate::models::PatchedBulkIpSecPolicyRequest>,
+    params: VpnIpsecPoliciesBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::IpSecPolicy>, Error<VpnIpsecPoliciesBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_ip_sec_policy_request = params.patched_bulk_ip_sec_policy_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -6035,9 +8077,12 @@ pub async fn vpn_ipsec_policies_bulk_partial_update(
 /// Put a list of IPSec policy objects.
 pub async fn vpn_ipsec_policies_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_ip_sec_policy_request: Vec<crate::models::BulkIpSecPolicyRequest>,
+    params: VpnIpsecPoliciesBulkUpdateParams,
 ) -> Result<Vec<crate::models::IpSecPolicy>, Error<VpnIpsecPoliciesBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_ip_sec_policy_request = params.bulk_ip_sec_policy_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -6085,9 +8130,12 @@ pub async fn vpn_ipsec_policies_bulk_update(
 /// Post a list of IPSec policy objects.
 pub async fn vpn_ipsec_policies_create(
     configuration: &configuration::Configuration,
-    vpn_ipsec_policies_create_request: crate::models::VpnIpsecPoliciesCreateRequest,
+    params: VpnIpsecPoliciesCreateParams,
 ) -> Result<crate::models::IpSecPolicy, Error<VpnIpsecPoliciesCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let vpn_ipsec_policies_create_request = params.vpn_ipsec_policies_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -6135,9 +8183,12 @@ pub async fn vpn_ipsec_policies_create(
 /// Delete a IPSec policy object.
 pub async fn vpn_ipsec_policies_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: VpnIpsecPoliciesDestroyParams,
 ) -> Result<(), Error<VpnIpsecPoliciesDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -6185,96 +8236,99 @@ pub async fn vpn_ipsec_policies_destroy(
 /// Get a list of IPSec policy objects.
 pub async fn vpn_ipsec_policies_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    ipsec_proposal: Option<Vec<String>>,
-    ipsec_proposal__n: Option<Vec<String>>,
-    ipsec_proposal_id: Option<Vec<i32>>,
-    ipsec_proposal_id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    pfs_group: Option<Vec<i32>>,
-    pfs_group__ic: Option<Vec<i32>>,
-    pfs_group__ie: Option<Vec<i32>>,
-    pfs_group__iew: Option<Vec<i32>>,
-    pfs_group__iregex: Option<Vec<i32>>,
-    pfs_group__isw: Option<Vec<i32>>,
-    pfs_group__n: Option<Vec<i32>>,
-    pfs_group__nic: Option<Vec<i32>>,
-    pfs_group__nie: Option<Vec<i32>>,
-    pfs_group__niew: Option<Vec<i32>>,
-    pfs_group__nisw: Option<Vec<i32>>,
-    pfs_group__regex: Option<Vec<i32>>,
-    q: Option<&str>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: VpnIpsecPoliciesListParams,
 ) -> Result<crate::models::PaginatedIpSecPolicyList, Error<VpnIpsecPoliciesListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let ipsec_proposal = params.ipsec_proposal;
+    let ipsec_proposal__n = params.ipsec_proposal__n;
+    let ipsec_proposal_id = params.ipsec_proposal_id;
+    let ipsec_proposal_id__n = params.ipsec_proposal_id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let pfs_group = params.pfs_group;
+    let pfs_group__ic = params.pfs_group__ic;
+    let pfs_group__ie = params.pfs_group__ie;
+    let pfs_group__iew = params.pfs_group__iew;
+    let pfs_group__iregex = params.pfs_group__iregex;
+    let pfs_group__isw = params.pfs_group__isw;
+    let pfs_group__n = params.pfs_group__n;
+    let pfs_group__nic = params.pfs_group__nic;
+    let pfs_group__nie = params.pfs_group__nie;
+    let pfs_group__niew = params.pfs_group__niew;
+    let pfs_group__nisw = params.pfs_group__nisw;
+    let pfs_group__regex = params.pfs_group__regex;
+    let q = params.q;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7782,12 +9836,13 @@ pub async fn vpn_ipsec_policies_list(
 /// Patch a IPSec policy object.
 pub async fn vpn_ipsec_policies_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_ip_sec_policy_request: Option<
-        crate::models::PatchedWritableIpSecPolicyRequest,
-    >,
+    params: VpnIpsecPoliciesPartialUpdateParams,
 ) -> Result<crate::models::IpSecPolicy, Error<VpnIpsecPoliciesPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_ip_sec_policy_request = params.patched_writable_ip_sec_policy_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7836,12 +9891,15 @@ pub async fn vpn_ipsec_policies_partial_update(
 /// Get a IPSec policy object.
 pub async fn vpn_ipsec_policies_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: VpnIpsecPoliciesRetrieveParams,
 ) -> Result<crate::models::IpSecPolicy, Error<VpnIpsecPoliciesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7901,10 +9959,13 @@ pub async fn vpn_ipsec_policies_retrieve(
 /// Put a IPSec policy object.
 pub async fn vpn_ipsec_policies_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_ip_sec_policy_request: crate::models::WritableIpSecPolicyRequest,
+    params: VpnIpsecPoliciesUpdateParams,
 ) -> Result<crate::models::IpSecPolicy, Error<VpnIpsecPoliciesUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_ip_sec_policy_request = params.writable_ip_sec_policy_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7953,9 +10014,12 @@ pub async fn vpn_ipsec_policies_update(
 /// Delete a list of IPSec profile objects.
 pub async fn vpn_ipsec_profiles_bulk_destroy(
     configuration: &configuration::Configuration,
-    ip_sec_profile_request: Vec<crate::models::IpSecProfileRequest>,
+    params: VpnIpsecProfilesBulkDestroyParams,
 ) -> Result<(), Error<VpnIpsecProfilesBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ip_sec_profile_request = params.ip_sec_profile_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -8003,9 +10067,12 @@ pub async fn vpn_ipsec_profiles_bulk_destroy(
 /// Patch a list of IPSec profile objects.
 pub async fn vpn_ipsec_profiles_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_ip_sec_profile_request: Vec<crate::models::PatchedBulkIpSecProfileRequest>,
+    params: VpnIpsecProfilesBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::IpSecProfile>, Error<VpnIpsecProfilesBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_ip_sec_profile_request = params.patched_bulk_ip_sec_profile_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -8053,9 +10120,12 @@ pub async fn vpn_ipsec_profiles_bulk_partial_update(
 /// Put a list of IPSec profile objects.
 pub async fn vpn_ipsec_profiles_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_ip_sec_profile_request: Vec<crate::models::BulkIpSecProfileRequest>,
+    params: VpnIpsecProfilesBulkUpdateParams,
 ) -> Result<Vec<crate::models::IpSecProfile>, Error<VpnIpsecProfilesBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_ip_sec_profile_request = params.bulk_ip_sec_profile_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -8103,9 +10173,12 @@ pub async fn vpn_ipsec_profiles_bulk_update(
 /// Post a list of IPSec profile objects.
 pub async fn vpn_ipsec_profiles_create(
     configuration: &configuration::Configuration,
-    vpn_ipsec_profiles_create_request: crate::models::VpnIpsecProfilesCreateRequest,
+    params: VpnIpsecProfilesCreateParams,
 ) -> Result<crate::models::IpSecProfile, Error<VpnIpsecProfilesCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let vpn_ipsec_profiles_create_request = params.vpn_ipsec_profiles_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -8153,9 +10226,12 @@ pub async fn vpn_ipsec_profiles_create(
 /// Delete a IPSec profile object.
 pub async fn vpn_ipsec_profiles_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: VpnIpsecProfilesDestroyParams,
 ) -> Result<(), Error<VpnIpsecProfilesDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -8203,101 +10279,104 @@ pub async fn vpn_ipsec_profiles_destroy(
 /// Get a list of IPSec profile objects.
 pub async fn vpn_ipsec_profiles_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    ike_policy: Option<Vec<String>>,
-    ike_policy__n: Option<Vec<String>>,
-    ike_policy_id: Option<Vec<i32>>,
-    ike_policy_id__n: Option<Vec<i32>>,
-    ipsec_policy: Option<Vec<String>>,
-    ipsec_policy__n: Option<Vec<String>>,
-    ipsec_policy_id: Option<Vec<i32>>,
-    ipsec_policy_id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    mode: Option<Vec<String>>,
-    mode__empty: Option<bool>,
-    mode__ic: Option<Vec<String>>,
-    mode__ie: Option<Vec<String>>,
-    mode__iew: Option<Vec<String>>,
-    mode__iregex: Option<Vec<String>>,
-    mode__isw: Option<Vec<String>>,
-    mode__n: Option<Vec<String>>,
-    mode__nic: Option<Vec<String>>,
-    mode__nie: Option<Vec<String>>,
-    mode__niew: Option<Vec<String>>,
-    mode__nisw: Option<Vec<String>>,
-    mode__regex: Option<Vec<String>>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: VpnIpsecProfilesListParams,
 ) -> Result<crate::models::PaginatedIpSecProfileList, Error<VpnIpsecProfilesListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let ike_policy = params.ike_policy;
+    let ike_policy__n = params.ike_policy__n;
+    let ike_policy_id = params.ike_policy_id;
+    let ike_policy_id__n = params.ike_policy_id__n;
+    let ipsec_policy = params.ipsec_policy;
+    let ipsec_policy__n = params.ipsec_policy__n;
+    let ipsec_policy_id = params.ipsec_policy_id;
+    let ipsec_policy_id__n = params.ipsec_policy_id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let mode = params.mode;
+    let mode__empty = params.mode__empty;
+    let mode__ic = params.mode__ic;
+    let mode__ie = params.mode__ie;
+    let mode__iew = params.mode__iew;
+    let mode__iregex = params.mode__iregex;
+    let mode__isw = params.mode__isw;
+    let mode__n = params.mode__n;
+    let mode__nic = params.mode__nic;
+    let mode__nie = params.mode__nie;
+    let mode__niew = params.mode__niew;
+    let mode__nisw = params.mode__nisw;
+    let mode__regex = params.mode__regex;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -9885,12 +11964,13 @@ pub async fn vpn_ipsec_profiles_list(
 /// Patch a IPSec profile object.
 pub async fn vpn_ipsec_profiles_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_ip_sec_profile_request: Option<
-        crate::models::PatchedWritableIpSecProfileRequest,
-    >,
+    params: VpnIpsecProfilesPartialUpdateParams,
 ) -> Result<crate::models::IpSecProfile, Error<VpnIpsecProfilesPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_ip_sec_profile_request = params.patched_writable_ip_sec_profile_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -9939,12 +12019,15 @@ pub async fn vpn_ipsec_profiles_partial_update(
 /// Get a IPSec profile object.
 pub async fn vpn_ipsec_profiles_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: VpnIpsecProfilesRetrieveParams,
 ) -> Result<crate::models::IpSecProfile, Error<VpnIpsecProfilesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10004,10 +12087,13 @@ pub async fn vpn_ipsec_profiles_retrieve(
 /// Put a IPSec profile object.
 pub async fn vpn_ipsec_profiles_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_ip_sec_profile_request: crate::models::WritableIpSecProfileRequest,
+    params: VpnIpsecProfilesUpdateParams,
 ) -> Result<crate::models::IpSecProfile, Error<VpnIpsecProfilesUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_ip_sec_profile_request = params.writable_ip_sec_profile_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10056,9 +12142,12 @@ pub async fn vpn_ipsec_profiles_update(
 /// Delete a list of IPSec proposal objects.
 pub async fn vpn_ipsec_proposals_bulk_destroy(
     configuration: &configuration::Configuration,
-    ip_sec_proposal_request: Vec<crate::models::IpSecProposalRequest>,
+    params: VpnIpsecProposalsBulkDestroyParams,
 ) -> Result<(), Error<VpnIpsecProposalsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ip_sec_proposal_request = params.ip_sec_proposal_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10106,9 +12195,12 @@ pub async fn vpn_ipsec_proposals_bulk_destroy(
 /// Patch a list of IPSec proposal objects.
 pub async fn vpn_ipsec_proposals_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_ip_sec_proposal_request: Vec<crate::models::PatchedBulkIpSecProposalRequest>,
+    params: VpnIpsecProposalsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::IpSecProposal>, Error<VpnIpsecProposalsBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_ip_sec_proposal_request = params.patched_bulk_ip_sec_proposal_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10156,9 +12248,12 @@ pub async fn vpn_ipsec_proposals_bulk_partial_update(
 /// Put a list of IPSec proposal objects.
 pub async fn vpn_ipsec_proposals_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_ip_sec_proposal_request: Vec<crate::models::BulkIpSecProposalRequest>,
+    params: VpnIpsecProposalsBulkUpdateParams,
 ) -> Result<Vec<crate::models::IpSecProposal>, Error<VpnIpsecProposalsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_ip_sec_proposal_request = params.bulk_ip_sec_proposal_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10206,9 +12301,12 @@ pub async fn vpn_ipsec_proposals_bulk_update(
 /// Post a list of IPSec proposal objects.
 pub async fn vpn_ipsec_proposals_create(
     configuration: &configuration::Configuration,
-    vpn_ipsec_proposals_create_request: crate::models::VpnIpsecProposalsCreateRequest,
+    params: VpnIpsecProposalsCreateParams,
 ) -> Result<crate::models::IpSecProposal, Error<VpnIpsecProposalsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let vpn_ipsec_proposals_create_request = params.vpn_ipsec_proposals_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10256,9 +12354,12 @@ pub async fn vpn_ipsec_proposals_create(
 /// Delete a IPSec proposal object.
 pub async fn vpn_ipsec_proposals_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: VpnIpsecProposalsDestroyParams,
 ) -> Result<(), Error<VpnIpsecProposalsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10306,124 +12407,127 @@ pub async fn vpn_ipsec_proposals_destroy(
 /// Get a list of IPSec proposal objects.
 pub async fn vpn_ipsec_proposals_list(
     configuration: &configuration::Configuration,
-    authentication_algorithm: Option<Vec<String>>,
-    authentication_algorithm__empty: Option<bool>,
-    authentication_algorithm__ic: Option<Vec<String>>,
-    authentication_algorithm__ie: Option<Vec<String>>,
-    authentication_algorithm__iew: Option<Vec<String>>,
-    authentication_algorithm__iregex: Option<Vec<String>>,
-    authentication_algorithm__isw: Option<Vec<String>>,
-    authentication_algorithm__n: Option<Vec<String>>,
-    authentication_algorithm__nic: Option<Vec<String>>,
-    authentication_algorithm__nie: Option<Vec<String>>,
-    authentication_algorithm__niew: Option<Vec<String>>,
-    authentication_algorithm__nisw: Option<Vec<String>>,
-    authentication_algorithm__regex: Option<Vec<String>>,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    encryption_algorithm: Option<Vec<String>>,
-    encryption_algorithm__empty: Option<bool>,
-    encryption_algorithm__ic: Option<Vec<String>>,
-    encryption_algorithm__ie: Option<Vec<String>>,
-    encryption_algorithm__iew: Option<Vec<String>>,
-    encryption_algorithm__iregex: Option<Vec<String>>,
-    encryption_algorithm__isw: Option<Vec<String>>,
-    encryption_algorithm__n: Option<Vec<String>>,
-    encryption_algorithm__nic: Option<Vec<String>>,
-    encryption_algorithm__nie: Option<Vec<String>>,
-    encryption_algorithm__niew: Option<Vec<String>>,
-    encryption_algorithm__nisw: Option<Vec<String>>,
-    encryption_algorithm__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    ipsec_policy: Option<Vec<String>>,
-    ipsec_policy__n: Option<Vec<String>>,
-    ipsec_policy_id: Option<Vec<i32>>,
-    ipsec_policy_id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    sa_lifetime_data: Option<Vec<i32>>,
-    sa_lifetime_data__empty: Option<bool>,
-    sa_lifetime_data__gt: Option<Vec<i32>>,
-    sa_lifetime_data__gte: Option<Vec<i32>>,
-    sa_lifetime_data__lt: Option<Vec<i32>>,
-    sa_lifetime_data__lte: Option<Vec<i32>>,
-    sa_lifetime_data__n: Option<Vec<i32>>,
-    sa_lifetime_seconds: Option<Vec<i32>>,
-    sa_lifetime_seconds__empty: Option<bool>,
-    sa_lifetime_seconds__gt: Option<Vec<i32>>,
-    sa_lifetime_seconds__gte: Option<Vec<i32>>,
-    sa_lifetime_seconds__lt: Option<Vec<i32>>,
-    sa_lifetime_seconds__lte: Option<Vec<i32>>,
-    sa_lifetime_seconds__n: Option<Vec<i32>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: VpnIpsecProposalsListParams,
 ) -> Result<crate::models::PaginatedIpSecProposalList, Error<VpnIpsecProposalsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let authentication_algorithm = params.authentication_algorithm;
+    let authentication_algorithm__empty = params.authentication_algorithm__empty;
+    let authentication_algorithm__ic = params.authentication_algorithm__ic;
+    let authentication_algorithm__ie = params.authentication_algorithm__ie;
+    let authentication_algorithm__iew = params.authentication_algorithm__iew;
+    let authentication_algorithm__iregex = params.authentication_algorithm__iregex;
+    let authentication_algorithm__isw = params.authentication_algorithm__isw;
+    let authentication_algorithm__n = params.authentication_algorithm__n;
+    let authentication_algorithm__nic = params.authentication_algorithm__nic;
+    let authentication_algorithm__nie = params.authentication_algorithm__nie;
+    let authentication_algorithm__niew = params.authentication_algorithm__niew;
+    let authentication_algorithm__nisw = params.authentication_algorithm__nisw;
+    let authentication_algorithm__regex = params.authentication_algorithm__regex;
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let encryption_algorithm = params.encryption_algorithm;
+    let encryption_algorithm__empty = params.encryption_algorithm__empty;
+    let encryption_algorithm__ic = params.encryption_algorithm__ic;
+    let encryption_algorithm__ie = params.encryption_algorithm__ie;
+    let encryption_algorithm__iew = params.encryption_algorithm__iew;
+    let encryption_algorithm__iregex = params.encryption_algorithm__iregex;
+    let encryption_algorithm__isw = params.encryption_algorithm__isw;
+    let encryption_algorithm__n = params.encryption_algorithm__n;
+    let encryption_algorithm__nic = params.encryption_algorithm__nic;
+    let encryption_algorithm__nie = params.encryption_algorithm__nie;
+    let encryption_algorithm__niew = params.encryption_algorithm__niew;
+    let encryption_algorithm__nisw = params.encryption_algorithm__nisw;
+    let encryption_algorithm__regex = params.encryption_algorithm__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let ipsec_policy = params.ipsec_policy;
+    let ipsec_policy__n = params.ipsec_policy__n;
+    let ipsec_policy_id = params.ipsec_policy_id;
+    let ipsec_policy_id__n = params.ipsec_policy_id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let sa_lifetime_data = params.sa_lifetime_data;
+    let sa_lifetime_data__empty = params.sa_lifetime_data__empty;
+    let sa_lifetime_data__gt = params.sa_lifetime_data__gt;
+    let sa_lifetime_data__gte = params.sa_lifetime_data__gte;
+    let sa_lifetime_data__lt = params.sa_lifetime_data__lt;
+    let sa_lifetime_data__lte = params.sa_lifetime_data__lte;
+    let sa_lifetime_data__n = params.sa_lifetime_data__n;
+    let sa_lifetime_seconds = params.sa_lifetime_seconds;
+    let sa_lifetime_seconds__empty = params.sa_lifetime_seconds__empty;
+    let sa_lifetime_seconds__gt = params.sa_lifetime_seconds__gt;
+    let sa_lifetime_seconds__gte = params.sa_lifetime_seconds__gte;
+    let sa_lifetime_seconds__lt = params.sa_lifetime_seconds__lt;
+    let sa_lifetime_seconds__lte = params.sa_lifetime_seconds__lte;
+    let sa_lifetime_seconds__n = params.sa_lifetime_seconds__n;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12405,12 +14509,13 @@ pub async fn vpn_ipsec_proposals_list(
 /// Patch a IPSec proposal object.
 pub async fn vpn_ipsec_proposals_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_ip_sec_proposal_request: Option<
-        crate::models::PatchedWritableIpSecProposalRequest,
-    >,
+    params: VpnIpsecProposalsPartialUpdateParams,
 ) -> Result<crate::models::IpSecProposal, Error<VpnIpsecProposalsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_ip_sec_proposal_request = params.patched_writable_ip_sec_proposal_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12459,12 +14564,15 @@ pub async fn vpn_ipsec_proposals_partial_update(
 /// Get a IPSec proposal object.
 pub async fn vpn_ipsec_proposals_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: VpnIpsecProposalsRetrieveParams,
 ) -> Result<crate::models::IpSecProposal, Error<VpnIpsecProposalsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12524,10 +14632,13 @@ pub async fn vpn_ipsec_proposals_retrieve(
 /// Put a IPSec proposal object.
 pub async fn vpn_ipsec_proposals_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_ip_sec_proposal_request: crate::models::WritableIpSecProposalRequest,
+    params: VpnIpsecProposalsUpdateParams,
 ) -> Result<crate::models::IpSecProposal, Error<VpnIpsecProposalsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_ip_sec_proposal_request = params.writable_ip_sec_proposal_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12576,9 +14687,12 @@ pub async fn vpn_ipsec_proposals_update(
 /// Delete a list of L2VPN termination objects.
 pub async fn vpn_l2vpn_terminations_bulk_destroy(
     configuration: &configuration::Configuration,
-    l2_vpn_termination_request: Vec<crate::models::L2VpnTerminationRequest>,
+    params: VpnL2vpnTerminationsBulkDestroyParams,
 ) -> Result<(), Error<VpnL2vpnTerminationsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let l2_vpn_termination_request = params.l2_vpn_termination_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12626,10 +14740,13 @@ pub async fn vpn_l2vpn_terminations_bulk_destroy(
 /// Patch a list of L2VPN termination objects.
 pub async fn vpn_l2vpn_terminations_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_l2_vpn_termination_request: Vec<crate::models::PatchedBulkL2VpnTerminationRequest>,
+    params: VpnL2vpnTerminationsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::L2VpnTermination>, Error<VpnL2vpnTerminationsBulkPartialUpdateError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_l2_vpn_termination_request = params.patched_bulk_l2_vpn_termination_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12677,9 +14794,12 @@ pub async fn vpn_l2vpn_terminations_bulk_partial_update(
 /// Put a list of L2VPN termination objects.
 pub async fn vpn_l2vpn_terminations_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_l2_vpn_termination_request: Vec<crate::models::BulkL2VpnTerminationRequest>,
+    params: VpnL2vpnTerminationsBulkUpdateParams,
 ) -> Result<Vec<crate::models::L2VpnTermination>, Error<VpnL2vpnTerminationsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_l2_vpn_termination_request = params.bulk_l2_vpn_termination_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12727,9 +14847,12 @@ pub async fn vpn_l2vpn_terminations_bulk_update(
 /// Post a list of L2VPN termination objects.
 pub async fn vpn_l2vpn_terminations_create(
     configuration: &configuration::Configuration,
-    vpn_l2vpn_terminations_create_request: crate::models::VpnL2vpnTerminationsCreateRequest,
+    params: VpnL2vpnTerminationsCreateParams,
 ) -> Result<crate::models::L2VpnTermination, Error<VpnL2vpnTerminationsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let vpn_l2vpn_terminations_create_request = params.vpn_l2vpn_terminations_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12777,9 +14900,12 @@ pub async fn vpn_l2vpn_terminations_create(
 /// Delete a L2VPN termination object.
 pub async fn vpn_l2vpn_terminations_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: VpnL2vpnTerminationsDestroyParams,
 ) -> Result<(), Error<VpnL2vpnTerminationsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12827,92 +14953,95 @@ pub async fn vpn_l2vpn_terminations_destroy(
 /// Get a list of L2VPN termination objects.
 pub async fn vpn_l2vpn_terminations_list(
     configuration: &configuration::Configuration,
-    assigned_object_id: Option<Vec<i32>>,
-    assigned_object_id__empty: Option<bool>,
-    assigned_object_id__gt: Option<Vec<i32>>,
-    assigned_object_id__gte: Option<Vec<i32>>,
-    assigned_object_id__lt: Option<Vec<i32>>,
-    assigned_object_id__lte: Option<Vec<i32>>,
-    assigned_object_id__n: Option<Vec<i32>>,
-    assigned_object_type: Option<Vec<String>>,
-    assigned_object_type__n: Option<Vec<String>>,
-    assigned_object_type_id: Option<Vec<i32>>,
-    assigned_object_type_id__n: Option<Vec<i32>>,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    device: Option<Vec<String>>,
-    device__n: Option<Vec<String>>,
-    device_id: Option<Vec<i32>>,
-    device_id__n: Option<Vec<i32>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    interface: Option<Vec<String>>,
-    interface__n: Option<Vec<String>>,
-    interface_id: Option<Vec<i32>>,
-    interface_id__n: Option<Vec<i32>>,
-    l2vpn: Option<Vec<String>>,
-    l2vpn__n: Option<Vec<String>>,
-    l2vpn_id: Option<Vec<i32>>,
-    l2vpn_id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    q: Option<&str>,
-    region: Option<Vec<String>>,
-    region_id: Option<Vec<i32>>,
-    site: Option<Vec<String>>,
-    site_id: Option<Vec<i32>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
-    virtual_machine: Option<Vec<String>>,
-    virtual_machine__n: Option<Vec<String>>,
-    virtual_machine_id: Option<Vec<i32>>,
-    virtual_machine_id__n: Option<Vec<i32>>,
-    vlan: Option<Vec<String>>,
-    vlan__n: Option<Vec<String>>,
-    vlan_id: Option<Vec<i32>>,
-    vlan_id__n: Option<Vec<i32>>,
-    vlan_vid: Option<i32>,
-    vlan_vid__empty: Option<i32>,
-    vlan_vid__gt: Option<i32>,
-    vlan_vid__gte: Option<i32>,
-    vlan_vid__lt: Option<i32>,
-    vlan_vid__lte: Option<i32>,
-    vlan_vid__n: Option<i32>,
-    vminterface: Option<Vec<String>>,
-    vminterface__n: Option<Vec<String>>,
-    vminterface_id: Option<Vec<i32>>,
-    vminterface_id__n: Option<Vec<i32>>,
+    params: VpnL2vpnTerminationsListParams,
 ) -> Result<crate::models::PaginatedL2VpnTerminationList, Error<VpnL2vpnTerminationsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let assigned_object_id = params.assigned_object_id;
+    let assigned_object_id__empty = params.assigned_object_id__empty;
+    let assigned_object_id__gt = params.assigned_object_id__gt;
+    let assigned_object_id__gte = params.assigned_object_id__gte;
+    let assigned_object_id__lt = params.assigned_object_id__lt;
+    let assigned_object_id__lte = params.assigned_object_id__lte;
+    let assigned_object_id__n = params.assigned_object_id__n;
+    let assigned_object_type = params.assigned_object_type;
+    let assigned_object_type__n = params.assigned_object_type__n;
+    let assigned_object_type_id = params.assigned_object_type_id;
+    let assigned_object_type_id__n = params.assigned_object_type_id__n;
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let device = params.device;
+    let device__n = params.device__n;
+    let device_id = params.device_id;
+    let device_id__n = params.device_id__n;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let interface = params.interface;
+    let interface__n = params.interface__n;
+    let interface_id = params.interface_id;
+    let interface_id__n = params.interface_id__n;
+    let l2vpn = params.l2vpn;
+    let l2vpn__n = params.l2vpn__n;
+    let l2vpn_id = params.l2vpn_id;
+    let l2vpn_id__n = params.l2vpn_id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let q = params.q;
+    let region = params.region;
+    let region_id = params.region_id;
+    let site = params.site;
+    let site_id = params.site_id;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
+    let virtual_machine = params.virtual_machine;
+    let virtual_machine__n = params.virtual_machine__n;
+    let virtual_machine_id = params.virtual_machine_id;
+    let virtual_machine_id__n = params.virtual_machine_id__n;
+    let vlan = params.vlan;
+    let vlan__n = params.vlan__n;
+    let vlan_id = params.vlan_id;
+    let vlan_id__n = params.vlan_id__n;
+    let vlan_vid = params.vlan_vid;
+    let vlan_vid__empty = params.vlan_vid__empty;
+    let vlan_vid__gt = params.vlan_vid__gt;
+    let vlan_vid__gte = params.vlan_vid__gte;
+    let vlan_vid__lt = params.vlan_vid__lt;
+    let vlan_vid__lte = params.vlan_vid__lte;
+    let vlan_vid__n = params.vlan_vid__n;
+    let vminterface = params.vminterface;
+    let vminterface__n = params.vminterface__n;
+    let vminterface_id = params.vminterface_id;
+    let vminterface_id__n = params.vminterface_id__n;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -14254,10 +16383,13 @@ pub async fn vpn_l2vpn_terminations_list(
 /// Patch a L2VPN termination object.
 pub async fn vpn_l2vpn_terminations_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_l2_vpn_termination_request: Option<crate::models::PatchedL2VpnTerminationRequest>,
+    params: VpnL2vpnTerminationsPartialUpdateParams,
 ) -> Result<crate::models::L2VpnTermination, Error<VpnL2vpnTerminationsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_l2_vpn_termination_request = params.patched_l2_vpn_termination_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -14306,12 +16438,15 @@ pub async fn vpn_l2vpn_terminations_partial_update(
 /// Get a L2VPN termination object.
 pub async fn vpn_l2vpn_terminations_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: VpnL2vpnTerminationsRetrieveParams,
 ) -> Result<crate::models::L2VpnTermination, Error<VpnL2vpnTerminationsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -14371,10 +16506,13 @@ pub async fn vpn_l2vpn_terminations_retrieve(
 /// Put a L2VPN termination object.
 pub async fn vpn_l2vpn_terminations_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    l2_vpn_termination_request: crate::models::L2VpnTerminationRequest,
+    params: VpnL2vpnTerminationsUpdateParams,
 ) -> Result<crate::models::L2VpnTermination, Error<VpnL2vpnTerminationsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let l2_vpn_termination_request = params.l2_vpn_termination_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -14423,9 +16561,12 @@ pub async fn vpn_l2vpn_terminations_update(
 /// Delete a list of L2VPN objects.
 pub async fn vpn_l2vpns_bulk_destroy(
     configuration: &configuration::Configuration,
-    l2_vpn_request: Vec<crate::models::L2VpnRequest>,
+    params: VpnL2vpnsBulkDestroyParams,
 ) -> Result<(), Error<VpnL2vpnsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let l2_vpn_request = params.l2_vpn_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -14470,9 +16611,12 @@ pub async fn vpn_l2vpns_bulk_destroy(
 /// Patch a list of L2VPN objects.
 pub async fn vpn_l2vpns_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_l2_vpn_request: Vec<crate::models::PatchedBulkL2VpnRequest>,
+    params: VpnL2vpnsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::L2Vpn>, Error<VpnL2vpnsBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_l2_vpn_request = params.patched_bulk_l2_vpn_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -14517,9 +16661,12 @@ pub async fn vpn_l2vpns_bulk_partial_update(
 /// Put a list of L2VPN objects.
 pub async fn vpn_l2vpns_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_l2_vpn_request: Vec<crate::models::BulkL2VpnRequest>,
+    params: VpnL2vpnsBulkUpdateParams,
 ) -> Result<Vec<crate::models::L2Vpn>, Error<VpnL2vpnsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_l2_vpn_request = params.bulk_l2_vpn_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -14564,9 +16711,12 @@ pub async fn vpn_l2vpns_bulk_update(
 /// Post a list of L2VPN objects.
 pub async fn vpn_l2vpns_create(
     configuration: &configuration::Configuration,
-    vpn_l2vpns_create_request: crate::models::VpnL2vpnsCreateRequest,
+    params: VpnL2vpnsCreateParams,
 ) -> Result<crate::models::L2Vpn, Error<VpnL2vpnsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let vpn_l2vpns_create_request = params.vpn_l2vpns_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -14611,9 +16761,12 @@ pub async fn vpn_l2vpns_create(
 /// Delete a L2VPN object.
 pub async fn vpn_l2vpns_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: VpnL2vpnsDestroyParams,
 ) -> Result<(), Error<VpnL2vpnsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -14661,148 +16814,151 @@ pub async fn vpn_l2vpns_destroy(
 /// Get a list of L2VPN objects.
 pub async fn vpn_l2vpns_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    contact: Option<Vec<i32>>,
-    contact__n: Option<Vec<i32>>,
-    contact_group: Option<Vec<String>>,
-    contact_group__n: Option<Vec<String>>,
-    contact_role: Option<Vec<i32>>,
-    contact_role__n: Option<Vec<i32>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    export_target: Option<Vec<String>>,
-    export_target__n: Option<Vec<String>>,
-    export_target_id: Option<Vec<i32>>,
-    export_target_id__n: Option<Vec<i32>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    identifier: Option<Vec<i32>>,
-    identifier__empty: Option<bool>,
-    identifier__gt: Option<Vec<i32>>,
-    identifier__gte: Option<Vec<i32>>,
-    identifier__lt: Option<Vec<i32>>,
-    identifier__lte: Option<Vec<i32>>,
-    identifier__n: Option<Vec<i32>>,
-    import_target: Option<Vec<String>>,
-    import_target__n: Option<Vec<String>>,
-    import_target_id: Option<Vec<i32>>,
-    import_target_id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    slug: Option<Vec<String>>,
-    slug__empty: Option<bool>,
-    slug__ic: Option<Vec<String>>,
-    slug__ie: Option<Vec<String>>,
-    slug__iew: Option<Vec<String>>,
-    slug__iregex: Option<Vec<String>>,
-    slug__isw: Option<Vec<String>>,
-    slug__n: Option<Vec<String>>,
-    slug__nic: Option<Vec<String>>,
-    slug__nie: Option<Vec<String>>,
-    slug__niew: Option<Vec<String>>,
-    slug__nisw: Option<Vec<String>>,
-    slug__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    status: Option<Vec<String>>,
-    status__empty: Option<bool>,
-    status__ic: Option<Vec<String>>,
-    status__ie: Option<Vec<String>>,
-    status__iew: Option<Vec<String>>,
-    status__iregex: Option<Vec<String>>,
-    status__isw: Option<Vec<String>>,
-    status__n: Option<Vec<String>>,
-    status__nic: Option<Vec<String>>,
-    status__nie: Option<Vec<String>>,
-    status__niew: Option<Vec<String>>,
-    status__nisw: Option<Vec<String>>,
-    status__regex: Option<Vec<String>>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    tenant: Option<Vec<String>>,
-    tenant__n: Option<Vec<String>>,
-    tenant_group: Option<Vec<String>>,
-    tenant_group__n: Option<Vec<String>>,
-    tenant_group_id: Option<Vec<String>>,
-    tenant_group_id__n: Option<Vec<String>>,
-    tenant_id: Option<Vec<i32>>,
-    tenant_id__n: Option<Vec<i32>>,
-    r#type: Option<Vec<String>>,
-    type__empty: Option<bool>,
-    type__ic: Option<Vec<String>>,
-    type__ie: Option<Vec<String>>,
-    type__iew: Option<Vec<String>>,
-    type__iregex: Option<Vec<String>>,
-    type__isw: Option<Vec<String>>,
-    type__n: Option<Vec<String>>,
-    type__nic: Option<Vec<String>>,
-    type__nie: Option<Vec<String>>,
-    type__niew: Option<Vec<String>>,
-    type__nisw: Option<Vec<String>>,
-    type__regex: Option<Vec<String>>,
-    updated_by_request: Option<&str>,
+    params: VpnL2vpnsListParams,
 ) -> Result<crate::models::PaginatedL2VpnList, Error<VpnL2vpnsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let contact = params.contact;
+    let contact__n = params.contact__n;
+    let contact_group = params.contact_group;
+    let contact_group__n = params.contact_group__n;
+    let contact_role = params.contact_role;
+    let contact_role__n = params.contact_role__n;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let export_target = params.export_target;
+    let export_target__n = params.export_target__n;
+    let export_target_id = params.export_target_id;
+    let export_target_id__n = params.export_target_id__n;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let identifier = params.identifier;
+    let identifier__empty = params.identifier__empty;
+    let identifier__gt = params.identifier__gt;
+    let identifier__gte = params.identifier__gte;
+    let identifier__lt = params.identifier__lt;
+    let identifier__lte = params.identifier__lte;
+    let identifier__n = params.identifier__n;
+    let import_target = params.import_target;
+    let import_target__n = params.import_target__n;
+    let import_target_id = params.import_target_id;
+    let import_target_id__n = params.import_target_id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let slug = params.slug;
+    let slug__empty = params.slug__empty;
+    let slug__ic = params.slug__ic;
+    let slug__ie = params.slug__ie;
+    let slug__iew = params.slug__iew;
+    let slug__iregex = params.slug__iregex;
+    let slug__isw = params.slug__isw;
+    let slug__n = params.slug__n;
+    let slug__nic = params.slug__nic;
+    let slug__nie = params.slug__nie;
+    let slug__niew = params.slug__niew;
+    let slug__nisw = params.slug__nisw;
+    let slug__regex = params.slug__regex;
+    let start = params.start;
+    let status = params.status;
+    let status__empty = params.status__empty;
+    let status__ic = params.status__ic;
+    let status__ie = params.status__ie;
+    let status__iew = params.status__iew;
+    let status__iregex = params.status__iregex;
+    let status__isw = params.status__isw;
+    let status__n = params.status__n;
+    let status__nic = params.status__nic;
+    let status__nie = params.status__nie;
+    let status__niew = params.status__niew;
+    let status__nisw = params.status__nisw;
+    let status__regex = params.status__regex;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let tenant = params.tenant;
+    let tenant__n = params.tenant__n;
+    let tenant_group = params.tenant_group;
+    let tenant_group__n = params.tenant_group__n;
+    let tenant_group_id = params.tenant_group_id;
+    let tenant_group_id__n = params.tenant_group_id__n;
+    let tenant_id = params.tenant_id;
+    let tenant_id__n = params.tenant_id__n;
+    let r#type = params.r#type;
+    let type__empty = params.type__empty;
+    let type__ic = params.type__ic;
+    let type__ie = params.type__ie;
+    let type__iew = params.type__iew;
+    let type__iregex = params.type__iregex;
+    let type__isw = params.type__isw;
+    let type__n = params.type__n;
+    let type__nic = params.type__nic;
+    let type__nie = params.type__nie;
+    let type__niew = params.type__niew;
+    let type__nisw = params.type__nisw;
+    let type__regex = params.type__regex;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17235,10 +19391,13 @@ pub async fn vpn_l2vpns_list(
 /// Patch a L2VPN object.
 pub async fn vpn_l2vpns_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_l2_vpn_request: Option<crate::models::PatchedWritableL2VpnRequest>,
+    params: VpnL2vpnsPartialUpdateParams,
 ) -> Result<crate::models::L2Vpn, Error<VpnL2vpnsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_l2_vpn_request = params.patched_writable_l2_vpn_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17287,12 +19446,15 @@ pub async fn vpn_l2vpns_partial_update(
 /// Get a L2VPN object.
 pub async fn vpn_l2vpns_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: VpnL2vpnsRetrieveParams,
 ) -> Result<crate::models::L2Vpn, Error<VpnL2vpnsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17352,10 +19514,13 @@ pub async fn vpn_l2vpns_retrieve(
 /// Put a L2VPN object.
 pub async fn vpn_l2vpns_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_l2_vpn_request: crate::models::WritableL2VpnRequest,
+    params: VpnL2vpnsUpdateParams,
 ) -> Result<crate::models::L2Vpn, Error<VpnL2vpnsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_l2_vpn_request = params.writable_l2_vpn_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17404,9 +19569,12 @@ pub async fn vpn_l2vpns_update(
 /// Delete a list of tunnel group objects.
 pub async fn vpn_tunnel_groups_bulk_destroy(
     configuration: &configuration::Configuration,
-    tunnel_group_request: Vec<crate::models::TunnelGroupRequest>,
+    params: VpnTunnelGroupsBulkDestroyParams,
 ) -> Result<(), Error<VpnTunnelGroupsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let tunnel_group_request = params.tunnel_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17454,9 +19622,12 @@ pub async fn vpn_tunnel_groups_bulk_destroy(
 /// Patch a list of tunnel group objects.
 pub async fn vpn_tunnel_groups_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_tunnel_group_request: Vec<crate::models::PatchedBulkTunnelGroupRequest>,
+    params: VpnTunnelGroupsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::TunnelGroup>, Error<VpnTunnelGroupsBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_tunnel_group_request = params.patched_bulk_tunnel_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17504,9 +19675,12 @@ pub async fn vpn_tunnel_groups_bulk_partial_update(
 /// Put a list of tunnel group objects.
 pub async fn vpn_tunnel_groups_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_tunnel_group_request: Vec<crate::models::BulkTunnelGroupRequest>,
+    params: VpnTunnelGroupsBulkUpdateParams,
 ) -> Result<Vec<crate::models::TunnelGroup>, Error<VpnTunnelGroupsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_tunnel_group_request = params.bulk_tunnel_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17554,9 +19728,12 @@ pub async fn vpn_tunnel_groups_bulk_update(
 /// Post a list of tunnel group objects.
 pub async fn vpn_tunnel_groups_create(
     configuration: &configuration::Configuration,
-    vpn_tunnel_groups_create_request: crate::models::VpnTunnelGroupsCreateRequest,
+    params: VpnTunnelGroupsCreateParams,
 ) -> Result<crate::models::TunnelGroup, Error<VpnTunnelGroupsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let vpn_tunnel_groups_create_request = params.vpn_tunnel_groups_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17604,9 +19781,12 @@ pub async fn vpn_tunnel_groups_create(
 /// Delete a tunnel group object.
 pub async fn vpn_tunnel_groups_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: VpnTunnelGroupsDestroyParams,
 ) -> Result<(), Error<VpnTunnelGroupsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -17654,99 +19834,102 @@ pub async fn vpn_tunnel_groups_destroy(
 /// Get a list of tunnel group objects.
 pub async fn vpn_tunnel_groups_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    contact: Option<Vec<i32>>,
-    contact__n: Option<Vec<i32>>,
-    contact_group: Option<Vec<String>>,
-    contact_group__n: Option<Vec<String>>,
-    contact_role: Option<Vec<i32>>,
-    contact_role__n: Option<Vec<i32>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    slug: Option<Vec<String>>,
-    slug__empty: Option<bool>,
-    slug__ic: Option<Vec<String>>,
-    slug__ie: Option<Vec<String>>,
-    slug__iew: Option<Vec<String>>,
-    slug__iregex: Option<Vec<String>>,
-    slug__isw: Option<Vec<String>>,
-    slug__n: Option<Vec<String>>,
-    slug__nic: Option<Vec<String>>,
-    slug__nie: Option<Vec<String>>,
-    slug__niew: Option<Vec<String>>,
-    slug__nisw: Option<Vec<String>>,
-    slug__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: VpnTunnelGroupsListParams,
 ) -> Result<crate::models::PaginatedTunnelGroupList, Error<VpnTunnelGroupsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let contact = params.contact;
+    let contact__n = params.contact__n;
+    let contact_group = params.contact_group;
+    let contact_group__n = params.contact_group__n;
+    let contact_role = params.contact_role;
+    let contact_role__n = params.contact_role__n;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let slug = params.slug;
+    let slug__empty = params.slug__empty;
+    let slug__ic = params.slug__ic;
+    let slug__ie = params.slug__ie;
+    let slug__iew = params.slug__iew;
+    let slug__iregex = params.slug__iregex;
+    let slug__isw = params.slug__isw;
+    let slug__n = params.slug__n;
+    let slug__nic = params.slug__nic;
+    let slug__nie = params.slug__nie;
+    let slug__niew = params.slug__niew;
+    let slug__nisw = params.slug__nisw;
+    let slug__regex = params.slug__regex;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -19296,10 +21479,13 @@ pub async fn vpn_tunnel_groups_list(
 /// Patch a tunnel group object.
 pub async fn vpn_tunnel_groups_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_tunnel_group_request: Option<crate::models::PatchedTunnelGroupRequest>,
+    params: VpnTunnelGroupsPartialUpdateParams,
 ) -> Result<crate::models::TunnelGroup, Error<VpnTunnelGroupsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_tunnel_group_request = params.patched_tunnel_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -19348,12 +21534,15 @@ pub async fn vpn_tunnel_groups_partial_update(
 /// Get a tunnel group object.
 pub async fn vpn_tunnel_groups_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: VpnTunnelGroupsRetrieveParams,
 ) -> Result<crate::models::TunnelGroup, Error<VpnTunnelGroupsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -19413,10 +21602,13 @@ pub async fn vpn_tunnel_groups_retrieve(
 /// Put a tunnel group object.
 pub async fn vpn_tunnel_groups_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    tunnel_group_request: crate::models::TunnelGroupRequest,
+    params: VpnTunnelGroupsUpdateParams,
 ) -> Result<crate::models::TunnelGroup, Error<VpnTunnelGroupsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let tunnel_group_request = params.tunnel_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -19465,9 +21657,12 @@ pub async fn vpn_tunnel_groups_update(
 /// Delete a list of tunnel termination objects.
 pub async fn vpn_tunnel_terminations_bulk_destroy(
     configuration: &configuration::Configuration,
-    tunnel_termination_request: Vec<crate::models::TunnelTerminationRequest>,
+    params: VpnTunnelTerminationsBulkDestroyParams,
 ) -> Result<(), Error<VpnTunnelTerminationsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let tunnel_termination_request = params.tunnel_termination_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -19515,12 +21710,13 @@ pub async fn vpn_tunnel_terminations_bulk_destroy(
 /// Patch a list of tunnel termination objects.
 pub async fn vpn_tunnel_terminations_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_tunnel_termination_request: Vec<
-        crate::models::PatchedBulkTunnelTerminationRequest,
-    >,
+    params: VpnTunnelTerminationsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::TunnelTermination>, Error<VpnTunnelTerminationsBulkPartialUpdateError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_tunnel_termination_request = params.patched_bulk_tunnel_termination_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -19568,9 +21764,12 @@ pub async fn vpn_tunnel_terminations_bulk_partial_update(
 /// Put a list of tunnel termination objects.
 pub async fn vpn_tunnel_terminations_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_tunnel_termination_request: Vec<crate::models::BulkTunnelTerminationRequest>,
+    params: VpnTunnelTerminationsBulkUpdateParams,
 ) -> Result<Vec<crate::models::TunnelTermination>, Error<VpnTunnelTerminationsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_tunnel_termination_request = params.bulk_tunnel_termination_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -19618,9 +21817,12 @@ pub async fn vpn_tunnel_terminations_bulk_update(
 /// Post a list of tunnel termination objects.
 pub async fn vpn_tunnel_terminations_create(
     configuration: &configuration::Configuration,
-    vpn_tunnel_terminations_create_request: crate::models::VpnTunnelTerminationsCreateRequest,
+    params: VpnTunnelTerminationsCreateParams,
 ) -> Result<crate::models::TunnelTermination, Error<VpnTunnelTerminationsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let vpn_tunnel_terminations_create_request = params.vpn_tunnel_terminations_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -19668,9 +21870,12 @@ pub async fn vpn_tunnel_terminations_create(
 /// Delete a tunnel termination object.
 pub async fn vpn_tunnel_terminations_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: VpnTunnelTerminationsDestroyParams,
 ) -> Result<(), Error<VpnTunnelTerminationsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -19718,82 +21923,85 @@ pub async fn vpn_tunnel_terminations_destroy(
 /// Get a list of tunnel termination objects.
 pub async fn vpn_tunnel_terminations_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    interface: Option<Vec<String>>,
-    interface__n: Option<Vec<String>>,
-    interface_id: Option<Vec<i32>>,
-    interface_id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    outside_ip_id: Option<Vec<i32>>,
-    outside_ip_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    role: Option<Vec<String>>,
-    role__empty: Option<bool>,
-    role__ic: Option<Vec<String>>,
-    role__ie: Option<Vec<String>>,
-    role__iew: Option<Vec<String>>,
-    role__iregex: Option<Vec<String>>,
-    role__isw: Option<Vec<String>>,
-    role__n: Option<Vec<String>>,
-    role__nic: Option<Vec<String>>,
-    role__nie: Option<Vec<String>>,
-    role__niew: Option<Vec<String>>,
-    role__nisw: Option<Vec<String>>,
-    role__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    termination_id: Option<Vec<i32>>,
-    termination_id__empty: Option<bool>,
-    termination_id__gt: Option<Vec<i32>>,
-    termination_id__gte: Option<Vec<i32>>,
-    termination_id__lt: Option<Vec<i32>>,
-    termination_id__lte: Option<Vec<i32>>,
-    termination_id__n: Option<Vec<i32>>,
-    termination_type: Option<Vec<String>>,
-    termination_type__n: Option<Vec<String>>,
-    tunnel: Option<Vec<String>>,
-    tunnel__n: Option<Vec<String>>,
-    tunnel_id: Option<Vec<i32>>,
-    tunnel_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
-    vminterface: Option<Vec<String>>,
-    vminterface__n: Option<Vec<String>>,
-    vminterface_id: Option<Vec<i32>>,
-    vminterface_id__n: Option<Vec<i32>>,
+    params: VpnTunnelTerminationsListParams,
 ) -> Result<crate::models::PaginatedTunnelTerminationList, Error<VpnTunnelTerminationsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let interface = params.interface;
+    let interface__n = params.interface__n;
+    let interface_id = params.interface_id;
+    let interface_id__n = params.interface_id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let outside_ip_id = params.outside_ip_id;
+    let outside_ip_id__n = params.outside_ip_id__n;
+    let q = params.q;
+    let role = params.role;
+    let role__empty = params.role__empty;
+    let role__ic = params.role__ic;
+    let role__ie = params.role__ie;
+    let role__iew = params.role__iew;
+    let role__iregex = params.role__iregex;
+    let role__isw = params.role__isw;
+    let role__n = params.role__n;
+    let role__nic = params.role__nic;
+    let role__nie = params.role__nie;
+    let role__niew = params.role__niew;
+    let role__nisw = params.role__nisw;
+    let role__regex = params.role__regex;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let termination_id = params.termination_id;
+    let termination_id__empty = params.termination_id__empty;
+    let termination_id__gt = params.termination_id__gt;
+    let termination_id__gte = params.termination_id__gte;
+    let termination_id__lt = params.termination_id__lt;
+    let termination_id__lte = params.termination_id__lte;
+    let termination_id__n = params.termination_id__n;
+    let termination_type = params.termination_type;
+    let termination_type__n = params.termination_type__n;
+    let tunnel = params.tunnel;
+    let tunnel__n = params.tunnel__n;
+    let tunnel_id = params.tunnel_id;
+    let tunnel_id__n = params.tunnel_id__n;
+    let updated_by_request = params.updated_by_request;
+    let vminterface = params.vminterface;
+    let vminterface__n = params.vminterface__n;
+    let vminterface_id = params.vminterface_id;
+    let vminterface_id__n = params.vminterface_id__n;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -21035,12 +23243,14 @@ pub async fn vpn_tunnel_terminations_list(
 /// Patch a tunnel termination object.
 pub async fn vpn_tunnel_terminations_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_tunnel_termination_request: Option<
-        crate::models::PatchedWritableTunnelTerminationRequest,
-    >,
+    params: VpnTunnelTerminationsPartialUpdateParams,
 ) -> Result<crate::models::TunnelTermination, Error<VpnTunnelTerminationsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_tunnel_termination_request =
+        params.patched_writable_tunnel_termination_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -21090,12 +23300,15 @@ pub async fn vpn_tunnel_terminations_partial_update(
 /// Get a tunnel termination object.
 pub async fn vpn_tunnel_terminations_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: VpnTunnelTerminationsRetrieveParams,
 ) -> Result<crate::models::TunnelTermination, Error<VpnTunnelTerminationsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -21155,10 +23368,13 @@ pub async fn vpn_tunnel_terminations_retrieve(
 /// Put a tunnel termination object.
 pub async fn vpn_tunnel_terminations_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_tunnel_termination_request: crate::models::WritableTunnelTerminationRequest,
+    params: VpnTunnelTerminationsUpdateParams,
 ) -> Result<crate::models::TunnelTermination, Error<VpnTunnelTerminationsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_tunnel_termination_request = params.writable_tunnel_termination_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -21207,9 +23423,12 @@ pub async fn vpn_tunnel_terminations_update(
 /// Delete a list of tunnel objects.
 pub async fn vpn_tunnels_bulk_destroy(
     configuration: &configuration::Configuration,
-    tunnel_request: Vec<crate::models::TunnelRequest>,
+    params: VpnTunnelsBulkDestroyParams,
 ) -> Result<(), Error<VpnTunnelsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let tunnel_request = params.tunnel_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -21254,9 +23473,12 @@ pub async fn vpn_tunnels_bulk_destroy(
 /// Patch a list of tunnel objects.
 pub async fn vpn_tunnels_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_tunnel_request: Vec<crate::models::PatchedBulkTunnelRequest>,
+    params: VpnTunnelsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::Tunnel>, Error<VpnTunnelsBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_tunnel_request = params.patched_bulk_tunnel_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -21301,9 +23523,12 @@ pub async fn vpn_tunnels_bulk_partial_update(
 /// Put a list of tunnel objects.
 pub async fn vpn_tunnels_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_tunnel_request: Vec<crate::models::BulkTunnelRequest>,
+    params: VpnTunnelsBulkUpdateParams,
 ) -> Result<Vec<crate::models::Tunnel>, Error<VpnTunnelsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_tunnel_request = params.bulk_tunnel_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -21348,9 +23573,12 @@ pub async fn vpn_tunnels_bulk_update(
 /// Post a list of tunnel objects.
 pub async fn vpn_tunnels_create(
     configuration: &configuration::Configuration,
-    vpn_tunnels_create_request: crate::models::VpnTunnelsCreateRequest,
+    params: VpnTunnelsCreateParams,
 ) -> Result<crate::models::Tunnel, Error<VpnTunnelsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let vpn_tunnels_create_request = params.vpn_tunnels_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -21395,9 +23623,12 @@ pub async fn vpn_tunnels_create(
 /// Delete a tunnel object.
 pub async fn vpn_tunnels_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: VpnTunnelsDestroyParams,
 ) -> Result<(), Error<VpnTunnelsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -21445,135 +23676,138 @@ pub async fn vpn_tunnels_destroy(
 /// Get a list of tunnel objects.
 pub async fn vpn_tunnels_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    contact: Option<Vec<i32>>,
-    contact__n: Option<Vec<i32>>,
-    contact_group: Option<Vec<String>>,
-    contact_group__n: Option<Vec<String>>,
-    contact_role: Option<Vec<i32>>,
-    contact_role__n: Option<Vec<i32>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    encapsulation: Option<Vec<String>>,
-    encapsulation__empty: Option<bool>,
-    encapsulation__ic: Option<Vec<String>>,
-    encapsulation__ie: Option<Vec<String>>,
-    encapsulation__iew: Option<Vec<String>>,
-    encapsulation__iregex: Option<Vec<String>>,
-    encapsulation__isw: Option<Vec<String>>,
-    encapsulation__n: Option<Vec<String>>,
-    encapsulation__nic: Option<Vec<String>>,
-    encapsulation__nie: Option<Vec<String>>,
-    encapsulation__niew: Option<Vec<String>>,
-    encapsulation__nisw: Option<Vec<String>>,
-    encapsulation__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    group: Option<Vec<String>>,
-    group__n: Option<Vec<String>>,
-    group_id: Option<Vec<i32>>,
-    group_id__n: Option<Vec<i32>>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    ipsec_profile: Option<Vec<String>>,
-    ipsec_profile__n: Option<Vec<String>>,
-    ipsec_profile_id: Option<Vec<i32>>,
-    ipsec_profile_id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    start: Option<i32>,
-    status: Option<Vec<String>>,
-    status__empty: Option<bool>,
-    status__ic: Option<Vec<String>>,
-    status__ie: Option<Vec<String>>,
-    status__iew: Option<Vec<String>>,
-    status__iregex: Option<Vec<String>>,
-    status__isw: Option<Vec<String>>,
-    status__n: Option<Vec<String>>,
-    status__nic: Option<Vec<String>>,
-    status__nie: Option<Vec<String>>,
-    status__niew: Option<Vec<String>>,
-    status__nisw: Option<Vec<String>>,
-    status__regex: Option<Vec<String>>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    tenant: Option<Vec<String>>,
-    tenant__n: Option<Vec<String>>,
-    tenant_group: Option<Vec<String>>,
-    tenant_group__n: Option<Vec<String>>,
-    tenant_group_id: Option<Vec<String>>,
-    tenant_group_id__n: Option<Vec<String>>,
-    tenant_id: Option<Vec<i32>>,
-    tenant_id__n: Option<Vec<i32>>,
-    tunnel_id: Option<Vec<i32>>,
-    tunnel_id__empty: Option<bool>,
-    tunnel_id__gt: Option<Vec<i32>>,
-    tunnel_id__gte: Option<Vec<i32>>,
-    tunnel_id__lt: Option<Vec<i32>>,
-    tunnel_id__lte: Option<Vec<i32>>,
-    tunnel_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: VpnTunnelsListParams,
 ) -> Result<crate::models::PaginatedTunnelList, Error<VpnTunnelsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let contact = params.contact;
+    let contact__n = params.contact__n;
+    let contact_group = params.contact_group;
+    let contact_group__n = params.contact_group__n;
+    let contact_role = params.contact_role;
+    let contact_role__n = params.contact_role__n;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let encapsulation = params.encapsulation;
+    let encapsulation__empty = params.encapsulation__empty;
+    let encapsulation__ic = params.encapsulation__ic;
+    let encapsulation__ie = params.encapsulation__ie;
+    let encapsulation__iew = params.encapsulation__iew;
+    let encapsulation__iregex = params.encapsulation__iregex;
+    let encapsulation__isw = params.encapsulation__isw;
+    let encapsulation__n = params.encapsulation__n;
+    let encapsulation__nic = params.encapsulation__nic;
+    let encapsulation__nie = params.encapsulation__nie;
+    let encapsulation__niew = params.encapsulation__niew;
+    let encapsulation__nisw = params.encapsulation__nisw;
+    let encapsulation__regex = params.encapsulation__regex;
+    let fields = params.fields;
+    let group = params.group;
+    let group__n = params.group__n;
+    let group_id = params.group_id;
+    let group_id__n = params.group_id__n;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let ipsec_profile = params.ipsec_profile;
+    let ipsec_profile__n = params.ipsec_profile__n;
+    let ipsec_profile_id = params.ipsec_profile_id;
+    let ipsec_profile_id__n = params.ipsec_profile_id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let start = params.start;
+    let status = params.status;
+    let status__empty = params.status__empty;
+    let status__ic = params.status__ic;
+    let status__ie = params.status__ie;
+    let status__iew = params.status__iew;
+    let status__iregex = params.status__iregex;
+    let status__isw = params.status__isw;
+    let status__n = params.status__n;
+    let status__nic = params.status__nic;
+    let status__nie = params.status__nie;
+    let status__niew = params.status__niew;
+    let status__nisw = params.status__nisw;
+    let status__regex = params.status__regex;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let tenant = params.tenant;
+    let tenant__n = params.tenant__n;
+    let tenant_group = params.tenant_group;
+    let tenant_group__n = params.tenant_group__n;
+    let tenant_group_id = params.tenant_group_id;
+    let tenant_group_id__n = params.tenant_group_id__n;
+    let tenant_id = params.tenant_id;
+    let tenant_id__n = params.tenant_id__n;
+    let tunnel_id = params.tunnel_id;
+    let tunnel_id__empty = params.tunnel_id__empty;
+    let tunnel_id__gt = params.tunnel_id__gt;
+    let tunnel_id__gte = params.tunnel_id__gte;
+    let tunnel_id__lt = params.tunnel_id__lt;
+    let tunnel_id__lte = params.tunnel_id__lte;
+    let tunnel_id__n = params.tunnel_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -23774,10 +26008,13 @@ pub async fn vpn_tunnels_list(
 /// Patch a tunnel object.
 pub async fn vpn_tunnels_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_tunnel_request: Option<crate::models::PatchedWritableTunnelRequest>,
+    params: VpnTunnelsPartialUpdateParams,
 ) -> Result<crate::models::Tunnel, Error<VpnTunnelsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_tunnel_request = params.patched_writable_tunnel_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -23826,12 +26063,15 @@ pub async fn vpn_tunnels_partial_update(
 /// Get a tunnel object.
 pub async fn vpn_tunnels_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: VpnTunnelsRetrieveParams,
 ) -> Result<crate::models::Tunnel, Error<VpnTunnelsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -23891,10 +26131,13 @@ pub async fn vpn_tunnels_retrieve(
 /// Put a tunnel object.
 pub async fn vpn_tunnels_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_tunnel_request: crate::models::WritableTunnelRequest,
+    params: VpnTunnelsUpdateParams,
 ) -> Result<crate::models::Tunnel, Error<VpnTunnelsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_tunnel_request = params.writable_tunnel_request;
 
     let local_var_client = &local_var_configuration.client;
 

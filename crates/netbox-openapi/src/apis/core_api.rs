@@ -13,6 +13,742 @@ use reqwest;
 use super::{Error, configuration};
 use crate::apis::ResponseContent;
 
+/// struct for passing parameters to the method [`core_background_queues_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreBackgroundQueuesRetrieveParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`core_background_queues_retrieve_by_name`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreBackgroundQueuesRetrieveByNameParams {
+    pub name: String,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`core_background_tasks_delete_create`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreBackgroundTasksDeleteCreateParams {
+    pub id: String,
+    pub background_task_request: crate::models::BackgroundTaskRequest,
+}
+
+/// struct for passing parameters to the method [`core_background_tasks_enqueue_create`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreBackgroundTasksEnqueueCreateParams {
+    pub id: String,
+    pub background_task_request: crate::models::BackgroundTaskRequest,
+}
+
+/// struct for passing parameters to the method [`core_background_tasks_requeue_create`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreBackgroundTasksRequeueCreateParams {
+    pub id: String,
+    pub background_task_request: crate::models::BackgroundTaskRequest,
+}
+
+/// struct for passing parameters to the method [`core_background_tasks_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreBackgroundTasksRetrieveParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`core_background_tasks_retrieve_by_id`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreBackgroundTasksRetrieveByIdParams {
+    pub id: String,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`core_background_tasks_stop_create`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreBackgroundTasksStopCreateParams {
+    pub id: String,
+    pub background_task_request: crate::models::BackgroundTaskRequest,
+}
+
+/// struct for passing parameters to the method [`core_background_workers_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreBackgroundWorkersRetrieveParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`core_background_workers_retrieve_by_name`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreBackgroundWorkersRetrieveByNameParams {
+    pub name: String,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`core_data_files_list`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreDataFilesListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub hash: Option<Vec<String>>,
+    pub hash__empty: Option<bool>,
+    pub hash__ic: Option<Vec<String>>,
+    pub hash__ie: Option<Vec<String>>,
+    pub hash__iew: Option<Vec<String>>,
+    pub hash__iregex: Option<Vec<String>>,
+    pub hash__isw: Option<Vec<String>>,
+    pub hash__n: Option<Vec<String>>,
+    pub hash__nic: Option<Vec<String>>,
+    pub hash__nie: Option<Vec<String>>,
+    pub hash__niew: Option<Vec<String>>,
+    pub hash__nisw: Option<Vec<String>>,
+    pub hash__regex: Option<Vec<String>>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    pub path: Option<Vec<String>>,
+    pub path__empty: Option<bool>,
+    pub path__ic: Option<Vec<String>>,
+    pub path__ie: Option<Vec<String>>,
+    pub path__iew: Option<Vec<String>>,
+    pub path__iregex: Option<Vec<String>>,
+    pub path__isw: Option<Vec<String>>,
+    pub path__n: Option<Vec<String>>,
+    pub path__nic: Option<Vec<String>>,
+    pub path__nie: Option<Vec<String>>,
+    pub path__niew: Option<Vec<String>>,
+    pub path__nisw: Option<Vec<String>>,
+    pub path__regex: Option<Vec<String>>,
+    pub q: Option<String>,
+    pub size: Option<Vec<i32>>,
+    pub size__empty: Option<bool>,
+    pub size__gt: Option<Vec<i32>>,
+    pub size__gte: Option<Vec<i32>>,
+    pub size__lt: Option<Vec<i32>>,
+    pub size__lte: Option<Vec<i32>>,
+    pub size__n: Option<Vec<i32>>,
+    /// Data source (name)
+    pub source: Option<Vec<String>>,
+    /// Data source (name)
+    pub source__n: Option<Vec<String>>,
+    /// Data source (ID)
+    pub source_id: Option<Vec<i32>>,
+    /// Data source (ID)
+    pub source_id__n: Option<Vec<i32>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`core_data_files_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreDataFilesRetrieveParams {
+    /// A unique integer value identifying this data file.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`core_data_sources_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreDataSourcesBulkDestroyParams {
+    pub data_source_request: Vec<crate::models::DataSourceRequest>,
+}
+
+/// struct for passing parameters to the method [`core_data_sources_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreDataSourcesBulkPartialUpdateParams {
+    pub patched_bulk_data_source_request: Vec<crate::models::PatchedBulkDataSourceRequest>,
+}
+
+/// struct for passing parameters to the method [`core_data_sources_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreDataSourcesBulkUpdateParams {
+    pub bulk_data_source_request: Vec<crate::models::BulkDataSourceRequest>,
+}
+
+/// struct for passing parameters to the method [`core_data_sources_create`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreDataSourcesCreateParams {
+    pub core_data_sources_create_request: crate::models::CoreDataSourcesCreateRequest,
+}
+
+/// struct for passing parameters to the method [`core_data_sources_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreDataSourcesDestroyParams {
+    /// A unique integer value identifying this data source.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`core_data_sources_list`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreDataSourcesListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    pub enabled: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_synced: Option<Vec<String>>,
+    pub last_synced__empty: Option<bool>,
+    pub last_synced__gt: Option<Vec<String>>,
+    pub last_synced__gte: Option<Vec<String>>,
+    pub last_synced__lt: Option<Vec<String>>,
+    pub last_synced__lte: Option<Vec<String>>,
+    pub last_synced__n: Option<Vec<String>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub source_url: Option<Vec<String>>,
+    pub source_url__empty: Option<bool>,
+    pub source_url__ic: Option<Vec<String>>,
+    pub source_url__ie: Option<Vec<String>>,
+    pub source_url__iew: Option<Vec<String>>,
+    pub source_url__iregex: Option<Vec<String>>,
+    pub source_url__isw: Option<Vec<String>>,
+    pub source_url__n: Option<Vec<String>>,
+    pub source_url__nic: Option<Vec<String>>,
+    pub source_url__nie: Option<Vec<String>>,
+    pub source_url__niew: Option<Vec<String>>,
+    pub source_url__nisw: Option<Vec<String>>,
+    pub source_url__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub status: Option<Vec<String>>,
+    pub status__empty: Option<bool>,
+    pub status__ic: Option<Vec<String>>,
+    pub status__ie: Option<Vec<String>>,
+    pub status__iew: Option<Vec<String>>,
+    pub status__iregex: Option<Vec<String>>,
+    pub status__isw: Option<Vec<String>>,
+    pub status__n: Option<Vec<String>>,
+    pub status__nic: Option<Vec<String>>,
+    pub status__nie: Option<Vec<String>>,
+    pub status__niew: Option<Vec<String>>,
+    pub status__nisw: Option<Vec<String>>,
+    pub status__regex: Option<Vec<String>>,
+    pub sync_interval: Option<Vec<i32>>,
+    pub sync_interval__ic: Option<Vec<i32>>,
+    pub sync_interval__ie: Option<Vec<i32>>,
+    pub sync_interval__iew: Option<Vec<i32>>,
+    pub sync_interval__iregex: Option<Vec<i32>>,
+    pub sync_interval__isw: Option<Vec<i32>>,
+    pub sync_interval__n: Option<Vec<i32>>,
+    pub sync_interval__nic: Option<Vec<i32>>,
+    pub sync_interval__nie: Option<Vec<i32>>,
+    pub sync_interval__niew: Option<Vec<i32>>,
+    pub sync_interval__nisw: Option<Vec<i32>>,
+    pub sync_interval__regex: Option<Vec<i32>>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub r#type: Option<Vec<String>>,
+    pub type__empty: Option<bool>,
+    pub type__ic: Option<Vec<String>>,
+    pub type__ie: Option<Vec<String>>,
+    pub type__iew: Option<Vec<String>>,
+    pub type__iregex: Option<Vec<String>>,
+    pub type__isw: Option<Vec<String>>,
+    pub type__n: Option<Vec<String>>,
+    pub type__nic: Option<Vec<String>>,
+    pub type__nie: Option<Vec<String>>,
+    pub type__niew: Option<Vec<String>>,
+    pub type__nisw: Option<Vec<String>>,
+    pub type__regex: Option<Vec<String>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`core_data_sources_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreDataSourcesPartialUpdateParams {
+    /// A unique integer value identifying this data source.
+    pub id: i32,
+    pub patched_writable_data_source_request:
+        Option<crate::models::PatchedWritableDataSourceRequest>,
+}
+
+/// struct for passing parameters to the method [`core_data_sources_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreDataSourcesRetrieveParams {
+    /// A unique integer value identifying this data source.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`core_data_sources_sync_create`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreDataSourcesSyncCreateParams {
+    /// A unique integer value identifying this data source.
+    pub id: i32,
+    pub writable_data_source_request: crate::models::WritableDataSourceRequest,
+}
+
+/// struct for passing parameters to the method [`core_data_sources_update`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreDataSourcesUpdateParams {
+    /// A unique integer value identifying this data source.
+    pub id: i32,
+    pub writable_data_source_request: crate::models::WritableDataSourceRequest,
+}
+
+/// struct for passing parameters to the method [`core_jobs_list`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreJobsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub completed: Option<String>,
+    pub completed__after: Option<String>,
+    pub completed__before: Option<String>,
+    pub created: Option<String>,
+    pub created__after: Option<String>,
+    pub created__before: Option<String>,
+    /// Execution time
+    pub execution_time: Option<String>,
+    /// Execution time (minimum)
+    pub execution_time__gte: Option<String>,
+    /// Execution time (maximum)
+    pub execution_time__lte: Option<String>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub interval: Option<Vec<i32>>,
+    pub interval__empty: Option<bool>,
+    pub interval__gt: Option<Vec<i32>>,
+    pub interval__gte: Option<Vec<i32>>,
+    pub interval__lt: Option<Vec<i32>>,
+    pub interval__lte: Option<Vec<i32>>,
+    pub interval__n: Option<Vec<i32>>,
+    pub job_id: Option<String>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    pub notifications: Option<Vec<String>>,
+    pub notifications__empty: Option<bool>,
+    pub notifications__ic: Option<Vec<String>>,
+    pub notifications__ie: Option<Vec<String>>,
+    pub notifications__iew: Option<Vec<String>>,
+    pub notifications__iregex: Option<Vec<String>>,
+    pub notifications__isw: Option<Vec<String>>,
+    pub notifications__n: Option<Vec<String>>,
+    pub notifications__nic: Option<Vec<String>>,
+    pub notifications__nie: Option<Vec<String>>,
+    pub notifications__niew: Option<Vec<String>>,
+    pub notifications__nisw: Option<Vec<String>>,
+    pub notifications__regex: Option<Vec<String>>,
+    pub object_id: Option<Vec<i32>>,
+    pub object_id__empty: Option<bool>,
+    pub object_id__gt: Option<Vec<i32>>,
+    pub object_id__gte: Option<Vec<i32>>,
+    pub object_id__lt: Option<Vec<i32>>,
+    pub object_id__lte: Option<Vec<i32>>,
+    pub object_id__n: Option<Vec<i32>>,
+    pub object_type: Option<Vec<String>>,
+    pub object_type__n: Option<Vec<String>>,
+    pub object_type_id: Option<Vec<i32>>,
+    pub object_type_id__n: Option<Vec<i32>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Search
+    pub q: Option<String>,
+    pub queue_name: Option<String>,
+    pub queue_name__empty: Option<bool>,
+    pub queue_name__ic: Option<String>,
+    pub queue_name__ie: Option<String>,
+    pub queue_name__iew: Option<String>,
+    pub queue_name__iregex: Option<String>,
+    pub queue_name__isw: Option<String>,
+    pub queue_name__n: Option<String>,
+    pub queue_name__nic: Option<String>,
+    pub queue_name__nie: Option<String>,
+    pub queue_name__niew: Option<String>,
+    pub queue_name__nisw: Option<String>,
+    pub queue_name__regex: Option<String>,
+    pub scheduled: Option<String>,
+    pub scheduled__after: Option<String>,
+    pub scheduled__before: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub started: Option<String>,
+    pub started__after: Option<String>,
+    pub started__before: Option<String>,
+    pub status: Option<Vec<String>>,
+    pub status__empty: Option<bool>,
+    pub status__ic: Option<Vec<String>>,
+    pub status__ie: Option<Vec<String>>,
+    pub status__iew: Option<Vec<String>>,
+    pub status__iregex: Option<Vec<String>>,
+    pub status__isw: Option<Vec<String>>,
+    pub status__n: Option<Vec<String>>,
+    pub status__nic: Option<Vec<String>>,
+    pub status__nie: Option<Vec<String>>,
+    pub status__niew: Option<Vec<String>>,
+    pub status__nisw: Option<Vec<String>>,
+    pub status__regex: Option<Vec<String>>,
+    /// User name
+    pub user: Option<Vec<String>>,
+    /// User name
+    pub user__n: Option<Vec<String>>,
+    /// User (ID)
+    pub user_id: Option<Vec<i32>>,
+    /// User (ID)
+    pub user_id__n: Option<Vec<i32>>,
+}
+
+/// struct for passing parameters to the method [`core_jobs_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreJobsRetrieveParams {
+    /// A unique integer value identifying this job.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`core_object_changes_list`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreObjectChangesListParams {
+    /// * `create` - Created * `update` - Updated * `delete` - Deleted
+    pub action: Option<String>,
+    pub action__empty: Option<bool>,
+    pub action__ic: Option<Vec<String>>,
+    pub action__ie: Option<Vec<String>>,
+    pub action__iew: Option<Vec<String>>,
+    pub action__iregex: Option<Vec<String>>,
+    pub action__isw: Option<Vec<String>>,
+    /// * `create` - Created * `update` - Updated * `delete` - Deleted
+    pub action__n: Option<String>,
+    pub action__nic: Option<Vec<String>>,
+    pub action__nie: Option<Vec<String>>,
+    pub action__niew: Option<Vec<String>>,
+    pub action__nisw: Option<Vec<String>>,
+    pub action__regex: Option<Vec<String>>,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub changed_object_id: Option<Vec<i32>>,
+    pub changed_object_id__empty: Option<bool>,
+    pub changed_object_id__gt: Option<Vec<i32>>,
+    pub changed_object_id__gte: Option<Vec<i32>>,
+    pub changed_object_id__lt: Option<Vec<i32>>,
+    pub changed_object_id__lte: Option<Vec<i32>>,
+    pub changed_object_id__n: Option<Vec<i32>>,
+    pub changed_object_type: Option<Vec<String>>,
+    pub changed_object_type__n: Option<Vec<String>>,
+    pub changed_object_type_id: Option<Vec<i32>>,
+    pub changed_object_type_id__n: Option<Vec<i32>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub object_repr: Option<Vec<String>>,
+    pub object_repr__empty: Option<bool>,
+    pub object_repr__ic: Option<Vec<String>>,
+    pub object_repr__ie: Option<Vec<String>>,
+    pub object_repr__iew: Option<Vec<String>>,
+    pub object_repr__iregex: Option<Vec<String>>,
+    pub object_repr__isw: Option<Vec<String>>,
+    pub object_repr__n: Option<Vec<String>>,
+    pub object_repr__nic: Option<Vec<String>>,
+    pub object_repr__nie: Option<Vec<String>>,
+    pub object_repr__niew: Option<Vec<String>>,
+    pub object_repr__nisw: Option<Vec<String>>,
+    pub object_repr__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Search
+    pub q: Option<String>,
+    pub related_object_id: Option<Vec<i32>>,
+    pub related_object_id__empty: Option<bool>,
+    pub related_object_id__gt: Option<Vec<i32>>,
+    pub related_object_id__gte: Option<Vec<i32>>,
+    pub related_object_id__lt: Option<Vec<i32>>,
+    pub related_object_id__lte: Option<Vec<i32>>,
+    pub related_object_id__n: Option<Vec<i32>>,
+    pub related_object_type: Option<Vec<String>>,
+    pub related_object_type__n: Option<Vec<String>>,
+    pub request_id: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub time_after: Option<String>,
+    pub time_before: Option<String>,
+    /// User name
+    pub user: Option<Vec<String>>,
+    /// User name
+    pub user__n: Option<Vec<String>>,
+    /// User (ID)
+    pub user_id: Option<Vec<i32>>,
+    /// User (ID)
+    pub user_id__n: Option<Vec<i32>>,
+    pub user_name: Option<Vec<String>>,
+    pub user_name__empty: Option<bool>,
+    pub user_name__ic: Option<Vec<String>>,
+    pub user_name__ie: Option<Vec<String>>,
+    pub user_name__iew: Option<Vec<String>>,
+    pub user_name__iregex: Option<Vec<String>>,
+    pub user_name__isw: Option<Vec<String>>,
+    pub user_name__n: Option<Vec<String>>,
+    pub user_name__nic: Option<Vec<String>>,
+    pub user_name__nie: Option<Vec<String>>,
+    pub user_name__niew: Option<Vec<String>>,
+    pub user_name__nisw: Option<Vec<String>>,
+    pub user_name__regex: Option<Vec<String>>,
+}
+
+/// struct for passing parameters to the method [`core_object_changes_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreObjectChangesRetrieveParams {
+    /// A unique integer value identifying this object change.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`core_object_types_list`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreObjectTypesListParams {
+    pub app_label: Option<Vec<String>>,
+    pub app_label__empty: Option<bool>,
+    pub app_label__ic: Option<Vec<String>>,
+    pub app_label__ie: Option<Vec<String>>,
+    pub app_label__iew: Option<Vec<String>>,
+    pub app_label__iregex: Option<Vec<String>>,
+    pub app_label__isw: Option<Vec<String>>,
+    pub app_label__n: Option<Vec<String>>,
+    pub app_label__nic: Option<Vec<String>>,
+    pub app_label__nie: Option<Vec<String>>,
+    pub app_label__niew: Option<Vec<String>>,
+    pub app_label__nisw: Option<Vec<String>>,
+    pub app_label__regex: Option<Vec<String>>,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub features: Option<String>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub model: Option<Vec<String>>,
+    pub model__empty: Option<bool>,
+    pub model__ic: Option<Vec<String>>,
+    pub model__ie: Option<Vec<String>>,
+    pub model__iew: Option<Vec<String>>,
+    pub model__iregex: Option<Vec<String>>,
+    pub model__isw: Option<Vec<String>>,
+    pub model__n: Option<Vec<String>>,
+    pub model__nic: Option<Vec<String>>,
+    pub model__nie: Option<Vec<String>>,
+    pub model__niew: Option<Vec<String>>,
+    pub model__nisw: Option<Vec<String>>,
+    pub model__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    pub public: Option<bool>,
+    /// Search
+    pub q: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+}
+
+/// struct for passing parameters to the method [`core_object_types_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct CoreObjectTypesRetrieveParams {
+    /// A unique integer value identifying this object type.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
 /// struct for typed errors of method [`core_background_queues_retrieve`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -221,14 +957,17 @@ pub enum CoreObjectTypesRetrieveError {
 /// Retrieve a list of RQ Queues. Note: Queue names are not URL safe, so not returning a detail view.
 pub async fn core_background_queues_retrieve(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: CoreBackgroundQueuesRetrieveParams,
 ) -> Result<
     ::std::collections::HashMap<String, serde_json::Value>,
     Error<CoreBackgroundQueuesRetrieveError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -287,15 +1026,18 @@ pub async fn core_background_queues_retrieve(
 /// Retrieve a list of RQ Queues. Note: Queue names are not URL safe, so not returning a detail view.
 pub async fn core_background_queues_retrieve_by_name(
     configuration: &configuration::Configuration,
-    name: &str,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: CoreBackgroundQueuesRetrieveByNameParams,
 ) -> Result<
     ::std::collections::HashMap<String, serde_json::Value>,
     Error<CoreBackgroundQueuesRetrieveByNameError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let name = params.name;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -355,10 +1097,13 @@ pub async fn core_background_queues_retrieve_by_name(
 /// Retrieve a list of RQ Tasks.
 pub async fn core_background_tasks_delete_create(
     configuration: &configuration::Configuration,
-    id: &str,
-    background_task_request: crate::models::BackgroundTaskRequest,
+    params: CoreBackgroundTasksDeleteCreateParams,
 ) -> Result<crate::models::BackgroundTask, Error<CoreBackgroundTasksDeleteCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let background_task_request = params.background_task_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -407,10 +1152,13 @@ pub async fn core_background_tasks_delete_create(
 /// Retrieve a list of RQ Tasks.
 pub async fn core_background_tasks_enqueue_create(
     configuration: &configuration::Configuration,
-    id: &str,
-    background_task_request: crate::models::BackgroundTaskRequest,
+    params: CoreBackgroundTasksEnqueueCreateParams,
 ) -> Result<crate::models::BackgroundTask, Error<CoreBackgroundTasksEnqueueCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let background_task_request = params.background_task_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -459,10 +1207,13 @@ pub async fn core_background_tasks_enqueue_create(
 /// Retrieve a list of RQ Tasks.
 pub async fn core_background_tasks_requeue_create(
     configuration: &configuration::Configuration,
-    id: &str,
-    background_task_request: crate::models::BackgroundTaskRequest,
+    params: CoreBackgroundTasksRequeueCreateParams,
 ) -> Result<crate::models::BackgroundTask, Error<CoreBackgroundTasksRequeueCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let background_task_request = params.background_task_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -511,14 +1262,17 @@ pub async fn core_background_tasks_requeue_create(
 /// Retrieve a list of RQ Tasks.
 pub async fn core_background_tasks_retrieve(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: CoreBackgroundTasksRetrieveParams,
 ) -> Result<
     ::std::collections::HashMap<String, serde_json::Value>,
     Error<CoreBackgroundTasksRetrieveError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -577,15 +1331,18 @@ pub async fn core_background_tasks_retrieve(
 /// Retrieve a list of RQ Tasks.
 pub async fn core_background_tasks_retrieve_by_id(
     configuration: &configuration::Configuration,
-    id: &str,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: CoreBackgroundTasksRetrieveByIdParams,
 ) -> Result<
     ::std::collections::HashMap<String, serde_json::Value>,
     Error<CoreBackgroundTasksRetrieveByIdError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -645,10 +1402,13 @@ pub async fn core_background_tasks_retrieve_by_id(
 /// Retrieve a list of RQ Tasks.
 pub async fn core_background_tasks_stop_create(
     configuration: &configuration::Configuration,
-    id: &str,
-    background_task_request: crate::models::BackgroundTaskRequest,
+    params: CoreBackgroundTasksStopCreateParams,
 ) -> Result<crate::models::BackgroundTask, Error<CoreBackgroundTasksStopCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let background_task_request = params.background_task_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -697,14 +1457,17 @@ pub async fn core_background_tasks_stop_create(
 /// Retrieve a list of RQ Workers.
 pub async fn core_background_workers_retrieve(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: CoreBackgroundWorkersRetrieveParams,
 ) -> Result<
     ::std::collections::HashMap<String, serde_json::Value>,
     Error<CoreBackgroundWorkersRetrieveError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -763,15 +1526,18 @@ pub async fn core_background_workers_retrieve(
 /// Retrieve a list of RQ Workers.
 pub async fn core_background_workers_retrieve_by_name(
     configuration: &configuration::Configuration,
-    name: &str,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: CoreBackgroundWorkersRetrieveByNameParams,
 ) -> Result<
     ::std::collections::HashMap<String, serde_json::Value>,
     Error<CoreBackgroundWorkersRetrieveByNameError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let name = params.name;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -831,77 +1597,80 @@ pub async fn core_background_workers_retrieve_by_name(
 /// Get a list of data file objects.
 pub async fn core_data_files_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    fields: Option<&str>,
-    hash: Option<Vec<String>>,
-    hash__empty: Option<bool>,
-    hash__ic: Option<Vec<String>>,
-    hash__ie: Option<Vec<String>>,
-    hash__iew: Option<Vec<String>>,
-    hash__iregex: Option<Vec<String>>,
-    hash__isw: Option<Vec<String>>,
-    hash__n: Option<Vec<String>>,
-    hash__nic: Option<Vec<String>>,
-    hash__nie: Option<Vec<String>>,
-    hash__niew: Option<Vec<String>>,
-    hash__nisw: Option<Vec<String>>,
-    hash__regex: Option<Vec<String>>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    path: Option<Vec<String>>,
-    path__empty: Option<bool>,
-    path__ic: Option<Vec<String>>,
-    path__ie: Option<Vec<String>>,
-    path__iew: Option<Vec<String>>,
-    path__iregex: Option<Vec<String>>,
-    path__isw: Option<Vec<String>>,
-    path__n: Option<Vec<String>>,
-    path__nic: Option<Vec<String>>,
-    path__nie: Option<Vec<String>>,
-    path__niew: Option<Vec<String>>,
-    path__nisw: Option<Vec<String>>,
-    path__regex: Option<Vec<String>>,
-    q: Option<&str>,
-    size: Option<Vec<i32>>,
-    size__empty: Option<bool>,
-    size__gt: Option<Vec<i32>>,
-    size__gte: Option<Vec<i32>>,
-    size__lt: Option<Vec<i32>>,
-    size__lte: Option<Vec<i32>>,
-    size__n: Option<Vec<i32>>,
-    source: Option<Vec<String>>,
-    source__n: Option<Vec<String>>,
-    source_id: Option<Vec<i32>>,
-    source_id__n: Option<Vec<i32>>,
-    start: Option<i32>,
-    updated_by_request: Option<&str>,
+    params: CoreDataFilesListParams,
 ) -> Result<crate::models::PaginatedDataFileList, Error<CoreDataFilesListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let fields = params.fields;
+    let hash = params.hash;
+    let hash__empty = params.hash__empty;
+    let hash__ic = params.hash__ic;
+    let hash__ie = params.hash__ie;
+    let hash__iew = params.hash__iew;
+    let hash__iregex = params.hash__iregex;
+    let hash__isw = params.hash__isw;
+    let hash__n = params.hash__n;
+    let hash__nic = params.hash__nic;
+    let hash__nie = params.hash__nie;
+    let hash__niew = params.hash__niew;
+    let hash__nisw = params.hash__nisw;
+    let hash__regex = params.hash__regex;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let path = params.path;
+    let path__empty = params.path__empty;
+    let path__ic = params.path__ic;
+    let path__ie = params.path__ie;
+    let path__iew = params.path__iew;
+    let path__iregex = params.path__iregex;
+    let path__isw = params.path__isw;
+    let path__n = params.path__n;
+    let path__nic = params.path__nic;
+    let path__nie = params.path__nie;
+    let path__niew = params.path__niew;
+    let path__nisw = params.path__nisw;
+    let path__regex = params.path__regex;
+    let q = params.q;
+    let size = params.size;
+    let size__empty = params.size__empty;
+    let size__gt = params.size__gt;
+    let size__gte = params.size__gte;
+    let size__lt = params.size__lt;
+    let size__lte = params.size__lte;
+    let size__n = params.size__n;
+    let source = params.source;
+    let source__n = params.source__n;
+    let source_id = params.source_id;
+    let source_id__n = params.source_id__n;
+    let start = params.start;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2030,12 +2799,15 @@ pub async fn core_data_files_list(
 /// Get a data file object.
 pub async fn core_data_files_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: CoreDataFilesRetrieveParams,
 ) -> Result<crate::models::DataFile, Error<CoreDataFilesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2095,9 +2867,12 @@ pub async fn core_data_files_retrieve(
 /// Delete a list of data source objects.
 pub async fn core_data_sources_bulk_destroy(
     configuration: &configuration::Configuration,
-    data_source_request: Vec<crate::models::DataSourceRequest>,
+    params: CoreDataSourcesBulkDestroyParams,
 ) -> Result<(), Error<CoreDataSourcesBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let data_source_request = params.data_source_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2145,9 +2920,12 @@ pub async fn core_data_sources_bulk_destroy(
 /// Patch a list of data source objects.
 pub async fn core_data_sources_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_data_source_request: Vec<crate::models::PatchedBulkDataSourceRequest>,
+    params: CoreDataSourcesBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::DataSource>, Error<CoreDataSourcesBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_data_source_request = params.patched_bulk_data_source_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2195,9 +2973,12 @@ pub async fn core_data_sources_bulk_partial_update(
 /// Put a list of data source objects.
 pub async fn core_data_sources_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_data_source_request: Vec<crate::models::BulkDataSourceRequest>,
+    params: CoreDataSourcesBulkUpdateParams,
 ) -> Result<Vec<crate::models::DataSource>, Error<CoreDataSourcesBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_data_source_request = params.bulk_data_source_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2245,9 +3026,12 @@ pub async fn core_data_sources_bulk_update(
 /// Post a list of data source objects.
 pub async fn core_data_sources_create(
     configuration: &configuration::Configuration,
-    core_data_sources_create_request: crate::models::CoreDataSourcesCreateRequest,
+    params: CoreDataSourcesCreateParams,
 ) -> Result<crate::models::DataSource, Error<CoreDataSourcesCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let core_data_sources_create_request = params.core_data_sources_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2295,9 +3079,12 @@ pub async fn core_data_sources_create(
 /// Delete a data source object.
 pub async fn core_data_sources_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: CoreDataSourcesDestroyParams,
 ) -> Result<(), Error<CoreDataSourcesDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2345,139 +3132,142 @@ pub async fn core_data_sources_destroy(
 /// Get a list of data source objects.
 pub async fn core_data_sources_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    enabled: Option<bool>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_synced: Option<Vec<String>>,
-    last_synced__empty: Option<bool>,
-    last_synced__gt: Option<Vec<String>>,
-    last_synced__gte: Option<Vec<String>>,
-    last_synced__lt: Option<Vec<String>>,
-    last_synced__lte: Option<Vec<String>>,
-    last_synced__n: Option<Vec<String>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    source_url: Option<Vec<String>>,
-    source_url__empty: Option<bool>,
-    source_url__ic: Option<Vec<String>>,
-    source_url__ie: Option<Vec<String>>,
-    source_url__iew: Option<Vec<String>>,
-    source_url__iregex: Option<Vec<String>>,
-    source_url__isw: Option<Vec<String>>,
-    source_url__n: Option<Vec<String>>,
-    source_url__nic: Option<Vec<String>>,
-    source_url__nie: Option<Vec<String>>,
-    source_url__niew: Option<Vec<String>>,
-    source_url__nisw: Option<Vec<String>>,
-    source_url__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    status: Option<Vec<String>>,
-    status__empty: Option<bool>,
-    status__ic: Option<Vec<String>>,
-    status__ie: Option<Vec<String>>,
-    status__iew: Option<Vec<String>>,
-    status__iregex: Option<Vec<String>>,
-    status__isw: Option<Vec<String>>,
-    status__n: Option<Vec<String>>,
-    status__nic: Option<Vec<String>>,
-    status__nie: Option<Vec<String>>,
-    status__niew: Option<Vec<String>>,
-    status__nisw: Option<Vec<String>>,
-    status__regex: Option<Vec<String>>,
-    sync_interval: Option<Vec<i32>>,
-    sync_interval__ic: Option<Vec<i32>>,
-    sync_interval__ie: Option<Vec<i32>>,
-    sync_interval__iew: Option<Vec<i32>>,
-    sync_interval__iregex: Option<Vec<i32>>,
-    sync_interval__isw: Option<Vec<i32>>,
-    sync_interval__n: Option<Vec<i32>>,
-    sync_interval__nic: Option<Vec<i32>>,
-    sync_interval__nie: Option<Vec<i32>>,
-    sync_interval__niew: Option<Vec<i32>>,
-    sync_interval__nisw: Option<Vec<i32>>,
-    sync_interval__regex: Option<Vec<i32>>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    r#type: Option<Vec<String>>,
-    type__empty: Option<bool>,
-    type__ic: Option<Vec<String>>,
-    type__ie: Option<Vec<String>>,
-    type__iew: Option<Vec<String>>,
-    type__iregex: Option<Vec<String>>,
-    type__isw: Option<Vec<String>>,
-    type__n: Option<Vec<String>>,
-    type__nic: Option<Vec<String>>,
-    type__nie: Option<Vec<String>>,
-    type__niew: Option<Vec<String>>,
-    type__nisw: Option<Vec<String>>,
-    type__regex: Option<Vec<String>>,
-    updated_by_request: Option<&str>,
+    params: CoreDataSourcesListParams,
 ) -> Result<crate::models::PaginatedDataSourceList, Error<CoreDataSourcesListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let enabled = params.enabled;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_synced = params.last_synced;
+    let last_synced__empty = params.last_synced__empty;
+    let last_synced__gt = params.last_synced__gt;
+    let last_synced__gte = params.last_synced__gte;
+    let last_synced__lt = params.last_synced__lt;
+    let last_synced__lte = params.last_synced__lte;
+    let last_synced__n = params.last_synced__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let source_url = params.source_url;
+    let source_url__empty = params.source_url__empty;
+    let source_url__ic = params.source_url__ic;
+    let source_url__ie = params.source_url__ie;
+    let source_url__iew = params.source_url__iew;
+    let source_url__iregex = params.source_url__iregex;
+    let source_url__isw = params.source_url__isw;
+    let source_url__n = params.source_url__n;
+    let source_url__nic = params.source_url__nic;
+    let source_url__nie = params.source_url__nie;
+    let source_url__niew = params.source_url__niew;
+    let source_url__nisw = params.source_url__nisw;
+    let source_url__regex = params.source_url__regex;
+    let start = params.start;
+    let status = params.status;
+    let status__empty = params.status__empty;
+    let status__ic = params.status__ic;
+    let status__ie = params.status__ie;
+    let status__iew = params.status__iew;
+    let status__iregex = params.status__iregex;
+    let status__isw = params.status__isw;
+    let status__n = params.status__n;
+    let status__nic = params.status__nic;
+    let status__nie = params.status__nie;
+    let status__niew = params.status__niew;
+    let status__nisw = params.status__nisw;
+    let status__regex = params.status__regex;
+    let sync_interval = params.sync_interval;
+    let sync_interval__ic = params.sync_interval__ic;
+    let sync_interval__ie = params.sync_interval__ie;
+    let sync_interval__iew = params.sync_interval__iew;
+    let sync_interval__iregex = params.sync_interval__iregex;
+    let sync_interval__isw = params.sync_interval__isw;
+    let sync_interval__n = params.sync_interval__n;
+    let sync_interval__nic = params.sync_interval__nic;
+    let sync_interval__nie = params.sync_interval__nie;
+    let sync_interval__niew = params.sync_interval__niew;
+    let sync_interval__nisw = params.sync_interval__nisw;
+    let sync_interval__regex = params.sync_interval__regex;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let r#type = params.r#type;
+    let type__empty = params.type__empty;
+    let type__ic = params.type__ic;
+    let type__ie = params.type__ie;
+    let type__iew = params.type__iew;
+    let type__iregex = params.type__iregex;
+    let type__isw = params.type__isw;
+    let type__n = params.type__n;
+    let type__nic = params.type__nic;
+    let type__nie = params.type__nie;
+    let type__niew = params.type__niew;
+    let type__nisw = params.type__nisw;
+    let type__regex = params.type__regex;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4727,10 +5517,13 @@ pub async fn core_data_sources_list(
 /// Patch a data source object.
 pub async fn core_data_sources_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_data_source_request: Option<crate::models::PatchedWritableDataSourceRequest>,
+    params: CoreDataSourcesPartialUpdateParams,
 ) -> Result<crate::models::DataSource, Error<CoreDataSourcesPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_data_source_request = params.patched_writable_data_source_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4779,12 +5572,15 @@ pub async fn core_data_sources_partial_update(
 /// Get a data source object.
 pub async fn core_data_sources_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: CoreDataSourcesRetrieveParams,
 ) -> Result<crate::models::DataSource, Error<CoreDataSourcesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4844,10 +5640,13 @@ pub async fn core_data_sources_retrieve(
 /// Enqueue a job to synchronize the DataSource.
 pub async fn core_data_sources_sync_create(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_data_source_request: crate::models::WritableDataSourceRequest,
+    params: CoreDataSourcesSyncCreateParams,
 ) -> Result<crate::models::DataSource, Error<CoreDataSourcesSyncCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_data_source_request = params.writable_data_source_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4896,10 +5695,13 @@ pub async fn core_data_sources_sync_create(
 /// Put a data source object.
 pub async fn core_data_sources_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_data_source_request: crate::models::WritableDataSourceRequest,
+    params: CoreDataSourcesUpdateParams,
 ) -> Result<crate::models::DataSource, Error<CoreDataSourcesUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_data_source_request = params.writable_data_source_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4948,113 +5750,116 @@ pub async fn core_data_sources_update(
 /// Retrieve a list of job results
 pub async fn core_jobs_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    completed: Option<String>,
-    completed__after: Option<String>,
-    completed__before: Option<String>,
-    created: Option<String>,
-    created__after: Option<String>,
-    created__before: Option<String>,
-    execution_time: Option<&str>,
-    execution_time__gte: Option<&str>,
-    execution_time__lte: Option<&str>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    interval: Option<Vec<i32>>,
-    interval__empty: Option<bool>,
-    interval__gt: Option<Vec<i32>>,
-    interval__gte: Option<Vec<i32>>,
-    interval__lt: Option<Vec<i32>>,
-    interval__lte: Option<Vec<i32>>,
-    interval__n: Option<Vec<i32>>,
-    job_id: Option<&str>,
-    limit: Option<i32>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    notifications: Option<Vec<String>>,
-    notifications__empty: Option<bool>,
-    notifications__ic: Option<Vec<String>>,
-    notifications__ie: Option<Vec<String>>,
-    notifications__iew: Option<Vec<String>>,
-    notifications__iregex: Option<Vec<String>>,
-    notifications__isw: Option<Vec<String>>,
-    notifications__n: Option<Vec<String>>,
-    notifications__nic: Option<Vec<String>>,
-    notifications__nie: Option<Vec<String>>,
-    notifications__niew: Option<Vec<String>>,
-    notifications__nisw: Option<Vec<String>>,
-    notifications__regex: Option<Vec<String>>,
-    object_id: Option<Vec<i32>>,
-    object_id__empty: Option<bool>,
-    object_id__gt: Option<Vec<i32>>,
-    object_id__gte: Option<Vec<i32>>,
-    object_id__lt: Option<Vec<i32>>,
-    object_id__lte: Option<Vec<i32>>,
-    object_id__n: Option<Vec<i32>>,
-    object_type: Option<Vec<String>>,
-    object_type__n: Option<Vec<String>>,
-    object_type_id: Option<Vec<i32>>,
-    object_type_id__n: Option<Vec<i32>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    q: Option<&str>,
-    queue_name: Option<&str>,
-    queue_name__empty: Option<bool>,
-    queue_name__ic: Option<&str>,
-    queue_name__ie: Option<&str>,
-    queue_name__iew: Option<&str>,
-    queue_name__iregex: Option<&str>,
-    queue_name__isw: Option<&str>,
-    queue_name__n: Option<&str>,
-    queue_name__nic: Option<&str>,
-    queue_name__nie: Option<&str>,
-    queue_name__niew: Option<&str>,
-    queue_name__nisw: Option<&str>,
-    queue_name__regex: Option<&str>,
-    scheduled: Option<String>,
-    scheduled__after: Option<String>,
-    scheduled__before: Option<String>,
-    start: Option<i32>,
-    started: Option<String>,
-    started__after: Option<String>,
-    started__before: Option<String>,
-    status: Option<Vec<String>>,
-    status__empty: Option<bool>,
-    status__ic: Option<Vec<String>>,
-    status__ie: Option<Vec<String>>,
-    status__iew: Option<Vec<String>>,
-    status__iregex: Option<Vec<String>>,
-    status__isw: Option<Vec<String>>,
-    status__n: Option<Vec<String>>,
-    status__nic: Option<Vec<String>>,
-    status__nie: Option<Vec<String>>,
-    status__niew: Option<Vec<String>>,
-    status__nisw: Option<Vec<String>>,
-    status__regex: Option<Vec<String>>,
-    user: Option<Vec<String>>,
-    user__n: Option<Vec<String>>,
-    user_id: Option<Vec<i32>>,
-    user_id__n: Option<Vec<i32>>,
+    params: CoreJobsListParams,
 ) -> Result<crate::models::PaginatedJobList, Error<CoreJobsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let completed = params.completed;
+    let completed__after = params.completed__after;
+    let completed__before = params.completed__before;
+    let created = params.created;
+    let created__after = params.created__after;
+    let created__before = params.created__before;
+    let execution_time = params.execution_time;
+    let execution_time__gte = params.execution_time__gte;
+    let execution_time__lte = params.execution_time__lte;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let interval = params.interval;
+    let interval__empty = params.interval__empty;
+    let interval__gt = params.interval__gt;
+    let interval__gte = params.interval__gte;
+    let interval__lt = params.interval__lt;
+    let interval__lte = params.interval__lte;
+    let interval__n = params.interval__n;
+    let job_id = params.job_id;
+    let limit = params.limit;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let notifications = params.notifications;
+    let notifications__empty = params.notifications__empty;
+    let notifications__ic = params.notifications__ic;
+    let notifications__ie = params.notifications__ie;
+    let notifications__iew = params.notifications__iew;
+    let notifications__iregex = params.notifications__iregex;
+    let notifications__isw = params.notifications__isw;
+    let notifications__n = params.notifications__n;
+    let notifications__nic = params.notifications__nic;
+    let notifications__nie = params.notifications__nie;
+    let notifications__niew = params.notifications__niew;
+    let notifications__nisw = params.notifications__nisw;
+    let notifications__regex = params.notifications__regex;
+    let object_id = params.object_id;
+    let object_id__empty = params.object_id__empty;
+    let object_id__gt = params.object_id__gt;
+    let object_id__gte = params.object_id__gte;
+    let object_id__lt = params.object_id__lt;
+    let object_id__lte = params.object_id__lte;
+    let object_id__n = params.object_id__n;
+    let object_type = params.object_type;
+    let object_type__n = params.object_type__n;
+    let object_type_id = params.object_type_id;
+    let object_type_id__n = params.object_type_id__n;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let q = params.q;
+    let queue_name = params.queue_name;
+    let queue_name__empty = params.queue_name__empty;
+    let queue_name__ic = params.queue_name__ic;
+    let queue_name__ie = params.queue_name__ie;
+    let queue_name__iew = params.queue_name__iew;
+    let queue_name__iregex = params.queue_name__iregex;
+    let queue_name__isw = params.queue_name__isw;
+    let queue_name__n = params.queue_name__n;
+    let queue_name__nic = params.queue_name__nic;
+    let queue_name__nie = params.queue_name__nie;
+    let queue_name__niew = params.queue_name__niew;
+    let queue_name__nisw = params.queue_name__nisw;
+    let queue_name__regex = params.queue_name__regex;
+    let scheduled = params.scheduled;
+    let scheduled__after = params.scheduled__after;
+    let scheduled__before = params.scheduled__before;
+    let start = params.start;
+    let started = params.started;
+    let started__after = params.started__after;
+    let started__before = params.started__before;
+    let status = params.status;
+    let status__empty = params.status__empty;
+    let status__ic = params.status__ic;
+    let status__ie = params.status__ie;
+    let status__iew = params.status__iew;
+    let status__iregex = params.status__iregex;
+    let status__isw = params.status__isw;
+    let status__n = params.status__n;
+    let status__nic = params.status__nic;
+    let status__nie = params.status__nie;
+    let status__niew = params.status__niew;
+    let status__nisw = params.status__nisw;
+    let status__regex = params.status__regex;
+    let user = params.user;
+    let user__n = params.user__n;
+    let user_id = params.user_id;
+    let user_id__n = params.user_id__n;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -6447,12 +7252,15 @@ pub async fn core_jobs_list(
 /// Retrieve a list of job results
 pub async fn core_jobs_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: CoreJobsRetrieveParams,
 ) -> Result<crate::models::Job, Error<CoreJobsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -6512,89 +7320,92 @@ pub async fn core_jobs_retrieve(
 /// Retrieve a list of recent changes.
 pub async fn core_object_changes_list(
     configuration: &configuration::Configuration,
-    action: Option<&str>,
-    action__empty: Option<bool>,
-    action__ic: Option<Vec<String>>,
-    action__ie: Option<Vec<String>>,
-    action__iew: Option<Vec<String>>,
-    action__iregex: Option<Vec<String>>,
-    action__isw: Option<Vec<String>>,
-    action__n: Option<&str>,
-    action__nic: Option<Vec<String>>,
-    action__nie: Option<Vec<String>>,
-    action__niew: Option<Vec<String>>,
-    action__nisw: Option<Vec<String>>,
-    action__regex: Option<Vec<String>>,
-    brief: Option<bool>,
-    changed_object_id: Option<Vec<i32>>,
-    changed_object_id__empty: Option<bool>,
-    changed_object_id__gt: Option<Vec<i32>>,
-    changed_object_id__gte: Option<Vec<i32>>,
-    changed_object_id__lt: Option<Vec<i32>>,
-    changed_object_id__lte: Option<Vec<i32>>,
-    changed_object_id__n: Option<Vec<i32>>,
-    changed_object_type: Option<Vec<String>>,
-    changed_object_type__n: Option<Vec<String>>,
-    changed_object_type_id: Option<Vec<i32>>,
-    changed_object_type_id__n: Option<Vec<i32>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    limit: Option<i32>,
-    object_repr: Option<Vec<String>>,
-    object_repr__empty: Option<bool>,
-    object_repr__ic: Option<Vec<String>>,
-    object_repr__ie: Option<Vec<String>>,
-    object_repr__iew: Option<Vec<String>>,
-    object_repr__iregex: Option<Vec<String>>,
-    object_repr__isw: Option<Vec<String>>,
-    object_repr__n: Option<Vec<String>>,
-    object_repr__nic: Option<Vec<String>>,
-    object_repr__nie: Option<Vec<String>>,
-    object_repr__niew: Option<Vec<String>>,
-    object_repr__nisw: Option<Vec<String>>,
-    object_repr__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    q: Option<&str>,
-    related_object_id: Option<Vec<i32>>,
-    related_object_id__empty: Option<bool>,
-    related_object_id__gt: Option<Vec<i32>>,
-    related_object_id__gte: Option<Vec<i32>>,
-    related_object_id__lt: Option<Vec<i32>>,
-    related_object_id__lte: Option<Vec<i32>>,
-    related_object_id__n: Option<Vec<i32>>,
-    related_object_type: Option<Vec<String>>,
-    related_object_type__n: Option<Vec<String>>,
-    request_id: Option<&str>,
-    start: Option<i32>,
-    time_after: Option<String>,
-    time_before: Option<String>,
-    user: Option<Vec<String>>,
-    user__n: Option<Vec<String>>,
-    user_id: Option<Vec<i32>>,
-    user_id__n: Option<Vec<i32>>,
-    user_name: Option<Vec<String>>,
-    user_name__empty: Option<bool>,
-    user_name__ic: Option<Vec<String>>,
-    user_name__ie: Option<Vec<String>>,
-    user_name__iew: Option<Vec<String>>,
-    user_name__iregex: Option<Vec<String>>,
-    user_name__isw: Option<Vec<String>>,
-    user_name__n: Option<Vec<String>>,
-    user_name__nic: Option<Vec<String>>,
-    user_name__nie: Option<Vec<String>>,
-    user_name__niew: Option<Vec<String>>,
-    user_name__nisw: Option<Vec<String>>,
-    user_name__regex: Option<Vec<String>>,
+    params: CoreObjectChangesListParams,
 ) -> Result<crate::models::PaginatedObjectChangeList, Error<CoreObjectChangesListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let action = params.action;
+    let action__empty = params.action__empty;
+    let action__ic = params.action__ic;
+    let action__ie = params.action__ie;
+    let action__iew = params.action__iew;
+    let action__iregex = params.action__iregex;
+    let action__isw = params.action__isw;
+    let action__n = params.action__n;
+    let action__nic = params.action__nic;
+    let action__nie = params.action__nie;
+    let action__niew = params.action__niew;
+    let action__nisw = params.action__nisw;
+    let action__regex = params.action__regex;
+    let brief = params.brief;
+    let changed_object_id = params.changed_object_id;
+    let changed_object_id__empty = params.changed_object_id__empty;
+    let changed_object_id__gt = params.changed_object_id__gt;
+    let changed_object_id__gte = params.changed_object_id__gte;
+    let changed_object_id__lt = params.changed_object_id__lt;
+    let changed_object_id__lte = params.changed_object_id__lte;
+    let changed_object_id__n = params.changed_object_id__n;
+    let changed_object_type = params.changed_object_type;
+    let changed_object_type__n = params.changed_object_type__n;
+    let changed_object_type_id = params.changed_object_type_id;
+    let changed_object_type_id__n = params.changed_object_type_id__n;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let limit = params.limit;
+    let object_repr = params.object_repr;
+    let object_repr__empty = params.object_repr__empty;
+    let object_repr__ic = params.object_repr__ic;
+    let object_repr__ie = params.object_repr__ie;
+    let object_repr__iew = params.object_repr__iew;
+    let object_repr__iregex = params.object_repr__iregex;
+    let object_repr__isw = params.object_repr__isw;
+    let object_repr__n = params.object_repr__n;
+    let object_repr__nic = params.object_repr__nic;
+    let object_repr__nie = params.object_repr__nie;
+    let object_repr__niew = params.object_repr__niew;
+    let object_repr__nisw = params.object_repr__nisw;
+    let object_repr__regex = params.object_repr__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let q = params.q;
+    let related_object_id = params.related_object_id;
+    let related_object_id__empty = params.related_object_id__empty;
+    let related_object_id__gt = params.related_object_id__gt;
+    let related_object_id__gte = params.related_object_id__gte;
+    let related_object_id__lt = params.related_object_id__lt;
+    let related_object_id__lte = params.related_object_id__lte;
+    let related_object_id__n = params.related_object_id__n;
+    let related_object_type = params.related_object_type;
+    let related_object_type__n = params.related_object_type__n;
+    let request_id = params.request_id;
+    let start = params.start;
+    let time_after = params.time_after;
+    let time_before = params.time_before;
+    let user = params.user;
+    let user__n = params.user__n;
+    let user_id = params.user_id;
+    let user_id__n = params.user_id__n;
+    let user_name = params.user_name;
+    let user_name__empty = params.user_name__empty;
+    let user_name__ic = params.user_name__ic;
+    let user_name__ie = params.user_name__ie;
+    let user_name__iew = params.user_name__iew;
+    let user_name__iregex = params.user_name__iregex;
+    let user_name__isw = params.user_name__isw;
+    let user_name__n = params.user_name__n;
+    let user_name__nic = params.user_name__nic;
+    let user_name__nie = params.user_name__nie;
+    let user_name__niew = params.user_name__niew;
+    let user_name__nisw = params.user_name__nisw;
+    let user_name__regex = params.user_name__regex;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7894,12 +8705,15 @@ pub async fn core_object_changes_list(
 /// Retrieve a list of recent changes.
 pub async fn core_object_changes_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: CoreObjectChangesRetrieveParams,
 ) -> Result<crate::models::ObjectChange, Error<CoreObjectChangesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7959,51 +8773,54 @@ pub async fn core_object_changes_retrieve(
 /// Read-only list of ObjectTypes.
 pub async fn core_object_types_list(
     configuration: &configuration::Configuration,
-    app_label: Option<Vec<String>>,
-    app_label__empty: Option<bool>,
-    app_label__ic: Option<Vec<String>>,
-    app_label__ie: Option<Vec<String>>,
-    app_label__iew: Option<Vec<String>>,
-    app_label__iregex: Option<Vec<String>>,
-    app_label__isw: Option<Vec<String>>,
-    app_label__n: Option<Vec<String>>,
-    app_label__nic: Option<Vec<String>>,
-    app_label__nie: Option<Vec<String>>,
-    app_label__niew: Option<Vec<String>>,
-    app_label__nisw: Option<Vec<String>>,
-    app_label__regex: Option<Vec<String>>,
-    brief: Option<bool>,
-    features: Option<&str>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    limit: Option<i32>,
-    model: Option<Vec<String>>,
-    model__empty: Option<bool>,
-    model__ic: Option<Vec<String>>,
-    model__ie: Option<Vec<String>>,
-    model__iew: Option<Vec<String>>,
-    model__iregex: Option<Vec<String>>,
-    model__isw: Option<Vec<String>>,
-    model__n: Option<Vec<String>>,
-    model__nic: Option<Vec<String>>,
-    model__nie: Option<Vec<String>>,
-    model__niew: Option<Vec<String>>,
-    model__nisw: Option<Vec<String>>,
-    model__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    public: Option<bool>,
-    q: Option<&str>,
-    start: Option<i32>,
+    params: CoreObjectTypesListParams,
 ) -> Result<crate::models::PaginatedObjectTypeList, Error<CoreObjectTypesListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let app_label = params.app_label;
+    let app_label__empty = params.app_label__empty;
+    let app_label__ic = params.app_label__ic;
+    let app_label__ie = params.app_label__ie;
+    let app_label__iew = params.app_label__iew;
+    let app_label__iregex = params.app_label__iregex;
+    let app_label__isw = params.app_label__isw;
+    let app_label__n = params.app_label__n;
+    let app_label__nic = params.app_label__nic;
+    let app_label__nie = params.app_label__nie;
+    let app_label__niew = params.app_label__niew;
+    let app_label__nisw = params.app_label__nisw;
+    let app_label__regex = params.app_label__regex;
+    let brief = params.brief;
+    let features = params.features;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let limit = params.limit;
+    let model = params.model;
+    let model__empty = params.model__empty;
+    let model__ic = params.model__ic;
+    let model__ie = params.model__ie;
+    let model__iew = params.model__iew;
+    let model__iregex = params.model__iregex;
+    let model__isw = params.model__isw;
+    let model__n = params.model__n;
+    let model__nic = params.model__nic;
+    let model__nie = params.model__nie;
+    let model__niew = params.model__niew;
+    let model__nisw = params.model__nisw;
+    let model__regex = params.model__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let public = params.public;
+    let q = params.q;
+    let start = params.start;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -8671,12 +9488,15 @@ pub async fn core_object_types_list(
 /// Read-only list of ObjectTypes.
 pub async fn core_object_types_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: CoreObjectTypesRetrieveParams,
 ) -> Result<crate::models::ObjectType, Error<CoreObjectTypesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 

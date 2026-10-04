@@ -13,6 +13,1092 @@ use reqwest;
 use super::{Error, configuration};
 use crate::apis::ResponseContent;
 
+/// struct for passing parameters to the method [`tenancy_contact_assignments_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactAssignmentsBulkDestroyParams {
+    pub contact_assignment_request: Vec<crate::models::ContactAssignmentRequest>,
+}
+
+/// struct for passing parameters to the method [`tenancy_contact_assignments_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactAssignmentsBulkPartialUpdateParams {
+    pub patched_bulk_contact_assignment_request:
+        Vec<crate::models::PatchedBulkContactAssignmentRequest>,
+}
+
+/// struct for passing parameters to the method [`tenancy_contact_assignments_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactAssignmentsBulkUpdateParams {
+    pub bulk_contact_assignment_request: Vec<crate::models::BulkContactAssignmentRequest>,
+}
+
+/// struct for passing parameters to the method [`tenancy_contact_assignments_create`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactAssignmentsCreateParams {
+    pub tenancy_contact_assignments_create_request:
+        crate::models::TenancyContactAssignmentsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`tenancy_contact_assignments_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactAssignmentsDestroyParams {
+    /// A unique integer value identifying this contact assignment.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`tenancy_contact_assignments_list`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactAssignmentsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Contact (ID)
+    pub contact_id: Option<Vec<i32>>,
+    /// Contact (ID)
+    pub contact_id__n: Option<Vec<i32>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub group: Option<Vec<String>>,
+    pub group__n: Option<Vec<String>>,
+    pub group_id: Option<Vec<String>>,
+    pub group_id__n: Option<Vec<String>>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub object_id: Option<Vec<i32>>,
+    pub object_id__empty: Option<bool>,
+    pub object_id__gt: Option<Vec<i32>>,
+    pub object_id__gte: Option<Vec<i32>>,
+    pub object_id__lt: Option<Vec<i32>>,
+    pub object_id__lte: Option<Vec<i32>>,
+    pub object_id__n: Option<Vec<i32>>,
+    pub object_type: Option<Vec<String>>,
+    pub object_type__n: Option<Vec<String>>,
+    pub object_type_id: Option<i32>,
+    pub object_type_id__n: Option<i32>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// * `primary` - Primary * `secondary` - Secondary * `tertiary` - Tertiary * `inactive` - Inactive
+    pub priority: Option<String>,
+    pub priority__empty: Option<bool>,
+    pub priority__ic: Option<Vec<String>>,
+    pub priority__ie: Option<Vec<String>>,
+    pub priority__iew: Option<Vec<String>>,
+    pub priority__iregex: Option<Vec<String>>,
+    pub priority__isw: Option<Vec<String>>,
+    /// * `primary` - Primary * `secondary` - Secondary * `tertiary` - Tertiary * `inactive` - Inactive
+    pub priority__n: Option<String>,
+    pub priority__nic: Option<Vec<String>>,
+    pub priority__nie: Option<Vec<String>>,
+    pub priority__niew: Option<Vec<String>>,
+    pub priority__nisw: Option<Vec<String>>,
+    pub priority__regex: Option<Vec<String>>,
+    /// Search
+    pub q: Option<String>,
+    /// Contact role (slug)
+    pub role: Option<Vec<String>>,
+    /// Contact role (slug)
+    pub role__n: Option<Vec<String>>,
+    /// Contact role (ID)
+    pub role_id: Option<Vec<i32>>,
+    /// Contact role (ID)
+    pub role_id__n: Option<Vec<i32>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`tenancy_contact_assignments_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactAssignmentsPartialUpdateParams {
+    /// A unique integer value identifying this contact assignment.
+    pub id: i32,
+    pub patched_writable_contact_assignment_request:
+        Option<crate::models::PatchedWritableContactAssignmentRequest>,
+}
+
+/// struct for passing parameters to the method [`tenancy_contact_assignments_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactAssignmentsRetrieveParams {
+    /// A unique integer value identifying this contact assignment.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`tenancy_contact_assignments_update`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactAssignmentsUpdateParams {
+    /// A unique integer value identifying this contact assignment.
+    pub id: i32,
+    pub writable_contact_assignment_request: crate::models::WritableContactAssignmentRequest,
+}
+
+/// struct for passing parameters to the method [`tenancy_contact_groups_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactGroupsBulkDestroyParams {
+    pub contact_group_request: Vec<crate::models::ContactGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`tenancy_contact_groups_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactGroupsBulkPartialUpdateParams {
+    pub patched_bulk_contact_group_request: Vec<crate::models::PatchedBulkContactGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`tenancy_contact_groups_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactGroupsBulkUpdateParams {
+    pub bulk_contact_group_request: Vec<crate::models::BulkContactGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`tenancy_contact_groups_create`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactGroupsCreateParams {
+    pub tenancy_contact_groups_create_request: crate::models::TenancyContactGroupsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`tenancy_contact_groups_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactGroupsDestroyParams {
+    /// A unique integer value identifying this contact group.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`tenancy_contact_groups_list`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactGroupsListParams {
+    pub ancestor: Option<Vec<String>>,
+    pub ancestor__n: Option<Vec<String>>,
+    pub ancestor_id: Option<Vec<String>>,
+    pub ancestor_id__n: Option<Vec<String>>,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Contact (ID)
+    pub contact_id: Option<Vec<i32>>,
+    /// Contact (ID)
+    pub contact_id__n: Option<Vec<i32>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Parent contact group (slug)
+    pub parent: Option<Vec<String>>,
+    /// Parent contact group (slug)
+    pub parent__n: Option<Vec<String>>,
+    /// Parent contact group (ID)
+    pub parent_id: Option<Vec<i32>>,
+    /// Parent contact group (ID)
+    pub parent_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub slug: Option<Vec<String>>,
+    pub slug__empty: Option<bool>,
+    pub slug__ic: Option<Vec<String>>,
+    pub slug__ie: Option<Vec<String>>,
+    pub slug__iew: Option<Vec<String>>,
+    pub slug__iregex: Option<Vec<String>>,
+    pub slug__isw: Option<Vec<String>>,
+    pub slug__n: Option<Vec<String>>,
+    pub slug__nic: Option<Vec<String>>,
+    pub slug__nie: Option<Vec<String>>,
+    pub slug__niew: Option<Vec<String>>,
+    pub slug__nisw: Option<Vec<String>>,
+    pub slug__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`tenancy_contact_groups_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactGroupsPartialUpdateParams {
+    /// A unique integer value identifying this contact group.
+    pub id: i32,
+    pub patched_writable_contact_group_request:
+        Option<crate::models::PatchedWritableContactGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`tenancy_contact_groups_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactGroupsRetrieveParams {
+    /// A unique integer value identifying this contact group.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`tenancy_contact_groups_update`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactGroupsUpdateParams {
+    /// A unique integer value identifying this contact group.
+    pub id: i32,
+    pub writable_contact_group_request: crate::models::WritableContactGroupRequest,
+}
+
+/// struct for passing parameters to the method [`tenancy_contact_roles_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactRolesBulkDestroyParams {
+    pub contact_role_request: Vec<crate::models::ContactRoleRequest>,
+}
+
+/// struct for passing parameters to the method [`tenancy_contact_roles_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactRolesBulkPartialUpdateParams {
+    pub patched_bulk_contact_role_request: Vec<crate::models::PatchedBulkContactRoleRequest>,
+}
+
+/// struct for passing parameters to the method [`tenancy_contact_roles_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactRolesBulkUpdateParams {
+    pub bulk_contact_role_request: Vec<crate::models::BulkContactRoleRequest>,
+}
+
+/// struct for passing parameters to the method [`tenancy_contact_roles_create`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactRolesCreateParams {
+    pub tenancy_contact_roles_create_request: crate::models::TenancyContactRolesCreateRequest,
+}
+
+/// struct for passing parameters to the method [`tenancy_contact_roles_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactRolesDestroyParams {
+    /// A unique integer value identifying this contact role.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`tenancy_contact_roles_list`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactRolesListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub slug: Option<Vec<String>>,
+    pub slug__empty: Option<bool>,
+    pub slug__ic: Option<Vec<String>>,
+    pub slug__ie: Option<Vec<String>>,
+    pub slug__iew: Option<Vec<String>>,
+    pub slug__iregex: Option<Vec<String>>,
+    pub slug__isw: Option<Vec<String>>,
+    pub slug__n: Option<Vec<String>>,
+    pub slug__nic: Option<Vec<String>>,
+    pub slug__nie: Option<Vec<String>>,
+    pub slug__niew: Option<Vec<String>>,
+    pub slug__nisw: Option<Vec<String>>,
+    pub slug__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`tenancy_contact_roles_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactRolesPartialUpdateParams {
+    /// A unique integer value identifying this contact role.
+    pub id: i32,
+    pub patched_contact_role_request: Option<crate::models::PatchedContactRoleRequest>,
+}
+
+/// struct for passing parameters to the method [`tenancy_contact_roles_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactRolesRetrieveParams {
+    /// A unique integer value identifying this contact role.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`tenancy_contact_roles_update`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactRolesUpdateParams {
+    /// A unique integer value identifying this contact role.
+    pub id: i32,
+    pub contact_role_request: crate::models::ContactRoleRequest,
+}
+
+/// struct for passing parameters to the method [`tenancy_contacts_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactsBulkDestroyParams {
+    pub contact_request: Vec<crate::models::ContactRequest>,
+}
+
+/// struct for passing parameters to the method [`tenancy_contacts_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactsBulkPartialUpdateParams {
+    pub patched_bulk_contact_request: Vec<crate::models::PatchedBulkContactRequest>,
+}
+
+/// struct for passing parameters to the method [`tenancy_contacts_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactsBulkUpdateParams {
+    pub bulk_contact_request: Vec<crate::models::BulkContactRequest>,
+}
+
+/// struct for passing parameters to the method [`tenancy_contacts_create`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactsCreateParams {
+    pub tenancy_contacts_create_request: crate::models::TenancyContactsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`tenancy_contacts_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactsDestroyParams {
+    /// A unique integer value identifying this contact.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`tenancy_contacts_list`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactsListParams {
+    pub address: Option<Vec<String>>,
+    pub address__empty: Option<bool>,
+    pub address__ic: Option<Vec<String>>,
+    pub address__ie: Option<Vec<String>>,
+    pub address__iew: Option<Vec<String>>,
+    pub address__iregex: Option<Vec<String>>,
+    pub address__isw: Option<Vec<String>>,
+    pub address__n: Option<Vec<String>>,
+    pub address__nic: Option<Vec<String>>,
+    pub address__nie: Option<Vec<String>>,
+    pub address__niew: Option<Vec<String>>,
+    pub address__nisw: Option<Vec<String>>,
+    pub address__regex: Option<Vec<String>>,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    pub email: Option<Vec<String>>,
+    pub email__empty: Option<bool>,
+    pub email__ic: Option<Vec<String>>,
+    pub email__ie: Option<Vec<String>>,
+    pub email__iew: Option<Vec<String>>,
+    pub email__iregex: Option<Vec<String>>,
+    pub email__isw: Option<Vec<String>>,
+    pub email__n: Option<Vec<String>>,
+    pub email__nic: Option<Vec<String>>,
+    pub email__nie: Option<Vec<String>>,
+    pub email__niew: Option<Vec<String>>,
+    pub email__nisw: Option<Vec<String>>,
+    pub email__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub group: Option<Vec<String>>,
+    pub group__n: Option<Vec<String>>,
+    pub group_id: Option<Vec<String>>,
+    pub group_id__n: Option<Vec<String>>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub link: Option<Vec<String>>,
+    pub link__empty: Option<bool>,
+    pub link__ic: Option<Vec<String>>,
+    pub link__ie: Option<Vec<String>>,
+    pub link__iew: Option<Vec<String>>,
+    pub link__iregex: Option<Vec<String>>,
+    pub link__isw: Option<Vec<String>>,
+    pub link__n: Option<Vec<String>>,
+    pub link__nic: Option<Vec<String>>,
+    pub link__nie: Option<Vec<String>>,
+    pub link__niew: Option<Vec<String>>,
+    pub link__nisw: Option<Vec<String>>,
+    pub link__regex: Option<Vec<String>>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    pub phone: Option<Vec<String>>,
+    pub phone__empty: Option<bool>,
+    pub phone__ic: Option<Vec<String>>,
+    pub phone__ie: Option<Vec<String>>,
+    pub phone__iew: Option<Vec<String>>,
+    pub phone__iregex: Option<Vec<String>>,
+    pub phone__isw: Option<Vec<String>>,
+    pub phone__n: Option<Vec<String>>,
+    pub phone__nic: Option<Vec<String>>,
+    pub phone__nie: Option<Vec<String>>,
+    pub phone__niew: Option<Vec<String>>,
+    pub phone__nisw: Option<Vec<String>>,
+    pub phone__regex: Option<Vec<String>>,
+    /// Search
+    pub q: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub title: Option<Vec<String>>,
+    pub title__empty: Option<bool>,
+    pub title__ic: Option<Vec<String>>,
+    pub title__ie: Option<Vec<String>>,
+    pub title__iew: Option<Vec<String>>,
+    pub title__iregex: Option<Vec<String>>,
+    pub title__isw: Option<Vec<String>>,
+    pub title__n: Option<Vec<String>>,
+    pub title__nic: Option<Vec<String>>,
+    pub title__nie: Option<Vec<String>>,
+    pub title__niew: Option<Vec<String>>,
+    pub title__nisw: Option<Vec<String>>,
+    pub title__regex: Option<Vec<String>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`tenancy_contacts_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactsPartialUpdateParams {
+    /// A unique integer value identifying this contact.
+    pub id: i32,
+    pub patched_contact_request: Option<crate::models::PatchedContactRequest>,
+}
+
+/// struct for passing parameters to the method [`tenancy_contacts_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactsRetrieveParams {
+    /// A unique integer value identifying this contact.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`tenancy_contacts_update`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyContactsUpdateParams {
+    /// A unique integer value identifying this contact.
+    pub id: i32,
+    pub contact_request: crate::models::ContactRequest,
+}
+
+/// struct for passing parameters to the method [`tenancy_tenant_groups_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyTenantGroupsBulkDestroyParams {
+    pub tenant_group_request: Vec<crate::models::TenantGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`tenancy_tenant_groups_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyTenantGroupsBulkPartialUpdateParams {
+    pub patched_bulk_tenant_group_request: Vec<crate::models::PatchedBulkTenantGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`tenancy_tenant_groups_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyTenantGroupsBulkUpdateParams {
+    pub bulk_tenant_group_request: Vec<crate::models::BulkTenantGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`tenancy_tenant_groups_create`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyTenantGroupsCreateParams {
+    pub tenancy_tenant_groups_create_request: crate::models::TenancyTenantGroupsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`tenancy_tenant_groups_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyTenantGroupsDestroyParams {
+    /// A unique integer value identifying this tenant group.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`tenancy_tenant_groups_list`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyTenantGroupsListParams {
+    pub ancestor: Option<Vec<String>>,
+    pub ancestor__n: Option<Vec<String>>,
+    pub ancestor_id: Option<Vec<String>>,
+    pub ancestor_id__n: Option<Vec<String>>,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Parent tenant group (slug)
+    pub parent: Option<Vec<String>>,
+    /// Parent tenant group (slug)
+    pub parent__n: Option<Vec<String>>,
+    /// Parent tenant group (ID)
+    pub parent_id: Option<Vec<i32>>,
+    /// Parent tenant group (ID)
+    pub parent_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub slug: Option<Vec<String>>,
+    pub slug__empty: Option<bool>,
+    pub slug__ic: Option<Vec<String>>,
+    pub slug__ie: Option<Vec<String>>,
+    pub slug__iew: Option<Vec<String>>,
+    pub slug__iregex: Option<Vec<String>>,
+    pub slug__isw: Option<Vec<String>>,
+    pub slug__n: Option<Vec<String>>,
+    pub slug__nic: Option<Vec<String>>,
+    pub slug__nie: Option<Vec<String>>,
+    pub slug__niew: Option<Vec<String>>,
+    pub slug__nisw: Option<Vec<String>>,
+    pub slug__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`tenancy_tenant_groups_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyTenantGroupsPartialUpdateParams {
+    /// A unique integer value identifying this tenant group.
+    pub id: i32,
+    pub patched_writable_tenant_group_request:
+        Option<crate::models::PatchedWritableTenantGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`tenancy_tenant_groups_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyTenantGroupsRetrieveParams {
+    /// A unique integer value identifying this tenant group.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`tenancy_tenant_groups_update`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyTenantGroupsUpdateParams {
+    /// A unique integer value identifying this tenant group.
+    pub id: i32,
+    pub writable_tenant_group_request: crate::models::WritableTenantGroupRequest,
+}
+
+/// struct for passing parameters to the method [`tenancy_tenants_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyTenantsBulkDestroyParams {
+    pub tenant_request: Vec<crate::models::TenantRequest>,
+}
+
+/// struct for passing parameters to the method [`tenancy_tenants_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyTenantsBulkPartialUpdateParams {
+    pub patched_bulk_tenant_request: Vec<crate::models::PatchedBulkTenantRequest>,
+}
+
+/// struct for passing parameters to the method [`tenancy_tenants_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyTenantsBulkUpdateParams {
+    pub bulk_tenant_request: Vec<crate::models::BulkTenantRequest>,
+}
+
+/// struct for passing parameters to the method [`tenancy_tenants_create`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyTenantsCreateParams {
+    pub tenancy_tenants_create_request: crate::models::TenancyTenantsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`tenancy_tenants_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyTenantsDestroyParams {
+    /// A unique integer value identifying this tenant.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`tenancy_tenants_list`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyTenantsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Contact
+    pub contact: Option<Vec<i32>>,
+    /// Contact
+    pub contact__n: Option<Vec<i32>>,
+    pub contact_group: Option<Vec<String>>,
+    pub contact_group__n: Option<Vec<String>>,
+    /// Contact Role
+    pub contact_role: Option<Vec<i32>>,
+    /// Contact Role
+    pub contact_role__n: Option<Vec<i32>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub group: Option<Vec<String>>,
+    pub group__n: Option<Vec<String>>,
+    pub group_id: Option<Vec<String>>,
+    pub group_id__n: Option<Vec<String>>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub slug: Option<Vec<String>>,
+    pub slug__empty: Option<bool>,
+    pub slug__ic: Option<Vec<String>>,
+    pub slug__ie: Option<Vec<String>>,
+    pub slug__iew: Option<Vec<String>>,
+    pub slug__iregex: Option<Vec<String>>,
+    pub slug__isw: Option<Vec<String>>,
+    pub slug__n: Option<Vec<String>>,
+    pub slug__nic: Option<Vec<String>>,
+    pub slug__nie: Option<Vec<String>>,
+    pub slug__niew: Option<Vec<String>>,
+    pub slug__nisw: Option<Vec<String>>,
+    pub slug__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`tenancy_tenants_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyTenantsPartialUpdateParams {
+    /// A unique integer value identifying this tenant.
+    pub id: i32,
+    pub patched_tenant_request: Option<crate::models::PatchedTenantRequest>,
+}
+
+/// struct for passing parameters to the method [`tenancy_tenants_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyTenantsRetrieveParams {
+    /// A unique integer value identifying this tenant.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`tenancy_tenants_update`]
+#[derive(Clone, Debug, Default)]
+pub struct TenancyTenantsUpdateParams {
+    /// A unique integer value identifying this tenant.
+    pub id: i32,
+    pub tenant_request: crate::models::TenantRequest,
+}
+
 /// struct for typed errors of method [`tenancy_contact_assignments_bulk_destroy`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -448,9 +1534,12 @@ pub enum TenancyTenantsUpdateError {
 /// Delete a list of contact assignment objects.
 pub async fn tenancy_contact_assignments_bulk_destroy(
     configuration: &configuration::Configuration,
-    contact_assignment_request: Vec<crate::models::ContactAssignmentRequest>,
+    params: TenancyContactAssignmentsBulkDestroyParams,
 ) -> Result<(), Error<TenancyContactAssignmentsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let contact_assignment_request = params.contact_assignment_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -498,14 +1587,15 @@ pub async fn tenancy_contact_assignments_bulk_destroy(
 /// Patch a list of contact assignment objects.
 pub async fn tenancy_contact_assignments_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_contact_assignment_request: Vec<
-        crate::models::PatchedBulkContactAssignmentRequest,
-    >,
+    params: TenancyContactAssignmentsBulkPartialUpdateParams,
 ) -> Result<
     Vec<crate::models::ContactAssignment>,
     Error<TenancyContactAssignmentsBulkPartialUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_contact_assignment_request = params.patched_bulk_contact_assignment_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -553,10 +1643,13 @@ pub async fn tenancy_contact_assignments_bulk_partial_update(
 /// Put a list of contact assignment objects.
 pub async fn tenancy_contact_assignments_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_contact_assignment_request: Vec<crate::models::BulkContactAssignmentRequest>,
+    params: TenancyContactAssignmentsBulkUpdateParams,
 ) -> Result<Vec<crate::models::ContactAssignment>, Error<TenancyContactAssignmentsBulkUpdateError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_contact_assignment_request = params.bulk_contact_assignment_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -604,9 +1697,13 @@ pub async fn tenancy_contact_assignments_bulk_update(
 /// Post a list of contact assignment objects.
 pub async fn tenancy_contact_assignments_create(
     configuration: &configuration::Configuration,
-    tenancy_contact_assignments_create_request: crate::models::TenancyContactAssignmentsCreateRequest,
+    params: TenancyContactAssignmentsCreateParams,
 ) -> Result<crate::models::ContactAssignment, Error<TenancyContactAssignmentsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let tenancy_contact_assignments_create_request =
+        params.tenancy_contact_assignments_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -654,9 +1751,12 @@ pub async fn tenancy_contact_assignments_create(
 /// Delete a contact assignment object.
 pub async fn tenancy_contact_assignments_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: TenancyContactAssignmentsDestroyParams,
 ) -> Result<(), Error<TenancyContactAssignmentsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -704,81 +1804,84 @@ pub async fn tenancy_contact_assignments_destroy(
 /// Get a list of contact assignment objects.
 pub async fn tenancy_contact_assignments_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    contact_id: Option<Vec<i32>>,
-    contact_id__n: Option<Vec<i32>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    fields: Option<&str>,
-    group: Option<Vec<String>>,
-    group__n: Option<Vec<String>>,
-    group_id: Option<Vec<String>>,
-    group_id__n: Option<Vec<String>>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    object_id: Option<Vec<i32>>,
-    object_id__empty: Option<bool>,
-    object_id__gt: Option<Vec<i32>>,
-    object_id__gte: Option<Vec<i32>>,
-    object_id__lt: Option<Vec<i32>>,
-    object_id__lte: Option<Vec<i32>>,
-    object_id__n: Option<Vec<i32>>,
-    object_type: Option<Vec<String>>,
-    object_type__n: Option<Vec<String>>,
-    object_type_id: Option<i32>,
-    object_type_id__n: Option<i32>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    priority: Option<&str>,
-    priority__empty: Option<bool>,
-    priority__ic: Option<Vec<String>>,
-    priority__ie: Option<Vec<String>>,
-    priority__iew: Option<Vec<String>>,
-    priority__iregex: Option<Vec<String>>,
-    priority__isw: Option<Vec<String>>,
-    priority__n: Option<&str>,
-    priority__nic: Option<Vec<String>>,
-    priority__nie: Option<Vec<String>>,
-    priority__niew: Option<Vec<String>>,
-    priority__nisw: Option<Vec<String>>,
-    priority__regex: Option<Vec<String>>,
-    q: Option<&str>,
-    role: Option<Vec<String>>,
-    role__n: Option<Vec<String>>,
-    role_id: Option<Vec<i32>>,
-    role_id__n: Option<Vec<i32>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: TenancyContactAssignmentsListParams,
 ) -> Result<crate::models::PaginatedContactAssignmentList, Error<TenancyContactAssignmentsListError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let contact_id = params.contact_id;
+    let contact_id__n = params.contact_id__n;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let fields = params.fields;
+    let group = params.group;
+    let group__n = params.group__n;
+    let group_id = params.group_id;
+    let group_id__n = params.group_id__n;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let object_id = params.object_id;
+    let object_id__empty = params.object_id__empty;
+    let object_id__gt = params.object_id__gt;
+    let object_id__gte = params.object_id__gte;
+    let object_id__lt = params.object_id__lt;
+    let object_id__lte = params.object_id__lte;
+    let object_id__n = params.object_id__n;
+    let object_type = params.object_type;
+    let object_type__n = params.object_type__n;
+    let object_type_id = params.object_type_id;
+    let object_type_id__n = params.object_type_id__n;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let priority = params.priority;
+    let priority__empty = params.priority__empty;
+    let priority__ic = params.priority__ic;
+    let priority__ie = params.priority__ie;
+    let priority__iew = params.priority__iew;
+    let priority__iregex = params.priority__iregex;
+    let priority__isw = params.priority__isw;
+    let priority__n = params.priority__n;
+    let priority__nic = params.priority__nic;
+    let priority__nie = params.priority__nie;
+    let priority__niew = params.priority__niew;
+    let priority__nisw = params.priority__nisw;
+    let priority__regex = params.priority__regex;
+    let q = params.q;
+    let role = params.role;
+    let role__n = params.role__n;
+    let role_id = params.role_id;
+    let role_id__n = params.role_id__n;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -1922,12 +3025,14 @@ pub async fn tenancy_contact_assignments_list(
 /// Patch a contact assignment object.
 pub async fn tenancy_contact_assignments_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_contact_assignment_request: Option<
-        crate::models::PatchedWritableContactAssignmentRequest,
-    >,
+    params: TenancyContactAssignmentsPartialUpdateParams,
 ) -> Result<crate::models::ContactAssignment, Error<TenancyContactAssignmentsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_contact_assignment_request =
+        params.patched_writable_contact_assignment_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -1977,12 +3082,15 @@ pub async fn tenancy_contact_assignments_partial_update(
 /// Get a contact assignment object.
 pub async fn tenancy_contact_assignments_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: TenancyContactAssignmentsRetrieveParams,
 ) -> Result<crate::models::ContactAssignment, Error<TenancyContactAssignmentsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2042,10 +3150,13 @@ pub async fn tenancy_contact_assignments_retrieve(
 /// Put a contact assignment object.
 pub async fn tenancy_contact_assignments_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_contact_assignment_request: crate::models::WritableContactAssignmentRequest,
+    params: TenancyContactAssignmentsUpdateParams,
 ) -> Result<crate::models::ContactAssignment, Error<TenancyContactAssignmentsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_contact_assignment_request = params.writable_contact_assignment_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2094,9 +3205,12 @@ pub async fn tenancy_contact_assignments_update(
 /// Delete a list of contact group objects.
 pub async fn tenancy_contact_groups_bulk_destroy(
     configuration: &configuration::Configuration,
-    contact_group_request: Vec<crate::models::ContactGroupRequest>,
+    params: TenancyContactGroupsBulkDestroyParams,
 ) -> Result<(), Error<TenancyContactGroupsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let contact_group_request = params.contact_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2144,9 +3258,12 @@ pub async fn tenancy_contact_groups_bulk_destroy(
 /// Patch a list of contact group objects.
 pub async fn tenancy_contact_groups_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_contact_group_request: Vec<crate::models::PatchedBulkContactGroupRequest>,
+    params: TenancyContactGroupsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::ContactGroup>, Error<TenancyContactGroupsBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_contact_group_request = params.patched_bulk_contact_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2194,9 +3311,12 @@ pub async fn tenancy_contact_groups_bulk_partial_update(
 /// Put a list of contact group objects.
 pub async fn tenancy_contact_groups_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_contact_group_request: Vec<crate::models::BulkContactGroupRequest>,
+    params: TenancyContactGroupsBulkUpdateParams,
 ) -> Result<Vec<crate::models::ContactGroup>, Error<TenancyContactGroupsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_contact_group_request = params.bulk_contact_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2244,9 +3364,12 @@ pub async fn tenancy_contact_groups_bulk_update(
 /// Post a list of contact group objects.
 pub async fn tenancy_contact_groups_create(
     configuration: &configuration::Configuration,
-    tenancy_contact_groups_create_request: crate::models::TenancyContactGroupsCreateRequest,
+    params: TenancyContactGroupsCreateParams,
 ) -> Result<crate::models::ContactGroup, Error<TenancyContactGroupsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let tenancy_contact_groups_create_request = params.tenancy_contact_groups_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2294,9 +3417,12 @@ pub async fn tenancy_contact_groups_create(
 /// Delete a contact group object.
 pub async fn tenancy_contact_groups_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: TenancyContactGroupsDestroyParams,
 ) -> Result<(), Error<TenancyContactGroupsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2344,103 +3470,106 @@ pub async fn tenancy_contact_groups_destroy(
 /// Get a list of contact group objects.
 pub async fn tenancy_contact_groups_list(
     configuration: &configuration::Configuration,
-    ancestor: Option<Vec<String>>,
-    ancestor__n: Option<Vec<String>>,
-    ancestor_id: Option<Vec<String>>,
-    ancestor_id__n: Option<Vec<String>>,
-    brief: Option<bool>,
-    contact_id: Option<Vec<i32>>,
-    contact_id__n: Option<Vec<i32>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    parent: Option<Vec<String>>,
-    parent__n: Option<Vec<String>>,
-    parent_id: Option<Vec<i32>>,
-    parent_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    slug: Option<Vec<String>>,
-    slug__empty: Option<bool>,
-    slug__ic: Option<Vec<String>>,
-    slug__ie: Option<Vec<String>>,
-    slug__iew: Option<Vec<String>>,
-    slug__iregex: Option<Vec<String>>,
-    slug__isw: Option<Vec<String>>,
-    slug__n: Option<Vec<String>>,
-    slug__nic: Option<Vec<String>>,
-    slug__nie: Option<Vec<String>>,
-    slug__niew: Option<Vec<String>>,
-    slug__nisw: Option<Vec<String>>,
-    slug__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: TenancyContactGroupsListParams,
 ) -> Result<crate::models::PaginatedContactGroupList, Error<TenancyContactGroupsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ancestor = params.ancestor;
+    let ancestor__n = params.ancestor__n;
+    let ancestor_id = params.ancestor_id;
+    let ancestor_id__n = params.ancestor_id__n;
+    let brief = params.brief;
+    let contact_id = params.contact_id;
+    let contact_id__n = params.contact_id__n;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let parent = params.parent;
+    let parent__n = params.parent__n;
+    let parent_id = params.parent_id;
+    let parent_id__n = params.parent_id__n;
+    let q = params.q;
+    let slug = params.slug;
+    let slug__empty = params.slug__empty;
+    let slug__ic = params.slug__ic;
+    let slug__ie = params.slug__ie;
+    let slug__iew = params.slug__iew;
+    let slug__iregex = params.slug__iregex;
+    let slug__isw = params.slug__isw;
+    let slug__n = params.slug__n;
+    let slug__nic = params.slug__nic;
+    let slug__nie = params.slug__nie;
+    let slug__niew = params.slug__niew;
+    let slug__nisw = params.slug__nisw;
+    let slug__regex = params.slug__regex;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4066,12 +5195,13 @@ pub async fn tenancy_contact_groups_list(
 /// Patch a contact group object.
 pub async fn tenancy_contact_groups_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_contact_group_request: Option<
-        crate::models::PatchedWritableContactGroupRequest,
-    >,
+    params: TenancyContactGroupsPartialUpdateParams,
 ) -> Result<crate::models::ContactGroup, Error<TenancyContactGroupsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_contact_group_request = params.patched_writable_contact_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4120,12 +5250,15 @@ pub async fn tenancy_contact_groups_partial_update(
 /// Get a contact group object.
 pub async fn tenancy_contact_groups_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: TenancyContactGroupsRetrieveParams,
 ) -> Result<crate::models::ContactGroup, Error<TenancyContactGroupsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4185,10 +5318,13 @@ pub async fn tenancy_contact_groups_retrieve(
 /// Put a contact group object.
 pub async fn tenancy_contact_groups_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_contact_group_request: crate::models::WritableContactGroupRequest,
+    params: TenancyContactGroupsUpdateParams,
 ) -> Result<crate::models::ContactGroup, Error<TenancyContactGroupsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_contact_group_request = params.writable_contact_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4237,9 +5373,12 @@ pub async fn tenancy_contact_groups_update(
 /// Delete a list of contact role objects.
 pub async fn tenancy_contact_roles_bulk_destroy(
     configuration: &configuration::Configuration,
-    contact_role_request: Vec<crate::models::ContactRoleRequest>,
+    params: TenancyContactRolesBulkDestroyParams,
 ) -> Result<(), Error<TenancyContactRolesBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let contact_role_request = params.contact_role_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4287,9 +5426,12 @@ pub async fn tenancy_contact_roles_bulk_destroy(
 /// Patch a list of contact role objects.
 pub async fn tenancy_contact_roles_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_contact_role_request: Vec<crate::models::PatchedBulkContactRoleRequest>,
+    params: TenancyContactRolesBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::ContactRole>, Error<TenancyContactRolesBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_contact_role_request = params.patched_bulk_contact_role_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4337,9 +5479,12 @@ pub async fn tenancy_contact_roles_bulk_partial_update(
 /// Put a list of contact role objects.
 pub async fn tenancy_contact_roles_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_contact_role_request: Vec<crate::models::BulkContactRoleRequest>,
+    params: TenancyContactRolesBulkUpdateParams,
 ) -> Result<Vec<crate::models::ContactRole>, Error<TenancyContactRolesBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_contact_role_request = params.bulk_contact_role_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4387,9 +5532,12 @@ pub async fn tenancy_contact_roles_bulk_update(
 /// Post a list of contact role objects.
 pub async fn tenancy_contact_roles_create(
     configuration: &configuration::Configuration,
-    tenancy_contact_roles_create_request: crate::models::TenancyContactRolesCreateRequest,
+    params: TenancyContactRolesCreateParams,
 ) -> Result<crate::models::ContactRole, Error<TenancyContactRolesCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let tenancy_contact_roles_create_request = params.tenancy_contact_roles_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4437,9 +5585,12 @@ pub async fn tenancy_contact_roles_create(
 /// Delete a contact role object.
 pub async fn tenancy_contact_roles_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: TenancyContactRolesDestroyParams,
 ) -> Result<(), Error<TenancyContactRolesDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4487,93 +5638,96 @@ pub async fn tenancy_contact_roles_destroy(
 /// Get a list of contact role objects.
 pub async fn tenancy_contact_roles_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    slug: Option<Vec<String>>,
-    slug__empty: Option<bool>,
-    slug__ic: Option<Vec<String>>,
-    slug__ie: Option<Vec<String>>,
-    slug__iew: Option<Vec<String>>,
-    slug__iregex: Option<Vec<String>>,
-    slug__isw: Option<Vec<String>>,
-    slug__n: Option<Vec<String>>,
-    slug__nic: Option<Vec<String>>,
-    slug__nie: Option<Vec<String>>,
-    slug__niew: Option<Vec<String>>,
-    slug__nisw: Option<Vec<String>>,
-    slug__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: TenancyContactRolesListParams,
 ) -> Result<crate::models::PaginatedContactRoleList, Error<TenancyContactRolesListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let slug = params.slug;
+    let slug__empty = params.slug__empty;
+    let slug__ic = params.slug__ic;
+    let slug__ie = params.slug__ie;
+    let slug__iew = params.slug__iew;
+    let slug__iregex = params.slug__iregex;
+    let slug__isw = params.slug__isw;
+    let slug__n = params.slug__n;
+    let slug__nic = params.slug__nic;
+    let slug__nie = params.slug__nie;
+    let slug__niew = params.slug__niew;
+    let slug__nisw = params.slug__nisw;
+    let slug__regex = params.slug__regex;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -6009,10 +7163,13 @@ pub async fn tenancy_contact_roles_list(
 /// Patch a contact role object.
 pub async fn tenancy_contact_roles_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_contact_role_request: Option<crate::models::PatchedContactRoleRequest>,
+    params: TenancyContactRolesPartialUpdateParams,
 ) -> Result<crate::models::ContactRole, Error<TenancyContactRolesPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_contact_role_request = params.patched_contact_role_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -6061,12 +7218,15 @@ pub async fn tenancy_contact_roles_partial_update(
 /// Get a contact role object.
 pub async fn tenancy_contact_roles_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: TenancyContactRolesRetrieveParams,
 ) -> Result<crate::models::ContactRole, Error<TenancyContactRolesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -6126,10 +7286,13 @@ pub async fn tenancy_contact_roles_retrieve(
 /// Put a contact role object.
 pub async fn tenancy_contact_roles_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    contact_role_request: crate::models::ContactRoleRequest,
+    params: TenancyContactRolesUpdateParams,
 ) -> Result<crate::models::ContactRole, Error<TenancyContactRolesUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let contact_role_request = params.contact_role_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -6178,9 +7341,12 @@ pub async fn tenancy_contact_roles_update(
 /// Delete a list of contact objects.
 pub async fn tenancy_contacts_bulk_destroy(
     configuration: &configuration::Configuration,
-    contact_request: Vec<crate::models::ContactRequest>,
+    params: TenancyContactsBulkDestroyParams,
 ) -> Result<(), Error<TenancyContactsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let contact_request = params.contact_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -6228,9 +7394,12 @@ pub async fn tenancy_contacts_bulk_destroy(
 /// Patch a list of contact objects.
 pub async fn tenancy_contacts_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_contact_request: Vec<crate::models::PatchedBulkContactRequest>,
+    params: TenancyContactsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::Contact>, Error<TenancyContactsBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_contact_request = params.patched_bulk_contact_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -6278,9 +7447,12 @@ pub async fn tenancy_contacts_bulk_partial_update(
 /// Put a list of contact objects.
 pub async fn tenancy_contacts_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_contact_request: Vec<crate::models::BulkContactRequest>,
+    params: TenancyContactsBulkUpdateParams,
 ) -> Result<Vec<crate::models::Contact>, Error<TenancyContactsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_contact_request = params.bulk_contact_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -6328,9 +7500,12 @@ pub async fn tenancy_contacts_bulk_update(
 /// Post a list of contact objects.
 pub async fn tenancy_contacts_create(
     configuration: &configuration::Configuration,
-    tenancy_contacts_create_request: crate::models::TenancyContactsCreateRequest,
+    params: TenancyContactsCreateParams,
 ) -> Result<crate::models::Contact, Error<TenancyContactsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let tenancy_contacts_create_request = params.tenancy_contacts_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -6378,9 +7553,12 @@ pub async fn tenancy_contacts_create(
 /// Delete a contact object.
 pub async fn tenancy_contacts_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: TenancyContactsDestroyParams,
 ) -> Result<(), Error<TenancyContactsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -6428,149 +7606,152 @@ pub async fn tenancy_contacts_destroy(
 /// Get a list of contact objects.
 pub async fn tenancy_contacts_list(
     configuration: &configuration::Configuration,
-    address: Option<Vec<String>>,
-    address__empty: Option<bool>,
-    address__ic: Option<Vec<String>>,
-    address__ie: Option<Vec<String>>,
-    address__iew: Option<Vec<String>>,
-    address__iregex: Option<Vec<String>>,
-    address__isw: Option<Vec<String>>,
-    address__n: Option<Vec<String>>,
-    address__nic: Option<Vec<String>>,
-    address__nie: Option<Vec<String>>,
-    address__niew: Option<Vec<String>>,
-    address__nisw: Option<Vec<String>>,
-    address__regex: Option<Vec<String>>,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    email: Option<Vec<String>>,
-    email__empty: Option<bool>,
-    email__ic: Option<Vec<String>>,
-    email__ie: Option<Vec<String>>,
-    email__iew: Option<Vec<String>>,
-    email__iregex: Option<Vec<String>>,
-    email__isw: Option<Vec<String>>,
-    email__n: Option<Vec<String>>,
-    email__nic: Option<Vec<String>>,
-    email__nie: Option<Vec<String>>,
-    email__niew: Option<Vec<String>>,
-    email__nisw: Option<Vec<String>>,
-    email__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    group: Option<Vec<String>>,
-    group__n: Option<Vec<String>>,
-    group_id: Option<Vec<String>>,
-    group_id__n: Option<Vec<String>>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    link: Option<Vec<String>>,
-    link__empty: Option<bool>,
-    link__ic: Option<Vec<String>>,
-    link__ie: Option<Vec<String>>,
-    link__iew: Option<Vec<String>>,
-    link__iregex: Option<Vec<String>>,
-    link__isw: Option<Vec<String>>,
-    link__n: Option<Vec<String>>,
-    link__nic: Option<Vec<String>>,
-    link__nie: Option<Vec<String>>,
-    link__niew: Option<Vec<String>>,
-    link__nisw: Option<Vec<String>>,
-    link__regex: Option<Vec<String>>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    phone: Option<Vec<String>>,
-    phone__empty: Option<bool>,
-    phone__ic: Option<Vec<String>>,
-    phone__ie: Option<Vec<String>>,
-    phone__iew: Option<Vec<String>>,
-    phone__iregex: Option<Vec<String>>,
-    phone__isw: Option<Vec<String>>,
-    phone__n: Option<Vec<String>>,
-    phone__nic: Option<Vec<String>>,
-    phone__nie: Option<Vec<String>>,
-    phone__niew: Option<Vec<String>>,
-    phone__nisw: Option<Vec<String>>,
-    phone__regex: Option<Vec<String>>,
-    q: Option<&str>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    title: Option<Vec<String>>,
-    title__empty: Option<bool>,
-    title__ic: Option<Vec<String>>,
-    title__ie: Option<Vec<String>>,
-    title__iew: Option<Vec<String>>,
-    title__iregex: Option<Vec<String>>,
-    title__isw: Option<Vec<String>>,
-    title__n: Option<Vec<String>>,
-    title__nic: Option<Vec<String>>,
-    title__nie: Option<Vec<String>>,
-    title__niew: Option<Vec<String>>,
-    title__nisw: Option<Vec<String>>,
-    title__regex: Option<Vec<String>>,
-    updated_by_request: Option<&str>,
+    params: TenancyContactsListParams,
 ) -> Result<crate::models::PaginatedContactList, Error<TenancyContactsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let address = params.address;
+    let address__empty = params.address__empty;
+    let address__ic = params.address__ic;
+    let address__ie = params.address__ie;
+    let address__iew = params.address__iew;
+    let address__iregex = params.address__iregex;
+    let address__isw = params.address__isw;
+    let address__n = params.address__n;
+    let address__nic = params.address__nic;
+    let address__nie = params.address__nie;
+    let address__niew = params.address__niew;
+    let address__nisw = params.address__nisw;
+    let address__regex = params.address__regex;
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let email = params.email;
+    let email__empty = params.email__empty;
+    let email__ic = params.email__ic;
+    let email__ie = params.email__ie;
+    let email__iew = params.email__iew;
+    let email__iregex = params.email__iregex;
+    let email__isw = params.email__isw;
+    let email__n = params.email__n;
+    let email__nic = params.email__nic;
+    let email__nie = params.email__nie;
+    let email__niew = params.email__niew;
+    let email__nisw = params.email__nisw;
+    let email__regex = params.email__regex;
+    let fields = params.fields;
+    let group = params.group;
+    let group__n = params.group__n;
+    let group_id = params.group_id;
+    let group_id__n = params.group_id__n;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let link = params.link;
+    let link__empty = params.link__empty;
+    let link__ic = params.link__ic;
+    let link__ie = params.link__ie;
+    let link__iew = params.link__iew;
+    let link__iregex = params.link__iregex;
+    let link__isw = params.link__isw;
+    let link__n = params.link__n;
+    let link__nic = params.link__nic;
+    let link__nie = params.link__nie;
+    let link__niew = params.link__niew;
+    let link__nisw = params.link__nisw;
+    let link__regex = params.link__regex;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let phone = params.phone;
+    let phone__empty = params.phone__empty;
+    let phone__ic = params.phone__ic;
+    let phone__ie = params.phone__ie;
+    let phone__iew = params.phone__iew;
+    let phone__iregex = params.phone__iregex;
+    let phone__isw = params.phone__isw;
+    let phone__n = params.phone__n;
+    let phone__nic = params.phone__nic;
+    let phone__nie = params.phone__nie;
+    let phone__niew = params.phone__niew;
+    let phone__nisw = params.phone__nisw;
+    let phone__regex = params.phone__regex;
+    let q = params.q;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let title = params.title;
+    let title__empty = params.title__empty;
+    let title__ic = params.title__ic;
+    let title__ie = params.title__ie;
+    let title__iew = params.title__iew;
+    let title__iregex = params.title__iregex;
+    let title__isw = params.title__isw;
+    let title__n = params.title__n;
+    let title__nic = params.title__nic;
+    let title__nie = params.title__nie;
+    let title__niew = params.title__niew;
+    let title__nisw = params.title__nisw;
+    let title__regex = params.title__regex;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -9010,10 +10191,13 @@ pub async fn tenancy_contacts_list(
 /// Patch a contact object.
 pub async fn tenancy_contacts_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_contact_request: Option<crate::models::PatchedContactRequest>,
+    params: TenancyContactsPartialUpdateParams,
 ) -> Result<crate::models::Contact, Error<TenancyContactsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_contact_request = params.patched_contact_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -9062,12 +10246,15 @@ pub async fn tenancy_contacts_partial_update(
 /// Get a contact object.
 pub async fn tenancy_contacts_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: TenancyContactsRetrieveParams,
 ) -> Result<crate::models::Contact, Error<TenancyContactsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -9127,10 +10314,13 @@ pub async fn tenancy_contacts_retrieve(
 /// Put a contact object.
 pub async fn tenancy_contacts_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    contact_request: crate::models::ContactRequest,
+    params: TenancyContactsUpdateParams,
 ) -> Result<crate::models::Contact, Error<TenancyContactsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let contact_request = params.contact_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -9179,9 +10369,12 @@ pub async fn tenancy_contacts_update(
 /// Delete a list of tenant group objects.
 pub async fn tenancy_tenant_groups_bulk_destroy(
     configuration: &configuration::Configuration,
-    tenant_group_request: Vec<crate::models::TenantGroupRequest>,
+    params: TenancyTenantGroupsBulkDestroyParams,
 ) -> Result<(), Error<TenancyTenantGroupsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let tenant_group_request = params.tenant_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -9229,9 +10422,12 @@ pub async fn tenancy_tenant_groups_bulk_destroy(
 /// Patch a list of tenant group objects.
 pub async fn tenancy_tenant_groups_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_tenant_group_request: Vec<crate::models::PatchedBulkTenantGroupRequest>,
+    params: TenancyTenantGroupsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::TenantGroup>, Error<TenancyTenantGroupsBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_tenant_group_request = params.patched_bulk_tenant_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -9279,9 +10475,12 @@ pub async fn tenancy_tenant_groups_bulk_partial_update(
 /// Put a list of tenant group objects.
 pub async fn tenancy_tenant_groups_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_tenant_group_request: Vec<crate::models::BulkTenantGroupRequest>,
+    params: TenancyTenantGroupsBulkUpdateParams,
 ) -> Result<Vec<crate::models::TenantGroup>, Error<TenancyTenantGroupsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_tenant_group_request = params.bulk_tenant_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -9329,9 +10528,12 @@ pub async fn tenancy_tenant_groups_bulk_update(
 /// Post a list of tenant group objects.
 pub async fn tenancy_tenant_groups_create(
     configuration: &configuration::Configuration,
-    tenancy_tenant_groups_create_request: crate::models::TenancyTenantGroupsCreateRequest,
+    params: TenancyTenantGroupsCreateParams,
 ) -> Result<crate::models::TenantGroup, Error<TenancyTenantGroupsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let tenancy_tenant_groups_create_request = params.tenancy_tenant_groups_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -9379,9 +10581,12 @@ pub async fn tenancy_tenant_groups_create(
 /// Delete a tenant group object.
 pub async fn tenancy_tenant_groups_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: TenancyTenantGroupsDestroyParams,
 ) -> Result<(), Error<TenancyTenantGroupsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -9429,101 +10634,104 @@ pub async fn tenancy_tenant_groups_destroy(
 /// Get a list of tenant group objects.
 pub async fn tenancy_tenant_groups_list(
     configuration: &configuration::Configuration,
-    ancestor: Option<Vec<String>>,
-    ancestor__n: Option<Vec<String>>,
-    ancestor_id: Option<Vec<String>>,
-    ancestor_id__n: Option<Vec<String>>,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    parent: Option<Vec<String>>,
-    parent__n: Option<Vec<String>>,
-    parent_id: Option<Vec<i32>>,
-    parent_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    slug: Option<Vec<String>>,
-    slug__empty: Option<bool>,
-    slug__ic: Option<Vec<String>>,
-    slug__ie: Option<Vec<String>>,
-    slug__iew: Option<Vec<String>>,
-    slug__iregex: Option<Vec<String>>,
-    slug__isw: Option<Vec<String>>,
-    slug__n: Option<Vec<String>>,
-    slug__nic: Option<Vec<String>>,
-    slug__nie: Option<Vec<String>>,
-    slug__niew: Option<Vec<String>>,
-    slug__nisw: Option<Vec<String>>,
-    slug__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: TenancyTenantGroupsListParams,
 ) -> Result<crate::models::PaginatedTenantGroupList, Error<TenancyTenantGroupsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let ancestor = params.ancestor;
+    let ancestor__n = params.ancestor__n;
+    let ancestor_id = params.ancestor_id;
+    let ancestor_id__n = params.ancestor_id__n;
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let parent = params.parent;
+    let parent__n = params.parent__n;
+    let parent_id = params.parent_id;
+    let parent_id__n = params.parent_id__n;
+    let q = params.q;
+    let slug = params.slug;
+    let slug__empty = params.slug__empty;
+    let slug__ic = params.slug__ic;
+    let slug__ie = params.slug__ie;
+    let slug__iew = params.slug__iew;
+    let slug__iregex = params.slug__iregex;
+    let slug__isw = params.slug__isw;
+    let slug__n = params.slug__n;
+    let slug__nic = params.slug__nic;
+    let slug__nie = params.slug__nie;
+    let slug__niew = params.slug__niew;
+    let slug__nisw = params.slug__nisw;
+    let slug__regex = params.slug__regex;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -11111,10 +12319,13 @@ pub async fn tenancy_tenant_groups_list(
 /// Patch a tenant group object.
 pub async fn tenancy_tenant_groups_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_tenant_group_request: Option<crate::models::PatchedWritableTenantGroupRequest>,
+    params: TenancyTenantGroupsPartialUpdateParams,
 ) -> Result<crate::models::TenantGroup, Error<TenancyTenantGroupsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_tenant_group_request = params.patched_writable_tenant_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -11163,12 +12374,15 @@ pub async fn tenancy_tenant_groups_partial_update(
 /// Get a tenant group object.
 pub async fn tenancy_tenant_groups_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: TenancyTenantGroupsRetrieveParams,
 ) -> Result<crate::models::TenantGroup, Error<TenancyTenantGroupsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -11228,10 +12442,13 @@ pub async fn tenancy_tenant_groups_retrieve(
 /// Put a tenant group object.
 pub async fn tenancy_tenant_groups_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_tenant_group_request: crate::models::WritableTenantGroupRequest,
+    params: TenancyTenantGroupsUpdateParams,
 ) -> Result<crate::models::TenantGroup, Error<TenancyTenantGroupsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_tenant_group_request = params.writable_tenant_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -11280,9 +12497,12 @@ pub async fn tenancy_tenant_groups_update(
 /// Delete a list of tenant objects.
 pub async fn tenancy_tenants_bulk_destroy(
     configuration: &configuration::Configuration,
-    tenant_request: Vec<crate::models::TenantRequest>,
+    params: TenancyTenantsBulkDestroyParams,
 ) -> Result<(), Error<TenancyTenantsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let tenant_request = params.tenant_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -11327,9 +12547,12 @@ pub async fn tenancy_tenants_bulk_destroy(
 /// Patch a list of tenant objects.
 pub async fn tenancy_tenants_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_tenant_request: Vec<crate::models::PatchedBulkTenantRequest>,
+    params: TenancyTenantsBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::Tenant>, Error<TenancyTenantsBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_tenant_request = params.patched_bulk_tenant_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -11374,9 +12597,12 @@ pub async fn tenancy_tenants_bulk_partial_update(
 /// Put a list of tenant objects.
 pub async fn tenancy_tenants_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_tenant_request: Vec<crate::models::BulkTenantRequest>,
+    params: TenancyTenantsBulkUpdateParams,
 ) -> Result<Vec<crate::models::Tenant>, Error<TenancyTenantsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_tenant_request = params.bulk_tenant_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -11421,9 +12647,12 @@ pub async fn tenancy_tenants_bulk_update(
 /// Post a list of tenant objects.
 pub async fn tenancy_tenants_create(
     configuration: &configuration::Configuration,
-    tenancy_tenants_create_request: crate::models::TenancyTenantsCreateRequest,
+    params: TenancyTenantsCreateParams,
 ) -> Result<crate::models::Tenant, Error<TenancyTenantsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let tenancy_tenants_create_request = params.tenancy_tenants_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -11468,9 +12697,12 @@ pub async fn tenancy_tenants_create(
 /// Delete a tenant object.
 pub async fn tenancy_tenants_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: TenancyTenantsDestroyParams,
 ) -> Result<(), Error<TenancyTenantsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -11518,103 +12750,106 @@ pub async fn tenancy_tenants_destroy(
 /// Get a list of tenant objects.
 pub async fn tenancy_tenants_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    contact: Option<Vec<i32>>,
-    contact__n: Option<Vec<i32>>,
-    contact_group: Option<Vec<String>>,
-    contact_group__n: Option<Vec<String>>,
-    contact_role: Option<Vec<i32>>,
-    contact_role__n: Option<Vec<i32>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    group: Option<Vec<String>>,
-    group__n: Option<Vec<String>>,
-    group_id: Option<Vec<String>>,
-    group_id__n: Option<Vec<String>>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    slug: Option<Vec<String>>,
-    slug__empty: Option<bool>,
-    slug__ic: Option<Vec<String>>,
-    slug__ie: Option<Vec<String>>,
-    slug__iew: Option<Vec<String>>,
-    slug__iregex: Option<Vec<String>>,
-    slug__isw: Option<Vec<String>>,
-    slug__n: Option<Vec<String>>,
-    slug__nic: Option<Vec<String>>,
-    slug__nie: Option<Vec<String>>,
-    slug__niew: Option<Vec<String>>,
-    slug__nisw: Option<Vec<String>>,
-    slug__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: TenancyTenantsListParams,
 ) -> Result<crate::models::PaginatedTenantList, Error<TenancyTenantsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let contact = params.contact;
+    let contact__n = params.contact__n;
+    let contact_group = params.contact_group;
+    let contact_group__n = params.contact_group__n;
+    let contact_role = params.contact_role;
+    let contact_role__n = params.contact_role__n;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let group = params.group;
+    let group__n = params.group__n;
+    let group_id = params.group_id;
+    let group_id__n = params.group_id__n;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let slug = params.slug;
+    let slug__empty = params.slug__empty;
+    let slug__ic = params.slug__ic;
+    let slug__ie = params.slug__ie;
+    let slug__iew = params.slug__iew;
+    let slug__iregex = params.slug__iregex;
+    let slug__isw = params.slug__isw;
+    let slug__n = params.slug__n;
+    let slug__nic = params.slug__nic;
+    let slug__nie = params.slug__nie;
+    let slug__niew = params.slug__niew;
+    let slug__nisw = params.slug__nisw;
+    let slug__regex = params.slug__regex;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -13237,10 +14472,13 @@ pub async fn tenancy_tenants_list(
 /// Patch a tenant object.
 pub async fn tenancy_tenants_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_tenant_request: Option<crate::models::PatchedTenantRequest>,
+    params: TenancyTenantsPartialUpdateParams,
 ) -> Result<crate::models::Tenant, Error<TenancyTenantsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_tenant_request = params.patched_tenant_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -13289,12 +14527,15 @@ pub async fn tenancy_tenants_partial_update(
 /// Get a tenant object.
 pub async fn tenancy_tenants_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: TenancyTenantsRetrieveParams,
 ) -> Result<crate::models::Tenant, Error<TenancyTenantsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -13354,10 +14595,13 @@ pub async fn tenancy_tenants_retrieve(
 /// Put a tenant object.
 pub async fn tenancy_tenants_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    tenant_request: crate::models::TenantRequest,
+    params: TenancyTenantsUpdateParams,
 ) -> Result<crate::models::Tenant, Error<TenancyTenantsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let tenant_request = params.tenant_request;
 
     let local_var_client = &local_var_configuration.client;
 

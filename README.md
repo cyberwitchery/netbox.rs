@@ -282,15 +282,22 @@ for endpoints not wrapped yet, use the generated openapi client:
 
 ```rust
 use netbox::{Client, ClientConfig};
-use netbox::openapi::apis::dcim_api;
+use netbox::openapi::apis::dcim_api::{self, DcimDevicesRetrieveParams};
 
 # async fn example() -> Result<(), Box<dyn std::error::Error>> {
 let config = ClientConfig::new("https://netbox.example.com", "token");
 let client = Client::new(config)?;
 
 let openapi_config = client.openapi_config()?;
-let device = dcim_api::dcim_devices_retrieve(&openapi_config, 42).await?;
-println!("device: {}", device.display);
+let device = dcim_api::dcim_devices_retrieve(
+    &openapi_config,
+    DcimDevicesRetrieveParams {
+        id: 42,
+        ..Default::default()
+    },
+)
+.await?;
+println!("device: {}", device.display.as_deref().unwrap_or("<unknown>"));
 # Ok(())
 # }
 ```

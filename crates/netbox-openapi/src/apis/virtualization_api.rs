@@ -13,6 +13,1567 @@ use reqwest;
 use super::{Error, configuration};
 use crate::apis::ResponseContent;
 
+/// struct for passing parameters to the method [`virtualization_cluster_groups_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClusterGroupsBulkDestroyParams {
+    pub cluster_group_request: Vec<crate::models::ClusterGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_cluster_groups_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClusterGroupsBulkPartialUpdateParams {
+    pub patched_bulk_cluster_group_request: Vec<crate::models::PatchedBulkClusterGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_cluster_groups_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClusterGroupsBulkUpdateParams {
+    pub bulk_cluster_group_request: Vec<crate::models::BulkClusterGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_cluster_groups_create`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClusterGroupsCreateParams {
+    pub virtualization_cluster_groups_create_request:
+        crate::models::VirtualizationClusterGroupsCreateRequest,
+}
+
+/// struct for passing parameters to the method [`virtualization_cluster_groups_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClusterGroupsDestroyParams {
+    /// A unique integer value identifying this cluster group.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`virtualization_cluster_groups_list`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClusterGroupsListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Contact
+    pub contact: Option<Vec<i32>>,
+    /// Contact
+    pub contact__n: Option<Vec<i32>>,
+    pub contact_group: Option<Vec<String>>,
+    pub contact_group__n: Option<Vec<String>>,
+    /// Contact Role
+    pub contact_role: Option<Vec<i32>>,
+    /// Contact Role
+    pub contact_role__n: Option<Vec<i32>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub slug: Option<Vec<String>>,
+    pub slug__empty: Option<bool>,
+    pub slug__ic: Option<Vec<String>>,
+    pub slug__ie: Option<Vec<String>>,
+    pub slug__iew: Option<Vec<String>>,
+    pub slug__iregex: Option<Vec<String>>,
+    pub slug__isw: Option<Vec<String>>,
+    pub slug__n: Option<Vec<String>>,
+    pub slug__nic: Option<Vec<String>>,
+    pub slug__nie: Option<Vec<String>>,
+    pub slug__niew: Option<Vec<String>>,
+    pub slug__nisw: Option<Vec<String>>,
+    pub slug__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`virtualization_cluster_groups_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClusterGroupsPartialUpdateParams {
+    /// A unique integer value identifying this cluster group.
+    pub id: i32,
+    pub patched_cluster_group_request: Option<crate::models::PatchedClusterGroupRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_cluster_groups_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClusterGroupsRetrieveParams {
+    /// A unique integer value identifying this cluster group.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`virtualization_cluster_groups_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClusterGroupsUpdateParams {
+    /// A unique integer value identifying this cluster group.
+    pub id: i32,
+    pub cluster_group_request: crate::models::ClusterGroupRequest,
+}
+
+/// struct for passing parameters to the method [`virtualization_cluster_types_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClusterTypesBulkDestroyParams {
+    pub cluster_type_request: Vec<crate::models::ClusterTypeRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_cluster_types_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClusterTypesBulkPartialUpdateParams {
+    pub patched_bulk_cluster_type_request: Vec<crate::models::PatchedBulkClusterTypeRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_cluster_types_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClusterTypesBulkUpdateParams {
+    pub bulk_cluster_type_request: Vec<crate::models::BulkClusterTypeRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_cluster_types_create`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClusterTypesCreateParams {
+    pub virtualization_cluster_types_create_request:
+        crate::models::VirtualizationClusterTypesCreateRequest,
+}
+
+/// struct for passing parameters to the method [`virtualization_cluster_types_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClusterTypesDestroyParams {
+    /// A unique integer value identifying this cluster type.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`virtualization_cluster_types_list`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClusterTypesListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub slug: Option<Vec<String>>,
+    pub slug__empty: Option<bool>,
+    pub slug__ic: Option<Vec<String>>,
+    pub slug__ie: Option<Vec<String>>,
+    pub slug__iew: Option<Vec<String>>,
+    pub slug__iregex: Option<Vec<String>>,
+    pub slug__isw: Option<Vec<String>>,
+    pub slug__n: Option<Vec<String>>,
+    pub slug__nic: Option<Vec<String>>,
+    pub slug__nie: Option<Vec<String>>,
+    pub slug__niew: Option<Vec<String>>,
+    pub slug__nisw: Option<Vec<String>>,
+    pub slug__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`virtualization_cluster_types_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClusterTypesPartialUpdateParams {
+    /// A unique integer value identifying this cluster type.
+    pub id: i32,
+    pub patched_cluster_type_request: Option<crate::models::PatchedClusterTypeRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_cluster_types_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClusterTypesRetrieveParams {
+    /// A unique integer value identifying this cluster type.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`virtualization_cluster_types_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClusterTypesUpdateParams {
+    /// A unique integer value identifying this cluster type.
+    pub id: i32,
+    pub cluster_type_request: crate::models::ClusterTypeRequest,
+}
+
+/// struct for passing parameters to the method [`virtualization_clusters_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClustersBulkDestroyParams {
+    pub cluster_request: Vec<crate::models::ClusterRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_clusters_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClustersBulkPartialUpdateParams {
+    pub patched_bulk_cluster_request: Vec<crate::models::PatchedBulkClusterRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_clusters_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClustersBulkUpdateParams {
+    pub bulk_cluster_request: Vec<crate::models::BulkClusterRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_clusters_create`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClustersCreateParams {
+    pub virtualization_clusters_create_request: crate::models::VirtualizationClustersCreateRequest,
+}
+
+/// struct for passing parameters to the method [`virtualization_clusters_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClustersDestroyParams {
+    /// A unique integer value identifying this cluster.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`virtualization_clusters_list`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClustersListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Contact
+    pub contact: Option<Vec<i32>>,
+    /// Contact
+    pub contact__n: Option<Vec<i32>>,
+    pub contact_group: Option<Vec<String>>,
+    pub contact_group__n: Option<Vec<String>>,
+    /// Contact Role
+    pub contact_role: Option<Vec<i32>>,
+    /// Contact Role
+    pub contact_role__n: Option<Vec<i32>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Parent group (slug)
+    pub group: Option<Vec<String>>,
+    /// Parent group (slug)
+    pub group__n: Option<Vec<String>>,
+    /// Parent group (ID)
+    pub group_id: Option<Vec<i32>>,
+    /// Parent group (ID)
+    pub group_id__n: Option<Vec<i32>>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub location: Option<Vec<String>>,
+    pub location__n: Option<Vec<String>>,
+    pub location_id: Option<Vec<String>>,
+    pub location_id__n: Option<Vec<String>>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub region: Option<Vec<String>>,
+    pub region__n: Option<Vec<String>>,
+    pub region_id: Option<Vec<String>>,
+    pub region_id__n: Option<Vec<String>>,
+    pub scope_id: Option<Vec<i32>>,
+    pub scope_id__empty: Option<bool>,
+    pub scope_id__gt: Option<Vec<i32>>,
+    pub scope_id__gte: Option<Vec<i32>>,
+    pub scope_id__lt: Option<Vec<i32>>,
+    pub scope_id__lte: Option<Vec<i32>>,
+    pub scope_id__n: Option<Vec<i32>>,
+    pub scope_type: Option<Vec<String>>,
+    pub scope_type__n: Option<Vec<String>>,
+    /// Site (slug)
+    pub site: Option<Vec<String>>,
+    /// Site (slug)
+    pub site__n: Option<Vec<String>>,
+    pub site_group: Option<Vec<String>>,
+    pub site_group__n: Option<Vec<String>>,
+    pub site_group_id: Option<Vec<String>>,
+    pub site_group_id__n: Option<Vec<String>>,
+    /// Site (ID)
+    pub site_id: Option<Vec<i32>>,
+    /// Site (ID)
+    pub site_id__n: Option<Vec<i32>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub status: Option<Vec<String>>,
+    pub status__empty: Option<bool>,
+    pub status__ic: Option<Vec<String>>,
+    pub status__ie: Option<Vec<String>>,
+    pub status__iew: Option<Vec<String>>,
+    pub status__iregex: Option<Vec<String>>,
+    pub status__isw: Option<Vec<String>>,
+    pub status__n: Option<Vec<String>>,
+    pub status__nic: Option<Vec<String>>,
+    pub status__nie: Option<Vec<String>>,
+    pub status__niew: Option<Vec<String>>,
+    pub status__nisw: Option<Vec<String>>,
+    pub status__regex: Option<Vec<String>>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    /// Tenant (slug)
+    pub tenant: Option<Vec<String>>,
+    /// Tenant (slug)
+    pub tenant__n: Option<Vec<String>>,
+    pub tenant_group: Option<Vec<String>>,
+    pub tenant_group__n: Option<Vec<String>>,
+    pub tenant_group_id: Option<Vec<String>>,
+    pub tenant_group_id__n: Option<Vec<String>>,
+    /// Tenant (ID)
+    pub tenant_id: Option<Vec<i32>>,
+    /// Tenant (ID)
+    pub tenant_id__n: Option<Vec<i32>>,
+    /// Cluster type (slug)
+    pub r#type: Option<Vec<String>>,
+    /// Cluster type (slug)
+    pub type__n: Option<Vec<String>>,
+    /// Cluster type (ID)
+    pub type_id: Option<Vec<i32>>,
+    /// Cluster type (ID)
+    pub type_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+}
+
+/// struct for passing parameters to the method [`virtualization_clusters_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClustersPartialUpdateParams {
+    /// A unique integer value identifying this cluster.
+    pub id: i32,
+    pub patched_writable_cluster_request: Option<crate::models::PatchedWritableClusterRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_clusters_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClustersRetrieveParams {
+    /// A unique integer value identifying this cluster.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`virtualization_clusters_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationClustersUpdateParams {
+    /// A unique integer value identifying this cluster.
+    pub id: i32,
+    pub writable_cluster_request: crate::models::WritableClusterRequest,
+}
+
+/// struct for passing parameters to the method [`virtualization_interfaces_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationInterfacesBulkDestroyParams {
+    pub vm_interface_request: Vec<crate::models::VmInterfaceRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_interfaces_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationInterfacesBulkPartialUpdateParams {
+    pub patched_bulk_vm_interface_request: Vec<crate::models::PatchedBulkVmInterfaceRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_interfaces_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationInterfacesBulkUpdateParams {
+    pub bulk_vm_interface_request: Vec<crate::models::BulkVmInterfaceRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_interfaces_create`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationInterfacesCreateParams {
+    pub virtualization_interfaces_create_request:
+        crate::models::VirtualizationInterfacesCreateRequest,
+}
+
+/// struct for passing parameters to the method [`virtualization_interfaces_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationInterfacesDestroyParams {
+    /// A unique integer value identifying this interface.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`virtualization_interfaces_list`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationInterfacesListParams {
+    /// Bridged interface (ID)
+    pub bridge_id: Option<Vec<i32>>,
+    /// Bridged interface (ID)
+    pub bridge_id__n: Option<Vec<i32>>,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Cluster
+    pub cluster: Option<Vec<String>>,
+    /// Cluster
+    pub cluster__n: Option<Vec<String>>,
+    /// Cluster (ID)
+    pub cluster_id: Option<Vec<i32>>,
+    /// Cluster (ID)
+    pub cluster_id__n: Option<Vec<i32>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    pub enabled: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    /// L2VPN
+    pub l2vpn: Option<Vec<i64>>,
+    /// L2VPN
+    pub l2vpn__n: Option<Vec<i64>>,
+    /// L2VPN (ID)
+    pub l2vpn_id: Option<Vec<i32>>,
+    /// L2VPN (ID)
+    pub l2vpn_id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub mac_address: Option<Vec<String>>,
+    pub mac_address__ic: Option<Vec<String>>,
+    pub mac_address__ie: Option<Vec<String>>,
+    pub mac_address__iew: Option<Vec<String>>,
+    pub mac_address__iregex: Option<Vec<String>>,
+    pub mac_address__isw: Option<Vec<String>>,
+    pub mac_address__n: Option<Vec<String>>,
+    pub mac_address__nic: Option<Vec<String>>,
+    pub mac_address__nie: Option<Vec<String>>,
+    pub mac_address__niew: Option<Vec<String>>,
+    pub mac_address__nisw: Option<Vec<String>>,
+    pub mac_address__regex: Option<Vec<String>>,
+    /// 802.1Q Mode
+    pub mode: Option<Vec<String>>,
+    /// 802.1Q Mode
+    pub mode__empty: Option<bool>,
+    /// 802.1Q Mode
+    pub mode__ic: Option<Vec<String>>,
+    /// 802.1Q Mode
+    pub mode__ie: Option<Vec<String>>,
+    /// 802.1Q Mode
+    pub mode__iew: Option<Vec<String>>,
+    /// 802.1Q Mode
+    pub mode__iregex: Option<Vec<String>>,
+    /// 802.1Q Mode
+    pub mode__isw: Option<Vec<String>>,
+    /// 802.1Q Mode
+    pub mode__n: Option<Vec<String>>,
+    /// 802.1Q Mode
+    pub mode__nic: Option<Vec<String>>,
+    /// 802.1Q Mode
+    pub mode__nie: Option<Vec<String>>,
+    /// 802.1Q Mode
+    pub mode__niew: Option<Vec<String>>,
+    /// 802.1Q Mode
+    pub mode__nisw: Option<Vec<String>>,
+    /// 802.1Q Mode
+    pub mode__regex: Option<Vec<String>>,
+    pub modified_by_request: Option<String>,
+    pub mtu: Option<Vec<i32>>,
+    pub mtu__empty: Option<bool>,
+    pub mtu__gt: Option<Vec<i32>>,
+    pub mtu__gte: Option<Vec<i32>>,
+    pub mtu__lt: Option<Vec<i32>>,
+    pub mtu__lte: Option<Vec<i32>>,
+    pub mtu__n: Option<Vec<i32>>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Parent interface (ID)
+    pub parent_id: Option<Vec<i32>>,
+    /// Parent interface (ID)
+    pub parent_id__n: Option<Vec<i32>>,
+    /// Primary MAC address
+    pub primary_mac_address: Option<Vec<String>>,
+    /// Primary MAC address
+    pub primary_mac_address__n: Option<Vec<String>>,
+    /// Primary MAC address (ID)
+    pub primary_mac_address_id: Option<Vec<i32>>,
+    /// Primary MAC address (ID)
+    pub primary_mac_address_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+    /// Virtual machine
+    pub virtual_machine: Option<Vec<String>>,
+    /// Virtual machine
+    pub virtual_machine__n: Option<Vec<String>>,
+    /// Virtual machine (ID)
+    pub virtual_machine_id: Option<Vec<i32>>,
+    /// Virtual machine (ID)
+    pub virtual_machine_id__n: Option<Vec<i32>>,
+    /// Assigned VID
+    pub vlan: Option<String>,
+    /// Assigned VLAN
+    pub vlan_id: Option<String>,
+    /// VLAN Translation Policy
+    pub vlan_translation_policy: Option<Vec<String>>,
+    /// VLAN Translation Policy
+    pub vlan_translation_policy__n: Option<Vec<String>>,
+    /// VLAN Translation Policy (ID)
+    pub vlan_translation_policy_id: Option<Vec<i32>>,
+    /// VLAN Translation Policy (ID)
+    pub vlan_translation_policy_id__n: Option<Vec<i32>>,
+    /// VRF (RD)
+    pub vrf: Option<Vec<String>>,
+    /// VRF (RD)
+    pub vrf__n: Option<Vec<String>>,
+    /// VRF
+    pub vrf_id: Option<Vec<i32>>,
+    /// VRF
+    pub vrf_id__n: Option<Vec<i32>>,
+}
+
+/// struct for passing parameters to the method [`virtualization_interfaces_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationInterfacesPartialUpdateParams {
+    /// A unique integer value identifying this interface.
+    pub id: i32,
+    pub patched_writable_vm_interface_request:
+        Option<crate::models::PatchedWritableVmInterfaceRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_interfaces_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationInterfacesRetrieveParams {
+    /// A unique integer value identifying this interface.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`virtualization_interfaces_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationInterfacesUpdateParams {
+    /// A unique integer value identifying this interface.
+    pub id: i32,
+    pub writable_vm_interface_request: crate::models::WritableVmInterfaceRequest,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_disks_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualDisksBulkDestroyParams {
+    pub virtual_disk_request: Vec<crate::models::VirtualDiskRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_disks_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualDisksBulkPartialUpdateParams {
+    pub patched_bulk_virtual_disk_request: Vec<crate::models::PatchedBulkVirtualDiskRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_disks_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualDisksBulkUpdateParams {
+    pub bulk_virtual_disk_request: Vec<crate::models::BulkVirtualDiskRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_disks_create`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualDisksCreateParams {
+    pub virtualization_virtual_disks_create_request:
+        crate::models::VirtualizationVirtualDisksCreateRequest,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_disks_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualDisksDestroyParams {
+    /// A unique integer value identifying this virtual disk.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_disks_list`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualDisksListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub size: Option<Vec<i32>>,
+    pub size__empty: Option<bool>,
+    pub size__gt: Option<Vec<i32>>,
+    pub size__gte: Option<Vec<i32>>,
+    pub size__lt: Option<Vec<i32>>,
+    pub size__lte: Option<Vec<i32>>,
+    pub size__n: Option<Vec<i32>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+    /// Virtual machine
+    pub virtual_machine: Option<Vec<String>>,
+    /// Virtual machine
+    pub virtual_machine__n: Option<Vec<String>>,
+    /// Virtual machine (ID)
+    pub virtual_machine_id: Option<Vec<i32>>,
+    /// Virtual machine (ID)
+    pub virtual_machine_id__n: Option<Vec<i32>>,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_disks_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualDisksPartialUpdateParams {
+    /// A unique integer value identifying this virtual disk.
+    pub id: i32,
+    pub patched_virtual_disk_request: Option<crate::models::PatchedVirtualDiskRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_disks_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualDisksRetrieveParams {
+    /// A unique integer value identifying this virtual disk.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_disks_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualDisksUpdateParams {
+    /// A unique integer value identifying this virtual disk.
+    pub id: i32,
+    pub virtual_disk_request: crate::models::VirtualDiskRequest,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_machine_types_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualMachineTypesBulkDestroyParams {
+    pub virtual_machine_type_request: Vec<crate::models::VirtualMachineTypeRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_machine_types_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualMachineTypesBulkPartialUpdateParams {
+    pub patched_bulk_virtual_machine_type_request:
+        Vec<crate::models::PatchedBulkVirtualMachineTypeRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_machine_types_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualMachineTypesBulkUpdateParams {
+    pub bulk_virtual_machine_type_request: Vec<crate::models::BulkVirtualMachineTypeRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_machine_types_create`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualMachineTypesCreateParams {
+    pub virtualization_virtual_machine_types_create_request:
+        crate::models::VirtualizationVirtualMachineTypesCreateRequest,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_machine_types_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualMachineTypesDestroyParams {
+    /// A unique integer value identifying this virtual machine type.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_machine_types_list`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualMachineTypesListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub default_memory: Option<Vec<i32>>,
+    pub default_memory__empty: Option<bool>,
+    pub default_memory__gt: Option<Vec<i32>>,
+    pub default_memory__gte: Option<Vec<i32>>,
+    pub default_memory__lt: Option<Vec<i32>>,
+    pub default_memory__lte: Option<Vec<i32>>,
+    pub default_memory__n: Option<Vec<i32>>,
+    pub default_platform: Option<Vec<String>>,
+    pub default_platform__n: Option<Vec<String>>,
+    pub default_platform_id: Option<Vec<String>>,
+    pub default_platform_id__n: Option<Vec<String>>,
+    pub default_vcpus: Option<Vec<f64>>,
+    pub default_vcpus__empty: Option<bool>,
+    pub default_vcpus__gt: Option<Vec<f64>>,
+    pub default_vcpus__gte: Option<Vec<f64>>,
+    pub default_vcpus__lt: Option<Vec<f64>>,
+    pub default_vcpus__lte: Option<Vec<f64>>,
+    pub default_vcpus__n: Option<Vec<f64>>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub slug: Option<Vec<String>>,
+    pub slug__empty: Option<bool>,
+    pub slug__ic: Option<Vec<String>>,
+    pub slug__ie: Option<Vec<String>>,
+    pub slug__iew: Option<Vec<String>>,
+    pub slug__iregex: Option<Vec<String>>,
+    pub slug__isw: Option<Vec<String>>,
+    pub slug__n: Option<Vec<String>>,
+    pub slug__nic: Option<Vec<String>>,
+    pub slug__nie: Option<Vec<String>>,
+    pub slug__niew: Option<Vec<String>>,
+    pub slug__nisw: Option<Vec<String>>,
+    pub slug__regex: Option<Vec<String>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+    pub virtual_machine_count: Option<Vec<i32>>,
+    pub virtual_machine_count__empty: Option<bool>,
+    pub virtual_machine_count__gt: Option<Vec<i32>>,
+    pub virtual_machine_count__gte: Option<Vec<i32>>,
+    pub virtual_machine_count__lt: Option<Vec<i32>>,
+    pub virtual_machine_count__lte: Option<Vec<i32>>,
+    pub virtual_machine_count__n: Option<Vec<i32>>,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_machine_types_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualMachineTypesPartialUpdateParams {
+    /// A unique integer value identifying this virtual machine type.
+    pub id: i32,
+    pub patched_virtual_machine_type_request:
+        Option<crate::models::PatchedVirtualMachineTypeRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_machine_types_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualMachineTypesRetrieveParams {
+    /// A unique integer value identifying this virtual machine type.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_machine_types_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualMachineTypesUpdateParams {
+    /// A unique integer value identifying this virtual machine type.
+    pub id: i32,
+    pub virtual_machine_type_request: crate::models::VirtualMachineTypeRequest,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_machines_bulk_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualMachinesBulkDestroyParams {
+    pub virtual_machine_request: Vec<crate::models::VirtualMachineRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_machines_bulk_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualMachinesBulkPartialUpdateParams {
+    pub patched_bulk_virtual_machine_request: Vec<crate::models::PatchedBulkVirtualMachineRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_machines_bulk_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualMachinesBulkUpdateParams {
+    pub bulk_virtual_machine_request: Vec<crate::models::BulkVirtualMachineRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_machines_create`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualMachinesCreateParams {
+    pub virtualization_virtual_machines_create_request:
+        crate::models::VirtualizationVirtualMachinesCreateRequest,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_machines_destroy`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualMachinesDestroyParams {
+    /// A unique integer value identifying this virtual machine.
+    pub id: i32,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_machines_list`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualMachinesListParams {
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Cluster
+    pub cluster: Option<Vec<String>>,
+    /// Cluster
+    pub cluster__n: Option<Vec<String>>,
+    /// Cluster group (slug)
+    pub cluster_group: Option<Vec<String>>,
+    /// Cluster group (slug)
+    pub cluster_group__n: Option<Vec<String>>,
+    /// Cluster group (ID)
+    pub cluster_group_id: Option<Vec<i32>>,
+    /// Cluster group (ID)
+    pub cluster_group_id__n: Option<Vec<i32>>,
+    /// Cluster (ID)
+    pub cluster_id: Option<Vec<i32>>,
+    /// Cluster (ID)
+    pub cluster_id__n: Option<Vec<i32>>,
+    /// Cluster type (slug)
+    pub cluster_type: Option<Vec<String>>,
+    /// Cluster type (slug)
+    pub cluster_type__n: Option<Vec<String>>,
+    /// Cluster type (ID)
+    pub cluster_type_id: Option<Vec<i32>>,
+    /// Cluster type (ID)
+    pub cluster_type_id__n: Option<Vec<i32>>,
+    /// Config template (ID)
+    pub config_template_id: Option<Vec<i32>>,
+    /// Config template (ID)
+    pub config_template_id__n: Option<Vec<i32>>,
+    /// Contact
+    pub contact: Option<Vec<i32>>,
+    /// Contact
+    pub contact__n: Option<Vec<i32>>,
+    pub contact_group: Option<Vec<String>>,
+    pub contact_group__n: Option<Vec<String>>,
+    /// Contact Role
+    pub contact_role: Option<Vec<i32>>,
+    /// Contact Role
+    pub contact_role__n: Option<Vec<i32>>,
+    pub created: Option<Vec<String>>,
+    pub created__empty: Option<Vec<String>>,
+    pub created__gt: Option<Vec<String>>,
+    pub created__gte: Option<Vec<String>>,
+    pub created__lt: Option<Vec<String>>,
+    pub created__lte: Option<Vec<String>>,
+    pub created__n: Option<Vec<String>>,
+    pub created_by_request: Option<String>,
+    pub description: Option<Vec<String>>,
+    pub description__empty: Option<bool>,
+    pub description__ic: Option<Vec<String>>,
+    pub description__ie: Option<Vec<String>>,
+    pub description__iew: Option<Vec<String>>,
+    pub description__iregex: Option<Vec<String>>,
+    pub description__isw: Option<Vec<String>>,
+    pub description__n: Option<Vec<String>>,
+    pub description__nic: Option<Vec<String>>,
+    pub description__nie: Option<Vec<String>>,
+    pub description__niew: Option<Vec<String>>,
+    pub description__nisw: Option<Vec<String>>,
+    pub description__regex: Option<Vec<String>>,
+    /// Device
+    pub device: Option<Vec<String>>,
+    /// Device
+    pub device__n: Option<Vec<String>>,
+    /// Device (ID)
+    pub device_id: Option<Vec<i32>>,
+    /// Device (ID)
+    pub device_id__n: Option<Vec<i32>>,
+    pub disk: Option<Vec<i32>>,
+    pub disk__empty: Option<bool>,
+    pub disk__gt: Option<Vec<i32>>,
+    pub disk__gte: Option<Vec<i32>>,
+    pub disk__lt: Option<Vec<i32>>,
+    pub disk__lte: Option<Vec<i32>>,
+    pub disk__n: Option<Vec<i32>>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Has a primary IP
+    pub has_primary_ip: Option<bool>,
+    pub id: Option<Vec<i32>>,
+    pub id__empty: Option<bool>,
+    pub id__gt: Option<Vec<i32>>,
+    pub id__gte: Option<Vec<i32>>,
+    pub id__lt: Option<Vec<i32>>,
+    pub id__lte: Option<Vec<i32>>,
+    pub id__n: Option<Vec<i32>>,
+    pub interface_count: Option<Vec<i32>>,
+    pub interface_count__empty: Option<bool>,
+    pub interface_count__gt: Option<Vec<i32>>,
+    pub interface_count__gte: Option<Vec<i32>>,
+    pub interface_count__lt: Option<Vec<i32>>,
+    pub interface_count__lte: Option<Vec<i32>>,
+    pub interface_count__n: Option<Vec<i32>>,
+    pub last_updated: Option<Vec<String>>,
+    pub last_updated__empty: Option<Vec<String>>,
+    pub last_updated__gt: Option<Vec<String>>,
+    pub last_updated__gte: Option<Vec<String>>,
+    pub last_updated__lt: Option<Vec<String>>,
+    pub last_updated__lte: Option<Vec<String>>,
+    pub last_updated__n: Option<Vec<String>>,
+    /// Number of results to return per page.
+    pub limit: Option<i32>,
+    /// Has local config context data
+    pub local_context_data: Option<bool>,
+    pub mac_address: Option<Vec<String>>,
+    pub mac_address__ic: Option<Vec<String>>,
+    pub mac_address__ie: Option<Vec<String>>,
+    pub mac_address__iew: Option<Vec<String>>,
+    pub mac_address__iregex: Option<Vec<String>>,
+    pub mac_address__isw: Option<Vec<String>>,
+    pub mac_address__n: Option<Vec<String>>,
+    pub mac_address__nic: Option<Vec<String>>,
+    pub mac_address__nie: Option<Vec<String>>,
+    pub mac_address__niew: Option<Vec<String>>,
+    pub mac_address__nisw: Option<Vec<String>>,
+    pub mac_address__regex: Option<Vec<String>>,
+    pub memory: Option<Vec<i32>>,
+    pub memory__empty: Option<bool>,
+    pub memory__gt: Option<Vec<i32>>,
+    pub memory__gte: Option<Vec<i32>>,
+    pub memory__lt: Option<Vec<i32>>,
+    pub memory__lte: Option<Vec<i32>>,
+    pub memory__n: Option<Vec<i32>>,
+    pub modified_by_request: Option<String>,
+    pub name: Option<Vec<String>>,
+    pub name__empty: Option<bool>,
+    pub name__ic: Option<Vec<String>>,
+    pub name__ie: Option<Vec<String>>,
+    pub name__iew: Option<Vec<String>>,
+    pub name__iregex: Option<Vec<String>>,
+    pub name__isw: Option<Vec<String>>,
+    pub name__n: Option<Vec<String>>,
+    pub name__nic: Option<Vec<String>>,
+    pub name__nie: Option<Vec<String>>,
+    pub name__niew: Option<Vec<String>>,
+    pub name__nisw: Option<Vec<String>>,
+    pub name__regex: Option<Vec<String>>,
+    /// The initial index from which to return the results.
+    pub offset: Option<i32>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+    /// Which field to use when ordering the results.
+    pub ordering: Option<String>,
+    /// Owner (name)
+    pub owner: Option<Vec<String>>,
+    /// Owner (name)
+    pub owner__n: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group: Option<Vec<String>>,
+    /// Owner Group (name)
+    pub owner_group__n: Option<Vec<String>>,
+    /// Owner Group (ID)
+    pub owner_group_id: Option<Vec<i32>>,
+    /// Owner Group (ID)
+    pub owner_group_id__n: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id: Option<Vec<i32>>,
+    /// Owner (ID)
+    pub owner_id__n: Option<Vec<i32>>,
+    pub platform: Option<Vec<String>>,
+    pub platform__n: Option<Vec<String>>,
+    pub platform_id: Option<Vec<String>>,
+    pub platform_id__n: Option<Vec<String>>,
+    /// Primary IPv4 (address)
+    pub primary_ip4: Option<Vec<String>>,
+    /// Primary IPv4 (address)
+    pub primary_ip4__n: Option<Vec<String>>,
+    /// Primary IPv4 (ID)
+    pub primary_ip4_id: Option<Vec<i32>>,
+    /// Primary IPv4 (ID)
+    pub primary_ip4_id__n: Option<Vec<i32>>,
+    /// Primary IPv6 (address)
+    pub primary_ip6: Option<Vec<String>>,
+    /// Primary IPv6 (address)
+    pub primary_ip6__n: Option<Vec<String>>,
+    /// Primary IPv6 (ID)
+    pub primary_ip6_id: Option<Vec<i32>>,
+    /// Primary IPv6 (ID)
+    pub primary_ip6_id__n: Option<Vec<i32>>,
+    /// Search
+    pub q: Option<String>,
+    pub region: Option<Vec<String>>,
+    pub region__n: Option<Vec<String>>,
+    pub region_id: Option<Vec<String>>,
+    pub region_id__n: Option<Vec<String>>,
+    pub role: Option<Vec<String>>,
+    pub role__n: Option<Vec<String>>,
+    pub role_id: Option<Vec<String>>,
+    pub role_id__n: Option<Vec<String>>,
+    pub serial: Option<Vec<String>>,
+    pub serial__empty: Option<bool>,
+    pub serial__ic: Option<Vec<String>>,
+    pub serial__ie: Option<Vec<String>>,
+    pub serial__iew: Option<Vec<String>>,
+    pub serial__iregex: Option<Vec<String>>,
+    pub serial__isw: Option<Vec<String>>,
+    pub serial__n: Option<Vec<String>>,
+    pub serial__nic: Option<Vec<String>>,
+    pub serial__nie: Option<Vec<String>>,
+    pub serial__niew: Option<Vec<String>>,
+    pub serial__nisw: Option<Vec<String>>,
+    pub serial__regex: Option<Vec<String>>,
+    /// Site (slug)
+    pub site: Option<Vec<String>>,
+    /// Site (slug)
+    pub site__n: Option<Vec<String>>,
+    pub site_group: Option<Vec<String>>,
+    pub site_group__n: Option<Vec<String>>,
+    pub site_group_id: Option<Vec<String>>,
+    pub site_group_id__n: Option<Vec<String>>,
+    /// Site (ID)
+    pub site_id: Option<Vec<i32>>,
+    /// Site (ID)
+    pub site_id__n: Option<Vec<i32>>,
+    /// Cursor-based pagination: return results with pk >= start, ordered by pk. Mutually exclusive with offset.
+    pub start: Option<i32>,
+    pub start_on_boot: Option<Vec<String>>,
+    pub start_on_boot__empty: Option<bool>,
+    pub start_on_boot__ic: Option<Vec<String>>,
+    pub start_on_boot__ie: Option<Vec<String>>,
+    pub start_on_boot__iew: Option<Vec<String>>,
+    pub start_on_boot__iregex: Option<Vec<String>>,
+    pub start_on_boot__isw: Option<Vec<String>>,
+    pub start_on_boot__n: Option<Vec<String>>,
+    pub start_on_boot__nic: Option<Vec<String>>,
+    pub start_on_boot__nie: Option<Vec<String>>,
+    pub start_on_boot__niew: Option<Vec<String>>,
+    pub start_on_boot__nisw: Option<Vec<String>>,
+    pub start_on_boot__regex: Option<Vec<String>>,
+    pub status: Option<Vec<String>>,
+    pub status__empty: Option<bool>,
+    pub status__ic: Option<Vec<String>>,
+    pub status__ie: Option<Vec<String>>,
+    pub status__iew: Option<Vec<String>>,
+    pub status__iregex: Option<Vec<String>>,
+    pub status__isw: Option<Vec<String>>,
+    pub status__n: Option<Vec<String>>,
+    pub status__nic: Option<Vec<String>>,
+    pub status__nie: Option<Vec<String>>,
+    pub status__niew: Option<Vec<String>>,
+    pub status__nisw: Option<Vec<String>>,
+    pub status__regex: Option<Vec<String>>,
+    pub tag: Option<Vec<String>>,
+    pub tag__any: Option<Vec<String>>,
+    pub tag__n: Option<Vec<String>>,
+    pub tag_id: Option<Vec<i32>>,
+    pub tag_id__any: Option<Vec<i32>>,
+    pub tag_id__n: Option<Vec<i32>>,
+    /// Tenant (slug)
+    pub tenant: Option<Vec<String>>,
+    /// Tenant (slug)
+    pub tenant__n: Option<Vec<String>>,
+    pub tenant_group: Option<Vec<String>>,
+    pub tenant_group__n: Option<Vec<String>>,
+    pub tenant_group_id: Option<Vec<String>>,
+    pub tenant_group_id__n: Option<Vec<String>>,
+    /// Tenant (ID)
+    pub tenant_id: Option<Vec<i32>>,
+    /// Tenant (ID)
+    pub tenant_id__n: Option<Vec<i32>>,
+    pub updated_by_request: Option<String>,
+    pub vcpus: Option<Vec<f64>>,
+    pub vcpus__empty: Option<bool>,
+    pub vcpus__gt: Option<Vec<f64>>,
+    pub vcpus__gte: Option<Vec<f64>>,
+    pub vcpus__lt: Option<Vec<f64>>,
+    pub vcpus__lte: Option<Vec<f64>>,
+    pub vcpus__n: Option<Vec<f64>>,
+    pub virtual_disk_count: Option<Vec<i32>>,
+    pub virtual_disk_count__empty: Option<bool>,
+    pub virtual_disk_count__gt: Option<Vec<i32>>,
+    pub virtual_disk_count__gte: Option<Vec<i32>>,
+    pub virtual_disk_count__lt: Option<Vec<i32>>,
+    pub virtual_disk_count__lte: Option<Vec<i32>>,
+    pub virtual_disk_count__n: Option<Vec<i32>>,
+    /// Virtual machine type (slug)
+    pub virtual_machine_type: Option<Vec<String>>,
+    /// Virtual machine type (slug)
+    pub virtual_machine_type__n: Option<Vec<String>>,
+    /// Virtual machine type (ID)
+    pub virtual_machine_type_id: Option<Vec<i32>>,
+    /// Virtual machine type (ID)
+    pub virtual_machine_type_id__n: Option<Vec<i32>>,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_machines_partial_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualMachinesPartialUpdateParams {
+    /// A unique integer value identifying this virtual machine.
+    pub id: i32,
+    pub patched_writable_virtual_machine_request:
+        Option<crate::models::PatchedWritableVirtualMachineRequest>,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_machines_render_config_create`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualMachinesRenderConfigCreateParams {
+    /// A unique integer value identifying this virtual machine.
+    pub id: i32,
+    pub format: Option<String>,
+    pub request_body: Option<::std::collections::HashMap<String, serde_json::Value>>,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_machines_retrieve`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualMachinesRetrieveParams {
+    /// A unique integer value identifying this virtual machine.
+    pub id: i32,
+    /// Return only brief fields for each object.
+    pub brief: Option<bool>,
+    /// Comma-separated list of fields to include in the response. Example: `fields=id,name`.
+    pub fields: Option<String>,
+    /// Comma-separated list of fields to exclude from the response. Example: `omit=description,tags`.
+    pub omit: Option<String>,
+}
+
+/// struct for passing parameters to the method [`virtualization_virtual_machines_update`]
+#[derive(Clone, Debug, Default)]
+pub struct VirtualizationVirtualMachinesUpdateParams {
+    /// A unique integer value identifying this virtual machine.
+    pub id: i32,
+    pub writable_virtual_machine_request: crate::models::WritableVirtualMachineRequest,
+}
+
 /// struct for typed errors of method [`virtualization_cluster_groups_bulk_destroy`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -529,9 +2090,12 @@ pub enum VirtualizationVirtualMachinesUpdateError {
 /// Delete a list of cluster group objects.
 pub async fn virtualization_cluster_groups_bulk_destroy(
     configuration: &configuration::Configuration,
-    cluster_group_request: Vec<crate::models::ClusterGroupRequest>,
+    params: VirtualizationClusterGroupsBulkDestroyParams,
 ) -> Result<(), Error<VirtualizationClusterGroupsBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let cluster_group_request = params.cluster_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -579,12 +2143,15 @@ pub async fn virtualization_cluster_groups_bulk_destroy(
 /// Patch a list of cluster group objects.
 pub async fn virtualization_cluster_groups_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_cluster_group_request: Vec<crate::models::PatchedBulkClusterGroupRequest>,
+    params: VirtualizationClusterGroupsBulkPartialUpdateParams,
 ) -> Result<
     Vec<crate::models::ClusterGroup>,
     Error<VirtualizationClusterGroupsBulkPartialUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_cluster_group_request = params.patched_bulk_cluster_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -632,9 +2199,12 @@ pub async fn virtualization_cluster_groups_bulk_partial_update(
 /// Put a list of cluster group objects.
 pub async fn virtualization_cluster_groups_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_cluster_group_request: Vec<crate::models::BulkClusterGroupRequest>,
+    params: VirtualizationClusterGroupsBulkUpdateParams,
 ) -> Result<Vec<crate::models::ClusterGroup>, Error<VirtualizationClusterGroupsBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_cluster_group_request = params.bulk_cluster_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -682,9 +2252,13 @@ pub async fn virtualization_cluster_groups_bulk_update(
 /// Post a list of cluster group objects.
 pub async fn virtualization_cluster_groups_create(
     configuration: &configuration::Configuration,
-    virtualization_cluster_groups_create_request: crate::models::VirtualizationClusterGroupsCreateRequest,
+    params: VirtualizationClusterGroupsCreateParams,
 ) -> Result<crate::models::ClusterGroup, Error<VirtualizationClusterGroupsCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let virtualization_cluster_groups_create_request =
+        params.virtualization_cluster_groups_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -733,9 +2307,12 @@ pub async fn virtualization_cluster_groups_create(
 /// Delete a cluster group object.
 pub async fn virtualization_cluster_groups_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: VirtualizationClusterGroupsDestroyParams,
 ) -> Result<(), Error<VirtualizationClusterGroupsDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -783,99 +2360,102 @@ pub async fn virtualization_cluster_groups_destroy(
 /// Get a list of cluster group objects.
 pub async fn virtualization_cluster_groups_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    contact: Option<Vec<i32>>,
-    contact__n: Option<Vec<i32>>,
-    contact_group: Option<Vec<String>>,
-    contact_group__n: Option<Vec<String>>,
-    contact_role: Option<Vec<i32>>,
-    contact_role__n: Option<Vec<i32>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    slug: Option<Vec<String>>,
-    slug__empty: Option<bool>,
-    slug__ic: Option<Vec<String>>,
-    slug__ie: Option<Vec<String>>,
-    slug__iew: Option<Vec<String>>,
-    slug__iregex: Option<Vec<String>>,
-    slug__isw: Option<Vec<String>>,
-    slug__n: Option<Vec<String>>,
-    slug__nic: Option<Vec<String>>,
-    slug__nie: Option<Vec<String>>,
-    slug__niew: Option<Vec<String>>,
-    slug__nisw: Option<Vec<String>>,
-    slug__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: VirtualizationClusterGroupsListParams,
 ) -> Result<crate::models::PaginatedClusterGroupList, Error<VirtualizationClusterGroupsListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let contact = params.contact;
+    let contact__n = params.contact__n;
+    let contact_group = params.contact_group;
+    let contact_group__n = params.contact_group__n;
+    let contact_role = params.contact_role;
+    let contact_role__n = params.contact_role__n;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let slug = params.slug;
+    let slug__empty = params.slug__empty;
+    let slug__ic = params.slug__ic;
+    let slug__ie = params.slug__ie;
+    let slug__iew = params.slug__iew;
+    let slug__iregex = params.slug__iregex;
+    let slug__isw = params.slug__isw;
+    let slug__n = params.slug__n;
+    let slug__nic = params.slug__nic;
+    let slug__nie = params.slug__nie;
+    let slug__niew = params.slug__niew;
+    let slug__nisw = params.slug__nisw;
+    let slug__regex = params.slug__regex;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2425,10 +4005,13 @@ pub async fn virtualization_cluster_groups_list(
 /// Patch a cluster group object.
 pub async fn virtualization_cluster_groups_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_cluster_group_request: Option<crate::models::PatchedClusterGroupRequest>,
+    params: VirtualizationClusterGroupsPartialUpdateParams,
 ) -> Result<crate::models::ClusterGroup, Error<VirtualizationClusterGroupsPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_cluster_group_request = params.patched_cluster_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2477,12 +4060,15 @@ pub async fn virtualization_cluster_groups_partial_update(
 /// Get a cluster group object.
 pub async fn virtualization_cluster_groups_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: VirtualizationClusterGroupsRetrieveParams,
 ) -> Result<crate::models::ClusterGroup, Error<VirtualizationClusterGroupsRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2542,10 +4128,13 @@ pub async fn virtualization_cluster_groups_retrieve(
 /// Put a cluster group object.
 pub async fn virtualization_cluster_groups_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    cluster_group_request: crate::models::ClusterGroupRequest,
+    params: VirtualizationClusterGroupsUpdateParams,
 ) -> Result<crate::models::ClusterGroup, Error<VirtualizationClusterGroupsUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let cluster_group_request = params.cluster_group_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2594,9 +4183,12 @@ pub async fn virtualization_cluster_groups_update(
 /// Delete a list of cluster type objects.
 pub async fn virtualization_cluster_types_bulk_destroy(
     configuration: &configuration::Configuration,
-    cluster_type_request: Vec<crate::models::ClusterTypeRequest>,
+    params: VirtualizationClusterTypesBulkDestroyParams,
 ) -> Result<(), Error<VirtualizationClusterTypesBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let cluster_type_request = params.cluster_type_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2644,10 +4236,13 @@ pub async fn virtualization_cluster_types_bulk_destroy(
 /// Patch a list of cluster type objects.
 pub async fn virtualization_cluster_types_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_cluster_type_request: Vec<crate::models::PatchedBulkClusterTypeRequest>,
+    params: VirtualizationClusterTypesBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::ClusterType>, Error<VirtualizationClusterTypesBulkPartialUpdateError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_cluster_type_request = params.patched_bulk_cluster_type_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2695,9 +4290,12 @@ pub async fn virtualization_cluster_types_bulk_partial_update(
 /// Put a list of cluster type objects.
 pub async fn virtualization_cluster_types_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_cluster_type_request: Vec<crate::models::BulkClusterTypeRequest>,
+    params: VirtualizationClusterTypesBulkUpdateParams,
 ) -> Result<Vec<crate::models::ClusterType>, Error<VirtualizationClusterTypesBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_cluster_type_request = params.bulk_cluster_type_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2745,9 +4343,13 @@ pub async fn virtualization_cluster_types_bulk_update(
 /// Post a list of cluster type objects.
 pub async fn virtualization_cluster_types_create(
     configuration: &configuration::Configuration,
-    virtualization_cluster_types_create_request: crate::models::VirtualizationClusterTypesCreateRequest,
+    params: VirtualizationClusterTypesCreateParams,
 ) -> Result<crate::models::ClusterType, Error<VirtualizationClusterTypesCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let virtualization_cluster_types_create_request =
+        params.virtualization_cluster_types_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2796,9 +4398,12 @@ pub async fn virtualization_cluster_types_create(
 /// Delete a cluster type object.
 pub async fn virtualization_cluster_types_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: VirtualizationClusterTypesDestroyParams,
 ) -> Result<(), Error<VirtualizationClusterTypesDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -2846,93 +4451,96 @@ pub async fn virtualization_cluster_types_destroy(
 /// Get a list of cluster type objects.
 pub async fn virtualization_cluster_types_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    slug: Option<Vec<String>>,
-    slug__empty: Option<bool>,
-    slug__ic: Option<Vec<String>>,
-    slug__ie: Option<Vec<String>>,
-    slug__iew: Option<Vec<String>>,
-    slug__iregex: Option<Vec<String>>,
-    slug__isw: Option<Vec<String>>,
-    slug__n: Option<Vec<String>>,
-    slug__nic: Option<Vec<String>>,
-    slug__nie: Option<Vec<String>>,
-    slug__niew: Option<Vec<String>>,
-    slug__nisw: Option<Vec<String>>,
-    slug__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: VirtualizationClusterTypesListParams,
 ) -> Result<crate::models::PaginatedClusterTypeList, Error<VirtualizationClusterTypesListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let slug = params.slug;
+    let slug__empty = params.slug__empty;
+    let slug__ic = params.slug__ic;
+    let slug__ie = params.slug__ie;
+    let slug__iew = params.slug__iew;
+    let slug__iregex = params.slug__iregex;
+    let slug__isw = params.slug__isw;
+    let slug__n = params.slug__n;
+    let slug__nic = params.slug__nic;
+    let slug__nie = params.slug__nie;
+    let slug__niew = params.slug__niew;
+    let slug__nisw = params.slug__nisw;
+    let slug__regex = params.slug__regex;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4368,10 +5976,13 @@ pub async fn virtualization_cluster_types_list(
 /// Patch a cluster type object.
 pub async fn virtualization_cluster_types_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_cluster_type_request: Option<crate::models::PatchedClusterTypeRequest>,
+    params: VirtualizationClusterTypesPartialUpdateParams,
 ) -> Result<crate::models::ClusterType, Error<VirtualizationClusterTypesPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_cluster_type_request = params.patched_cluster_type_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4420,12 +6031,15 @@ pub async fn virtualization_cluster_types_partial_update(
 /// Get a cluster type object.
 pub async fn virtualization_cluster_types_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: VirtualizationClusterTypesRetrieveParams,
 ) -> Result<crate::models::ClusterType, Error<VirtualizationClusterTypesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4485,10 +6099,13 @@ pub async fn virtualization_cluster_types_retrieve(
 /// Put a cluster type object.
 pub async fn virtualization_cluster_types_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    cluster_type_request: crate::models::ClusterTypeRequest,
+    params: VirtualizationClusterTypesUpdateParams,
 ) -> Result<crate::models::ClusterType, Error<VirtualizationClusterTypesUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let cluster_type_request = params.cluster_type_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4537,9 +6154,12 @@ pub async fn virtualization_cluster_types_update(
 /// Delete a list of cluster objects.
 pub async fn virtualization_clusters_bulk_destroy(
     configuration: &configuration::Configuration,
-    cluster_request: Vec<crate::models::ClusterRequest>,
+    params: VirtualizationClustersBulkDestroyParams,
 ) -> Result<(), Error<VirtualizationClustersBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let cluster_request = params.cluster_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4587,9 +6207,12 @@ pub async fn virtualization_clusters_bulk_destroy(
 /// Patch a list of cluster objects.
 pub async fn virtualization_clusters_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_cluster_request: Vec<crate::models::PatchedBulkClusterRequest>,
+    params: VirtualizationClustersBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::Cluster>, Error<VirtualizationClustersBulkPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_cluster_request = params.patched_bulk_cluster_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4637,9 +6260,12 @@ pub async fn virtualization_clusters_bulk_partial_update(
 /// Put a list of cluster objects.
 pub async fn virtualization_clusters_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_cluster_request: Vec<crate::models::BulkClusterRequest>,
+    params: VirtualizationClustersBulkUpdateParams,
 ) -> Result<Vec<crate::models::Cluster>, Error<VirtualizationClustersBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_cluster_request = params.bulk_cluster_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4687,9 +6313,12 @@ pub async fn virtualization_clusters_bulk_update(
 /// Post a list of cluster objects.
 pub async fn virtualization_clusters_create(
     configuration: &configuration::Configuration,
-    virtualization_clusters_create_request: crate::models::VirtualizationClustersCreateRequest,
+    params: VirtualizationClustersCreateParams,
 ) -> Result<crate::models::Cluster, Error<VirtualizationClustersCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let virtualization_clusters_create_request = params.virtualization_clusters_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4737,9 +6366,12 @@ pub async fn virtualization_clusters_create(
 /// Delete a cluster object.
 pub async fn virtualization_clusters_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: VirtualizationClustersDestroyParams,
 ) -> Result<(), Error<VirtualizationClustersDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -4787,140 +6419,143 @@ pub async fn virtualization_clusters_destroy(
 /// Get a list of cluster objects.
 pub async fn virtualization_clusters_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    contact: Option<Vec<i32>>,
-    contact__n: Option<Vec<i32>>,
-    contact_group: Option<Vec<String>>,
-    contact_group__n: Option<Vec<String>>,
-    contact_role: Option<Vec<i32>>,
-    contact_role__n: Option<Vec<i32>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    group: Option<Vec<String>>,
-    group__n: Option<Vec<String>>,
-    group_id: Option<Vec<i32>>,
-    group_id__n: Option<Vec<i32>>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    location: Option<Vec<String>>,
-    location__n: Option<Vec<String>>,
-    location_id: Option<Vec<String>>,
-    location_id__n: Option<Vec<String>>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    region: Option<Vec<String>>,
-    region__n: Option<Vec<String>>,
-    region_id: Option<Vec<String>>,
-    region_id__n: Option<Vec<String>>,
-    scope_id: Option<Vec<i32>>,
-    scope_id__empty: Option<bool>,
-    scope_id__gt: Option<Vec<i32>>,
-    scope_id__gte: Option<Vec<i32>>,
-    scope_id__lt: Option<Vec<i32>>,
-    scope_id__lte: Option<Vec<i32>>,
-    scope_id__n: Option<Vec<i32>>,
-    scope_type: Option<Vec<String>>,
-    scope_type__n: Option<Vec<String>>,
-    site: Option<Vec<String>>,
-    site__n: Option<Vec<String>>,
-    site_group: Option<Vec<String>>,
-    site_group__n: Option<Vec<String>>,
-    site_group_id: Option<Vec<String>>,
-    site_group_id__n: Option<Vec<String>>,
-    site_id: Option<Vec<i32>>,
-    site_id__n: Option<Vec<i32>>,
-    start: Option<i32>,
-    status: Option<Vec<String>>,
-    status__empty: Option<bool>,
-    status__ic: Option<Vec<String>>,
-    status__ie: Option<Vec<String>>,
-    status__iew: Option<Vec<String>>,
-    status__iregex: Option<Vec<String>>,
-    status__isw: Option<Vec<String>>,
-    status__n: Option<Vec<String>>,
-    status__nic: Option<Vec<String>>,
-    status__nie: Option<Vec<String>>,
-    status__niew: Option<Vec<String>>,
-    status__nisw: Option<Vec<String>>,
-    status__regex: Option<Vec<String>>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    tenant: Option<Vec<String>>,
-    tenant__n: Option<Vec<String>>,
-    tenant_group: Option<Vec<String>>,
-    tenant_group__n: Option<Vec<String>>,
-    tenant_group_id: Option<Vec<String>>,
-    tenant_group_id__n: Option<Vec<String>>,
-    tenant_id: Option<Vec<i32>>,
-    tenant_id__n: Option<Vec<i32>>,
-    r#type: Option<Vec<String>>,
-    type__n: Option<Vec<String>>,
-    type_id: Option<Vec<i32>>,
-    type_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
+    params: VirtualizationClustersListParams,
 ) -> Result<crate::models::PaginatedClusterList, Error<VirtualizationClustersListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let contact = params.contact;
+    let contact__n = params.contact__n;
+    let contact_group = params.contact_group;
+    let contact_group__n = params.contact_group__n;
+    let contact_role = params.contact_role;
+    let contact_role__n = params.contact_role__n;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let group = params.group;
+    let group__n = params.group__n;
+    let group_id = params.group_id;
+    let group_id__n = params.group_id__n;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let location = params.location;
+    let location__n = params.location__n;
+    let location_id = params.location_id;
+    let location_id__n = params.location_id__n;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let region = params.region;
+    let region__n = params.region__n;
+    let region_id = params.region_id;
+    let region_id__n = params.region_id__n;
+    let scope_id = params.scope_id;
+    let scope_id__empty = params.scope_id__empty;
+    let scope_id__gt = params.scope_id__gt;
+    let scope_id__gte = params.scope_id__gte;
+    let scope_id__lt = params.scope_id__lt;
+    let scope_id__lte = params.scope_id__lte;
+    let scope_id__n = params.scope_id__n;
+    let scope_type = params.scope_type;
+    let scope_type__n = params.scope_type__n;
+    let site = params.site;
+    let site__n = params.site__n;
+    let site_group = params.site_group;
+    let site_group__n = params.site_group__n;
+    let site_group_id = params.site_group_id;
+    let site_group_id__n = params.site_group_id__n;
+    let site_id = params.site_id;
+    let site_id__n = params.site_id__n;
+    let start = params.start;
+    let status = params.status;
+    let status__empty = params.status__empty;
+    let status__ic = params.status__ic;
+    let status__ie = params.status__ie;
+    let status__iew = params.status__iew;
+    let status__iregex = params.status__iregex;
+    let status__isw = params.status__isw;
+    let status__n = params.status__n;
+    let status__nic = params.status__nic;
+    let status__nie = params.status__nie;
+    let status__niew = params.status__niew;
+    let status__nisw = params.status__nisw;
+    let status__regex = params.status__regex;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let tenant = params.tenant;
+    let tenant__n = params.tenant__n;
+    let tenant_group = params.tenant_group;
+    let tenant_group__n = params.tenant_group__n;
+    let tenant_group_id = params.tenant_group_id;
+    let tenant_group_id__n = params.tenant_group_id__n;
+    let tenant_id = params.tenant_id;
+    let tenant_id__n = params.tenant_id__n;
+    let r#type = params.r#type;
+    let type__n = params.type__n;
+    let type_id = params.type_id;
+    let type_id__n = params.type_id__n;
+    let updated_by_request = params.updated_by_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7234,10 +8869,13 @@ pub async fn virtualization_clusters_list(
 /// Patch a cluster object.
 pub async fn virtualization_clusters_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_cluster_request: Option<crate::models::PatchedWritableClusterRequest>,
+    params: VirtualizationClustersPartialUpdateParams,
 ) -> Result<crate::models::Cluster, Error<VirtualizationClustersPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_cluster_request = params.patched_writable_cluster_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7286,12 +8924,15 @@ pub async fn virtualization_clusters_partial_update(
 /// Get a cluster object.
 pub async fn virtualization_clusters_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: VirtualizationClustersRetrieveParams,
 ) -> Result<crate::models::Cluster, Error<VirtualizationClustersRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7351,10 +8992,13 @@ pub async fn virtualization_clusters_retrieve(
 /// Put a cluster object.
 pub async fn virtualization_clusters_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_cluster_request: crate::models::WritableClusterRequest,
+    params: VirtualizationClustersUpdateParams,
 ) -> Result<crate::models::Cluster, Error<VirtualizationClustersUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_cluster_request = params.writable_cluster_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7403,9 +9047,12 @@ pub async fn virtualization_clusters_update(
 /// Delete a list of interface objects.
 pub async fn virtualization_interfaces_bulk_destroy(
     configuration: &configuration::Configuration,
-    vm_interface_request: Vec<crate::models::VmInterfaceRequest>,
+    params: VirtualizationInterfacesBulkDestroyParams,
 ) -> Result<(), Error<VirtualizationInterfacesBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let vm_interface_request = params.vm_interface_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7453,10 +9100,13 @@ pub async fn virtualization_interfaces_bulk_destroy(
 /// Patch a list of interface objects.
 pub async fn virtualization_interfaces_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_vm_interface_request: Vec<crate::models::PatchedBulkVmInterfaceRequest>,
+    params: VirtualizationInterfacesBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::VmInterface>, Error<VirtualizationInterfacesBulkPartialUpdateError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_vm_interface_request = params.patched_bulk_vm_interface_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7504,9 +9154,12 @@ pub async fn virtualization_interfaces_bulk_partial_update(
 /// Put a list of interface objects.
 pub async fn virtualization_interfaces_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_vm_interface_request: Vec<crate::models::BulkVmInterfaceRequest>,
+    params: VirtualizationInterfacesBulkUpdateParams,
 ) -> Result<Vec<crate::models::VmInterface>, Error<VirtualizationInterfacesBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_vm_interface_request = params.bulk_vm_interface_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7554,9 +9207,12 @@ pub async fn virtualization_interfaces_bulk_update(
 /// Post a list of interface objects.
 pub async fn virtualization_interfaces_create(
     configuration: &configuration::Configuration,
-    virtualization_interfaces_create_request: crate::models::VirtualizationInterfacesCreateRequest,
+    params: VirtualizationInterfacesCreateParams,
 ) -> Result<crate::models::VmInterface, Error<VirtualizationInterfacesCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let virtualization_interfaces_create_request = params.virtualization_interfaces_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7604,9 +9260,12 @@ pub async fn virtualization_interfaces_create(
 /// Delete a interface object.
 pub async fn virtualization_interfaces_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: VirtualizationInterfacesDestroyParams,
 ) -> Result<(), Error<VirtualizationInterfacesDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -7654,143 +9313,146 @@ pub async fn virtualization_interfaces_destroy(
 /// Get a list of interface objects.
 pub async fn virtualization_interfaces_list(
     configuration: &configuration::Configuration,
-    bridge_id: Option<Vec<i32>>,
-    bridge_id__n: Option<Vec<i32>>,
-    brief: Option<bool>,
-    cluster: Option<Vec<String>>,
-    cluster__n: Option<Vec<String>>,
-    cluster_id: Option<Vec<i32>>,
-    cluster_id__n: Option<Vec<i32>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    enabled: Option<bool>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    l2vpn: Option<Vec<i64>>,
-    l2vpn__n: Option<Vec<i64>>,
-    l2vpn_id: Option<Vec<i32>>,
-    l2vpn_id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    mac_address: Option<Vec<String>>,
-    mac_address__ic: Option<Vec<String>>,
-    mac_address__ie: Option<Vec<String>>,
-    mac_address__iew: Option<Vec<String>>,
-    mac_address__iregex: Option<Vec<String>>,
-    mac_address__isw: Option<Vec<String>>,
-    mac_address__n: Option<Vec<String>>,
-    mac_address__nic: Option<Vec<String>>,
-    mac_address__nie: Option<Vec<String>>,
-    mac_address__niew: Option<Vec<String>>,
-    mac_address__nisw: Option<Vec<String>>,
-    mac_address__regex: Option<Vec<String>>,
-    mode: Option<Vec<String>>,
-    mode__empty: Option<bool>,
-    mode__ic: Option<Vec<String>>,
-    mode__ie: Option<Vec<String>>,
-    mode__iew: Option<Vec<String>>,
-    mode__iregex: Option<Vec<String>>,
-    mode__isw: Option<Vec<String>>,
-    mode__n: Option<Vec<String>>,
-    mode__nic: Option<Vec<String>>,
-    mode__nie: Option<Vec<String>>,
-    mode__niew: Option<Vec<String>>,
-    mode__nisw: Option<Vec<String>>,
-    mode__regex: Option<Vec<String>>,
-    modified_by_request: Option<&str>,
-    mtu: Option<Vec<i32>>,
-    mtu__empty: Option<bool>,
-    mtu__gt: Option<Vec<i32>>,
-    mtu__gte: Option<Vec<i32>>,
-    mtu__lt: Option<Vec<i32>>,
-    mtu__lte: Option<Vec<i32>>,
-    mtu__n: Option<Vec<i32>>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    parent_id: Option<Vec<i32>>,
-    parent_id__n: Option<Vec<i32>>,
-    primary_mac_address: Option<Vec<String>>,
-    primary_mac_address__n: Option<Vec<String>>,
-    primary_mac_address_id: Option<Vec<i32>>,
-    primary_mac_address_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
-    virtual_machine: Option<Vec<String>>,
-    virtual_machine__n: Option<Vec<String>>,
-    virtual_machine_id: Option<Vec<i32>>,
-    virtual_machine_id__n: Option<Vec<i32>>,
-    vlan: Option<&str>,
-    vlan_id: Option<&str>,
-    vlan_translation_policy: Option<Vec<String>>,
-    vlan_translation_policy__n: Option<Vec<String>>,
-    vlan_translation_policy_id: Option<Vec<i32>>,
-    vlan_translation_policy_id__n: Option<Vec<i32>>,
-    vrf: Option<Vec<String>>,
-    vrf__n: Option<Vec<String>>,
-    vrf_id: Option<Vec<i32>>,
-    vrf_id__n: Option<Vec<i32>>,
+    params: VirtualizationInterfacesListParams,
 ) -> Result<crate::models::PaginatedVmInterfaceList, Error<VirtualizationInterfacesListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bridge_id = params.bridge_id;
+    let bridge_id__n = params.bridge_id__n;
+    let brief = params.brief;
+    let cluster = params.cluster;
+    let cluster__n = params.cluster__n;
+    let cluster_id = params.cluster_id;
+    let cluster_id__n = params.cluster_id__n;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let enabled = params.enabled;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let l2vpn = params.l2vpn;
+    let l2vpn__n = params.l2vpn__n;
+    let l2vpn_id = params.l2vpn_id;
+    let l2vpn_id__n = params.l2vpn_id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let mac_address = params.mac_address;
+    let mac_address__ic = params.mac_address__ic;
+    let mac_address__ie = params.mac_address__ie;
+    let mac_address__iew = params.mac_address__iew;
+    let mac_address__iregex = params.mac_address__iregex;
+    let mac_address__isw = params.mac_address__isw;
+    let mac_address__n = params.mac_address__n;
+    let mac_address__nic = params.mac_address__nic;
+    let mac_address__nie = params.mac_address__nie;
+    let mac_address__niew = params.mac_address__niew;
+    let mac_address__nisw = params.mac_address__nisw;
+    let mac_address__regex = params.mac_address__regex;
+    let mode = params.mode;
+    let mode__empty = params.mode__empty;
+    let mode__ic = params.mode__ic;
+    let mode__ie = params.mode__ie;
+    let mode__iew = params.mode__iew;
+    let mode__iregex = params.mode__iregex;
+    let mode__isw = params.mode__isw;
+    let mode__n = params.mode__n;
+    let mode__nic = params.mode__nic;
+    let mode__nie = params.mode__nie;
+    let mode__niew = params.mode__niew;
+    let mode__nisw = params.mode__nisw;
+    let mode__regex = params.mode__regex;
+    let modified_by_request = params.modified_by_request;
+    let mtu = params.mtu;
+    let mtu__empty = params.mtu__empty;
+    let mtu__gt = params.mtu__gt;
+    let mtu__gte = params.mtu__gte;
+    let mtu__lt = params.mtu__lt;
+    let mtu__lte = params.mtu__lte;
+    let mtu__n = params.mtu__n;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let parent_id = params.parent_id;
+    let parent_id__n = params.parent_id__n;
+    let primary_mac_address = params.primary_mac_address;
+    let primary_mac_address__n = params.primary_mac_address__n;
+    let primary_mac_address_id = params.primary_mac_address_id;
+    let primary_mac_address_id__n = params.primary_mac_address_id__n;
+    let q = params.q;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
+    let virtual_machine = params.virtual_machine;
+    let virtual_machine__n = params.virtual_machine__n;
+    let virtual_machine_id = params.virtual_machine_id;
+    let virtual_machine_id__n = params.virtual_machine_id__n;
+    let vlan = params.vlan;
+    let vlan_id = params.vlan_id;
+    let vlan_translation_policy = params.vlan_translation_policy;
+    let vlan_translation_policy__n = params.vlan_translation_policy__n;
+    let vlan_translation_policy_id = params.vlan_translation_policy_id;
+    let vlan_translation_policy_id__n = params.vlan_translation_policy_id__n;
+    let vrf = params.vrf;
+    let vrf__n = params.vrf__n;
+    let vrf_id = params.vrf_id;
+    let vrf_id__n = params.vrf_id__n;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10116,10 +11778,13 @@ pub async fn virtualization_interfaces_list(
 /// Patch a interface object.
 pub async fn virtualization_interfaces_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_vm_interface_request: Option<crate::models::PatchedWritableVmInterfaceRequest>,
+    params: VirtualizationInterfacesPartialUpdateParams,
 ) -> Result<crate::models::VmInterface, Error<VirtualizationInterfacesPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_vm_interface_request = params.patched_writable_vm_interface_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10168,12 +11833,15 @@ pub async fn virtualization_interfaces_partial_update(
 /// Get a interface object.
 pub async fn virtualization_interfaces_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: VirtualizationInterfacesRetrieveParams,
 ) -> Result<crate::models::VmInterface, Error<VirtualizationInterfacesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10233,10 +11901,13 @@ pub async fn virtualization_interfaces_retrieve(
 /// Put a interface object.
 pub async fn virtualization_interfaces_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_vm_interface_request: crate::models::WritableVmInterfaceRequest,
+    params: VirtualizationInterfacesUpdateParams,
 ) -> Result<crate::models::VmInterface, Error<VirtualizationInterfacesUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_vm_interface_request = params.writable_vm_interface_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10285,9 +11956,12 @@ pub async fn virtualization_interfaces_update(
 /// Delete a list of virtual disk objects.
 pub async fn virtualization_virtual_disks_bulk_destroy(
     configuration: &configuration::Configuration,
-    virtual_disk_request: Vec<crate::models::VirtualDiskRequest>,
+    params: VirtualizationVirtualDisksBulkDestroyParams,
 ) -> Result<(), Error<VirtualizationVirtualDisksBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let virtual_disk_request = params.virtual_disk_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10335,10 +12009,13 @@ pub async fn virtualization_virtual_disks_bulk_destroy(
 /// Patch a list of virtual disk objects.
 pub async fn virtualization_virtual_disks_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_virtual_disk_request: Vec<crate::models::PatchedBulkVirtualDiskRequest>,
+    params: VirtualizationVirtualDisksBulkPartialUpdateParams,
 ) -> Result<Vec<crate::models::VirtualDisk>, Error<VirtualizationVirtualDisksBulkPartialUpdateError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_virtual_disk_request = params.patched_bulk_virtual_disk_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10386,9 +12063,12 @@ pub async fn virtualization_virtual_disks_bulk_partial_update(
 /// Put a list of virtual disk objects.
 pub async fn virtualization_virtual_disks_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_virtual_disk_request: Vec<crate::models::BulkVirtualDiskRequest>,
+    params: VirtualizationVirtualDisksBulkUpdateParams,
 ) -> Result<Vec<crate::models::VirtualDisk>, Error<VirtualizationVirtualDisksBulkUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_virtual_disk_request = params.bulk_virtual_disk_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10436,9 +12116,13 @@ pub async fn virtualization_virtual_disks_bulk_update(
 /// Post a list of virtual disk objects.
 pub async fn virtualization_virtual_disks_create(
     configuration: &configuration::Configuration,
-    virtualization_virtual_disks_create_request: crate::models::VirtualizationVirtualDisksCreateRequest,
+    params: VirtualizationVirtualDisksCreateParams,
 ) -> Result<crate::models::VirtualDisk, Error<VirtualizationVirtualDisksCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let virtualization_virtual_disks_create_request =
+        params.virtualization_virtual_disks_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10487,9 +12171,12 @@ pub async fn virtualization_virtual_disks_create(
 /// Delete a virtual disk object.
 pub async fn virtualization_virtual_disks_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: VirtualizationVirtualDisksDestroyParams,
 ) -> Result<(), Error<VirtualizationVirtualDisksDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -10537,91 +12224,94 @@ pub async fn virtualization_virtual_disks_destroy(
 /// Get a list of virtual disk objects.
 pub async fn virtualization_virtual_disks_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    size: Option<Vec<i32>>,
-    size__empty: Option<bool>,
-    size__gt: Option<Vec<i32>>,
-    size__gte: Option<Vec<i32>>,
-    size__lt: Option<Vec<i32>>,
-    size__lte: Option<Vec<i32>>,
-    size__n: Option<Vec<i32>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
-    virtual_machine: Option<Vec<String>>,
-    virtual_machine__n: Option<Vec<String>>,
-    virtual_machine_id: Option<Vec<i32>>,
-    virtual_machine_id__n: Option<Vec<i32>>,
+    params: VirtualizationVirtualDisksListParams,
 ) -> Result<crate::models::PaginatedVirtualDiskList, Error<VirtualizationVirtualDisksListError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let size = params.size;
+    let size__empty = params.size__empty;
+    let size__gt = params.size__gt;
+    let size__gte = params.size__gte;
+    let size__lt = params.size__lt;
+    let size__lte = params.size__lte;
+    let size__n = params.size__n;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
+    let virtual_machine = params.virtual_machine;
+    let virtual_machine__n = params.virtual_machine__n;
+    let virtual_machine_id = params.virtual_machine_id;
+    let virtual_machine_id__n = params.virtual_machine_id__n;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12019,10 +13709,13 @@ pub async fn virtualization_virtual_disks_list(
 /// Patch a virtual disk object.
 pub async fn virtualization_virtual_disks_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_virtual_disk_request: Option<crate::models::PatchedVirtualDiskRequest>,
+    params: VirtualizationVirtualDisksPartialUpdateParams,
 ) -> Result<crate::models::VirtualDisk, Error<VirtualizationVirtualDisksPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_virtual_disk_request = params.patched_virtual_disk_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12071,12 +13764,15 @@ pub async fn virtualization_virtual_disks_partial_update(
 /// Get a virtual disk object.
 pub async fn virtualization_virtual_disks_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: VirtualizationVirtualDisksRetrieveParams,
 ) -> Result<crate::models::VirtualDisk, Error<VirtualizationVirtualDisksRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12136,10 +13832,13 @@ pub async fn virtualization_virtual_disks_retrieve(
 /// Put a virtual disk object.
 pub async fn virtualization_virtual_disks_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    virtual_disk_request: crate::models::VirtualDiskRequest,
+    params: VirtualizationVirtualDisksUpdateParams,
 ) -> Result<crate::models::VirtualDisk, Error<VirtualizationVirtualDisksUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let virtual_disk_request = params.virtual_disk_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12188,9 +13887,12 @@ pub async fn virtualization_virtual_disks_update(
 /// Delete a list of virtual machine type objects.
 pub async fn virtualization_virtual_machine_types_bulk_destroy(
     configuration: &configuration::Configuration,
-    virtual_machine_type_request: Vec<crate::models::VirtualMachineTypeRequest>,
+    params: VirtualizationVirtualMachineTypesBulkDestroyParams,
 ) -> Result<(), Error<VirtualizationVirtualMachineTypesBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let virtual_machine_type_request = params.virtual_machine_type_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12238,14 +13940,16 @@ pub async fn virtualization_virtual_machine_types_bulk_destroy(
 /// Patch a list of virtual machine type objects.
 pub async fn virtualization_virtual_machine_types_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_virtual_machine_type_request: Vec<
-        crate::models::PatchedBulkVirtualMachineTypeRequest,
-    >,
+    params: VirtualizationVirtualMachineTypesBulkPartialUpdateParams,
 ) -> Result<
     Vec<crate::models::VirtualMachineType>,
     Error<VirtualizationVirtualMachineTypesBulkPartialUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_virtual_machine_type_request =
+        params.patched_bulk_virtual_machine_type_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12293,12 +13997,15 @@ pub async fn virtualization_virtual_machine_types_bulk_partial_update(
 /// Put a list of virtual machine type objects.
 pub async fn virtualization_virtual_machine_types_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_virtual_machine_type_request: Vec<crate::models::BulkVirtualMachineTypeRequest>,
+    params: VirtualizationVirtualMachineTypesBulkUpdateParams,
 ) -> Result<
     Vec<crate::models::VirtualMachineType>,
     Error<VirtualizationVirtualMachineTypesBulkUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_virtual_machine_type_request = params.bulk_virtual_machine_type_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12346,10 +14053,14 @@ pub async fn virtualization_virtual_machine_types_bulk_update(
 /// Post a list of virtual machine type objects.
 pub async fn virtualization_virtual_machine_types_create(
     configuration: &configuration::Configuration,
-    virtualization_virtual_machine_types_create_request: crate::models::VirtualizationVirtualMachineTypesCreateRequest,
+    params: VirtualizationVirtualMachineTypesCreateParams,
 ) -> Result<crate::models::VirtualMachineType, Error<VirtualizationVirtualMachineTypesCreateError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let virtualization_virtual_machine_types_create_request =
+        params.virtualization_virtual_machine_types_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12398,9 +14109,12 @@ pub async fn virtualization_virtual_machine_types_create(
 /// Delete a virtual machine type object.
 pub async fn virtualization_virtual_machine_types_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: VirtualizationVirtualMachineTypesDestroyParams,
 ) -> Result<(), Error<VirtualizationVirtualMachineTypesDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -12448,121 +14162,124 @@ pub async fn virtualization_virtual_machine_types_destroy(
 /// Get a list of virtual machine type objects.
 pub async fn virtualization_virtual_machine_types_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    default_memory: Option<Vec<i32>>,
-    default_memory__empty: Option<bool>,
-    default_memory__gt: Option<Vec<i32>>,
-    default_memory__gte: Option<Vec<i32>>,
-    default_memory__lt: Option<Vec<i32>>,
-    default_memory__lte: Option<Vec<i32>>,
-    default_memory__n: Option<Vec<i32>>,
-    default_platform: Option<Vec<String>>,
-    default_platform__n: Option<Vec<String>>,
-    default_platform_id: Option<Vec<String>>,
-    default_platform_id__n: Option<Vec<String>>,
-    default_vcpus: Option<Vec<f64>>,
-    default_vcpus__empty: Option<bool>,
-    default_vcpus__gt: Option<Vec<f64>>,
-    default_vcpus__gte: Option<Vec<f64>>,
-    default_vcpus__lt: Option<Vec<f64>>,
-    default_vcpus__lte: Option<Vec<f64>>,
-    default_vcpus__n: Option<Vec<f64>>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    fields: Option<&str>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    slug: Option<Vec<String>>,
-    slug__empty: Option<bool>,
-    slug__ic: Option<Vec<String>>,
-    slug__ie: Option<Vec<String>>,
-    slug__iew: Option<Vec<String>>,
-    slug__iregex: Option<Vec<String>>,
-    slug__isw: Option<Vec<String>>,
-    slug__n: Option<Vec<String>>,
-    slug__nic: Option<Vec<String>>,
-    slug__nie: Option<Vec<String>>,
-    slug__niew: Option<Vec<String>>,
-    slug__nisw: Option<Vec<String>>,
-    slug__regex: Option<Vec<String>>,
-    start: Option<i32>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
-    virtual_machine_count: Option<Vec<i32>>,
-    virtual_machine_count__empty: Option<bool>,
-    virtual_machine_count__gt: Option<Vec<i32>>,
-    virtual_machine_count__gte: Option<Vec<i32>>,
-    virtual_machine_count__lt: Option<Vec<i32>>,
-    virtual_machine_count__lte: Option<Vec<i32>>,
-    virtual_machine_count__n: Option<Vec<i32>>,
+    params: VirtualizationVirtualMachineTypesListParams,
 ) -> Result<
     crate::models::PaginatedVirtualMachineTypeList,
     Error<VirtualizationVirtualMachineTypesListError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let default_memory = params.default_memory;
+    let default_memory__empty = params.default_memory__empty;
+    let default_memory__gt = params.default_memory__gt;
+    let default_memory__gte = params.default_memory__gte;
+    let default_memory__lt = params.default_memory__lt;
+    let default_memory__lte = params.default_memory__lte;
+    let default_memory__n = params.default_memory__n;
+    let default_platform = params.default_platform;
+    let default_platform__n = params.default_platform__n;
+    let default_platform_id = params.default_platform_id;
+    let default_platform_id__n = params.default_platform_id__n;
+    let default_vcpus = params.default_vcpus;
+    let default_vcpus__empty = params.default_vcpus__empty;
+    let default_vcpus__gt = params.default_vcpus__gt;
+    let default_vcpus__gte = params.default_vcpus__gte;
+    let default_vcpus__lt = params.default_vcpus__lt;
+    let default_vcpus__lte = params.default_vcpus__lte;
+    let default_vcpus__n = params.default_vcpus__n;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let fields = params.fields;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let q = params.q;
+    let slug = params.slug;
+    let slug__empty = params.slug__empty;
+    let slug__ic = params.slug__ic;
+    let slug__ie = params.slug__ie;
+    let slug__iew = params.slug__iew;
+    let slug__iregex = params.slug__iregex;
+    let slug__isw = params.slug__isw;
+    let slug__n = params.slug__n;
+    let slug__nic = params.slug__nic;
+    let slug__nie = params.slug__nie;
+    let slug__niew = params.slug__niew;
+    let slug__nisw = params.slug__nisw;
+    let slug__regex = params.slug__regex;
+    let start = params.start;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let updated_by_request = params.updated_by_request;
+    let virtual_machine_count = params.virtual_machine_count;
+    let virtual_machine_count__empty = params.virtual_machine_count__empty;
+    let virtual_machine_count__gt = params.virtual_machine_count__gt;
+    let virtual_machine_count__gte = params.virtual_machine_count__gte;
+    let virtual_machine_count__lt = params.virtual_machine_count__lt;
+    let virtual_machine_count__lte = params.virtual_machine_count__lte;
+    let virtual_machine_count__n = params.virtual_machine_count__n;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -14428,13 +16145,16 @@ pub async fn virtualization_virtual_machine_types_list(
 /// Patch a virtual machine type object.
 pub async fn virtualization_virtual_machine_types_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_virtual_machine_type_request: Option<crate::models::PatchedVirtualMachineTypeRequest>,
+    params: VirtualizationVirtualMachineTypesPartialUpdateParams,
 ) -> Result<
     crate::models::VirtualMachineType,
     Error<VirtualizationVirtualMachineTypesPartialUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_virtual_machine_type_request = params.patched_virtual_machine_type_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -14483,13 +16203,16 @@ pub async fn virtualization_virtual_machine_types_partial_update(
 /// Get a virtual machine type object.
 pub async fn virtualization_virtual_machine_types_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: VirtualizationVirtualMachineTypesRetrieveParams,
 ) -> Result<crate::models::VirtualMachineType, Error<VirtualizationVirtualMachineTypesRetrieveError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -14549,11 +16272,14 @@ pub async fn virtualization_virtual_machine_types_retrieve(
 /// Put a virtual machine type object.
 pub async fn virtualization_virtual_machine_types_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    virtual_machine_type_request: crate::models::VirtualMachineTypeRequest,
+    params: VirtualizationVirtualMachineTypesUpdateParams,
 ) -> Result<crate::models::VirtualMachineType, Error<VirtualizationVirtualMachineTypesUpdateError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let virtual_machine_type_request = params.virtual_machine_type_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -14602,9 +16328,12 @@ pub async fn virtualization_virtual_machine_types_update(
 /// Delete a list of virtual machine objects.
 pub async fn virtualization_virtual_machines_bulk_destroy(
     configuration: &configuration::Configuration,
-    virtual_machine_request: Vec<crate::models::VirtualMachineRequest>,
+    params: VirtualizationVirtualMachinesBulkDestroyParams,
 ) -> Result<(), Error<VirtualizationVirtualMachinesBulkDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let virtual_machine_request = params.virtual_machine_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -14652,12 +16381,15 @@ pub async fn virtualization_virtual_machines_bulk_destroy(
 /// Patch a list of virtual machine objects.
 pub async fn virtualization_virtual_machines_bulk_partial_update(
     configuration: &configuration::Configuration,
-    patched_bulk_virtual_machine_request: Vec<crate::models::PatchedBulkVirtualMachineRequest>,
+    params: VirtualizationVirtualMachinesBulkPartialUpdateParams,
 ) -> Result<
     Vec<crate::models::VirtualMachine>,
     Error<VirtualizationVirtualMachinesBulkPartialUpdateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let patched_bulk_virtual_machine_request = params.patched_bulk_virtual_machine_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -14705,10 +16437,13 @@ pub async fn virtualization_virtual_machines_bulk_partial_update(
 /// Put a list of virtual machine objects.
 pub async fn virtualization_virtual_machines_bulk_update(
     configuration: &configuration::Configuration,
-    bulk_virtual_machine_request: Vec<crate::models::BulkVirtualMachineRequest>,
+    params: VirtualizationVirtualMachinesBulkUpdateParams,
 ) -> Result<Vec<crate::models::VirtualMachine>, Error<VirtualizationVirtualMachinesBulkUpdateError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let bulk_virtual_machine_request = params.bulk_virtual_machine_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -14756,9 +16491,13 @@ pub async fn virtualization_virtual_machines_bulk_update(
 /// Post a list of virtual machine objects.
 pub async fn virtualization_virtual_machines_create(
     configuration: &configuration::Configuration,
-    virtualization_virtual_machines_create_request: crate::models::VirtualizationVirtualMachinesCreateRequest,
+    params: VirtualizationVirtualMachinesCreateParams,
 ) -> Result<crate::models::VirtualMachine, Error<VirtualizationVirtualMachinesCreateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let virtualization_virtual_machines_create_request =
+        params.virtualization_virtual_machines_create_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -14807,9 +16546,12 @@ pub async fn virtualization_virtual_machines_create(
 /// Delete a virtual machine object.
 pub async fn virtualization_virtual_machines_destroy(
     configuration: &configuration::Configuration,
-    id: i32,
+    params: VirtualizationVirtualMachinesDestroyParams,
 ) -> Result<(), Error<VirtualizationVirtualMachinesDestroyError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -14857,233 +16599,236 @@ pub async fn virtualization_virtual_machines_destroy(
 /// Get a list of virtual machine objects.
 pub async fn virtualization_virtual_machines_list(
     configuration: &configuration::Configuration,
-    brief: Option<bool>,
-    cluster: Option<Vec<String>>,
-    cluster__n: Option<Vec<String>>,
-    cluster_group: Option<Vec<String>>,
-    cluster_group__n: Option<Vec<String>>,
-    cluster_group_id: Option<Vec<i32>>,
-    cluster_group_id__n: Option<Vec<i32>>,
-    cluster_id: Option<Vec<i32>>,
-    cluster_id__n: Option<Vec<i32>>,
-    cluster_type: Option<Vec<String>>,
-    cluster_type__n: Option<Vec<String>>,
-    cluster_type_id: Option<Vec<i32>>,
-    cluster_type_id__n: Option<Vec<i32>>,
-    config_template_id: Option<Vec<i32>>,
-    config_template_id__n: Option<Vec<i32>>,
-    contact: Option<Vec<i32>>,
-    contact__n: Option<Vec<i32>>,
-    contact_group: Option<Vec<String>>,
-    contact_group__n: Option<Vec<String>>,
-    contact_role: Option<Vec<i32>>,
-    contact_role__n: Option<Vec<i32>>,
-    created: Option<Vec<String>>,
-    created__empty: Option<Vec<String>>,
-    created__gt: Option<Vec<String>>,
-    created__gte: Option<Vec<String>>,
-    created__lt: Option<Vec<String>>,
-    created__lte: Option<Vec<String>>,
-    created__n: Option<Vec<String>>,
-    created_by_request: Option<&str>,
-    description: Option<Vec<String>>,
-    description__empty: Option<bool>,
-    description__ic: Option<Vec<String>>,
-    description__ie: Option<Vec<String>>,
-    description__iew: Option<Vec<String>>,
-    description__iregex: Option<Vec<String>>,
-    description__isw: Option<Vec<String>>,
-    description__n: Option<Vec<String>>,
-    description__nic: Option<Vec<String>>,
-    description__nie: Option<Vec<String>>,
-    description__niew: Option<Vec<String>>,
-    description__nisw: Option<Vec<String>>,
-    description__regex: Option<Vec<String>>,
-    device: Option<Vec<String>>,
-    device__n: Option<Vec<String>>,
-    device_id: Option<Vec<i32>>,
-    device_id__n: Option<Vec<i32>>,
-    disk: Option<Vec<i32>>,
-    disk__empty: Option<bool>,
-    disk__gt: Option<Vec<i32>>,
-    disk__gte: Option<Vec<i32>>,
-    disk__lt: Option<Vec<i32>>,
-    disk__lte: Option<Vec<i32>>,
-    disk__n: Option<Vec<i32>>,
-    fields: Option<&str>,
-    has_primary_ip: Option<bool>,
-    id: Option<Vec<i32>>,
-    id__empty: Option<bool>,
-    id__gt: Option<Vec<i32>>,
-    id__gte: Option<Vec<i32>>,
-    id__lt: Option<Vec<i32>>,
-    id__lte: Option<Vec<i32>>,
-    id__n: Option<Vec<i32>>,
-    interface_count: Option<Vec<i32>>,
-    interface_count__empty: Option<bool>,
-    interface_count__gt: Option<Vec<i32>>,
-    interface_count__gte: Option<Vec<i32>>,
-    interface_count__lt: Option<Vec<i32>>,
-    interface_count__lte: Option<Vec<i32>>,
-    interface_count__n: Option<Vec<i32>>,
-    last_updated: Option<Vec<String>>,
-    last_updated__empty: Option<Vec<String>>,
-    last_updated__gt: Option<Vec<String>>,
-    last_updated__gte: Option<Vec<String>>,
-    last_updated__lt: Option<Vec<String>>,
-    last_updated__lte: Option<Vec<String>>,
-    last_updated__n: Option<Vec<String>>,
-    limit: Option<i32>,
-    local_context_data: Option<bool>,
-    mac_address: Option<Vec<String>>,
-    mac_address__ic: Option<Vec<String>>,
-    mac_address__ie: Option<Vec<String>>,
-    mac_address__iew: Option<Vec<String>>,
-    mac_address__iregex: Option<Vec<String>>,
-    mac_address__isw: Option<Vec<String>>,
-    mac_address__n: Option<Vec<String>>,
-    mac_address__nic: Option<Vec<String>>,
-    mac_address__nie: Option<Vec<String>>,
-    mac_address__niew: Option<Vec<String>>,
-    mac_address__nisw: Option<Vec<String>>,
-    mac_address__regex: Option<Vec<String>>,
-    memory: Option<Vec<i32>>,
-    memory__empty: Option<bool>,
-    memory__gt: Option<Vec<i32>>,
-    memory__gte: Option<Vec<i32>>,
-    memory__lt: Option<Vec<i32>>,
-    memory__lte: Option<Vec<i32>>,
-    memory__n: Option<Vec<i32>>,
-    modified_by_request: Option<&str>,
-    name: Option<Vec<String>>,
-    name__empty: Option<bool>,
-    name__ic: Option<Vec<String>>,
-    name__ie: Option<Vec<String>>,
-    name__iew: Option<Vec<String>>,
-    name__iregex: Option<Vec<String>>,
-    name__isw: Option<Vec<String>>,
-    name__n: Option<Vec<String>>,
-    name__nic: Option<Vec<String>>,
-    name__nie: Option<Vec<String>>,
-    name__niew: Option<Vec<String>>,
-    name__nisw: Option<Vec<String>>,
-    name__regex: Option<Vec<String>>,
-    offset: Option<i32>,
-    omit: Option<&str>,
-    ordering: Option<&str>,
-    owner: Option<Vec<String>>,
-    owner__n: Option<Vec<String>>,
-    owner_group: Option<Vec<String>>,
-    owner_group__n: Option<Vec<String>>,
-    owner_group_id: Option<Vec<i32>>,
-    owner_group_id__n: Option<Vec<i32>>,
-    owner_id: Option<Vec<i32>>,
-    owner_id__n: Option<Vec<i32>>,
-    platform: Option<Vec<String>>,
-    platform__n: Option<Vec<String>>,
-    platform_id: Option<Vec<String>>,
-    platform_id__n: Option<Vec<String>>,
-    primary_ip4: Option<Vec<String>>,
-    primary_ip4__n: Option<Vec<String>>,
-    primary_ip4_id: Option<Vec<i32>>,
-    primary_ip4_id__n: Option<Vec<i32>>,
-    primary_ip6: Option<Vec<String>>,
-    primary_ip6__n: Option<Vec<String>>,
-    primary_ip6_id: Option<Vec<i32>>,
-    primary_ip6_id__n: Option<Vec<i32>>,
-    q: Option<&str>,
-    region: Option<Vec<String>>,
-    region__n: Option<Vec<String>>,
-    region_id: Option<Vec<String>>,
-    region_id__n: Option<Vec<String>>,
-    role: Option<Vec<String>>,
-    role__n: Option<Vec<String>>,
-    role_id: Option<Vec<String>>,
-    role_id__n: Option<Vec<String>>,
-    serial: Option<Vec<String>>,
-    serial__empty: Option<bool>,
-    serial__ic: Option<Vec<String>>,
-    serial__ie: Option<Vec<String>>,
-    serial__iew: Option<Vec<String>>,
-    serial__iregex: Option<Vec<String>>,
-    serial__isw: Option<Vec<String>>,
-    serial__n: Option<Vec<String>>,
-    serial__nic: Option<Vec<String>>,
-    serial__nie: Option<Vec<String>>,
-    serial__niew: Option<Vec<String>>,
-    serial__nisw: Option<Vec<String>>,
-    serial__regex: Option<Vec<String>>,
-    site: Option<Vec<String>>,
-    site__n: Option<Vec<String>>,
-    site_group: Option<Vec<String>>,
-    site_group__n: Option<Vec<String>>,
-    site_group_id: Option<Vec<String>>,
-    site_group_id__n: Option<Vec<String>>,
-    site_id: Option<Vec<i32>>,
-    site_id__n: Option<Vec<i32>>,
-    start: Option<i32>,
-    start_on_boot: Option<Vec<String>>,
-    start_on_boot__empty: Option<bool>,
-    start_on_boot__ic: Option<Vec<String>>,
-    start_on_boot__ie: Option<Vec<String>>,
-    start_on_boot__iew: Option<Vec<String>>,
-    start_on_boot__iregex: Option<Vec<String>>,
-    start_on_boot__isw: Option<Vec<String>>,
-    start_on_boot__n: Option<Vec<String>>,
-    start_on_boot__nic: Option<Vec<String>>,
-    start_on_boot__nie: Option<Vec<String>>,
-    start_on_boot__niew: Option<Vec<String>>,
-    start_on_boot__nisw: Option<Vec<String>>,
-    start_on_boot__regex: Option<Vec<String>>,
-    status: Option<Vec<String>>,
-    status__empty: Option<bool>,
-    status__ic: Option<Vec<String>>,
-    status__ie: Option<Vec<String>>,
-    status__iew: Option<Vec<String>>,
-    status__iregex: Option<Vec<String>>,
-    status__isw: Option<Vec<String>>,
-    status__n: Option<Vec<String>>,
-    status__nic: Option<Vec<String>>,
-    status__nie: Option<Vec<String>>,
-    status__niew: Option<Vec<String>>,
-    status__nisw: Option<Vec<String>>,
-    status__regex: Option<Vec<String>>,
-    tag: Option<Vec<String>>,
-    tag__any: Option<Vec<String>>,
-    tag__n: Option<Vec<String>>,
-    tag_id: Option<Vec<i32>>,
-    tag_id__any: Option<Vec<i32>>,
-    tag_id__n: Option<Vec<i32>>,
-    tenant: Option<Vec<String>>,
-    tenant__n: Option<Vec<String>>,
-    tenant_group: Option<Vec<String>>,
-    tenant_group__n: Option<Vec<String>>,
-    tenant_group_id: Option<Vec<String>>,
-    tenant_group_id__n: Option<Vec<String>>,
-    tenant_id: Option<Vec<i32>>,
-    tenant_id__n: Option<Vec<i32>>,
-    updated_by_request: Option<&str>,
-    vcpus: Option<Vec<f64>>,
-    vcpus__empty: Option<bool>,
-    vcpus__gt: Option<Vec<f64>>,
-    vcpus__gte: Option<Vec<f64>>,
-    vcpus__lt: Option<Vec<f64>>,
-    vcpus__lte: Option<Vec<f64>>,
-    vcpus__n: Option<Vec<f64>>,
-    virtual_disk_count: Option<Vec<i32>>,
-    virtual_disk_count__empty: Option<bool>,
-    virtual_disk_count__gt: Option<Vec<i32>>,
-    virtual_disk_count__gte: Option<Vec<i32>>,
-    virtual_disk_count__lt: Option<Vec<i32>>,
-    virtual_disk_count__lte: Option<Vec<i32>>,
-    virtual_disk_count__n: Option<Vec<i32>>,
-    virtual_machine_type: Option<Vec<String>>,
-    virtual_machine_type__n: Option<Vec<String>>,
-    virtual_machine_type_id: Option<Vec<i32>>,
-    virtual_machine_type_id__n: Option<Vec<i32>>,
+    params: VirtualizationVirtualMachinesListParams,
 ) -> Result<crate::models::PaginatedVirtualMachineList, Error<VirtualizationVirtualMachinesListError>>
 {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let brief = params.brief;
+    let cluster = params.cluster;
+    let cluster__n = params.cluster__n;
+    let cluster_group = params.cluster_group;
+    let cluster_group__n = params.cluster_group__n;
+    let cluster_group_id = params.cluster_group_id;
+    let cluster_group_id__n = params.cluster_group_id__n;
+    let cluster_id = params.cluster_id;
+    let cluster_id__n = params.cluster_id__n;
+    let cluster_type = params.cluster_type;
+    let cluster_type__n = params.cluster_type__n;
+    let cluster_type_id = params.cluster_type_id;
+    let cluster_type_id__n = params.cluster_type_id__n;
+    let config_template_id = params.config_template_id;
+    let config_template_id__n = params.config_template_id__n;
+    let contact = params.contact;
+    let contact__n = params.contact__n;
+    let contact_group = params.contact_group;
+    let contact_group__n = params.contact_group__n;
+    let contact_role = params.contact_role;
+    let contact_role__n = params.contact_role__n;
+    let created = params.created;
+    let created__empty = params.created__empty;
+    let created__gt = params.created__gt;
+    let created__gte = params.created__gte;
+    let created__lt = params.created__lt;
+    let created__lte = params.created__lte;
+    let created__n = params.created__n;
+    let created_by_request = params.created_by_request;
+    let description = params.description;
+    let description__empty = params.description__empty;
+    let description__ic = params.description__ic;
+    let description__ie = params.description__ie;
+    let description__iew = params.description__iew;
+    let description__iregex = params.description__iregex;
+    let description__isw = params.description__isw;
+    let description__n = params.description__n;
+    let description__nic = params.description__nic;
+    let description__nie = params.description__nie;
+    let description__niew = params.description__niew;
+    let description__nisw = params.description__nisw;
+    let description__regex = params.description__regex;
+    let device = params.device;
+    let device__n = params.device__n;
+    let device_id = params.device_id;
+    let device_id__n = params.device_id__n;
+    let disk = params.disk;
+    let disk__empty = params.disk__empty;
+    let disk__gt = params.disk__gt;
+    let disk__gte = params.disk__gte;
+    let disk__lt = params.disk__lt;
+    let disk__lte = params.disk__lte;
+    let disk__n = params.disk__n;
+    let fields = params.fields;
+    let has_primary_ip = params.has_primary_ip;
+    let id = params.id;
+    let id__empty = params.id__empty;
+    let id__gt = params.id__gt;
+    let id__gte = params.id__gte;
+    let id__lt = params.id__lt;
+    let id__lte = params.id__lte;
+    let id__n = params.id__n;
+    let interface_count = params.interface_count;
+    let interface_count__empty = params.interface_count__empty;
+    let interface_count__gt = params.interface_count__gt;
+    let interface_count__gte = params.interface_count__gte;
+    let interface_count__lt = params.interface_count__lt;
+    let interface_count__lte = params.interface_count__lte;
+    let interface_count__n = params.interface_count__n;
+    let last_updated = params.last_updated;
+    let last_updated__empty = params.last_updated__empty;
+    let last_updated__gt = params.last_updated__gt;
+    let last_updated__gte = params.last_updated__gte;
+    let last_updated__lt = params.last_updated__lt;
+    let last_updated__lte = params.last_updated__lte;
+    let last_updated__n = params.last_updated__n;
+    let limit = params.limit;
+    let local_context_data = params.local_context_data;
+    let mac_address = params.mac_address;
+    let mac_address__ic = params.mac_address__ic;
+    let mac_address__ie = params.mac_address__ie;
+    let mac_address__iew = params.mac_address__iew;
+    let mac_address__iregex = params.mac_address__iregex;
+    let mac_address__isw = params.mac_address__isw;
+    let mac_address__n = params.mac_address__n;
+    let mac_address__nic = params.mac_address__nic;
+    let mac_address__nie = params.mac_address__nie;
+    let mac_address__niew = params.mac_address__niew;
+    let mac_address__nisw = params.mac_address__nisw;
+    let mac_address__regex = params.mac_address__regex;
+    let memory = params.memory;
+    let memory__empty = params.memory__empty;
+    let memory__gt = params.memory__gt;
+    let memory__gte = params.memory__gte;
+    let memory__lt = params.memory__lt;
+    let memory__lte = params.memory__lte;
+    let memory__n = params.memory__n;
+    let modified_by_request = params.modified_by_request;
+    let name = params.name;
+    let name__empty = params.name__empty;
+    let name__ic = params.name__ic;
+    let name__ie = params.name__ie;
+    let name__iew = params.name__iew;
+    let name__iregex = params.name__iregex;
+    let name__isw = params.name__isw;
+    let name__n = params.name__n;
+    let name__nic = params.name__nic;
+    let name__nie = params.name__nie;
+    let name__niew = params.name__niew;
+    let name__nisw = params.name__nisw;
+    let name__regex = params.name__regex;
+    let offset = params.offset;
+    let omit = params.omit;
+    let ordering = params.ordering;
+    let owner = params.owner;
+    let owner__n = params.owner__n;
+    let owner_group = params.owner_group;
+    let owner_group__n = params.owner_group__n;
+    let owner_group_id = params.owner_group_id;
+    let owner_group_id__n = params.owner_group_id__n;
+    let owner_id = params.owner_id;
+    let owner_id__n = params.owner_id__n;
+    let platform = params.platform;
+    let platform__n = params.platform__n;
+    let platform_id = params.platform_id;
+    let platform_id__n = params.platform_id__n;
+    let primary_ip4 = params.primary_ip4;
+    let primary_ip4__n = params.primary_ip4__n;
+    let primary_ip4_id = params.primary_ip4_id;
+    let primary_ip4_id__n = params.primary_ip4_id__n;
+    let primary_ip6 = params.primary_ip6;
+    let primary_ip6__n = params.primary_ip6__n;
+    let primary_ip6_id = params.primary_ip6_id;
+    let primary_ip6_id__n = params.primary_ip6_id__n;
+    let q = params.q;
+    let region = params.region;
+    let region__n = params.region__n;
+    let region_id = params.region_id;
+    let region_id__n = params.region_id__n;
+    let role = params.role;
+    let role__n = params.role__n;
+    let role_id = params.role_id;
+    let role_id__n = params.role_id__n;
+    let serial = params.serial;
+    let serial__empty = params.serial__empty;
+    let serial__ic = params.serial__ic;
+    let serial__ie = params.serial__ie;
+    let serial__iew = params.serial__iew;
+    let serial__iregex = params.serial__iregex;
+    let serial__isw = params.serial__isw;
+    let serial__n = params.serial__n;
+    let serial__nic = params.serial__nic;
+    let serial__nie = params.serial__nie;
+    let serial__niew = params.serial__niew;
+    let serial__nisw = params.serial__nisw;
+    let serial__regex = params.serial__regex;
+    let site = params.site;
+    let site__n = params.site__n;
+    let site_group = params.site_group;
+    let site_group__n = params.site_group__n;
+    let site_group_id = params.site_group_id;
+    let site_group_id__n = params.site_group_id__n;
+    let site_id = params.site_id;
+    let site_id__n = params.site_id__n;
+    let start = params.start;
+    let start_on_boot = params.start_on_boot;
+    let start_on_boot__empty = params.start_on_boot__empty;
+    let start_on_boot__ic = params.start_on_boot__ic;
+    let start_on_boot__ie = params.start_on_boot__ie;
+    let start_on_boot__iew = params.start_on_boot__iew;
+    let start_on_boot__iregex = params.start_on_boot__iregex;
+    let start_on_boot__isw = params.start_on_boot__isw;
+    let start_on_boot__n = params.start_on_boot__n;
+    let start_on_boot__nic = params.start_on_boot__nic;
+    let start_on_boot__nie = params.start_on_boot__nie;
+    let start_on_boot__niew = params.start_on_boot__niew;
+    let start_on_boot__nisw = params.start_on_boot__nisw;
+    let start_on_boot__regex = params.start_on_boot__regex;
+    let status = params.status;
+    let status__empty = params.status__empty;
+    let status__ic = params.status__ic;
+    let status__ie = params.status__ie;
+    let status__iew = params.status__iew;
+    let status__iregex = params.status__iregex;
+    let status__isw = params.status__isw;
+    let status__n = params.status__n;
+    let status__nic = params.status__nic;
+    let status__nie = params.status__nie;
+    let status__niew = params.status__niew;
+    let status__nisw = params.status__nisw;
+    let status__regex = params.status__regex;
+    let tag = params.tag;
+    let tag__any = params.tag__any;
+    let tag__n = params.tag__n;
+    let tag_id = params.tag_id;
+    let tag_id__any = params.tag_id__any;
+    let tag_id__n = params.tag_id__n;
+    let tenant = params.tenant;
+    let tenant__n = params.tenant__n;
+    let tenant_group = params.tenant_group;
+    let tenant_group__n = params.tenant_group__n;
+    let tenant_group_id = params.tenant_group_id;
+    let tenant_group_id__n = params.tenant_group_id__n;
+    let tenant_id = params.tenant_id;
+    let tenant_id__n = params.tenant_id__n;
+    let updated_by_request = params.updated_by_request;
+    let vcpus = params.vcpus;
+    let vcpus__empty = params.vcpus__empty;
+    let vcpus__gt = params.vcpus__gt;
+    let vcpus__gte = params.vcpus__gte;
+    let vcpus__lt = params.vcpus__lt;
+    let vcpus__lte = params.vcpus__lte;
+    let vcpus__n = params.vcpus__n;
+    let virtual_disk_count = params.virtual_disk_count;
+    let virtual_disk_count__empty = params.virtual_disk_count__empty;
+    let virtual_disk_count__gt = params.virtual_disk_count__gt;
+    let virtual_disk_count__gte = params.virtual_disk_count__gte;
+    let virtual_disk_count__lt = params.virtual_disk_count__lt;
+    let virtual_disk_count__lte = params.virtual_disk_count__lte;
+    let virtual_disk_count__n = params.virtual_disk_count__n;
+    let virtual_machine_type = params.virtual_machine_type;
+    let virtual_machine_type__n = params.virtual_machine_type__n;
+    let virtual_machine_type_id = params.virtual_machine_type_id;
+    let virtual_machine_type_id__n = params.virtual_machine_type_id__n;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -19025,12 +20770,13 @@ pub async fn virtualization_virtual_machines_list(
 /// Patch a virtual machine object.
 pub async fn virtualization_virtual_machines_partial_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    patched_writable_virtual_machine_request: Option<
-        crate::models::PatchedWritableVirtualMachineRequest,
-    >,
+    params: VirtualizationVirtualMachinesPartialUpdateParams,
 ) -> Result<crate::models::VirtualMachine, Error<VirtualizationVirtualMachinesPartialUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let patched_writable_virtual_machine_request = params.patched_writable_virtual_machine_request;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -19079,14 +20825,17 @@ pub async fn virtualization_virtual_machines_partial_update(
 /// Resolve and render the preferred ConfigTemplate for this Device or Virtual Machine.
 pub async fn virtualization_virtual_machines_render_config_create(
     configuration: &configuration::Configuration,
-    id: i32,
-    format: Option<&str>,
-    request_body: Option<::std::collections::HashMap<String, serde_json::Value>>,
+    params: VirtualizationVirtualMachinesRenderConfigCreateParams,
 ) -> Result<
     crate::models::RenderedConfig,
     Error<VirtualizationVirtualMachinesRenderConfigCreateError>,
 > {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let format = params.format;
+    let request_body = params.request_body;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -19139,12 +20888,15 @@ pub async fn virtualization_virtual_machines_render_config_create(
 /// Get a virtual machine object.
 pub async fn virtualization_virtual_machines_retrieve(
     configuration: &configuration::Configuration,
-    id: i32,
-    brief: Option<bool>,
-    fields: Option<&str>,
-    omit: Option<&str>,
+    params: VirtualizationVirtualMachinesRetrieveParams,
 ) -> Result<crate::models::VirtualMachine, Error<VirtualizationVirtualMachinesRetrieveError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let brief = params.brief;
+    let fields = params.fields;
+    let omit = params.omit;
 
     let local_var_client = &local_var_configuration.client;
 
@@ -19204,10 +20956,13 @@ pub async fn virtualization_virtual_machines_retrieve(
 /// Put a virtual machine object.
 pub async fn virtualization_virtual_machines_update(
     configuration: &configuration::Configuration,
-    id: i32,
-    writable_virtual_machine_request: crate::models::WritableVirtualMachineRequest,
+    params: VirtualizationVirtualMachinesUpdateParams,
 ) -> Result<crate::models::VirtualMachine, Error<VirtualizationVirtualMachinesUpdateError>> {
     let local_var_configuration = configuration;
+
+    // unbox the parameters
+    let id = params.id;
+    let writable_virtual_machine_request = params.writable_virtual_machine_request;
 
     let local_var_client = &local_var_configuration.client;
 
