@@ -4,8 +4,15 @@ this release captures the current state of the project. no prior published state
 
 ## [unreleased]
 
+### ci
+- bump pinned netbox container from v4.7.1 to v4.7.2 (closes #78)
+
 ### openapi
 - **breaking:** generated api functions take one params struct instead of positional parameters: `dcim_devices_list(&config, DcimDevicesListParams { asset_tag: Some(vec![..]), ..Default::default() })`. all 1255 parameterised functions are affected. the structs derive `Default`, so a caller that spreads it keeps compiling when upstream adds a filter (closes #72)
+- regenerate bindings from the netbox v4.7.2 schema
+- **breaking:** `data_file` on config contexts, config context profiles, config templates and export templates is now nullable, so the field is `Option<Option<Box<BriefDataFile>>>`
+- export templates gain `auto_sync_enabled`
+- `ipam_vlans_list` gains the `related_to_site` and `related_to_site__n` filters
 
 ## [0.9.1] - 2026-09-21
 
