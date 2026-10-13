@@ -25,7 +25,7 @@ pub(crate) fn format_output(
 
     match output.format {
         crate::OutputFormat::Json => Ok(to_string_pretty(&selected)?),
-        crate::OutputFormat::Yaml => Ok(serde_yaml::to_string(&selected)?),
+        crate::OutputFormat::Yaml => Ok(serde_saphyr::to_string(&selected)?),
         crate::OutputFormat::Table => Ok(format_table(
             &selected,
             output.columns.as_deref(),

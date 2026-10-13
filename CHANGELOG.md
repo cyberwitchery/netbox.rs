@@ -4,6 +4,9 @@ this release captures the current state of the project. no prior published state
 
 ## [unreleased]
 
+### cli
+- yaml output uses serde-saphyr instead of the deprecated serde_yaml, dropping the unmaintained unsafe-libyaml (RUSTSEC-2024-0449). strings are now double-quoted, and yaml 1.1 words like `yes` are quoted
+
 ### ci
 - bump pinned netbox container from v4.7.1 to v4.7.2 (closes #78)
 
