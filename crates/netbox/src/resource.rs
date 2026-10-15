@@ -202,30 +202,24 @@ mod tests {
         let resource: Resource<serde_json::Value> = Resource::new(test_client(), "dcim/devices/");
         let query = QueryBuilder::new().filter("status", "active").limit(10);
         let paginator = resource.paginate(Some(query)).unwrap();
-        let query = QueryBuilder::new().filter("status", "active").limit(10);
-        let expected_query = serde_urlencoded::to_string(&query).expect("query should serialize");
-        let expected = if expected_query.is_empty() {
-            "dcim/devices/".to_string()
-        } else {
-            format!("dcim/devices?{}", expected_query)
-        };
+        // NOTE: pins the current slashless path (trailing slash dropped when a
+        // query is present); possibly a bug, kept as is.
         let actual = paginator.next_url().expect("expected paginator url");
         let (actual_path, actual_query) = actual.split_once('?').unwrap_or((actual, ""));
-        let (expected_path, expected_query) =
-            expected.split_once('?').unwrap_or((expected.as_str(), ""));
-        assert_eq!(actual_path, expected_path);
+        assert_eq!(actual_path, "dcim/devices");
 
         let mut actual_pairs: Vec<(String, String)> =
             url::form_urlencoded::parse(actual_query.as_bytes())
                 .into_owned()
                 .collect();
-        let mut expected_pairs: Vec<(String, String)> =
-            url::form_urlencoded::parse(expected_query.as_bytes())
-                .into_owned()
-                .collect();
         actual_pairs.sort();
-        expected_pairs.sort();
-        assert_eq!(actual_pairs, expected_pairs);
+        assert_eq!(
+            actual_pairs,
+            vec![
+                ("limit".to_string(), "10".to_string()),
+                ("status".to_string(), "active".to_string()),
+            ]
+        );
     }
 
     #[cfg_attr(miri, ignore)]
@@ -386,22 +380,16 @@ mod tests {
             "results": []
         });
 
-        server.mock(|when, then| {
-            let query = QueryBuilder::new().limit(5);
-            let query_string = serde_urlencoded::to_string(&query).expect("query should serialize");
-            let pairs = url::form_urlencoded::parse(query_string.as_bytes())
-                .into_owned()
-                .collect::<Vec<_>>();
-
-            let mut when = when.method(GET).path("/api/dcim/devices/");
-            for (key, value) in pairs {
-                when = when.query_param(key, value);
-            }
+        let mock = server.mock(|when, then| {
+            when.method(GET)
+                .path("/api/dcim/devices/")
+                .query_param("limit", "5");
             then.status(200).json_body(list_response);
         });
 
         let query = QueryBuilder::new().limit(5);
         let page = resource.list(Some(query)).await.unwrap();
         assert_eq!(page.count, 0);
+        mock.assert();
     }
 }

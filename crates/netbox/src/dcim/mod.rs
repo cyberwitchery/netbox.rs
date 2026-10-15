@@ -540,7 +540,6 @@ mod tests {
     use super::*;
     use crate::ClientConfig;
     use httpmock::prelude::*;
-    use serde::Serialize;
     use serde_json::json;
     use std::collections::HashMap;
 
@@ -691,24 +690,6 @@ mod tests {
         let value = serde_json::to_value(&interface).unwrap();
         assert!(value.get("custom_fields").is_none());
         assert!(value.get("tags").is_none());
-    }
-
-    #[test]
-    fn connected_device_query_serializes() {
-        #[derive(Serialize)]
-        struct Query<'a> {
-            peer_device: &'a str,
-            peer_interface: &'a str,
-        }
-
-        let query = Query {
-            peer_device: "leaf-01",
-            peer_interface: "Ethernet1",
-        };
-
-        let encoded = serde_urlencoded::to_string(&query).unwrap();
-        assert!(encoded.contains("peer_device=leaf-01"));
-        assert!(encoded.contains("peer_interface=Ethernet1"));
     }
 
     #[cfg_attr(miri, ignore)]

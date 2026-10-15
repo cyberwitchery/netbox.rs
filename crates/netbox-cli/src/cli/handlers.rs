@@ -298,7 +298,10 @@ mod tests {
             .await
             .unwrap();
         let calls = client.calls();
+        assert_eq!(calls.len(), 2);
+        assert_eq!(calls[0].method, Method::GET);
         assert_eq!(calls[0].path, "extras/dashboard/");
+        assert_eq!(calls[1].method, Method::DELETE);
         assert_eq!(calls[1].path, "extras/dashboard/");
     }
 

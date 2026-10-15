@@ -1043,8 +1043,8 @@ mod tests {
     fn parse_dashboard_update_requires_json_or_file() {
         let mut args = base_args();
         args.extend(["extras-dashboard", "update"]);
-        let result = Cli::try_parse_from(&args);
-        assert!(result.is_err());
+        let err = Cli::try_parse_from(&args).err().expect("parse should fail");
+        assert_eq!(err.kind(), clap::error::ErrorKind::MissingRequiredArgument);
     }
 
     #[test]
@@ -1153,75 +1153,36 @@ mod tests {
     }
 
     #[test]
-    fn parse_config_list_command() {
-        let args = vec![
-            "netbox-cli".to_string(),
-            "config".to_string(),
-            "list".to_string(),
-        ];
-        let cli = Cli::try_parse_from(&args).unwrap();
-        assert!(matches!(
-            cli.command,
-            Commands::Config {
-                action: ConfigAction::List
+    fn parse_config_commands() {
+        for (word, expected) in [
+            ("list", ConfigAction::List),
+            ("show", ConfigAction::Show),
+            ("validate", ConfigAction::Validate),
+        ] {
+            let cli = Cli::try_parse_from(["netbox-cli", "config", word]).unwrap();
+            match cli.command {
+                Commands::Config { action } => assert_eq!(
+                    std::mem::discriminant(&action),
+                    std::mem::discriminant(&expected),
+                    "config {word}"
+                ),
+                _ => panic!("expected config command for {word}"),
             }
-        ));
-    }
-
-    #[test]
-    fn parse_config_show_command() {
-        let args = vec![
-            "netbox-cli".to_string(),
-            "config".to_string(),
-            "show".to_string(),
-        ];
-        let cli = Cli::try_parse_from(&args).unwrap();
-        assert!(matches!(
-            cli.command,
-            Commands::Config {
-                action: ConfigAction::Show
-            }
-        ));
-    }
-
-    #[test]
-    fn parse_config_validate_command() {
-        let args = vec![
-            "netbox-cli".to_string(),
-            "config".to_string(),
-            "validate".to_string(),
-        ];
-        let cli = Cli::try_parse_from(&args).unwrap();
-        assert!(matches!(
-            cli.command,
-            Commands::Config {
-                action: ConfigAction::Validate
-            }
-        ));
+        }
     }
 
     #[test]
     fn parse_profile_flag() {
-        let args = vec![
-            "netbox-cli".to_string(),
-            "--profile".to_string(),
-            "prod".to_string(),
-            "config".to_string(),
-            "show".to_string(),
-        ];
-        let cli = Cli::try_parse_from(&args).unwrap();
-        assert_eq!(cli.profile, "prod");
-    }
-
-    #[test]
-    fn default_profile_is_default() {
-        let args = vec![
-            "netbox-cli".to_string(),
-            "config".to_string(),
-            "list".to_string(),
-        ];
-        let cli = Cli::try_parse_from(&args).unwrap();
-        assert_eq!(cli.profile, "default");
+        for (args, expected) in [
+            (
+                vec!["netbox-cli", "--profile", "prod", "config", "show"],
+                "prod",
+            ),
+            (vec!["netbox-cli", "config", "list"], "default"),
+        ] {
+            let cli = Cli::try_parse_from(&args).unwrap();
+            assert_eq!(cli.profile, expected, "{args:?}");
+        }
     }
 
     #[tokio::test]

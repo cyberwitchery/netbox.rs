@@ -1252,7 +1252,7 @@ mod tests {
             then.status(200).json_body(json!("hostname switch-01"));
         });
         let result = client.extras().render_config_template(2).await;
-        assert!(result.is_ok());
+        assert_eq!(result.unwrap(), "hostname switch-01");
         mock4.assert();
 
         let mock5 = server.mock(|when, then| {

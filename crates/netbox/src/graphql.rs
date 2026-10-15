@@ -163,58 +163,34 @@ mod tests {
 
     #[cfg_attr(miri, ignore)]
     #[tokio::test]
-    async fn graphql_retries_on_429() {
-        let server = MockServer::start();
-        let config = ClientConfig::new(server.base_url(), "token").with_max_retries(2);
-        let client = Client::new(config).unwrap();
-        let api = GraphqlApi::new(client);
+    async fn graphql_retries_on_429_and_500() {
+        for status in [429, 500] {
+            let server = MockServer::start();
+            let config = ClientConfig::new(server.base_url(), "token").with_max_retries(2);
+            let client = Client::new(config).unwrap();
+            let api = GraphqlApi::new(client);
 
-        let call_count = Arc::new(AtomicUsize::new(0));
-        let counter = call_count.clone();
-        let fail = server.mock(|when, then| {
-            when.method(POST)
-                .path("/graphql/")
-                .is_true(move |_: &HttpMockRequest| counter.fetch_add(1, Ordering::SeqCst) == 0);
-            then.status(429).body("rate limited");
-        });
-        let succeed = server.mock(|when, then| {
-            when.method(POST).path("/graphql/");
-            then.status(200)
-                .json_body(json!({ "data": { "devices": [] } }));
-        });
+            let call_count = Arc::new(AtomicUsize::new(0));
+            let counter = call_count.clone();
+            let fail = server.mock(|when, then| {
+                when.method(POST)
+                    .path("/graphql/")
+                    .is_true(move |_: &HttpMockRequest| {
+                        counter.fetch_add(1, Ordering::SeqCst) == 0
+                    });
+                then.status(status).body("failure");
+            });
+            let succeed = server.mock(|when, then| {
+                when.method(POST).path("/graphql/");
+                then.status(200)
+                    .json_body(json!({ "data": { "devices": [] } }));
+            });
 
-        let data = api.query("{ devices { name } }", None).await.unwrap();
-        assert_eq!(data["devices"], json!([]));
-        fail.assert_calls(1);
-        succeed.assert_calls(1);
-    }
-
-    #[cfg_attr(miri, ignore)]
-    #[tokio::test]
-    async fn graphql_retries_on_500() {
-        let server = MockServer::start();
-        let config = ClientConfig::new(server.base_url(), "token").with_max_retries(2);
-        let client = Client::new(config).unwrap();
-        let api = GraphqlApi::new(client);
-
-        let call_count = Arc::new(AtomicUsize::new(0));
-        let counter = call_count.clone();
-        let fail = server.mock(|when, then| {
-            when.method(POST)
-                .path("/graphql/")
-                .is_true(move |_: &HttpMockRequest| counter.fetch_add(1, Ordering::SeqCst) == 0);
-            then.status(500).body("internal error");
-        });
-        let succeed = server.mock(|when, then| {
-            when.method(POST).path("/graphql/");
-            then.status(200)
-                .json_body(json!({ "data": { "sites": [] } }));
-        });
-
-        let data = api.query("{ sites { name } }", None).await.unwrap();
-        assert_eq!(data["sites"], json!([]));
-        fail.assert_calls(1);
-        succeed.assert_calls(1);
+            let data = api.query("{ devices { name } }", None).await.unwrap();
+            assert_eq!(data["devices"], json!([]), "status {status}");
+            fail.assert_calls(1);
+            succeed.assert_calls(1);
+        }
     }
 
     #[cfg_attr(miri, ignore)]

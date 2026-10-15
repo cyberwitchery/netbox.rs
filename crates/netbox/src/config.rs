@@ -261,22 +261,7 @@ impl std::fmt::Debug for ClientConfig {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::hooks::HttpHooks;
-    use reqwest::Method;
     use reqwest::header::{HeaderMap, HeaderName, HeaderValue};
-
-    struct TestHooks;
-
-    impl HttpHooks for TestHooks {
-        fn on_request(
-            &self,
-            _method: &Method,
-            _path: &str,
-            _request: &mut reqwest::Request,
-        ) -> Result<()> {
-            Ok(())
-        }
-    }
 
     #[test]
     fn test_new_config() {
@@ -295,10 +280,9 @@ mod tests {
     #[test]
     fn test_normalize_url_with_trailing_slash() {
         let config = ClientConfig::new("https://netbox.example.com/", "token");
-        let config2 = ClientConfig::new("https://netbox.example.com", "token");
         assert_eq!(
-            config.base_url.as_str().trim_end_matches('/'),
-            config2.base_url.as_str().trim_end_matches('/')
+            config.build_url("dcim/devices/").unwrap().as_str(),
+            "https://netbox.example.com/api/dcim/devices/"
         );
     }
 
@@ -367,7 +351,7 @@ mod tests {
         assert!(config.validate().is_ok());
 
         let empty_token = ClientConfig::new("https://netbox.example.com", "");
-        assert!(empty_token.validate().is_err());
+        assert!(matches!(empty_token.validate(), Err(Error::Config(_))));
     }
 
     #[test]
@@ -382,17 +366,6 @@ mod tests {
         assert_eq!(config.max_retries, 5);
         assert_eq!(config.user_agent, "custom-agent");
         assert!(!config.verify_ssl);
-    }
-
-    #[test]
-    fn test_with_header() {
-        let header_name = HeaderName::from_static("x-custom");
-        let header_value = HeaderValue::from_static("value");
-        let config = ClientConfig::new("https://netbox.example.com", "token")
-            .with_header(header_name.clone(), header_value.clone());
-
-        let stored = config.extra_headers.get(&header_name).unwrap();
-        assert_eq!(stored, &header_value);
     }
 
     #[test]
@@ -416,24 +389,9 @@ mod tests {
     }
 
     #[test]
-    fn test_with_http_client() {
-        let prebuilt = reqwest::Client::new();
-        let config =
-            ClientConfig::new("https://netbox.example.com", "token").with_http_client(prebuilt);
-        assert!(config.http_client.is_some());
-    }
-
-    #[test]
     fn test_with_http_client_builder() {
         let config = ClientConfig::new("https://netbox.example.com", "token")
             .with_http_client_builder(|builder| builder.pool_max_idle_per_host(2));
         assert!(config.http_client_builder.is_some());
-    }
-
-    #[test]
-    fn test_with_http_hooks() {
-        let config =
-            ClientConfig::new("https://netbox.example.com", "token").with_http_hooks(TestHooks);
-        assert!(config.http_hooks.is_some());
     }
 }

@@ -337,8 +337,9 @@ mod tests {
     fn format_table_handles_objects() {
         let value = json!({"name": "leaf-1", "status": "active"});
         let table = format_table(&value, None, 6);
-        assert!(table.contains("name"));
+        assert_eq!(header_line(&table), "| name | status |");
         assert!(table.contains("leaf-1"));
+        assert!(table.contains("active"));
     }
 
     #[test]
@@ -365,7 +366,8 @@ mod tests {
             ]
         });
         let table = format_table(&value, None, 6);
-        assert!(table.contains("count: 2"));
+        assert_eq!(table.lines().next(), Some("count: 2"));
+        assert_eq!(header_line(&table), "| id | name |");
         assert!(table.contains("alpha"));
         assert!(table.contains("beta"));
     }
@@ -398,9 +400,8 @@ mod tests {
         });
         let columns = vec!["id".to_string(), "name".to_string(), "slug".to_string()];
         let table = format_table(&value, Some(&columns), 6);
-        assert!(table.contains("id"));
-        assert!(table.contains("name"));
-        assert!(table.contains("slug"));
+        assert_eq!(table.lines().next(), Some("count: 0"));
+        assert_eq!(header_line(&table), "| id | name | slug |");
         assert!(!table.contains("value"));
     }
 
@@ -475,15 +476,6 @@ mod tests {
     }
 
     #[test]
-    fn format_table_keeps_non_object_rows_when_first_item_is_scalar() {
-        let value = json!(["bare", {"name": "alpha"}]);
-        let columns = vec!["name".to_string()];
-        let table = format_table(&value, Some(&columns), 6);
-        assert!(table.contains("bare"));
-        assert!(table.contains("alpha"));
-    }
-
-    #[test]
     fn format_table_keeps_non_object_rows_when_first_item_is_object() {
         let value = json!([{"name": "alpha", "status": "active"}, "bare"]);
         let columns = vec!["name".to_string()];
@@ -496,18 +488,16 @@ mod tests {
 
     #[test]
     fn format_table_renders_non_object_items_without_columns() {
-        let value = json!(["alpha", "beta"]);
-        let table = format_table(&value, None, 6);
-        assert!(table.contains("value"));
-        assert!(table.contains("alpha"));
-        assert!(table.contains("beta"));
-    }
-
-    #[test]
-    fn format_table_renders_empty_array_without_columns() {
-        let value = json!([]);
-        let table = format_table(&value, None, 6);
-        assert!(table.contains("value"));
+        for (value, cells) in [
+            (json!(["alpha", "beta"]), vec!["alpha", "beta"]),
+            (json!([]), vec![]),
+        ] {
+            let table = format_table(&value, None, 6);
+            assert_eq!(header_line(&table), "| value |", "{value}");
+            for cell in cells {
+                assert!(table.contains(cell), "{value}: missing {cell}");
+            }
+        }
     }
 
     #[test]

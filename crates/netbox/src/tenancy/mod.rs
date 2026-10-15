@@ -351,9 +351,10 @@ mod tests {
             tags: None,
         };
         let value = serde_json::to_value(&tenant).unwrap();
-        assert_eq!(value["name"], "acme");
-        assert_eq!(value["slug"], "acme");
-        assert_eq!(value["group"], 1);
+        assert_eq!(
+            value,
+            serde_json::json!({"name": "acme", "slug": "acme", "group": 1})
+        );
 
         let contact = CreateContactRequest {
             groups: Some(vec![1, 2]),
@@ -368,7 +369,9 @@ mod tests {
             tags: None,
         };
         let value = serde_json::to_value(&contact).unwrap();
-        assert_eq!(value["name"], "Alice");
-        assert_eq!(value["groups"], serde_json::json!([1, 2]));
+        assert_eq!(
+            value,
+            serde_json::json!({"groups": [1, 2], "name": "Alice"})
+        );
     }
 }

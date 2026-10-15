@@ -649,7 +649,7 @@ mod tests {
 
         let client = mock_client(&server);
         let result = client.virtualization().render_vm_config(42).await;
-        assert!(result.is_ok());
+        assert_eq!(result.unwrap(), "hostname vm-01");
         mock.assert();
     }
 }

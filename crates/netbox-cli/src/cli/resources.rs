@@ -753,92 +753,76 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn handle_resource_action_list_calls_get() {
-        let client = FakeApiClient::new(json!({"ok": true}));
-        let action = ResourceAction::List {
-            query: vec!["name=leaf-1".to_string()],
-        };
-        handle_resource_action(&client, &output_config(), "dcim/devices/", action)
-            .await
-            .unwrap();
-        let calls = client.calls();
-        assert_eq!(calls.len(), 1);
-        assert_eq!(calls[0].method, Method::GET);
-        assert_eq!(calls[0].path, "dcim/devices/?name=leaf-1");
-        assert!(calls[0].body.is_none());
-    }
-
-    #[tokio::test]
-    async fn handle_resource_action_get_calls_get() {
-        let client = FakeApiClient::new(json!({"ok": true}));
-        let action = ResourceAction::Get { id: 42 };
-        handle_resource_action(&client, &output_config(), "dcim/devices/", action)
-            .await
-            .unwrap();
-        let calls = client.calls();
-        assert_eq!(calls[0].method, Method::GET);
-        assert_eq!(calls[0].path, "dcim/devices/42/");
-    }
-
-    #[tokio::test]
-    async fn handle_resource_action_create_calls_post() {
-        let client = FakeApiClient::new(json!({"ok": true}));
-        let input = JsonInput {
+    async fn handle_resource_action_calls_expected_endpoint() {
+        let input = || JsonInput {
             json: Some(r#"{"name":"leaf-1"}"#.to_string()),
             file: None,
         };
-        let action = ResourceAction::Create { input };
-        handle_resource_action(&client, &output_config(), "dcim/devices/", action)
-            .await
-            .unwrap();
-        let calls = client.calls();
-        assert_eq!(calls[0].method, Method::POST);
-        assert_eq!(calls[0].path, "dcim/devices/");
-        assert_eq!(calls[0].body.as_ref().unwrap()["name"], "leaf-1");
-    }
-
-    #[tokio::test]
-    async fn handle_resource_action_update_calls_put() {
-        let client = FakeApiClient::new(json!({"ok": true}));
-        let input = JsonInput {
-            json: Some(r#"{"name":"leaf-1"}"#.to_string()),
-            file: None,
-        };
-        let action = ResourceAction::Update { id: 7, input };
-        handle_resource_action(&client, &output_config(), "dcim/devices/", action)
-            .await
-            .unwrap();
-        let calls = client.calls();
-        assert_eq!(calls[0].method, Method::PUT);
-        assert_eq!(calls[0].path, "dcim/devices/7/");
-    }
-
-    #[tokio::test]
-    async fn handle_resource_action_patch_calls_patch() {
-        let client = FakeApiClient::new(json!({"ok": true}));
-        let input = JsonInput {
-            json: Some(r#"{"name":"leaf-1"}"#.to_string()),
-            file: None,
-        };
-        let action = ResourceAction::Patch { id: 7, input };
-        handle_resource_action(&client, &output_config(), "dcim/devices/", action)
-            .await
-            .unwrap();
-        let calls = client.calls();
-        assert_eq!(calls[0].method, Method::PATCH);
-        assert_eq!(calls[0].path, "dcim/devices/7/");
-    }
-
-    #[tokio::test]
-    async fn handle_resource_action_delete_calls_delete() {
-        let client = FakeApiClient::new(Value::Null);
-        let action = ResourceAction::Delete { id: 7 };
-        handle_resource_action(&client, &output_config(), "dcim/devices/", action)
-            .await
-            .unwrap();
-        let calls = client.calls();
-        assert_eq!(calls[0].method, Method::DELETE);
-        assert_eq!(calls[0].path, "dcim/devices/7/");
+        let body = Some(json!({"name": "leaf-1"}));
+        // (action, response, method, path, body)
+        let cases = vec![
+            (
+                ResourceAction::List {
+                    query: vec!["name=leaf-1".to_string()],
+                },
+                json!({"ok": true}),
+                Method::GET,
+                "dcim/devices/?name=leaf-1",
+                None,
+            ),
+            (
+                ResourceAction::Get { id: 42 },
+                json!({"ok": true}),
+                Method::GET,
+                "dcim/devices/42/",
+                None,
+            ),
+            (
+                ResourceAction::Create { input: input() },
+                json!({"ok": true}),
+                Method::POST,
+                "dcim/devices/",
+                body.clone(),
+            ),
+            (
+                ResourceAction::Update {
+                    id: 7,
+                    input: input(),
+                },
+                json!({"ok": true}),
+                Method::PUT,
+                "dcim/devices/7/",
+                body.clone(),
+            ),
+            (
+                ResourceAction::Patch {
+                    id: 7,
+                    input: input(),
+                },
+                json!({"ok": true}),
+                Method::PATCH,
+                "dcim/devices/7/",
+                body.clone(),
+            ),
+            (
+                ResourceAction::Delete { id: 7 },
+                Value::Null,
+                Method::DELETE,
+                "dcim/devices/7/",
+                None,
+            ),
+        ];
+        for (action, response, method, path, body) in cases {
+            let client = FakeApiClient::new(response);
+            handle_resource_action(&client, &output_config(), "dcim/devices/", action)
+                .await
+                .unwrap();
+            let calls = client.calls();
+            assert_eq!(calls.len(), 1, "{method} {path}");
+            assert_eq!(calls[0].method, method);
+            assert_eq!(calls[0].path, path);
+            assert_eq!(calls[0].body, body, "{method} {path}");
+        }
     }
 
     #[tokio::test]

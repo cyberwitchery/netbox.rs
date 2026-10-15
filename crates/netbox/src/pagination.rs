@@ -198,31 +198,40 @@ mod tests {
 
     #[test]
     fn test_page_helpers() {
-        let page: Page<String> = Page {
-            count: 100,
-            next: Some("https://example.com/next".to_string()),
-            previous: None,
-            results: vec!["item1".to_string(), "item2".to_string()],
-        };
-
-        assert_eq!(page.len(), 2);
-        assert!(!page.is_empty());
-        assert!(page.has_next());
-        assert!(!page.has_previous());
-        assert!(!page.is_last());
-    }
-
-    #[test]
-    fn test_page_previous_and_last() {
-        let page: Page<String> = Page {
-            count: 10,
-            next: None,
-            previous: Some("https://example.com/prev".to_string()),
-            results: vec!["item1".to_string()],
-        };
-
-        assert!(page.has_previous());
-        assert!(page.is_last());
+        // (next, previous, results) -> (len, is_empty, has_next, has_previous, is_last)
+        for (next, previous, results, expected) in [
+            (
+                Some("https://example.com/next"),
+                None,
+                vec!["item1", "item2"],
+                (2, false, true, false, false),
+            ),
+            (
+                None,
+                Some("https://example.com/prev"),
+                vec!["item1"],
+                (1, false, false, true, true),
+            ),
+            (None, None, vec![], (0, true, false, false, true)),
+        ] {
+            let page: Page<String> = Page {
+                count: 100,
+                next: next.map(str::to_string),
+                previous: previous.map(str::to_string),
+                results: results.into_iter().map(str::to_string).collect(),
+            };
+            assert_eq!(
+                (
+                    page.len(),
+                    page.is_empty(),
+                    page.has_next(),
+                    page.has_previous(),
+                    page.is_last()
+                ),
+                expected,
+                "next {next:?} previous {previous:?}"
+            );
+        }
     }
 
     #[test]
@@ -237,20 +246,6 @@ mod tests {
         let display = format!("{}", page);
         assert!(display.contains("1 results"));
         assert!(display.contains("total: 100"));
-    }
-
-    #[test]
-    fn test_empty_page() {
-        let page: Page<String> = Page {
-            count: 0,
-            next: None,
-            previous: None,
-            results: vec![],
-        };
-
-        assert_eq!(page.len(), 0);
-        assert!(page.is_empty());
-        assert!(page.is_last());
     }
 
     #[cfg_attr(miri, ignore)]

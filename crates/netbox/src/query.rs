@@ -168,55 +168,51 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_empty_query() {
-        let query = QueryBuilder::new();
-        assert!(query.is_empty());
-    }
-
-    #[test]
-    fn test_single_filter() {
-        let query = QueryBuilder::new().filter("site", "dc1");
-        assert!(!query.is_empty());
-        assert_eq!(query.params.get("site").unwrap(), &vec!["dc1"]);
-    }
-
-    #[test]
-    fn test_multiple_values_same_key() {
-        let query = QueryBuilder::new()
-            .filter("site", "dc1")
-            .filter("site", "dc2");
-
-        let sites = query.params.get("site").unwrap();
-        assert_eq!(sites.len(), 2);
-        assert!(sites.contains(&"dc1".to_string()));
-        assert!(sites.contains(&"dc2".to_string()));
-    }
-
-    #[test]
-    fn test_limit_and_offset() {
-        let query = QueryBuilder::new().limit(100).offset(50);
-
-        assert_eq!(query.params.get("limit").unwrap(), &vec!["100"]);
-        assert_eq!(query.params.get("offset").unwrap(), &vec!["50"]);
-    }
-
-    #[test]
-    fn test_order_by() {
-        let query = QueryBuilder::new().order_by("-name");
-        assert_eq!(query.params.get("ordering").unwrap(), &vec!["-name"]);
-    }
-
-    #[test]
-    fn test_search() {
-        let query = QueryBuilder::new().search("test device");
-        assert_eq!(query.params.get("q").unwrap(), &vec!["test device"]);
-    }
-
-    #[test]
-    fn test_multiple_ids() {
-        let query = QueryBuilder::new().ids(vec!["1", "2", "3"]);
-        let ids = query.params.get("id").unwrap();
-        assert_eq!(ids.len(), 3);
+    fn test_builder_params() {
+        type Params<'a> = Vec<(&'a str, Vec<&'a str>)>;
+        // (builder, expected params)
+        let cases: Vec<(QueryBuilder, Params)> = vec![
+            (QueryBuilder::new(), vec![]),
+            (
+                QueryBuilder::new().filter("site", "dc1"),
+                vec![("site", vec!["dc1"])],
+            ),
+            (
+                QueryBuilder::new()
+                    .filter("site", "dc1")
+                    .filter("site", "dc2"),
+                vec![("site", vec!["dc1", "dc2"])],
+            ),
+            (
+                QueryBuilder::new().limit(100).offset(50),
+                vec![("limit", vec!["100"]), ("offset", vec!["50"])],
+            ),
+            (
+                QueryBuilder::new().order_by("-name"),
+                vec![("ordering", vec!["-name"])],
+            ),
+            (
+                QueryBuilder::new().search("test device"),
+                vec![("q", vec!["test device"])],
+            ),
+            (
+                QueryBuilder::new().ids(vec!["1", "2", "3"]),
+                vec![("id", vec!["1", "2", "3"])],
+            ),
+        ];
+        for (query, expected) in cases {
+            let expected: HashMap<String, Vec<String>> = expected
+                .into_iter()
+                .map(|(key, values)| {
+                    (
+                        key.to_string(),
+                        values.into_iter().map(str::to_string).collect(),
+                    )
+                })
+                .collect();
+            assert_eq!(query.is_empty(), expected.is_empty());
+            assert_eq!(query.params, expected);
+        }
     }
 
     #[test]

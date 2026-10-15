@@ -197,32 +197,41 @@ output = "table"
     }
 
     #[test]
-    fn validate_profile_requires_url() {
-        let profile = Profile {
-            token: Some("tok".to_string()),
-            ..Default::default()
-        };
-        let result = validate_profile(&profile);
-        assert!(matches!(result, Err(ConfigError::MissingField(_))));
-    }
-
-    #[test]
-    fn validate_profile_requires_token_source() {
-        let profile = Profile {
-            url: Some("https://example.com".to_string()),
-            ..Default::default()
-        };
-        let result = validate_profile(&profile);
-        assert!(matches!(result, Err(ConfigError::MissingField(_))));
-    }
-
-    #[test]
-    fn validate_profile_accepts_token_env() {
-        let profile = Profile {
-            url: Some("https://example.com".to_string()),
-            token_env: Some("MY_TOKEN".to_string()),
-            ..Default::default()
-        };
-        assert!(validate_profile(&profile).is_ok());
+    fn validate_profile_reports_missing_field() {
+        // (profile, missing field or None when valid)
+        for (profile, expected) in [
+            (
+                Profile {
+                    token: Some("tok".to_string()),
+                    ..Default::default()
+                },
+                Some("url"),
+            ),
+            (
+                Profile {
+                    url: Some("https://example.com".to_string()),
+                    ..Default::default()
+                },
+                Some("token, token_env, or token_command"),
+            ),
+            (
+                Profile {
+                    url: Some("https://example.com".to_string()),
+                    token_env: Some("MY_TOKEN".to_string()),
+                    ..Default::default()
+                },
+                None,
+            ),
+        ] {
+            match (validate_profile(&profile), expected) {
+                (Ok(()), None) => {}
+                (Err(ConfigError::MissingField(field)), Some(expected)) => {
+                    assert_eq!(field, expected);
+                }
+                (result, expected) => {
+                    panic!("expected missing {expected:?}, got {:?}", result.err())
+                }
+            }
+        }
     }
 }

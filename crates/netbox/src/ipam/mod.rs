@@ -488,8 +488,7 @@ mod tests {
             tags: None,
         };
         let value = serde_json::to_value(&ip).unwrap();
-        assert_eq!(value["address"], "10.0.0.1/24");
-        assert_eq!(value["status"], "active");
+        assert_eq!(value, json!({"address": "10.0.0.1/24", "status": "active"}));
 
         let prefix = CreatePrefixRequest {
             prefix: "192.168.0.0/24".to_string(),
@@ -506,8 +505,7 @@ mod tests {
             tags: None,
         };
         let value = serde_json::to_value(&prefix).unwrap();
-        assert_eq!(value["prefix"], "192.168.0.0/24");
-        assert_eq!(value["is_pool"], true);
+        assert_eq!(value, json!({"prefix": "192.168.0.0/24", "is_pool": true}));
     }
 
     #[test]
@@ -523,17 +521,29 @@ mod tests {
             custom_fields: Some(fields.clone()),
             tags: Some(tags.clone()),
         };
-        let value = serde_json::to_value(&prefix).unwrap();
-        assert_eq!(value["custom_fields"]["owner"], "netops");
-        assert_eq!(value["tags"][0]["slug"], "core");
+        let expected = json!({
+            "custom_fields": {"owner": "netops"},
+            "tags": [{"name": "Core", "slug": "core"}]
+        });
+        assert_eq!(serde_json::to_value(&prefix).unwrap(), expected);
 
         let ip = PatchIpAddressFieldsRequest {
             custom_fields: Some(fields),
             tags: Some(tags),
         };
-        let value = serde_json::to_value(&ip).unwrap();
-        assert_eq!(value["custom_fields"]["owner"], "netops");
-        assert_eq!(value["tags"][0]["name"], "Core");
+        assert_eq!(serde_json::to_value(&ip).unwrap(), expected);
+
+        // unset fields are omitted, never sent as null
+        let prefix = PatchPrefixFieldsRequest {
+            custom_fields: None,
+            tags: None,
+        };
+        assert_eq!(serde_json::to_value(&prefix).unwrap(), json!({}));
+        let ip = PatchIpAddressFieldsRequest {
+            custom_fields: None,
+            tags: None,
+        };
+        assert_eq!(serde_json::to_value(&ip).unwrap(), json!({}));
     }
 
     #[cfg_attr(miri, ignore)]
