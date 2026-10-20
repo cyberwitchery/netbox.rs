@@ -141,6 +141,11 @@ pub const GENERIC_FK_FIELDS: &[(&str, &str, GenericFkEncoding)] = &[
     ),
     ("ipam.bulkvlangroup", "scope", GenericFkEncoding::Split),
     (
+        "ipam.createavailableprefix",
+        "scope",
+        GenericFkEncoding::Split,
+    ),
+    (
         "ipam.fhrpgroupassignment",
         "interface",
         GenericFkEncoding::Split,

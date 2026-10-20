@@ -7,6 +7,13 @@ this release captures the current state of the project. no prior published state
 ### ci
 - bump pinned netbox container from v4.7.2 to v4.7.3 (refs #86)
 
+### openapi
+- regenerate bindings from the netbox v4.7.3 schema
+- **breaking:** corrected `__empty` filters now take `Option<bool>`; the `vlan` and `vlan_id` filters on dcim and virtual-machine interfaces are numeric
+- **breaking:** `CreateAvailablePrefixRequest` replaces `PrefixLengthRequest` and adds allocation fields such as status, tenant, description, tags and custom fields; `IpamPrefixesAvailablePrefixesCreateParams` uses `create_available_prefix_request`
+- **breaking:** circuit `assignments` and module bay `installed_module` are read-only and are removed from generated write models; `CoreDataSourcesSyncCreateParams` no longer takes a request body
+- circuit group assignments gain `custom_fields`, and power feeds gain location filters
+
 ## [0.10.1] - 2026-10-14
 
 ### cli
