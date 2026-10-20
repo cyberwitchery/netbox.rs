@@ -486,6 +486,7 @@ src/models/cooling_source_fluid_type.rs
 src/models/cooling_source_request.rs
 src/models/cooling_source_type.rs
 src/models/core_data_sources_create_request.rs
+src/models/create_available_prefix_request.rs
 src/models/create_available_vlan_request.rs
 src/models/custom_field.rs
 src/models/custom_field_choice_set.rs
@@ -1194,7 +1195,6 @@ src/models/power_port_template.rs
 src/models/power_port_template_request.rs
 src/models/power_port_type.rs
 src/models/prefix.rs
-src/models/prefix_length_request.rs
 src/models/prefix_request.rs
 src/models/prefix_status.rs
 src/models/provider.rs
