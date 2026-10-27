@@ -13,14 +13,14 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct WritablePowerFeedRequest {
     #[serde(rename = "power_panel")]
-    pub power_panel: Box<crate::models::BulkPowerFeedRequestPowerPanel>,
+    pub power_panel: i32,
     #[serde(
         rename = "rack",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub rack: Option<Option<Box<crate::models::BulkCoolingFeedRequestRack>>>,
+    pub rack: Option<Option<i32>>,
     #[serde(rename = "name")]
     pub name: String,
     /// * `offline` - Offline * `active` - Active * `planned` - Planned * `failed` - Failed
@@ -53,14 +53,14 @@ pub struct WritablePowerFeedRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tenant: Option<Option<Box<crate::models::AsnRangeRequestTenant>>>,
+    pub tenant: Option<Option<i32>>,
     #[serde(
         rename = "owner",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
@@ -71,12 +71,9 @@ pub struct WritablePowerFeedRequest {
 
 impl WritablePowerFeedRequest {
     /// Base serializer class for models inheriting from PrimaryModel.
-    pub fn new(
-        power_panel: crate::models::BulkPowerFeedRequestPowerPanel,
-        name: String,
-    ) -> WritablePowerFeedRequest {
+    pub fn new(power_panel: i32, name: String) -> WritablePowerFeedRequest {
         WritablePowerFeedRequest {
-            power_panel: Box::new(power_panel),
+            power_panel,
             rack: None,
             name,
             status: None,

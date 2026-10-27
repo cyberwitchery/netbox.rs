@@ -15,7 +15,7 @@ pub struct WritableVirtualDeviceContextRequest {
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "device")]
-    pub device: Box<crate::models::BriefCoolingIntakeRequestDevice>,
+    pub device: i32,
     #[serde(
         rename = "identifier",
         default,
@@ -29,21 +29,21 @@ pub struct WritableVirtualDeviceContextRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tenant: Option<Option<Box<crate::models::AsnRangeRequestTenant>>>,
+    pub tenant: Option<Option<i32>>,
     #[serde(
         rename = "primary_ip4",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub primary_ip4: Option<Option<Box<crate::models::BulkDeviceRequestPrimaryIp4>>>,
+    pub primary_ip4: Option<Option<i32>>,
     #[serde(
         rename = "primary_ip6",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub primary_ip6: Option<Option<Box<crate::models::BulkDeviceRequestPrimaryIp4>>>,
+    pub primary_ip6: Option<Option<i32>>,
     /// * `active` - Active * `planned` - Planned * `offline` - Offline
     #[serde(rename = "status")]
     pub status: Status,
@@ -55,7 +55,7 @@ pub struct WritableVirtualDeviceContextRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
@@ -66,14 +66,10 @@ pub struct WritableVirtualDeviceContextRequest {
 
 impl WritableVirtualDeviceContextRequest {
     /// Base serializer class for models inheriting from PrimaryModel.
-    pub fn new(
-        name: String,
-        device: crate::models::BriefCoolingIntakeRequestDevice,
-        status: Status,
-    ) -> WritableVirtualDeviceContextRequest {
+    pub fn new(name: String, device: i32, status: Status) -> WritableVirtualDeviceContextRequest {
         WritableVirtualDeviceContextRequest {
             name,
-            device: Box::new(device),
+            device,
             identifier: None,
             tenant: None,
             primary_ip4: None,

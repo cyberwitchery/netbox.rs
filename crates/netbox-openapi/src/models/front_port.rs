@@ -37,7 +37,7 @@ pub struct FrontPort {
     #[serde(rename = "type")]
     pub r#type: Box<crate::models::FrontPortType>,
     #[serde(rename = "color", skip_serializing_if = "Option::is_none")]
-    pub color: Option<Box<crate::models::BriefModuleBayTypeColor>>,
+    pub color: Option<String>,
     #[serde(rename = "positions", skip_serializing_if = "Option::is_none")]
     pub positions: Option<i32>,
     #[serde(rename = "rear_ports", skip_serializing_if = "Option::is_none")]

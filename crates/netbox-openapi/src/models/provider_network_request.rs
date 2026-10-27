@@ -13,7 +13,7 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct ProviderNetworkRequest {
     #[serde(rename = "provider")]
-    pub provider: Box<crate::models::BriefCircuitRequestProvider>,
+    pub provider: i32,
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "service_id", skip_serializing_if = "Option::is_none")]
@@ -26,7 +26,7 @@ pub struct ProviderNetworkRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
@@ -37,12 +37,9 @@ pub struct ProviderNetworkRequest {
 
 impl ProviderNetworkRequest {
     /// Base serializer class for models inheriting from PrimaryModel.
-    pub fn new(
-        provider: crate::models::BriefCircuitRequestProvider,
-        name: String,
-    ) -> ProviderNetworkRequest {
+    pub fn new(provider: i32, name: String) -> ProviderNetworkRequest {
         ProviderNetworkRequest {
-            provider: Box::new(provider),
+            provider,
             name,
             service_id: None,
             description: None,

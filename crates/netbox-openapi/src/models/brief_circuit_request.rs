@@ -16,20 +16,17 @@ pub struct BriefCircuitRequest {
     #[serde(rename = "cid")]
     pub cid: String,
     #[serde(rename = "provider")]
-    pub provider: Box<crate::models::BriefCircuitRequestProvider>,
+    pub provider: i32,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
 }
 
 impl BriefCircuitRequest {
     /// Base serializer class for models inheriting from PrimaryModel.
-    pub fn new(
-        cid: String,
-        provider: crate::models::BriefCircuitRequestProvider,
-    ) -> BriefCircuitRequest {
+    pub fn new(cid: String, provider: i32) -> BriefCircuitRequest {
         BriefCircuitRequest {
             cid,
-            provider: Box::new(provider),
+            provider,
             description: None,
         }
     }

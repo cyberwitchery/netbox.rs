@@ -13,7 +13,7 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct BriefInterfaceRequest {
     #[serde(rename = "device")]
-    pub device: Box<crate::models::BriefCoolingIntakeRequestDevice>,
+    pub device: i32,
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
@@ -22,12 +22,9 @@ pub struct BriefInterfaceRequest {
 
 impl BriefInterfaceRequest {
     /// Mixin for Interface and VMInterface serializers that adds a `mac_address` shortcut field for creating/updating the primary MACAddress in a single request. The validated write is centralized on the interface model (BaseInterface.set_primary_mac_address); this mixin is a thin adapter that owns the permission check, the shortcut-vs-primary_mac_address conflict guard, and translating the model's validation errors into API errors.
-    pub fn new(
-        device: crate::models::BriefCoolingIntakeRequestDevice,
-        name: String,
-    ) -> BriefInterfaceRequest {
+    pub fn new(device: i32, name: String) -> BriefInterfaceRequest {
         BriefInterfaceRequest {
-            device: Box::new(device),
+            device,
             name,
             description: None,
         }

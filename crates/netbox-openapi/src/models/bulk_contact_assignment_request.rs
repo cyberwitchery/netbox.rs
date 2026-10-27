@@ -19,14 +19,14 @@ pub struct BulkContactAssignmentRequest {
     #[serde(rename = "object_id")]
     pub object_id: i64,
     #[serde(rename = "contact")]
-    pub contact: Box<crate::models::BulkContactAssignmentRequestContact>,
+    pub contact: i32,
     #[serde(
         rename = "role",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub role: Option<Option<Box<crate::models::BulkContactAssignmentRequestRole>>>,
+    pub role: Option<Option<i32>>,
     /// * `primary` - Primary * `secondary` - Secondary * `tertiary` - Tertiary * `inactive` - Inactive
     #[serde(rename = "priority", skip_serializing_if = "Option::is_none")]
     pub priority: Option<Priority>,
@@ -42,13 +42,13 @@ impl BulkContactAssignmentRequest {
         id: i32,
         object_type: String,
         object_id: i64,
-        contact: crate::models::BulkContactAssignmentRequestContact,
+        contact: i32,
     ) -> BulkContactAssignmentRequest {
         BulkContactAssignmentRequest {
             id,
             object_type,
             object_id,
-            contact: Box::new(contact),
+            contact,
             role: None,
             priority: None,
             tags: None,

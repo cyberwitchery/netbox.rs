@@ -13,7 +13,7 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct PatchedFhrpGroupAssignmentRequest {
     #[serde(rename = "group", skip_serializing_if = "Option::is_none")]
-    pub group: Option<Box<crate::models::BulkFhrpGroupAssignmentRequestGroup>>,
+    pub group: Option<i32>,
     #[serde(rename = "interface_type", skip_serializing_if = "Option::is_none")]
     pub interface_type: Option<String>,
     #[serde(rename = "interface_id", skip_serializing_if = "Option::is_none")]

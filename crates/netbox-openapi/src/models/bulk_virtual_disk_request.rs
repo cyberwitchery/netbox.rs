@@ -15,7 +15,7 @@ pub struct BulkVirtualDiskRequest {
     #[serde(rename = "id")]
     pub id: i32,
     #[serde(rename = "virtual_machine")]
-    pub virtual_machine: Box<crate::models::BulkVmInterfaceRequestVirtualMachine>,
+    pub virtual_machine: i32,
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
@@ -28,7 +28,7 @@ pub struct BulkVirtualDiskRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<crate::models::NestedTagRequest>>,
     #[serde(rename = "custom_fields", skip_serializing_if = "Option::is_none")]
@@ -37,15 +37,10 @@ pub struct BulkVirtualDiskRequest {
 
 impl BulkVirtualDiskRequest {
     /// Adds an `owner` field for models which have a ForeignKey to users.Owner.
-    pub fn new(
-        id: i32,
-        virtual_machine: crate::models::BulkVmInterfaceRequestVirtualMachine,
-        name: String,
-        size: i32,
-    ) -> BulkVirtualDiskRequest {
+    pub fn new(id: i32, virtual_machine: i32, name: String, size: i32) -> BulkVirtualDiskRequest {
         BulkVirtualDiskRequest {
             id,
-            virtual_machine: Box::new(virtual_machine),
+            virtual_machine,
             name,
             description: None,
             size,

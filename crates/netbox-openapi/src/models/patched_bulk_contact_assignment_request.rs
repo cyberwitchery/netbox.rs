@@ -19,14 +19,14 @@ pub struct PatchedBulkContactAssignmentRequest {
     #[serde(rename = "object_id", skip_serializing_if = "Option::is_none")]
     pub object_id: Option<i64>,
     #[serde(rename = "contact", skip_serializing_if = "Option::is_none")]
-    pub contact: Option<Box<crate::models::BulkContactAssignmentRequestContact>>,
+    pub contact: Option<i32>,
     #[serde(
         rename = "role",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub role: Option<Option<Box<crate::models::BulkContactAssignmentRequestRole>>>,
+    pub role: Option<Option<i32>>,
     /// * `primary` - Primary * `secondary` - Secondary * `tertiary` - Tertiary * `inactive` - Inactive
     #[serde(rename = "priority", skip_serializing_if = "Option::is_none")]
     pub priority: Option<Priority>,

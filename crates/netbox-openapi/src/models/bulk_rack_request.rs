@@ -24,28 +24,28 @@ pub struct BulkRackRequest {
     )]
     pub facility_id: Option<Option<String>>,
     #[serde(rename = "site")]
-    pub site: Box<crate::models::BulkCoolingSourceRequestSite>,
+    pub site: i32,
     #[serde(
         rename = "location",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub location: Option<Option<Box<crate::models::BulkCoolingSourceRequestLocation>>>,
+    pub location: Option<Option<i32>>,
     #[serde(
         rename = "group",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub group: Option<Option<Box<crate::models::BulkRackRequestGroup>>>,
+    pub group: Option<Option<i32>>,
     #[serde(
         rename = "tenant",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tenant: Option<Option<Box<crate::models::AsnRangeRequestTenant>>>,
+    pub tenant: Option<Option<i32>>,
     /// * `reserved` - Reserved * `available` - Available * `planned` - Planned * `active` - Active * `deprecated` - Deprecated
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
@@ -55,7 +55,7 @@ pub struct BulkRackRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub role: Option<Option<Box<crate::models::BulkRackRequestRole>>>,
+    pub role: Option<Option<i32>>,
     #[serde(rename = "serial", skip_serializing_if = "Option::is_none")]
     pub serial: Option<String>,
     /// A unique tag used to identify this rack
@@ -72,7 +72,7 @@ pub struct BulkRackRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub rack_type: Option<Option<Box<crate::models::BulkRackRequestRackType>>>,
+    pub rack_type: Option<Option<i32>>,
     /// * `2-post-frame` - 2-post frame * `4-post-frame` - 4-post frame * `4-post-cabinet` - 4-post cabinet * `wall-frame` - Wall-mounted frame * `wall-frame-vertical` - Wall-mounted frame (vertical) * `wall-cabinet` - Wall-mounted cabinet * `wall-cabinet-vertical` - Wall-mounted cabinet (vertical)
     #[serde(
         rename = "form_factor",
@@ -183,7 +183,7 @@ pub struct BulkRackRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
@@ -194,16 +194,12 @@ pub struct BulkRackRequest {
 
 impl BulkRackRequest {
     /// Base serializer class for models inheriting from PrimaryModel.
-    pub fn new(
-        id: i32,
-        name: String,
-        site: crate::models::BulkCoolingSourceRequestSite,
-    ) -> BulkRackRequest {
+    pub fn new(id: i32, name: String, site: i32) -> BulkRackRequest {
         BulkRackRequest {
             id,
             name,
             facility_id: None,
-            site: Box::new(site),
+            site,
             location: None,
             group: None,
             tenant: None,

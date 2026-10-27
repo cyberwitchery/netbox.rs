@@ -13,7 +13,7 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct WritableVmInterfaceRequest {
     #[serde(rename = "virtual_machine")]
-    pub virtual_machine: Box<crate::models::BulkVmInterfaceRequestVirtualMachine>,
+    pub virtual_machine: i32,
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "enabled", skip_serializing_if = "Option::is_none")]
@@ -52,8 +52,7 @@ pub struct WritableVmInterfaceRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub primary_mac_address:
-        Option<Option<Box<crate::models::BulkInterfaceRequestPrimaryMacAddress>>>,
+    pub primary_mac_address: Option<Option<i32>>,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     /// IEEE 802.1Q tagging strategy  * `access` - Access * `tagged` - Tagged * `tagged-all` - Tagged (All) * `q-in-q` - Q-in-Q (802.1ad)
@@ -70,7 +69,7 @@ pub struct WritableVmInterfaceRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub untagged_vlan: Option<Option<Box<crate::models::BulkInterfaceRequestUntaggedVlan>>>,
+    pub untagged_vlan: Option<Option<i32>>,
     #[serde(rename = "tagged_vlans", skip_serializing_if = "Option::is_none")]
     pub tagged_vlans: Option<Vec<i32>>,
     #[serde(
@@ -79,29 +78,28 @@ pub struct WritableVmInterfaceRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub qinq_svlan: Option<Option<Box<crate::models::BulkInterfaceRequestUntaggedVlan>>>,
+    pub qinq_svlan: Option<Option<i32>>,
     #[serde(
         rename = "vlan_translation_policy",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub vlan_translation_policy:
-        Option<Option<Box<crate::models::BulkInterfaceRequestVlanTranslationPolicy>>>,
+    pub vlan_translation_policy: Option<Option<i32>>,
     #[serde(
         rename = "vrf",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub vrf: Option<Option<Box<crate::models::BulkIpAddressRequestVrf>>>,
+    pub vrf: Option<Option<i32>>,
     #[serde(
         rename = "owner",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<crate::models::NestedTagRequest>>,
     #[serde(rename = "custom_fields", skip_serializing_if = "Option::is_none")]
@@ -110,12 +108,9 @@ pub struct WritableVmInterfaceRequest {
 
 impl WritableVmInterfaceRequest {
     /// Mixin for Interface and VMInterface serializers that adds a `mac_address` shortcut field for creating/updating the primary MACAddress in a single request. The validated write is centralized on the interface model (BaseInterface.set_primary_mac_address); this mixin is a thin adapter that owns the permission check, the shortcut-vs-primary_mac_address conflict guard, and translating the model's validation errors into API errors.
-    pub fn new(
-        virtual_machine: crate::models::BulkVmInterfaceRequestVirtualMachine,
-        name: String,
-    ) -> WritableVmInterfaceRequest {
+    pub fn new(virtual_machine: i32, name: String) -> WritableVmInterfaceRequest {
         WritableVmInterfaceRequest {
-            virtual_machine: Box::new(virtual_machine),
+            virtual_machine,
             name,
             enabled: None,
             parent: None,

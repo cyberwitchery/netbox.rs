@@ -15,7 +15,7 @@ pub struct PatchedBulkVirtualDiskRequest {
     #[serde(rename = "id")]
     pub id: i32,
     #[serde(rename = "virtual_machine", skip_serializing_if = "Option::is_none")]
-    pub virtual_machine: Option<Box<crate::models::BulkVmInterfaceRequestVirtualMachine>>,
+    pub virtual_machine: Option<i32>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
@@ -28,7 +28,7 @@ pub struct PatchedBulkVirtualDiskRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<crate::models::NestedTagRequest>>,
     #[serde(rename = "custom_fields", skip_serializing_if = "Option::is_none")]

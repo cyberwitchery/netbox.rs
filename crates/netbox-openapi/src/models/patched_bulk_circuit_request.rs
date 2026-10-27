@@ -18,16 +18,16 @@ pub struct PatchedBulkCircuitRequest {
     #[serde(rename = "cid", skip_serializing_if = "Option::is_none")]
     pub cid: Option<String>,
     #[serde(rename = "provider", skip_serializing_if = "Option::is_none")]
-    pub provider: Option<Box<crate::models::BriefCircuitRequestProvider>>,
+    pub provider: Option<i32>,
     #[serde(
         rename = "provider_account",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub provider_account: Option<Option<Box<crate::models::BulkCircuitRequestProviderAccount>>>,
+    pub provider_account: Option<Option<i32>>,
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
-    pub r#type: Option<Box<crate::models::BulkCircuitRequestType>>,
+    pub r#type: Option<i32>,
     /// * `planned` - Planned * `provisioning` - Provisioning * `active` - Active * `offline` - Offline * `deprovisioning` - Deprovisioning * `decommissioned` - Decommissioned
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
@@ -37,7 +37,7 @@ pub struct PatchedBulkCircuitRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tenant: Option<Option<Box<crate::models::AsnRangeRequestTenant>>>,
+    pub tenant: Option<Option<i32>>,
     #[serde(
         rename = "install_date",
         default,
@@ -83,7 +83,7 @@ pub struct PatchedBulkCircuitRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]

@@ -53,7 +53,7 @@ pub struct Cable {
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
     #[serde(rename = "color", skip_serializing_if = "Option::is_none")]
-    pub color: Option<Box<crate::models::BriefModuleBayTypeColor>>,
+    pub color: Option<String>,
     #[serde(
         rename = "length",
         default,

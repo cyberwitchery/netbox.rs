@@ -15,14 +15,14 @@ pub struct ClusterRequest {
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "type")]
-    pub r#type: Box<crate::models::BulkClusterRequestType>,
+    pub r#type: i32,
     #[serde(
         rename = "group",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub group: Option<Option<Box<crate::models::BulkClusterRequestGroup>>>,
+    pub group: Option<Option<i32>>,
     /// * `planned` - Planned * `staging` - Staging * `active` - Active * `decommissioning` - Decommissioning * `offline` - Offline
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
@@ -32,7 +32,7 @@ pub struct ClusterRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tenant: Option<Option<Box<crate::models::AsnRangeRequestTenant>>>,
+    pub tenant: Option<Option<i32>>,
     #[serde(
         rename = "scope_type",
         default,
@@ -55,7 +55,7 @@ pub struct ClusterRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
@@ -66,10 +66,10 @@ pub struct ClusterRequest {
 
 impl ClusterRequest {
     /// Base serializer class for models inheriting from PrimaryModel.
-    pub fn new(name: String, r#type: crate::models::BulkClusterRequestType) -> ClusterRequest {
+    pub fn new(name: String, r#type: i32) -> ClusterRequest {
         ClusterRequest {
             name,
-            r#type: Box::new(r#type),
+            r#type,
             group: None,
             status: None,
             tenant: None,

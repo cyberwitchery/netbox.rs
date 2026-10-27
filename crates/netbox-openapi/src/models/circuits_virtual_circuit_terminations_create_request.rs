@@ -11,12 +11,12 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CircuitsVirtualCircuitTerminationsCreateRequest {
     #[serde(rename = "virtual_circuit")]
-    pub virtual_circuit: Box<crate::models::BulkVirtualCircuitTerminationRequestVirtualCircuit>,
+    pub virtual_circuit: i32,
     /// * `peer` - Peer * `hub` - Hub * `spoke` - Spoke
     #[serde(rename = "role", skip_serializing_if = "Option::is_none")]
     pub role: Option<Role>,
     #[serde(rename = "interface")]
-    pub interface: Box<crate::models::BulkVirtualCircuitTerminationRequestInterface>,
+    pub interface: i32,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
@@ -27,13 +27,13 @@ pub struct CircuitsVirtualCircuitTerminationsCreateRequest {
 
 impl CircuitsVirtualCircuitTerminationsCreateRequest {
     pub fn new(
-        virtual_circuit: crate::models::BulkVirtualCircuitTerminationRequestVirtualCircuit,
-        interface: crate::models::BulkVirtualCircuitTerminationRequestInterface,
+        virtual_circuit: i32,
+        interface: i32,
     ) -> CircuitsVirtualCircuitTerminationsCreateRequest {
         CircuitsVirtualCircuitTerminationsCreateRequest {
-            virtual_circuit: Box::new(virtual_circuit),
+            virtual_circuit,
             role: None,
-            interface: Box::new(interface),
+            interface,
             description: None,
             tags: None,
             custom_fields: None,

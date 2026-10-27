@@ -17,7 +17,7 @@ pub struct AsnRangeRequest {
     #[serde(rename = "slug")]
     pub slug: String,
     #[serde(rename = "rir")]
-    pub rir: Box<crate::models::AsnRangeRequestRir>,
+    pub rir: i32,
     #[serde(rename = "start")]
     pub start: i64,
     #[serde(rename = "end")]
@@ -28,7 +28,7 @@ pub struct AsnRangeRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tenant: Option<Option<Box<crate::models::AsnRangeRequestTenant>>>,
+    pub tenant: Option<Option<i32>>,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[serde(
@@ -37,7 +37,7 @@ pub struct AsnRangeRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
@@ -48,17 +48,11 @@ pub struct AsnRangeRequest {
 
 impl AsnRangeRequest {
     /// Base serializer class for models inheriting from OrganizationalModel.
-    pub fn new(
-        name: String,
-        slug: String,
-        rir: crate::models::AsnRangeRequestRir,
-        start: i64,
-        end: i64,
-    ) -> AsnRangeRequest {
+    pub fn new(name: String, slug: String, rir: i32, start: i64, end: i64) -> AsnRangeRequest {
         AsnRangeRequest {
             name,
             slug,
-            rir: Box::new(rir),
+            rir,
             start,
             end,
             tenant: None,

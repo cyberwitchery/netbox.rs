@@ -13,7 +13,7 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CircuitTerminationRequest {
     #[serde(rename = "circuit")]
-    pub circuit: Box<crate::models::BulkCircuitTerminationRequestCircuit>,
+    pub circuit: i32,
     /// * `A` - A * `Z` - Z
     #[serde(rename = "term_side")]
     pub term_side: TermSide,
@@ -66,12 +66,9 @@ pub struct CircuitTerminationRequest {
 
 impl CircuitTerminationRequest {
     /// Adds support for custom fields and tags.
-    pub fn new(
-        circuit: crate::models::BulkCircuitTerminationRequestCircuit,
-        term_side: TermSide,
-    ) -> CircuitTerminationRequest {
+    pub fn new(circuit: i32, term_side: TermSide) -> CircuitTerminationRequest {
         CircuitTerminationRequest {
-            circuit: Box::new(circuit),
+            circuit,
             term_side,
             termination_type: None,
             termination_id: None,

@@ -20,14 +20,14 @@ pub struct BulkFrontPortTemplateRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub device_type: Option<Option<Box<crate::models::BulkConsolePortTemplateRequestDeviceType>>>,
+    pub device_type: Option<Option<i32>>,
     #[serde(
         rename = "module_type",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub module_type: Option<Option<Box<crate::models::BulkConsolePortTemplateRequestModuleType>>>,
+    pub module_type: Option<Option<i32>>,
     /// {module} is accepted as a substitution for the module bay position when attached to a module type.
     #[serde(rename = "name")]
     pub name: String,
@@ -38,7 +38,7 @@ pub struct BulkFrontPortTemplateRequest {
     #[serde(rename = "type")]
     pub r#type: RHashType,
     #[serde(rename = "color", skip_serializing_if = "Option::is_none")]
-    pub color: Option<Box<crate::models::BriefModuleBayTypeColor>>,
+    pub color: Option<String>,
     #[serde(rename = "positions", skip_serializing_if = "Option::is_none")]
     pub positions: Option<i32>,
     #[serde(rename = "rear_ports", skip_serializing_if = "Option::is_none")]

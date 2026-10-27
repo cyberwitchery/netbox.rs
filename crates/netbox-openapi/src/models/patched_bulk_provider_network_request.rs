@@ -15,7 +15,7 @@ pub struct PatchedBulkProviderNetworkRequest {
     #[serde(rename = "id")]
     pub id: i32,
     #[serde(rename = "provider", skip_serializing_if = "Option::is_none")]
-    pub provider: Option<Box<crate::models::BriefCircuitRequestProvider>>,
+    pub provider: Option<i32>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(rename = "service_id", skip_serializing_if = "Option::is_none")]
@@ -28,7 +28,7 @@ pub struct PatchedBulkProviderNetworkRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]

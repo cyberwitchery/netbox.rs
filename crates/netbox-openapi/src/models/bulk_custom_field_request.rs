@@ -113,14 +113,14 @@ pub struct BulkCustomFieldRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub choice_set: Option<Option<Box<crate::models::BulkCustomFieldRequestChoiceSet>>>,
+    pub choice_set: Option<Option<i32>>,
     #[serde(
         rename = "owner",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
 }

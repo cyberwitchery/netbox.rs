@@ -11,14 +11,14 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct DcimCoolingFeedsCreateRequest {
     #[serde(rename = "cooling_source")]
-    pub cooling_source: Box<crate::models::BulkCoolingFeedRequestCoolingSource>,
+    pub cooling_source: i32,
     #[serde(
         rename = "rack",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub rack: Option<Option<Box<crate::models::BulkCoolingFeedRequestRack>>>,
+    pub rack: Option<Option<i32>>,
     #[serde(rename = "name")]
     pub name: String,
     /// * `offline` - Offline * `active` - Active * `planned` - Planned * `failed` - Failed
@@ -55,14 +55,14 @@ pub struct DcimCoolingFeedsCreateRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tenant: Option<Option<Box<crate::models::AsnRangeRequestTenant>>>,
+    pub tenant: Option<Option<i32>>,
     #[serde(
         rename = "owner",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
@@ -72,12 +72,9 @@ pub struct DcimCoolingFeedsCreateRequest {
 }
 
 impl DcimCoolingFeedsCreateRequest {
-    pub fn new(
-        cooling_source: crate::models::BulkCoolingFeedRequestCoolingSource,
-        name: String,
-    ) -> DcimCoolingFeedsCreateRequest {
+    pub fn new(cooling_source: i32, name: String) -> DcimCoolingFeedsCreateRequest {
         DcimCoolingFeedsCreateRequest {
-            cooling_source: Box::new(cooling_source),
+            cooling_source,
             rack: None,
             name,
             status: None,

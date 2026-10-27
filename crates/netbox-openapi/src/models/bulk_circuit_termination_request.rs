@@ -15,7 +15,7 @@ pub struct BulkCircuitTerminationRequest {
     #[serde(rename = "id")]
     pub id: i32,
     #[serde(rename = "circuit")]
-    pub circuit: Box<crate::models::BulkCircuitTerminationRequestCircuit>,
+    pub circuit: i32,
     /// * `A` - A * `Z` - Z
     #[serde(rename = "term_side")]
     pub term_side: TermSide,
@@ -68,14 +68,10 @@ pub struct BulkCircuitTerminationRequest {
 
 impl BulkCircuitTerminationRequest {
     /// Adds support for custom fields and tags.
-    pub fn new(
-        id: i32,
-        circuit: crate::models::BulkCircuitTerminationRequestCircuit,
-        term_side: TermSide,
-    ) -> BulkCircuitTerminationRequest {
+    pub fn new(id: i32, circuit: i32, term_side: TermSide) -> BulkCircuitTerminationRequest {
         BulkCircuitTerminationRequest {
             id,
-            circuit: Box::new(circuit),
+            circuit,
             term_side,
             termination_type: None,
             termination_id: None,

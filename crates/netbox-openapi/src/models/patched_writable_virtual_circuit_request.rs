@@ -16,16 +16,16 @@ pub struct PatchedWritableVirtualCircuitRequest {
     #[serde(rename = "cid", skip_serializing_if = "Option::is_none")]
     pub cid: Option<String>,
     #[serde(rename = "provider_network", skip_serializing_if = "Option::is_none")]
-    pub provider_network: Option<Box<crate::models::BriefVirtualCircuitRequestProviderNetwork>>,
+    pub provider_network: Option<i32>,
     #[serde(
         rename = "provider_account",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub provider_account: Option<Option<Box<crate::models::BulkCircuitRequestProviderAccount>>>,
+    pub provider_account: Option<Option<i32>>,
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
-    pub r#type: Option<Box<crate::models::BulkVirtualCircuitRequestType>>,
+    pub r#type: Option<i32>,
     /// * `planned` - Planned * `provisioning` - Provisioning * `active` - Active * `offline` - Offline * `deprovisioning` - Deprovisioning * `decommissioned` - Decommissioned
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
@@ -35,7 +35,7 @@ pub struct PatchedWritableVirtualCircuitRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tenant: Option<Option<Box<crate::models::AsnRangeRequestTenant>>>,
+    pub tenant: Option<Option<i32>>,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[serde(
@@ -44,7 +44,7 @@ pub struct PatchedWritableVirtualCircuitRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]

@@ -19,7 +19,7 @@ pub struct BulkNotificationRequest {
     #[serde(rename = "object_id")]
     pub object_id: i64,
     #[serde(rename = "user")]
-    pub user: Box<crate::models::BookmarkRequestUser>,
+    pub user: i32,
     #[serde(
         rename = "read",
         default,
@@ -38,14 +38,14 @@ impl BulkNotificationRequest {
         id: i32,
         object_type: String,
         object_id: i64,
-        user: crate::models::BookmarkRequestUser,
+        user: i32,
         event_type: EventType,
     ) -> BulkNotificationRequest {
         BulkNotificationRequest {
             id,
             object_type,
             object_id,
-            user: Box::new(user),
+            user,
             read: None,
             event_type,
         }

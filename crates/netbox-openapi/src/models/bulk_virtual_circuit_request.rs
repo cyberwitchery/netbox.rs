@@ -18,16 +18,16 @@ pub struct BulkVirtualCircuitRequest {
     #[serde(rename = "cid")]
     pub cid: String,
     #[serde(rename = "provider_network")]
-    pub provider_network: Box<crate::models::BriefVirtualCircuitRequestProviderNetwork>,
+    pub provider_network: i32,
     #[serde(
         rename = "provider_account",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub provider_account: Option<Option<Box<crate::models::BulkCircuitRequestProviderAccount>>>,
+    pub provider_account: Option<Option<i32>>,
     #[serde(rename = "type")]
-    pub r#type: Box<crate::models::BulkVirtualCircuitRequestType>,
+    pub r#type: i32,
     /// * `planned` - Planned * `provisioning` - Provisioning * `active` - Active * `offline` - Offline * `deprovisioning` - Deprovisioning * `decommissioned` - Decommissioned
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
@@ -37,7 +37,7 @@ pub struct BulkVirtualCircuitRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tenant: Option<Option<Box<crate::models::AsnRangeRequestTenant>>>,
+    pub tenant: Option<Option<i32>>,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[serde(
@@ -46,7 +46,7 @@ pub struct BulkVirtualCircuitRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
@@ -60,15 +60,15 @@ impl BulkVirtualCircuitRequest {
     pub fn new(
         id: i32,
         cid: String,
-        provider_network: crate::models::BriefVirtualCircuitRequestProviderNetwork,
-        r#type: crate::models::BulkVirtualCircuitRequestType,
+        provider_network: i32,
+        r#type: i32,
     ) -> BulkVirtualCircuitRequest {
         BulkVirtualCircuitRequest {
             id,
             cid,
-            provider_network: Box::new(provider_network),
+            provider_network,
             provider_account: None,
-            r#type: Box::new(r#type),
+            r#type,
             status: None,
             tenant: None,
             description: None,

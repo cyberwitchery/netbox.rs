@@ -509,6 +509,24 @@ mod tests {
     }
 
     #[test]
+    fn ip_address_dns_name_round_trips() {
+        for dns_name in ["", "host.example.com"] {
+            let body = json!({"id": 1, "address": "10.0.0.1/24", "dns_name": dns_name});
+            let ip: IpAddress = serde_json::from_value(body.clone())
+                .unwrap_or_else(|err| panic!("dns_name {dns_name:?}: {err}"));
+            assert_eq!(serde_json::to_value(&ip).unwrap()["dns_name"], dns_name);
+        }
+    }
+
+    #[test]
+    fn asn_request_foreign_keys_round_trip() {
+        let body = json!({"asn": 65000, "rir": 1, "tenant": null});
+        let asn: crate::models::AsnRequest =
+            serde_json::from_value(body.clone()).unwrap_or_else(|err| panic!("{err}"));
+        assert_eq!(serde_json::to_value(&asn).unwrap(), body);
+    }
+
+    #[test]
     fn serialize_projection_patch_requests() {
         let mut fields = HashMap::new();
         fields.insert("owner".to_string(), json!("netops"));

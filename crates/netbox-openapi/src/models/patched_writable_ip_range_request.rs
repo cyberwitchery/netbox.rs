@@ -22,14 +22,14 @@ pub struct PatchedWritableIpRangeRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub vrf: Option<Option<Box<crate::models::BulkIpAddressRequestVrf>>>,
+    pub vrf: Option<Option<i32>>,
     #[serde(
         rename = "tenant",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tenant: Option<Option<Box<crate::models::AsnRangeRequestTenant>>>,
+    pub tenant: Option<Option<i32>>,
     /// Operational status of this range  * `active` - Active * `reserved` - Reserved * `deprecated` - Deprecated
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
@@ -39,7 +39,7 @@ pub struct PatchedWritableIpRangeRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub role: Option<Option<Box<crate::models::AsnRequestRole>>>,
+    pub role: Option<Option<i32>>,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[serde(
@@ -48,7 +48,7 @@ pub struct PatchedWritableIpRangeRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]

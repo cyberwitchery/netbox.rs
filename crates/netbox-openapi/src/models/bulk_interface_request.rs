@@ -15,7 +15,7 @@ pub struct BulkInterfaceRequest {
     #[serde(rename = "id")]
     pub id: i32,
     #[serde(rename = "device")]
-    pub device: Box<crate::models::BriefCoolingIntakeRequestDevice>,
+    pub device: i32,
     #[serde(rename = "vdcs", skip_serializing_if = "Option::is_none")]
     pub vdcs: Option<Vec<i32>>,
     #[serde(
@@ -24,7 +24,7 @@ pub struct BulkInterfaceRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub module: Option<Option<Box<crate::models::BulkConsolePortRequestModule>>>,
+    pub module: Option<Option<i32>>,
     #[serde(rename = "name")]
     pub name: String,
     /// Physical label
@@ -92,8 +92,7 @@ pub struct BulkInterfaceRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub primary_mac_address:
-        Option<Option<Box<crate::models::BulkInterfaceRequestPrimaryMacAddress>>>,
+    pub primary_mac_address: Option<Option<i32>>,
     #[serde(
         rename = "speed",
         default,
@@ -165,7 +164,7 @@ pub struct BulkInterfaceRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub untagged_vlan: Option<Option<Box<crate::models::BulkInterfaceRequestUntaggedVlan>>>,
+    pub untagged_vlan: Option<Option<i32>>,
     #[serde(rename = "tagged_vlans", skip_serializing_if = "Option::is_none")]
     pub tagged_vlans: Option<Vec<i32>>,
     #[serde(
@@ -174,15 +173,14 @@ pub struct BulkInterfaceRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub qinq_svlan: Option<Option<Box<crate::models::BulkInterfaceRequestUntaggedVlan>>>,
+    pub qinq_svlan: Option<Option<i32>>,
     #[serde(
         rename = "vlan_translation_policy",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub vlan_translation_policy:
-        Option<Option<Box<crate::models::BulkInterfaceRequestVlanTranslationPolicy>>>,
+    pub vlan_translation_policy: Option<Option<i32>>,
     /// Treat as if a cable is connected
     #[serde(rename = "mark_connected", skip_serializing_if = "Option::is_none")]
     pub mark_connected: Option<bool>,
@@ -194,14 +192,14 @@ pub struct BulkInterfaceRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub vrf: Option<Option<Box<crate::models::BulkIpAddressRequestVrf>>>,
+    pub vrf: Option<Option<i32>>,
     #[serde(
         rename = "owner",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<crate::models::NestedTagRequest>>,
     #[serde(rename = "custom_fields", skip_serializing_if = "Option::is_none")]
@@ -210,15 +208,10 @@ pub struct BulkInterfaceRequest {
 
 impl BulkInterfaceRequest {
     /// Mixin for Interface and VMInterface serializers that adds a `mac_address` shortcut field for creating/updating the primary MACAddress in a single request. The validated write is centralized on the interface model (BaseInterface.set_primary_mac_address); this mixin is a thin adapter that owns the permission check, the shortcut-vs-primary_mac_address conflict guard, and translating the model's validation errors into API errors.
-    pub fn new(
-        id: i32,
-        device: crate::models::BriefCoolingIntakeRequestDevice,
-        name: String,
-        r#type: RHashType,
-    ) -> BulkInterfaceRequest {
+    pub fn new(id: i32, device: i32, name: String, r#type: RHashType) -> BulkInterfaceRequest {
         BulkInterfaceRequest {
             id,
-            device: Box::new(device),
+            device,
             vdcs: None,
             module: None,
             name,

@@ -31,8 +31,9 @@ pub struct BriefIpAddress {
     pub nat_inside: Option<Option<Box<crate::models::NestedIpAddress>>>,
     #[serde(rename = "nat_outside", skip_serializing_if = "Option::is_none")]
     pub nat_outside: Option<Vec<crate::models::NestedIpAddress>>,
+    /// Hostname or FQDN (not case-sensitive)
     #[serde(rename = "dns_name", skip_serializing_if = "Option::is_none")]
-    pub dns_name: Option<Box<crate::models::BriefIpAddressDnsName>>,
+    pub dns_name: Option<String>,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
 }

@@ -15,7 +15,7 @@ pub struct PatchedBulkCircuitTerminationRequest {
     #[serde(rename = "id")]
     pub id: i32,
     #[serde(rename = "circuit", skip_serializing_if = "Option::is_none")]
-    pub circuit: Option<Box<crate::models::BulkCircuitTerminationRequestCircuit>>,
+    pub circuit: Option<i32>,
     /// * `A` - A * `Z` - Z
     #[serde(rename = "term_side", skip_serializing_if = "Option::is_none")]
     pub term_side: Option<TermSide>,

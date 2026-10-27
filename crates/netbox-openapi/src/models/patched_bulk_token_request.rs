@@ -18,7 +18,7 @@ pub struct PatchedBulkTokenRequest {
     #[serde(rename = "version", skip_serializing_if = "Option::is_none")]
     pub version: Option<i32>,
     #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
-    pub user: Option<Box<crate::models::BookmarkRequestUser>>,
+    pub user: Option<i32>,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[serde(

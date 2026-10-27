@@ -22,7 +22,7 @@ pub struct ConfigContextRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub profile: Option<Option<Box<crate::models::BulkConfigContextRequestProfile>>>,
+    pub profile: Option<Option<i32>>,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[serde(rename = "is_active", skip_serializing_if = "Option::is_none")]
@@ -57,11 +57,11 @@ pub struct ConfigContextRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<String>>,
     #[serde(rename = "data_source", skip_serializing_if = "Option::is_none")]
-    pub data_source: Option<Box<crate::models::BulkConfigContextProfileRequestDataSource>>,
+    pub data_source: Option<i32>,
     #[serde(rename = "data", deserialize_with = "Option::deserialize")]
     pub data: Option<serde_json::Value>,
 }

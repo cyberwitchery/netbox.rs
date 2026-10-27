@@ -23,7 +23,7 @@ pub struct TunnelRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub group: Option<Option<Box<crate::models::BulkTunnelRequestGroup>>>,
+    pub group: Option<Option<i32>>,
     /// * `ipsec-transport` - IPsec - Transport * `ipsec-tunnel` - IPsec - Tunnel * `ip-ip` - IP-in-IP * `gre` - GRE * `wireguard` - WireGuard * `openvpn` - OpenVPN * `l2tp` - L2TP * `pptp` - PPTP
     #[serde(rename = "encapsulation")]
     pub encapsulation: Encapsulation,
@@ -33,14 +33,14 @@ pub struct TunnelRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub ipsec_profile: Option<Option<Box<crate::models::BulkTunnelRequestIpsecProfile>>>,
+    pub ipsec_profile: Option<Option<i32>>,
     #[serde(
         rename = "tenant",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tenant: Option<Option<Box<crate::models::AsnRangeRequestTenant>>>,
+    pub tenant: Option<Option<i32>>,
     #[serde(
         rename = "tunnel_id",
         default,
@@ -56,7 +56,7 @@ pub struct TunnelRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]

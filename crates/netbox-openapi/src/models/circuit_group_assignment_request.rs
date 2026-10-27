@@ -13,7 +13,7 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CircuitGroupAssignmentRequest {
     #[serde(rename = "group")]
-    pub group: Box<crate::models::BriefCircuitGroupAssignmentSerializerRequestGroup>,
+    pub group: i32,
     #[serde(rename = "member_type")]
     pub member_type: String,
     #[serde(rename = "member_id")]
@@ -29,13 +29,9 @@ pub struct CircuitGroupAssignmentRequest {
 
 impl CircuitGroupAssignmentRequest {
     /// Base serializer for group assignments under CircuitSerializer.
-    pub fn new(
-        group: crate::models::BriefCircuitGroupAssignmentSerializerRequestGroup,
-        member_type: String,
-        member_id: i64,
-    ) -> CircuitGroupAssignmentRequest {
+    pub fn new(group: i32, member_type: String, member_id: i64) -> CircuitGroupAssignmentRequest {
         CircuitGroupAssignmentRequest {
-            group: Box::new(group),
+            group,
             member_type,
             member_id,
             priority: None,

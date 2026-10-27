@@ -13,7 +13,7 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct DeviceBayTemplateRequest {
     #[serde(rename = "device_type")]
-    pub device_type: Box<crate::models::BulkDeviceBayTemplateRequestDeviceType>,
+    pub device_type: i32,
     /// {module} is accepted as a substitution for the module bay position when attached to a module type.
     #[serde(rename = "name")]
     pub name: String,
@@ -28,12 +28,9 @@ pub struct DeviceBayTemplateRequest {
 
 impl DeviceBayTemplateRequest {
     /// Extends the built-in ModelSerializer to enforce calling full_clean() on a copy of the associated instance during validation. (DRF does not do this by default; see <https://github.com/encode/django-rest-framework/issues/3144>)  Serializers may declare `model_clean_fields` in Meta, naming scalar model fields whose clean()-normalized values must reach the database. DRF builds a fresh instance from the validated data on create, discarding what clean() wrote.
-    pub fn new(
-        device_type: crate::models::BulkDeviceBayTemplateRequestDeviceType,
-        name: String,
-    ) -> DeviceBayTemplateRequest {
+    pub fn new(device_type: i32, name: String) -> DeviceBayTemplateRequest {
         DeviceBayTemplateRequest {
-            device_type: Box::new(device_type),
+            device_type,
             name,
             label: None,
             enabled: None,

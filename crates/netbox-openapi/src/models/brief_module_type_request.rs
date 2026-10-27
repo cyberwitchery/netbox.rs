@@ -18,9 +18,9 @@ pub struct BriefModuleTypeRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub profile: Option<Option<Box<crate::models::BriefModuleTypeRequestProfile>>>,
+    pub profile: Option<Option<i32>>,
     #[serde(rename = "manufacturer")]
-    pub manufacturer: Box<crate::models::BriefDeviceTypeRequestManufacturer>,
+    pub manufacturer: i32,
     #[serde(rename = "model")]
     pub model: String,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
@@ -29,13 +29,10 @@ pub struct BriefModuleTypeRequest {
 
 impl BriefModuleTypeRequest {
     /// Base serializer class for models inheriting from PrimaryModel.
-    pub fn new(
-        manufacturer: crate::models::BriefDeviceTypeRequestManufacturer,
-        model: String,
-    ) -> BriefModuleTypeRequest {
+    pub fn new(manufacturer: i32, model: String) -> BriefModuleTypeRequest {
         BriefModuleTypeRequest {
             profile: None,
-            manufacturer: Box::new(manufacturer),
+            manufacturer,
             model,
             description: None,
         }

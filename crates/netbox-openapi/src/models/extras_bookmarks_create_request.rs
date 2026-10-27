@@ -15,19 +15,15 @@ pub struct ExtrasBookmarksCreateRequest {
     #[serde(rename = "object_id")]
     pub object_id: i64,
     #[serde(rename = "user")]
-    pub user: Box<crate::models::BookmarkRequestUser>,
+    pub user: i32,
 }
 
 impl ExtrasBookmarksCreateRequest {
-    pub fn new(
-        object_type: String,
-        object_id: i64,
-        user: crate::models::BookmarkRequestUser,
-    ) -> ExtrasBookmarksCreateRequest {
+    pub fn new(object_type: String, object_id: i64, user: i32) -> ExtrasBookmarksCreateRequest {
         ExtrasBookmarksCreateRequest {
             object_type,
             object_id,
-            user: Box::new(user),
+            user,
         }
     }
 }

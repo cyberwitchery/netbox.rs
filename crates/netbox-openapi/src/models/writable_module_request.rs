@@ -13,11 +13,11 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct WritableModuleRequest {
     #[serde(rename = "device")]
-    pub device: Box<crate::models::BriefCoolingIntakeRequestDevice>,
+    pub device: i32,
     #[serde(rename = "module_bay")]
     pub module_bay: i32,
     #[serde(rename = "module_type")]
-    pub module_type: Box<crate::models::BulkModuleRequestModuleType>,
+    pub module_type: i32,
     /// * `offline` - Offline * `active` - Active * `planned` - Planned * `staged` - Staged * `failed` - Failed * `decommissioning` - Decommissioning
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
@@ -39,7 +39,7 @@ pub struct WritableModuleRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
@@ -59,15 +59,11 @@ pub struct WritableModuleRequest {
 
 impl WritableModuleRequest {
     /// Base serializer class for models inheriting from PrimaryModel.
-    pub fn new(
-        device: crate::models::BriefCoolingIntakeRequestDevice,
-        module_bay: i32,
-        module_type: crate::models::BulkModuleRequestModuleType,
-    ) -> WritableModuleRequest {
+    pub fn new(device: i32, module_bay: i32, module_type: i32) -> WritableModuleRequest {
         WritableModuleRequest {
-            device: Box::new(device),
+            device,
             module_bay,
-            module_type: Box::new(module_type),
+            module_type,
             status: None,
             serial: None,
             asset_tag: None,

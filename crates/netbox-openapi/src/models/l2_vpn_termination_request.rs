@@ -13,7 +13,7 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct L2VpnTerminationRequest {
     #[serde(rename = "l2vpn")]
-    pub l2vpn: Box<crate::models::BriefL2VpnTerminationRequestL2vpn>,
+    pub l2vpn: i32,
     #[serde(rename = "assigned_object_type")]
     pub assigned_object_type: String,
     #[serde(rename = "assigned_object_id")]
@@ -27,12 +27,12 @@ pub struct L2VpnTerminationRequest {
 impl L2VpnTerminationRequest {
     /// Adds support for custom fields and tags.
     pub fn new(
-        l2vpn: crate::models::BriefL2VpnTerminationRequestL2vpn,
+        l2vpn: i32,
         assigned_object_type: String,
         assigned_object_id: i64,
     ) -> L2VpnTerminationRequest {
         L2VpnTerminationRequest {
-            l2vpn: Box::new(l2vpn),
+            l2vpn,
             assigned_object_type,
             assigned_object_id,
             tags: None,

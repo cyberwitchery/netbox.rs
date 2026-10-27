@@ -13,9 +13,9 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct WritableWirelessLinkRequest {
     #[serde(rename = "interface_a")]
-    pub interface_a: Box<crate::models::BulkVirtualCircuitTerminationRequestInterface>,
+    pub interface_a: i32,
     #[serde(rename = "interface_b")]
-    pub interface_b: Box<crate::models::BulkVirtualCircuitTerminationRequestInterface>,
+    pub interface_b: i32,
     #[serde(rename = "ssid", skip_serializing_if = "Option::is_none")]
     pub ssid: Option<String>,
     /// * `connected` - Connected * `planned` - Planned * `decommissioning` - Decommissioning
@@ -27,7 +27,7 @@ pub struct WritableWirelessLinkRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tenant: Option<Option<Box<crate::models::AsnRangeRequestTenant>>>,
+    pub tenant: Option<Option<i32>>,
     /// * `open` - Open * `wep` - WEP * `wpa-personal` - WPA Personal (PSK) * `wpa-enterprise` - WPA Enterprise
     #[serde(
         rename = "auth_type",
@@ -69,7 +69,7 @@ pub struct WritableWirelessLinkRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
@@ -80,13 +80,10 @@ pub struct WritableWirelessLinkRequest {
 
 impl WritableWirelessLinkRequest {
     /// Base serializer class for models inheriting from PrimaryModel.
-    pub fn new(
-        interface_a: crate::models::BulkVirtualCircuitTerminationRequestInterface,
-        interface_b: crate::models::BulkVirtualCircuitTerminationRequestInterface,
-    ) -> WritableWirelessLinkRequest {
+    pub fn new(interface_a: i32, interface_b: i32) -> WritableWirelessLinkRequest {
         WritableWirelessLinkRequest {
-            interface_a: Box::new(interface_a),
-            interface_b: Box::new(interface_b),
+            interface_a,
+            interface_b,
             ssid: None,
             status: None,
             tenant: None,

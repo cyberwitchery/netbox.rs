@@ -15,13 +15,12 @@ pub struct PatchedBulkVirtualCircuitTerminationRequest {
     #[serde(rename = "id")]
     pub id: i32,
     #[serde(rename = "virtual_circuit", skip_serializing_if = "Option::is_none")]
-    pub virtual_circuit:
-        Option<Box<crate::models::BulkVirtualCircuitTerminationRequestVirtualCircuit>>,
+    pub virtual_circuit: Option<i32>,
     /// * `peer` - Peer * `hub` - Hub * `spoke` - Spoke
     #[serde(rename = "role", skip_serializing_if = "Option::is_none")]
     pub role: Option<Role>,
     #[serde(rename = "interface", skip_serializing_if = "Option::is_none")]
-    pub interface: Option<Box<crate::models::BulkVirtualCircuitTerminationRequestInterface>>,
+    pub interface: Option<i32>,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]

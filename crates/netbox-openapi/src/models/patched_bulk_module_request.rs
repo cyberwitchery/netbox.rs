@@ -15,11 +15,11 @@ pub struct PatchedBulkModuleRequest {
     #[serde(rename = "id")]
     pub id: i32,
     #[serde(rename = "device", skip_serializing_if = "Option::is_none")]
-    pub device: Option<Box<crate::models::BriefCoolingIntakeRequestDevice>>,
+    pub device: Option<i32>,
     #[serde(rename = "module_bay", skip_serializing_if = "Option::is_none")]
     pub module_bay: Option<Box<crate::models::NestedModuleBayRequest>>,
     #[serde(rename = "module_type", skip_serializing_if = "Option::is_none")]
-    pub module_type: Option<Box<crate::models::BulkModuleRequestModuleType>>,
+    pub module_type: Option<i32>,
     /// * `offline` - Offline * `active` - Active * `planned` - Planned * `staged` - Staged * `failed` - Failed * `decommissioning` - Decommissioning
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
@@ -41,7 +41,7 @@ pub struct PatchedBulkModuleRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]

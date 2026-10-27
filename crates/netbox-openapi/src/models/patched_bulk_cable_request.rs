@@ -38,18 +38,18 @@ pub struct PatchedBulkCableRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tenant: Option<Option<Box<crate::models::AsnRangeRequestTenant>>>,
+    pub tenant: Option<Option<i32>>,
     #[serde(
         rename = "bundle",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub bundle: Option<Option<Box<crate::models::BulkCableRequestBundle>>>,
+    pub bundle: Option<Option<i32>>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
     #[serde(rename = "color", skip_serializing_if = "Option::is_none")]
-    pub color: Option<Box<crate::models::BriefModuleBayTypeColor>>,
+    pub color: Option<String>,
     #[serde(
         rename = "length",
         default,
@@ -73,7 +73,7 @@ pub struct PatchedBulkCableRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]

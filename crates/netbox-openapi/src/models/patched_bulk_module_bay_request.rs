@@ -15,14 +15,14 @@ pub struct PatchedBulkModuleBayRequest {
     #[serde(rename = "id")]
     pub id: i32,
     #[serde(rename = "device", skip_serializing_if = "Option::is_none")]
-    pub device: Option<Box<crate::models::BriefCoolingIntakeRequestDevice>>,
+    pub device: Option<i32>,
     #[serde(
         rename = "module",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub module: Option<Option<Box<crate::models::BulkConsolePortRequestModule>>>,
+    pub module: Option<Option<i32>>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     /// Physical label
@@ -43,7 +43,7 @@ pub struct PatchedBulkModuleBayRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<crate::models::NestedTagRequest>>,
     #[serde(rename = "custom_fields", skip_serializing_if = "Option::is_none")]

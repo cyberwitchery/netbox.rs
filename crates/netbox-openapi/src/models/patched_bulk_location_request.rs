@@ -19,7 +19,7 @@ pub struct PatchedBulkLocationRequest {
     #[serde(rename = "slug", skip_serializing_if = "Option::is_none")]
     pub slug: Option<String>,
     #[serde(rename = "site", skip_serializing_if = "Option::is_none")]
-    pub site: Option<Box<crate::models::BulkCoolingSourceRequestSite>>,
+    pub site: Option<i32>,
     #[serde(
         rename = "parent",
         default,
@@ -36,7 +36,7 @@ pub struct PatchedBulkLocationRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tenant: Option<Option<Box<crate::models::AsnRangeRequestTenant>>>,
+    pub tenant: Option<Option<i32>>,
     /// Local facility ID or description
     #[serde(rename = "facility", skip_serializing_if = "Option::is_none")]
     pub facility: Option<String>,
@@ -52,7 +52,7 @@ pub struct PatchedBulkLocationRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
 }

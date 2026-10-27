@@ -15,7 +15,7 @@ pub struct DcimLocationsCreateRequest {
     #[serde(rename = "slug")]
     pub slug: String,
     #[serde(rename = "site")]
-    pub site: Box<crate::models::BulkCoolingSourceRequestSite>,
+    pub site: i32,
     #[serde(
         rename = "parent",
         default,
@@ -32,7 +32,7 @@ pub struct DcimLocationsCreateRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tenant: Option<Option<Box<crate::models::AsnRangeRequestTenant>>>,
+    pub tenant: Option<Option<i32>>,
     /// Local facility ID or description
     #[serde(rename = "facility", skip_serializing_if = "Option::is_none")]
     pub facility: Option<String>,
@@ -48,21 +48,17 @@ pub struct DcimLocationsCreateRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
 }
 
 impl DcimLocationsCreateRequest {
-    pub fn new(
-        name: String,
-        slug: String,
-        site: crate::models::BulkCoolingSourceRequestSite,
-    ) -> DcimLocationsCreateRequest {
+    pub fn new(name: String, slug: String, site: i32) -> DcimLocationsCreateRequest {
         DcimLocationsCreateRequest {
             name,
             slug,
-            site: Box::new(site),
+            site,
             parent: None,
             status: None,
             tenant: None,

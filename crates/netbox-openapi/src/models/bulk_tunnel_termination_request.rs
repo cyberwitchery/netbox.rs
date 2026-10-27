@@ -15,7 +15,7 @@ pub struct BulkTunnelTerminationRequest {
     #[serde(rename = "id")]
     pub id: i32,
     #[serde(rename = "tunnel")]
-    pub tunnel: Box<crate::models::BulkTunnelTerminationRequestTunnel>,
+    pub tunnel: i32,
     /// * `peer` - Peer * `hub` - Hub * `spoke` - Spoke
     #[serde(rename = "role")]
     pub role: Role,
@@ -34,7 +34,7 @@ pub struct BulkTunnelTerminationRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub outside_ip: Option<Option<Box<crate::models::BulkDeviceRequestPrimaryIp4>>>,
+    pub outside_ip: Option<Option<i32>>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<crate::models::NestedTagRequest>>,
     #[serde(rename = "custom_fields", skip_serializing_if = "Option::is_none")]
@@ -45,13 +45,13 @@ impl BulkTunnelTerminationRequest {
     /// Adds support for custom fields and tags.
     pub fn new(
         id: i32,
-        tunnel: crate::models::BulkTunnelTerminationRequestTunnel,
+        tunnel: i32,
         role: Role,
         termination_type: String,
     ) -> BulkTunnelTerminationRequest {
         BulkTunnelTerminationRequest {
             id,
-            tunnel: Box::new(tunnel),
+            tunnel,
             role,
             termination_type,
             termination_id: None,

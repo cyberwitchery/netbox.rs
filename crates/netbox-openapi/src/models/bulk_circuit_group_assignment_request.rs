@@ -15,7 +15,7 @@ pub struct BulkCircuitGroupAssignmentRequest {
     #[serde(rename = "id")]
     pub id: i32,
     #[serde(rename = "group")]
-    pub group: Box<crate::models::BriefCircuitGroupAssignmentSerializerRequestGroup>,
+    pub group: i32,
     #[serde(rename = "member_type")]
     pub member_type: String,
     #[serde(rename = "member_id")]
@@ -33,13 +33,13 @@ impl BulkCircuitGroupAssignmentRequest {
     /// Base serializer for group assignments under CircuitSerializer.
     pub fn new(
         id: i32,
-        group: crate::models::BriefCircuitGroupAssignmentSerializerRequestGroup,
+        group: i32,
         member_type: String,
         member_id: i64,
     ) -> BulkCircuitGroupAssignmentRequest {
         BulkCircuitGroupAssignmentRequest {
             id,
-            group: Box::new(group),
+            group,
             member_type,
             member_id,
             priority: None,

@@ -15,14 +15,14 @@ pub struct BulkCoolingSourceRequest {
     #[serde(rename = "id")]
     pub id: i32,
     #[serde(rename = "site")]
-    pub site: Box<crate::models::BulkCoolingSourceRequestSite>,
+    pub site: i32,
     #[serde(
         rename = "location",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub location: Option<Option<Box<crate::models::BulkCoolingSourceRequestLocation>>>,
+    pub location: Option<Option<i32>>,
     #[serde(rename = "name")]
     pub name: String,
     /// * `chiller` - Chiller * `cooling-tower` - Cooling tower * `dry-cooler` - Dry cooler * `crac` - CRAC * `crah` - CRAH
@@ -55,7 +55,7 @@ pub struct BulkCoolingSourceRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
@@ -66,15 +66,10 @@ pub struct BulkCoolingSourceRequest {
 
 impl BulkCoolingSourceRequest {
     /// Base serializer class for models inheriting from PrimaryModel.
-    pub fn new(
-        id: i32,
-        site: crate::models::BulkCoolingSourceRequestSite,
-        name: String,
-        r#type: RHashType,
-    ) -> BulkCoolingSourceRequest {
+    pub fn new(id: i32, site: i32, name: String, r#type: RHashType) -> BulkCoolingSourceRequest {
         BulkCoolingSourceRequest {
             id,
-            site: Box::new(site),
+            site,
             location: None,
             name,
             r#type,

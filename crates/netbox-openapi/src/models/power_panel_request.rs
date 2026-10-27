@@ -13,14 +13,14 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct PowerPanelRequest {
     #[serde(rename = "site")]
-    pub site: Box<crate::models::BulkCoolingSourceRequestSite>,
+    pub site: i32,
     #[serde(
         rename = "location",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub location: Option<Option<Box<crate::models::BulkCoolingSourceRequestLocation>>>,
+    pub location: Option<Option<i32>>,
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
@@ -31,7 +31,7 @@ pub struct PowerPanelRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
@@ -42,12 +42,9 @@ pub struct PowerPanelRequest {
 
 impl PowerPanelRequest {
     /// Base serializer class for models inheriting from PrimaryModel.
-    pub fn new(
-        site: crate::models::BulkCoolingSourceRequestSite,
-        name: String,
-    ) -> PowerPanelRequest {
+    pub fn new(site: i32, name: String) -> PowerPanelRequest {
         PowerPanelRequest {
-            site: Box::new(site),
+            site,
             location: None,
             name,
             description: None,

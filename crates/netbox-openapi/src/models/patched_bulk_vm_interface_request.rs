@@ -15,7 +15,7 @@ pub struct PatchedBulkVmInterfaceRequest {
     #[serde(rename = "id")]
     pub id: i32,
     #[serde(rename = "virtual_machine", skip_serializing_if = "Option::is_none")]
-    pub virtual_machine: Option<Box<crate::models::BulkVmInterfaceRequestVirtualMachine>>,
+    pub virtual_machine: Option<i32>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(rename = "enabled", skip_serializing_if = "Option::is_none")]
@@ -54,8 +54,7 @@ pub struct PatchedBulkVmInterfaceRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub primary_mac_address:
-        Option<Option<Box<crate::models::BulkInterfaceRequestPrimaryMacAddress>>>,
+    pub primary_mac_address: Option<Option<i32>>,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     /// * `access` - Access * `tagged` - Tagged * `tagged-all` - Tagged (All) * `q-in-q` - Q-in-Q (802.1ad)
@@ -67,7 +66,7 @@ pub struct PatchedBulkVmInterfaceRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub untagged_vlan: Option<Option<Box<crate::models::BulkInterfaceRequestUntaggedVlan>>>,
+    pub untagged_vlan: Option<Option<i32>>,
     #[serde(rename = "tagged_vlans", skip_serializing_if = "Option::is_none")]
     pub tagged_vlans: Option<Vec<i32>>,
     #[serde(
@@ -76,29 +75,28 @@ pub struct PatchedBulkVmInterfaceRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub qinq_svlan: Option<Option<Box<crate::models::BulkInterfaceRequestUntaggedVlan>>>,
+    pub qinq_svlan: Option<Option<i32>>,
     #[serde(
         rename = "vlan_translation_policy",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub vlan_translation_policy:
-        Option<Option<Box<crate::models::BulkInterfaceRequestVlanTranslationPolicy>>>,
+    pub vlan_translation_policy: Option<Option<i32>>,
     #[serde(
         rename = "vrf",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub vrf: Option<Option<Box<crate::models::BulkIpAddressRequestVrf>>>,
+    pub vrf: Option<Option<i32>>,
     #[serde(
         rename = "owner",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<crate::models::NestedTagRequest>>,
     #[serde(rename = "custom_fields", skip_serializing_if = "Option::is_none")]

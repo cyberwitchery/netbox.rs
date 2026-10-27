@@ -15,14 +15,14 @@ pub struct BulkCoolingFeedRequest {
     #[serde(rename = "id")]
     pub id: i32,
     #[serde(rename = "cooling_source")]
-    pub cooling_source: Box<crate::models::BulkCoolingFeedRequestCoolingSource>,
+    pub cooling_source: i32,
     #[serde(
         rename = "rack",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub rack: Option<Option<Box<crate::models::BulkCoolingFeedRequestRack>>>,
+    pub rack: Option<Option<i32>>,
     #[serde(rename = "name")]
     pub name: String,
     /// * `offline` - Offline * `active` - Active * `planned` - Planned * `failed` - Failed
@@ -59,14 +59,14 @@ pub struct BulkCoolingFeedRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tenant: Option<Option<Box<crate::models::AsnRangeRequestTenant>>>,
+    pub tenant: Option<Option<i32>>,
     #[serde(
         rename = "owner",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
@@ -77,14 +77,10 @@ pub struct BulkCoolingFeedRequest {
 
 impl BulkCoolingFeedRequest {
     /// Base serializer class for models inheriting from PrimaryModel.
-    pub fn new(
-        id: i32,
-        cooling_source: crate::models::BulkCoolingFeedRequestCoolingSource,
-        name: String,
-    ) -> BulkCoolingFeedRequest {
+    pub fn new(id: i32, cooling_source: i32, name: String) -> BulkCoolingFeedRequest {
         BulkCoolingFeedRequest {
             id,
-            cooling_source: Box::new(cooling_source),
+            cooling_source,
             rack: None,
             name,
             status: None,

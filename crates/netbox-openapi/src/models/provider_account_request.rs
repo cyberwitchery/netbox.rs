@@ -13,7 +13,7 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct ProviderAccountRequest {
     #[serde(rename = "provider")]
-    pub provider: Box<crate::models::BriefCircuitRequestProvider>,
+    pub provider: i32,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(rename = "account")]
@@ -26,7 +26,7 @@ pub struct ProviderAccountRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
@@ -37,12 +37,9 @@ pub struct ProviderAccountRequest {
 
 impl ProviderAccountRequest {
     /// Base serializer class for models inheriting from PrimaryModel.
-    pub fn new(
-        provider: crate::models::BriefCircuitRequestProvider,
-        account: String,
-    ) -> ProviderAccountRequest {
+    pub fn new(provider: i32, account: String) -> ProviderAccountRequest {
         ProviderAccountRequest {
-            provider: Box::new(provider),
+            provider,
             name: None,
             account,
             description: None,

@@ -13,7 +13,7 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct PatchedWritableCircuitGroupAssignmentRequest {
     #[serde(rename = "group", skip_serializing_if = "Option::is_none")]
-    pub group: Option<Box<crate::models::BriefCircuitGroupAssignmentSerializerRequestGroup>>,
+    pub group: Option<i32>,
     #[serde(rename = "member_type", skip_serializing_if = "Option::is_none")]
     pub member_type: Option<String>,
     #[serde(rename = "member_id", skip_serializing_if = "Option::is_none")]

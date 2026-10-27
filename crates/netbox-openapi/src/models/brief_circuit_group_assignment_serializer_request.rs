@@ -13,7 +13,7 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct BriefCircuitGroupAssignmentSerializerRequest {
     #[serde(rename = "group")]
-    pub group: Box<crate::models::BriefCircuitGroupAssignmentSerializerRequestGroup>,
+    pub group: i32,
     /// * `primary` - Primary * `secondary` - Secondary * `tertiary` - Tertiary * `inactive` - Inactive
     #[serde(rename = "priority", skip_serializing_if = "Option::is_none")]
     pub priority: Option<Priority>,
@@ -21,11 +21,9 @@ pub struct BriefCircuitGroupAssignmentSerializerRequest {
 
 impl BriefCircuitGroupAssignmentSerializerRequest {
     /// Base serializer for group assignments under CircuitSerializer.
-    pub fn new(
-        group: crate::models::BriefCircuitGroupAssignmentSerializerRequestGroup,
-    ) -> BriefCircuitGroupAssignmentSerializerRequest {
+    pub fn new(group: i32) -> BriefCircuitGroupAssignmentSerializerRequest {
         BriefCircuitGroupAssignmentSerializerRequest {
-            group: Box::new(group),
+            group,
             priority: None,
         }
     }

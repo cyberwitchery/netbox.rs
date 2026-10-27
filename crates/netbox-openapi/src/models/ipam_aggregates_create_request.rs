@@ -13,14 +13,14 @@ pub struct IpamAggregatesCreateRequest {
     #[serde(rename = "prefix")]
     pub prefix: String,
     #[serde(rename = "rir")]
-    pub rir: Box<crate::models::AsnRangeRequestRir>,
+    pub rir: i32,
     #[serde(
         rename = "tenant",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tenant: Option<Option<Box<crate::models::AsnRangeRequestTenant>>>,
+    pub tenant: Option<Option<i32>>,
     #[serde(
         rename = "date_added",
         default,
@@ -36,7 +36,7 @@ pub struct IpamAggregatesCreateRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
@@ -46,13 +46,10 @@ pub struct IpamAggregatesCreateRequest {
 }
 
 impl IpamAggregatesCreateRequest {
-    pub fn new(
-        prefix: String,
-        rir: crate::models::AsnRangeRequestRir,
-    ) -> IpamAggregatesCreateRequest {
+    pub fn new(prefix: String, rir: i32) -> IpamAggregatesCreateRequest {
         IpamAggregatesCreateRequest {
             prefix,
-            rir: Box::new(rir),
+            rir,
             tenant: None,
             date_added: None,
             description: None,

@@ -11,7 +11,7 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct IpamFhrpGroupAssignmentsCreateRequest {
     #[serde(rename = "group")]
-    pub group: Box<crate::models::BulkFhrpGroupAssignmentRequestGroup>,
+    pub group: i32,
     #[serde(rename = "interface_type")]
     pub interface_type: String,
     #[serde(rename = "interface_id")]
@@ -22,13 +22,13 @@ pub struct IpamFhrpGroupAssignmentsCreateRequest {
 
 impl IpamFhrpGroupAssignmentsCreateRequest {
     pub fn new(
-        group: crate::models::BulkFhrpGroupAssignmentRequestGroup,
+        group: i32,
         interface_type: String,
         interface_id: i64,
         priority: i32,
     ) -> IpamFhrpGroupAssignmentsCreateRequest {
         IpamFhrpGroupAssignmentsCreateRequest {
-            group: Box::new(group),
+            group,
             interface_type,
             interface_id,
             priority,

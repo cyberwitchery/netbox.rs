@@ -22,7 +22,7 @@ pub struct PatchedUserRequest {
     #[serde(rename = "last_name", skip_serializing_if = "Option::is_none")]
     pub last_name: Option<String>,
     #[serde(rename = "email", skip_serializing_if = "Option::is_none")]
-    pub email: Option<Box<crate::models::EmailAddress>>,
+    pub email: Option<String>,
     /// Designates whether this user should be treated as active. Unselect this instead of deleting accounts.
     #[serde(rename = "is_active", skip_serializing_if = "Option::is_none")]
     pub is_active: Option<bool>,

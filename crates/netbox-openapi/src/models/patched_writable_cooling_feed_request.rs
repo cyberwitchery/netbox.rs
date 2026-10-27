@@ -13,14 +13,14 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct PatchedWritableCoolingFeedRequest {
     #[serde(rename = "cooling_source", skip_serializing_if = "Option::is_none")]
-    pub cooling_source: Option<Box<crate::models::BulkCoolingFeedRequestCoolingSource>>,
+    pub cooling_source: Option<i32>,
     #[serde(
         rename = "rack",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub rack: Option<Option<Box<crate::models::BulkCoolingFeedRequestRack>>>,
+    pub rack: Option<Option<i32>>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     /// * `offline` - Offline * `active` - Active * `planned` - Planned * `failed` - Failed
@@ -57,14 +57,14 @@ pub struct PatchedWritableCoolingFeedRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tenant: Option<Option<Box<crate::models::AsnRangeRequestTenant>>>,
+    pub tenant: Option<Option<i32>>,
     #[serde(
         rename = "owner",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]

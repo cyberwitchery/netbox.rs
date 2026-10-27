@@ -20,14 +20,14 @@ pub struct PatchedBulkCoolingOutflowTemplateRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub device_type: Option<Option<Box<crate::models::BulkConsolePortTemplateRequestDeviceType>>>,
+    pub device_type: Option<Option<i32>>,
     #[serde(
         rename = "module_type",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub module_type: Option<Option<Box<crate::models::BulkConsolePortTemplateRequestModuleType>>>,
+    pub module_type: Option<Option<i32>>,
     /// {module} is accepted as a substitution for the module bay position when attached to a module type.
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -63,8 +63,7 @@ pub struct PatchedBulkCoolingOutflowTemplateRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub cooling_intake:
-        Option<Option<Box<crate::models::BulkCoolingOutflowTemplateRequestCoolingIntake>>>,
+    pub cooling_intake: Option<Option<i32>>,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
 }

@@ -20,23 +20,23 @@ pub struct PatchedWritableDeviceRequest {
     )]
     pub name: Option<Option<String>>,
     #[serde(rename = "device_type", skip_serializing_if = "Option::is_none")]
-    pub device_type: Option<Box<crate::models::BulkDeviceBayTemplateRequestDeviceType>>,
+    pub device_type: Option<i32>,
     #[serde(rename = "role", skip_serializing_if = "Option::is_none")]
-    pub role: Option<Box<crate::models::BulkDeviceRequestRole>>,
+    pub role: Option<i32>,
     #[serde(
         rename = "tenant",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tenant: Option<Option<Box<crate::models::AsnRangeRequestTenant>>>,
+    pub tenant: Option<Option<i32>>,
     #[serde(
         rename = "platform",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub platform: Option<Option<Box<crate::models::BulkDeviceRequestPlatform>>>,
+    pub platform: Option<Option<i32>>,
     /// Chassis serial number, assigned by the manufacturer
     #[serde(rename = "serial", skip_serializing_if = "Option::is_none")]
     pub serial: Option<String>,
@@ -49,21 +49,21 @@ pub struct PatchedWritableDeviceRequest {
     )]
     pub asset_tag: Option<Option<String>>,
     #[serde(rename = "site", skip_serializing_if = "Option::is_none")]
-    pub site: Option<Box<crate::models::BulkCoolingSourceRequestSite>>,
+    pub site: Option<i32>,
     #[serde(
         rename = "location",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub location: Option<Option<Box<crate::models::BulkCoolingSourceRequestLocation>>>,
+    pub location: Option<Option<i32>>,
     #[serde(
         rename = "rack",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub rack: Option<Option<Box<crate::models::BulkCoolingFeedRequestRack>>>,
+    pub rack: Option<Option<i32>>,
     #[serde(
         rename = "position",
         default,
@@ -120,35 +120,35 @@ pub struct PatchedWritableDeviceRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub primary_ip4: Option<Option<Box<crate::models::BulkDeviceRequestPrimaryIp4>>>,
+    pub primary_ip4: Option<Option<i32>>,
     #[serde(
         rename = "primary_ip6",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub primary_ip6: Option<Option<Box<crate::models::BulkDeviceRequestPrimaryIp4>>>,
+    pub primary_ip6: Option<Option<i32>>,
     #[serde(
         rename = "oob_ip",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub oob_ip: Option<Option<Box<crate::models::BulkDeviceRequestPrimaryIp4>>>,
+    pub oob_ip: Option<Option<i32>>,
     #[serde(
         rename = "cluster",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub cluster: Option<Option<Box<crate::models::BulkDeviceRequestCluster>>>,
+    pub cluster: Option<Option<i32>>,
     #[serde(
         rename = "virtual_chassis",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub virtual_chassis: Option<Option<Box<crate::models::BulkDeviceRequestVirtualChassis>>>,
+    pub virtual_chassis: Option<Option<i32>>,
     #[serde(
         rename = "vc_position",
         default,
@@ -172,7 +172,7 @@ pub struct PatchedWritableDeviceRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(
@@ -181,7 +181,7 @@ pub struct PatchedWritableDeviceRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub config_template: Option<Option<Box<crate::models::BulkDeviceRequestConfigTemplate>>>,
+    pub config_template: Option<Option<i32>>,
     /// Local config context data takes precedence over source contexts in the final rendered config context
     #[serde(
         rename = "local_context_data",

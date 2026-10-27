@@ -20,16 +20,16 @@ pub struct WritableIpSecProfileRequest {
     #[serde(rename = "mode")]
     pub mode: Mode,
     #[serde(rename = "ike_policy")]
-    pub ike_policy: Box<crate::models::BulkIpSecProfileRequestIkePolicy>,
+    pub ike_policy: i32,
     #[serde(rename = "ipsec_policy")]
-    pub ipsec_policy: Box<crate::models::BulkIpSecProfileRequestIpsecPolicy>,
+    pub ipsec_policy: i32,
     #[serde(
         rename = "owner",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
@@ -43,15 +43,15 @@ impl WritableIpSecProfileRequest {
     pub fn new(
         name: String,
         mode: Mode,
-        ike_policy: crate::models::BulkIpSecProfileRequestIkePolicy,
-        ipsec_policy: crate::models::BulkIpSecProfileRequestIpsecPolicy,
+        ike_policy: i32,
+        ipsec_policy: i32,
     ) -> WritableIpSecProfileRequest {
         WritableIpSecProfileRequest {
             name,
             description: None,
             mode,
-            ike_policy: Box::new(ike_policy),
-            ipsec_policy: Box::new(ipsec_policy),
+            ike_policy,
+            ipsec_policy,
             owner: None,
             comments: None,
             tags: None,

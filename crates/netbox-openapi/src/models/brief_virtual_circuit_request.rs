@@ -16,20 +16,17 @@ pub struct BriefVirtualCircuitRequest {
     #[serde(rename = "cid")]
     pub cid: String,
     #[serde(rename = "provider_network")]
-    pub provider_network: Box<crate::models::BriefVirtualCircuitRequestProviderNetwork>,
+    pub provider_network: i32,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
 }
 
 impl BriefVirtualCircuitRequest {
     /// Base serializer class for models inheriting from PrimaryModel.
-    pub fn new(
-        cid: String,
-        provider_network: crate::models::BriefVirtualCircuitRequestProviderNetwork,
-    ) -> BriefVirtualCircuitRequest {
+    pub fn new(cid: String, provider_network: i32) -> BriefVirtualCircuitRequest {
         BriefVirtualCircuitRequest {
             cid,
-            provider_network: Box::new(provider_network),
+            provider_network,
             description: None,
         }
     }

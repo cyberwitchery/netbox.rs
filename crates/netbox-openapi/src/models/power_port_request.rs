@@ -13,14 +13,14 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct PowerPortRequest {
     #[serde(rename = "device")]
-    pub device: Box<crate::models::BriefCoolingIntakeRequestDevice>,
+    pub device: i32,
     #[serde(
         rename = "module",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub module: Option<Option<Box<crate::models::BulkConsolePortRequestModule>>>,
+    pub module: Option<Option<i32>>,
     #[serde(rename = "name")]
     pub name: String,
     /// Physical label
@@ -61,7 +61,7 @@ pub struct PowerPortRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<crate::models::NestedTagRequest>>,
     #[serde(rename = "custom_fields", skip_serializing_if = "Option::is_none")]
@@ -70,12 +70,9 @@ pub struct PowerPortRequest {
 
 impl PowerPortRequest {
     /// Adds an `owner` field for models which have a ForeignKey to users.Owner.
-    pub fn new(
-        device: crate::models::BriefCoolingIntakeRequestDevice,
-        name: String,
-    ) -> PowerPortRequest {
+    pub fn new(device: i32, name: String) -> PowerPortRequest {
         PowerPortRequest {
-            device: Box::new(device),
+            device,
             module: None,
             name,
             label: None,

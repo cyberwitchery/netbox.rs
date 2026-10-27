@@ -20,9 +20,9 @@ pub struct BulkModuleTypeRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub profile: Option<Option<Box<crate::models::BriefModuleTypeRequestProfile>>>,
+    pub profile: Option<Option<i32>>,
     #[serde(rename = "manufacturer")]
-    pub manufacturer: Box<crate::models::BriefDeviceTypeRequestManufacturer>,
+    pub manufacturer: i32,
     #[serde(rename = "model")]
     pub model: String,
     /// Discrete part number (optional)
@@ -84,7 +84,7 @@ pub struct BulkModuleTypeRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
@@ -95,15 +95,11 @@ pub struct BulkModuleTypeRequest {
 
 impl BulkModuleTypeRequest {
     /// Base serializer class for models inheriting from PrimaryModel.
-    pub fn new(
-        id: i32,
-        manufacturer: crate::models::BriefDeviceTypeRequestManufacturer,
-        model: String,
-    ) -> BulkModuleTypeRequest {
+    pub fn new(id: i32, manufacturer: i32, model: String) -> BulkModuleTypeRequest {
         BulkModuleTypeRequest {
             id,
             profile: None,
-            manufacturer: Box::new(manufacturer),
+            manufacturer,
             model,
             part_number: None,
             airflow: None,

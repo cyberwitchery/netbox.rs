@@ -22,7 +22,7 @@ pub struct WirelessLanRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub group: Option<Option<Box<crate::models::BulkWirelessLanRequestGroup>>>,
+    pub group: Option<Option<i32>>,
     /// * `active` - Active * `reserved` - Reserved * `disabled` - Disabled * `deprecated` - Deprecated
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
@@ -32,7 +32,7 @@ pub struct WirelessLanRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub vlan: Option<Option<Box<crate::models::BulkInterfaceRequestUntaggedVlan>>>,
+    pub vlan: Option<Option<i32>>,
     #[serde(
         rename = "scope_type",
         default,
@@ -53,7 +53,7 @@ pub struct WirelessLanRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tenant: Option<Option<Box<crate::models::AsnRangeRequestTenant>>>,
+    pub tenant: Option<Option<i32>>,
     /// * `open` - Open * `wep` - WEP * `wpa-personal` - WPA Personal (PSK) * `wpa-enterprise` - WPA Enterprise
     #[serde(rename = "auth_type", skip_serializing_if = "Option::is_none")]
     pub auth_type: Option<AuthType>,
@@ -68,7 +68,7 @@ pub struct WirelessLanRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]

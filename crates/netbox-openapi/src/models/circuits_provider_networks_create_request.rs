@@ -11,7 +11,7 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct CircuitsProviderNetworksCreateRequest {
     #[serde(rename = "provider")]
-    pub provider: Box<crate::models::BriefCircuitRequestProvider>,
+    pub provider: i32,
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "service_id", skip_serializing_if = "Option::is_none")]
@@ -24,7 +24,7 @@ pub struct CircuitsProviderNetworksCreateRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
@@ -34,12 +34,9 @@ pub struct CircuitsProviderNetworksCreateRequest {
 }
 
 impl CircuitsProviderNetworksCreateRequest {
-    pub fn new(
-        provider: crate::models::BriefCircuitRequestProvider,
-        name: String,
-    ) -> CircuitsProviderNetworksCreateRequest {
+    pub fn new(provider: i32, name: String) -> CircuitsProviderNetworksCreateRequest {
         CircuitsProviderNetworksCreateRequest {
-            provider: Box::new(provider),
+            provider,
             name,
             service_id: None,
             description: None,

@@ -11,7 +11,7 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct DcimInterfacesCreateRequest {
     #[serde(rename = "device")]
-    pub device: Box<crate::models::BriefCoolingIntakeRequestDevice>,
+    pub device: i32,
     #[serde(rename = "vdcs", skip_serializing_if = "Option::is_none")]
     pub vdcs: Option<Vec<i32>>,
     #[serde(
@@ -20,7 +20,7 @@ pub struct DcimInterfacesCreateRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub module: Option<Option<Box<crate::models::BulkConsolePortRequestModule>>>,
+    pub module: Option<Option<i32>>,
     #[serde(rename = "name")]
     pub name: String,
     /// Physical label
@@ -88,8 +88,7 @@ pub struct DcimInterfacesCreateRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub primary_mac_address:
-        Option<Option<Box<crate::models::BulkInterfaceRequestPrimaryMacAddress>>>,
+    pub primary_mac_address: Option<Option<i32>>,
     #[serde(
         rename = "speed",
         default,
@@ -186,7 +185,7 @@ pub struct DcimInterfacesCreateRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub untagged_vlan: Option<Option<Box<crate::models::BulkInterfaceRequestUntaggedVlan>>>,
+    pub untagged_vlan: Option<Option<i32>>,
     #[serde(rename = "tagged_vlans", skip_serializing_if = "Option::is_none")]
     pub tagged_vlans: Option<Vec<i32>>,
     #[serde(
@@ -195,15 +194,14 @@ pub struct DcimInterfacesCreateRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub qinq_svlan: Option<Option<Box<crate::models::BulkInterfaceRequestUntaggedVlan>>>,
+    pub qinq_svlan: Option<Option<i32>>,
     #[serde(
         rename = "vlan_translation_policy",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub vlan_translation_policy:
-        Option<Option<Box<crate::models::BulkInterfaceRequestVlanTranslationPolicy>>>,
+    pub vlan_translation_policy: Option<Option<i32>>,
     /// Treat as if a cable is connected
     #[serde(rename = "mark_connected", skip_serializing_if = "Option::is_none")]
     pub mark_connected: Option<bool>,
@@ -215,14 +213,14 @@ pub struct DcimInterfacesCreateRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub vrf: Option<Option<Box<crate::models::BulkIpAddressRequestVrf>>>,
+    pub vrf: Option<Option<i32>>,
     #[serde(
         rename = "owner",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<crate::models::NestedTagRequest>>,
     #[serde(rename = "custom_fields", skip_serializing_if = "Option::is_none")]
@@ -230,13 +228,9 @@ pub struct DcimInterfacesCreateRequest {
 }
 
 impl DcimInterfacesCreateRequest {
-    pub fn new(
-        device: crate::models::BriefCoolingIntakeRequestDevice,
-        name: String,
-        r#type: RHashType,
-    ) -> DcimInterfacesCreateRequest {
+    pub fn new(device: i32, name: String, r#type: RHashType) -> DcimInterfacesCreateRequest {
         DcimInterfacesCreateRequest {
-            device: Box::new(device),
+            device,
             vdcs: None,
             module: None,
             name,

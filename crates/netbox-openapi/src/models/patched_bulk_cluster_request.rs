@@ -17,14 +17,14 @@ pub struct PatchedBulkClusterRequest {
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
-    pub r#type: Option<Box<crate::models::BulkClusterRequestType>>,
+    pub r#type: Option<i32>,
     #[serde(
         rename = "group",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub group: Option<Option<Box<crate::models::BulkClusterRequestGroup>>>,
+    pub group: Option<Option<i32>>,
     /// * `planned` - Planned * `staging` - Staging * `active` - Active * `decommissioning` - Decommissioning * `offline` - Offline
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
@@ -34,7 +34,7 @@ pub struct PatchedBulkClusterRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tenant: Option<Option<Box<crate::models::AsnRangeRequestTenant>>>,
+    pub tenant: Option<Option<i32>>,
     #[serde(
         rename = "scope_type",
         default,
@@ -57,7 +57,7 @@ pub struct PatchedBulkClusterRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]

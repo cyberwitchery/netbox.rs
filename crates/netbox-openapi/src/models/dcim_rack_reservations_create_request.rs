@@ -11,21 +11,21 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct DcimRackReservationsCreateRequest {
     #[serde(rename = "rack")]
-    pub rack: Box<crate::models::BulkRackReservationRequestRack>,
+    pub rack: i32,
     #[serde(rename = "units")]
     pub units: Vec<i32>,
     /// * `pending` - Pending * `active` - Active * `stale` - Stale
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
     #[serde(rename = "user")]
-    pub user: Box<crate::models::BookmarkRequestUser>,
+    pub user: i32,
     #[serde(
         rename = "tenant",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tenant: Option<Option<Box<crate::models::AsnRangeRequestTenant>>>,
+    pub tenant: Option<Option<i32>>,
     #[serde(rename = "description")]
     pub description: String,
     #[serde(
@@ -34,7 +34,7 @@ pub struct DcimRackReservationsCreateRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
@@ -45,16 +45,16 @@ pub struct DcimRackReservationsCreateRequest {
 
 impl DcimRackReservationsCreateRequest {
     pub fn new(
-        rack: crate::models::BulkRackReservationRequestRack,
+        rack: i32,
         units: Vec<i32>,
-        user: crate::models::BookmarkRequestUser,
+        user: i32,
         description: String,
     ) -> DcimRackReservationsCreateRequest {
         DcimRackReservationsCreateRequest {
-            rack: Box::new(rack),
+            rack,
             units,
             status: None,
-            user: Box::new(user),
+            user,
             tenant: None,
             description,
             owner: None,

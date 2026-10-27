@@ -11,7 +11,7 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct DcimInventoryItemTemplatesCreateRequest {
     #[serde(rename = "device_type")]
-    pub device_type: Box<crate::models::BulkDeviceBayTemplateRequestDeviceType>,
+    pub device_type: i32,
     #[serde(
         rename = "parent",
         default,
@@ -31,14 +31,14 @@ pub struct DcimInventoryItemTemplatesCreateRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub role: Option<Option<Box<crate::models::BulkInventoryItemRequestRole>>>,
+    pub role: Option<Option<i32>>,
     #[serde(
         rename = "manufacturer",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub manufacturer: Option<Option<Box<crate::models::BulkInventoryItemRequestManufacturer>>>,
+    pub manufacturer: Option<Option<i32>>,
     /// Manufacturer-assigned part identifier
     #[serde(rename = "part_id", skip_serializing_if = "Option::is_none")]
     pub part_id: Option<String>,
@@ -61,12 +61,9 @@ pub struct DcimInventoryItemTemplatesCreateRequest {
 }
 
 impl DcimInventoryItemTemplatesCreateRequest {
-    pub fn new(
-        device_type: crate::models::BulkDeviceBayTemplateRequestDeviceType,
-        name: String,
-    ) -> DcimInventoryItemTemplatesCreateRequest {
+    pub fn new(device_type: i32, name: String) -> DcimInventoryItemTemplatesCreateRequest {
         DcimInventoryItemTemplatesCreateRequest {
-            device_type: Box::new(device_type),
+            device_type,
             parent: None,
             name,
             label: None,

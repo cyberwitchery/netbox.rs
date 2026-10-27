@@ -13,7 +13,7 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct PatchedL2VpnTerminationRequest {
     #[serde(rename = "l2vpn", skip_serializing_if = "Option::is_none")]
-    pub l2vpn: Option<Box<crate::models::BriefL2VpnTerminationRequestL2vpn>>,
+    pub l2vpn: Option<i32>,
     #[serde(
         rename = "assigned_object_type",
         skip_serializing_if = "Option::is_none"

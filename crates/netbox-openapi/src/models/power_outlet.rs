@@ -44,7 +44,7 @@ pub struct PowerOutlet {
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Box<crate::models::PowerOutletStatus>>,
     #[serde(rename = "color", skip_serializing_if = "Option::is_none")]
-    pub color: Option<Box<crate::models::BriefModuleBayTypeColor>>,
+    pub color: Option<String>,
     #[serde(
         rename = "power_port",
         default,

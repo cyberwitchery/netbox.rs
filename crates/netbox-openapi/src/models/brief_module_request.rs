@@ -13,7 +13,7 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct BriefModuleRequest {
     #[serde(rename = "device")]
-    pub device: Box<crate::models::BriefCoolingIntakeRequestDevice>,
+    pub device: i32,
     #[serde(rename = "module_bay")]
     pub module_bay: Box<crate::models::NestedModuleBayRequest>,
 }
@@ -21,11 +21,11 @@ pub struct BriefModuleRequest {
 impl BriefModuleRequest {
     /// Base serializer class for models inheriting from PrimaryModel.
     pub fn new(
-        device: crate::models::BriefCoolingIntakeRequestDevice,
+        device: i32,
         module_bay: crate::models::NestedModuleBayRequest,
     ) -> BriefModuleRequest {
         BriefModuleRequest {
-            device: Box::new(device),
+            device,
             module_bay: Box::new(module_bay),
         }
     }

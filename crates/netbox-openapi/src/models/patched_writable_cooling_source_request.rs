@@ -13,14 +13,14 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct PatchedWritableCoolingSourceRequest {
     #[serde(rename = "site", skip_serializing_if = "Option::is_none")]
-    pub site: Option<Box<crate::models::BulkCoolingSourceRequestSite>>,
+    pub site: Option<i32>,
     #[serde(
         rename = "location",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub location: Option<Option<Box<crate::models::BulkCoolingSourceRequestLocation>>>,
+    pub location: Option<Option<i32>>,
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
     /// * `chiller` - Chiller * `cooling-tower` - Cooling tower * `dry-cooler` - Dry cooler * `crac` - CRAC * `crah` - CRAH
@@ -53,7 +53,7 @@ pub struct PatchedWritableCoolingSourceRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]

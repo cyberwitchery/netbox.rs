@@ -13,16 +13,12 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct BriefL2VpnTerminationRequest {
     #[serde(rename = "l2vpn")]
-    pub l2vpn: Box<crate::models::BriefL2VpnTerminationRequestL2vpn>,
+    pub l2vpn: i32,
 }
 
 impl BriefL2VpnTerminationRequest {
     /// Adds support for custom fields and tags.
-    pub fn new(
-        l2vpn: crate::models::BriefL2VpnTerminationRequestL2vpn,
-    ) -> BriefL2VpnTerminationRequest {
-        BriefL2VpnTerminationRequest {
-            l2vpn: Box::new(l2vpn),
-        }
+    pub fn new(l2vpn: i32) -> BriefL2VpnTerminationRequest {
+        BriefL2VpnTerminationRequest { l2vpn }
     }
 }

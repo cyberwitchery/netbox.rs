@@ -2,6 +2,12 @@
 
 this release captures the current state of the project. no prior published state exists for comparison.
 
+## Unreleased
+
+### openapi
+- **breaking:** blank-able string fields (`dns_name`, `color`, `email`, `link`) are `Option<String>` again. they were generated as empty structs since the netbox 4.6.8 schema and failed to deserialize any value, e.g. listing ip addresses (fixes #91). `BriefIpAddressDnsName`, `BriefModuleBayTypeColor`, `EmailAddress`, `BulkContactRequestEmail` and `BulkContactRequestLink` are removed
+- **breaking:** foreign keys on write models (`rir`, `tenant`, `owner`, `device`, `site`, ...) take the integer id. they were generated as empty structs that serialized as `{}`, so they could not be set. the 74 per-field wrapper types such as `AsnRequestRir` and `BulkDeviceRequestPlatform` are removed, and constructors with required foreign keys take `i32`
+
 ## [0.11.0] - 2026-10-25
 
 ### ci

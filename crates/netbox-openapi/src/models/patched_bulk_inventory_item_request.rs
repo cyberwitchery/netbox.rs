@@ -15,7 +15,7 @@ pub struct PatchedBulkInventoryItemRequest {
     #[serde(rename = "id")]
     pub id: i32,
     #[serde(rename = "device", skip_serializing_if = "Option::is_none")]
-    pub device: Option<Box<crate::models::BriefCoolingIntakeRequestDevice>>,
+    pub device: Option<i32>,
     #[serde(
         rename = "parent",
         default,
@@ -37,14 +37,14 @@ pub struct PatchedBulkInventoryItemRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub role: Option<Option<Box<crate::models::BulkInventoryItemRequestRole>>>,
+    pub role: Option<Option<i32>>,
     #[serde(
         rename = "manufacturer",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub manufacturer: Option<Option<Box<crate::models::BulkInventoryItemRequestManufacturer>>>,
+    pub manufacturer: Option<Option<i32>>,
     /// Manufacturer-assigned part identifier
     #[serde(rename = "part_id", skip_serializing_if = "Option::is_none")]
     pub part_id: Option<String>,
@@ -83,7 +83,7 @@ pub struct PatchedBulkInventoryItemRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<crate::models::NestedTagRequest>>,
     #[serde(rename = "custom_fields", skip_serializing_if = "Option::is_none")]

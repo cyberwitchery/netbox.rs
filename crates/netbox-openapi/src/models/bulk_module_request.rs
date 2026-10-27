@@ -15,11 +15,11 @@ pub struct BulkModuleRequest {
     #[serde(rename = "id")]
     pub id: i32,
     #[serde(rename = "device")]
-    pub device: Box<crate::models::BriefCoolingIntakeRequestDevice>,
+    pub device: i32,
     #[serde(rename = "module_bay")]
     pub module_bay: Box<crate::models::NestedModuleBayRequest>,
     #[serde(rename = "module_type")]
-    pub module_type: Box<crate::models::BulkModuleRequestModuleType>,
+    pub module_type: i32,
     /// * `offline` - Offline * `active` - Active * `planned` - Planned * `staged` - Staged * `failed` - Failed * `decommissioning` - Decommissioning
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
@@ -41,7 +41,7 @@ pub struct BulkModuleRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
@@ -63,15 +63,15 @@ impl BulkModuleRequest {
     /// Base serializer class for models inheriting from PrimaryModel.
     pub fn new(
         id: i32,
-        device: crate::models::BriefCoolingIntakeRequestDevice,
+        device: i32,
         module_bay: crate::models::NestedModuleBayRequest,
-        module_type: crate::models::BulkModuleRequestModuleType,
+        module_type: i32,
     ) -> BulkModuleRequest {
         BulkModuleRequest {
             id,
-            device: Box::new(device),
+            device,
             module_bay: Box::new(module_bay),
-            module_type: Box::new(module_type),
+            module_type,
             status: None,
             serial: None,
             asset_tag: None,

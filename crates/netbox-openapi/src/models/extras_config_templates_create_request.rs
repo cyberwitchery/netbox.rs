@@ -41,7 +41,7 @@ pub struct ExtrasConfigTemplatesCreateRequest {
     #[serde(rename = "debug", skip_serializing_if = "Option::is_none")]
     pub debug: Option<bool>,
     #[serde(rename = "data_source", skip_serializing_if = "Option::is_none")]
-    pub data_source: Option<Box<crate::models::BulkConfigContextProfileRequestDataSource>>,
+    pub data_source: Option<i32>,
     /// Enable automatic synchronization of data when the data file is updated
     #[serde(rename = "auto_sync_enabled", skip_serializing_if = "Option::is_none")]
     pub auto_sync_enabled: Option<bool>,
@@ -51,7 +51,7 @@ pub struct ExtrasConfigTemplatesCreateRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<crate::models::NestedTagRequest>>,
 }

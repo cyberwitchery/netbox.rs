@@ -13,7 +13,7 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct BriefDeviceTypeRequest {
     #[serde(rename = "manufacturer")]
-    pub manufacturer: Box<crate::models::BriefDeviceTypeRequestManufacturer>,
+    pub manufacturer: i32,
     #[serde(rename = "model")]
     pub model: String,
     #[serde(rename = "slug")]
@@ -24,13 +24,9 @@ pub struct BriefDeviceTypeRequest {
 
 impl BriefDeviceTypeRequest {
     /// Base serializer class for models inheriting from PrimaryModel.
-    pub fn new(
-        manufacturer: crate::models::BriefDeviceTypeRequestManufacturer,
-        model: String,
-        slug: String,
-    ) -> BriefDeviceTypeRequest {
+    pub fn new(manufacturer: i32, model: String, slug: String) -> BriefDeviceTypeRequest {
         BriefDeviceTypeRequest {
-            manufacturer: Box::new(manufacturer),
+            manufacturer,
             model,
             slug,
             description: None,

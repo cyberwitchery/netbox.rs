@@ -19,22 +19,17 @@ pub struct BulkBookmarkRequest {
     #[serde(rename = "object_id")]
     pub object_id: i64,
     #[serde(rename = "user")]
-    pub user: Box<crate::models::BookmarkRequestUser>,
+    pub user: i32,
 }
 
 impl BulkBookmarkRequest {
     /// Extends the built-in ModelSerializer to enforce calling full_clean() on a copy of the associated instance during validation. (DRF does not do this by default; see <https://github.com/encode/django-rest-framework/issues/3144>)  Serializers may declare `model_clean_fields` in Meta, naming scalar model fields whose clean()-normalized values must reach the database. DRF builds a fresh instance from the validated data on create, discarding what clean() wrote.
-    pub fn new(
-        id: i32,
-        object_type: String,
-        object_id: i64,
-        user: crate::models::BookmarkRequestUser,
-    ) -> BulkBookmarkRequest {
+    pub fn new(id: i32, object_type: String, object_id: i64, user: i32) -> BulkBookmarkRequest {
         BulkBookmarkRequest {
             id,
             object_type,
             object_id,
-            user: Box::new(user),
+            user,
         }
     }
 }

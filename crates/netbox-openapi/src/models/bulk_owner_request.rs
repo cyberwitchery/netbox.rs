@@ -17,7 +17,7 @@ pub struct BulkOwnerRequest {
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "group", deserialize_with = "Option::deserialize")]
-    pub group: Option<Box<crate::models::BulkOwnerRequestGroup>>,
+    pub group: Option<i32>,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[serde(rename = "user_groups", skip_serializing_if = "Option::is_none")]
@@ -28,19 +28,11 @@ pub struct BulkOwnerRequest {
 
 impl BulkOwnerRequest {
     /// Extends the built-in ModelSerializer to enforce calling full_clean() on a copy of the associated instance during validation. (DRF does not do this by default; see <https://github.com/encode/django-rest-framework/issues/3144>)  Serializers may declare `model_clean_fields` in Meta, naming scalar model fields whose clean()-normalized values must reach the database. DRF builds a fresh instance from the validated data on create, discarding what clean() wrote.
-    pub fn new(
-        id: i32,
-        name: String,
-        group: Option<crate::models::BulkOwnerRequestGroup>,
-    ) -> BulkOwnerRequest {
+    pub fn new(id: i32, name: String, group: Option<i32>) -> BulkOwnerRequest {
         BulkOwnerRequest {
             id,
             name,
-            group: if let Some(x) = group {
-                Some(Box::new(x))
-            } else {
-                None
-            },
+            group,
             description: None,
             user_groups: None,
             users: None,

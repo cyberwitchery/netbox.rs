@@ -13,7 +13,7 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct WritableInventoryItemRequest {
     #[serde(rename = "device")]
-    pub device: Box<crate::models::BriefCoolingIntakeRequestDevice>,
+    pub device: i32,
     #[serde(
         rename = "parent",
         default,
@@ -35,14 +35,14 @@ pub struct WritableInventoryItemRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub role: Option<Option<Box<crate::models::BulkInventoryItemRequestRole>>>,
+    pub role: Option<Option<i32>>,
     #[serde(
         rename = "manufacturer",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub manufacturer: Option<Option<Box<crate::models::BulkInventoryItemRequestManufacturer>>>,
+    pub manufacturer: Option<Option<i32>>,
     /// Manufacturer-assigned part identifier
     #[serde(rename = "part_id", skip_serializing_if = "Option::is_none")]
     pub part_id: Option<String>,
@@ -81,7 +81,7 @@ pub struct WritableInventoryItemRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<crate::models::NestedTagRequest>>,
     #[serde(rename = "custom_fields", skip_serializing_if = "Option::is_none")]
@@ -90,12 +90,9 @@ pub struct WritableInventoryItemRequest {
 
 impl WritableInventoryItemRequest {
     /// Adds an `owner` field for models which have a ForeignKey to users.Owner.
-    pub fn new(
-        device: crate::models::BriefCoolingIntakeRequestDevice,
-        name: String,
-    ) -> WritableInventoryItemRequest {
+    pub fn new(device: i32, name: String) -> WritableInventoryItemRequest {
         WritableInventoryItemRequest {
-            device: Box::new(device),
+            device,
             parent: None,
             name,
             label: None,

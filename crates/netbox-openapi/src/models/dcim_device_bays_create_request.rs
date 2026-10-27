@@ -11,7 +11,7 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct DcimDeviceBaysCreateRequest {
     #[serde(rename = "device")]
-    pub device: Box<crate::models::BriefCoolingIntakeRequestDevice>,
+    pub device: i32,
     #[serde(rename = "name")]
     pub name: String,
     /// Physical label
@@ -27,14 +27,14 @@ pub struct DcimDeviceBaysCreateRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub installed_device: Option<Option<Box<crate::models::BulkDeviceBayRequestInstalledDevice>>>,
+    pub installed_device: Option<Option<i32>>,
     #[serde(
         rename = "owner",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<crate::models::NestedTagRequest>>,
     #[serde(rename = "custom_fields", skip_serializing_if = "Option::is_none")]
@@ -42,12 +42,9 @@ pub struct DcimDeviceBaysCreateRequest {
 }
 
 impl DcimDeviceBaysCreateRequest {
-    pub fn new(
-        device: crate::models::BriefCoolingIntakeRequestDevice,
-        name: String,
-    ) -> DcimDeviceBaysCreateRequest {
+    pub fn new(device: i32, name: String) -> DcimDeviceBaysCreateRequest {
         DcimDeviceBaysCreateRequest {
-            device: Box::new(device),
+            device,
             name,
             label: None,
             enabled: None,

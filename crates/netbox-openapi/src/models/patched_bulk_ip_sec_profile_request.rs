@@ -22,16 +22,16 @@ pub struct PatchedBulkIpSecProfileRequest {
     #[serde(rename = "mode", skip_serializing_if = "Option::is_none")]
     pub mode: Option<Mode>,
     #[serde(rename = "ike_policy", skip_serializing_if = "Option::is_none")]
-    pub ike_policy: Option<Box<crate::models::BulkIpSecProfileRequestIkePolicy>>,
+    pub ike_policy: Option<i32>,
     #[serde(rename = "ipsec_policy", skip_serializing_if = "Option::is_none")]
-    pub ipsec_policy: Option<Box<crate::models::BulkIpSecProfileRequestIpsecPolicy>>,
+    pub ipsec_policy: Option<i32>,
     #[serde(
         rename = "owner",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]

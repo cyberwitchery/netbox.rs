@@ -20,15 +20,14 @@ pub struct VirtualMachineRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub virtual_machine_type:
-        Option<Option<Box<crate::models::BulkVirtualMachineRequestVirtualMachineType>>>,
+    pub virtual_machine_type: Option<Option<i32>>,
     #[serde(
         rename = "role",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub role: Option<Option<Box<crate::models::BulkVirtualMachineRequestRole>>>,
+    pub role: Option<Option<i32>>,
     /// * `offline` - Offline * `active` - Active * `planned` - Planned * `staged` - Staged * `failed` - Failed * `decommissioning` - Decommissioning * `paused` - Paused
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
     pub status: Option<Status>,
@@ -41,42 +40,42 @@ pub struct VirtualMachineRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub site: Option<Option<Box<crate::models::BulkVlanRequestSite>>>,
+    pub site: Option<Option<i32>>,
     #[serde(
         rename = "cluster",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub cluster: Option<Option<Box<crate::models::BulkDeviceRequestCluster>>>,
+    pub cluster: Option<Option<i32>>,
     #[serde(
         rename = "device",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub device: Option<Option<Box<crate::models::BulkDeviceBayRequestInstalledDevice>>>,
+    pub device: Option<Option<i32>>,
     #[serde(
         rename = "platform",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub platform: Option<Option<Box<crate::models::BulkDeviceRequestPlatform>>>,
+    pub platform: Option<Option<i32>>,
     #[serde(
         rename = "primary_ip4",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub primary_ip4: Option<Option<Box<crate::models::BulkDeviceRequestPrimaryIp4>>>,
+    pub primary_ip4: Option<Option<i32>>,
     #[serde(
         rename = "primary_ip6",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub primary_ip6: Option<Option<Box<crate::models::BulkDeviceRequestPrimaryIp4>>>,
+    pub primary_ip6: Option<Option<i32>>,
     #[serde(
         rename = "vcpus",
         default,
@@ -108,14 +107,14 @@ pub struct VirtualMachineRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tenant: Option<Option<Box<crate::models::AsnRangeRequestTenant>>>,
+    pub tenant: Option<Option<i32>>,
     #[serde(
         rename = "owner",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
@@ -134,7 +133,7 @@ pub struct VirtualMachineRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub config_template: Option<Option<Box<crate::models::BulkDeviceRequestConfigTemplate>>>,
+    pub config_template: Option<Option<i32>>,
     #[serde(rename = "custom_fields", skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<::std::collections::HashMap<String, serde_json::Value>>,
 }

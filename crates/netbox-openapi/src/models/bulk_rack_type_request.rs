@@ -15,7 +15,7 @@ pub struct BulkRackTypeRequest {
     #[serde(rename = "id")]
     pub id: i32,
     #[serde(rename = "manufacturer")]
-    pub manufacturer: Box<crate::models::BriefDeviceTypeRequestManufacturer>,
+    pub manufacturer: i32,
     #[serde(rename = "model")]
     pub model: String,
     #[serde(rename = "slug")]
@@ -122,7 +122,7 @@ pub struct BulkRackTypeRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
@@ -135,14 +135,14 @@ impl BulkRackTypeRequest {
     /// Base serializer class for models inheriting from PrimaryModel.
     pub fn new(
         id: i32,
-        manufacturer: crate::models::BriefDeviceTypeRequestManufacturer,
+        manufacturer: i32,
         model: String,
         slug: String,
         form_factor: FormFactor,
     ) -> BulkRackTypeRequest {
         BulkRackTypeRequest {
             id,
-            manufacturer: Box::new(manufacturer),
+            manufacturer,
             model,
             slug,
             description: None,

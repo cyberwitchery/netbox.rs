@@ -17,7 +17,7 @@ pub struct PatchedNotificationRequest {
     #[serde(rename = "object_id", skip_serializing_if = "Option::is_none")]
     pub object_id: Option<i64>,
     #[serde(rename = "user", skip_serializing_if = "Option::is_none")]
-    pub user: Option<Box<crate::models::BookmarkRequestUser>>,
+    pub user: Option<i32>,
     #[serde(
         rename = "read",
         default,

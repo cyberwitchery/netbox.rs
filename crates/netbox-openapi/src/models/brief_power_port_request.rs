@@ -13,7 +13,7 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct BriefPowerPortRequest {
     #[serde(rename = "device")]
-    pub device: Box<crate::models::BriefCoolingIntakeRequestDevice>,
+    pub device: i32,
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
@@ -22,12 +22,9 @@ pub struct BriefPowerPortRequest {
 
 impl BriefPowerPortRequest {
     /// Adds an `owner` field for models which have a ForeignKey to users.Owner.
-    pub fn new(
-        device: crate::models::BriefCoolingIntakeRequestDevice,
-        name: String,
-    ) -> BriefPowerPortRequest {
+    pub fn new(device: i32, name: String) -> BriefPowerPortRequest {
         BriefPowerPortRequest {
-            device: Box::new(device),
+            device,
             name,
             description: None,
         }

@@ -15,7 +15,7 @@ pub struct BulkInventoryItemTemplateRequest {
     #[serde(rename = "id")]
     pub id: i32,
     #[serde(rename = "device_type")]
-    pub device_type: Box<crate::models::BulkDeviceBayTemplateRequestDeviceType>,
+    pub device_type: i32,
     #[serde(
         rename = "parent",
         default,
@@ -35,14 +35,14 @@ pub struct BulkInventoryItemTemplateRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub role: Option<Option<Box<crate::models::BulkInventoryItemRequestRole>>>,
+    pub role: Option<Option<i32>>,
     #[serde(
         rename = "manufacturer",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub manufacturer: Option<Option<Box<crate::models::BulkInventoryItemRequestManufacturer>>>,
+    pub manufacturer: Option<Option<i32>>,
     /// Manufacturer-assigned part identifier
     #[serde(rename = "part_id", skip_serializing_if = "Option::is_none")]
     pub part_id: Option<String>,
@@ -66,14 +66,10 @@ pub struct BulkInventoryItemTemplateRequest {
 
 impl BulkInventoryItemTemplateRequest {
     /// Extends the built-in ModelSerializer to enforce calling full_clean() on a copy of the associated instance during validation. (DRF does not do this by default; see <https://github.com/encode/django-rest-framework/issues/3144>)  Serializers may declare `model_clean_fields` in Meta, naming scalar model fields whose clean()-normalized values must reach the database. DRF builds a fresh instance from the validated data on create, discarding what clean() wrote.
-    pub fn new(
-        id: i32,
-        device_type: crate::models::BulkDeviceBayTemplateRequestDeviceType,
-        name: String,
-    ) -> BulkInventoryItemTemplateRequest {
+    pub fn new(id: i32, device_type: i32, name: String) -> BulkInventoryItemTemplateRequest {
         BulkInventoryItemTemplateRequest {
             id,
-            device_type: Box::new(device_type),
+            device_type,
             parent: None,
             name,
             label: None,

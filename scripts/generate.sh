@@ -27,74 +27,8 @@ fi
 
 echo "Generating Rust bindings from ${SCHEMA_FILE}..."
 
-echo "Normalizing schema (replace invalid enum values)..."
-python3 - <<'PY' "$SCHEMA_FILE" "$NORMALIZED_SCHEMA_FILE"
-import json
-import re
-import sys
-
-src, dst = sys.argv[1], sys.argv[2]
-
-with open(src, "r", encoding="utf-8") as handle:
-    data = json.load(handle)
-
-anchor_re = re.compile(r'<a href="(https?://[^"]+)"[^>]*>([^<]+)</a>')
-url_re = re.compile(r'(?<!<)(https?://[^\s<>()]+)(?P<punct>[)\].,;:]?)')
-
-def sanitize_doc_text(text: str) -> str:
-    text = anchor_re.sub(r'\2 (<\1>)', text)
-
-    def wrap_url(match: re.Match) -> str:
-        url = match.group(1)
-        punct = match.group("punct") or ""
-        return f"<{url}>{punct}"
-
-    return url_re.sub(wrap_url, text)
-
-def drop_readonly_required(obj: dict) -> None:
-    required = obj.get("required")
-    props = obj.get("properties")
-    if not isinstance(required, list) or not isinstance(props, dict):
-        return
-    filtered = []
-    for name in required:
-        prop = props.get(name)
-        if isinstance(prop, dict) and prop.get("readOnly") is True:
-            continue
-        filtered.append(name)
-    obj["required"] = filtered
-
-def drop_integer_enums(obj: dict) -> None:
-    if obj.get("type") != "integer":
-        return
-    enum = obj.get("enum")
-    if not isinstance(enum, list):
-        return
-    if not enum or not all(isinstance(item, int) for item in enum):
-        return
-    obj.pop("enum", None)
-    obj.pop("x-spec-enum-id", None)
-
-def normalize(obj):
-    if isinstance(obj, dict):
-        drop_readonly_required(obj)
-        drop_integer_enums(obj)
-        for key, value in obj.items():
-            if key == "enum" and isinstance(value, list):
-                obj[key] = ["none" if item == "---------" else item for item in value]
-            elif key in {"description", "summary", "title"} and isinstance(value, str):
-                obj[key] = sanitize_doc_text(value)
-            else:
-                normalize(value)
-    elif isinstance(obj, list):
-        for item in obj:
-            normalize(item)
-
-normalize(data)
-
-with open(dst, "w", encoding="utf-8") as handle:
-    json.dump(data, handle, ensure_ascii=True)
-PY
+echo "Normalizing schema..."
+python3 scripts/normalize_schema.py "$SCHEMA_FILE" "$NORMALIZED_SCHEMA_FILE"
 
 SCHEMA_FILE="${NORMALIZED_SCHEMA_FILE}"
 

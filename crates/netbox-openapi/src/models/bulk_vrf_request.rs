@@ -30,7 +30,7 @@ pub struct BulkVrfRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tenant: Option<Option<Box<crate::models::AsnRangeRequestTenant>>>,
+    pub tenant: Option<Option<i32>>,
     /// Prevent duplicate prefixes/IP addresses within this VRF
     #[serde(rename = "enforce_unique", skip_serializing_if = "Option::is_none")]
     pub enforce_unique: Option<bool>,
@@ -42,7 +42,7 @@ pub struct BulkVrfRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "import_targets", skip_serializing_if = "Option::is_none")]

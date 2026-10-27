@@ -17,14 +17,14 @@ pub struct BulkAggregateRequest {
     #[serde(rename = "prefix")]
     pub prefix: String,
     #[serde(rename = "rir")]
-    pub rir: Box<crate::models::AsnRangeRequestRir>,
+    pub rir: i32,
     #[serde(
         rename = "tenant",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub tenant: Option<Option<Box<crate::models::AsnRangeRequestTenant>>>,
+    pub tenant: Option<Option<i32>>,
     #[serde(
         rename = "date_added",
         default,
@@ -40,7 +40,7 @@ pub struct BulkAggregateRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
@@ -51,15 +51,11 @@ pub struct BulkAggregateRequest {
 
 impl BulkAggregateRequest {
     /// Base serializer class for models inheriting from PrimaryModel.
-    pub fn new(
-        id: i32,
-        prefix: String,
-        rir: crate::models::AsnRangeRequestRir,
-    ) -> BulkAggregateRequest {
+    pub fn new(id: i32, prefix: String, rir: i32) -> BulkAggregateRequest {
         BulkAggregateRequest {
             id,
             prefix,
-            rir: Box::new(rir),
+            rir,
             tenant: None,
             date_added: None,
             description: None,

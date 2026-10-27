@@ -21,8 +21,9 @@ pub struct BriefIpAddressRequest {
         skip_serializing_if = "Option::is_none"
     )]
     pub nat_inside: Option<Option<Box<crate::models::NestedIpAddressRequest>>>,
+    /// Hostname or FQDN (not case-sensitive)
     #[serde(rename = "dns_name", skip_serializing_if = "Option::is_none")]
-    pub dns_name: Option<Box<crate::models::BriefIpAddressDnsName>>,
+    pub dns_name: Option<String>,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
 }

@@ -11,7 +11,7 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct DcimDeviceBayTemplatesCreateRequest {
     #[serde(rename = "device_type")]
-    pub device_type: Box<crate::models::BulkDeviceBayTemplateRequestDeviceType>,
+    pub device_type: i32,
     /// {module} is accepted as a substitution for the module bay position when attached to a module type.
     #[serde(rename = "name")]
     pub name: String,
@@ -25,12 +25,9 @@ pub struct DcimDeviceBayTemplatesCreateRequest {
 }
 
 impl DcimDeviceBayTemplatesCreateRequest {
-    pub fn new(
-        device_type: crate::models::BulkDeviceBayTemplateRequestDeviceType,
-        name: String,
-    ) -> DcimDeviceBayTemplatesCreateRequest {
+    pub fn new(device_type: i32, name: String) -> DcimDeviceBayTemplatesCreateRequest {
         DcimDeviceBayTemplatesCreateRequest {
-            device_type: Box::new(device_type),
+            device_type,
             name,
             label: None,
             enabled: None,

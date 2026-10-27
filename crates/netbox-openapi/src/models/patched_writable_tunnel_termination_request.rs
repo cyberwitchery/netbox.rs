@@ -13,7 +13,7 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct PatchedWritableTunnelTerminationRequest {
     #[serde(rename = "tunnel", skip_serializing_if = "Option::is_none")]
-    pub tunnel: Option<Box<crate::models::BulkTunnelTerminationRequestTunnel>>,
+    pub tunnel: Option<i32>,
     /// * `peer` - Peer * `hub` - Hub * `spoke` - Spoke
     #[serde(rename = "role", skip_serializing_if = "Option::is_none")]
     pub role: Option<Role>,
@@ -32,7 +32,7 @@ pub struct PatchedWritableTunnelTerminationRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub outside_ip: Option<Option<Box<crate::models::BulkDeviceRequestPrimaryIp4>>>,
+    pub outside_ip: Option<Option<i32>>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<crate::models::NestedTagRequest>>,
     #[serde(rename = "custom_fields", skip_serializing_if = "Option::is_none")]

@@ -15,14 +15,14 @@ pub struct BulkModuleBayRequest {
     #[serde(rename = "id")]
     pub id: i32,
     #[serde(rename = "device")]
-    pub device: Box<crate::models::BriefCoolingIntakeRequestDevice>,
+    pub device: i32,
     #[serde(
         rename = "module",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub module: Option<Option<Box<crate::models::BulkConsolePortRequestModule>>>,
+    pub module: Option<Option<i32>>,
     #[serde(rename = "name")]
     pub name: String,
     /// Physical label
@@ -43,7 +43,7 @@ pub struct BulkModuleBayRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub owner: Option<Option<Box<crate::models::AsnRangeRequestOwner>>>,
+    pub owner: Option<Option<i32>>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<crate::models::NestedTagRequest>>,
     #[serde(rename = "custom_fields", skip_serializing_if = "Option::is_none")]
@@ -52,14 +52,10 @@ pub struct BulkModuleBayRequest {
 
 impl BulkModuleBayRequest {
     /// Adds an `owner` field for models which have a ForeignKey to users.Owner.
-    pub fn new(
-        id: i32,
-        device: crate::models::BriefCoolingIntakeRequestDevice,
-        name: String,
-    ) -> BulkModuleBayRequest {
+    pub fn new(id: i32, device: i32, name: String) -> BulkModuleBayRequest {
         BulkModuleBayRequest {
             id,
-            device: Box::new(device),
+            device,
             module: None,
             name,
             label: None,

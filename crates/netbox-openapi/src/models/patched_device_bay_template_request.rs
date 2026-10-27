@@ -13,7 +13,7 @@
 #[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
 pub struct PatchedDeviceBayTemplateRequest {
     #[serde(rename = "device_type", skip_serializing_if = "Option::is_none")]
-    pub device_type: Option<Box<crate::models::BulkDeviceBayTemplateRequestDeviceType>>,
+    pub device_type: Option<i32>,
     /// {module} is accepted as a substitution for the module bay position when attached to a module type.
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,

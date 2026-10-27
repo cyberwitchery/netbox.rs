@@ -16,7 +16,7 @@ pub struct TokenRequest {
     #[serde(rename = "version", skip_serializing_if = "Option::is_none")]
     pub version: Option<i32>,
     #[serde(rename = "user")]
-    pub user: Box<crate::models::BookmarkRequestUser>,
+    pub user: i32,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[serde(
@@ -51,10 +51,10 @@ pub struct TokenRequest {
 
 impl TokenRequest {
     /// Extends the built-in ModelSerializer to enforce calling full_clean() on a copy of the associated instance during validation. (DRF does not do this by default; see <https://github.com/encode/django-rest-framework/issues/3144>)  Serializers may declare `model_clean_fields` in Meta, naming scalar model fields whose clean()-normalized values must reach the database. DRF builds a fresh instance from the validated data on create, discarding what clean() wrote.
-    pub fn new(user: crate::models::BookmarkRequestUser) -> TokenRequest {
+    pub fn new(user: i32) -> TokenRequest {
         TokenRequest {
             version: None,
-            user: Box::new(user),
+            user,
             description: None,
             expires: None,
             last_used: None,

@@ -13,7 +13,7 @@ pub struct UsersOwnersCreateRequest {
     #[serde(rename = "name")]
     pub name: String,
     #[serde(rename = "group", deserialize_with = "Option::deserialize")]
-    pub group: Option<Box<crate::models::BulkOwnerRequestGroup>>,
+    pub group: Option<i32>,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[serde(rename = "user_groups", skip_serializing_if = "Option::is_none")]
@@ -23,17 +23,10 @@ pub struct UsersOwnersCreateRequest {
 }
 
 impl UsersOwnersCreateRequest {
-    pub fn new(
-        name: String,
-        group: Option<crate::models::BulkOwnerRequestGroup>,
-    ) -> UsersOwnersCreateRequest {
+    pub fn new(name: String, group: Option<i32>) -> UsersOwnersCreateRequest {
         UsersOwnersCreateRequest {
             name,
-            group: if let Some(x) = group {
-                Some(Box::new(x))
-            } else {
-                None
-            },
+            group,
             description: None,
             user_groups: None,
             users: None,
