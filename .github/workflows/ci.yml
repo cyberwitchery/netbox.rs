@@ -119,10 +119,9 @@ jobs:
       - uses: kunobi-ninja/kache-action@ad7317540dcdd71c904f7a60a87b620a0c0e67ed # v1
         with:
           cache-key-prefix: kache-unsafe-budget
-      - uses: cyberwitchery/unsafe-budget@c826db273f31fd98868eb35c79fd86f6d660718e # v0.5.3
+      - uses: cyberwitchery/unsafe-budget@22209a08757e0b3f994befcff704e1ef76d65d0f # v0.5.4
         with:
           mode: check
-          version: v0.5.2
 
   sbom:
     name: sbom
