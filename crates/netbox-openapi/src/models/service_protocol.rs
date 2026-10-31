@@ -14,9 +14,9 @@
 pub struct ServiceProtocol {
     /// * `tcp` - TCP * `udp` - UDP * `sctp` - SCTP
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl ServiceProtocol {
@@ -26,40 +26,5 @@ impl ServiceProtocol {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `tcp` - TCP * `udp` - UDP * `sctp` - SCTP
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "tcp")]
-    Tcp,
-    #[serde(rename = "udp")]
-    Udp,
-    #[serde(rename = "sctp")]
-    Sctp,
-    #[serde(rename = "null")]
-    Null,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Tcp
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "TCP")]
-    Tcp,
-    #[serde(rename = "UDP")]
-    Udp,
-    #[serde(rename = "SCTP")]
-    Sctp,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Tcp
     }
 }

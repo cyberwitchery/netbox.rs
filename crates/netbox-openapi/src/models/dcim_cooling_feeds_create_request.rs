@@ -23,7 +23,7 @@ pub struct DcimCoolingFeedsCreateRequest {
     pub name: String,
     /// * `offline` - Offline * `active` - Active * `planned` - Planned * `failed` - Failed
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<Status>,
+    pub status: Option<String>,
     /// Rated cooling capacity (kW)
     #[serde(
         rename = "cooling_capacity",
@@ -91,24 +91,6 @@ impl DcimCoolingFeedsCreateRequest {
     }
 }
 
-/// * `offline` - Offline * `active` - Active * `planned` - Planned * `failed` - Failed
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    #[serde(rename = "offline")]
-    Offline,
-    #[serde(rename = "active")]
-    Active,
-    #[serde(rename = "planned")]
-    Planned,
-    #[serde(rename = "failed")]
-    Failed,
-}
-
-impl Default for Status {
-    fn default() -> Status {
-        Self::Offline
-    }
-}
 /// * `lpm` - Liters per minute (L/min) * `m3ph` - Cubic meters per hour (m³/h) * `gpm` - Gallons per minute (GPM)
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum MaxFlowUnit {

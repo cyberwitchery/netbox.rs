@@ -12,9 +12,9 @@
 pub struct EventRuleActionType {
     /// * `webhook` - Webhook * `script` - Script * `notification` - Notification
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl EventRuleActionType {
@@ -23,38 +23,5 @@ impl EventRuleActionType {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `webhook` - Webhook * `script` - Script * `notification` - Notification
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "webhook")]
-    Webhook,
-    #[serde(rename = "script")]
-    Script,
-    #[serde(rename = "notification")]
-    Notification,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Webhook
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Webhook")]
-    Webhook,
-    #[serde(rename = "Script")]
-    Script,
-    #[serde(rename = "Notification")]
-    Notification,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Webhook
     }
 }

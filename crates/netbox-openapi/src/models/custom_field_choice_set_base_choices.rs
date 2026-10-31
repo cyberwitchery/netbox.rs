@@ -12,9 +12,9 @@
 pub struct CustomFieldChoiceSetBaseChoices {
     /// * `IATA` - IATA (Airport codes) * `ISO_3166` - ISO 3166 (Country codes) * `UN_LOCODE` - UN/LOCODE (Location codes)
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl CustomFieldChoiceSetBaseChoices {
@@ -23,40 +23,5 @@ impl CustomFieldChoiceSetBaseChoices {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `IATA` - IATA (Airport codes) * `ISO_3166` - ISO 3166 (Country codes) * `UN_LOCODE` - UN/LOCODE (Location codes)
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "IATA")]
-    Iata,
-    #[serde(rename = "ISO_3166")]
-    Iso3166,
-    #[serde(rename = "UN_LOCODE")]
-    UnLocode,
-    #[serde(rename = "null")]
-    Null,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Iata
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "IATA (Airport codes)")]
-    IataLeftParenthesisAirportCodesRightParenthesis,
-    #[serde(rename = "ISO 3166 (Country codes)")]
-    Iso3166LeftParenthesisCountryCodesRightParenthesis,
-    #[serde(rename = "UN/LOCODE (Location codes)")]
-    UnSlashLocodeLeftParenthesisLocationCodesRightParenthesis,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::IataLeftParenthesisAirportCodesRightParenthesis
     }
 }

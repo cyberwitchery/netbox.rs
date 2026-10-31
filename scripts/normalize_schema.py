@@ -44,6 +44,70 @@ def drop_integer_enums(obj: dict) -> None:
     obj.pop("enum", None)
     obj.pop("x-spec-enum-id", None)
 
+def open_choice_object(obj: dict) -> None:
+    # a {value, label} choice can carry a translated label or a value outside the schema
+    props = obj.get("properties")
+    if obj.get("type") != "object" or not isinstance(props, dict) or set(props) != {"value", "label"}:
+        return
+    if not all(isinstance(field, dict) for field in props.values()) or "enum" not in props["value"]:
+        return
+    for field in props.values():
+        enum = field.pop("enum", None)
+        field.pop("x-spec-enum-id", None)
+        if "type" not in field and all(isinstance(item, str) for item in enum or [] if item is not None):
+            field["type"] = "string"
+
+# fields whose NetBox ChoiceSet has a `key`, so FIELD_CHOICES can replace or extend it
+CONFIGURABLE_CHOICES = [
+    ("Circuit", "status"),
+    ("CircuitGroupAssignment", "priority"),
+    ("Cluster", "status"),
+    ("CoolingFeed", "status"),
+    ("CoolingSource", "status"),
+    ("CoolingSource", "type"),
+    ("Device", "airflow"),
+    ("Device", "status"),
+    ("InventoryItem", "status"),
+    ("IPAddress", "status"),
+    ("IPRange", "status"),
+    ("JournalEntry", "kind"),
+    ("L2VPN", "status"),
+    ("Location", "status"),
+    ("Module", "status"),
+    ("ModuleType", "airflow"),
+    ("PowerFeed", "status"),
+    ("PowerOutlet", "status"),
+    ("Prefix", "status"),
+    ("Rack", "airflow"),
+    ("Rack", "status"),
+    ("RackReservation", "status"),
+    ("Site", "status"),
+    ("Tunnel", "status"),
+    ("VirtualDeviceContext", "status"),
+    ("VirtualMachine", "start_on_boot"),
+    ("VirtualMachine", "status"),
+    ("VLAN", "status"),
+    ("WirelessLAN", "status"),
+]
+
+def configurable_enum_ids(data: dict) -> set:
+    schemas = data["components"]["schemas"]
+    return {
+        schemas[model]["properties"][field]["properties"]["value"]["x-spec-enum-id"]
+        for model, field in CONFIGURABLE_CHOICES
+    }
+
+def open_configurable_enums(obj, ids: set) -> None:
+    if isinstance(obj, dict):
+        if obj.get("x-spec-enum-id") in ids and isinstance(obj.get("enum"), list):
+            obj.pop("enum")
+            obj.pop("x-spec-enum-id")
+        for value in obj.values():
+            open_configurable_enums(value, ids)
+    elif isinstance(obj, list):
+        for item in obj:
+            open_configurable_enums(item, ids)
+
 def collapse_string_one_of(obj: dict) -> None:
     # NetBox models blank-able fields (dns_name, color, email, url) as
     # oneOf [constrained string, empty string]. openapi-generator turns an
@@ -88,6 +152,7 @@ def normalize(obj):
     if isinstance(obj, dict):
         drop_readonly_required(obj)
         drop_integer_enums(obj)
+        open_choice_object(obj)
         collapse_string_one_of(obj)
         collapse_fk_one_of(obj)
         for key, value in obj.items():
@@ -106,7 +171,9 @@ def main() -> None:
     src, dst = sys.argv[1], sys.argv[2]
     with open(src, "r", encoding="utf-8") as handle:
         data = json.load(handle)
+    ids = configurable_enum_ids(data)
     normalize(data)
+    open_configurable_enums(data, ids)
     with open(dst, "w", encoding="utf-8") as handle:
         json.dump(data, handle, ensure_ascii=True)
 

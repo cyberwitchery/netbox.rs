@@ -12,9 +12,9 @@
 pub struct CoolingIntakeDiameterUnit {
     /// * `mm` - Millimeters * `cm` - Centimeters * `in` - Inches
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl CoolingIntakeDiameterUnit {
@@ -23,42 +23,5 @@ impl CoolingIntakeDiameterUnit {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `mm` - Millimeters * `cm` - Centimeters * `in` - Inches
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "mm")]
-    Mm,
-    #[serde(rename = "cm")]
-    Cm,
-    #[serde(rename = "in")]
-    In,
-    #[serde(rename = "")]
-    Empty,
-    #[serde(rename = "null")]
-    Null,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Mm
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Millimeters")]
-    Millimeters,
-    #[serde(rename = "Centimeters")]
-    Centimeters,
-    #[serde(rename = "Inches")]
-    Inches,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Millimeters
     }
 }

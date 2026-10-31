@@ -12,9 +12,9 @@
 pub struct DeviceCoolingMethod {
     /// * `air` - Air * `liquid` - Liquid * `hybrid` - Hybrid * `immersion` - Immersion
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl DeviceCoolingMethod {
@@ -23,46 +23,5 @@ impl DeviceCoolingMethod {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `air` - Air * `liquid` - Liquid * `hybrid` - Hybrid * `immersion` - Immersion
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "air")]
-    Air,
-    #[serde(rename = "liquid")]
-    Liquid,
-    #[serde(rename = "hybrid")]
-    Hybrid,
-    #[serde(rename = "immersion")]
-    Immersion,
-    #[serde(rename = "")]
-    Empty,
-    #[serde(rename = "null")]
-    Null,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Air
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Air")]
-    Air,
-    #[serde(rename = "Liquid")]
-    Liquid,
-    #[serde(rename = "Hybrid")]
-    Hybrid,
-    #[serde(rename = "Immersion")]
-    Immersion,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Air
     }
 }

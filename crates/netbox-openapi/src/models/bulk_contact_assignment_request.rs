@@ -29,7 +29,7 @@ pub struct BulkContactAssignmentRequest {
     pub role: Option<Option<i32>>,
     /// * `primary` - Primary * `secondary` - Secondary * `tertiary` - Tertiary * `inactive` - Inactive
     #[serde(rename = "priority", skip_serializing_if = "Option::is_none")]
-    pub priority: Option<Priority>,
+    pub priority: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<crate::models::NestedTagRequest>>,
     #[serde(rename = "custom_fields", skip_serializing_if = "Option::is_none")]
@@ -54,26 +54,5 @@ impl BulkContactAssignmentRequest {
             tags: None,
             custom_fields: None,
         }
-    }
-}
-
-/// * `primary` - Primary * `secondary` - Secondary * `tertiary` - Tertiary * `inactive` - Inactive
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Priority {
-    #[serde(rename = "primary")]
-    Primary,
-    #[serde(rename = "secondary")]
-    Secondary,
-    #[serde(rename = "tertiary")]
-    Tertiary,
-    #[serde(rename = "inactive")]
-    Inactive,
-    #[serde(rename = "")]
-    Empty,
-}
-
-impl Default for Priority {
-    fn default() -> Priority {
-        Self::Primary
     }
 }

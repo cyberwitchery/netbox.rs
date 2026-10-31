@@ -12,9 +12,9 @@
 pub struct InterfaceMode {
     /// * `access` - Access * `tagged` - Tagged * `tagged-all` - Tagged (All) * `q-in-q` - Q-in-Q (802.1ad)
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl InterfaceMode {
@@ -23,44 +23,5 @@ impl InterfaceMode {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `access` - Access * `tagged` - Tagged * `tagged-all` - Tagged (All) * `q-in-q` - Q-in-Q (802.1ad)
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "access")]
-    Access,
-    #[serde(rename = "tagged")]
-    Tagged,
-    #[serde(rename = "tagged-all")]
-    TaggedAll,
-    #[serde(rename = "q-in-q")]
-    QInQ,
-    #[serde(rename = "")]
-    Empty,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Access
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Access")]
-    Access,
-    #[serde(rename = "Tagged")]
-    Tagged,
-    #[serde(rename = "Tagged (All)")]
-    TaggedLeftParenthesisAllRightParenthesis,
-    #[serde(rename = "Q-in-Q (802.1ad)")]
-    QInQLeftParenthesis802Period1adRightParenthesis,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Access
     }
 }

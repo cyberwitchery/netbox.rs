@@ -12,9 +12,9 @@
 pub struct ConsolePortType {
     /// * `de-9` - DE-9 * `db-25` - DB-25 * `rj-11` - RJ-11 * `rj-12` - RJ-12 * `rj-45` - RJ-45 * `mini-din-8` - Mini-DIN 8 * `usb-a` - USB Type A * `usb-b` - USB Type B * `usb-c` - USB Type C * `usb-mini-a` - USB Mini A * `usb-mini-b` - USB Mini B * `usb-micro-a` - USB Micro A * `usb-micro-b` - USB Micro B * `usb-micro-ab` - USB Micro AB * `other` - Other
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl ConsolePortType {
@@ -23,88 +23,5 @@ impl ConsolePortType {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `de-9` - DE-9 * `db-25` - DB-25 * `rj-11` - RJ-11 * `rj-12` - RJ-12 * `rj-45` - RJ-45 * `mini-din-8` - Mini-DIN 8 * `usb-a` - USB Type A * `usb-b` - USB Type B * `usb-c` - USB Type C * `usb-mini-a` - USB Mini A * `usb-mini-b` - USB Mini B * `usb-micro-a` - USB Micro A * `usb-micro-b` - USB Micro B * `usb-micro-ab` - USB Micro AB * `other` - Other
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "de-9")]
-    De9,
-    #[serde(rename = "db-25")]
-    Db25,
-    #[serde(rename = "rj-11")]
-    Rj11,
-    #[serde(rename = "rj-12")]
-    Rj12,
-    #[serde(rename = "rj-45")]
-    Rj45,
-    #[serde(rename = "mini-din-8")]
-    MiniDin8,
-    #[serde(rename = "usb-a")]
-    UsbA,
-    #[serde(rename = "usb-b")]
-    UsbB,
-    #[serde(rename = "usb-c")]
-    UsbC,
-    #[serde(rename = "usb-mini-a")]
-    UsbMiniA,
-    #[serde(rename = "usb-mini-b")]
-    UsbMiniB,
-    #[serde(rename = "usb-micro-a")]
-    UsbMicroA,
-    #[serde(rename = "usb-micro-b")]
-    UsbMicroB,
-    #[serde(rename = "usb-micro-ab")]
-    UsbMicroAb,
-    #[serde(rename = "other")]
-    Other,
-    #[serde(rename = "")]
-    Empty,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::De9
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "DE-9")]
-    De9,
-    #[serde(rename = "DB-25")]
-    Db25,
-    #[serde(rename = "RJ-11")]
-    Rj11,
-    #[serde(rename = "RJ-12")]
-    Rj12,
-    #[serde(rename = "RJ-45")]
-    Rj45,
-    #[serde(rename = "Mini-DIN 8")]
-    MiniDin8,
-    #[serde(rename = "USB Type A")]
-    UsbTypeA,
-    #[serde(rename = "USB Type B")]
-    UsbTypeB,
-    #[serde(rename = "USB Type C")]
-    UsbTypeC,
-    #[serde(rename = "USB Mini A")]
-    UsbMiniA,
-    #[serde(rename = "USB Mini B")]
-    UsbMiniB,
-    #[serde(rename = "USB Micro A")]
-    UsbMicroA,
-    #[serde(rename = "USB Micro B")]
-    UsbMicroB,
-    #[serde(rename = "USB Micro AB")]
-    UsbMicroAb,
-    #[serde(rename = "Other")]
-    Other,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::De9
     }
 }

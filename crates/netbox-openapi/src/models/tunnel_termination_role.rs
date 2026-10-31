@@ -12,9 +12,9 @@
 pub struct TunnelTerminationRole {
     /// * `peer` - Peer * `hub` - Hub * `spoke` - Spoke
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl TunnelTerminationRole {
@@ -23,38 +23,5 @@ impl TunnelTerminationRole {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `peer` - Peer * `hub` - Hub * `spoke` - Spoke
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "peer")]
-    Peer,
-    #[serde(rename = "hub")]
-    Hub,
-    #[serde(rename = "spoke")]
-    Spoke,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Peer
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Peer")]
-    Peer,
-    #[serde(rename = "Hub")]
-    Hub,
-    #[serde(rename = "Spoke")]
-    Spoke,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Peer
     }
 }

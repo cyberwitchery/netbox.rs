@@ -28,7 +28,7 @@ pub struct PatchedWritableJournalEntryRequest {
     pub created_by: Option<Option<i32>>,
     /// * `info` - Info * `success` - Success * `warning` - Warning * `danger` - Danger
     #[serde(rename = "kind", skip_serializing_if = "Option::is_none")]
-    pub kind: Option<Kind>,
+    pub kind: Option<String>,
     #[serde(rename = "comments", skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
@@ -49,24 +49,5 @@ impl PatchedWritableJournalEntryRequest {
             tags: None,
             custom_fields: None,
         }
-    }
-}
-
-/// * `info` - Info * `success` - Success * `warning` - Warning * `danger` - Danger
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Kind {
-    #[serde(rename = "info")]
-    Info,
-    #[serde(rename = "success")]
-    Success,
-    #[serde(rename = "warning")]
-    Warning,
-    #[serde(rename = "danger")]
-    Danger,
-}
-
-impl Default for Kind {
-    fn default() -> Kind {
-        Self::Info
     }
 }

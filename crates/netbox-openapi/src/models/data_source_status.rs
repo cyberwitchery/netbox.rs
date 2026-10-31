@@ -12,9 +12,9 @@
 pub struct DataSourceStatus {
     /// * `new` - New * `queued` - Queued * `syncing` - Syncing * `completed` - Completed * `failed` - Failed
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl DataSourceStatus {
@@ -23,46 +23,5 @@ impl DataSourceStatus {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `new` - New * `queued` - Queued * `syncing` - Syncing * `completed` - Completed * `failed` - Failed
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "new")]
-    New,
-    #[serde(rename = "queued")]
-    Queued,
-    #[serde(rename = "syncing")]
-    Syncing,
-    #[serde(rename = "completed")]
-    Completed,
-    #[serde(rename = "failed")]
-    Failed,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::New
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "New")]
-    New,
-    #[serde(rename = "Queued")]
-    Queued,
-    #[serde(rename = "Syncing")]
-    Syncing,
-    #[serde(rename = "Completed")]
-    Completed,
-    #[serde(rename = "Failed")]
-    Failed,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::New
     }
 }

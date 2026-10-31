@@ -12,9 +12,9 @@
 pub struct CircuitDistanceUnit {
     /// * `km` - Kilometers * `m` - Meters * `mi` - Miles * `ft` - Feet
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl CircuitDistanceUnit {
@@ -23,46 +23,5 @@ impl CircuitDistanceUnit {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `km` - Kilometers * `m` - Meters * `mi` - Miles * `ft` - Feet
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "km")]
-    Km,
-    #[serde(rename = "m")]
-    M,
-    #[serde(rename = "mi")]
-    Mi,
-    #[serde(rename = "ft")]
-    Ft,
-    #[serde(rename = "")]
-    Empty,
-    #[serde(rename = "null")]
-    Null,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Km
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Kilometers")]
-    Kilometers,
-    #[serde(rename = "Meters")]
-    Meters,
-    #[serde(rename = "Miles")]
-    Miles,
-    #[serde(rename = "Feet")]
-    Feet,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Kilometers
     }
 }

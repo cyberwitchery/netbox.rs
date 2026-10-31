@@ -12,9 +12,9 @@
 pub struct WirelessLanStatus {
     /// * `active` - Active * `reserved` - Reserved * `disabled` - Disabled * `deprecated` - Deprecated
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl WirelessLanStatus {
@@ -23,44 +23,5 @@ impl WirelessLanStatus {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `active` - Active * `reserved` - Reserved * `disabled` - Disabled * `deprecated` - Deprecated
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "active")]
-    Active,
-    #[serde(rename = "reserved")]
-    Reserved,
-    #[serde(rename = "disabled")]
-    Disabled,
-    #[serde(rename = "deprecated")]
-    Deprecated,
-    #[serde(rename = "")]
-    Empty,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Active
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Active")]
-    Active,
-    #[serde(rename = "Reserved")]
-    Reserved,
-    #[serde(rename = "Disabled")]
-    Disabled,
-    #[serde(rename = "Deprecated")]
-    Deprecated,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Active
     }
 }

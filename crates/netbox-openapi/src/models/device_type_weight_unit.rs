@@ -12,9 +12,9 @@
 pub struct DeviceTypeWeightUnit {
     /// * `kg` - Kilograms * `g` - Grams * `lb` - Pounds * `oz` - Ounces
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl DeviceTypeWeightUnit {
@@ -23,46 +23,5 @@ impl DeviceTypeWeightUnit {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `kg` - Kilograms * `g` - Grams * `lb` - Pounds * `oz` - Ounces
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "kg")]
-    Kg,
-    #[serde(rename = "g")]
-    G,
-    #[serde(rename = "lb")]
-    Lb,
-    #[serde(rename = "oz")]
-    Oz,
-    #[serde(rename = "")]
-    Empty,
-    #[serde(rename = "null")]
-    Null,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Kg
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Kilograms")]
-    Kilograms,
-    #[serde(rename = "Grams")]
-    Grams,
-    #[serde(rename = "Pounds")]
-    Pounds,
-    #[serde(rename = "Ounces")]
-    Ounces,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Kilograms
     }
 }

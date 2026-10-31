@@ -12,9 +12,9 @@
 pub struct BriefJobStatus {
     /// * `pending` - Pending * `scheduled` - Scheduled * `running` - Running * `completed` - Completed * `errored` - Errored * `failed` - Failed
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl BriefJobStatus {
@@ -23,50 +23,5 @@ impl BriefJobStatus {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `pending` - Pending * `scheduled` - Scheduled * `running` - Running * `completed` - Completed * `errored` - Errored * `failed` - Failed
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "pending")]
-    Pending,
-    #[serde(rename = "scheduled")]
-    Scheduled,
-    #[serde(rename = "running")]
-    Running,
-    #[serde(rename = "completed")]
-    Completed,
-    #[serde(rename = "errored")]
-    Errored,
-    #[serde(rename = "failed")]
-    Failed,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Pending
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Pending")]
-    Pending,
-    #[serde(rename = "Scheduled")]
-    Scheduled,
-    #[serde(rename = "Running")]
-    Running,
-    #[serde(rename = "Completed")]
-    Completed,
-    #[serde(rename = "Errored")]
-    Errored,
-    #[serde(rename = "Failed")]
-    Failed,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Pending
     }
 }

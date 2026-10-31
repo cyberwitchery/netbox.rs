@@ -12,9 +12,9 @@
 pub struct InterfaceTemplatePoeMode {
     /// * `pd` - PD * `pse` - PSE
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl InterfaceTemplatePoeMode {
@@ -23,38 +23,5 @@ impl InterfaceTemplatePoeMode {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `pd` - PD * `pse` - PSE
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "pd")]
-    Pd,
-    #[serde(rename = "pse")]
-    Pse,
-    #[serde(rename = "")]
-    Empty,
-    #[serde(rename = "null")]
-    Null,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Pd
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "PD")]
-    Pd,
-    #[serde(rename = "PSE")]
-    Pse,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Pd
     }
 }

@@ -12,9 +12,9 @@
 pub struct InterfaceDuplex {
     /// * `half` - Half * `full` - Full * `auto` - Auto
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl InterfaceDuplex {
@@ -23,42 +23,5 @@ impl InterfaceDuplex {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `half` - Half * `full` - Full * `auto` - Auto
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "half")]
-    Half,
-    #[serde(rename = "full")]
-    Full,
-    #[serde(rename = "auto")]
-    Auto,
-    #[serde(rename = "")]
-    Empty,
-    #[serde(rename = "null")]
-    Null,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Half
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Half")]
-    Half,
-    #[serde(rename = "Full")]
-    Full,
-    #[serde(rename = "Auto")]
-    Auto,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Half
     }
 }

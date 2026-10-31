@@ -12,9 +12,9 @@
 pub struct IpAddressRole {
     /// * `loopback` - Loopback * `secondary` - Secondary * `anycast` - Anycast * `vip` - VIP * `vrrp` - VRRP * `hsrp` - HSRP * `glbp` - GLBP * `carp` - CARP
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl IpAddressRole {
@@ -23,60 +23,5 @@ impl IpAddressRole {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `loopback` - Loopback * `secondary` - Secondary * `anycast` - Anycast * `vip` - VIP * `vrrp` - VRRP * `hsrp` - HSRP * `glbp` - GLBP * `carp` - CARP
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "loopback")]
-    Loopback,
-    #[serde(rename = "secondary")]
-    Secondary,
-    #[serde(rename = "anycast")]
-    Anycast,
-    #[serde(rename = "vip")]
-    Vip,
-    #[serde(rename = "vrrp")]
-    Vrrp,
-    #[serde(rename = "hsrp")]
-    Hsrp,
-    #[serde(rename = "glbp")]
-    Glbp,
-    #[serde(rename = "carp")]
-    Carp,
-    #[serde(rename = "")]
-    Empty,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Loopback
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Loopback")]
-    Loopback,
-    #[serde(rename = "Secondary")]
-    Secondary,
-    #[serde(rename = "Anycast")]
-    Anycast,
-    #[serde(rename = "VIP")]
-    Vip,
-    #[serde(rename = "VRRP")]
-    Vrrp,
-    #[serde(rename = "HSRP")]
-    Hsrp,
-    #[serde(rename = "GLBP")]
-    Glbp,
-    #[serde(rename = "CARP")]
-    Carp,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Loopback
     }
 }

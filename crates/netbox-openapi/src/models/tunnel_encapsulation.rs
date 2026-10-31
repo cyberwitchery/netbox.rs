@@ -12,9 +12,9 @@
 pub struct TunnelEncapsulation {
     /// * `ipsec-transport` - IPsec - Transport * `ipsec-tunnel` - IPsec - Tunnel * `ip-ip` - IP-in-IP * `gre` - GRE * `wireguard` - WireGuard * `openvpn` - OpenVPN * `l2tp` - L2TP * `pptp` - PPTP
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl TunnelEncapsulation {
@@ -23,58 +23,5 @@ impl TunnelEncapsulation {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `ipsec-transport` - IPsec - Transport * `ipsec-tunnel` - IPsec - Tunnel * `ip-ip` - IP-in-IP * `gre` - GRE * `wireguard` - WireGuard * `openvpn` - OpenVPN * `l2tp` - L2TP * `pptp` - PPTP
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "ipsec-transport")]
-    IpsecTransport,
-    #[serde(rename = "ipsec-tunnel")]
-    IpsecTunnel,
-    #[serde(rename = "ip-ip")]
-    IpIp,
-    #[serde(rename = "gre")]
-    Gre,
-    #[serde(rename = "wireguard")]
-    Wireguard,
-    #[serde(rename = "openvpn")]
-    Openvpn,
-    #[serde(rename = "l2tp")]
-    L2tp,
-    #[serde(rename = "pptp")]
-    Pptp,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::IpsecTransport
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "IPsec - Transport")]
-    IPsecTransport,
-    #[serde(rename = "IPsec - Tunnel")]
-    IPsecTunnel,
-    #[serde(rename = "IP-in-IP")]
-    IpInIp,
-    #[serde(rename = "GRE")]
-    Gre,
-    #[serde(rename = "WireGuard")]
-    WireGuard,
-    #[serde(rename = "OpenVPN")]
-    OpenVpn,
-    #[serde(rename = "L2TP")]
-    L2Tp,
-    #[serde(rename = "PPTP")]
-    Pptp,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::IPsecTransport
     }
 }

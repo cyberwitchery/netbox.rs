@@ -28,7 +28,7 @@ pub struct WritableL2VpnRequest {
     pub r#type: RHashType,
     /// * `active` - Active * `planned` - Planned * `decommissioning` - Decommissioning
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<Status>,
+    pub status: Option<String>,
     #[serde(rename = "import_targets", skip_serializing_if = "Option::is_none")]
     pub import_targets: Option<Vec<i32>>,
     #[serde(rename = "export_targets", skip_serializing_if = "Option::is_none")]
@@ -114,21 +114,5 @@ pub enum RHashType {
 impl Default for RHashType {
     fn default() -> RHashType {
         Self::Vpws
-    }
-}
-/// * `active` - Active * `planned` - Planned * `decommissioning` - Decommissioning
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    #[serde(rename = "active")]
-    Active,
-    #[serde(rename = "planned")]
-    Planned,
-    #[serde(rename = "decommissioning")]
-    Decommissioning,
-}
-
-impl Default for Status {
-    fn default() -> Status {
-        Self::Active
     }
 }

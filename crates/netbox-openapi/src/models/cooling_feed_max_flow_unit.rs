@@ -12,9 +12,9 @@
 pub struct CoolingFeedMaxFlowUnit {
     /// * `lpm` - Liters per minute (L/min) * `m3ph` - Cubic meters per hour (m³/h) * `gpm` - Gallons per minute (GPM)
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl CoolingFeedMaxFlowUnit {
@@ -23,42 +23,5 @@ impl CoolingFeedMaxFlowUnit {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `lpm` - Liters per minute (L/min) * `m3ph` - Cubic meters per hour (m³/h) * `gpm` - Gallons per minute (GPM)
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "lpm")]
-    Lpm,
-    #[serde(rename = "m3ph")]
-    M3ph,
-    #[serde(rename = "gpm")]
-    Gpm,
-    #[serde(rename = "")]
-    Empty,
-    #[serde(rename = "null")]
-    Null,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Lpm
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Liters per minute (L/min)")]
-    LitersPerMinuteLeftParenthesisLSlashMinRightParenthesis,
-    #[serde(rename = "Cubic meters per hour (m³/h)")]
-    CubicMetersPerHourLeftParenthesisMSlashHRightParenthesis,
-    #[serde(rename = "Gallons per minute (GPM)")]
-    GallonsPerMinuteLeftParenthesisGpmRightParenthesis,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::LitersPerMinuteLeftParenthesisLSlashMinRightParenthesis
     }
 }

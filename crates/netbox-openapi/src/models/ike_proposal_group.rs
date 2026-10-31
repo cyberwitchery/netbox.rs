@@ -14,7 +14,7 @@ pub struct IkeProposalGroup {
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<i32>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl IkeProposalGroup {
@@ -23,64 +23,5 @@ impl IkeProposalGroup {
             value: None,
             label: None,
         }
-    }
-}
-
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Group 1")]
-    Variant1,
-    #[serde(rename = "Group 2")]
-    Variant2,
-    #[serde(rename = "Group 5")]
-    Variant5,
-    #[serde(rename = "Group 14")]
-    Variant14,
-    #[serde(rename = "Group 15")]
-    Variant15,
-    #[serde(rename = "Group 16")]
-    Variant16,
-    #[serde(rename = "Group 17")]
-    Variant17,
-    #[serde(rename = "Group 18")]
-    Variant18,
-    #[serde(rename = "Group 19")]
-    Variant19,
-    #[serde(rename = "Group 20")]
-    Variant20,
-    #[serde(rename = "Group 21")]
-    Variant21,
-    #[serde(rename = "Group 22")]
-    Variant22,
-    #[serde(rename = "Group 23")]
-    Variant23,
-    #[serde(rename = "Group 24")]
-    Variant24,
-    #[serde(rename = "Group 25")]
-    Variant25,
-    #[serde(rename = "Group 26")]
-    Variant26,
-    #[serde(rename = "Group 27")]
-    Variant27,
-    #[serde(rename = "Group 28")]
-    Variant28,
-    #[serde(rename = "Group 29")]
-    Variant29,
-    #[serde(rename = "Group 30")]
-    Variant30,
-    #[serde(rename = "Group 31")]
-    Variant31,
-    #[serde(rename = "Group 32")]
-    Variant32,
-    #[serde(rename = "Group 33")]
-    Variant33,
-    #[serde(rename = "Group 34")]
-    Variant34,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Variant1
     }
 }

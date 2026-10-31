@@ -12,9 +12,9 @@
 pub struct PowerFeedPhase {
     /// * `single-phase` - Single phase * `three-phase` - Three-phase
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl PowerFeedPhase {
@@ -23,34 +23,5 @@ impl PowerFeedPhase {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `single-phase` - Single phase * `three-phase` - Three-phase
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "single-phase")]
-    SinglePhase,
-    #[serde(rename = "three-phase")]
-    ThreePhase,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::SinglePhase
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Single phase")]
-    SinglePhase,
-    #[serde(rename = "Three-phase")]
-    ThreePhase,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::SinglePhase
     }
 }

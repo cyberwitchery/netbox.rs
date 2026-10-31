@@ -12,9 +12,9 @@
 pub struct CoolingFeedStatus {
     /// * `offline` - Offline * `active` - Active * `planned` - Planned * `failed` - Failed
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl CoolingFeedStatus {
@@ -23,42 +23,5 @@ impl CoolingFeedStatus {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `offline` - Offline * `active` - Active * `planned` - Planned * `failed` - Failed
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "offline")]
-    Offline,
-    #[serde(rename = "active")]
-    Active,
-    #[serde(rename = "planned")]
-    Planned,
-    #[serde(rename = "failed")]
-    Failed,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Offline
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Offline")]
-    Offline,
-    #[serde(rename = "Active")]
-    Active,
-    #[serde(rename = "Planned")]
-    Planned,
-    #[serde(rename = "Failed")]
-    Failed,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Offline
     }
 }

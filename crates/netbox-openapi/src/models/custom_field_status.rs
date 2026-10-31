@@ -12,9 +12,9 @@
 pub struct CustomFieldStatus {
     /// * `active` - Active * `provisioning` - Provisioning * `deleting` - Deleting
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl CustomFieldStatus {
@@ -23,38 +23,5 @@ impl CustomFieldStatus {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `active` - Active * `provisioning` - Provisioning * `deleting` - Deleting
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "active")]
-    Active,
-    #[serde(rename = "provisioning")]
-    Provisioning,
-    #[serde(rename = "deleting")]
-    Deleting,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Active
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Active")]
-    Active,
-    #[serde(rename = "Provisioning")]
-    Provisioning,
-    #[serde(rename = "Deleting")]
-    Deleting,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Active
     }
 }

@@ -12,9 +12,9 @@
 pub struct PowerFeedType {
     /// * `primary` - Primary * `redundant` - Redundant
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl PowerFeedType {
@@ -23,34 +23,5 @@ impl PowerFeedType {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `primary` - Primary * `redundant` - Redundant
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "primary")]
-    Primary,
-    #[serde(rename = "redundant")]
-    Redundant,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Primary
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Primary")]
-    Primary,
-    #[serde(rename = "Redundant")]
-    Redundant,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Primary
     }
 }

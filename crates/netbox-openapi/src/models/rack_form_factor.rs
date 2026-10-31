@@ -12,9 +12,9 @@
 pub struct RackFormFactor {
     /// * `2-post-frame` - 2-post frame * `4-post-frame` - 4-post frame * `4-post-cabinet` - 4-post cabinet * `wall-frame` - Wall-mounted frame * `wall-frame-vertical` - Wall-mounted frame (vertical) * `wall-cabinet` - Wall-mounted cabinet * `wall-cabinet-vertical` - Wall-mounted cabinet (vertical)
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl RackFormFactor {
@@ -23,58 +23,5 @@ impl RackFormFactor {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `2-post-frame` - 2-post frame * `4-post-frame` - 4-post frame * `4-post-cabinet` - 4-post cabinet * `wall-frame` - Wall-mounted frame * `wall-frame-vertical` - Wall-mounted frame (vertical) * `wall-cabinet` - Wall-mounted cabinet * `wall-cabinet-vertical` - Wall-mounted cabinet (vertical)
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "2-post-frame")]
-    Variant2PostFrame,
-    #[serde(rename = "4-post-frame")]
-    Variant4PostFrame,
-    #[serde(rename = "4-post-cabinet")]
-    Variant4PostCabinet,
-    #[serde(rename = "wall-frame")]
-    WallFrame,
-    #[serde(rename = "wall-frame-vertical")]
-    WallFrameVertical,
-    #[serde(rename = "wall-cabinet")]
-    WallCabinet,
-    #[serde(rename = "wall-cabinet-vertical")]
-    WallCabinetVertical,
-    #[serde(rename = "")]
-    Empty,
-    #[serde(rename = "null")]
-    Null,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Variant2PostFrame
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "2-post frame")]
-    Variant2PostFrame,
-    #[serde(rename = "4-post frame")]
-    Variant4PostFrame,
-    #[serde(rename = "4-post cabinet")]
-    Variant4PostCabinet,
-    #[serde(rename = "Wall-mounted frame")]
-    WallMountedFrame,
-    #[serde(rename = "Wall-mounted frame (vertical)")]
-    WallMountedFrameLeftParenthesisVerticalRightParenthesis,
-    #[serde(rename = "Wall-mounted cabinet")]
-    WallMountedCabinet,
-    #[serde(rename = "Wall-mounted cabinet (vertical)")]
-    WallMountedCabinetLeftParenthesisVerticalRightParenthesis,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Variant2PostFrame
     }
 }

@@ -12,9 +12,9 @@
 pub struct IkePolicyMode {
     /// * `aggressive` - Aggressive * `main` - Main
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl IkePolicyMode {
@@ -23,34 +23,5 @@ impl IkePolicyMode {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `aggressive` - Aggressive * `main` - Main
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "aggressive")]
-    Aggressive,
-    #[serde(rename = "main")]
-    Main,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Aggressive
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Aggressive")]
-    Aggressive,
-    #[serde(rename = "Main")]
-    Main,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Aggressive
     }
 }

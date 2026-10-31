@@ -12,9 +12,9 @@
 pub struct PowerFeedSupply {
     /// * `ac` - AC * `dc` - DC
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl PowerFeedSupply {
@@ -23,34 +23,5 @@ impl PowerFeedSupply {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `ac` - AC * `dc` - DC
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "ac")]
-    Ac,
-    #[serde(rename = "dc")]
-    Dc,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Ac
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "AC")]
-    Ac,
-    #[serde(rename = "DC")]
-    Dc,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Ac
     }
 }
