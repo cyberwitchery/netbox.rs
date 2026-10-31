@@ -14,7 +14,7 @@ pub struct ConsolePortType {
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl ConsolePortType {
@@ -65,46 +65,6 @@ pub enum Value {
 
 impl Default for Value {
     fn default() -> Value {
-        Self::De9
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "DE-9")]
-    De9,
-    #[serde(rename = "DB-25")]
-    Db25,
-    #[serde(rename = "RJ-11")]
-    Rj11,
-    #[serde(rename = "RJ-12")]
-    Rj12,
-    #[serde(rename = "RJ-45")]
-    Rj45,
-    #[serde(rename = "Mini-DIN 8")]
-    MiniDin8,
-    #[serde(rename = "USB Type A")]
-    UsbTypeA,
-    #[serde(rename = "USB Type B")]
-    UsbTypeB,
-    #[serde(rename = "USB Type C")]
-    UsbTypeC,
-    #[serde(rename = "USB Mini A")]
-    UsbMiniA,
-    #[serde(rename = "USB Mini B")]
-    UsbMiniB,
-    #[serde(rename = "USB Micro A")]
-    UsbMicroA,
-    #[serde(rename = "USB Micro B")]
-    UsbMicroB,
-    #[serde(rename = "USB Micro AB")]
-    UsbMicroAb,
-    #[serde(rename = "Other")]
-    Other,
-}
-
-impl Default for Label {
-    fn default() -> Label {
         Self::De9
     }
 }

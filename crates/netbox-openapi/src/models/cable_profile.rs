@@ -14,7 +14,7 @@ pub struct CableProfile {
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl CableProfile {
@@ -86,67 +86,5 @@ pub enum Value {
 impl Default for Value {
     fn default() -> Value {
         Self::Single1c1p
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "1C1P")]
-    Variant1C1P,
-    #[serde(rename = "1C2P")]
-    Variant1C2P,
-    #[serde(rename = "1C4P")]
-    Variant1C4P,
-    #[serde(rename = "1C6P")]
-    Variant1C6P,
-    #[serde(rename = "1C8P")]
-    Variant1C8P,
-    #[serde(rename = "1C12P")]
-    Variant1C12P,
-    #[serde(rename = "1C16P")]
-    Variant1C16P,
-    #[serde(rename = "2C1P trunk")]
-    Variant2C1PTrunk,
-    #[serde(rename = "2C2P trunk")]
-    Variant2C2PTrunk,
-    #[serde(rename = "2C4P trunk")]
-    Variant2C4PTrunk,
-    #[serde(rename = "2C4P trunk (shuffle)")]
-    Variant2C4PTrunkLeftParenthesisShuffleRightParenthesis,
-    #[serde(rename = "2C6P trunk")]
-    Variant2C6PTrunk,
-    #[serde(rename = "2C8P trunk")]
-    Variant2C8PTrunk,
-    #[serde(rename = "2C12P trunk")]
-    Variant2C12PTrunk,
-    #[serde(rename = "4C1P trunk")]
-    Variant4C1PTrunk,
-    #[serde(rename = "4C2P trunk")]
-    Variant4C2PTrunk,
-    #[serde(rename = "4C4P trunk")]
-    Variant4C4PTrunk,
-    #[serde(rename = "4C4P trunk (shuffle)")]
-    Variant4C4PTrunkLeftParenthesisShuffleRightParenthesis,
-    #[serde(rename = "4C6P trunk")]
-    Variant4C6PTrunk,
-    #[serde(rename = "4C8P trunk")]
-    Variant4C8PTrunk,
-    #[serde(rename = "8C4P trunk")]
-    Variant8C4PTrunk,
-    #[serde(rename = "1C2P:2C1P breakout")]
-    Variant1C2PColon2C1PBreakout,
-    #[serde(rename = "1C4P:4C1P breakout")]
-    Variant1C4PColon4C1PBreakout,
-    #[serde(rename = "1C6P:6C1P breakout")]
-    Variant1C6PColon6C1PBreakout,
-    #[serde(rename = "1C8P:8C1P breakout")]
-    Variant1C8PColon8C1PBreakout,
-    #[serde(rename = "2C4P:8C1P breakout (shuffle)")]
-    Variant2C4PColon8C1PBreakoutLeftParenthesisShuffleRightParenthesis,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Variant1C1P
     }
 }

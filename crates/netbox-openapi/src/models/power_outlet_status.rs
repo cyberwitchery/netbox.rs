@@ -12,9 +12,9 @@
 pub struct PowerOutletStatus {
     /// * `enabled` - Enabled * `disabled` - Disabled * `faulty` - Faulty
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl PowerOutletStatus {
@@ -23,38 +23,5 @@ impl PowerOutletStatus {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `enabled` - Enabled * `disabled` - Disabled * `faulty` - Faulty
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "enabled")]
-    Enabled,
-    #[serde(rename = "disabled")]
-    Disabled,
-    #[serde(rename = "faulty")]
-    Faulty,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Enabled
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Enabled")]
-    Enabled,
-    #[serde(rename = "Disabled")]
-    Disabled,
-    #[serde(rename = "Faulty")]
-    Faulty,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Enabled
     }
 }

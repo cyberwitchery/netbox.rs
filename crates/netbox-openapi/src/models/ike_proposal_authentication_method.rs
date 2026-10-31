@@ -14,7 +14,7 @@ pub struct IkeProposalAuthenticationMethod {
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl IkeProposalAuthenticationMethod {
@@ -42,23 +42,5 @@ pub enum Value {
 impl Default for Value {
     fn default() -> Value {
         Self::PresharedKeys
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Pre-shared keys")]
-    PreSharedKeys,
-    #[serde(rename = "Certificates")]
-    Certificates,
-    #[serde(rename = "RSA signatures")]
-    RsaSignatures,
-    #[serde(rename = "DSA signatures")]
-    DsaSignatures,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::PreSharedKeys
     }
 }

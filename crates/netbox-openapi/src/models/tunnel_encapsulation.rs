@@ -14,7 +14,7 @@ pub struct TunnelEncapsulation {
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl TunnelEncapsulation {
@@ -50,31 +50,5 @@ pub enum Value {
 impl Default for Value {
     fn default() -> Value {
         Self::IpsecTransport
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "IPsec - Transport")]
-    IPsecTransport,
-    #[serde(rename = "IPsec - Tunnel")]
-    IPsecTunnel,
-    #[serde(rename = "IP-in-IP")]
-    IpInIp,
-    #[serde(rename = "GRE")]
-    Gre,
-    #[serde(rename = "WireGuard")]
-    WireGuard,
-    #[serde(rename = "OpenVPN")]
-    OpenVpn,
-    #[serde(rename = "L2TP")]
-    L2Tp,
-    #[serde(rename = "PPTP")]
-    Pptp,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::IPsecTransport
     }
 }

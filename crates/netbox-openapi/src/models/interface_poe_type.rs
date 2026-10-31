@@ -14,7 +14,7 @@ pub struct InterfacePoeType {
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl InterfacePoeType {
@@ -52,31 +52,5 @@ pub enum Value {
 impl Default for Value {
     fn default() -> Value {
         Self::Type1Ieee802Period3af
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "802.3af (Type 1)")]
-    Variant802Period3afLeftParenthesisType1RightParenthesis,
-    #[serde(rename = "802.3at (Type 2)")]
-    Variant802Period3atLeftParenthesisType2RightParenthesis,
-    #[serde(rename = "802.3bt (Type 3)")]
-    Variant802Period3btLeftParenthesisType3RightParenthesis,
-    #[serde(rename = "802.3bt (Type 4)")]
-    Variant802Period3btLeftParenthesisType4RightParenthesis,
-    #[serde(rename = "Passive 24V (2-pair)")]
-    Passive24VLeftParenthesis2PairRightParenthesis,
-    #[serde(rename = "Passive 24V (4-pair)")]
-    Passive24VLeftParenthesis4PairRightParenthesis,
-    #[serde(rename = "Passive 48V (2-pair)")]
-    Passive48VLeftParenthesis2PairRightParenthesis,
-    #[serde(rename = "Passive 48V (4-pair)")]
-    Passive48VLeftParenthesis4PairRightParenthesis,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Variant802Period3afLeftParenthesisType1RightParenthesis
     }
 }

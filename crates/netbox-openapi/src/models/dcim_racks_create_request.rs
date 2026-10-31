@@ -44,7 +44,7 @@ pub struct DcimRacksCreateRequest {
     pub tenant: Option<Option<i32>>,
     /// * `reserved` - Reserved * `available` - Available * `planned` - Planned * `active` - Active * `deprecated` - Deprecated
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<Status>,
+    pub status: Option<String>,
     #[serde(
         rename = "role",
         default,
@@ -159,7 +159,7 @@ pub struct DcimRacksCreateRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub airflow: Option<Option<Airflow>>,
+    pub airflow: Option<Option<String>>,
     /// * `air-only` - Air only * `hybrid` - Hybrid * `liquid-only` - Liquid only
     #[serde(
         rename = "cooling_capability",
@@ -232,26 +232,6 @@ impl DcimRacksCreateRequest {
     }
 }
 
-/// * `reserved` - Reserved * `available` - Available * `planned` - Planned * `active` - Active * `deprecated` - Deprecated
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    #[serde(rename = "reserved")]
-    Reserved,
-    #[serde(rename = "available")]
-    Available,
-    #[serde(rename = "planned")]
-    Planned,
-    #[serde(rename = "active")]
-    Active,
-    #[serde(rename = "deprecated")]
-    Deprecated,
-}
-
-impl Default for Status {
-    fn default() -> Status {
-        Self::Reserved
-    }
-}
 /// * `2-post-frame` - 2-post frame * `4-post-frame` - 4-post frame * `4-post-cabinet` - 4-post cabinet * `wall-frame` - Wall-mounted frame * `wall-frame-vertical` - Wall-mounted frame (vertical) * `wall-cabinet` - Wall-mounted cabinet * `wall-cabinet-vertical` - Wall-mounted cabinet (vertical)
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum FormFactor {
@@ -318,24 +298,6 @@ pub enum OuterUnit {
 impl Default for OuterUnit {
     fn default() -> OuterUnit {
         Self::Mm
-    }
-}
-/// * `front-to-rear` - Front to rear * `rear-to-front` - Rear to front
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Airflow {
-    #[serde(rename = "front-to-rear")]
-    FrontToRear,
-    #[serde(rename = "rear-to-front")]
-    RearToFront,
-    #[serde(rename = "")]
-    Empty,
-    #[serde(rename = "null")]
-    Null,
-}
-
-impl Default for Airflow {
-    fn default() -> Airflow {
-        Self::FrontToRear
     }
 }
 /// * `air-only` - Air only * `hybrid` - Hybrid * `liquid-only` - Liquid only

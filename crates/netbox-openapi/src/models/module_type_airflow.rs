@@ -12,9 +12,9 @@
 pub struct ModuleTypeAirflow {
     /// * `front-to-rear` - Front to rear * `rear-to-front` - Rear to front * `left-to-right` - Left to right * `right-to-left` - Right to left * `side-to-rear` - Side to rear * `passive` - Passive
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl ModuleTypeAirflow {
@@ -23,54 +23,5 @@ impl ModuleTypeAirflow {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `front-to-rear` - Front to rear * `rear-to-front` - Rear to front * `left-to-right` - Left to right * `right-to-left` - Right to left * `side-to-rear` - Side to rear * `passive` - Passive
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "front-to-rear")]
-    FrontToRear,
-    #[serde(rename = "rear-to-front")]
-    RearToFront,
-    #[serde(rename = "left-to-right")]
-    LeftToRight,
-    #[serde(rename = "right-to-left")]
-    RightToLeft,
-    #[serde(rename = "side-to-rear")]
-    SideToRear,
-    #[serde(rename = "passive")]
-    Passive,
-    #[serde(rename = "")]
-    Empty,
-    #[serde(rename = "null")]
-    Null,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::FrontToRear
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Front to rear")]
-    FrontToRear,
-    #[serde(rename = "Rear to front")]
-    RearToFront,
-    #[serde(rename = "Left to right")]
-    LeftToRight,
-    #[serde(rename = "Right to left")]
-    RightToLeft,
-    #[serde(rename = "Side to rear")]
-    SideToRear,
-    #[serde(rename = "Passive")]
-    Passive,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::FrontToRear
     }
 }

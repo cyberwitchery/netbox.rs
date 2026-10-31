@@ -657,6 +657,37 @@ mod tests {
     }
 
     #[test]
+    fn site_status_round_trips() {
+        for status in [
+            json!({"value": "active", "label": "Active"}),
+            json!({"value": "maintenance", "label": "Maintenance"}),
+            json!({"value": "active", "label": "Aktiv"}),
+            json!({"value": "maintenance", "label": ""}),
+        ] {
+            let body = json!({"name": "site1", "slug": "site1", "status": status});
+            let site: crate::models::Site = serde_json::from_value(body.clone())
+                .unwrap_or_else(|err| panic!("status {status}: {err}"));
+            assert_eq!(serde_json::to_value(&site).unwrap(), body);
+        }
+    }
+
+    #[test]
+    fn site_request_custom_status_round_trips() {
+        let body = json!({"name": "site1", "slug": "site1", "status": "maintenance"});
+        let site: crate::models::WritableSiteRequest =
+            serde_json::from_value(body.clone()).unwrap_or_else(|err| panic!("{err}"));
+        assert_eq!(serde_json::to_value(&site).unwrap(), body);
+    }
+
+    #[test]
+    fn console_port_speed_round_trips() {
+        let body = json!({"value": 9600, "label": "9600 bps"});
+        let speed: crate::models::ConsolePortSpeed =
+            serde_json::from_value(body.clone()).unwrap_or_else(|err| panic!("{err}"));
+        assert_eq!(serde_json::to_value(&speed).unwrap(), body);
+    }
+
+    #[test]
     fn serialize_projection_patch_requests() {
         let mut fields = HashMap::new();
         fields.insert("fabric".to_string(), json!("fra1"));

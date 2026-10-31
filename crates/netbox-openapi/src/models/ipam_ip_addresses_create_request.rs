@@ -28,7 +28,7 @@ pub struct IpamIpAddressesCreateRequest {
     pub tenant: Option<Option<i32>>,
     /// The operational status of this IP  * `active` - Active * `reserved` - Reserved * `deprecated` - Deprecated * `dhcp` - DHCP * `slaac` - SLAAC
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<Status>,
+    pub status: Option<String>,
     /// The functional role of this IP  * `loopback` - Loopback * `secondary` - Secondary * `anycast` - Anycast * `vip` - VIP * `vrrp` - VRRP * `hsrp` - HSRP * `glbp` - GLBP * `carp` - CARP
     #[serde(
         rename = "role",
@@ -100,26 +100,6 @@ impl IpamIpAddressesCreateRequest {
     }
 }
 
-/// The operational status of this IP  * `active` - Active * `reserved` - Reserved * `deprecated` - Deprecated * `dhcp` - DHCP * `slaac` - SLAAC
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    #[serde(rename = "active")]
-    Active,
-    #[serde(rename = "reserved")]
-    Reserved,
-    #[serde(rename = "deprecated")]
-    Deprecated,
-    #[serde(rename = "dhcp")]
-    Dhcp,
-    #[serde(rename = "slaac")]
-    Slaac,
-}
-
-impl Default for Status {
-    fn default() -> Status {
-        Self::Active
-    }
-}
 /// The functional role of this IP  * `loopback` - Loopback * `secondary` - Secondary * `anycast` - Anycast * `vip` - VIP * `vrrp` - VRRP * `hsrp` - HSRP * `glbp` - GLBP * `carp` - CARP
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Role {

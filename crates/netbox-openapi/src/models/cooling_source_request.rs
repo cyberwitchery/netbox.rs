@@ -25,10 +25,10 @@ pub struct CoolingSourceRequest {
     pub name: String,
     /// * `chiller` - Chiller * `cooling-tower` - Cooling tower * `dry-cooler` - Dry cooler * `crac` - CRAC * `crah` - CRAH
     #[serde(rename = "type")]
-    pub r#type: RHashType,
+    pub r#type: String,
     /// * `offline` - Offline * `active` - Active * `planned` - Planned * `failed` - Failed
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<Status>,
+    pub status: Option<String>,
     /// * `water` - Water * `water-glycol` - Water/glycol * `dielectric` - Dielectric * `refrigerant` - Refrigerant
     #[serde(
         rename = "fluid_type",
@@ -64,7 +64,7 @@ pub struct CoolingSourceRequest {
 
 impl CoolingSourceRequest {
     /// Base serializer class for models inheriting from PrimaryModel.
-    pub fn new(site: i32, name: String, r#type: RHashType) -> CoolingSourceRequest {
+    pub fn new(site: i32, name: String, r#type: String) -> CoolingSourceRequest {
         CoolingSourceRequest {
             site,
             location: None,
@@ -82,44 +82,6 @@ impl CoolingSourceRequest {
     }
 }
 
-/// * `chiller` - Chiller * `cooling-tower` - Cooling tower * `dry-cooler` - Dry cooler * `crac` - CRAC * `crah` - CRAH
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum RHashType {
-    #[serde(rename = "chiller")]
-    Chiller,
-    #[serde(rename = "cooling-tower")]
-    CoolingTower,
-    #[serde(rename = "dry-cooler")]
-    DryCooler,
-    #[serde(rename = "crac")]
-    Crac,
-    #[serde(rename = "crah")]
-    Crah,
-}
-
-impl Default for RHashType {
-    fn default() -> RHashType {
-        Self::Chiller
-    }
-}
-/// * `offline` - Offline * `active` - Active * `planned` - Planned * `failed` - Failed
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    #[serde(rename = "offline")]
-    Offline,
-    #[serde(rename = "active")]
-    Active,
-    #[serde(rename = "planned")]
-    Planned,
-    #[serde(rename = "failed")]
-    Failed,
-}
-
-impl Default for Status {
-    fn default() -> Status {
-        Self::Offline
-    }
-}
 /// * `water` - Water * `water-glycol` - Water/glycol * `dielectric` - Dielectric * `refrigerant` - Refrigerant
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum FluidType {

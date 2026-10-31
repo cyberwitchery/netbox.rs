@@ -14,7 +14,7 @@ pub struct IkeProposalEncryptionAlgorithm {
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl IkeProposalEncryptionAlgorithm {
@@ -50,31 +50,5 @@ pub enum Value {
 impl Default for Value {
     fn default() -> Value {
         Self::Aes128Cbc
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "128-bit AES (CBC)")]
-    Variant128BitAesLeftParenthesisCbcRightParenthesis,
-    #[serde(rename = "128-bit AES (GCM)")]
-    Variant128BitAesLeftParenthesisGcmRightParenthesis,
-    #[serde(rename = "192-bit AES (CBC)")]
-    Variant192BitAesLeftParenthesisCbcRightParenthesis,
-    #[serde(rename = "192-bit AES (GCM)")]
-    Variant192BitAesLeftParenthesisGcmRightParenthesis,
-    #[serde(rename = "256-bit AES (CBC)")]
-    Variant256BitAesLeftParenthesisCbcRightParenthesis,
-    #[serde(rename = "256-bit AES (GCM)")]
-    Variant256BitAesLeftParenthesisGcmRightParenthesis,
-    #[serde(rename = "3DES")]
-    Variant3Des,
-    #[serde(rename = "DES")]
-    Des,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Variant128BitAesLeftParenthesisCbcRightParenthesis
     }
 }

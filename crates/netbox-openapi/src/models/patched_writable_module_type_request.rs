@@ -33,7 +33,7 @@ pub struct PatchedWritableModuleTypeRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub airflow: Option<Option<Airflow>>,
+    pub airflow: Option<Option<String>>,
     /// * `air` - Air * `liquid` - Liquid * `hybrid` - Hybrid * `immersion` - Immersion
     #[serde(
         rename = "cooling_method",
@@ -115,32 +115,6 @@ impl PatchedWritableModuleTypeRequest {
     }
 }
 
-/// * `front-to-rear` - Front to rear * `rear-to-front` - Rear to front * `left-to-right` - Left to right * `right-to-left` - Right to left * `side-to-rear` - Side to rear * `passive` - Passive
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Airflow {
-    #[serde(rename = "front-to-rear")]
-    FrontToRear,
-    #[serde(rename = "rear-to-front")]
-    RearToFront,
-    #[serde(rename = "left-to-right")]
-    LeftToRight,
-    #[serde(rename = "right-to-left")]
-    RightToLeft,
-    #[serde(rename = "side-to-rear")]
-    SideToRear,
-    #[serde(rename = "passive")]
-    Passive,
-    #[serde(rename = "")]
-    Empty,
-    #[serde(rename = "null")]
-    Null,
-}
-
-impl Default for Airflow {
-    fn default() -> Airflow {
-        Self::FrontToRear
-    }
-}
 /// * `air` - Air * `liquid` - Liquid * `hybrid` - Hybrid * `immersion` - Immersion
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum CoolingMethod {

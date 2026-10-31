@@ -14,7 +14,7 @@ pub struct JobNotifications {
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl JobNotifications {
@@ -39,22 +39,6 @@ pub enum Value {
 
 impl Default for Value {
     fn default() -> Value {
-        Self::Always
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Always")]
-    Always,
-    #[serde(rename = "On failure")]
-    OnFailure,
-    #[serde(rename = "Never")]
-    Never,
-}
-
-impl Default for Label {
-    fn default() -> Label {
         Self::Always
     }
 }

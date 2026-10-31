@@ -14,7 +14,7 @@ pub struct WirelessLanAuthCipher {
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl WirelessLanAuthCipher {
@@ -41,22 +41,6 @@ pub enum Value {
 
 impl Default for Value {
     fn default() -> Value {
-        Self::Auto
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Auto")]
-    Auto,
-    #[serde(rename = "TKIP")]
-    Tkip,
-    #[serde(rename = "AES")]
-    Aes,
-}
-
-impl Default for Label {
-    fn default() -> Label {
         Self::Auto
     }
 }

@@ -12,9 +12,9 @@
 pub struct VirtualDeviceContextStatus {
     /// * `active` - Active * `planned` - Planned * `offline` - Offline
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl VirtualDeviceContextStatus {
@@ -23,38 +23,5 @@ impl VirtualDeviceContextStatus {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `active` - Active * `planned` - Planned * `offline` - Offline
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "active")]
-    Active,
-    #[serde(rename = "planned")]
-    Planned,
-    #[serde(rename = "offline")]
-    Offline,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Active
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Active")]
-    Active,
-    #[serde(rename = "Planned")]
-    Planned,
-    #[serde(rename = "Offline")]
-    Offline,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Active
     }
 }

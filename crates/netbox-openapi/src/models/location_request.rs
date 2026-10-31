@@ -27,7 +27,7 @@ pub struct LocationRequest {
     pub parent: Option<Option<Box<crate::models::NestedLocationRequest>>>,
     /// * `planned` - Planned * `staging` - Staging * `active` - Active * `decommissioning` - Decommissioning * `retired` - Retired
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<Status>,
+    pub status: Option<String>,
     #[serde(
         rename = "tenant",
         default,
@@ -72,26 +72,5 @@ impl LocationRequest {
             owner: None,
             comments: None,
         }
-    }
-}
-
-/// * `planned` - Planned * `staging` - Staging * `active` - Active * `decommissioning` - Decommissioning * `retired` - Retired
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    #[serde(rename = "planned")]
-    Planned,
-    #[serde(rename = "staging")]
-    Staging,
-    #[serde(rename = "active")]
-    Active,
-    #[serde(rename = "decommissioning")]
-    Decommissioning,
-    #[serde(rename = "retired")]
-    Retired,
-}
-
-impl Default for Status {
-    fn default() -> Status {
-        Self::Planned
     }
 }

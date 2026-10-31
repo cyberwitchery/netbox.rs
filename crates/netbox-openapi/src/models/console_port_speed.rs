@@ -12,9 +12,9 @@
 pub struct ConsolePortSpeed {
     /// * `1200` - 1200 bps * `2400` - 2400 bps * `4800` - 4800 bps * `9600` - 9600 bps * `19200` - 19.2 kbps * `38400` - 38.4 kbps * `57600` - 57.6 kbps * `115200` - 115.2 kbps
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<i32>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl ConsolePortSpeed {
@@ -23,60 +23,5 @@ impl ConsolePortSpeed {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `1200` - 1200 bps * `2400` - 2400 bps * `4800` - 4800 bps * `9600` - 9600 bps * `19200` - 19.2 kbps * `38400` - 38.4 kbps * `57600` - 57.6 kbps * `115200` - 115.2 kbps
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "1200")]
-    Variant1200,
-    #[serde(rename = "2400")]
-    Variant2400,
-    #[serde(rename = "4800")]
-    Variant4800,
-    #[serde(rename = "9600")]
-    Variant9600,
-    #[serde(rename = "19200")]
-    Variant19200,
-    #[serde(rename = "38400")]
-    Variant38400,
-    #[serde(rename = "57600")]
-    Variant57600,
-    #[serde(rename = "115200")]
-    Variant115200,
-    #[serde(rename = "null")]
-    Null,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Variant1200
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "1200 bps")]
-    Variant1200Bps,
-    #[serde(rename = "2400 bps")]
-    Variant2400Bps,
-    #[serde(rename = "4800 bps")]
-    Variant4800Bps,
-    #[serde(rename = "9600 bps")]
-    Variant9600Bps,
-    #[serde(rename = "19.2 kbps")]
-    Variant19Period2Kbps,
-    #[serde(rename = "38.4 kbps")]
-    Variant38Period4Kbps,
-    #[serde(rename = "57.6 kbps")]
-    Variant57Period6Kbps,
-    #[serde(rename = "115.2 kbps")]
-    Variant115Period2Kbps,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Variant1200Bps
     }
 }

@@ -12,9 +12,9 @@
 pub struct RackAirflow {
     /// * `front-to-rear` - Front to rear * `rear-to-front` - Rear to front
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl RackAirflow {
@@ -23,36 +23,5 @@ impl RackAirflow {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `front-to-rear` - Front to rear * `rear-to-front` - Rear to front
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "front-to-rear")]
-    FrontToRear,
-    #[serde(rename = "rear-to-front")]
-    RearToFront,
-    #[serde(rename = "")]
-    Empty,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::FrontToRear
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Front to rear")]
-    FrontToRear,
-    #[serde(rename = "Rear to front")]
-    RearToFront,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::FrontToRear
     }
 }

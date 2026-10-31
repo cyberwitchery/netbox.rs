@@ -27,7 +27,7 @@ pub struct BulkPowerFeedRequest {
     pub name: String,
     /// * `offline` - Offline * `active` - Active * `planned` - Planned * `failed` - Failed
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<Status>,
+    pub status: Option<String>,
     /// * `primary` - Primary * `redundant` - Redundant
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type: Option<RHashType>,
@@ -97,24 +97,6 @@ impl BulkPowerFeedRequest {
     }
 }
 
-/// * `offline` - Offline * `active` - Active * `planned` - Planned * `failed` - Failed
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    #[serde(rename = "offline")]
-    Offline,
-    #[serde(rename = "active")]
-    Active,
-    #[serde(rename = "planned")]
-    Planned,
-    #[serde(rename = "failed")]
-    Failed,
-}
-
-impl Default for Status {
-    fn default() -> Status {
-        Self::Offline
-    }
-}
 /// * `primary` - Primary * `redundant` - Redundant
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum RHashType {

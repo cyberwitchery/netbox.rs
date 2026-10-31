@@ -383,6 +383,7 @@ src/models/console_server_port_template.rs
 src/models/console_server_port_template_request.rs
 src/models/contact.rs
 src/models/contact_assignment.rs
+src/models/contact_assignment_priority.rs
 src/models/contact_assignment_request.rs
 src/models/contact_group.rs
 src/models/contact_group_request.rs
@@ -1220,6 +1221,7 @@ src/models/virtual_chassis.rs
 src/models/virtual_chassis_request.rs
 src/models/virtual_circuit.rs
 src/models/virtual_circuit_request.rs
+src/models/virtual_circuit_status.rs
 src/models/virtual_circuit_termination.rs
 src/models/virtual_circuit_termination_request.rs
 src/models/virtual_circuit_type.rs

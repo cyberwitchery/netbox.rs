@@ -14,7 +14,7 @@ pub struct DataSourceType {
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl DataSourceType {
@@ -42,23 +42,5 @@ pub enum Value {
 impl Default for Value {
     fn default() -> Value {
         Self::Null
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "none")]
-    None,
-    #[serde(rename = "Local")]
-    Local,
-    #[serde(rename = "Git")]
-    Git,
-    #[serde(rename = "Amazon S3")]
-    AmazonS3,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::None
     }
 }

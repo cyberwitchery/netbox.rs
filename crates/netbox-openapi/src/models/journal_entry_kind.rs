@@ -12,9 +12,9 @@
 pub struct JournalEntryKind {
     /// * `info` - Info * `success` - Success * `warning` - Warning * `danger` - Danger
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl JournalEntryKind {
@@ -23,42 +23,5 @@ impl JournalEntryKind {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `info` - Info * `success` - Success * `warning` - Warning * `danger` - Danger
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "info")]
-    Info,
-    #[serde(rename = "success")]
-    Success,
-    #[serde(rename = "warning")]
-    Warning,
-    #[serde(rename = "danger")]
-    Danger,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Info
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Info")]
-    Info,
-    #[serde(rename = "Success")]
-    Success,
-    #[serde(rename = "Warning")]
-    Warning,
-    #[serde(rename = "Danger")]
-    Danger,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Info
     }
 }

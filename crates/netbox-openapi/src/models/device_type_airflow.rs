@@ -14,7 +14,7 @@ pub struct DeviceTypeAirflow {
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl DeviceTypeAirflow {
@@ -57,36 +57,6 @@ pub enum Value {
 
 impl Default for Value {
     fn default() -> Value {
-        Self::FrontToRear
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Front to rear")]
-    FrontToRear,
-    #[serde(rename = "Rear to front")]
-    RearToFront,
-    #[serde(rename = "Left to right")]
-    LeftToRight,
-    #[serde(rename = "Right to left")]
-    RightToLeft,
-    #[serde(rename = "Side to rear")]
-    SideToRear,
-    #[serde(rename = "Rear to side")]
-    RearToSide,
-    #[serde(rename = "Bottom to top")]
-    BottomToTop,
-    #[serde(rename = "Top to bottom")]
-    TopToBottom,
-    #[serde(rename = "Passive")]
-    Passive,
-    #[serde(rename = "Mixed")]
-    Mixed,
-}
-
-impl Default for Label {
-    fn default() -> Label {
         Self::FrontToRear
     }
 }

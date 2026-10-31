@@ -14,7 +14,7 @@ pub struct DeviceTypeSubdeviceRole {
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl DeviceTypeSubdeviceRole {
@@ -41,20 +41,6 @@ pub enum Value {
 
 impl Default for Value {
     fn default() -> Value {
-        Self::Parent
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Parent")]
-    Parent,
-    #[serde(rename = "Child")]
-    Child,
-}
-
-impl Default for Label {
-    fn default() -> Label {
         Self::Parent
     }
 }

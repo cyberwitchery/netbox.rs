@@ -32,10 +32,10 @@ pub struct PatchedBulkVirtualMachineRequest {
     pub role: Option<Option<i32>>,
     /// * `offline` - Offline * `active` - Active * `planned` - Planned * `staged` - Staged * `failed` - Failed * `decommissioning` - Decommissioning * `paused` - Paused
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<Status>,
+    pub status: Option<String>,
     /// * `on` - On * `off` - Off * `laststate` - Last State
     #[serde(rename = "start_on_boot", skip_serializing_if = "Option::is_none")]
-    pub start_on_boot: Option<StartOnBoot>,
+    pub start_on_boot: Option<String>,
     #[serde(
         rename = "site",
         default,
@@ -169,46 +169,5 @@ impl PatchedBulkVirtualMachineRequest {
             config_template: None,
             custom_fields: None,
         }
-    }
-}
-
-/// * `offline` - Offline * `active` - Active * `planned` - Planned * `staged` - Staged * `failed` - Failed * `decommissioning` - Decommissioning * `paused` - Paused
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    #[serde(rename = "offline")]
-    Offline,
-    #[serde(rename = "active")]
-    Active,
-    #[serde(rename = "planned")]
-    Planned,
-    #[serde(rename = "staged")]
-    Staged,
-    #[serde(rename = "failed")]
-    Failed,
-    #[serde(rename = "decommissioning")]
-    Decommissioning,
-    #[serde(rename = "paused")]
-    Paused,
-}
-
-impl Default for Status {
-    fn default() -> Status {
-        Self::Offline
-    }
-}
-/// * `on` - On * `off` - Off * `laststate` - Last State
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum StartOnBoot {
-    #[serde(rename = "on")]
-    On,
-    #[serde(rename = "off")]
-    Off,
-    #[serde(rename = "laststate")]
-    Laststate,
-}
-
-impl Default for StartOnBoot {
-    fn default() -> StartOnBoot {
-        Self::On
     }
 }

@@ -16,7 +16,7 @@ pub struct TunnelRequest {
     pub name: String,
     /// * `planned` - Planned * `active` - Active * `disabled` - Disabled
     #[serde(rename = "status")]
-    pub status: Status,
+    pub status: String,
     #[serde(
         rename = "group",
         default,
@@ -67,7 +67,7 @@ pub struct TunnelRequest {
 
 impl TunnelRequest {
     /// Base serializer class for models inheriting from PrimaryModel.
-    pub fn new(name: String, status: Status, encapsulation: Encapsulation) -> TunnelRequest {
+    pub fn new(name: String, status: String, encapsulation: Encapsulation) -> TunnelRequest {
         TunnelRequest {
             name,
             status,
@@ -85,22 +85,6 @@ impl TunnelRequest {
     }
 }
 
-/// * `planned` - Planned * `active` - Active * `disabled` - Disabled
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    #[serde(rename = "planned")]
-    Planned,
-    #[serde(rename = "active")]
-    Active,
-    #[serde(rename = "disabled")]
-    Disabled,
-}
-
-impl Default for Status {
-    fn default() -> Status {
-        Self::Planned
-    }
-}
 /// * `ipsec-transport` - IPsec - Transport * `ipsec-tunnel` - IPsec - Tunnel * `ip-ip` - IP-in-IP * `gre` - GRE * `wireguard` - WireGuard * `openvpn` - OpenVPN * `l2tp` - L2TP * `pptp` - PPTP
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Encapsulation {

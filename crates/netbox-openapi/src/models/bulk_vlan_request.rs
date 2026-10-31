@@ -42,7 +42,7 @@ pub struct BulkVlanRequest {
     pub tenant: Option<Option<i32>>,
     /// * `active` - Active * `reserved` - Reserved * `deprecated` - Deprecated
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<Status>,
+    pub status: Option<String>,
     #[serde(
         rename = "role",
         default,
@@ -105,22 +105,6 @@ impl BulkVlanRequest {
     }
 }
 
-/// * `active` - Active * `reserved` - Reserved * `deprecated` - Deprecated
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    #[serde(rename = "active")]
-    Active,
-    #[serde(rename = "reserved")]
-    Reserved,
-    #[serde(rename = "deprecated")]
-    Deprecated,
-}
-
-impl Default for Status {
-    fn default() -> Status {
-        Self::Active
-    }
-}
 /// * `svlan` - Service * `cvlan` - Customer
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum QinqRole {

@@ -16,7 +16,7 @@ pub struct BriefCircuitGroupAssignmentSerializerRequest {
     pub group: i32,
     /// * `primary` - Primary * `secondary` - Secondary * `tertiary` - Tertiary * `inactive` - Inactive
     #[serde(rename = "priority", skip_serializing_if = "Option::is_none")]
-    pub priority: Option<Priority>,
+    pub priority: Option<String>,
 }
 
 impl BriefCircuitGroupAssignmentSerializerRequest {
@@ -26,26 +26,5 @@ impl BriefCircuitGroupAssignmentSerializerRequest {
             group,
             priority: None,
         }
-    }
-}
-
-/// * `primary` - Primary * `secondary` - Secondary * `tertiary` - Tertiary * `inactive` - Inactive
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Priority {
-    #[serde(rename = "primary")]
-    Primary,
-    #[serde(rename = "secondary")]
-    Secondary,
-    #[serde(rename = "tertiary")]
-    Tertiary,
-    #[serde(rename = "inactive")]
-    Inactive,
-    #[serde(rename = "")]
-    Empty,
-}
-
-impl Default for Priority {
-    fn default() -> Priority {
-        Self::Primary
     }
 }

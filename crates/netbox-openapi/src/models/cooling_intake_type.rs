@@ -14,7 +14,7 @@ pub struct CoolingIntakeType {
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl CoolingIntakeType {
@@ -52,29 +52,5 @@ pub enum Value {
 impl Default for Value {
     fn default() -> Value {
         Self::Uqd
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "UQD (Universal Quick Disconnect)")]
-    UqdLeftParenthesisUniversalQuickDisconnectRightParenthesis,
-    #[serde(rename = "UQDB (Universal Quick Disconnect, Blind-mate)")]
-    UqdbLeftParenthesisUniversalQuickDisconnectCommaBlindMateRightParenthesis,
-    #[serde(rename = "QDC (Quick Disconnect Coupling)")]
-    QdcLeftParenthesisQuickDisconnectCouplingRightParenthesis,
-    #[serde(rename = "Camlock (cam-and-groove)")]
-    CamlockLeftParenthesisCamAndGrooveRightParenthesis,
-    #[serde(rename = "NPT (threaded)")]
-    NptLeftParenthesisThreadedRightParenthesis,
-    #[serde(rename = "BSP (threaded)")]
-    BspLeftParenthesisThreadedRightParenthesis,
-    #[serde(rename = "Proprietary")]
-    Proprietary,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::UqdLeftParenthesisUniversalQuickDisconnectRightParenthesis
     }
 }

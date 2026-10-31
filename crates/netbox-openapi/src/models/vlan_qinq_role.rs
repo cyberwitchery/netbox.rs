@@ -14,7 +14,7 @@ pub struct VlanQinqRole {
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl VlanQinqRole {
@@ -40,19 +40,5 @@ pub enum Value {
 impl Default for Value {
     fn default() -> Value {
         Self::Svlan
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Service")]
-    Service,
-    #[serde(rename = "Customer")]
-    Customer,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Service
     }
 }

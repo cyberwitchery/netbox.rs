@@ -48,7 +48,7 @@ pub struct BulkVirtualDeviceContextRequest {
     pub primary_ip6: Option<Option<i32>>,
     /// * `active` - Active * `planned` - Planned * `offline` - Offline
     #[serde(rename = "status")]
-    pub status: Status,
+    pub status: String,
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     #[serde(
@@ -72,7 +72,7 @@ impl BulkVirtualDeviceContextRequest {
         id: i32,
         name: String,
         device: i32,
-        status: Status,
+        status: String,
     ) -> BulkVirtualDeviceContextRequest {
         BulkVirtualDeviceContextRequest {
             id,
@@ -89,22 +89,5 @@ impl BulkVirtualDeviceContextRequest {
             tags: None,
             custom_fields: None,
         }
-    }
-}
-
-/// * `active` - Active * `planned` - Planned * `offline` - Offline
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    #[serde(rename = "active")]
-    Active,
-    #[serde(rename = "planned")]
-    Planned,
-    #[serde(rename = "offline")]
-    Offline,
-}
-
-impl Default for Status {
-    fn default() -> Status {
-        Self::Active
     }
 }

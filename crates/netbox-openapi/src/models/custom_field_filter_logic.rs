@@ -14,7 +14,7 @@ pub struct CustomFieldFilterLogic {
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl CustomFieldFilterLogic {
@@ -39,22 +39,6 @@ pub enum Value {
 
 impl Default for Value {
     fn default() -> Value {
-        Self::Disabled
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Disabled")]
-    Disabled,
-    #[serde(rename = "Loose")]
-    Loose,
-    #[serde(rename = "Exact")]
-    Exact,
-}
-
-impl Default for Label {
-    fn default() -> Label {
         Self::Disabled
     }
 }

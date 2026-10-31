@@ -33,16 +33,73 @@ def drop_readonly_required(obj: dict) -> None:
         filtered.append(name)
     obj["required"] = filtered
 
-def drop_integer_enums(obj: dict) -> None:
+def drop_integer_enums(obj: dict, allow_null: bool = False) -> None:
     if obj.get("type") != "integer":
         return
     enum = obj.get("enum")
     if not isinstance(enum, list):
         return
-    if not enum or not all(isinstance(item, int) for item in enum):
+    if not enum or not all(isinstance(item, int) or (allow_null and item is None) for item in enum):
         return
     obj.pop("enum", None)
     obj.pop("x-spec-enum-id", None)
+
+def drop_enum(obj: dict) -> None:
+    obj.pop("enum", None)
+    obj.pop("x-spec-enum-id", None)
+
+# fields whose NetBox ChoiceSet has a `key`, so FIELD_CHOICES can replace or extend it
+CONFIGURABLE_CHOICES = [
+    ("Circuit", "status"),
+    ("CircuitGroupAssignment", "priority"),
+    ("Cluster", "status"),
+    ("CoolingFeed", "status"),
+    ("CoolingSource", "status"),
+    ("CoolingSource", "type"),
+    ("Device", "airflow"),
+    ("Device", "status"),
+    ("InventoryItem", "status"),
+    ("IPAddress", "status"),
+    ("IPRange", "status"),
+    ("JournalEntry", "kind"),
+    ("L2VPN", "status"),
+    ("Location", "status"),
+    ("Module", "status"),
+    ("ModuleType", "airflow"),
+    ("PowerFeed", "status"),
+    ("PowerOutlet", "status"),
+    ("Prefix", "status"),
+    ("Rack", "airflow"),
+    ("Rack", "status"),
+    ("RackReservation", "status"),
+    ("Site", "status"),
+    ("Tunnel", "status"),
+    ("VirtualDeviceContext", "status"),
+    ("VirtualMachine", "start_on_boot"),
+    ("VirtualMachine", "status"),
+    ("VLAN", "status"),
+    ("WirelessLAN", "status"),
+]
+
+# the model behind a schema name: Site, WritableSiteRequest, PatchedBulkSiteRequest, ... -> Site
+model_schema_re = re.compile(r"(?:Patched)?(?:Bulk)?(?:Writable)?(?:Brief)?(\w+?)(?:Serializer_)?(?:Request)?")
+
+def is_configurable(schema: str, field: str) -> bool:
+    match = model_schema_re.fullmatch(schema)
+    return match is not None and (match.group(1), field) in CONFIGURABLE_CHOICES
+
+def open_choice_fields(schemas: dict) -> None:
+    for name, schema in schemas.items():
+        for field, prop in (schema.get("properties") or {}).items():
+            choice = prop.get("properties") if prop.get("type") == "object" else None
+            if isinstance(choice, dict) and set(choice) == {"value", "label"}:
+                drop_enum(choice["label"])
+                if is_configurable(name, field):
+                    drop_enum(choice["value"])
+                else:
+                    drop_integer_enums(choice["value"], allow_null=True)
+            elif is_configurable(name, field):
+                drop_enum(prop)
 
 def collapse_string_one_of(obj: dict) -> None:
     # NetBox models blank-able fields (dns_name, color, email, url) as
@@ -106,6 +163,7 @@ def main() -> None:
     src, dst = sys.argv[1], sys.argv[2]
     with open(src, "r", encoding="utf-8") as handle:
         data = json.load(handle)
+    open_choice_fields(data["components"]["schemas"])
     normalize(data)
     with open(dst, "w", encoding="utf-8") as handle:
         json.dump(data, handle, ensure_ascii=True)

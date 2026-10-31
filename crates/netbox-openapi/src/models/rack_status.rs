@@ -12,9 +12,9 @@
 pub struct RackStatus {
     /// * `reserved` - Reserved * `available` - Available * `planned` - Planned * `active` - Active * `deprecated` - Deprecated
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl RackStatus {
@@ -23,46 +23,5 @@ impl RackStatus {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `reserved` - Reserved * `available` - Available * `planned` - Planned * `active` - Active * `deprecated` - Deprecated
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "reserved")]
-    Reserved,
-    #[serde(rename = "available")]
-    Available,
-    #[serde(rename = "planned")]
-    Planned,
-    #[serde(rename = "active")]
-    Active,
-    #[serde(rename = "deprecated")]
-    Deprecated,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Reserved
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Reserved")]
-    Reserved,
-    #[serde(rename = "Available")]
-    Available,
-    #[serde(rename = "Planned")]
-    Planned,
-    #[serde(rename = "Active")]
-    Active,
-    #[serde(rename = "Deprecated")]
-    Deprecated,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Reserved
     }
 }

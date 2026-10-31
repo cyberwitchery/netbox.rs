@@ -14,7 +14,7 @@ pub struct BriefJobStatus {
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl BriefJobStatus {
@@ -45,28 +45,6 @@ pub enum Value {
 
 impl Default for Value {
     fn default() -> Value {
-        Self::Pending
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Pending")]
-    Pending,
-    #[serde(rename = "Scheduled")]
-    Scheduled,
-    #[serde(rename = "Running")]
-    Running,
-    #[serde(rename = "Completed")]
-    Completed,
-    #[serde(rename = "Errored")]
-    Errored,
-    #[serde(rename = "Failed")]
-    Failed,
-}
-
-impl Default for Label {
-    fn default() -> Label {
         Self::Pending
     }
 }

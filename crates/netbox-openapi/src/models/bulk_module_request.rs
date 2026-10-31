@@ -22,7 +22,7 @@ pub struct BulkModuleRequest {
     pub module_type: i32,
     /// * `offline` - Offline * `active` - Active * `planned` - Planned * `staged` - Staged * `failed` - Failed * `decommissioning` - Decommissioning
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<Status>,
+    pub status: Option<String>,
     #[serde(rename = "serial", skip_serializing_if = "Option::is_none")]
     pub serial: Option<String>,
     /// A unique tag used to identify this device
@@ -83,28 +83,5 @@ impl BulkModuleRequest {
             replicate_components: None,
             adopt_components: None,
         }
-    }
-}
-
-/// * `offline` - Offline * `active` - Active * `planned` - Planned * `staged` - Staged * `failed` - Failed * `decommissioning` - Decommissioning
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Status {
-    #[serde(rename = "offline")]
-    Offline,
-    #[serde(rename = "active")]
-    Active,
-    #[serde(rename = "planned")]
-    Planned,
-    #[serde(rename = "staged")]
-    Staged,
-    #[serde(rename = "failed")]
-    Failed,
-    #[serde(rename = "decommissioning")]
-    Decommissioning,
-}
-
-impl Default for Status {
-    fn default() -> Status {
-        Self::Offline
     }
 }
