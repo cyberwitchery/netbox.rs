@@ -12,7 +12,7 @@
 pub struct RackCoolingCapability {
     /// * `air-only` - Air only * `hybrid` - Hybrid * `liquid-only` - Liquid only
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+    pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 }
@@ -23,5 +23,26 @@ impl RackCoolingCapability {
             value: None,
             label: None,
         }
+    }
+}
+
+/// * `air-only` - Air only * `hybrid` - Hybrid * `liquid-only` - Liquid only
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Value {
+    #[serde(rename = "air-only")]
+    AirOnly,
+    #[serde(rename = "hybrid")]
+    Hybrid,
+    #[serde(rename = "liquid-only")]
+    LiquidOnly,
+    #[serde(rename = "")]
+    Empty,
+    #[serde(rename = "null")]
+    Null,
+}
+
+impl Default for Value {
+    fn default() -> Value {
+        Self::AirOnly
     }
 }

@@ -44,7 +44,7 @@ pub struct CreateAvailablePrefixRequest {
     pub vlan: Option<Option<i32>>,
     /// * `container` - Container * `active` - Active * `reserved` - Reserved * `deprecated` - Deprecated
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<String>,
+    pub status: Option<Status>,
     #[serde(
         rename = "role",
         default,
@@ -94,5 +94,24 @@ impl CreateAvailablePrefixRequest {
             tags: None,
             custom_fields: None,
         }
+    }
+}
+
+/// * `container` - Container * `active` - Active * `reserved` - Reserved * `deprecated` - Deprecated
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Status {
+    #[serde(rename = "container")]
+    Container,
+    #[serde(rename = "active")]
+    Active,
+    #[serde(rename = "reserved")]
+    Reserved,
+    #[serde(rename = "deprecated")]
+    Deprecated,
+}
+
+impl Default for Status {
+    fn default() -> Status {
+        Self::Container
     }
 }

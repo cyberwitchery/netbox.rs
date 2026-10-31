@@ -12,7 +12,7 @@
 pub struct BriefL2VpnType {
     /// * `vpws` - VPWS * `vpls` - VPLS * `vxlan` - VXLAN * `vxlan-evpn` - VXLAN-EVPN * `mpls-evpn` - MPLS EVPN * `pbb-evpn` - PBB EVPN * `evpn-vpws` - EVPN VPWS * `epl` - EPL * `evpl` - EVPL * `ep-lan` - Ethernet Private LAN * `evp-lan` - Ethernet Virtual Private LAN * `ep-tree` - Ethernet Private Tree * `evp-tree` - Ethernet Virtual Private Tree * `spb` - SPB
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+    pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 }
@@ -23,5 +23,44 @@ impl BriefL2VpnType {
             value: None,
             label: None,
         }
+    }
+}
+
+/// * `vpws` - VPWS * `vpls` - VPLS * `vxlan` - VXLAN * `vxlan-evpn` - VXLAN-EVPN * `mpls-evpn` - MPLS EVPN * `pbb-evpn` - PBB EVPN * `evpn-vpws` - EVPN VPWS * `epl` - EPL * `evpl` - EVPL * `ep-lan` - Ethernet Private LAN * `evp-lan` - Ethernet Virtual Private LAN * `ep-tree` - Ethernet Private Tree * `evp-tree` - Ethernet Virtual Private Tree * `spb` - SPB
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Value {
+    #[serde(rename = "vpws")]
+    Vpws,
+    #[serde(rename = "vpls")]
+    Vpls,
+    #[serde(rename = "vxlan")]
+    Vxlan,
+    #[serde(rename = "vxlan-evpn")]
+    VxlanEvpn,
+    #[serde(rename = "mpls-evpn")]
+    MplsEvpn,
+    #[serde(rename = "pbb-evpn")]
+    PbbEvpn,
+    #[serde(rename = "evpn-vpws")]
+    EvpnVpws,
+    #[serde(rename = "epl")]
+    Epl,
+    #[serde(rename = "evpl")]
+    Evpl,
+    #[serde(rename = "ep-lan")]
+    EpLan,
+    #[serde(rename = "evp-lan")]
+    EvpLan,
+    #[serde(rename = "ep-tree")]
+    EpTree,
+    #[serde(rename = "evp-tree")]
+    EvpTree,
+    #[serde(rename = "spb")]
+    Spb,
+}
+
+impl Default for Value {
+    fn default() -> Value {
+        Self::Vpws
     }
 }

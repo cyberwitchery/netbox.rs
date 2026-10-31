@@ -12,7 +12,7 @@
 pub struct CoolingSourceFluidType {
     /// * `water` - Water * `water-glycol` - Water/glycol * `dielectric` - Dielectric * `refrigerant` - Refrigerant
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+    pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 }
@@ -23,5 +23,28 @@ impl CoolingSourceFluidType {
             value: None,
             label: None,
         }
+    }
+}
+
+/// * `water` - Water * `water-glycol` - Water/glycol * `dielectric` - Dielectric * `refrigerant` - Refrigerant
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Value {
+    #[serde(rename = "water")]
+    Water,
+    #[serde(rename = "water-glycol")]
+    WaterGlycol,
+    #[serde(rename = "dielectric")]
+    Dielectric,
+    #[serde(rename = "refrigerant")]
+    Refrigerant,
+    #[serde(rename = "")]
+    Empty,
+    #[serde(rename = "null")]
+    Null,
+}
+
+impl Default for Value {
+    fn default() -> Value {
+        Self::Water
     }
 }

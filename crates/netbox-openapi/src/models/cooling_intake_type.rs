@@ -12,7 +12,7 @@
 pub struct CoolingIntakeType {
     /// * `uqd` - UQD (Universal Quick Disconnect) * `uqdb` - UQDB (Universal Quick Disconnect, Blind-mate) * `qdc` - QDC (Quick Disconnect Coupling) * `camlock` - Camlock (cam-and-groove) * `npt` - NPT (threaded) * `bsp` - BSP (threaded) * `proprietary` - Proprietary
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+    pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 }
@@ -23,5 +23,34 @@ impl CoolingIntakeType {
             value: None,
             label: None,
         }
+    }
+}
+
+/// * `uqd` - UQD (Universal Quick Disconnect) * `uqdb` - UQDB (Universal Quick Disconnect, Blind-mate) * `qdc` - QDC (Quick Disconnect Coupling) * `camlock` - Camlock (cam-and-groove) * `npt` - NPT (threaded) * `bsp` - BSP (threaded) * `proprietary` - Proprietary
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Value {
+    #[serde(rename = "uqd")]
+    Uqd,
+    #[serde(rename = "uqdb")]
+    Uqdb,
+    #[serde(rename = "qdc")]
+    Qdc,
+    #[serde(rename = "camlock")]
+    Camlock,
+    #[serde(rename = "npt")]
+    Npt,
+    #[serde(rename = "bsp")]
+    Bsp,
+    #[serde(rename = "proprietary")]
+    Proprietary,
+    #[serde(rename = "")]
+    Empty,
+    #[serde(rename = "null")]
+    Null,
+}
+
+impl Default for Value {
+    fn default() -> Value {
+        Self::Uqd
     }
 }

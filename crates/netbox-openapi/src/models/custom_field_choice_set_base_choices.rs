@@ -12,7 +12,7 @@
 pub struct CustomFieldChoiceSetBaseChoices {
     /// * `IATA` - IATA (Airport codes) * `ISO_3166` - ISO 3166 (Country codes) * `UN_LOCODE` - UN/LOCODE (Location codes)
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+    pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 }
@@ -23,5 +23,24 @@ impl CustomFieldChoiceSetBaseChoices {
             value: None,
             label: None,
         }
+    }
+}
+
+/// * `IATA` - IATA (Airport codes) * `ISO_3166` - ISO 3166 (Country codes) * `UN_LOCODE` - UN/LOCODE (Location codes)
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Value {
+    #[serde(rename = "IATA")]
+    Iata,
+    #[serde(rename = "ISO_3166")]
+    Iso3166,
+    #[serde(rename = "UN_LOCODE")]
+    UnLocode,
+    #[serde(rename = "null")]
+    Null,
+}
+
+impl Default for Value {
+    fn default() -> Value {
+        Self::Iata
     }
 }

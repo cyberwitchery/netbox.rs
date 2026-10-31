@@ -12,7 +12,7 @@
 pub struct InterfaceTemplateRfRole {
     /// * `ap` - Access point * `station` - Station
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+    pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 }
@@ -23,5 +23,24 @@ impl InterfaceTemplateRfRole {
             value: None,
             label: None,
         }
+    }
+}
+
+/// * `ap` - Access point * `station` - Station
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Value {
+    #[serde(rename = "ap")]
+    Ap,
+    #[serde(rename = "station")]
+    Station,
+    #[serde(rename = "")]
+    Empty,
+    #[serde(rename = "null")]
+    Null,
+}
+
+impl Default for Value {
+    fn default() -> Value {
+        Self::Ap
     }
 }

@@ -12,7 +12,7 @@
 pub struct RackUnitFace {
     /// * `front` - Front * `rear` - Rear
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+    pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 }
@@ -23,5 +23,20 @@ impl RackUnitFace {
             value: None,
             label: None,
         }
+    }
+}
+
+/// * `front` - Front * `rear` - Rear
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Value {
+    #[serde(rename = "front")]
+    Front,
+    #[serde(rename = "rear")]
+    Rear,
+}
+
+impl Default for Value {
+    fn default() -> Value {
+        Self::Front
     }
 }

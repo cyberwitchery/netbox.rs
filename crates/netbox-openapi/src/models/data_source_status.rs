@@ -12,7 +12,7 @@
 pub struct DataSourceStatus {
     /// * `new` - New * `queued` - Queued * `syncing` - Syncing * `completed` - Completed * `failed` - Failed
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+    pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 }
@@ -23,5 +23,26 @@ impl DataSourceStatus {
             value: None,
             label: None,
         }
+    }
+}
+
+/// * `new` - New * `queued` - Queued * `syncing` - Syncing * `completed` - Completed * `failed` - Failed
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Value {
+    #[serde(rename = "new")]
+    New,
+    #[serde(rename = "queued")]
+    Queued,
+    #[serde(rename = "syncing")]
+    Syncing,
+    #[serde(rename = "completed")]
+    Completed,
+    #[serde(rename = "failed")]
+    Failed,
+}
+
+impl Default for Value {
+    fn default() -> Value {
+        Self::New
     }
 }

@@ -12,7 +12,7 @@
 pub struct RackOuterUnit {
     /// * `mm` - Millimeters * `in` - Inches
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+    pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 }
@@ -23,5 +23,24 @@ impl RackOuterUnit {
             value: None,
             label: None,
         }
+    }
+}
+
+/// * `mm` - Millimeters * `in` - Inches
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Value {
+    #[serde(rename = "mm")]
+    Mm,
+    #[serde(rename = "in")]
+    In,
+    #[serde(rename = "")]
+    Empty,
+    #[serde(rename = "null")]
+    Null,
+}
+
+impl Default for Value {
+    fn default() -> Value {
+        Self::Mm
     }
 }

@@ -12,7 +12,7 @@
 pub struct CustomFieldType {
     /// * `text` - Text * `longtext` - Text (long) * `integer` - Integer * `decimal` - Decimal * `boolean` - Boolean * `date` - Date * `datetime` - Date & time * `url` - URL * `json` - JSON * `select` - Selection * `multiselect` - Multiple selection * `object` - Object * `multiobject` - Multiple objects
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+    pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 }
@@ -23,5 +23,42 @@ impl CustomFieldType {
             value: None,
             label: None,
         }
+    }
+}
+
+/// * `text` - Text * `longtext` - Text (long) * `integer` - Integer * `decimal` - Decimal * `boolean` - Boolean * `date` - Date * `datetime` - Date & time * `url` - URL * `json` - JSON * `select` - Selection * `multiselect` - Multiple selection * `object` - Object * `multiobject` - Multiple objects
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Value {
+    #[serde(rename = "text")]
+    Text,
+    #[serde(rename = "longtext")]
+    Longtext,
+    #[serde(rename = "integer")]
+    Integer,
+    #[serde(rename = "decimal")]
+    Decimal,
+    #[serde(rename = "boolean")]
+    Boolean,
+    #[serde(rename = "date")]
+    Date,
+    #[serde(rename = "datetime")]
+    Datetime,
+    #[serde(rename = "url")]
+    Url,
+    #[serde(rename = "json")]
+    Json,
+    #[serde(rename = "select")]
+    Select,
+    #[serde(rename = "multiselect")]
+    Multiselect,
+    #[serde(rename = "object")]
+    Object,
+    #[serde(rename = "multiobject")]
+    Multiobject,
+}
+
+impl Default for Value {
+    fn default() -> Value {
+        Self::Text
     }
 }

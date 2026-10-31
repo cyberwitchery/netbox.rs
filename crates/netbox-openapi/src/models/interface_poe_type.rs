@@ -12,7 +12,7 @@
 pub struct InterfacePoeType {
     /// * `type1-ieee802.3af` - 802.3af (Type 1) * `type2-ieee802.3at` - 802.3at (Type 2) * `type3-ieee802.3bt` - 802.3bt (Type 3) * `type4-ieee802.3bt` - 802.3bt (Type 4) * `passive-24v-2pair` - Passive 24V (2-pair) * `passive-24v-4pair` - Passive 24V (4-pair) * `passive-48v-2pair` - Passive 48V (2-pair) * `passive-48v-4pair` - Passive 48V (4-pair)
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+    pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 }
@@ -23,5 +23,34 @@ impl InterfacePoeType {
             value: None,
             label: None,
         }
+    }
+}
+
+/// * `type1-ieee802.3af` - 802.3af (Type 1) * `type2-ieee802.3at` - 802.3at (Type 2) * `type3-ieee802.3bt` - 802.3bt (Type 3) * `type4-ieee802.3bt` - 802.3bt (Type 4) * `passive-24v-2pair` - Passive 24V (2-pair) * `passive-24v-4pair` - Passive 24V (4-pair) * `passive-48v-2pair` - Passive 48V (2-pair) * `passive-48v-4pair` - Passive 48V (4-pair)
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Value {
+    #[serde(rename = "type1-ieee802.3af")]
+    Type1Ieee802Period3af,
+    #[serde(rename = "type2-ieee802.3at")]
+    Type2Ieee802Period3at,
+    #[serde(rename = "type3-ieee802.3bt")]
+    Type3Ieee802Period3bt,
+    #[serde(rename = "type4-ieee802.3bt")]
+    Type4Ieee802Period3bt,
+    #[serde(rename = "passive-24v-2pair")]
+    Passive24v2pair,
+    #[serde(rename = "passive-24v-4pair")]
+    Passive24v4pair,
+    #[serde(rename = "passive-48v-2pair")]
+    Passive48v2pair,
+    #[serde(rename = "passive-48v-4pair")]
+    Passive48v4pair,
+    #[serde(rename = "")]
+    Empty,
+}
+
+impl Default for Value {
+    fn default() -> Value {
+        Self::Type1Ieee802Period3af
     }
 }

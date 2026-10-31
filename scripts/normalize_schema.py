@@ -33,29 +33,20 @@ def drop_readonly_required(obj: dict) -> None:
         filtered.append(name)
     obj["required"] = filtered
 
-def drop_integer_enums(obj: dict) -> None:
+def drop_integer_enums(obj: dict, allow_null: bool = False) -> None:
     if obj.get("type") != "integer":
         return
     enum = obj.get("enum")
     if not isinstance(enum, list):
         return
-    if not enum or not all(isinstance(item, int) for item in enum):
+    if not enum or not all(isinstance(item, int) or (allow_null and item is None) for item in enum):
         return
     obj.pop("enum", None)
     obj.pop("x-spec-enum-id", None)
 
-def open_choice_object(obj: dict) -> None:
-    # a {value, label} choice can carry a translated label or a value outside the schema
-    props = obj.get("properties")
-    if obj.get("type") != "object" or not isinstance(props, dict) or set(props) != {"value", "label"}:
-        return
-    if not all(isinstance(field, dict) for field in props.values()) or "enum" not in props["value"]:
-        return
-    for field in props.values():
-        enum = field.pop("enum", None)
-        field.pop("x-spec-enum-id", None)
-        if "type" not in field and all(isinstance(item, str) for item in enum or [] if item is not None):
-            field["type"] = "string"
+def drop_enum(obj: dict) -> None:
+    obj.pop("enum", None)
+    obj.pop("x-spec-enum-id", None)
 
 # fields whose NetBox ChoiceSet has a `key`, so FIELD_CHOICES can replace or extend it
 CONFIGURABLE_CHOICES = [
@@ -90,23 +81,25 @@ CONFIGURABLE_CHOICES = [
     ("WirelessLAN", "status"),
 ]
 
-def configurable_enum_ids(data: dict) -> set:
-    schemas = data["components"]["schemas"]
-    return {
-        schemas[model]["properties"][field]["properties"]["value"]["x-spec-enum-id"]
-        for model, field in CONFIGURABLE_CHOICES
-    }
+# the model behind a schema name: Site, WritableSiteRequest, PatchedBulkSiteRequest, ... -> Site
+model_schema_re = re.compile(r"(?:Patched)?(?:Bulk)?(?:Writable)?(?:Brief)?(\w+?)(?:Serializer_)?(?:Request)?")
 
-def open_configurable_enums(obj, ids: set) -> None:
-    if isinstance(obj, dict):
-        if obj.get("x-spec-enum-id") in ids and isinstance(obj.get("enum"), list):
-            obj.pop("enum")
-            obj.pop("x-spec-enum-id")
-        for value in obj.values():
-            open_configurable_enums(value, ids)
-    elif isinstance(obj, list):
-        for item in obj:
-            open_configurable_enums(item, ids)
+def is_configurable(schema: str, field: str) -> bool:
+    match = model_schema_re.fullmatch(schema)
+    return match is not None and (match.group(1), field) in CONFIGURABLE_CHOICES
+
+def open_choice_fields(schemas: dict) -> None:
+    for name, schema in schemas.items():
+        for field, prop in (schema.get("properties") or {}).items():
+            choice = prop.get("properties") if prop.get("type") == "object" else None
+            if isinstance(choice, dict) and set(choice) == {"value", "label"}:
+                drop_enum(choice["label"])
+                if is_configurable(name, field):
+                    drop_enum(choice["value"])
+                else:
+                    drop_integer_enums(choice["value"], allow_null=True)
+            elif is_configurable(name, field):
+                drop_enum(prop)
 
 def collapse_string_one_of(obj: dict) -> None:
     # NetBox models blank-able fields (dns_name, color, email, url) as
@@ -152,7 +145,6 @@ def normalize(obj):
     if isinstance(obj, dict):
         drop_readonly_required(obj)
         drop_integer_enums(obj)
-        open_choice_object(obj)
         collapse_string_one_of(obj)
         collapse_fk_one_of(obj)
         for key, value in obj.items():
@@ -171,9 +163,8 @@ def main() -> None:
     src, dst = sys.argv[1], sys.argv[2]
     with open(src, "r", encoding="utf-8") as handle:
         data = json.load(handle)
-    ids = configurable_enum_ids(data)
+    open_choice_fields(data["components"]["schemas"])
     normalize(data)
-    open_configurable_enums(data, ids)
     with open(dst, "w", encoding="utf-8") as handle:
         json.dump(data, handle, ensure_ascii=True)
 

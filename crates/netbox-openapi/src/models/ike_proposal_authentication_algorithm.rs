@@ -12,7 +12,7 @@
 pub struct IkeProposalAuthenticationAlgorithm {
     /// * `hmac-sha1` - SHA-1 HMAC * `hmac-sha256` - SHA-256 HMAC * `hmac-sha384` - SHA-384 HMAC * `hmac-sha512` - SHA-512 HMAC * `hmac-md5` - MD5 HMAC
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+    pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 }
@@ -23,5 +23,26 @@ impl IkeProposalAuthenticationAlgorithm {
             value: None,
             label: None,
         }
+    }
+}
+
+/// * `hmac-sha1` - SHA-1 HMAC * `hmac-sha256` - SHA-256 HMAC * `hmac-sha384` - SHA-384 HMAC * `hmac-sha512` - SHA-512 HMAC * `hmac-md5` - MD5 HMAC
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Value {
+    #[serde(rename = "hmac-sha1")]
+    Sha1,
+    #[serde(rename = "hmac-sha256")]
+    Sha256,
+    #[serde(rename = "hmac-sha384")]
+    Sha384,
+    #[serde(rename = "hmac-sha512")]
+    Sha512,
+    #[serde(rename = "hmac-md5")]
+    Md5,
+}
+
+impl Default for Value {
+    fn default() -> Value {
+        Self::Sha1
     }
 }

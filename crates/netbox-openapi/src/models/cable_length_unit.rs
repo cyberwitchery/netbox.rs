@@ -12,7 +12,7 @@
 pub struct CableLengthUnit {
     /// * `km` - Kilometers * `m` - Meters * `cm` - Centimeters * `mi` - Miles * `ft` - Feet * `in` - Inches
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+    pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 }
@@ -23,5 +23,32 @@ impl CableLengthUnit {
             value: None,
             label: None,
         }
+    }
+}
+
+/// * `km` - Kilometers * `m` - Meters * `cm` - Centimeters * `mi` - Miles * `ft` - Feet * `in` - Inches
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Value {
+    #[serde(rename = "km")]
+    Km,
+    #[serde(rename = "m")]
+    M,
+    #[serde(rename = "cm")]
+    Cm,
+    #[serde(rename = "mi")]
+    Mi,
+    #[serde(rename = "ft")]
+    Ft,
+    #[serde(rename = "in")]
+    In,
+    #[serde(rename = "")]
+    Empty,
+    #[serde(rename = "null")]
+    Null,
+}
+
+impl Default for Value {
+    fn default() -> Value {
+        Self::Km
     }
 }

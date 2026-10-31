@@ -12,7 +12,7 @@
 pub struct CableProfile {
     /// * `single-1c1p` - 1C1P * `single-1c2p` - 1C2P * `single-1c4p` - 1C4P * `single-1c6p` - 1C6P * `single-1c8p` - 1C8P * `single-1c12p` - 1C12P * `single-1c16p` - 1C16P * `trunk-2c1p` - 2C1P trunk * `trunk-2c2p` - 2C2P trunk * `trunk-2c4p` - 2C4P trunk * `trunk-2c4p-shuffle` - 2C4P trunk (shuffle) * `trunk-2c6p` - 2C6P trunk * `trunk-2c8p` - 2C8P trunk * `trunk-2c12p` - 2C12P trunk * `trunk-4c1p` - 4C1P trunk * `trunk-4c2p` - 4C2P trunk * `trunk-4c4p` - 4C4P trunk * `trunk-4c4p-shuffle` - 4C4P trunk (shuffle) * `trunk-4c6p` - 4C6P trunk * `trunk-4c8p` - 4C8P trunk * `trunk-8c4p` - 8C4P trunk * `breakout-1c2p-2c1p` - 1C2P:2C1P breakout * `breakout-1c4p-4c1p` - 1C4P:4C1P breakout * `breakout-1c6p-6c1p` - 1C6P:6C1P breakout * `breakout-1c8p-8c1p` - 1C8P:8C1P breakout * `breakout-2c4p-8c1p-shuffle` - 2C4P:8C1P breakout (shuffle)
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+    pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 }
@@ -23,5 +23,68 @@ impl CableProfile {
             value: None,
             label: None,
         }
+    }
+}
+
+/// * `single-1c1p` - 1C1P * `single-1c2p` - 1C2P * `single-1c4p` - 1C4P * `single-1c6p` - 1C6P * `single-1c8p` - 1C8P * `single-1c12p` - 1C12P * `single-1c16p` - 1C16P * `trunk-2c1p` - 2C1P trunk * `trunk-2c2p` - 2C2P trunk * `trunk-2c4p` - 2C4P trunk * `trunk-2c4p-shuffle` - 2C4P trunk (shuffle) * `trunk-2c6p` - 2C6P trunk * `trunk-2c8p` - 2C8P trunk * `trunk-2c12p` - 2C12P trunk * `trunk-4c1p` - 4C1P trunk * `trunk-4c2p` - 4C2P trunk * `trunk-4c4p` - 4C4P trunk * `trunk-4c4p-shuffle` - 4C4P trunk (shuffle) * `trunk-4c6p` - 4C6P trunk * `trunk-4c8p` - 4C8P trunk * `trunk-8c4p` - 8C4P trunk * `breakout-1c2p-2c1p` - 1C2P:2C1P breakout * `breakout-1c4p-4c1p` - 1C4P:4C1P breakout * `breakout-1c6p-6c1p` - 1C6P:6C1P breakout * `breakout-1c8p-8c1p` - 1C8P:8C1P breakout * `breakout-2c4p-8c1p-shuffle` - 2C4P:8C1P breakout (shuffle)
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Value {
+    #[serde(rename = "single-1c1p")]
+    Single1c1p,
+    #[serde(rename = "single-1c2p")]
+    Single1c2p,
+    #[serde(rename = "single-1c4p")]
+    Single1c4p,
+    #[serde(rename = "single-1c6p")]
+    Single1c6p,
+    #[serde(rename = "single-1c8p")]
+    Single1c8p,
+    #[serde(rename = "single-1c12p")]
+    Single1c12p,
+    #[serde(rename = "single-1c16p")]
+    Single1c16p,
+    #[serde(rename = "trunk-2c1p")]
+    Trunk2c1p,
+    #[serde(rename = "trunk-2c2p")]
+    Trunk2c2p,
+    #[serde(rename = "trunk-2c4p")]
+    Trunk2c4p,
+    #[serde(rename = "trunk-2c4p-shuffle")]
+    Trunk2c4pShuffle,
+    #[serde(rename = "trunk-2c6p")]
+    Trunk2c6p,
+    #[serde(rename = "trunk-2c8p")]
+    Trunk2c8p,
+    #[serde(rename = "trunk-2c12p")]
+    Trunk2c12p,
+    #[serde(rename = "trunk-4c1p")]
+    Trunk4c1p,
+    #[serde(rename = "trunk-4c2p")]
+    Trunk4c2p,
+    #[serde(rename = "trunk-4c4p")]
+    Trunk4c4p,
+    #[serde(rename = "trunk-4c4p-shuffle")]
+    Trunk4c4pShuffle,
+    #[serde(rename = "trunk-4c6p")]
+    Trunk4c6p,
+    #[serde(rename = "trunk-4c8p")]
+    Trunk4c8p,
+    #[serde(rename = "trunk-8c4p")]
+    Trunk8c4p,
+    #[serde(rename = "breakout-1c2p-2c1p")]
+    Breakout1c2p2c1p,
+    #[serde(rename = "breakout-1c4p-4c1p")]
+    Breakout1c4p4c1p,
+    #[serde(rename = "breakout-1c6p-6c1p")]
+    Breakout1c6p6c1p,
+    #[serde(rename = "breakout-1c8p-8c1p")]
+    Breakout1c8p8c1p,
+    #[serde(rename = "breakout-2c4p-8c1p-shuffle")]
+    Breakout2c4p8c1pShuffle,
+}
+
+impl Default for Value {
+    fn default() -> Value {
+        Self::Single1c1p
     }
 }

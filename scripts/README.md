@@ -48,9 +48,9 @@ notes about the generator:
   `"---------"` become `"none"`, inline `oneOf`s that the rust generator
   would turn into empty structs are collapsed (string-or-empty fields to a
   string, integer-or-nested foreign keys to the integer id), and choice fields
-  lose their enums where a server can send other values: the `value` and
-  `label` of every `{value, label}` choice object, and the write-side fields of
-  the choice sets that netbox's `FIELD_CHOICES` setting can extend
+  lose their enums where a server can send other values: the `label` of every
+  `{value, label}` choice object, and the read and write `value` of the fields
+  whose choices netbox's `FIELD_CHOICES` setting can replace or extend
   (`CONFIGURABLE_CHOICES`)
 - injects crate-level allow attributes in `crates/netbox-openapi/src/lib.rs`
 - normalizes generated `Cargo.toml` for `rustls-tls`

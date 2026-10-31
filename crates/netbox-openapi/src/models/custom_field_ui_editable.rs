@@ -12,7 +12,7 @@
 pub struct CustomFieldUiEditable {
     /// * `yes` - Yes * `no` - No * `hidden` - Hidden
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+    pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 }
@@ -23,5 +23,22 @@ impl CustomFieldUiEditable {
             value: None,
             label: None,
         }
+    }
+}
+
+/// * `yes` - Yes * `no` - No * `hidden` - Hidden
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Value {
+    #[serde(rename = "yes")]
+    Yes,
+    #[serde(rename = "no")]
+    No,
+    #[serde(rename = "hidden")]
+    Hidden,
+}
+
+impl Default for Value {
+    fn default() -> Value {
+        Self::Yes
     }
 }

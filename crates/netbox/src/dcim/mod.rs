@@ -680,6 +680,14 @@ mod tests {
     }
 
     #[test]
+    fn console_port_speed_round_trips() {
+        let body = json!({"value": 9600, "label": "9600 bps"});
+        let speed: crate::models::ConsolePortSpeed =
+            serde_json::from_value(body.clone()).unwrap_or_else(|err| panic!("{err}"));
+        assert_eq!(serde_json::to_value(&speed).unwrap(), body);
+    }
+
+    #[test]
     fn serialize_projection_patch_requests() {
         let mut fields = HashMap::new();
         fields.insert("fabric".to_string(), json!("fra1"));

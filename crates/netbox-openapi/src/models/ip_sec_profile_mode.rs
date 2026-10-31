@@ -12,7 +12,7 @@
 pub struct IpSecProfileMode {
     /// * `esp` - ESP * `ah` - AH
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+    pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 }
@@ -23,5 +23,20 @@ impl IpSecProfileMode {
             value: None,
             label: None,
         }
+    }
+}
+
+/// * `esp` - ESP * `ah` - AH
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Value {
+    #[serde(rename = "esp")]
+    Esp,
+    #[serde(rename = "ah")]
+    Ah,
+}
+
+impl Default for Value {
+    fn default() -> Value {
+        Self::Esp
     }
 }

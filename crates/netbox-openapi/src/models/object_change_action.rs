@@ -12,7 +12,7 @@
 pub struct ObjectChangeAction {
     /// * `create` - Created * `update` - Updated * `delete` - Deleted
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+    pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 }
@@ -23,5 +23,22 @@ impl ObjectChangeAction {
             value: None,
             label: None,
         }
+    }
+}
+
+/// * `create` - Created * `update` - Updated * `delete` - Deleted
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Value {
+    #[serde(rename = "create")]
+    Create,
+    #[serde(rename = "update")]
+    Update,
+    #[serde(rename = "delete")]
+    Delete,
+}
+
+impl Default for Value {
+    fn default() -> Value {
+        Self::Create
     }
 }

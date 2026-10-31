@@ -12,7 +12,7 @@
 pub struct TunnelEncapsulation {
     /// * `ipsec-transport` - IPsec - Transport * `ipsec-tunnel` - IPsec - Tunnel * `ip-ip` - IP-in-IP * `gre` - GRE * `wireguard` - WireGuard * `openvpn` - OpenVPN * `l2tp` - L2TP * `pptp` - PPTP
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+    pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 }
@@ -23,5 +23,32 @@ impl TunnelEncapsulation {
             value: None,
             label: None,
         }
+    }
+}
+
+/// * `ipsec-transport` - IPsec - Transport * `ipsec-tunnel` - IPsec - Tunnel * `ip-ip` - IP-in-IP * `gre` - GRE * `wireguard` - WireGuard * `openvpn` - OpenVPN * `l2tp` - L2TP * `pptp` - PPTP
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Value {
+    #[serde(rename = "ipsec-transport")]
+    IpsecTransport,
+    #[serde(rename = "ipsec-tunnel")]
+    IpsecTunnel,
+    #[serde(rename = "ip-ip")]
+    IpIp,
+    #[serde(rename = "gre")]
+    Gre,
+    #[serde(rename = "wireguard")]
+    Wireguard,
+    #[serde(rename = "openvpn")]
+    Openvpn,
+    #[serde(rename = "l2tp")]
+    L2tp,
+    #[serde(rename = "pptp")]
+    Pptp,
+}
+
+impl Default for Value {
+    fn default() -> Value {
+        Self::IpsecTransport
     }
 }

@@ -39,7 +39,7 @@ pub struct ContactAssignment {
     )]
     pub role: Option<Option<Box<crate::models::BriefContactRole>>>,
     #[serde(rename = "priority", skip_serializing_if = "Option::is_none")]
-    pub priority: Option<Box<crate::models::BriefCircuitGroupAssignmentSerializerPriority>>,
+    pub priority: Option<Box<crate::models::ContactAssignmentPriority>>,
     #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<crate::models::NestedTag>>,
     #[serde(rename = "custom_fields", skip_serializing_if = "Option::is_none")]

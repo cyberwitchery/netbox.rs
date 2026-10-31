@@ -56,7 +56,7 @@ pub struct PatchedBulkDeviceTypeRequest {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub airflow: Option<Option<String>>,
+    pub airflow: Option<Option<Airflow>>,
     /// * `air` - Air * `liquid` - Liquid * `hybrid` - Hybrid * `immersion` - Immersion
     #[serde(
         rename = "cooling_method",
@@ -165,6 +165,40 @@ pub enum SubdeviceRole {
 impl Default for SubdeviceRole {
     fn default() -> SubdeviceRole {
         Self::Parent
+    }
+}
+/// * `front-to-rear` - Front to rear * `rear-to-front` - Rear to front * `left-to-right` - Left to right * `right-to-left` - Right to left * `side-to-rear` - Side to rear * `rear-to-side` - Rear to side * `bottom-to-top` - Bottom to top * `top-to-bottom` - Top to bottom * `passive` - Passive * `mixed` - Mixed
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Airflow {
+    #[serde(rename = "front-to-rear")]
+    FrontToRear,
+    #[serde(rename = "rear-to-front")]
+    RearToFront,
+    #[serde(rename = "left-to-right")]
+    LeftToRight,
+    #[serde(rename = "right-to-left")]
+    RightToLeft,
+    #[serde(rename = "side-to-rear")]
+    SideToRear,
+    #[serde(rename = "rear-to-side")]
+    RearToSide,
+    #[serde(rename = "bottom-to-top")]
+    BottomToTop,
+    #[serde(rename = "top-to-bottom")]
+    TopToBottom,
+    #[serde(rename = "passive")]
+    Passive,
+    #[serde(rename = "mixed")]
+    Mixed,
+    #[serde(rename = "")]
+    Empty,
+    #[serde(rename = "null")]
+    Null,
+}
+
+impl Default for Airflow {
+    fn default() -> Airflow {
+        Self::FrontToRear
     }
 }
 /// * `air` - Air * `liquid` - Liquid * `hybrid` - Hybrid * `immersion` - Immersion

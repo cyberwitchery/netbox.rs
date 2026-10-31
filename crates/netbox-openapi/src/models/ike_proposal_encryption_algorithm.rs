@@ -12,7 +12,7 @@
 pub struct IkeProposalEncryptionAlgorithm {
     /// * `aes-128-cbc` - 128-bit AES (CBC) * `aes-128-gcm` - 128-bit AES (GCM) * `aes-192-cbc` - 192-bit AES (CBC) * `aes-192-gcm` - 192-bit AES (GCM) * `aes-256-cbc` - 256-bit AES (CBC) * `aes-256-gcm` - 256-bit AES (GCM) * `3des-cbc` - 3DES * `des-cbc` - DES
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+    pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 }
@@ -23,5 +23,32 @@ impl IkeProposalEncryptionAlgorithm {
             value: None,
             label: None,
         }
+    }
+}
+
+/// * `aes-128-cbc` - 128-bit AES (CBC) * `aes-128-gcm` - 128-bit AES (GCM) * `aes-192-cbc` - 192-bit AES (CBC) * `aes-192-gcm` - 192-bit AES (GCM) * `aes-256-cbc` - 256-bit AES (CBC) * `aes-256-gcm` - 256-bit AES (GCM) * `3des-cbc` - 3DES * `des-cbc` - DES
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Value {
+    #[serde(rename = "aes-128-cbc")]
+    Aes128Cbc,
+    #[serde(rename = "aes-128-gcm")]
+    Aes128Gcm,
+    #[serde(rename = "aes-192-cbc")]
+    Aes192Cbc,
+    #[serde(rename = "aes-192-gcm")]
+    Aes192Gcm,
+    #[serde(rename = "aes-256-cbc")]
+    Aes256Cbc,
+    #[serde(rename = "aes-256-gcm")]
+    Aes256Gcm,
+    #[serde(rename = "3des-cbc")]
+    Variant3desCbc,
+    #[serde(rename = "des-cbc")]
+    DesCbc,
+}
+
+impl Default for Value {
+    fn default() -> Value {
+        Self::Aes128Cbc
     }
 }

@@ -12,7 +12,7 @@
 pub struct WirelessLanAuthType {
     /// * `open` - Open * `wep` - WEP * `wpa-personal` - WPA Personal (PSK) * `wpa-enterprise` - WPA Enterprise
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+    pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 }
@@ -23,5 +23,26 @@ impl WirelessLanAuthType {
             value: None,
             label: None,
         }
+    }
+}
+
+/// * `open` - Open * `wep` - WEP * `wpa-personal` - WPA Personal (PSK) * `wpa-enterprise` - WPA Enterprise
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Value {
+    #[serde(rename = "open")]
+    Open,
+    #[serde(rename = "wep")]
+    Wep,
+    #[serde(rename = "wpa-personal")]
+    WpaPersonal,
+    #[serde(rename = "wpa-enterprise")]
+    WpaEnterprise,
+    #[serde(rename = "")]
+    Empty,
+}
+
+impl Default for Value {
+    fn default() -> Value {
+        Self::Open
     }
 }

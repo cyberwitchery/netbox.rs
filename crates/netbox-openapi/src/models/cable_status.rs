@@ -12,7 +12,7 @@
 pub struct CableStatus {
     /// * `connected` - Connected * `planned` - Planned * `decommissioning` - Decommissioning
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<String>,
+    pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
     pub label: Option<String>,
 }
@@ -23,5 +23,22 @@ impl CableStatus {
             value: None,
             label: None,
         }
+    }
+}
+
+/// * `connected` - Connected * `planned` - Planned * `decommissioning` - Decommissioning
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Value {
+    #[serde(rename = "connected")]
+    Connected,
+    #[serde(rename = "planned")]
+    Planned,
+    #[serde(rename = "decommissioning")]
+    Decommissioning,
+}
+
+impl Default for Value {
+    fn default() -> Value {
+        Self::Connected
     }
 }
