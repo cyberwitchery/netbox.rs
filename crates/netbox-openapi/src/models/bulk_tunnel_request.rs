@@ -18,7 +18,7 @@ pub struct BulkTunnelRequest {
     pub name: String,
     /// * `planned` - Planned * `active` - Active * `disabled` - Disabled
     #[serde(rename = "status")]
-    pub status: String,
+    pub status: Status,
     #[serde(
         rename = "group",
         default,
@@ -72,7 +72,7 @@ impl BulkTunnelRequest {
     pub fn new(
         id: i32,
         name: String,
-        status: String,
+        status: Status,
         encapsulation: Encapsulation,
     ) -> BulkTunnelRequest {
         BulkTunnelRequest {
@@ -93,6 +93,22 @@ impl BulkTunnelRequest {
     }
 }
 
+/// * `planned` - Planned * `active` - Active * `disabled` - Disabled
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Status {
+    #[serde(rename = "planned")]
+    Planned,
+    #[serde(rename = "active")]
+    Active,
+    #[serde(rename = "disabled")]
+    Disabled,
+}
+
+impl Default for Status {
+    fn default() -> Status {
+        Self::Planned
+    }
+}
 /// * `ipsec-transport` - IPsec - Transport * `ipsec-tunnel` - IPsec - Tunnel * `ip-ip` - IP-in-IP * `gre` - GRE * `wireguard` - WireGuard * `openvpn` - OpenVPN * `l2tp` - L2TP * `pptp` - PPTP
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Encapsulation {

@@ -672,14 +672,6 @@ mod tests {
     }
 
     #[test]
-    fn site_request_custom_status_round_trips() {
-        let body = json!({"name": "site1", "slug": "site1", "status": "maintenance"});
-        let site: crate::models::WritableSiteRequest =
-            serde_json::from_value(body.clone()).unwrap_or_else(|err| panic!("{err}"));
-        assert_eq!(serde_json::to_value(&site).unwrap(), body);
-    }
-
-    #[test]
     fn console_port_speed_round_trips() {
         let body = json!({"value": 9600, "label": "9600 bps"});
         let speed: crate::models::ConsolePortSpeed =

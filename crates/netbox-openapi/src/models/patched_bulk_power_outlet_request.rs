@@ -38,7 +38,7 @@ pub struct PatchedBulkPowerOutletRequest {
     pub r#type: Option<Option<RHashType>>,
     /// * `enabled` - Enabled * `disabled` - Disabled * `faulty` - Faulty
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<String>,
+    pub status: Option<Status>,
     #[serde(rename = "color", skip_serializing_if = "Option::is_none")]
     pub color: Option<String>,
     #[serde(
@@ -309,6 +309,22 @@ pub enum RHashType {
 impl Default for RHashType {
     fn default() -> RHashType {
         Self::Iec60320C5
+    }
+}
+/// * `enabled` - Enabled * `disabled` - Disabled * `faulty` - Faulty
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Status {
+    #[serde(rename = "enabled")]
+    Enabled,
+    #[serde(rename = "disabled")]
+    Disabled,
+    #[serde(rename = "faulty")]
+    Faulty,
+}
+
+impl Default for Status {
+    fn default() -> Status {
+        Self::Enabled
     }
 }
 /// * `A` - A * `B` - B * `C` - C

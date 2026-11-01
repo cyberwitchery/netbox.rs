@@ -25,7 +25,7 @@ pub struct PatchedWritableClusterRequest {
     pub group: Option<Option<i32>>,
     /// * `planned` - Planned * `staging` - Staging * `active` - Active * `decommissioning` - Decommissioning * `offline` - Offline
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<String>,
+    pub status: Option<Status>,
     #[serde(
         rename = "tenant",
         default,
@@ -81,5 +81,26 @@ impl PatchedWritableClusterRequest {
             tags: None,
             custom_fields: None,
         }
+    }
+}
+
+/// * `planned` - Planned * `staging` - Staging * `active` - Active * `decommissioning` - Decommissioning * `offline` - Offline
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Status {
+    #[serde(rename = "planned")]
+    Planned,
+    #[serde(rename = "staging")]
+    Staging,
+    #[serde(rename = "active")]
+    Active,
+    #[serde(rename = "decommissioning")]
+    Decommissioning,
+    #[serde(rename = "offline")]
+    Offline,
+}
+
+impl Default for Status {
+    fn default() -> Status {
+        Self::Planned
     }
 }

@@ -81,8 +81,8 @@ CONFIGURABLE_CHOICES = [
     ("WirelessLAN", "status"),
 ]
 
-# the model behind a schema name: Site, WritableSiteRequest, PatchedBulkSiteRequest, ... -> Site
-model_schema_re = re.compile(r"(?:Patched)?(?:Bulk)?(?:Writable)?(?:Brief)?(\w+?)(?:Serializer_)?(?:Request)?")
+# the model behind a read schema name: BriefSite -> Site, BriefCircuitGroupAssignmentSerializer_ -> CircuitGroupAssignment
+model_schema_re = re.compile(r"(?:Brief)?(\w+?)(?:Serializer_)?")
 
 def is_configurable(schema: str, field: str) -> bool:
     match = model_schema_re.fullmatch(schema)
@@ -98,8 +98,6 @@ def open_choice_fields(schemas: dict) -> None:
                     drop_enum(choice["value"])
                 else:
                     drop_integer_enums(choice["value"], allow_null=True)
-            elif is_configurable(name, field):
-                drop_enum(prop)
 
 def collapse_string_one_of(obj: dict) -> None:
     # NetBox models blank-able fields (dns_name, color, email, url) as

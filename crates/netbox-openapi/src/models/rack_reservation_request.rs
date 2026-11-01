@@ -18,7 +18,7 @@ pub struct RackReservationRequest {
     pub units: Vec<i32>,
     /// * `pending` - Pending * `active` - Active * `stale` - Stale
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<String>,
+    pub status: Option<Status>,
     #[serde(rename = "user")]
     pub user: i32,
     #[serde(
@@ -65,5 +65,22 @@ impl RackReservationRequest {
             tags: None,
             custom_fields: None,
         }
+    }
+}
+
+/// * `pending` - Pending * `active` - Active * `stale` - Stale
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Status {
+    #[serde(rename = "pending")]
+    Pending,
+    #[serde(rename = "active")]
+    Active,
+    #[serde(rename = "stale")]
+    Stale,
+}
+
+impl Default for Status {
+    fn default() -> Status {
+        Self::Pending
     }
 }

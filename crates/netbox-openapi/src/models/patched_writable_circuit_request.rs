@@ -28,7 +28,7 @@ pub struct PatchedWritableCircuitRequest {
     pub r#type: Option<i32>,
     /// * `planned` - Planned * `provisioning` - Provisioning * `active` - Active * `offline` - Offline * `deprovisioning` - Deprovisioning * `decommissioned` - Decommissioned
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<String>,
+    pub status: Option<Status>,
     #[serde(
         rename = "tenant",
         default,
@@ -114,6 +114,28 @@ impl PatchedWritableCircuitRequest {
     }
 }
 
+/// * `planned` - Planned * `provisioning` - Provisioning * `active` - Active * `offline` - Offline * `deprovisioning` - Deprovisioning * `decommissioned` - Decommissioned
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Status {
+    #[serde(rename = "planned")]
+    Planned,
+    #[serde(rename = "provisioning")]
+    Provisioning,
+    #[serde(rename = "active")]
+    Active,
+    #[serde(rename = "offline")]
+    Offline,
+    #[serde(rename = "deprovisioning")]
+    Deprovisioning,
+    #[serde(rename = "decommissioned")]
+    Decommissioned,
+}
+
+impl Default for Status {
+    fn default() -> Status {
+        Self::Planned
+    }
+}
 /// * `km` - Kilometers * `m` - Meters * `mi` - Miles * `ft` - Feet
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum DistanceUnit {

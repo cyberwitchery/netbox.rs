@@ -28,7 +28,7 @@ pub struct WritableInventoryItemRequest {
     pub label: Option<String>,
     /// * `offline` - Offline * `active` - Active * `planned` - Planned * `staged` - Staged * `failed` - Failed * `decommissioning` - Decommissioning
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<String>,
+    pub status: Option<Status>,
     #[serde(
         rename = "role",
         default,
@@ -110,5 +110,28 @@ impl WritableInventoryItemRequest {
             tags: None,
             custom_fields: None,
         }
+    }
+}
+
+/// * `offline` - Offline * `active` - Active * `planned` - Planned * `staged` - Staged * `failed` - Failed * `decommissioning` - Decommissioning
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Status {
+    #[serde(rename = "offline")]
+    Offline,
+    #[serde(rename = "active")]
+    Active,
+    #[serde(rename = "planned")]
+    Planned,
+    #[serde(rename = "staged")]
+    Staged,
+    #[serde(rename = "failed")]
+    Failed,
+    #[serde(rename = "decommissioning")]
+    Decommissioning,
+}
+
+impl Default for Status {
+    fn default() -> Status {
+        Self::Offline
     }
 }
