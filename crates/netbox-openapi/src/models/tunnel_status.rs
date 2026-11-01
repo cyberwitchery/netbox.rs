@@ -12,9 +12,9 @@
 pub struct TunnelStatus {
     /// * `planned` - Planned * `active` - Active * `disabled` - Disabled
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl TunnelStatus {
@@ -23,38 +23,5 @@ impl TunnelStatus {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `planned` - Planned * `active` - Active * `disabled` - Disabled
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "planned")]
-    Planned,
-    #[serde(rename = "active")]
-    Active,
-    #[serde(rename = "disabled")]
-    Disabled,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Planned
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Planned")]
-    Planned,
-    #[serde(rename = "Active")]
-    Active,
-    #[serde(rename = "Disabled")]
-    Disabled,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Planned
     }
 }

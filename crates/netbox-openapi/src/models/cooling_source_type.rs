@@ -12,9 +12,9 @@
 pub struct CoolingSourceType {
     /// * `chiller` - Chiller * `cooling-tower` - Cooling tower * `dry-cooler` - Dry cooler * `crac` - CRAC * `crah` - CRAH
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl CoolingSourceType {
@@ -23,46 +23,5 @@ impl CoolingSourceType {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `chiller` - Chiller * `cooling-tower` - Cooling tower * `dry-cooler` - Dry cooler * `crac` - CRAC * `crah` - CRAH
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "chiller")]
-    Chiller,
-    #[serde(rename = "cooling-tower")]
-    CoolingTower,
-    #[serde(rename = "dry-cooler")]
-    DryCooler,
-    #[serde(rename = "crac")]
-    Crac,
-    #[serde(rename = "crah")]
-    Crah,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Chiller
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Chiller")]
-    Chiller,
-    #[serde(rename = "Cooling tower")]
-    CoolingTower,
-    #[serde(rename = "Dry cooler")]
-    DryCooler,
-    #[serde(rename = "CRAC")]
-    Crac,
-    #[serde(rename = "CRAH")]
-    Crah,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Chiller
     }
 }

@@ -12,9 +12,9 @@
 pub struct CircuitStatus {
     /// * `planned` - Planned * `provisioning` - Provisioning * `active` - Active * `offline` - Offline * `deprovisioning` - Deprovisioning * `decommissioned` - Decommissioned
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl CircuitStatus {
@@ -23,50 +23,5 @@ impl CircuitStatus {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `planned` - Planned * `provisioning` - Provisioning * `active` - Active * `offline` - Offline * `deprovisioning` - Deprovisioning * `decommissioned` - Decommissioned
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "planned")]
-    Planned,
-    #[serde(rename = "provisioning")]
-    Provisioning,
-    #[serde(rename = "active")]
-    Active,
-    #[serde(rename = "offline")]
-    Offline,
-    #[serde(rename = "deprovisioning")]
-    Deprovisioning,
-    #[serde(rename = "decommissioned")]
-    Decommissioned,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Planned
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Planned")]
-    Planned,
-    #[serde(rename = "Provisioning")]
-    Provisioning,
-    #[serde(rename = "Active")]
-    Active,
-    #[serde(rename = "Offline")]
-    Offline,
-    #[serde(rename = "Deprovisioning")]
-    Deprovisioning,
-    #[serde(rename = "Decommissioned")]
-    Decommissioned,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Planned
     }
 }

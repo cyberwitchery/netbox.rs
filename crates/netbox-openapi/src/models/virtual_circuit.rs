@@ -35,7 +35,7 @@ pub struct VirtualCircuit {
     #[serde(rename = "type")]
     pub r#type: Box<crate::models::BriefVirtualCircuitType>,
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status: Option<Box<crate::models::CircuitStatus>>,
+    pub status: Option<Box<crate::models::VirtualCircuitStatus>>,
     #[serde(
         rename = "tenant",
         default,

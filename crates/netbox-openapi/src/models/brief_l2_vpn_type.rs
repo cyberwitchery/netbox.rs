@@ -14,7 +14,7 @@ pub struct BriefL2VpnType {
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl BriefL2VpnType {
@@ -61,44 +61,6 @@ pub enum Value {
 
 impl Default for Value {
     fn default() -> Value {
-        Self::Vpws
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "VPWS")]
-    Vpws,
-    #[serde(rename = "VPLS")]
-    Vpls,
-    #[serde(rename = "VXLAN")]
-    Vxlan,
-    #[serde(rename = "VXLAN-EVPN")]
-    VxlanEvpn,
-    #[serde(rename = "MPLS EVPN")]
-    MplsEvpn,
-    #[serde(rename = "PBB EVPN")]
-    PbbEvpn,
-    #[serde(rename = "EVPN VPWS")]
-    EvpnVpws,
-    #[serde(rename = "EPL")]
-    Epl,
-    #[serde(rename = "EVPL")]
-    Evpl,
-    #[serde(rename = "Ethernet Private LAN")]
-    EthernetPrivateLan,
-    #[serde(rename = "Ethernet Virtual Private LAN")]
-    EthernetVirtualPrivateLan,
-    #[serde(rename = "Ethernet Private Tree")]
-    EthernetPrivateTree,
-    #[serde(rename = "Ethernet Virtual Private Tree")]
-    EthernetVirtualPrivateTree,
-    #[serde(rename = "SPB")]
-    Spb,
-}
-
-impl Default for Label {
-    fn default() -> Label {
         Self::Vpws
     }
 }

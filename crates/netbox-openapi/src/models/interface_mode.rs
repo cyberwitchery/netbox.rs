@@ -14,7 +14,7 @@ pub struct InterfaceMode {
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl InterfaceMode {
@@ -43,24 +43,6 @@ pub enum Value {
 
 impl Default for Value {
     fn default() -> Value {
-        Self::Access
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Access")]
-    Access,
-    #[serde(rename = "Tagged")]
-    Tagged,
-    #[serde(rename = "Tagged (All)")]
-    TaggedLeftParenthesisAllRightParenthesis,
-    #[serde(rename = "Q-in-Q (802.1ad)")]
-    QInQLeftParenthesis802Period1adRightParenthesis,
-}
-
-impl Default for Label {
-    fn default() -> Label {
         Self::Access
     }
 }

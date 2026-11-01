@@ -14,7 +14,7 @@ pub struct CoolingFeedMaxFlowUnit {
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl CoolingFeedMaxFlowUnit {
@@ -44,21 +44,5 @@ pub enum Value {
 impl Default for Value {
     fn default() -> Value {
         Self::Lpm
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Liters per minute (L/min)")]
-    LitersPerMinuteLeftParenthesisLSlashMinRightParenthesis,
-    #[serde(rename = "Cubic meters per hour (m³/h)")]
-    CubicMetersPerHourLeftParenthesisMSlashHRightParenthesis,
-    #[serde(rename = "Gallons per minute (GPM)")]
-    GallonsPerMinuteLeftParenthesisGpmRightParenthesis,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::LitersPerMinuteLeftParenthesisLSlashMinRightParenthesis
     }
 }

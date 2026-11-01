@@ -14,7 +14,7 @@ pub struct IpAddressRole {
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl IpAddressRole {
@@ -51,32 +51,6 @@ pub enum Value {
 
 impl Default for Value {
     fn default() -> Value {
-        Self::Loopback
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Loopback")]
-    Loopback,
-    #[serde(rename = "Secondary")]
-    Secondary,
-    #[serde(rename = "Anycast")]
-    Anycast,
-    #[serde(rename = "VIP")]
-    Vip,
-    #[serde(rename = "VRRP")]
-    Vrrp,
-    #[serde(rename = "HSRP")]
-    Hsrp,
-    #[serde(rename = "GLBP")]
-    Glbp,
-    #[serde(rename = "CARP")]
-    Carp,
-}
-
-impl Default for Label {
-    fn default() -> Label {
         Self::Loopback
     }
 }

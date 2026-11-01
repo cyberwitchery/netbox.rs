@@ -14,7 +14,7 @@ pub struct CableStatus {
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl CableStatus {
@@ -39,22 +39,6 @@ pub enum Value {
 
 impl Default for Value {
     fn default() -> Value {
-        Self::Connected
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Connected")]
-    Connected,
-    #[serde(rename = "Planned")]
-    Planned,
-    #[serde(rename = "Decommissioning")]
-    Decommissioning,
-}
-
-impl Default for Label {
-    fn default() -> Label {
         Self::Connected
     }
 }

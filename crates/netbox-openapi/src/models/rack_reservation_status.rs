@@ -12,9 +12,9 @@
 pub struct RackReservationStatus {
     /// * `pending` - Pending * `active` - Active * `stale` - Stale
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl RackReservationStatus {
@@ -23,38 +23,5 @@ impl RackReservationStatus {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `pending` - Pending * `active` - Active * `stale` - Stale
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "pending")]
-    Pending,
-    #[serde(rename = "active")]
-    Active,
-    #[serde(rename = "stale")]
-    Stale,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::Pending
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Pending")]
-    Pending,
-    #[serde(rename = "Active")]
-    Active,
-    #[serde(rename = "Stale")]
-    Stale,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Pending
     }
 }

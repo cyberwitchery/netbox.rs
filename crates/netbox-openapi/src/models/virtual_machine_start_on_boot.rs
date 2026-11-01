@@ -12,9 +12,9 @@
 pub struct VirtualMachineStartOnBoot {
     /// * `on` - On * `off` - Off * `laststate` - Last State
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
-    pub value: Option<Value>,
+    pub value: Option<String>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl VirtualMachineStartOnBoot {
@@ -23,38 +23,5 @@ impl VirtualMachineStartOnBoot {
             value: None,
             label: None,
         }
-    }
-}
-
-/// * `on` - On * `off` - Off * `laststate` - Last State
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Value {
-    #[serde(rename = "on")]
-    On,
-    #[serde(rename = "off")]
-    Off,
-    #[serde(rename = "laststate")]
-    Laststate,
-}
-
-impl Default for Value {
-    fn default() -> Value {
-        Self::On
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "On")]
-    On,
-    #[serde(rename = "Off")]
-    Off,
-    #[serde(rename = "Last State")]
-    LastState,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::On
     }
 }

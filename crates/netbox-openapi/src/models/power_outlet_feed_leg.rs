@@ -14,7 +14,7 @@ pub struct PowerOutletFeedLeg {
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl PowerOutletFeedLeg {
@@ -43,22 +43,6 @@ pub enum Value {
 
 impl Default for Value {
     fn default() -> Value {
-        Self::A
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "A")]
-    A,
-    #[serde(rename = "B")]
-    B,
-    #[serde(rename = "C")]
-    C,
-}
-
-impl Default for Label {
-    fn default() -> Label {
         Self::A
     }
 }

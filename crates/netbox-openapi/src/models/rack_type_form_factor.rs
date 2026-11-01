@@ -14,7 +14,7 @@ pub struct RackTypeFormFactor {
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl RackTypeFormFactor {
@@ -47,30 +47,6 @@ pub enum Value {
 
 impl Default for Value {
     fn default() -> Value {
-        Self::Variant2PostFrame
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "2-post frame")]
-    Variant2PostFrame,
-    #[serde(rename = "4-post frame")]
-    Variant4PostFrame,
-    #[serde(rename = "4-post cabinet")]
-    Variant4PostCabinet,
-    #[serde(rename = "Wall-mounted frame")]
-    WallMountedFrame,
-    #[serde(rename = "Wall-mounted frame (vertical)")]
-    WallMountedFrameLeftParenthesisVerticalRightParenthesis,
-    #[serde(rename = "Wall-mounted cabinet")]
-    WallMountedCabinet,
-    #[serde(rename = "Wall-mounted cabinet (vertical)")]
-    WallMountedCabinetLeftParenthesisVerticalRightParenthesis,
-}
-
-impl Default for Label {
-    fn default() -> Label {
         Self::Variant2PostFrame
     }
 }

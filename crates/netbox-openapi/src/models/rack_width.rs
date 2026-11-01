@@ -14,7 +14,7 @@ pub struct RackWidth {
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<i32>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl RackWidth {
@@ -23,24 +23,5 @@ impl RackWidth {
             value: None,
             label: None,
         }
-    }
-}
-
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "10 inches")]
-    Variant10Inches,
-    #[serde(rename = "19 inches")]
-    Variant19Inches,
-    #[serde(rename = "21 inches")]
-    Variant21Inches,
-    #[serde(rename = "23 inches")]
-    Variant23Inches,
-}
-
-impl Default for Label {
-    fn default() -> Label {
-        Self::Variant10Inches
     }
 }

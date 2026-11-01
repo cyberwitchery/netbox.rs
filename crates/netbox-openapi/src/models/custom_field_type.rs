@@ -14,7 +14,7 @@ pub struct CustomFieldType {
     #[serde(rename = "value", skip_serializing_if = "Option::is_none")]
     pub value: Option<Value>,
     #[serde(rename = "label", skip_serializing_if = "Option::is_none")]
-    pub label: Option<Label>,
+    pub label: Option<String>,
 }
 
 impl CustomFieldType {
@@ -59,42 +59,6 @@ pub enum Value {
 
 impl Default for Value {
     fn default() -> Value {
-        Self::Text
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Label {
-    #[serde(rename = "Text")]
-    Text,
-    #[serde(rename = "Text (long)")]
-    TextLeftParenthesisLongRightParenthesis,
-    #[serde(rename = "Integer")]
-    Integer,
-    #[serde(rename = "Decimal")]
-    Decimal,
-    #[serde(rename = "Boolean")]
-    Boolean,
-    #[serde(rename = "Date")]
-    Date,
-    #[serde(rename = "Date & time")]
-    DateAmpersandTime,
-    #[serde(rename = "URL")]
-    Url,
-    #[serde(rename = "JSON")]
-    Json,
-    #[serde(rename = "Selection")]
-    Selection,
-    #[serde(rename = "Multiple selection")]
-    MultipleSelection,
-    #[serde(rename = "Object")]
-    Object,
-    #[serde(rename = "Multiple objects")]
-    MultipleObjects,
-}
-
-impl Default for Label {
-    fn default() -> Label {
         Self::Text
     }
 }
