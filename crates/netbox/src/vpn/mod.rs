@@ -27,7 +27,7 @@ pub struct CreateTunnelGroupRequest {
     pub description: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating a tunnel group (id-based references).
@@ -44,7 +44,7 @@ pub struct UpdateTunnelGroupRequest {
     pub description: Option<String>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for creating a tunnel (id-based references).
@@ -58,13 +58,13 @@ pub struct CreateTunnelRequest {
     pub encapsulation: String,
     /// tunnel group id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub group: Option<i32>,
+    pub group: Option<i64>,
     /// IPsec profile id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub ipsec_profile: Option<i32>,
+    pub ipsec_profile: Option<i64>,
     /// tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<i32>,
+    pub tenant: Option<i64>,
     /// tunnel id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tunnel_id: Option<i64>,
@@ -76,7 +76,7 @@ pub struct CreateTunnelRequest {
     pub comments: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating a tunnel (id-based references).
@@ -93,13 +93,13 @@ pub struct UpdateTunnelRequest {
     pub encapsulation: Option<String>,
     /// updated tunnel group id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub group: Option<i32>,
+    pub group: Option<i64>,
     /// updated IPsec profile id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub ipsec_profile: Option<i32>,
+    pub ipsec_profile: Option<i64>,
     /// updated tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<i32>,
+    pub tenant: Option<i64>,
     /// updated tunnel id.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tunnel_id: Option<i64>,
@@ -111,7 +111,7 @@ pub struct UpdateTunnelRequest {
     pub comments: Option<String>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for creating an l2vpn (id-based references).
@@ -132,10 +132,10 @@ pub struct CreateL2VpnRequest {
     pub status: Option<String>,
     /// import target IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub import_targets: Option<Vec<i32>>,
+    pub import_targets: Option<Vec<i64>>,
     /// export target IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub export_targets: Option<Vec<i32>>,
+    pub export_targets: Option<Vec<i64>>,
     /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
@@ -144,10 +144,10 @@ pub struct CreateL2VpnRequest {
     pub comments: Option<String>,
     /// tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<i32>,
+    pub tenant: Option<i64>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating an l2vpn (id-based references).
@@ -170,10 +170,10 @@ pub struct UpdateL2VpnRequest {
     pub status: Option<String>,
     /// updated import target IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub import_targets: Option<Vec<i32>>,
+    pub import_targets: Option<Vec<i64>>,
     /// updated export target IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub export_targets: Option<Vec<i32>>,
+    pub export_targets: Option<Vec<i64>>,
     /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
@@ -182,24 +182,24 @@ pub struct UpdateL2VpnRequest {
     pub comments: Option<String>,
     /// updated tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<i32>,
+    pub tenant: Option<i64>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for creating an l2vpn termination (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateL2VpnTerminationRequest {
     /// l2vpn id.
-    pub l2vpn: i32,
+    pub l2vpn: i64,
     /// assigned object type string.
     pub assigned_object_type: String,
     /// assigned object id.
     pub assigned_object_id: i64,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating an l2vpn termination (id-based references).
@@ -207,7 +207,7 @@ pub struct CreateL2VpnTerminationRequest {
 pub struct UpdateL2VpnTerminationRequest {
     /// updated l2vpn id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub l2vpn: Option<i32>,
+    pub l2vpn: Option<i64>,
     /// updated assigned object type string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub assigned_object_type: Option<String>,
@@ -216,7 +216,7 @@ pub struct UpdateL2VpnTerminationRequest {
     pub assigned_object_id: Option<i64>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for creating an IKE proposal (id-based references).
@@ -244,7 +244,7 @@ pub struct CreateIkeProposalRequest {
     pub comments: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating an IKE proposal (id-based references).
@@ -276,7 +276,7 @@ pub struct UpdateIkeProposalRequest {
     pub comments: Option<String>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for creating an IKE policy (id-based references).
@@ -294,7 +294,7 @@ pub struct CreateIkePolicyRequest {
     pub mode: Option<String>,
     /// proposal IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub proposals: Option<Vec<i32>>,
+    pub proposals: Option<Vec<i64>>,
     /// preshared key string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub preshared_key: Option<String>,
@@ -303,7 +303,7 @@ pub struct CreateIkePolicyRequest {
     pub comments: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating an IKE policy (id-based references).
@@ -323,7 +323,7 @@ pub struct UpdateIkePolicyRequest {
     pub mode: Option<String>,
     /// updated proposal IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub proposals: Option<Vec<i32>>,
+    pub proposals: Option<Vec<i64>>,
     /// updated preshared key string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub preshared_key: Option<String>,
@@ -332,7 +332,7 @@ pub struct UpdateIkePolicyRequest {
     pub comments: Option<String>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for creating an IPsec proposal (id-based references).
@@ -360,7 +360,7 @@ pub struct CreateIpSecProposalRequest {
     pub comments: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating an IPsec proposal (id-based references).
@@ -389,7 +389,7 @@ pub struct UpdateIpSecProposalRequest {
     pub comments: Option<String>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for creating an IPsec policy (id-based references).
@@ -402,7 +402,7 @@ pub struct CreateIpSecPolicyRequest {
     pub description: Option<String>,
     /// proposal IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub proposals: Option<Vec<i32>>,
+    pub proposals: Option<Vec<i64>>,
     /// PFS group slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pfs_group: Option<String>,
@@ -411,7 +411,7 @@ pub struct CreateIpSecPolicyRequest {
     pub comments: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating an IPsec policy (id-based references).
@@ -425,7 +425,7 @@ pub struct UpdateIpSecPolicyRequest {
     pub description: Option<String>,
     /// updated proposal IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub proposals: Option<Vec<i32>>,
+    pub proposals: Option<Vec<i64>>,
     /// updated PFS group slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub pfs_group: Option<String>,
@@ -434,7 +434,7 @@ pub struct UpdateIpSecPolicyRequest {
     pub comments: Option<String>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for creating an IPsec profile (id-based references).
@@ -448,15 +448,15 @@ pub struct CreateIpSecProfileRequest {
     /// mode slug.
     pub mode: String,
     /// IKE policy id.
-    pub ike_policy: i32,
+    pub ike_policy: i64,
     /// IPsec policy id.
-    pub ipsec_policy: i32,
+    pub ipsec_policy: i64,
     /// comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating an IPsec profile (id-based references).
@@ -473,23 +473,23 @@ pub struct UpdateIpSecProfileRequest {
     pub mode: Option<String>,
     /// updated IKE policy id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub ike_policy: Option<i32>,
+    pub ike_policy: Option<i64>,
     /// updated IPsec policy id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub ipsec_policy: Option<i32>,
+    pub ipsec_policy: Option<i64>,
     /// updated comments text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for creating a tunnel termination (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateTunnelTerminationRequest {
     /// tunnel id.
-    pub tunnel: i32,
+    pub tunnel: i64,
     /// role slug.
     pub role: String,
     /// termination type string.
@@ -499,10 +499,10 @@ pub struct CreateTunnelTerminationRequest {
     pub termination_id: Option<i64>,
     /// outside IP address id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub outside_ip: Option<i32>,
+    pub outside_ip: Option<i64>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating a tunnel termination (id-based references).
@@ -510,7 +510,7 @@ pub struct CreateTunnelTerminationRequest {
 pub struct UpdateTunnelTerminationRequest {
     /// updated tunnel id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tunnel: Option<i32>,
+    pub tunnel: Option<i64>,
     /// updated role slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub role: Option<String>,
@@ -522,10 +522,10 @@ pub struct UpdateTunnelTerminationRequest {
     pub termination_id: Option<i64>,
     /// updated outside IP address id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub outside_ip: Option<i32>,
+    pub outside_ip: Option<i64>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 #[cfg(test)]
@@ -536,13 +536,6 @@ mod tests {
 
     fn assert_missing(value: &Value, key: &str) {
         assert!(value.get(key).is_none(), "expected {} to be omitted", key);
-    }
-
-    fn assert_optional_i32(value: &Value, key: &str, field: &Option<i32>) {
-        match field {
-            Some(v) => assert_eq!(value[key], serde_json::json!(*v)),
-            None => assert_missing(value, key),
-        }
     }
 
     fn assert_optional_i64(value: &Value, key: &str, field: &Option<i64>) {
@@ -831,8 +824,8 @@ mod tests {
     proptest! {
         #[test]
         fn prop_tunnel_optional_fields(
-            group in proptest::option::of(0i32..1000),
-            ipsec_profile in proptest::option::of(0i32..1000),
+            group in proptest::option::of(0i64..(1i64 << 40)),
+            ipsec_profile in proptest::option::of(0i64..(1i64 << 40)),
         ) {
             let request = CreateTunnelRequest {
                 name: "t1".to_string(),
@@ -847,8 +840,8 @@ mod tests {
                 tags: None,
             };
             let value = serde_json::to_value(&request).unwrap();
-            assert_optional_i32(&value, "group", &group);
-            assert_optional_i32(&value, "ipsec_profile", &ipsec_profile);
+            assert_optional_i64(&value, "group", &group);
+            assert_optional_i64(&value, "ipsec_profile", &ipsec_profile);
         }
     }
 

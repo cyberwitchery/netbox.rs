@@ -36,22 +36,22 @@ pub struct CreateClusterRequest {
     /// cluster name.
     pub name: String,
     /// cluster type id.
-    pub r#type: i32,
+    pub r#type: i64,
     /// cluster group id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub group: Option<i32>,
+    pub group: Option<i64>,
     /// status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
     /// tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<i32>,
+    pub tenant: Option<i64>,
     /// scope type string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scope_type: Option<String>,
     /// scope object id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub scope_id: Option<i32>,
+    pub scope_id: Option<i64>,
     /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
@@ -60,7 +60,7 @@ pub struct CreateClusterRequest {
     pub comments: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating a cluster (id-based references).
@@ -71,22 +71,22 @@ pub struct UpdateClusterRequest {
     pub name: Option<String>,
     /// updated cluster type id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub r#type: Option<i32>,
+    pub r#type: Option<i64>,
     /// updated cluster group id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub group: Option<i32>,
+    pub group: Option<i64>,
     /// updated status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
     /// updated tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<i32>,
+    pub tenant: Option<i64>,
     /// updated scope type string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scope_type: Option<String>,
     /// updated scope object id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub scope_id: Option<i32>,
+    pub scope_id: Option<i64>,
     /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
@@ -95,7 +95,7 @@ pub struct UpdateClusterRequest {
     pub comments: Option<String>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for creating a virtual machine (id-based references).
@@ -108,31 +108,31 @@ pub struct CreateVirtualMachineRequest {
     pub status: Option<String>,
     /// site id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub site: Option<i32>,
+    pub site: Option<i64>,
     /// cluster id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub cluster: Option<i32>,
+    pub cluster: Option<i64>,
     /// device id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub device: Option<i32>,
+    pub device: Option<i64>,
     /// serial number.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub serial: Option<String>,
     /// role id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub role: Option<i32>,
+    pub role: Option<i64>,
     /// tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<i32>,
+    pub tenant: Option<i64>,
     /// platform id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub platform: Option<i32>,
+    pub platform: Option<i64>,
     /// primary IPv4 address id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub primary_ip4: Option<i32>,
+    pub primary_ip4: Option<i64>,
     /// primary IPv6 address id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub primary_ip6: Option<i32>,
+    pub primary_ip6: Option<i64>,
     /// vCPU count.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vcpus: Option<f64>,
@@ -150,13 +150,13 @@ pub struct CreateVirtualMachineRequest {
     pub comments: Option<String>,
     /// config template id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub config_template: Option<i32>,
+    pub config_template: Option<i64>,
     /// local config context data.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub local_context_data: Option<Value>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating a virtual machine (id-based references).
@@ -170,31 +170,31 @@ pub struct UpdateVirtualMachineRequest {
     pub status: Option<String>,
     /// updated site id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub site: Option<i32>,
+    pub site: Option<i64>,
     /// updated cluster id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub cluster: Option<i32>,
+    pub cluster: Option<i64>,
     /// updated device id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub device: Option<i32>,
+    pub device: Option<i64>,
     /// updated serial number.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub serial: Option<String>,
     /// updated role id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub role: Option<i32>,
+    pub role: Option<i64>,
     /// updated tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<i32>,
+    pub tenant: Option<i64>,
     /// updated platform id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub platform: Option<i32>,
+    pub platform: Option<i64>,
     /// updated primary IPv4 address id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub primary_ip4: Option<i32>,
+    pub primary_ip4: Option<i64>,
     /// updated primary IPv6 address id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub primary_ip6: Option<i32>,
+    pub primary_ip6: Option<i64>,
     /// updated vCPU count.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub vcpus: Option<f64>,
@@ -212,20 +212,20 @@ pub struct UpdateVirtualMachineRequest {
     pub comments: Option<String>,
     /// updated config template id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub config_template: Option<i32>,
+    pub config_template: Option<i64>,
     /// updated local config context data.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub local_context_data: Option<Value>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for creating a VM interface (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateVmInterfaceRequest {
     /// virtual machine id.
-    pub virtual_machine: i32,
+    pub virtual_machine: i64,
     /// interface name.
     pub name: String,
     /// enabled flag.
@@ -233,16 +233,16 @@ pub struct CreateVmInterfaceRequest {
     pub enabled: Option<bool>,
     /// parent interface id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub parent: Option<i32>,
+    pub parent: Option<i64>,
     /// bridge interface id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub bridge: Option<i32>,
+    pub bridge: Option<i64>,
     /// MTU value.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mtu: Option<i32>,
     /// primary MAC address id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub primary_mac_address: Option<i32>,
+    pub primary_mac_address: Option<i64>,
     /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
@@ -251,22 +251,22 @@ pub struct CreateVmInterfaceRequest {
     pub mode: Option<String>,
     /// untagged VLAN id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub untagged_vlan: Option<i32>,
+    pub untagged_vlan: Option<i64>,
     /// tagged VLAN IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tagged_vlans: Option<Vec<i32>>,
+    pub tagged_vlans: Option<Vec<i64>>,
     /// Q-in-Q SVLAN id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub qinq_svlan: Option<i32>,
+    pub qinq_svlan: Option<i64>,
     /// VLAN translation policy id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub vlan_translation_policy: Option<i32>,
+    pub vlan_translation_policy: Option<i64>,
     /// VRF id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub vrf: Option<i32>,
+    pub vrf: Option<i64>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating a VM interface (id-based references).
@@ -274,7 +274,7 @@ pub struct CreateVmInterfaceRequest {
 pub struct UpdateVmInterfaceRequest {
     /// updated virtual machine id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub virtual_machine: Option<i32>,
+    pub virtual_machine: Option<i64>,
     /// updated interface name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -283,16 +283,16 @@ pub struct UpdateVmInterfaceRequest {
     pub enabled: Option<bool>,
     /// updated parent interface id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub parent: Option<i32>,
+    pub parent: Option<i64>,
     /// updated bridge interface id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub bridge: Option<i32>,
+    pub bridge: Option<i64>,
     /// updated MTU value.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mtu: Option<i32>,
     /// updated primary MAC address id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub primary_mac_address: Option<i32>,
+    pub primary_mac_address: Option<i64>,
     /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
@@ -301,29 +301,29 @@ pub struct UpdateVmInterfaceRequest {
     pub mode: Option<String>,
     /// updated untagged VLAN id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub untagged_vlan: Option<i32>,
+    pub untagged_vlan: Option<i64>,
     /// updated tagged VLAN IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tagged_vlans: Option<Vec<i32>>,
+    pub tagged_vlans: Option<Vec<i64>>,
     /// updated Q-in-Q SVLAN id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub qinq_svlan: Option<i32>,
+    pub qinq_svlan: Option<i64>,
     /// updated VLAN translation policy id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub vlan_translation_policy: Option<i32>,
+    pub vlan_translation_policy: Option<i64>,
     /// updated VRF id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub vrf: Option<i32>,
+    pub vrf: Option<i64>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for creating a virtual disk (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateVirtualDiskRequest {
     /// virtual machine id.
-    pub virtual_machine: i32,
+    pub virtual_machine: i64,
     /// disk name.
     pub name: String,
     /// disk size in GB.
@@ -333,7 +333,7 @@ pub struct CreateVirtualDiskRequest {
     pub description: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating a virtual disk (id-based references).
@@ -341,7 +341,7 @@ pub struct CreateVirtualDiskRequest {
 pub struct UpdateVirtualDiskRequest {
     /// updated virtual machine id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub virtual_machine: Option<i32>,
+    pub virtual_machine: Option<i64>,
     /// updated disk name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -353,7 +353,7 @@ pub struct UpdateVirtualDiskRequest {
     pub description: Option<String>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 #[cfg(test)]

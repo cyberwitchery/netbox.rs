@@ -24,7 +24,7 @@ pub struct CreateTenantRequest {
     pub slug: String,
     /// tenant group id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub group: Option<i32>,
+    pub group: Option<i64>,
     /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
@@ -33,7 +33,7 @@ pub struct CreateTenantRequest {
     pub comments: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating a tenant (id-based references).
@@ -47,7 +47,7 @@ pub struct UpdateTenantRequest {
     pub slug: Option<String>,
     /// updated tenant group id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub group: Option<i32>,
+    pub group: Option<i64>,
     /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
@@ -56,7 +56,7 @@ pub struct UpdateTenantRequest {
     pub comments: Option<String>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for creating a tenant group (id-based references).
@@ -68,13 +68,13 @@ pub struct CreateTenantGroupRequest {
     pub slug: String,
     /// parent group id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub parent: Option<i32>,
+    pub parent: Option<i64>,
     /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating a tenant group (id-based references).
@@ -88,13 +88,13 @@ pub struct UpdateTenantGroupRequest {
     pub slug: Option<String>,
     /// updated parent group id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub parent: Option<i32>,
+    pub parent: Option<i64>,
     /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for creating a contact (id-based references).
@@ -102,7 +102,7 @@ pub struct UpdateTenantGroupRequest {
 pub struct CreateContactRequest {
     /// contact group IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub groups: Option<Vec<i32>>,
+    pub groups: Option<Vec<i64>>,
     /// contact name.
     pub name: String,
     /// contact title.
@@ -128,7 +128,7 @@ pub struct CreateContactRequest {
     pub comments: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating a contact (id-based references).
@@ -136,7 +136,7 @@ pub struct CreateContactRequest {
 pub struct UpdateContactRequest {
     /// updated contact group IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub groups: Option<Vec<i32>>,
+    pub groups: Option<Vec<i64>>,
     /// updated contact name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -163,7 +163,7 @@ pub struct UpdateContactRequest {
     pub comments: Option<String>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for creating a contact group (id-based references).
@@ -175,7 +175,7 @@ pub struct CreateContactGroupRequest {
     pub slug: String,
     /// parent group id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub parent: Option<i32>,
+    pub parent: Option<i64>,
     /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
@@ -184,7 +184,7 @@ pub struct CreateContactGroupRequest {
     pub comments: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating a contact group (id-based references).
@@ -198,7 +198,7 @@ pub struct UpdateContactGroupRequest {
     pub slug: Option<String>,
     /// updated parent group id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub parent: Option<i32>,
+    pub parent: Option<i64>,
     /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
@@ -207,7 +207,7 @@ pub struct UpdateContactGroupRequest {
     pub comments: Option<String>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for creating a contact role (id-based references).
@@ -222,7 +222,7 @@ pub struct CreateContactRoleRequest {
     pub description: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating a contact role (id-based references).
@@ -239,7 +239,7 @@ pub struct UpdateContactRoleRequest {
     pub description: Option<String>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// tenant model.

@@ -26,13 +26,13 @@ pub struct CreateWirelessLanGroupRequest {
     pub slug: String,
     /// parent group id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub parent: Option<i32>,
+    pub parent: Option<i64>,
     /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
     /// custom fields payload.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<HashMap<String, Value>>,
@@ -52,13 +52,13 @@ pub struct UpdateWirelessLanGroupRequest {
     pub slug: Option<String>,
     /// updated parent group id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub parent: Option<i32>,
+    pub parent: Option<i64>,
     /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
     /// updated custom fields payload.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<HashMap<String, Value>>,
@@ -77,22 +77,22 @@ pub struct CreateWirelessLanRequest {
     pub description: Option<String>,
     /// group id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub group: Option<i32>,
+    pub group: Option<i64>,
     /// status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
     /// VLAN id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub vlan: Option<i32>,
+    pub vlan: Option<i64>,
     /// scope type string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scope_type: Option<String>,
     /// scope id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub scope_id: Option<i32>,
+    pub scope_id: Option<i64>,
     /// tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<i32>,
+    pub tenant: Option<i64>,
     /// auth type slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub auth_type: Option<String>,
@@ -107,7 +107,7 @@ pub struct CreateWirelessLanRequest {
     pub comments: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
     /// custom fields payload.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<HashMap<String, Value>>,
@@ -124,22 +124,22 @@ pub struct UpdateWirelessLanRequest {
     pub description: Option<String>,
     /// updated group id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub group: Option<i32>,
+    pub group: Option<i64>,
     /// updated status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
     /// updated VLAN id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub vlan: Option<i32>,
+    pub vlan: Option<i64>,
     /// updated scope type string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scope_type: Option<String>,
     /// updated scope id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub scope_id: Option<i32>,
+    pub scope_id: Option<i64>,
     /// updated tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<i32>,
+    pub tenant: Option<i64>,
     /// updated auth type slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub auth_type: Option<String>,
@@ -154,7 +154,7 @@ pub struct UpdateWirelessLanRequest {
     pub comments: Option<String>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
     /// updated custom fields payload.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<HashMap<String, Value>>,
@@ -164,9 +164,9 @@ pub struct UpdateWirelessLanRequest {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateWirelessLinkRequest {
     /// interface A id.
-    pub interface_a: i32,
+    pub interface_a: i64,
     /// interface B id.
-    pub interface_b: i32,
+    pub interface_b: i64,
     /// SSID string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ssid: Option<String>,
@@ -175,7 +175,7 @@ pub struct CreateWirelessLinkRequest {
     pub status: Option<String>,
     /// tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<i32>,
+    pub tenant: Option<i64>,
     /// auth type slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub auth_type: Option<String>,
@@ -199,7 +199,7 @@ pub struct CreateWirelessLinkRequest {
     pub comments: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
     /// custom fields payload.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<HashMap<String, Value>>,
@@ -210,10 +210,10 @@ pub struct CreateWirelessLinkRequest {
 pub struct UpdateWirelessLinkRequest {
     /// updated interface A id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub interface_a: Option<i32>,
+    pub interface_a: Option<i64>,
     /// updated interface B id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub interface_b: Option<i32>,
+    pub interface_b: Option<i64>,
     /// updated SSID string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub ssid: Option<String>,
@@ -222,7 +222,7 @@ pub struct UpdateWirelessLinkRequest {
     pub status: Option<String>,
     /// updated tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<i32>,
+    pub tenant: Option<i64>,
     /// updated auth type slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub auth_type: Option<String>,
@@ -246,7 +246,7 @@ pub struct UpdateWirelessLinkRequest {
     pub comments: Option<String>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
     /// updated custom fields payload.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub custom_fields: Option<HashMap<String, Value>>,

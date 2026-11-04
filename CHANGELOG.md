@@ -4,6 +4,9 @@ this release captures the current state of the project. no prior published state
 
 ## Unreleased
 
+### client
+- **breaking:** the hand-written create and update requests (`CreateProviderRequest`, `CreateCircuitRequest`, `CreateTunnelRequest`, ...) take `i64` ids for every foreign key and id list, matching the generated models since netbox v4.7.4. measurements such as `commit_rate`, `port_speed`, `memory`, `disk`, `mtu`, `weight` and `sa_lifetime` stay `i32`
+
 ### ci
 - bump pinned netbox container from v4.7.3 to v4.7.4 (refs #96)
 

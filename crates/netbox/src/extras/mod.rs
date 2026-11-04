@@ -178,7 +178,7 @@ pub struct CreateCustomFieldRequest {
     pub validation_regex: Option<String>,
     /// choice set id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub choice_set: Option<i32>,
+    pub choice_set: Option<i64>,
     /// field comments.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
@@ -249,7 +249,7 @@ pub struct UpdateCustomFieldRequest {
     pub validation_regex: Option<String>,
     /// updated choice set id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub choice_set: Option<i32>,
+    pub choice_set: Option<i64>,
     /// updated comments.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub comments: Option<String>,
@@ -265,7 +265,7 @@ pub struct CreateConfigContextRequest {
     pub weight: Option<i32>,
     /// profile id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub profile: Option<i32>,
+    pub profile: Option<i64>,
     /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
@@ -274,46 +274,46 @@ pub struct CreateConfigContextRequest {
     pub is_active: Option<bool>,
     /// region IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub regions: Option<Vec<i32>>,
+    pub regions: Option<Vec<i64>>,
     /// site group IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub site_groups: Option<Vec<i32>>,
+    pub site_groups: Option<Vec<i64>>,
     /// site IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub sites: Option<Vec<i32>>,
+    pub sites: Option<Vec<i64>>,
     /// location IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub locations: Option<Vec<i32>>,
+    pub locations: Option<Vec<i64>>,
     /// device type IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub device_types: Option<Vec<i32>>,
+    pub device_types: Option<Vec<i64>>,
     /// role IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub roles: Option<Vec<i32>>,
+    pub roles: Option<Vec<i64>>,
     /// platform IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub platforms: Option<Vec<i32>>,
+    pub platforms: Option<Vec<i64>>,
     /// cluster type IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub cluster_types: Option<Vec<i32>>,
+    pub cluster_types: Option<Vec<i64>>,
     /// cluster group IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub cluster_groups: Option<Vec<i32>>,
+    pub cluster_groups: Option<Vec<i64>>,
     /// cluster IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub clusters: Option<Vec<i32>>,
+    pub clusters: Option<Vec<i64>>,
     /// tenant group IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant_groups: Option<Vec<i32>>,
+    pub tenant_groups: Option<Vec<i64>>,
     /// tenant IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenants: Option<Vec<i32>>,
+    pub tenants: Option<Vec<i64>>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<String>>,
     /// data source id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub data_source: Option<i32>,
+    pub data_source: Option<i64>,
     /// data payload.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub data: Option<Value>,
@@ -330,7 +330,7 @@ pub struct UpdateConfigContextRequest {
     pub weight: Option<i32>,
     /// updated profile id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub profile: Option<i32>,
+    pub profile: Option<i64>,
     /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
@@ -339,46 +339,46 @@ pub struct UpdateConfigContextRequest {
     pub is_active: Option<bool>,
     /// updated region IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub regions: Option<Vec<i32>>,
+    pub regions: Option<Vec<i64>>,
     /// updated site group IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub site_groups: Option<Vec<i32>>,
+    pub site_groups: Option<Vec<i64>>,
     /// updated site IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub sites: Option<Vec<i32>>,
+    pub sites: Option<Vec<i64>>,
     /// updated location IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub locations: Option<Vec<i32>>,
+    pub locations: Option<Vec<i64>>,
     /// updated device type IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub device_types: Option<Vec<i32>>,
+    pub device_types: Option<Vec<i64>>,
     /// updated role IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub roles: Option<Vec<i32>>,
+    pub roles: Option<Vec<i64>>,
     /// updated platform IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub platforms: Option<Vec<i32>>,
+    pub platforms: Option<Vec<i64>>,
     /// updated cluster type IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub cluster_types: Option<Vec<i32>>,
+    pub cluster_types: Option<Vec<i64>>,
     /// updated cluster group IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub cluster_groups: Option<Vec<i32>>,
+    pub cluster_groups: Option<Vec<i64>>,
     /// updated cluster IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub clusters: Option<Vec<i32>>,
+    pub clusters: Option<Vec<i64>>,
     /// updated tenant group IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant_groups: Option<Vec<i32>>,
+    pub tenant_groups: Option<Vec<i64>>,
     /// updated tenant IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenants: Option<Vec<i32>>,
+    pub tenants: Option<Vec<i64>>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<String>>,
     /// updated data source id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub data_source: Option<i32>,
+    pub data_source: Option<i64>,
     /// updated data payload.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub data: Option<Value>,
@@ -403,7 +403,7 @@ pub struct CreateConfigContextProfileRequest {
     pub comments: Option<String>,
     /// data source id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub data_source: Option<i32>,
+    pub data_source: Option<i64>,
 }
 
 /// request for updating a config context profile.
@@ -426,7 +426,7 @@ pub struct UpdateConfigContextProfileRequest {
     pub comments: Option<String>,
     /// updated data source id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub data_source: Option<i32>,
+    pub data_source: Option<i64>,
 }
 
 /// request for creating a config template.
@@ -456,10 +456,10 @@ pub struct CreateConfigTemplateRequest {
     pub as_attachment: Option<bool>,
     /// data source id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub data_source: Option<i32>,
+    pub data_source: Option<i64>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating a config template.
@@ -491,10 +491,10 @@ pub struct UpdateConfigTemplateRequest {
     pub as_attachment: Option<bool>,
     /// updated data source id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub data_source: Option<i32>,
+    pub data_source: Option<i64>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for creating a webhook.
@@ -533,7 +533,7 @@ pub struct CreateWebhookRequest {
     pub custom_fields: Option<HashMap<String, Value>>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating a webhook.
@@ -574,7 +574,7 @@ pub struct UpdateWebhookRequest {
     pub custom_fields: Option<HashMap<String, Value>>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// bookmark model.

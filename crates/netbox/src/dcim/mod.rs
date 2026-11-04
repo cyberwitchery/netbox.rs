@@ -50,11 +50,11 @@ pub struct CreateDeviceRequest {
     /// device name.
     pub name: String,
     /// device type id.
-    pub device_type: i32,
+    pub device_type: i64,
     /// role id.
-    pub role: i32,
+    pub role: i64,
     /// site id.
-    pub site: i32,
+    pub site: i64,
     /// status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
@@ -66,7 +66,7 @@ pub struct CreateDeviceRequest {
     pub asset_tag: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating a device (id-based references).
@@ -77,13 +77,13 @@ pub struct UpdateDeviceRequest {
     pub name: Option<String>,
     /// updated device type id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub device_type: Option<i32>,
+    pub device_type: Option<i64>,
     /// updated role id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub role: Option<i32>,
+    pub role: Option<i64>,
     /// updated site id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub site: Option<i32>,
+    pub site: Option<i64>,
     /// updated status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
