@@ -57,10 +57,10 @@ pub struct CreateIpAddressRequest {
     pub address: String,
     /// VRF id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub vrf: Option<i32>,
+    pub vrf: Option<i64>,
     /// tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<i32>,
+    pub tenant: Option<i64>,
     /// status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
@@ -72,7 +72,7 @@ pub struct CreateIpAddressRequest {
     pub assigned_object_type: Option<String>,
     /// assigned object id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub assigned_object_id: Option<i32>,
+    pub assigned_object_id: Option<i64>,
     /// DNS name value.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub dns_name: Option<String>,
@@ -81,7 +81,7 @@ pub struct CreateIpAddressRequest {
     pub description: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating an IP address (id-based references).
@@ -119,28 +119,28 @@ pub struct CreatePrefixRequest {
     pub prefix: String,
     /// site id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub site: Option<i32>,
+    pub site: Option<i64>,
     /// VRF id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub vrf: Option<i32>,
+    pub vrf: Option<i64>,
     /// tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<i32>,
+    pub tenant: Option<i64>,
     /// VLAN id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub vlan: Option<i32>,
+    pub vlan: Option<i64>,
     /// scope type.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scope_type: Option<String>,
     /// scope id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub scope_id: Option<i32>,
+    pub scope_id: Option<i64>,
     /// status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
     /// role id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub role: Option<i32>,
+    pub role: Option<i64>,
     /// pool flag.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub is_pool: Option<bool>,
@@ -149,7 +149,7 @@ pub struct CreatePrefixRequest {
     pub description: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating a prefix (id-based references).
@@ -160,13 +160,13 @@ pub struct UpdatePrefixRequest {
     pub prefix: Option<String>,
     /// updated site id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub site: Option<i32>,
+    pub site: Option<i64>,
     /// updated scope type.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub scope_type: Option<String>,
     /// updated scope id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub scope_id: Option<i32>,
+    pub scope_id: Option<i64>,
     /// updated status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,

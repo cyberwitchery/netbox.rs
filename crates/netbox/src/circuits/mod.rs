@@ -38,7 +38,7 @@ pub struct CreateProviderRequest {
     pub slug: String,
     /// provider account IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub accounts: Option<Vec<i32>>,
+    pub accounts: Option<Vec<i64>>,
     /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
@@ -47,10 +47,10 @@ pub struct CreateProviderRequest {
     pub comments: Option<String>,
     /// ASN IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub asns: Option<Vec<i32>>,
+    pub asns: Option<Vec<i64>>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating a provider (id-based references).
@@ -64,7 +64,7 @@ pub struct UpdateProviderRequest {
     pub slug: Option<String>,
     /// updated provider account IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub accounts: Option<Vec<i32>>,
+    pub accounts: Option<Vec<i64>>,
     /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
@@ -73,17 +73,17 @@ pub struct UpdateProviderRequest {
     pub comments: Option<String>,
     /// updated ASN IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub asns: Option<Vec<i32>>,
+    pub asns: Option<Vec<i64>>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for creating a provider network (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateProviderNetworkRequest {
     /// provider id.
-    pub provider: i32,
+    pub provider: i64,
     /// provider network name.
     pub name: String,
     /// service id.
@@ -97,7 +97,7 @@ pub struct CreateProviderNetworkRequest {
     pub comments: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating a provider network (id-based references).
@@ -105,7 +105,7 @@ pub struct CreateProviderNetworkRequest {
 pub struct UpdateProviderNetworkRequest {
     /// updated provider id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub provider: Option<i32>,
+    pub provider: Option<i64>,
     /// updated provider network name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -120,7 +120,7 @@ pub struct UpdateProviderNetworkRequest {
     pub comments: Option<String>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for creating a circuit type (id-based references).
@@ -138,7 +138,7 @@ pub struct CreateCircuitTypeRequest {
     pub description: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating a circuit type (id-based references).
@@ -158,7 +158,7 @@ pub struct UpdateCircuitTypeRequest {
     pub description: Option<String>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for creating a circuit (id-based references).
@@ -167,18 +167,18 @@ pub struct CreateCircuitRequest {
     /// circuit id (CID).
     pub cid: String,
     /// provider id.
-    pub provider: i32,
+    pub provider: i64,
     /// provider account id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub provider_account: Option<i32>,
+    pub provider_account: Option<i64>,
     /// circuit type id.
-    pub r#type: i32,
+    pub r#type: i64,
     /// status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
     /// tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<i32>,
+    pub tenant: Option<i64>,
     /// install date (YYYY-MM-DD).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub install_date: Option<String>,
@@ -202,7 +202,7 @@ pub struct CreateCircuitRequest {
     pub comments: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating a circuit (id-based references).
@@ -213,19 +213,19 @@ pub struct UpdateCircuitRequest {
     pub cid: Option<String>,
     /// updated provider id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub provider: Option<i32>,
+    pub provider: Option<i64>,
     /// updated provider account id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub provider_account: Option<i32>,
+    pub provider_account: Option<i64>,
     /// updated circuit type id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub r#type: Option<i32>,
+    pub r#type: Option<i64>,
     /// updated status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
     /// updated tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<i32>,
+    pub tenant: Option<i64>,
     /// updated install date (YYYY-MM-DD).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub install_date: Option<String>,
@@ -249,7 +249,7 @@ pub struct UpdateCircuitRequest {
     pub comments: Option<String>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for creating a virtual circuit (id-based references).
@@ -258,18 +258,18 @@ pub struct CreateVirtualCircuitRequest {
     /// virtual circuit id (CID).
     pub cid: String,
     /// provider network id.
-    pub provider_network: i32,
+    pub provider_network: i64,
     /// provider account id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub provider_account: Option<i32>,
+    pub provider_account: Option<i64>,
     /// virtual circuit type id.
-    pub r#type: i32,
+    pub r#type: i64,
     /// status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
     /// tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<i32>,
+    pub tenant: Option<i64>,
     /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
@@ -278,7 +278,7 @@ pub struct CreateVirtualCircuitRequest {
     pub comments: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating a virtual circuit (id-based references).
@@ -289,19 +289,19 @@ pub struct UpdateVirtualCircuitRequest {
     pub cid: Option<String>,
     /// updated provider network id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub provider_network: Option<i32>,
+    pub provider_network: Option<i64>,
     /// updated provider account id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub provider_account: Option<i32>,
+    pub provider_account: Option<i64>,
     /// updated virtual circuit type id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub r#type: Option<i32>,
+    pub r#type: Option<i64>,
     /// updated status slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub status: Option<String>,
     /// updated tenant id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tenant: Option<i32>,
+    pub tenant: Option<i64>,
     /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
@@ -310,14 +310,14 @@ pub struct UpdateVirtualCircuitRequest {
     pub comments: Option<String>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for creating a provider account (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateProviderAccountRequest {
     /// provider id.
-    pub provider: i32,
+    pub provider: i64,
     /// account name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -331,7 +331,7 @@ pub struct CreateProviderAccountRequest {
     pub comments: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating a provider account (id-based references).
@@ -339,7 +339,7 @@ pub struct CreateProviderAccountRequest {
 pub struct UpdateProviderAccountRequest {
     /// updated provider id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub provider: Option<i32>,
+    pub provider: Option<i64>,
     /// updated account name.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
@@ -354,14 +354,14 @@ pub struct UpdateProviderAccountRequest {
     pub comments: Option<String>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for creating a circuit termination (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateCircuitTerminationRequest {
     /// circuit id.
-    pub circuit: i32,
+    pub circuit: i64,
     /// termination side (A/Z).
     pub term_side: String,
     /// termination object type.
@@ -369,7 +369,7 @@ pub struct CreateCircuitTerminationRequest {
     pub termination_type: Option<String>,
     /// termination object id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub termination_id: Option<i32>,
+    pub termination_id: Option<i64>,
     /// port speed.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub port_speed: Option<i32>,
@@ -390,7 +390,7 @@ pub struct CreateCircuitTerminationRequest {
     pub mark_connected: Option<bool>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating a circuit termination (id-based references).
@@ -398,7 +398,7 @@ pub struct CreateCircuitTerminationRequest {
 pub struct UpdateCircuitTerminationRequest {
     /// updated circuit id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub circuit: Option<i32>,
+    pub circuit: Option<i64>,
     /// updated termination side (A/Z).
     #[serde(skip_serializing_if = "Option::is_none")]
     pub term_side: Option<String>,
@@ -407,7 +407,7 @@ pub struct UpdateCircuitTerminationRequest {
     pub termination_type: Option<String>,
     /// updated termination object id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub termination_id: Option<i32>,
+    pub termination_id: Option<i64>,
     /// updated port speed.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub port_speed: Option<i32>,
@@ -428,25 +428,25 @@ pub struct UpdateCircuitTerminationRequest {
     pub mark_connected: Option<bool>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for creating a virtual circuit termination (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateVirtualCircuitTerminationRequest {
     /// virtual circuit id.
-    pub virtual_circuit: i32,
+    pub virtual_circuit: i64,
     /// role slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub role: Option<String>,
     /// interface id.
-    pub interface: i32,
+    pub interface: i64,
     /// description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating a virtual circuit termination (id-based references).
@@ -454,26 +454,26 @@ pub struct CreateVirtualCircuitTerminationRequest {
 pub struct UpdateVirtualCircuitTerminationRequest {
     /// updated virtual circuit id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub virtual_circuit: Option<i32>,
+    pub virtual_circuit: Option<i64>,
     /// updated role slug.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub role: Option<String>,
     /// updated interface id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub interface: Option<i32>,
+    pub interface: Option<i64>,
     /// updated description text.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for creating a circuit group assignment (id-based references).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateCircuitGroupAssignmentRequest {
     /// circuit group id.
-    pub group: i32,
+    pub group: i64,
     /// member type string.
     pub member_type: String,
     /// member object id.
@@ -483,7 +483,7 @@ pub struct CreateCircuitGroupAssignmentRequest {
     pub priority: Option<String>,
     /// tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 /// request for updating a circuit group assignment (id-based references).
@@ -491,7 +491,7 @@ pub struct CreateCircuitGroupAssignmentRequest {
 pub struct UpdateCircuitGroupAssignmentRequest {
     /// updated circuit group id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub group: Option<i32>,
+    pub group: Option<i64>,
     /// updated member type string.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub member_type: Option<String>,
@@ -503,7 +503,7 @@ pub struct UpdateCircuitGroupAssignmentRequest {
     pub priority: Option<String>,
     /// updated tag IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub tags: Option<Vec<i32>>,
+    pub tags: Option<Vec<i64>>,
 }
 
 #[cfg(test)]
@@ -523,7 +523,7 @@ mod tests {
         assert!(value.get(key).is_none(), "expected {} to be omitted", key);
     }
 
-    fn assert_optional_i32(value: &Value, key: &str, field: &Option<i32>) {
+    fn assert_optional_i64(value: &Value, key: &str, field: &Option<i64>) {
         match field {
             Some(v) => assert_eq!(value[key], serde_json::json!(*v)),
             None => assert_missing(value, key),
@@ -848,7 +848,7 @@ mod tests {
         #[test]
         fn prop_create_circuit_optional_fields(
             status in proptest::option::of("[a-z0-9-]{1,16}"),
-            provider_account in proptest::option::of(0i32..1000),
+            provider_account in proptest::option::of(0i64..(1i64 << 40)),
         ) {
             let request = CreateCircuitRequest {
                 cid: "C-1".to_string(),
@@ -868,7 +868,7 @@ mod tests {
             };
             let value = serde_json::to_value(&request).unwrap();
             assert_optional_string(&value, "status", &status);
-            assert_optional_i32(&value, "provider_account", &provider_account);
+            assert_optional_i64(&value, "provider_account", &provider_account);
         }
     }
 

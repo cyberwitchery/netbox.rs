@@ -28,7 +28,7 @@ pub struct CreateGroupRequest {
     pub description: Option<String>,
     /// permission IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub permissions: Option<Vec<i32>>,
+    pub permissions: Option<Vec<i64>>,
 }
 
 /// request for updating a group.
@@ -42,14 +42,14 @@ pub struct UpdateGroupRequest {
     pub description: Option<String>,
     /// updated permission IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub permissions: Option<Vec<i32>>,
+    pub permissions: Option<Vec<i64>>,
 }
 
 /// request for creating a token.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreateTokenRequest {
     /// user id.
-    pub user: i32,
+    pub user: i64,
     /// expiration timestamp.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub expires: Option<String>,
@@ -72,7 +72,7 @@ pub struct CreateTokenRequest {
 pub struct UpdateTokenRequest {
     /// updated user id.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub user: Option<i32>,
+    pub user: Option<i64>,
     /// updated expiration timestamp.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub expires: Option<String>,
@@ -120,10 +120,10 @@ pub struct CreateUserRequest {
     pub last_login: Option<String>,
     /// group IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub groups: Option<Vec<i32>>,
+    pub groups: Option<Vec<i64>>,
     /// permission IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub permissions: Option<Vec<i32>>,
+    pub permissions: Option<Vec<i64>>,
 }
 
 /// request for updating a user.
@@ -158,10 +158,10 @@ pub struct UpdateUserRequest {
     pub last_login: Option<String>,
     /// updated group IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub groups: Option<Vec<i32>>,
+    pub groups: Option<Vec<i64>>,
     /// updated permission IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub permissions: Option<Vec<i32>>,
+    pub permissions: Option<Vec<i64>>,
 }
 
 /// request for creating an object permission.
@@ -184,10 +184,10 @@ pub struct CreateObjectPermissionRequest {
     pub constraints: Option<Value>,
     /// group IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub groups: Option<Vec<i32>>,
+    pub groups: Option<Vec<i64>>,
     /// user IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub users: Option<Vec<i32>>,
+    pub users: Option<Vec<i64>>,
 }
 
 /// request for updating an object permission.
@@ -213,10 +213,10 @@ pub struct UpdateObjectPermissionRequest {
     pub constraints: Option<Value>,
     /// updated group IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub groups: Option<Vec<i32>>,
+    pub groups: Option<Vec<i64>>,
     /// updated user IDs.
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub users: Option<Vec<i32>>,
+    pub users: Option<Vec<i64>>,
 }
 
 /// user config model.
