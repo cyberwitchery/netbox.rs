@@ -130,12 +130,17 @@ def collapse_fk_one_of(obj: dict) -> None:
     branches = obj.get("oneOf")
     if not isinstance(branches, list) or len(branches) != 2:
         return
-    ints = [b for b in branches if isinstance(b, dict) and b.get("type") == "integer" and len(b) == 1]
+    ints = [
+        b for b in branches
+        if isinstance(b, dict) and b.get("type") == "integer" and set(b) <= {"type", "format"}
+    ]
     refs = [b for b in branches if is_ref(b)]
     if len(ints) != 1 or len(refs) != 1:
         return
     obj.pop("oneOf")
     obj["type"] = "integer"
+    if "format" in ints[0]:
+        obj["format"] = ints[0]["format"]
     if refs[0].get("nullable") is True:
         obj["nullable"] = True
 
