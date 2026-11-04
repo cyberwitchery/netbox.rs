@@ -4,9 +4,18 @@ this release captures the current state of the project. no prior published state
 
 ## Unreleased
 
+### ci
+- bump pinned netbox container from v4.7.3 to v4.7.4 (refs #96)
+
 ### openapi
+- regenerate bindings from the netbox v4.7.4 schema
+- **breaking:** ids are 64-bit. netbox v4.7.4 declares every id, foreign key and id filter as `int64`, so they are `i64` instead of `i32` across read models, write models, constructors and `*Params` structs, e.g. `IpAddress.id`, `TaggedItem.object_id` and `DcimDevicesListParams::site_id`
+- **breaking:** the `region_id`, `site_group_id`, `tenant_group_id`, `location_id`, `group_id`, `role_id`, `platform_id`, `default_platform_id`, `module_bay_id`, `ancestor_id`, `contact_group` and `related_ip` filters (and their lookups) take `Vec<i64>` instead of `Vec<String>`
+- **breaking:** `Script.result` and `ScriptDetail.result` are nullable, `Option<Option<Box<BriefJob>>>`
+- cable `profile` gains the `trunk-8c1p`, `trunk-12c1p` and `trunk-24c1p` choices, and circuits, circuit terminations, virtual circuits and virtual circuit terminations gain the `provider_network` filter
+- the schema normalizer also collapses foreign keys whose integer id carries a `format`, as netbox v4.7.4's do. without it the 74 wrapper types removed in this release came back as empty structs
 - **breaking:** blank-able string fields (`dns_name`, `color`, `email`, `link`) are `Option<String>` again. they were generated as empty structs since the netbox 4.6.8 schema and failed to deserialize any value, e.g. listing ip addresses (fixes #91). `BriefIpAddressDnsName`, `BriefModuleBayTypeColor`, `EmailAddress`, `BulkContactRequestEmail` and `BulkContactRequestLink` are removed
-- **breaking:** foreign keys on write models (`rir`, `tenant`, `owner`, `device`, `site`, ...) take the integer id. they were generated as empty structs that serialized as `{}`, so they could not be set. the 74 per-field wrapper types such as `AsnRequestRir` and `BulkDeviceRequestPlatform` are removed, and constructors with required foreign keys take `i32`
+- **breaking:** foreign keys on write models (`rir`, `tenant`, `owner`, `device`, `site`, ...) take the integer id. they were generated as empty structs that serialized as `{}`, so they could not be set. the 74 per-field wrapper types such as `AsnRequestRir` and `BulkDeviceRequestPlatform` are removed, and constructors with required foreign keys take `i64`
 - **breaking:** on read models, the `label` of every choice field (`status`, `type`, `mode`, ...) is `Option<String>`, and so is the `value` of the choice fields that netbox's `FIELD_CHOICES` setting can replace or extend (`status` on most models, `airflow` on racks, devices and module types, journal entry `kind`, circuit group assignment `priority`, cooling source `type` and virtual machine `start_on_boot`). one row with a translated label, a custom choice, or a choice since removed from `FIELD_CHOICES` (sent with an empty label) failed the whole list call. console port and console server port `speed` is `Option<i32>`; it failed to deserialize whenever it was set. the per-model `Label` enums and the `Value` enums of these fields are removed. contact assignment `priority` and virtual circuit `status` keep their `Value` enums, under the new types `ContactAssignmentPriority` and `VirtualCircuitStatus`
 
 ## [0.11.0] - 2026-10-25
