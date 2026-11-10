@@ -541,7 +541,7 @@ fn resolve_token(
     cli_token: Option<String>,
     profile: &Profile,
 ) -> Result<Option<String>, ConfigError> {
-    match cli_token {
+    match cli_token.filter(|t| !t.is_empty()) {
         Some(token) => Ok(Some(token)),
         None => profile.resolve_token(),
     }
@@ -930,7 +930,7 @@ mod tests {
     }
 
     #[test]
-    fn cli_token_beats_profile_token_command_and_token_env() {
+    fn non_empty_cli_token_beats_profile_token_command_and_token_env() {
         let ran =
             std::env::temp_dir().join(format!("netbox-cli-token-command-{}", std::process::id()));
         let command = Profile {
@@ -952,10 +952,21 @@ mod tests {
             }
         }
         assert!(!ran.exists());
-        assert_eq!(
-            resolve_token(None, &env).unwrap(),
-            std::env::var("PATH").ok()
-        );
+        let echo = Profile {
+            token_command: Some("echo command-token".to_string()),
+            ..Default::default()
+        };
+        let empty_flag = parse_args(&["netbox-cli", "--token", "", "status"]).token;
+        for cli_token in [None, empty_flag, Some(String::new())] {
+            assert_eq!(
+                resolve_token(cli_token.clone(), &echo).unwrap().as_deref(),
+                Some("command-token")
+            );
+            assert_eq!(
+                resolve_token(cli_token, &env).unwrap(),
+                std::env::var("PATH").ok()
+            );
+        }
     }
 
     #[test]

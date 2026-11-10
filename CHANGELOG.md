@@ -5,7 +5,7 @@ this release captures the current state of the project. no prior published state
 ## Unreleased
 
 ### cli
-- `--token` and `NETBOX_TOKEN` take precedence over a profile's `token_command` and `token_env`, as documented. the profile's token command no longer runs when either is set (fixes #107)
+- `--token` and `NETBOX_TOKEN` take precedence over a profile's `token_command` and `token_env`, as documented. the profile's token command no longer runs when either is set. an empty `--token` or `NETBOX_TOKEN` counts as unset and falls back to the profile (fixes #107)
 
 ## [0.12.0] - 2026-11-05
 
