@@ -81,7 +81,7 @@ jobs:
       - uses: dtolnay/rust-toolchain@683b588c487a69d01f6c6ddf40f036ff682cc2c8 # v1
         with:
           toolchain: stable
-      - uses: taiki-e/install-action@1919c4a95903d2c33e4a221102edca87309fc14b # v2.89.0
+      - uses: taiki-e/install-action@cfdb7ed4ccc7c7dce37759eae89dc5674b469b39 # v2.90.3
         with:
           tool: cargo-deny
       - run: cargo deny check
@@ -99,7 +99,7 @@ jobs:
         with:
           toolchain: stable
           components: llvm-tools-preview
-      - uses: taiki-e/install-action@1919c4a95903d2c33e4a221102edca87309fc14b # v2.89.0
+      - uses: taiki-e/install-action@cfdb7ed4ccc7c7dce37759eae89dc5674b469b39 # v2.90.3
         with:
           tool: cargo-llvm-cov
       - run: cargo llvm-cov --workspace --exclude netbox-openapi --all-features --fail-under-lines 75 --lcov --output-path lcov.info
@@ -119,7 +119,7 @@ jobs:
       - uses: kunobi-ninja/kache-action@ad7317540dcdd71c904f7a60a87b620a0c0e67ed # v1
         with:
           cache-key-prefix: kache-unsafe-budget
-      - uses: cyberwitchery/unsafe-budget@22209a08757e0b3f994befcff704e1ef76d65d0f # v0.5.4
+      - uses: cyberwitchery/unsafe-budget@1b02eea5f921a703c510f790236c07b26e4aee8a # v0.5.5
         with:
           mode: check
 
