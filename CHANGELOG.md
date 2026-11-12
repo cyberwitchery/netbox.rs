@@ -4,6 +4,9 @@ this release captures the current state of the project. no prior published state
 
 ## Unreleased
 
+### client
+- pagination follows an absolute `next` link by fetching its path under `/api/` from the configured base url, whatever scheme, host or port the link names, so a NetBox behind a TLS-terminating proxy no longer fails on the second page. a `next` link outside `/api/` is refused. `request_raw` and the other request methods refuse an absolute url, same origin included, with a configuration error instead of a pagination error (fixes #102)
+
 ### cli
 - `--token` and `NETBOX_TOKEN` take precedence over a profile's `token_command` and `token_env`, as documented. the profile's token command no longer runs when either is set. an empty `--token` or `NETBOX_TOKEN` counts as unset and falls back to the profile (fixes #107)
 
