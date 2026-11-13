@@ -2,7 +2,7 @@
 
 this release captures the current state of the project. no prior published state exists for comparison.
 
-## Unreleased
+## [0.12.1] - 2026-11-13
 
 ### client
 - pagination follows an absolute `next` link by fetching its path under `/api/` from the configured base url, whatever scheme, host or port the link names, so a NetBox behind a TLS-terminating proxy no longer fails on the second page. a `next` link outside `/api/` is refused. `request_raw` and the other request methods refuse an absolute url, same origin included, with a configuration error instead of a pagination error (fixes #102)
