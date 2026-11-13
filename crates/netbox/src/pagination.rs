@@ -1,8 +1,9 @@
 //! pagination support for netbox api list endpoints
 
-use crate::error::Result;
+use crate::error::{Error, Result};
 use serde::{Deserialize, Serialize};
 use std::fmt;
+use url::Url;
 
 /// a paginated response from the netbox api
 ///
@@ -68,6 +69,25 @@ impl<T> fmt::Display for Page<T> {
     }
 }
 
+/// the part of a `next` link after `/api/`; its scheme, host and port are dropped.
+fn api_path(link: &str) -> Result<String> {
+    let url = match Url::parse(link) {
+        Err(url::ParseError::RelativeUrlWithoutBase) => {
+            let rest = link.split_once("/api/").map_or(link, |(_, rest)| rest);
+            return Ok(rest.to_string());
+        }
+        parsed => parsed?,
+    };
+    let (_, rest) = url
+        .path()
+        .split_once("/api/")
+        .ok_or_else(|| Error::Pagination(format!("next link {link} is not under /api/")))?;
+    Ok(match url.query() {
+        Some(query) => format!("{rest}?{query}"),
+        None => rest.to_string(),
+    })
+}
+
 /// iterator for paginated api results
 ///
 /// this allows iterating through all pages of results automatically.
@@ -92,7 +112,7 @@ impl<T> fmt::Display for Page<T> {
 /// ```
 pub struct Paginator<T> {
     client: crate::Client,
-    next_url: Option<String>,
+    next_url: Option<Result<String>>,
     _phantom: std::marker::PhantomData<T>,
 }
 
@@ -104,7 +124,7 @@ where
     pub(crate) fn new(client: crate::Client, initial_path: String) -> Self {
         Self {
             client,
-            next_url: Some(initial_path),
+            next_url: Some(Ok(initial_path)),
             _phantom: std::marker::PhantomData,
         }
     }
@@ -115,8 +135,8 @@ where
     pub async fn next_page(&mut self) -> Result<Option<Page<T>>> {
         match self.next_url.take() {
             Some(url) => {
-                let page: Page<T> = self.client.get(&url).await?;
-                self.next_url = page.next.clone();
+                let page: Page<T> = self.client.get(&url?).await?;
+                self.next_url = page.next.as_deref().map(api_path);
                 Ok(Some(page))
             }
             None => Ok(None),
@@ -151,7 +171,7 @@ where
 #[cfg(test)]
 impl<T> Paginator<T> {
     pub(crate) fn next_url(&self) -> Option<&str> {
-        self.next_url.as_deref()
+        self.next_url.as_ref()?.as_deref().ok()
     }
 }
 
@@ -246,6 +266,31 @@ mod tests {
         let display = format!("{}", page);
         assert!(display.contains("1 results"));
         assert!(display.contains("total: 100"));
+    }
+
+    #[test]
+    fn api_path_follows_links_under_api_only() {
+        for (link, expected) in [
+            ("dcim/devices/?offset=1", Some("dcim/devices/?offset=1")),
+            (
+                "/api/dcim/devices/?offset=1",
+                Some("dcim/devices/?offset=1"),
+            ),
+            (
+                "https://netbox.internal/api/dcim/devices/?offset=1",
+                Some("dcim/devices/?offset=1"),
+            ),
+            ("https://netbox.internal/dcim/devices/?offset=1", None),
+            ("https://netbox.internal/dcim/devices/?next=/api/x/", None),
+        ] {
+            match api_path(link) {
+                Ok(path) => assert_eq!(Some(path.as_str()), expected, "{link}"),
+                Err(err) => assert!(
+                    expected.is_none() && matches!(err, Error::Pagination(_)),
+                    "{link}: {err}"
+                ),
+            }
+        }
     }
 
     #[cfg_attr(miri, ignore)]
@@ -417,14 +462,49 @@ mod tests {
         second.assert();
     }
 
-    // a cursor pointing at a foreign host must be rejected; no request reaches
-    // the second page.
     #[cfg_attr(miri, ignore)]
     #[tokio::test]
-    async fn paginator_rejects_foreign_next_url() {
+    async fn paginator_follows_an_absolute_next_url() {
         let server = MockServer::start();
         let config = ClientConfig::new(server.base_url(), "token").with_max_retries(0);
         let client = crate::Client::new(config).unwrap();
+
+        server.mock(|when, then| {
+            when.method(GET)
+                .path("/api/dcim/devices/")
+                .query_param("offset", "0");
+            then.status(200).json_body(serde_json::json!({
+                "count": 2,
+                "next": "https://netbox.internal/api/dcim/devices/?offset=1",
+                "previous": null,
+                "results": [1]
+            }));
+        });
+        let second = server.mock(|when, then| {
+            when.method(GET)
+                .path("/api/dcim/devices/")
+                .query_param("offset", "1");
+            then.status(200).json_body(serde_json::json!({
+                "count": 2,
+                "next": null,
+                "previous": null,
+                "results": [2]
+            }));
+        });
+
+        let paginator: Paginator<i32> =
+            Paginator::new(client, "dcim/devices/?offset=0".to_string());
+        assert_eq!(paginator.collect_all().await.unwrap(), vec![1, 2]);
+        second.assert();
+    }
+
+    #[cfg_attr(miri, ignore)]
+    #[tokio::test]
+    async fn paginator_refuses_a_next_link_outside_api() {
+        let server = MockServer::start();
+        let config = ClientConfig::new(server.base_url(), "token").with_max_retries(0);
+        let client = crate::Client::new(config).unwrap();
+        let next_url = format!("{}/dcim/devices/?offset=1", server.base_url());
 
         let first = server.mock(|when, then| {
             when.method(GET)
@@ -432,21 +512,23 @@ mod tests {
                 .query_param("offset", "0");
             then.status(200).json_body(serde_json::json!({
                 "count": 2,
-                "next": "https://evil.example.com/api/dcim/devices/?offset=1",
+                "next": next_url,
                 "previous": null,
                 "results": [1]
             }));
         });
 
         let mut paginator: Paginator<i32> =
-            Paginator::new(client, "dcim/devices/?offset=0".to_string());
-
+            Paginator::new(client.clone(), "dcim/devices/?offset=0".to_string());
         let page1 = paginator.next_page().await.unwrap().unwrap();
         assert_eq!(page1.results, vec![1]);
-
         let err = paginator.next_page().await.unwrap_err();
-        assert!(matches!(err, crate::Error::Pagination(_)));
-        assert!(err.to_string().contains("evil.example.com"));
-        first.assert();
+        assert!(matches!(err, Error::Pagination(_)), "{err}");
+
+        let paginator: Paginator<i32> =
+            Paginator::new(client, "dcim/devices/?offset=0".to_string());
+        let results = paginator.limit_pages(1).collect_all().await.unwrap();
+        assert_eq!(results, vec![1]);
+        first.assert_calls(2);
     }
 }

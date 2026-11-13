@@ -204,21 +204,12 @@ impl ClientConfig {
 
     /// build the full api url by joining with a path
     ///
-    /// this handles trailing slashes correctly. netbox returns absolute
-    /// `next`/`previous` pagination cursors; when `path` is already an absolute
-    /// url it is followed directly, but only if its origin matches the base url
-    /// (so a rogue server can't redirect token-bearing requests to another host).
+    /// this handles trailing slashes correctly. an absolute url is refused.
     pub(crate) fn build_url(&self, path: &str) -> Result<Url> {
         if is_absolute_http_url(path) {
-            let url = Url::parse(path)?;
-            if url.origin() != self.base_url.origin() {
-                return Err(Error::Pagination(format!(
-                    "pagination cursor points to unexpected origin {} (expected {}); refusing to follow it",
-                    url.origin().ascii_serialization(),
-                    self.base_url.origin().ascii_serialization(),
-                )));
-            }
-            return Ok(url);
+            return Err(Error::Config(format!(
+                "expected a path under /api/, got the absolute url {path}"
+            )));
         }
 
         let path = path.trim_start_matches('/');
@@ -298,51 +289,17 @@ mod tests {
     }
 
     #[test]
-    fn test_build_url_absolute_same_origin() {
+    fn test_build_url_refuses_absolute_urls() {
         let config = ClientConfig::new("https://netbox.example.com", "token");
 
-        // absolute pagination cursors on the same origin are followed as-is
-        let url = config
-            .build_url("https://netbox.example.com/api/dcim/devices/?limit=50&offset=50")
-            .unwrap();
-        assert_eq!(
-            url.as_str(),
-            "https://netbox.example.com/api/dcim/devices/?limit=50&offset=50"
-        );
-
-        // an explicit default port is the same origin (url normalizes it away)
-        let url = config
-            .build_url("https://netbox.example.com:443/api/dcim/devices/?offset=50")
-            .unwrap();
-        assert_eq!(
-            url.as_str(),
-            "https://netbox.example.com/api/dcim/devices/?offset=50"
-        );
-    }
-
-    #[test]
-    fn test_build_url_absolute_foreign_origin_rejected() {
-        let config = ClientConfig::new("https://netbox.example.com", "token");
-
-        let err = config
-            .build_url("https://evil.example.com/api/dcim/devices/?offset=50")
-            .unwrap_err();
-        assert!(matches!(err, Error::Pagination(_)));
-        let msg = err.to_string();
-        assert!(msg.contains("evil.example.com"));
-        assert!(msg.contains("netbox.example.com"));
-
-        // same host, different scheme is a different origin too
-        let err = config
-            .build_url("http://netbox.example.com/api/dcim/devices/?offset=50")
-            .unwrap_err();
-        assert!(matches!(err, Error::Pagination(_)));
-
-        // same host and scheme, different port is rejected
-        let err = config
-            .build_url("https://netbox.example.com:8443/api/dcim/devices/?offset=50")
-            .unwrap_err();
-        assert!(matches!(err, Error::Pagination(_)));
+        for path in [
+            "https://netbox.example.com/api/dcim/devices/?limit=50&offset=50",
+            "http://netbox.example.com/api/dcim/devices/?offset=50",
+            "https://evil.example.com/api/dcim/devices/?offset=50",
+        ] {
+            let err = config.build_url(path).unwrap_err();
+            assert!(matches!(err, Error::Config(_)), "{path}: {err}");
+        }
     }
 
     #[test]
