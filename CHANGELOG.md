@@ -2,6 +2,11 @@
 
 this release captures the current state of the project. no prior published state exists for comparison.
 
+## Unreleased
+
+### client
+- **breaking:** reqwest 0.13. `Client::http_client` returns, and a prebuilt client must be, a `reqwest` 0.13 `Client`. tls stays rustls, now on its default aws-lc-rs provider instead of ring
+
 ## [0.12.1] - 2026-11-13
 
 ### client

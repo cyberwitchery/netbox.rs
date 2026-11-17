@@ -142,17 +142,17 @@ with open(path, "r", encoding="utf-8") as handle:
         if in_reqwest:
             if line.startswith("[") and line.strip() != "[dependencies.reqwest]":
                 if not seen_version:
-                    lines.append('version = "^0.12"\n')
+                    lines.append('version = "^0.13"\n')
                 if not seen_default_features:
                     lines.append("default-features = false\n")
                 if not seen_features:
-                    lines.append('features = ["json", "multipart", "rustls-tls"]\n')
+                    lines.append('features = ["json", "multipart", "rustls", "query"]\n')
                 in_reqwest = False
                 lines.append(line)
                 continue
 
             if line.strip().startswith("version"):
-                lines.append('version = "^0.12"\n')
+                lines.append('version = "^0.13"\n')
                 seen_version = True
                 continue
             if line.strip().startswith("default-features"):
@@ -160,10 +160,7 @@ with open(path, "r", encoding="utf-8") as handle:
                 seen_default_features = True
                 continue
             if line.strip().startswith("features"):
-                if "rustls-tls" in line:
-                    lines.append(line)
-                else:
-                    lines.append('features = ["json", "multipart", "rustls-tls"]\n')
+                lines.append('features = ["json", "multipart", "rustls", "query"]\n')
                 seen_features = True
                 continue
 
@@ -171,11 +168,11 @@ with open(path, "r", encoding="utf-8") as handle:
 
 if in_reqwest:
     if not seen_version:
-        lines.append('version = "^0.12"\n')
+        lines.append('version = "^0.13"\n')
     if not seen_default_features:
         lines.append("default-features = false\n")
     if not seen_features:
-        lines.append('features = ["json", "multipart", "rustls-tls"]\n')
+        lines.append('features = ["json", "multipart", "rustls", "query"]\n')
 
 with open(path, "w", encoding="utf-8") as handle:
     handle.writelines(lines)
