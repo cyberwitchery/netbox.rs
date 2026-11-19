@@ -67,11 +67,10 @@ impl Client {
             http_client
         } else {
             let mut headers = HeaderMap::new();
-            headers.insert(
-                AUTHORIZATION,
-                HeaderValue::from_str(&format!("Token {}", config.token))
-                    .map_err(|e| Error::Config(format!("Invalid token format: {}", e)))?,
-            );
+            let mut authorization = HeaderValue::from_str(&format!("Token {}", config.token))
+                .map_err(|e| Error::Config(format!("Invalid token format: {}", e)))?;
+            authorization.set_sensitive(true);
+            headers.insert(AUTHORIZATION, authorization);
             headers.insert(
                 USER_AGENT,
                 HeaderValue::from_str(&config.user_agent)
@@ -795,6 +794,17 @@ mod tests {
         let debug_str = format!("{:?}", client);
         assert!(debug_str.contains("netbox.example.com"));
         assert!(!debug_str.contains("test-token"));
+    }
+
+    #[test]
+    fn test_accessor_debug_redacts_token() {
+        let config = ClientConfig::new("https://netbox.example.com", "test-token");
+        let client = Client::new(config).unwrap();
+        let http_client = format!("{:?}", client.http_client());
+        assert!(!http_client.contains("test-token"), "{http_client}");
+        let openapi_config = format!("{:?}", client.openapi_config().unwrap());
+        assert!(openapi_config.contains("netbox.example.com"));
+        assert!(!openapi_config.contains("test-token"), "{openapi_config}");
     }
 
     #[test]

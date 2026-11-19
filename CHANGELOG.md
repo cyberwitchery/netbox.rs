@@ -2,6 +2,11 @@
 
 this release captures the current state of the project. no prior published state exists for comparison.
 
+## Unreleased
+
+### client
+- the api token no longer shows in the `Debug` output of `Client::http_client()` or `Client::openapi_config()`. the default client marks its `authorization` header sensitive, and the generated `Configuration` and `ApiKey` print `<redacted>` for the api key, basic auth password and bearer and oauth tokens
+
 ## [0.12.2] - 2026-11-17
 
 ### client

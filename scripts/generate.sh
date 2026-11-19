@@ -101,6 +101,58 @@ if attrs not in content:
         handle.write(content)
 PY
 
+echo "Redacting credentials from generated Configuration Debug output..."
+python3 - <<'PY' "${HOST_OUTPUT_DIR}/src/apis/configuration.rs"
+import sys
+
+path = sys.argv[1]
+with open(path, "r", encoding="utf-8") as handle:
+    content = handle.read()
+
+# the generator derives Debug over the api key, basic auth password and
+# bearer/oauth tokens. keep Clone, print the secrets as <redacted>.
+for name in ("Configuration", "ApiKey"):
+    derived = f"#[derive(Debug, Clone)]\npub struct {name} {{"
+    if derived not in content:
+        sys.exit(f"expected `{derived}` in {path}")
+    content = content.replace(derived, f"#[derive(Clone)]\npub struct {name} {{")
+
+content += '''
+impl std::fmt::Debug for Configuration {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let redacted = |secret: &Option<String>| secret.as_ref().map(|_| "<redacted>");
+        f.debug_struct("Configuration")
+            .field("base_path", &self.base_path)
+            .field("user_agent", &self.user_agent)
+            .field("client", &self.client)
+            .field(
+                "basic_auth",
+                &self
+                    .basic_auth
+                    .as_ref()
+                    .map(|(user, password)| (user, redacted(password))),
+            )
+            .field("oauth_access_token", &redacted(&self.oauth_access_token))
+            .field("bearer_access_token", &redacted(&self.bearer_access_token))
+            .field("api_key", &self.api_key)
+            .finish()
+    }
+}
+
+impl std::fmt::Debug for ApiKey {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("ApiKey")
+            .field("prefix", &self.prefix)
+            .field("key", &"<redacted>")
+            .finish()
+    }
+}
+'''
+
+with open(path, "w", encoding="utf-8") as handle:
+    handle.write(content)
+PY
+
 echo "Gating per-tag API modules behind cfg(not(docsrs))..."
 python3 - <<'PY' "${HOST_OUTPUT_DIR}/src/apis/mod.rs"
 import re
