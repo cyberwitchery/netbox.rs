@@ -2,6 +2,7 @@
 
 use crate::error::{Error, Result};
 use serde::{Deserialize, Serialize};
+use std::collections::HashSet;
 use std::fmt;
 use url::Url;
 
@@ -113,6 +114,7 @@ fn api_path(link: &str) -> Result<String> {
 pub struct Paginator<T> {
     client: crate::Client,
     next_url: Option<Result<String>>,
+    fetched: HashSet<String>,
     _phantom: std::marker::PhantomData<T>,
 }
 
@@ -125,17 +127,25 @@ where
         Self {
             client,
             next_url: Some(Ok(initial_path)),
+            fetched: HashSet::new(),
             _phantom: std::marker::PhantomData,
         }
     }
 
     /// fetch the next page of results
     ///
-    /// returns `Ok(None)` when there are no more pages.
+    /// returns `Ok(None)` when there are no more pages, and a `Pagination` error
+    /// when a `next` link leads back to a page this paginator already fetched.
     pub async fn next_page(&mut self) -> Result<Option<Page<T>>> {
         match self.next_url.take() {
             Some(url) => {
-                let page: Page<T> = self.client.get(&url?).await?;
+                let url = url?;
+                if !self.fetched.insert(url.clone()) {
+                    return Err(Error::Pagination(format!(
+                        "next link {url} leads back to a page already fetched"
+                    )));
+                }
+                let page: Page<T> = self.client.get(&url).await?;
                 self.next_url = page.next.as_deref().map(api_path);
                 Ok(Some(page))
             }
@@ -530,5 +540,54 @@ mod tests {
         let results = paginator.limit_pages(1).collect_all().await.unwrap();
         assert_eq!(results, vec![1]);
         first.assert_calls(2);
+    }
+
+    #[cfg_attr(miri, ignore)]
+    #[tokio::test]
+    async fn paginator_refuses_a_next_link_back_to_a_fetched_page() {
+        let server = MockServer::start();
+        let config = ClientConfig::new(server.base_url(), "token").with_max_retries(0);
+        let client = crate::Client::new(config).unwrap();
+
+        let first = server.mock(|when, then| {
+            when.method(GET)
+                .path("/api/dcim/devices/")
+                .query_param("offset", "0");
+            then.status(200).json_body(serde_json::json!({
+                "count": 2,
+                "next": "dcim/devices/?offset=1",
+                "previous": null,
+                "results": [1]
+            }));
+        });
+        let second = server.mock(|when, then| {
+            when.method(GET)
+                .path("/api/dcim/devices/")
+                .query_param("offset", "1");
+            then.status(200).json_body(serde_json::json!({
+                "count": 2,
+                "next": "/api/dcim/devices/?offset=0",
+                "previous": null,
+                "results": [2]
+            }));
+        });
+
+        let mut paginator: Paginator<i32> =
+            Paginator::new(client, "dcim/devices/?offset=0".to_string());
+        assert_eq!(
+            paginator.next_page().await.unwrap().unwrap().results,
+            vec![1]
+        );
+        assert_eq!(
+            paginator.next_page().await.unwrap().unwrap().results,
+            vec![2]
+        );
+        let third = paginator.next_page().await;
+        assert!(
+            matches!(third, Err(Error::Pagination(_))),
+            "a next link back to a fetched page must end pagination with an error, got {third:?}"
+        );
+        first.assert_calls(1);
+        second.assert_calls(1);
     }
 }
