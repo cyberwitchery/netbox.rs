@@ -232,6 +232,29 @@ fn is_absolute_http_url(path: &str) -> bool {
             .is_some_and(|p| p.eq_ignore_ascii_case(b"https://"))
 }
 
+/// encode an id or name as exactly one url path segment.
+///
+/// every byte outside the rfc 3986 unreserved set is percent-encoded, so `/`,
+/// `?`, `#` and `%` can't split the segment or start a query or fragment. `.`,
+/// `..` and the empty string are refused: url parsing resolves them as dot
+/// segments, so they would address a different endpoint than the one named.
+pub(crate) fn path_segment(value: &str) -> Result<String> {
+    if matches!(value, "" | "." | "..") {
+        return Err(Error::Config(format!(
+            "{value:?} is not a valid id or name in a request path"
+        )));
+    }
+    let mut out = String::with_capacity(value.len());
+    for byte in value.bytes() {
+        if byte.is_ascii_alphanumeric() || matches!(byte, b'-' | b'.' | b'_' | b'~') {
+            out.push(char::from(byte));
+        } else {
+            out.push_str(&format!("%{byte:02X}"));
+        }
+    }
+    Ok(out)
+}
+
 impl std::fmt::Debug for ClientConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("ClientConfig")
@@ -253,6 +276,23 @@ impl std::fmt::Debug for ClientConfig {
 mod tests {
     use super::*;
     use reqwest::header::{HeaderMap, HeaderName, HeaderValue};
+
+    #[test]
+    fn path_segment_encodes_one_segment() {
+        assert_eq!(path_segment("default").unwrap(), "default");
+        assert_eq!(
+            path_segment("3fa85f64-5717-4562-b3fc-2c963f66afa6").unwrap(),
+            "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+        );
+        assert_eq!(
+            path_segment("../a/b?c=d#e %2e").unwrap(),
+            "..%2Fa%2Fb%3Fc%3Dd%23e%20%252e"
+        );
+        assert_eq!(path_segment("é").unwrap(), "%C3%A9");
+        for bad in ["", ".", ".."] {
+            assert!(matches!(path_segment(bad), Err(Error::Config(_))));
+        }
+    }
 
     #[test]
     fn test_new_config() {

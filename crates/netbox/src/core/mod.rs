@@ -28,6 +28,7 @@
 //! ```
 
 use crate::Client;
+use crate::config::path_segment;
 use crate::error::Result;
 use crate::resource::Resource;
 use serde_json::Value;
@@ -82,7 +83,7 @@ impl CoreApi {
     /// fetch a background queue summary by name.
     pub async fn background_queue(&self, name: &str) -> Result<BackgroundQueue> {
         self.client
-            .get(&format!("core/background-queues/{}/", name))
+            .get(&format!("core/background-queues/{}/", path_segment(name)?))
             .await
     }
 
@@ -99,7 +100,7 @@ impl CoreApi {
     /// fetch a background worker summary by name.
     pub async fn background_worker(&self, name: &str) -> Result<BackgroundWorker> {
         self.client
-            .get(&format!("core/background-workers/{}/", name))
+            .get(&format!("core/background-workers/{}/", path_segment(name)?))
             .await
     }
 
@@ -131,28 +132,40 @@ impl CoreApi {
     /// enqueue a background task.
     pub async fn enqueue_task(&self, id: &str) -> Result<BackgroundTask> {
         self.client
-            .post(&format!("core/background-tasks/{}/enqueue/", id), &())
+            .post(
+                &format!("core/background-tasks/{}/enqueue/", path_segment(id)?),
+                &(),
+            )
             .await
     }
 
     /// stop a background task.
     pub async fn stop_task(&self, id: &str) -> Result<BackgroundTask> {
         self.client
-            .post(&format!("core/background-tasks/{}/stop/", id), &())
+            .post(
+                &format!("core/background-tasks/{}/stop/", path_segment(id)?),
+                &(),
+            )
             .await
     }
 
     /// requeue a background task.
     pub async fn requeue_task(&self, id: &str) -> Result<BackgroundTask> {
         self.client
-            .post(&format!("core/background-tasks/{}/requeue/", id), &())
+            .post(
+                &format!("core/background-tasks/{}/requeue/", path_segment(id)?),
+                &(),
+            )
             .await
     }
 
     /// delete a background task.
     pub async fn delete_task(&self, id: &str) -> Result<BackgroundTask> {
         self.client
-            .post(&format!("core/background-tasks/{}/delete/", id), &())
+            .post(
+                &format!("core/background-tasks/{}/delete/", path_segment(id)?),
+                &(),
+            )
             .await
     }
 
@@ -199,6 +212,36 @@ mod tests {
         assert_path(api.jobs(), "core/jobs/");
         assert_path(api.object_changes(), "core/object-changes/");
         assert_path(api.object_types(), "core/object-types/");
+    }
+
+    #[cfg_attr(miri, ignore)]
+    #[tokio::test]
+    async fn names_and_ids_cannot_leave_their_path() {
+        let server = MockServer::start();
+        let config = ClientConfig::new(server.base_url(), "test-token").with_max_retries(0);
+        let api = CoreApi::new(Client::new(config).unwrap());
+
+        let users = server.mock(|when, then| {
+            when.path_includes("/users/");
+            then.status(200).json_body(json!({}));
+        });
+        let tasks = server.mock(|when, then| {
+            when.path("/api/core/background-tasks/");
+            then.status(200).json_body(json!({}));
+        });
+
+        let _ = api.background_queue("../../users/tokens/7").await;
+        let _ = api.background_worker("x/../../../users/users/?a=b#").await;
+        let _ = api.enqueue_task("../../users/tokens/7/#").await;
+        let _ = api.stop_task("%2e%2e/%2e%2e/users/tokens/7").await;
+        let _ = api.requeue_task("../../users/tokens/7").await;
+        let _ = api.delete_task("../../users/tokens/7").await;
+        assert_eq!(users.calls_async().await, 0, "a name reached /api/users/");
+
+        assert!(api.delete_task("..").await.is_err());
+        assert!(api.delete_task(".").await.is_err());
+        assert!(api.delete_task("").await.is_err());
+        assert_eq!(tasks.calls_async().await, 0, "an id reached the collection");
     }
 
     #[cfg_attr(miri, ignore)]

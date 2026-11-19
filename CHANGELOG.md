@@ -2,6 +2,11 @@
 
 this release captures the current state of the project. no prior published state exists for comparison.
 
+## Unreleased
+
+### client
+- the string ids and names taken by `CoreApi` (`background_queue`, `background_worker`, `enqueue_task`, `stop_task`, `requeue_task`, `delete_task`) are percent-encoded as one path segment. before, a `/`, `..`, `?` or `#` in one could point the request at another endpoint, e.g. `background_queue("../../users/tokens/7")` sent `GET /api/users/tokens/7/`. `.`, `..` and an empty value now fail with a configuration error
+
 ## [0.12.2] - 2026-11-17
 
 ### client
