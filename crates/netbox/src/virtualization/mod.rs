@@ -359,19 +359,10 @@ pub struct UpdateVirtualDiskRequest {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::ClientConfig;
+    use crate::test_support::{assert_missing, mock_client};
     use httpmock::prelude::*;
     use proptest::prelude::*;
     use serde_json::{Value, json};
-
-    fn mock_client(server: &MockServer) -> Client {
-        let config = ClientConfig::new(server.base_url(), "test-token");
-        Client::new(config).unwrap()
-    }
-
-    fn assert_missing(value: &Value, key: &str) {
-        assert!(value.get(key).is_none(), "expected {} to be omitted", key);
-    }
 
     fn assert_optional_i32(value: &Value, key: &str, field: &Option<i32>) {
         match field {

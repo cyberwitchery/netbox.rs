@@ -423,28 +423,10 @@ impl IpamApi {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::ClientConfig;
+    use crate::test_support::{assert_path, mock_client, test_client};
     use httpmock::prelude::*;
     use serde_json::json;
     use std::collections::HashMap;
-
-    fn test_client() -> Client {
-        let config = ClientConfig::new("https://netbox.example.com", "token");
-        Client::new(config).unwrap()
-    }
-
-    fn mock_client(server: &MockServer) -> Client {
-        let config = ClientConfig::new(server.base_url(), "test-token");
-        Client::new(config).unwrap()
-    }
-
-    fn assert_path<T>(resource: Resource<T>, expected: &str)
-    where
-        T: serde::de::DeserializeOwned,
-    {
-        let paginator = resource.paginate(None).unwrap();
-        assert_eq!(paginator.next_url(), Some(expected));
-    }
 
     #[test]
     fn ipam_accessors_return_expected_paths() {

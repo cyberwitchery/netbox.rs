@@ -63,7 +63,7 @@ pub struct ConfigFile {
 }
 
 impl ConfigFile {
-    /// get a profile by name, falling back to "default" if not found.
+    /// get a profile by name, or `None` if the config file has no profile of that name.
     pub fn get_profile(&self, name: &str) -> Option<&Profile> {
         self.profiles.get(name)
     }

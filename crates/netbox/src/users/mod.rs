@@ -289,25 +289,9 @@ impl UsersApi {
 mod tests {
     use super::*;
     use crate::ClientConfig;
+    use crate::test_support::{assert_missing, assert_path, test_client};
     use httpmock::{Method::POST, MockServer};
     use serde_json::json;
-
-    fn test_client() -> Client {
-        let config = ClientConfig::new("https://netbox.example.com", "token");
-        Client::new(config).unwrap()
-    }
-
-    fn assert_path<T>(resource: Resource<T>, expected: &str)
-    where
-        T: serde::de::DeserializeOwned,
-    {
-        let paginator = resource.paginate(None).unwrap();
-        assert_eq!(paginator.next_url(), Some(expected));
-    }
-
-    fn assert_missing(value: &serde_json::Value, key: &str) {
-        assert!(value.get(key).is_none(), "expected {} to be omitted", key);
-    }
 
     #[test]
     fn users_accessors_return_expected_paths() {
