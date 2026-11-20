@@ -16,8 +16,7 @@ use std::collections::HashMap;
 /// let query = QueryBuilder::new()
 ///     .filter("site", "dc1")
 ///     .filter("status", "active")
-///     .limit(50)
-///     .build();
+///     .limit(50);
 /// ```
 #[derive(Debug, Default, Clone)]
 pub struct QueryBuilder {
@@ -139,9 +138,8 @@ impl QueryBuilder {
         self.filter(key, value)
     }
 
-    /// build the query parameters
-    ///
-    /// this returns self, but the method makes the api more explicit.
+    /// returns the builder unchanged.
+    #[deprecated(note = "does nothing; pass the builder directly")]
     pub fn build(self) -> Self {
         self
     }

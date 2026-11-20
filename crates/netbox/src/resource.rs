@@ -83,11 +83,7 @@ where
             if query_string.is_empty() {
                 self.path.to_string()
             } else {
-                format!(
-                    "{}?{}",
-                    self.path.as_ref().trim_end_matches('/'),
-                    query_string
-                )
+                format!("{}?{}", self.path.as_ref(), query_string)
             }
         } else {
             self.path.to_string()
@@ -174,13 +170,9 @@ where
 mod tests {
     use super::*;
     use crate::ClientConfig;
+    use crate::test_support::test_client;
     use httpmock::Method::GET;
     use httpmock::{Method::DELETE, Method::PATCH, Method::POST, Method::PUT, MockServer};
-
-    fn test_client() -> Client {
-        let config = ClientConfig::new("https://netbox.example.com", "token");
-        Client::new(config).unwrap()
-    }
 
     #[test]
     fn paginate_without_query_uses_base_path() {
@@ -202,11 +194,9 @@ mod tests {
         let resource: Resource<serde_json::Value> = Resource::new(test_client(), "dcim/devices/");
         let query = QueryBuilder::new().filter("status", "active").limit(10);
         let paginator = resource.paginate(Some(query)).unwrap();
-        // NOTE: pins the current slashless path (trailing slash dropped when a
-        // query is present); possibly a bug, kept as is.
         let actual = paginator.next_url().expect("expected paginator url");
         let (actual_path, actual_query) = actual.split_once('?').unwrap_or((actual, ""));
-        assert_eq!(actual_path, "dcim/devices");
+        assert_eq!(actual_path, "dcim/devices/");
 
         let mut actual_pairs: Vec<(String, String)> =
             url::form_urlencoded::parse(actual_query.as_bytes())

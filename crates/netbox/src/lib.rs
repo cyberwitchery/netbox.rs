@@ -9,6 +9,8 @@ mod hooks;
 mod pagination;
 mod query;
 mod resource;
+#[cfg(test)]
+mod test_support;
 
 /// circuits and provider resources.
 pub mod circuits;

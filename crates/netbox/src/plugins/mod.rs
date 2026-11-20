@@ -134,19 +134,12 @@ impl PluginsApi {
 mod tests {
     use super::*;
     use crate::ClientConfig;
+    use crate::test_support::assert_path;
     use httpmock::{Method::POST, MockServer};
 
     fn test_client(base_url: &str) -> Client {
         let config = ClientConfig::new(base_url, "token").with_max_retries(0);
         Client::new(config).unwrap()
-    }
-
-    fn assert_path<T>(resource: Resource<T>, expected: &str)
-    where
-        T: serde::de::DeserializeOwned,
-    {
-        let paginator = resource.paginate(None).unwrap();
-        assert_eq!(paginator.next_url(), Some(expected));
     }
 
     #[test]

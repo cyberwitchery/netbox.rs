@@ -531,12 +531,9 @@ pub struct UpdateTunnelTerminationRequest {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::test_support::assert_missing;
     use proptest::prelude::*;
     use serde_json::Value;
-
-    fn assert_missing(value: &Value, key: &str) {
-        assert!(value.get(key).is_none(), "expected {} to be omitted", key);
-    }
 
     fn assert_optional_i64(value: &Value, key: &str, field: &Option<i64>) {
         match field {

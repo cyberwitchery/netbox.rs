@@ -313,20 +313,7 @@ impl TenancyApi {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::ClientConfig;
-
-    fn test_client() -> Client {
-        let config = ClientConfig::new("https://netbox.example.com", "token");
-        Client::new(config).unwrap()
-    }
-
-    fn assert_path<T>(resource: Resource<T>, expected: &str)
-    where
-        T: serde::de::DeserializeOwned,
-    {
-        let paginator = resource.paginate(None).unwrap();
-        assert_eq!(paginator.next_url(), Some(expected));
-    }
+    use crate::test_support::{assert_path, test_client};
 
     #[test]
     fn tenancy_accessors_return_expected_paths() {
