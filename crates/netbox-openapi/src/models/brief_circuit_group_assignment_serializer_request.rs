@@ -10,7 +10,7 @@
 
 /// BriefCircuitGroupAssignmentSerializerRequest : Base serializer for group assignments under CircuitSerializer.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct BriefCircuitGroupAssignmentSerializerRequest {
     #[serde(rename = "group")]
     pub group: i64,

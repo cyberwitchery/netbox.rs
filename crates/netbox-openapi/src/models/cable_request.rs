@@ -10,7 +10,7 @@
 
 /// CableRequest : Base serializer class for models inheriting from PrimaryModel.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct CableRequest {
     /// * `cat3` - CAT3 * `cat5` - CAT5 * `cat5e` - CAT5e * `cat6` - CAT6 * `cat6a` - CAT6a * `cat7` - CAT7 * `cat7a` - CAT7a * `cat8` - CAT8 * `mrj21-trunk` - MRJ21 Trunk * `dac-active` - Direct Attach Copper (Active) * `dac-passive` - Direct Attach Copper (Passive) * `coaxial` - Coaxial * `rg-6` - RG-6 * `rg-8` - RG-8 * `rg-11` - RG-11 * `rg-59` - RG-59 * `rg-62` - RG-62 * `rg-213` - RG-213 * `lmr-100` - LMR-100 * `lmr-200` - LMR-200 * `lmr-400` - LMR-400 * `mmf` - Multimode Fiber * `mmf-om1` - Multimode Fiber (OM1) * `mmf-om2` - Multimode Fiber (OM2) * `mmf-om3` - Multimode Fiber (OM3) * `mmf-om4` - Multimode Fiber (OM4) * `mmf-om5` - Multimode Fiber (OM5) * `smf` - Single-mode Fiber * `smf-os1` - Single-mode Fiber (OS1) * `smf-os2` - Single-mode Fiber (OS2) * `aoc` - Active Optical Cabling (AOC) * `power` - Power * `usb` - USB
     #[serde(

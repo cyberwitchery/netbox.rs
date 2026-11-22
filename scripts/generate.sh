@@ -324,6 +324,75 @@ if "pub mod generic_fk;" not in lib:
         handle.write("pub mod generic_fk;\n")
 PY
 
+# every inline closure is its own type, so each array query parameter
+# monomorphized a full iterator stack. one generic helper per form instead.
+echo "Routing array query parameters through shared helpers..."
+python3 - <<'PY' "${HOST_OUTPUT_DIR}/src/apis"
+import glob, os, re, sys
+
+apis = sys.argv[1]
+multi = re.compile(
+    r"&local_var_str\s*\.into_iter\(\)\s*"
+    r"\.map\(\|p\|\s*\(\s*\"([^\"]+)\"\.to_owned\(\),\s*p\.to_string\(\)\s*\)\)\s*"
+    r"\.collect::<Vec<\(std::string::String,\s*std::string::String\)>>\(\)"
+)
+csv = re.compile(
+    r"&local_var_str\s*\.into_iter\(\)\s*"
+    r"\.map\(\|p\|\s*p\.to_string\(\)\)\s*"
+    r"\.collect::<Vec<String>>\(\)\s*\.join\(\",\"\)"
+)
+total = 0
+for path in glob.glob(os.path.join(apis, "*_api.rs")):
+    with open(path, encoding="utf-8") as handle:
+        content = handle.read()
+    content, a = multi.subn(r'&crate::apis::query_multi("\1", local_var_str)', content)
+    content, b = csv.subn(r"&crate::apis::query_csv(local_var_str)", content)
+    total += a + b
+    with open(path, "w", encoding="utf-8") as handle:
+        handle.write(content)
+if total == 0:
+    sys.exit("no array query parameters rewritten; generator output changed shape")
+
+with open(os.path.join(apis, "mod.rs"), "a", encoding="utf-8") as handle:
+    handle.write('''
+pub(crate) fn query_multi<T: ToString>(name: &str, values: &[T]) -> Vec<(String, String)> {
+    values.iter().map(|p| (name.to_owned(), p.to_string())).collect()
+}
+
+pub(crate) fn query_csv<T: ToString>(values: &[T]) -> String {
+    values.iter().map(|p| p.to_string()).collect::<Vec<_>>().join(",")
+}
+''')
+print(f"rewrote {total} call sites")
+PY
+
+# request bodies are only ever sent, and their Deserialize impls were a
+# quarter of the expanded crate.
+echo "Dropping Deserialize from request models..."
+python3 - <<'PY' "${HOST_OUTPUT_DIR}/src/models"
+import glob, os, re, sys
+
+derive = re.compile(
+    r"#\[derive\(([^)]*)\)\](\s*(?:#\[[^\]]*\]\s*)*pub (?:struct|enum) [A-Za-z0-9_]*Request\b)"
+)
+
+def strip(m):
+    names = [n.strip() for n in m.group(1).split(",") if n.strip() != "Deserialize"]
+    return "#[derive(" + ", ".join(names) + ")]" + m.group(2)
+
+total = 0
+for path in glob.glob(os.path.join(sys.argv[1], "*.rs")):
+    with open(path, encoding="utf-8") as handle:
+        content = handle.read()
+    content, n = derive.subn(strip, content)
+    total += n
+    with open(path, "w", encoding="utf-8") as handle:
+        handle.write(content)
+if total == 0:
+    sys.exit("no request models found; generator output changed shape")
+print(f"stripped {total} request models")
+PY
+
 echo "Running cargo fmt..."
 cargo fmt --all
 

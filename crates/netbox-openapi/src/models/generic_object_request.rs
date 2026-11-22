@@ -10,7 +10,7 @@
 
 /// GenericObjectRequest : Minimal representation of some generic object identified by ContentType and PK.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct GenericObjectRequest {
     #[serde(rename = "object_type")]
     pub object_type: String,

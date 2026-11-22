@@ -10,7 +10,7 @@
 
 /// NestedWirelessLinkRequest : Represents an object related through a ForeignKey field. On write, it accepts a primary key (PK) value or a dictionary of attributes which can be used to uniquely identify the related object. This class should be subclassed to return a full representation of the related object on read.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct NestedWirelessLinkRequest {
     #[serde(rename = "ssid", skip_serializing_if = "Option::is_none")]
     pub ssid: Option<String>,

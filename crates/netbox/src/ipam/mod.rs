@@ -501,11 +501,16 @@ mod tests {
     }
 
     #[test]
-    fn asn_request_foreign_keys_round_trip() {
-        let body = json!({"asn": 65000, "rir": 1, "tenant": null});
-        let asn: crate::models::AsnRequest =
-            serde_json::from_value(body.clone()).unwrap_or_else(|err| panic!("{err}"));
-        assert_eq!(serde_json::to_value(&asn).unwrap(), body);
+    fn asn_request_foreign_keys_serialize() {
+        let asn = crate::models::AsnRequest {
+            rir: Some(Some(1)),
+            tenant: Some(None),
+            ..crate::models::AsnRequest::new(65000)
+        };
+        assert_eq!(
+            serde_json::to_value(&asn).unwrap(),
+            json!({"asn": 65000, "rir": 1, "tenant": null})
+        );
     }
 
     #[test]

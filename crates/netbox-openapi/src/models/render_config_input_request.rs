@@ -10,7 +10,7 @@
 
 /// RenderConfigInputRequest : Describes the request body for the device/VM /render-config/ endpoints. Any additional keys supplied are passed through as context variables to the rendered template.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct RenderConfigInputRequest {
     /// Optional ID of the ConfigTemplate to render. If omitted, the object's assigned config template is used.
     #[serde(rename = "config_template_id", skip_serializing_if = "Option::is_none")]

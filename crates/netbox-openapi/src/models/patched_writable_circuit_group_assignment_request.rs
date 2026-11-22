@@ -10,7 +10,7 @@
 
 /// PatchedWritableCircuitGroupAssignmentRequest : Base serializer for group assignments under CircuitSerializer.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct PatchedWritableCircuitGroupAssignmentRequest {
     #[serde(rename = "group", skip_serializing_if = "Option::is_none")]
     pub group: Option<i64>,

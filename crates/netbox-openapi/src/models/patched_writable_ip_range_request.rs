@@ -10,7 +10,7 @@
 
 /// PatchedWritableIpRangeRequest : Base serializer class for models inheriting from PrimaryModel.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct PatchedWritableIpRangeRequest {
     #[serde(rename = "start_address", skip_serializing_if = "Option::is_none")]
     pub start_address: Option<String>,

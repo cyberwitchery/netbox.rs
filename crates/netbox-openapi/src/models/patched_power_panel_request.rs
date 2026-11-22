@@ -10,7 +10,7 @@
 
 /// PatchedPowerPanelRequest : Base serializer class for models inheriting from PrimaryModel.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct PatchedPowerPanelRequest {
     #[serde(rename = "site", skip_serializing_if = "Option::is_none")]
     pub site: Option<i64>,

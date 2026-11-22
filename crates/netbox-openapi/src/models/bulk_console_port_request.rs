@@ -10,7 +10,7 @@
 
 /// BulkConsolePortRequest : Adds an `owner` field for models which have a ForeignKey to users.Owner.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct BulkConsolePortRequest {
     #[serde(rename = "id")]
     pub id: i64,

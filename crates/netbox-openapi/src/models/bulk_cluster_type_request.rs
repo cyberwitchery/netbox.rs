@@ -10,7 +10,7 @@
 
 /// BulkClusterTypeRequest : Base serializer class for models inheriting from OrganizationalModel.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct BulkClusterTypeRequest {
     #[serde(rename = "id")]
     pub id: i64,

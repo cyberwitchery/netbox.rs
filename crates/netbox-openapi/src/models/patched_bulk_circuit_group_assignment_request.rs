@@ -10,7 +10,7 @@
 
 /// PatchedBulkCircuitGroupAssignmentRequest : Base serializer for group assignments under CircuitSerializer.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct PatchedBulkCircuitGroupAssignmentRequest {
     #[serde(rename = "id")]
     pub id: i64,

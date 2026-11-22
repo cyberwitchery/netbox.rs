@@ -10,7 +10,7 @@
 
 /// BriefFhrpGroupRequest : Base serializer class for models inheriting from PrimaryModel.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct BriefFhrpGroupRequest {
     /// * `vrrp2` - VRRPv2 * `vrrp3` - VRRPv3 * `carp` - CARP * `clusterxl` - ClusterXL * `hsrp` - HSRP * `glbp` - GLBP * `other` - Other
     #[serde(rename = "protocol")]

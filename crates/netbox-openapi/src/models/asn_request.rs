@@ -10,7 +10,7 @@
 
 /// AsnRequest : Base serializer class for models inheriting from PrimaryModel.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct AsnRequest {
     /// 16- or 32-bit autonomous system number
     #[serde(rename = "asn")]

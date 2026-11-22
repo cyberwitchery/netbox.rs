@@ -10,7 +10,7 @@
 
 /// BriefL2VpnTerminationRequest : Adds support for custom fields and tags.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct BriefL2VpnTerminationRequest {
     #[serde(rename = "l2vpn")]
     pub l2vpn: i64,

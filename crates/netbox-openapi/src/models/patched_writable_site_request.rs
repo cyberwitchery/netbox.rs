@@ -10,7 +10,7 @@
 
 /// PatchedWritableSiteRequest : Base serializer class for models inheriting from PrimaryModel.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct PatchedWritableSiteRequest {
     /// Full name of the site
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]

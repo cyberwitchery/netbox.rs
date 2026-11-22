@@ -10,7 +10,7 @@
 
 /// WritableIpRangeRequest : Base serializer class for models inheriting from PrimaryModel.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct WritableIpRangeRequest {
     #[serde(rename = "start_address")]
     pub start_address: String,

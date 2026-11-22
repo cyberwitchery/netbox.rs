@@ -10,7 +10,7 @@
 
 /// PatchedWritableCustomFieldChoiceSetRequest : Adds an `owner` field for models which have a ForeignKey to users.Owner.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct PatchedWritableCustomFieldChoiceSetRequest {
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,

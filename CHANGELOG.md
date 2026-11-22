@@ -8,6 +8,9 @@ this release captures the current state of the project. no prior published state
 - `Resource::paginate` with a query keeps the endpoint's trailing slash (`dcim/devices/?limit=10`, was `dcim/devices?limit=10`)
 - `QueryBuilder::build` is deprecated; it returns the builder unchanged
 
+### openapi
+- **breaking:** request models (`*Request`, `Patched*Request`) no longer derive `Deserialize`; they are only sent. `netbox-openapi` builds in about half the time
+
 ## [0.12.2] - 2026-11-17
 
 ### client

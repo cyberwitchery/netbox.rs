@@ -10,7 +10,7 @@
 
 /// PatchedFhrpGroupAssignmentRequest : Adds support for custom fields and tags.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct PatchedFhrpGroupAssignmentRequest {
     #[serde(rename = "group", skip_serializing_if = "Option::is_none")]
     pub group: Option<i64>,

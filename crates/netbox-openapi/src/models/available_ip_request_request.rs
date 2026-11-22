@@ -10,7 +10,7 @@
 
 /// AvailableIpRequestRequest : Request payload for creating IP addresses from the available-ips endpoint.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct AvailableIpRequestRequest {
     #[serde(rename = "prefix_length", skip_serializing_if = "Option::is_none")]
     pub prefix_length: Option<i32>,

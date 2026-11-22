@@ -10,7 +10,7 @@
 
 /// BriefRackGroupRequest : Base serializer class for models inheriting from OrganizationalModel.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct BriefRackGroupRequest {
     #[serde(rename = "name")]
     pub name: String,

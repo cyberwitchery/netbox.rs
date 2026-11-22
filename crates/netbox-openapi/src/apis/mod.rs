@@ -120,3 +120,18 @@ pub mod vpn_api;
 pub mod wireless_api;
 
 pub mod configuration;
+
+pub(crate) fn query_multi<T: ToString>(name: &str, values: &[T]) -> Vec<(String, String)> {
+    values
+        .iter()
+        .map(|p| (name.to_owned(), p.to_string()))
+        .collect()
+}
+
+pub(crate) fn query_csv<T: ToString>(values: &[T]) -> String {
+    values
+        .iter()
+        .map(|p| p.to_string())
+        .collect::<Vec<_>>()
+        .join(",")
+}

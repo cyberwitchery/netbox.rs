@@ -10,7 +10,7 @@
 
 /// PatchedCircuitTerminationRequest : Adds support for custom fields and tags.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct PatchedCircuitTerminationRequest {
     #[serde(rename = "circuit", skip_serializing_if = "Option::is_none")]
     pub circuit: Option<i64>,

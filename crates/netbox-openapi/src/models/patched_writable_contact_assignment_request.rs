@@ -10,7 +10,7 @@
 
 /// PatchedWritableContactAssignmentRequest : Adds support for custom fields and tags.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct PatchedWritableContactAssignmentRequest {
     #[serde(rename = "object_type", skip_serializing_if = "Option::is_none")]
     pub object_type: Option<String>,

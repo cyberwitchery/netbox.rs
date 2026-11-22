@@ -10,7 +10,7 @@
 
 /// IpSecPolicyRequest : Base serializer class for models inheriting from PrimaryModel.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct IpSecPolicyRequest {
     #[serde(rename = "name")]
     pub name: String,

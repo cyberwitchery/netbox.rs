@@ -10,7 +10,7 @@
 
 /// BulkServiceRequest : Shared port-mapping handling for the Service and ServiceTemplate serializers, including backward compatibility for the legacy single-protocol ``protocol``/``ports`` representation.  Read: alongside the ``port_mappings`` list, a service that uses a single protocol also reports the legacy ``protocol`` and ``ports`` fields; a multi-protocol service reports ``null`` for both (it cannot be expressed in the old single-protocol format).  Write: either format is accepted. When the legacy ``protocol``/``ports`` pair is supplied (and ``port_mappings`` is not), it is translated into ``port_mappings``. Supplying both together is accepted only when the legacy fields agree with what ``port_mappings`` implies (e.g. a full-object round-trip that echoes back the read representation); a genuine conflict is rejected as ambiguous.  Subclassing ``serializers.Serializer`` (rather than a plain mixin) lets DRF's metaclass collect the fields declared here into the inheriting serializers.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct BulkServiceRequest {
     #[serde(rename = "id")]
     pub id: i64,

@@ -10,7 +10,7 @@
 
 /// WritableVirtualCircuitTerminationRequest : Adds support for custom fields and tags.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct WritableVirtualCircuitTerminationRequest {
     #[serde(rename = "virtual_circuit")]
     pub virtual_circuit: i64,

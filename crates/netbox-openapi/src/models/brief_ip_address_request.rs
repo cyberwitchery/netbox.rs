@@ -10,7 +10,7 @@
 
 /// BriefIpAddressRequest : Base serializer class for models inheriting from PrimaryModel.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct BriefIpAddressRequest {
     #[serde(rename = "address")]
     pub address: String,

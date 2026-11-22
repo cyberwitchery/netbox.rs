@@ -10,7 +10,7 @@
 
 /// PatchedWritableCoolingOutflowRequest : Adds an `owner` field for models which have a ForeignKey to users.Owner.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct PatchedWritableCoolingOutflowRequest {
     #[serde(rename = "device", skip_serializing_if = "Option::is_none")]
     pub device: Option<i64>,

@@ -10,7 +10,7 @@
 
 /// PatchedClusterTypeRequest : Base serializer class for models inheriting from OrganizationalModel.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct PatchedClusterTypeRequest {
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,

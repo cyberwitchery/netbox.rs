@@ -10,7 +10,7 @@
 
 /// PatchedBulkTunnelTerminationRequest : Adds support for custom fields and tags.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct PatchedBulkTunnelTerminationRequest {
     #[serde(rename = "id")]
     pub id: i64,

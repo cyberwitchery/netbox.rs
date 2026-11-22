@@ -10,7 +10,7 @@
 
 /// PatchedWritablePowerFeedRequest : Base serializer class for models inheriting from PrimaryModel.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct PatchedWritablePowerFeedRequest {
     #[serde(rename = "power_panel", skip_serializing_if = "Option::is_none")]
     pub power_panel: Option<i64>,

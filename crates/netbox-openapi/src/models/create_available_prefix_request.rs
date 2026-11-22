@@ -10,7 +10,7 @@
 
 /// CreateAvailablePrefixRequest : Request payload for creating prefixes from the available-prefixes endpoint. The parent prefix supplies both the `prefix` value (via a requested `prefix_length`) and the `vrf`, so neither is accepted here. Field definitions are inherited from PrefixSerializer; only the request-specific `prefix_length` and `Meta.fields` differ.
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, Serialize)]
 pub struct CreateAvailablePrefixRequest {
     #[serde(rename = "prefix_length")]
     pub prefix_length: i32,
